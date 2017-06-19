@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.labelValid = new System.Windows.Forms.Label();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.labelLoLPath = new System.Windows.Forms.Label();
             this.textBoxLoLPath = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.buttonPlay = new System.Windows.Forms.Button();
+            this.labelValid = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.buttonRPBrowse = new System.Windows.Forms.Button();
+            this.labelReplay = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -55,32 +57,23 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.buttonClear);
             this.splitContainer1.Panel1.Controls.Add(this.buttonBrowse);
+            this.splitContainer1.Panel1.Controls.Add(this.labelValid);
             this.splitContainer1.Panel1.Controls.Add(this.labelLoLPath);
             this.splitContainer1.Panel1.Controls.Add(this.textBoxLoLPath);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AllowDrop = true;
+            this.splitContainer1.Panel2.Controls.Add(this.labelReplay);
+            this.splitContainer1.Panel2.Controls.Add(this.buttonRPBrowse);
             this.splitContainer1.Panel2.Controls.Add(this.buttonPlay);
-            this.splitContainer1.Panel2.Controls.Add(this.labelValid);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.DragDrop += new System.Windows.Forms.DragEventHandler(this.splitsplitContainer1_Panel2_DragDrop);
             this.splitContainer1.Panel2.DragEnter += new System.Windows.Forms.DragEventHandler(this.splitsplitContainer1_Panel2_DragEnter);
             this.splitContainer1.Panel2.DragOver += new System.Windows.Forms.DragEventHandler(this.splitsplitContainer1_Panel2_DragOver);
-            this.splitContainer1.Size = new System.Drawing.Size(284, 261);
+            this.splitContainer1.Size = new System.Drawing.Size(284, 140);
             this.splitContainer1.SplitterDistance = 75;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // labelValid
-            // 
-            this.labelValid.AutoSize = true;
-            this.labelValid.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelValid.ForeColor = System.Drawing.Color.Red;
-            this.labelValid.Location = new System.Drawing.Point(120, 67);
-            this.labelValid.Name = "labelValid";
-            this.labelValid.Size = new System.Drawing.Size(41, 39);
-            this.labelValid.TabIndex = 4;
-            this.labelValid.Text = "X";
             // 
             // buttonClear
             // 
@@ -124,31 +117,61 @@
             this.textBoxLoLPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBoxLoLPath_DragEnter);
             this.textBoxLoLPath.DragOver += new System.Windows.Forms.DragEventHandler(this.textBoxLolPath_DragOver);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(94, 54);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Drag Replays Here";
-            // 
             // buttonPlay
             // 
             this.buttonPlay.Enabled = false;
-            this.buttonPlay.Location = new System.Drawing.Point(106, 109);
+            this.buttonPlay.Location = new System.Drawing.Point(93, 26);
             this.buttonPlay.Name = "buttonPlay";
-            this.buttonPlay.Size = new System.Drawing.Size(75, 23);
+            this.buttonPlay.Size = new System.Drawing.Size(179, 23);
             this.buttonPlay.TabIndex = 5;
             this.buttonPlay.Text = "Play";
             this.buttonPlay.UseVisualStyleBackColor = true;
             this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
             // 
+            // labelValid
+            // 
+            this.labelValid.AutoSize = true;
+            this.labelValid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelValid.ForeColor = System.Drawing.Color.Red;
+            this.labelValid.Location = new System.Drawing.Point(11, 47);
+            this.labelValid.Name = "labelValid";
+            this.labelValid.Size = new System.Drawing.Size(88, 20);
+            this.labelValid.TabIndex = 4;
+            this.labelValid.Text = "Find Exec";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(134, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Drag Replays Here";
+            // 
+            // buttonRPBrowse
+            // 
+            this.buttonRPBrowse.Location = new System.Drawing.Point(12, 26);
+            this.buttonRPBrowse.Name = "buttonRPBrowse";
+            this.buttonRPBrowse.Size = new System.Drawing.Size(75, 23);
+            this.buttonRPBrowse.TabIndex = 6;
+            this.buttonRPBrowse.Text = "Browse...";
+            this.buttonRPBrowse.UseVisualStyleBackColor = true;
+            this.buttonRPBrowse.Click += new System.EventHandler(this.buttonRPBrowse_Click);
+            // 
+            // labelReplay
+            // 
+            this.labelReplay.AutoSize = true;
+            this.labelReplay.Location = new System.Drawing.Point(9, 10);
+            this.labelReplay.Name = "labelReplay";
+            this.labelReplay.Size = new System.Drawing.Size(79, 13);
+            this.labelReplay.TabIndex = 7;
+            this.labelReplay.Text = "Choose Replay";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 140);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -163,6 +186,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Close);
 
         }
 
@@ -176,6 +200,8 @@
         private System.Windows.Forms.Label labelValid;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonPlay;
+        private System.Windows.Forms.Button buttonRPBrowse;
+        private System.Windows.Forms.Label labelReplay;
     }
 }
 

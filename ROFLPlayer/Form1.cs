@@ -18,6 +18,7 @@ namespace ROFLPlayer
 
         private string LoLExecFile = "";
         private string ReplayFile = "";
+        private List<string> CopiedFiles = new List<string>();
 
         public Form1()
         {
@@ -72,9 +73,10 @@ namespace ROFLPlayer
         {
             if(Regex.IsMatch(textBoxLoLPath.Text, @"League of Legends.exe"))
             {
-                labelValid.Text = "O";
+                labelValid.Text = "Looks Good";
                 labelValid.ForeColor = Color.Green;
                 LoLExecFile = textBoxLoLPath.Text;
+                textBoxLoLPath.Enabled = false;
                 Settings1.Default.LoLExecLocation = LoLExecFile;
                 Settings1.Default.Save();
                 if (ReplayFile != "")
@@ -84,10 +86,11 @@ namespace ROFLPlayer
             }
             else
             {
-                labelValid.Text = "X";
+                labelValid.Text = "Find Exec";
                 labelValid.ForeColor = Color.Red;
                 LoLExecFile = "";
                 buttonPlay.Enabled = false;
+                textBoxLoLPath.Enabled = true;
             }
         }
 
@@ -139,7 +142,20 @@ namespace ROFLPlayer
             buttonPlay.Enabled = false;
             label2.Text = "Copying...";
             string newpath = Path.GetDirectoryName(LoLExecFile) + "\\" + Path.GetFileName(ReplayFile);
-            File.Copy(ReplayFile, newpath, true);
+            try
+            {
+                if (!File.Exists(newpath))
+                {
+                    File.Copy(ReplayFile, newpath, true);
+                    CopiedFiles.Add(newpath);
+                }
+            }
+            catch (IOException exc)
+            {
+                MessageBox.Show($"{exc.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                label2.Text = "Drag Replays Here";
+                return;
+            }
             label2.Text = "Playing...";
             var proc = new Process();
 
@@ -158,5 +174,29 @@ namespace ROFLPlayer
                 textBoxLoLPath.Text = Settings1.Default.LoLExecLocation;
             }
         }
+
+        private void Form1_Close(object sender, EventArgs e)
+        {
+            foreach (string rp in CopiedFiles)
+            {
+                File.Delete(rp);
+            }
+        }
+
+        private void buttonRPBrowse_Click(object sender, EventArgs e)
+        {
+            var FD = new OpenFileDialog();
+            FD.Filter = "Replay of Legends files (*.rofl)|*.rofl";
+            if (FD.ShowDialog() == DialogResult.OK)
+            {
+                ReplayFile = FD.FileName;
+                label2.Text = Path.GetFileName(ReplayFile);
+                if (LoLExecFile != "")
+                {
+                    buttonPlay.Enabled = true;
+                }
+            }
+        }
+
     }
 }
