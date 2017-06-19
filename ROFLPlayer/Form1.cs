@@ -17,12 +17,19 @@ namespace ROFLPlayer
     {
 
         private string LoLExecFile = "";
+        private bool LoLFound = false;
         private string ReplayFile = "";
+        private bool ReplayFound = false;
         private List<string> CopiedFiles = new List<string>();
 
-        public Form1()
+        public Form1(string[] args)
         {
             InitializeComponent();
+            if(args.Length == 1)
+            {
+                ReplayFile = args[0];
+                ReplayFound = true;
+            }
         }
 
         private void textBoxLoLPath_DragDrop(object sender, DragEventArgs e)
@@ -57,6 +64,7 @@ namespace ROFLPlayer
         private void buttonClear_Click(object sender, EventArgs e)
         {
             textBoxLoLPath.Text = "Browse for LoL game executable...";
+            LoLFound = false;
         }
 
         private void buttonBrowse_Click(object sender, EventArgs e)
@@ -74,6 +82,7 @@ namespace ROFLPlayer
             if(Regex.IsMatch(textBoxLoLPath.Text, @"League of Legends.exe"))
             {
                 labelValid.Text = "Looks Good";
+                LoLFound = true;
                 labelValid.ForeColor = Color.Green;
                 LoLExecFile = textBoxLoLPath.Text;
                 textBoxLoLPath.Enabled = false;
@@ -91,6 +100,7 @@ namespace ROFLPlayer
                 LoLExecFile = "";
                 buttonPlay.Enabled = false;
                 textBoxLoLPath.Enabled = true;
+                LoLFound = false;
             }
         }
 
@@ -103,6 +113,7 @@ namespace ROFLPlayer
                 {
                     MessageBox.Show("Invalid file type", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ReplayFile = "";
+                    ReplayFound = false;
                     buttonPlay.Enabled = false;
                 }
                 else
@@ -113,6 +124,7 @@ namespace ROFLPlayer
                     {
                         buttonPlay.Enabled = true;
                     }
+                    ReplayFound = true;
                 }
             }
         }
@@ -139,7 +151,18 @@ namespace ROFLPlayer
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
+            if(!ReplayFound || !LoLFound)
+            {
+                MessageBox.Show("Check if LoL executable or Replay is valid", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             buttonPlay.Enabled = false;
+            loadReplay();
+            //label2.Text = "Drag Replays Here";
+        }
+
+        private void loadReplay()
+        {
             label2.Text = "Copying...";
             string newpath = Path.GetDirectoryName(LoLExecFile) + "\\" + Path.GetFileName(ReplayFile);
             try
@@ -164,7 +187,7 @@ namespace ROFLPlayer
             proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(LoLExecFile);
             proc.Start();
             while (!proc.HasExited) { }
-            label2.Text = "Drag Replays Here";
+            label2.Text = Path.GetFileName(ReplayFile);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -172,6 +195,10 @@ namespace ROFLPlayer
             if(Settings1.Default.LoLExecLocation != "")
             {
                 textBoxLoLPath.Text = Settings1.Default.LoLExecLocation;
+            }
+            if(ReplayFound && LoLFound)
+            {
+                loadReplay();
             }
         }
 
