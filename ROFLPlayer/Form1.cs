@@ -157,7 +157,14 @@ namespace ROFLPlayer
                 return;
             }
             buttonPlay.Enabled = false;
+            buttonRPBrowse.Enabled = false;
+            buttonClear.Enabled = false;
+            buttonBrowse.Enabled = false;
             loadReplay();
+            buttonPlay.Enabled = true;
+            buttonRPBrowse.Enabled = true;
+            buttonClear.Enabled = true;
+            buttonBrowse.Enabled = true;
             //label2.Text = "Drag Replays Here";
         }
 
@@ -194,7 +201,10 @@ namespace ROFLPlayer
         {
             if(Settings1.Default.LoLExecLocation != "")
             {
-                textBoxLoLPath.Text = Settings1.Default.LoLExecLocation;
+                if (File.Exists(Settings1.Default.LoLExecLocation))
+                {
+                    textBoxLoLPath.Text = Settings1.Default.LoLExecLocation;
+                }
             }
             if(ReplayFound && LoLFound)
             {

@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonBrowse = new System.Windows.Forms.Button();
+            this.labelValid = new System.Windows.Forms.Label();
             this.labelLoLPath = new System.Windows.Forms.Label();
             this.textBoxLoLPath = new System.Windows.Forms.TextBox();
-            this.buttonPlay = new System.Windows.Forms.Button();
-            this.labelValid = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.buttonRPBrowse = new System.Windows.Forms.Button();
             this.labelReplay = new System.Windows.Forms.Label();
+            this.buttonRPBrowse = new System.Windows.Forms.Button();
+            this.buttonPlay = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -95,6 +96,17 @@
             this.buttonBrowse.UseVisualStyleBackColor = true;
             this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
             // 
+            // labelValid
+            // 
+            this.labelValid.AutoSize = true;
+            this.labelValid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelValid.ForeColor = System.Drawing.Color.Red;
+            this.labelValid.Location = new System.Drawing.Point(8, 47);
+            this.labelValid.Name = "labelValid";
+            this.labelValid.Size = new System.Drawing.Size(88, 20);
+            this.labelValid.TabIndex = 4;
+            this.labelValid.Text = "Find Exec";
+            // 
             // labelLoLPath
             // 
             this.labelLoLPath.AutoSize = true;
@@ -117,36 +129,14 @@
             this.textBoxLoLPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBoxLoLPath_DragEnter);
             this.textBoxLoLPath.DragOver += new System.Windows.Forms.DragEventHandler(this.textBoxLolPath_DragOver);
             // 
-            // buttonPlay
+            // labelReplay
             // 
-            this.buttonPlay.Enabled = false;
-            this.buttonPlay.Location = new System.Drawing.Point(93, 26);
-            this.buttonPlay.Name = "buttonPlay";
-            this.buttonPlay.Size = new System.Drawing.Size(179, 23);
-            this.buttonPlay.TabIndex = 5;
-            this.buttonPlay.Text = "Play";
-            this.buttonPlay.UseVisualStyleBackColor = true;
-            this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
-            // 
-            // labelValid
-            // 
-            this.labelValid.AutoSize = true;
-            this.labelValid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelValid.ForeColor = System.Drawing.Color.Red;
-            this.labelValid.Location = new System.Drawing.Point(11, 47);
-            this.labelValid.Name = "labelValid";
-            this.labelValid.Size = new System.Drawing.Size(88, 20);
-            this.labelValid.TabIndex = 4;
-            this.labelValid.Text = "Find Exec";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(134, 10);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Drag Replays Here";
+            this.labelReplay.AutoSize = true;
+            this.labelReplay.Location = new System.Drawing.Point(9, 10);
+            this.labelReplay.Name = "labelReplay";
+            this.labelReplay.Size = new System.Drawing.Size(79, 13);
+            this.labelReplay.TabIndex = 7;
+            this.labelReplay.Text = "Choose Replay";
             // 
             // buttonRPBrowse
             // 
@@ -158,14 +148,25 @@
             this.buttonRPBrowse.UseVisualStyleBackColor = true;
             this.buttonRPBrowse.Click += new System.EventHandler(this.buttonRPBrowse_Click);
             // 
-            // labelReplay
+            // buttonPlay
             // 
-            this.labelReplay.AutoSize = true;
-            this.labelReplay.Location = new System.Drawing.Point(9, 10);
-            this.labelReplay.Name = "labelReplay";
-            this.labelReplay.Size = new System.Drawing.Size(79, 13);
-            this.labelReplay.TabIndex = 7;
-            this.labelReplay.Text = "Choose Replay";
+            this.buttonPlay.Enabled = false;
+            this.buttonPlay.Location = new System.Drawing.Point(93, 26);
+            this.buttonPlay.Name = "buttonPlay";
+            this.buttonPlay.Size = new System.Drawing.Size(179, 23);
+            this.buttonPlay.TabIndex = 5;
+            this.buttonPlay.Text = "Play";
+            this.buttonPlay.UseVisualStyleBackColor = true;
+            this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(134, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Drag Replays Here";
             // 
             // Form1
             // 
@@ -174,10 +175,12 @@
             this.ClientSize = new System.Drawing.Size(284, 140);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "ROFL Player";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Close);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -186,7 +189,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_Close);
 
         }
 
