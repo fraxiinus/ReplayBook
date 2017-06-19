@@ -75,7 +75,9 @@ namespace ROFLPlayer
                 labelValid.Text = "O";
                 labelValid.ForeColor = Color.Green;
                 LoLExecFile = textBoxLoLPath.Text;
-                if(ReplayFile != "")
+                Settings1.Default.LoLExecLocation = LoLExecFile;
+                Settings1.Default.Save();
+                if (ReplayFile != "")
                 {
                     buttonPlay.Enabled = true;
                 }
@@ -147,6 +149,14 @@ namespace ROFLPlayer
             proc.Start();
             while (!proc.HasExited) { }
             label2.Text = "Drag Replays Here";
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if(Settings1.Default.LoLExecLocation != "")
+            {
+                textBoxLoLPath.Text = Settings1.Default.LoLExecLocation;
+            }
         }
     }
 }
