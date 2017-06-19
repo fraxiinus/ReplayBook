@@ -1,6 +1,8 @@
 # ROFL-Player
-Plays ROFL (League of Legends Replays)
+A simple application that handles opening League of Legends replay files. By setting file association in Windows, this application will allow you to double click view replays.
 
-Are you tired of how replays disappear from your match history as you play more games? Are you tried for digging through a nests of directories just to play a replay? Then you should use ROFL-Player!
+This application allows users to view replays outside of the client.
 
-![Screenshot](http://i.imgur.com/A9CC8t3.png)
+Are you tired of how replays disappear from your match history as you play more games? Are you tried for digging through a nest of directories just to play a replay? Then you should use ROFL-Player!
+
+![Screenshot](http://i.imgur.com/X21uZ1J.png)
