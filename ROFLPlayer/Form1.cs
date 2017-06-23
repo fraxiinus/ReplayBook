@@ -192,6 +192,7 @@ namespace ROFLPlayer
             proc.StartInfo.FileName = LoLExecFile;
             proc.StartInfo.Arguments = Path.GetFileName(newpath);
             proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(LoLExecFile);
+            proc.Start();
             proc.WaitForExit();
             label2.Text = Path.GetFileName(ReplayFile);
         }
@@ -208,6 +209,7 @@ namespace ROFLPlayer
             if(ReplayFound && LoLFound)
             {
                 loadReplay();
+                Application.Exit();
             }
         }
 
