@@ -42,10 +42,6 @@ namespace ROFLPlayer
 
         private void ShowMe()
         {
-            if(WindowState == FormWindowState.Minimized)
-            {
-                WindowState = FormWindowState.Normal;
-            }
 
             bool top = TopMost;
 
