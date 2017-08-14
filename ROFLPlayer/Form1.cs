@@ -44,10 +44,17 @@ namespace ROFLPlayer
         {
 
             bool top = TopMost;
-
             TopMost = true;
-
             TopMost = top;
+        }
+
+        private void CleanUpAndClose()
+        {
+            foreach (string rp in CopiedFiles)
+            {
+                File.Delete(rp);
+            }
+            Application.Exit();
         }
 
         private void textBoxLoLPath_DragDrop(object sender, DragEventArgs e)
@@ -188,6 +195,7 @@ namespace ROFLPlayer
 
         private void loadReplay()
         {
+            
             label2.Text = "Copying...";
             string newpath = Path.GetDirectoryName(LoLExecFile) + "\\" + Path.GetFileName(ReplayFile);
             try
@@ -204,11 +212,12 @@ namespace ROFLPlayer
                 label2.Text = "Drag Replays Here";
                 return;
             }
+
             label2.Text = "Playing...";
             var proc = new Process();
 
             proc.StartInfo.FileName = LoLExecFile;
-            proc.StartInfo.Arguments = Path.GetFileName(newpath);
+            proc.StartInfo.Arguments = Path.GetFileName(ReplayFile);
             proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(LoLExecFile);
             proc.Start();
             proc.WaitForExit();
@@ -227,16 +236,13 @@ namespace ROFLPlayer
             if(ReplayFound && LoLFound)
             {
                 loadReplay();
-                Application.Exit();
+                CleanUpAndClose();
             }
         }
 
         private void Form1_Close(object sender, EventArgs e)
         {
-            foreach (string rp in CopiedFiles)
-            {
-                File.Delete(rp);
-            }
+            CleanUpAndClose();
         }
 
         private void buttonRPBrowse_Click(object sender, EventArgs e)
