@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace ROFLPlayer
 {
@@ -31,6 +27,7 @@ namespace ROFLPlayer
                 ReplayFound = true;
             }
         }
+
         protected override void WndProc(ref Message m)
         {
             if(m.Msg == WinMethods.WM_SHOWME)
@@ -65,6 +62,24 @@ namespace ROFLPlayer
                 File.Delete(rp);
             }
             Application.Exit();
+        }
+
+
+        [DllImport("kernel32.dll")]
+        static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
+
+        private void CreateLink(string linkpath, string targetpath)
+        {
+            if(!CreateSymbolicLink(linkpath, targetpath, SymbolicLink.File))
+            {
+                MessageBox.Show("SymLink Fail", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        enum SymbolicLink
+        {
+            File = 0,
+            Directory = 1
         }
 
         private void textBoxLoLPath_DragDrop(object sender, DragEventArgs e)
@@ -212,7 +227,9 @@ namespace ROFLPlayer
             {
                 if (!File.Exists(newpath))
                 {
-                    File.Copy(ReplayFile, newpath, true);
+                    CreateLink(newpath, ReplayFile);
+                    
+                    //File.Copy(ReplayFile, newpath, true);
                     CopiedFiles.Add(newpath);
                 }
             }
@@ -263,6 +280,7 @@ namespace ROFLPlayer
             {
                 ReplayFile = FD.FileName;
                 label2.Text = Path.GetFileName(ReplayFile);
+                ReplayFound = true;
                 if (LoLExecFile != "")
                 {
                     buttonPlay.Enabled = true;
