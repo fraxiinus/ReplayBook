@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 
 namespace ROFLPlayer
 {
@@ -41,7 +42,7 @@ namespace ROFLPlayer
                     label2.Text = Path.GetFileName(ReplayFile);
                     if (LoLExecFile != "")
                     {
-                        buttonPlay.Enabled = true;
+                        loadReplay();
                     }
                 }
             }
@@ -80,6 +81,12 @@ namespace ROFLPlayer
         {
             File = 0,
             Directory = 1
+        }
+
+        public static bool IsAdministrator()
+        {
+            return (new WindowsPrincipal(WindowsIdentity.GetCurrent()))
+                      .IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         private void textBoxLoLPath_DragDrop(object sender, DragEventArgs e)
@@ -227,9 +234,14 @@ namespace ROFLPlayer
             {
                 if (!File.Exists(newpath))
                 {
-                    CreateLink(newpath, ReplayFile);
-                    
-                    //File.Copy(ReplayFile, newpath, true);
+                    if (IsAdministrator())
+                    {
+                        CreateLink(newpath, ReplayFile);
+                    }
+                    else
+                    {
+                        File.Copy(ReplayFile, newpath, true);
+                    }
                     CopiedFiles.Add(newpath);
                 }
             }
