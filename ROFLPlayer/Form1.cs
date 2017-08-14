@@ -36,13 +36,23 @@ namespace ROFLPlayer
             if(m.Msg == WinMethods.WM_SHOWME)
             {
                 ShowMe();
+                if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "instance.tmp"))
+                {
+                    string[] instance_data = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "instance.tmp");
+                    ReplayFile = instance_data[0];
+                    ReplayFound = true;
+                    label2.Text = Path.GetFileName(ReplayFile);
+                    if (LoLExecFile != "")
+                    {
+                        buttonPlay.Enabled = true;
+                    }
+                }
             }
             base.WndProc(ref m);
         }
 
         private void ShowMe()
         {
-
             bool top = TopMost;
             TopMost = true;
             TopMost = top;

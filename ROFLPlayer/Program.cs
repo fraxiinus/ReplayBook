@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 
 namespace ROFLPlayer
 {
@@ -23,6 +24,16 @@ namespace ROFLPlayer
             }
             else
             {
+                if(args.Length == 1)
+                {
+                    string instance_path = AppDomain.CurrentDomain.BaseDirectory + "instance.tmp";
+                    using (StreamWriter file = new StreamWriter(instance_path))
+                    {
+                        file.WriteLine(args[0]);
+                    }
+                }
+                
+
                 WinMethods.PostMessage(
                     (IntPtr)WinMethods.HWND_BROADCAST,
                     WinMethods.WM_SHOWME,
