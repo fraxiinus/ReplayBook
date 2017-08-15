@@ -19,13 +19,24 @@ namespace ROFLPlayer
         private bool ReplayFound = false;
         private List<string> CopiedFiles = new List<string>();
 
+        enum SymbolicLink
+        {
+            File = 0,
+            Directory = 1
+        }
+
+        [DllImport("kernel32.dll")]
+        static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
+
         public Form1(string[] args)
         {
             InitializeComponent();
             if(args.Length == 1)
             {
-                ReplayFile = args[0];
-                ReplayFound = true;
+                if (SetReplay(args[0]) && LoLFound)
+                {
+                    loadReplay();
+                }
             }
         }
 
@@ -37,10 +48,7 @@ namespace ROFLPlayer
                 if(File.Exists(AppDomain.CurrentDomain.BaseDirectory + "instance.tmp"))
                 {
                     string[] instance_data = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "instance.tmp");
-                    ReplayFile = instance_data[0];
-                    ReplayFound = true;
-                    label2.Text = Path.GetFileName(ReplayFile);
-                    if (LoLExecFile != "")
+                    if (SetReplay(instance_data[0]) && LoLFound)
                     {
                         loadReplay();
                     }
@@ -65,10 +73,6 @@ namespace ROFLPlayer
             Application.Exit();
         }
 
-
-        [DllImport("kernel32.dll")]
-        static extern bool CreateSymbolicLink(string lpSymlinkFileName, string lpTargetFileName, SymbolicLink dwFlags);
-
         private void CreateLink(string linkpath, string targetpath)
         {
             if(!CreateSymbolicLink(linkpath, targetpath, SymbolicLink.File))
@@ -77,16 +81,82 @@ namespace ROFLPlayer
             }
         }
 
-        enum SymbolicLink
-        {
-            File = 0,
-            Directory = 1
-        }
-
         public static bool IsAdministrator()
         {
             return (new WindowsPrincipal(WindowsIdentity.GetCurrent()))
                       .IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        private bool SetReplay(string replaypath)
+        {
+            if (File.Exists(replaypath) && Path.GetExtension(replaypath) == ".rofl")
+            {
+                ReplayFound = true;
+                ReplayFile = replaypath;
+                label2.Text = Path.GetFileName(replaypath);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Replays files must end with .rofl", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return false;
+            }
+        }
+
+        private bool SetLoL(string lolpath)
+        {
+            if(File.Exists(lolpath) && Path.GetFileName(lolpath) == @"League of Legends.exe")
+            {
+                LoLFound = true;
+                LoLExecFile = lolpath;
+                textBoxLoLPath.Text = lolpath;
+                labelValid.Text = "✔️";
+                labelValid.ForeColor = Color.Green;
+                textBoxLoLPath.Enabled = false;
+
+                if(Settings1.Default.LoLExecLocation != LoLExecFile)
+                {
+                    Settings1.Default.LoLExecLocation = LoLExecFile;
+                    Settings1.Default.Save();
+                }
+                return true;
+            }
+            else
+            {
+                LoLFound = false;
+                LoLExecFile = "";
+                textBoxLoLPath.Text = "Browse for LoL game executable...";
+                labelValid.Text = "❗";
+                labelValid.ForeColor = Color.Red;
+                textBoxLoLPath.Enabled = true;
+
+                if(!lolpath.Equals("clear") && !lolpath.Equals("Browse for LoL game executable..."))
+                {
+                    MessageBox.Show("Incorrect LoL game executable!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    Settings1.Default.LoLExecLocation = "";
+                    Settings1.Default.Save();
+                }
+
+                return false;
+            }
+        }
+
+        private bool PlayButtonCheck()
+        {
+            if(LoLFound && ReplayFound)
+            {
+                buttonPlay.Enabled = true;
+                return true;
+            }
+            else
+            {
+                buttonPlay.Enabled = false;
+                return false;
+            }
         }
 
         private void textBoxLoLPath_DragDrop(object sender, DragEventArgs e)
@@ -94,7 +164,7 @@ namespace ROFLPlayer
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files != null && files.Length != 0)
             {
-                textBoxLoLPath.Text = files[0];
+                SetLoL(files[0]);
             }
         }
 
@@ -120,8 +190,7 @@ namespace ROFLPlayer
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
-            textBoxLoLPath.Text = "Browse for LoL game executable...";
-            LoLFound = false;
+            SetLoL("clear");
         }
 
         private void buttonBrowse_Click(object sender, EventArgs e)
@@ -130,12 +199,14 @@ namespace ROFLPlayer
             FD.Filter = "Executable files (*.exe)|*.exe";
             if (FD.ShowDialog() == DialogResult.OK)
             {
-                textBoxLoLPath.Text = FD.FileName;
+                SetLoL(FD.FileName);
             }
         }
 
         private void textBoxLoLPath_TextChanged(object sender, EventArgs e)
         {
+            SetLoL(textBoxLoLPath.Text);
+            /*
             if(Regex.IsMatch(textBoxLoLPath.Text, @"League of Legends.exe"))
             {
                 labelValid.Text = "Looks Good";
@@ -158,7 +229,7 @@ namespace ROFLPlayer
                 buttonPlay.Enabled = false;
                 textBoxLoLPath.Enabled = true;
                 LoLFound = false;
-            }
+            }*/
         }
 
         private void splitsplitContainer1_Panel2_DragDrop(object sender, DragEventArgs e)
@@ -166,6 +237,8 @@ namespace ROFLPlayer
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files != null && files.Length != 0)
             {
+                SetReplay(files[0]);
+                /*
                 if(Path.GetExtension(files[0]) != ".rofl")
                 {
                     MessageBox.Show("Invalid file type", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -182,7 +255,7 @@ namespace ROFLPlayer
                         buttonPlay.Enabled = true;
                     }
                     ReplayFound = true;
-                }
+                }*/
             }
         }
 
@@ -208,7 +281,7 @@ namespace ROFLPlayer
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-            if(!ReplayFound || !LoLFound)
+            if(!PlayButtonCheck())
             {
                 MessageBox.Show("Check if LoL executable or Replay is valid", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -269,10 +342,10 @@ namespace ROFLPlayer
             {
                 if (File.Exists(Settings1.Default.LoLExecLocation))
                 {
-                    textBoxLoLPath.Text = Settings1.Default.LoLExecLocation;
+                    SetLoL(Settings1.Default.LoLExecLocation);
                 }
             }
-            if(ReplayFound && LoLFound)
+            if(PlayButtonCheck())
             {
                 loadReplay();
                 CleanUpAndClose();
@@ -291,14 +364,20 @@ namespace ROFLPlayer
             if (FD.ShowDialog() == DialogResult.OK)
             {
                 ReplayFile = FD.FileName;
+                SetReplay(ReplayFile);
+                /*
                 label2.Text = Path.GetFileName(ReplayFile);
                 ReplayFound = true;
                 if (LoLExecFile != "")
                 {
                     buttonPlay.Enabled = true;
-                }
+                }*/
             }
         }
 
+        private void label2_TextChanged(object sender, EventArgs e)
+        {
+            PlayButtonCheck();
+        }
     }
 }

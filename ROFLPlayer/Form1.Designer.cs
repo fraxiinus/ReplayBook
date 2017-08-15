@@ -78,7 +78,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(116, 47);
+            this.buttonClear.Location = new System.Drawing.Point(13, 47);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 3;
@@ -88,7 +88,7 @@
             // 
             // buttonBrowse
             // 
-            this.buttonBrowse.Location = new System.Drawing.Point(197, 47);
+            this.buttonBrowse.Location = new System.Drawing.Point(94, 47);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(75, 23);
             this.buttonBrowse.TabIndex = 2;
@@ -101,11 +101,11 @@
             this.labelValid.AutoSize = true;
             this.labelValid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelValid.ForeColor = System.Drawing.Color.Red;
-            this.labelValid.Location = new System.Drawing.Point(8, 47);
+            this.labelValid.Location = new System.Drawing.Point(263, 21);
             this.labelValid.Name = "labelValid";
-            this.labelValid.Size = new System.Drawing.Size(88, 20);
+            this.labelValid.Size = new System.Drawing.Size(16, 20);
             this.labelValid.TabIndex = 4;
-            this.labelValid.Text = "Find Exec";
+            this.labelValid.Text = "❗";
             // 
             // labelLoLPath
             // 
@@ -121,7 +121,7 @@
             this.textBoxLoLPath.AllowDrop = true;
             this.textBoxLoLPath.Location = new System.Drawing.Point(12, 21);
             this.textBoxLoLPath.Name = "textBoxLoLPath";
-            this.textBoxLoLPath.Size = new System.Drawing.Size(260, 20);
+            this.textBoxLoLPath.Size = new System.Drawing.Size(245, 20);
             this.textBoxLoLPath.TabIndex = 0;
             this.textBoxLoLPath.Text = "Browse for LoL game executable...";
             this.textBoxLoLPath.TextChanged += new System.EventHandler(this.textBoxLoLPath_TextChanged);
@@ -167,6 +167,7 @@
             this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Drag Replays Here";
+            this.label2.TextChanged += new System.EventHandler(this.label2_TextChanged);
             // 
             // Form1
             // 
