@@ -255,7 +255,7 @@ namespace ROFLPlayer
         {
             if(e.KeyCode == Keys.Enter)
             {
-                if (!SetLoL(textBoxLoLPath.Text))
+                if (SetLoL(textBoxLoLPath.Text))
                 {
                     this.ActiveControl = buttonRPBrowse; // move focus to browse replay key
                 }
