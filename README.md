@@ -12,8 +12,16 @@ This application is very simple. Follow these steps to set it up:
 
 Please let me know about any bugs or issues
 
+## FAQ
+
 **Why does this exist?**
 
 "You can just copy the replay into the folder containing League of Legends.exe and drag the replay onto the executable! What's the point of this?"
 
-I'm lazy.
+That is exactly what this program does, I'm lazy.
+
+**What is 'instance.tmp'?**
+That is the file created by ROFL-Player to pass information from attempts to open new instances. It is not important and can be deleted
+
+**Will this get me banned?**
+It does not do anything except copy files and launch the game executable. Nothing is altered, so a ban is not likely.
