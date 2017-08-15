@@ -125,6 +125,7 @@
             this.textBoxLoLPath.TabIndex = 0;
             this.textBoxLoLPath.Text = "Browse for LoL game executable...";
             this.textBoxLoLPath.TextChanged += new System.EventHandler(this.textBoxLoLPath_TextChanged);
+            this.textBoxLoLPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxLoLPath_KeyDown);
             this.textBoxLoLPath.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxLoLPath_DragDrop);
             this.textBoxLoLPath.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBoxLoLPath_DragEnter);
             this.textBoxLoLPath.DragOver += new System.Windows.Forms.DragEventHandler(this.textBoxLolPath_DragOver);

@@ -245,7 +245,21 @@ namespace ROFLPlayer
 
         private void textBoxLoLPath_TextChanged(object sender, EventArgs e) // for when text is changed
         {
-            SetLoL(textBoxLoLPath.Text);
+            if (!textBoxLoLPath.Focused)
+            {
+                SetLoL(textBoxLoLPath.Text);
+            }
+        }
+
+        private void textBoxLoLPath_KeyDown(object sender, KeyEventArgs e) // handle enter key
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                if (!SetLoL(textBoxLoLPath.Text))
+                {
+                    this.ActiveControl = buttonRPBrowse; // move focus to browse replay key
+                }
+            }
         }
 
         private void splitsplitContainer1_Panel2_DragDrop(object sender, DragEventArgs e) // handle data dropped for replay
