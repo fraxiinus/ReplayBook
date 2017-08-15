@@ -78,9 +78,9 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(13, 47);
+            this.buttonClear.Location = new System.Drawing.Point(205, 47);
             this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonClear.Size = new System.Drawing.Size(67, 23);
             this.buttonClear.TabIndex = 3;
             this.buttonClear.Text = "Clear";
             this.buttonClear.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@
             // 
             // buttonBrowse
             // 
-            this.buttonBrowse.Location = new System.Drawing.Point(94, 47);
+            this.buttonBrowse.Location = new System.Drawing.Point(13, 47);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(75, 23);
             this.buttonBrowse.TabIndex = 2;
@@ -101,7 +101,7 @@
             this.labelValid.AutoSize = true;
             this.labelValid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelValid.ForeColor = System.Drawing.Color.Red;
-            this.labelValid.Location = new System.Drawing.Point(263, 21);
+            this.labelValid.Location = new System.Drawing.Point(89, 47);
             this.labelValid.Name = "labelValid";
             this.labelValid.Size = new System.Drawing.Size(16, 20);
             this.labelValid.TabIndex = 4;
@@ -121,7 +121,7 @@
             this.textBoxLoLPath.AllowDrop = true;
             this.textBoxLoLPath.Location = new System.Drawing.Point(12, 21);
             this.textBoxLoLPath.Name = "textBoxLoLPath";
-            this.textBoxLoLPath.Size = new System.Drawing.Size(245, 20);
+            this.textBoxLoLPath.Size = new System.Drawing.Size(260, 20);
             this.textBoxLoLPath.TabIndex = 0;
             this.textBoxLoLPath.Text = "Browse for LoL game executable...";
             this.textBoxLoLPath.TextChanged += new System.EventHandler(this.textBoxLoLPath_TextChanged);
