@@ -90,6 +90,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lib\FileManager.cs" />
+    <Compile Include="Lib\LeagueManager.cs" />
     <Compile Include="Lib\MainWindowManager.cs" />
     <Compile Include="Lib\ReplayManager.cs" />
     <Compile Include="Program.cs" />
@@ -105,7 +107,7 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinMethods.cs" />
+    <Compile Include="Lib\WinMethods.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
