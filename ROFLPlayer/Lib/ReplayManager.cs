@@ -1,6 +1,7 @@
-﻿
+﻿using System;
 using System.Diagnostics;
 using IWshRuntimeLibrary;
+using System.IO;
 
 public struct ReplayRunResult
 {
@@ -16,6 +17,7 @@ namespace ROFLPlayer.Lib
         public static ReplayRunResult StartReplay(string replayPath)
         {
             ReplayRunResult returnValue = new ReplayRunResult { Success = false, Message = "" };
+            var replayname = Path.GetFileNameWithoutExtension(replayPath);
 
             // Get the path of the file executable
             var gamePath = CheckGameDirValid();
@@ -36,7 +38,9 @@ namespace ROFLPlayer.Lib
             }
 
             // Run the replay
-            var process = RunReplay(replayPath + @"\roflplayer_link.lnk");
+            var gamefolder = Path.GetDirectoryName(gamePath);
+            var shortcutPath = Path.Combine(gamefolder, Path.GetFileNameWithoutExtension(replayPath) + ".lnk");
+            var process = RunReplay(shortcutPath);
 
             if(process == null)
             {
@@ -46,7 +50,7 @@ namespace ROFLPlayer.Lib
 
             // Clean up when replay is done
 
-            if(!CleanUp(shortcutFile))
+            if(!CleanUp(shortcutPath))
             {
                 returnValue.Message = "Failed to delete created replay shortcut";
                 return returnValue;
@@ -59,29 +63,53 @@ namespace ROFLPlayer.Lib
         private static string CheckGameDirValid()
         {
             // Check if LOL executable directory is found
-            // Needs to be able to find latest directory after patch
-
+            // TODO: Needs to be able to find latest directory after patch
+            if(LeagueManager.CheckLeagueExecutable())
+            {
+                return RoflSettings.Default.LoLExecLocation;
+            }
             return null;
         }
 
         private static IWshShortcut CreateAlias(string execPath, string replayPath)
         {
+            var dir = Path.GetDirectoryName(execPath);
 
+            var filepath = Path.Combine(dir, Path.GetFileNameWithoutExtension(replayPath) + ".lnk");
             // Create a new shortcut that launches league and includes replay path
-
-            return null;
+            
+            return FileManager.CreateShortcut(filepath, execPath, replayPath);
         }
 
         private static Process RunReplay(string shortcutPath)
         {
             // Create a new process and run the shortcut
-            return null;
+            Process game = new Process();
+            game.StartInfo.FileName = shortcutPath;
+            try
+            {
+                game.Start();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            game.WaitForExit();
+            return game;
         }
 
-        private static bool CleanUp(IWshShortcut shortcut)
+        private static bool CleanUp(string shortcutPath)
         {
+            try
+            {
+                System.IO.File.Delete(shortcutPath);
+            }
+            catch(Exception)
+            {
+                return false;
+            }
             // Delete the shortcut file
-            return false;
+            return true;
         }
     }
 }
