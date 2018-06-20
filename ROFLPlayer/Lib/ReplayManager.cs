@@ -13,7 +13,7 @@ namespace ROFLPlayer.Lib
     public class ReplayManager
     {
 
-        public ReplayRunResult StartReplay(string replayPath)
+        public static ReplayRunResult StartReplay(string replayPath)
         {
             ReplayRunResult returnValue = new ReplayRunResult { Success = false, Message = "" };
 
@@ -56,7 +56,7 @@ namespace ROFLPlayer.Lib
             return returnValue;
         }
 
-        private string CheckGameDirValid()
+        private static string CheckGameDirValid()
         {
             // Check if LOL executable directory is found
             // Needs to be able to find latest directory after patch
@@ -64,7 +64,7 @@ namespace ROFLPlayer.Lib
             return null;
         }
 
-        private IWshShortcut CreateAlias(string execPath, string replayPath)
+        private static IWshShortcut CreateAlias(string execPath, string replayPath)
         {
 
             // Create a new shortcut that launches league and includes replay path
@@ -72,13 +72,13 @@ namespace ROFLPlayer.Lib
             return null;
         }
 
-        private Process RunReplay(string shortcutPath)
+        private static Process RunReplay(string shortcutPath)
         {
             // Create a new process and run the shortcut
             return null;
         }
 
-        private bool CleanUp(IWshShortcut shortcut)
+        private static bool CleanUp(IWshShortcut shortcut)
         {
             // Delete the shortcut file
             return false;

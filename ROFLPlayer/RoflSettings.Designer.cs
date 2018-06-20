@@ -34,5 +34,17 @@ namespace ROFLPlayer {
                 this["LoLExecLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int StartupMode {
+            get {
+                return ((int)(this["StartupMode"]));
+            }
+            set {
+                this["StartupMode"] = value;
+            }
+        }
     }
 }
