@@ -19,7 +19,7 @@ namespace ROFLPlayer
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new SettingsForm());
+                Application.Run(new DetailsForm());
                 //Application.Run(new Form1(args));
                 mutex.ReleaseMutex();
             }

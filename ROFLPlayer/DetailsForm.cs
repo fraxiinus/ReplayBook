@@ -4,9 +4,9 @@ using ROFLPlayer.Lib;
 
 namespace ROFLPlayer
 {
-    public partial class SettingsForm : Form
+    public partial class DetailsForm : Form
     {
-        public SettingsForm()
+        public DetailsForm()
         {
             InitializeComponent();
             MainWindowManager.Load(this);
