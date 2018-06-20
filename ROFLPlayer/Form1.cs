@@ -121,10 +121,10 @@ namespace ROFLPlayer
                 labelValid.ForeColor = Color.Green;
                 textBoxLoLPath.Enabled = false; //disable txtbox from edits
 
-                if(Settings1.Default.LoLExecLocation != LoLExecFile) // if different from saved data, update the saved data
+                if(RoflSettings.Default.LoLExecLocation != LoLExecFile) // if different from saved data, update the saved data
                 {
-                    Settings1.Default.LoLExecLocation = LoLExecFile;
-                    Settings1.Default.Save();
+                    RoflSettings.Default.LoLExecLocation = LoLExecFile;
+                    RoflSettings.Default.Save();
                 }
                 return true;
             }
@@ -143,8 +143,8 @@ namespace ROFLPlayer
                 }
                 else // clear saved data 
                 {
-                    Settings1.Default.LoLExecLocation = "";
-                    Settings1.Default.Save();
+                    RoflSettings.Default.LoLExecLocation = "";
+                    RoflSettings.Default.Save();
                 }
 
                 return false;
@@ -315,11 +315,11 @@ namespace ROFLPlayer
 
         private void Form1_Load(object sender, EventArgs e) // method when form is loaded
         {
-            if(Settings1.Default.LoLExecLocation != "") // get saved lol directory
+            if(RoflSettings.Default.LoLExecLocation != "") // get saved lol directory
             {
-                if (File.Exists(Settings1.Default.LoLExecLocation))
+                if (File.Exists(RoflSettings.Default.LoLExecLocation))
                 {
-                    SetLoL(Settings1.Default.LoLExecLocation);
+                    SetLoL(RoflSettings.Default.LoLExecLocation);
                 }
             }
 
