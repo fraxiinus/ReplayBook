@@ -99,11 +99,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>RoflSettings.settings</DependentUpon>
     </Compile>
-    <Compile Include="DetailsForm.cs">
+    <Compile Include="SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DetailsForm.Designer.cs">
-      <DependentUpon>DetailsForm.cs</DependentUpon>
+    <Compile Include="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WinMethods.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -118,8 +118,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DetailsForm.resx">
-      <DependentUpon>DetailsForm.cs</DependentUpon>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
