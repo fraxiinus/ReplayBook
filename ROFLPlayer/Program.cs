@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
+using ROFLPlayer.Lib;
 
 namespace ROFLPlayer
 {
@@ -19,7 +20,15 @@ namespace ROFLPlayer
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new DetailsForm());
+                // StartupMode, 0  = show detailed information, 1 = launch replay immediately
+                if(args.Length == RoflSettings.Default.StartupMode)
+                {
+                    Application.Run(new SettingsForm());
+                }
+                else
+                {
+                    ReplayManager.StartReplay(args[0]);
+                }
                 //Application.Run(new Form1(args));
                 mutex.ReleaseMutex();
             }
