@@ -52,7 +52,6 @@ namespace ROFLPlayer.Lib
                 return returnValue;
             }
 
-
             returnValue.Success = true;
             return returnValue;
         }
@@ -75,12 +74,13 @@ namespace ROFLPlayer.Lib
 
         private Process RunReplay(string shortcutPath)
         {
+            // Create a new process and run the shortcut
             return null;
         }
 
         private bool CleanUp(IWshShortcut shortcut)
         {
-
+            // Delete the shortcut file
             return false;
         }
     }
