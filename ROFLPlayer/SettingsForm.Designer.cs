@@ -72,7 +72,7 @@
             this.AboutTab.Location = new System.Drawing.Point(4, 22);
             this.AboutTab.Name = "AboutTab";
             this.AboutTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AboutTab.Size = new System.Drawing.Size(410, 414);
+            this.AboutTab.Size = new System.Drawing.Size(340, 382);
             this.AboutTab.TabIndex = 2;
             this.AboutTab.Text = "About";
             this.AboutTab.UseVisualStyleBackColor = true;
@@ -135,6 +135,7 @@
             this.MainCancelButton.TabIndex = 2;
             this.MainCancelButton.Text = "Cancel";
             this.MainCancelButton.UseVisualStyleBackColor = true;
+            this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
             // 
             // MainOkButton
             // 
@@ -144,6 +145,7 @@
             this.MainOkButton.TabIndex = 3;
             this.MainOkButton.Text = "OK";
             this.MainOkButton.UseVisualStyleBackColor = true;
+            this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
             // 
             // SettingsForm
             // 
