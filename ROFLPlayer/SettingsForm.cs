@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using ROFLPlayer.Lib;
+using System.Drawing;
 using System.Linq;
 using System.Collections;
 
@@ -62,6 +63,11 @@ namespace ROFLPlayer
             {
                 MessageBox.Show(result.Message, "Error Starting Replay", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void AboutGithubButton_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"https://github.com/andrew1421lee/ROFL-Player");
         }
     }
 }

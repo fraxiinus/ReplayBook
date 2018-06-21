@@ -37,17 +37,24 @@
             this.GeneralGameBrowseButton = new System.Windows.Forms.Button();
             this.GeneralGameClearButton = new System.Windows.Forms.Button();
             this.DeleteMe = new System.Windows.Forms.Button();
+            this.GeneralDivider1 = new System.Windows.Forms.Label();
             this.GeneralLaunchLabel = new System.Windows.Forms.Label();
+            this.GeneralLaunchComboBox = new System.Windows.Forms.ComboBox();
             this.AboutTab = new System.Windows.Forms.TabPage();
-            this.AboutFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.MainCancelButton = new System.Windows.Forms.Button();
             this.MainOkButton = new System.Windows.Forms.Button();
-            this.GeneralDivider1 = new System.Windows.Forms.Label();
-            this.GeneralLaunchComboBox = new System.Windows.Forms.ComboBox();
+            this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
+            this.AboutTitleLabel = new System.Windows.Forms.Label();
+            this.AboutVersionLabel = new System.Windows.Forms.Label();
+            this.AboutAuthorLabel = new System.Windows.Forms.Label();
+            this.AboutGithubButton = new System.Windows.Forms.Button();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
             this.AboutTab.SuspendLayout();
+            this.AboutTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AboutLogoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -146,20 +153,43 @@
             this.DeleteMe.UseVisualStyleBackColor = true;
             this.DeleteMe.Click += new System.EventHandler(this.DeleteMe_Click);
             // 
+            // GeneralDivider1
+            // 
+            this.GeneralDivider1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.GeneralDivider1.Location = new System.Drawing.Point(5, 75);
+            this.GeneralDivider1.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralDivider1.Name = "GeneralDivider1";
+            this.GeneralDivider1.Size = new System.Drawing.Size(315, 2);
+            this.GeneralDivider1.TabIndex = 6;
+            // 
             // GeneralLaunchLabel
             // 
             this.GeneralLaunchLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.GeneralLaunchLabel.AutoSize = true;
-            this.GeneralLaunchLabel.Location = new System.Drawing.Point(5, 92);
+            this.GeneralLaunchLabel.Location = new System.Drawing.Point(5, 91);
             this.GeneralLaunchLabel.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralLaunchLabel.Name = "GeneralLaunchLabel";
             this.GeneralLaunchLabel.Size = new System.Drawing.Size(101, 13);
             this.GeneralLaunchLabel.TabIndex = 5;
             this.GeneralLaunchLabel.Text = "Double-click action:";
             // 
+            // GeneralLaunchComboBox
+            // 
+            this.GeneralLaunchComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralLaunchComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GeneralLaunchComboBox.FormattingEnabled = true;
+            this.GeneralLaunchComboBox.Items.AddRange(new object[] {
+            "Play replay",
+            "Show details"});
+            this.GeneralLaunchComboBox.Location = new System.Drawing.Point(116, 87);
+            this.GeneralLaunchComboBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralLaunchComboBox.Name = "GeneralLaunchComboBox";
+            this.GeneralLaunchComboBox.Size = new System.Drawing.Size(213, 21);
+            this.GeneralLaunchComboBox.TabIndex = 7;
+            // 
             // AboutTab
             // 
-            this.AboutTab.Controls.Add(this.AboutFlowLayout);
+            this.AboutTab.Controls.Add(this.AboutTableLayoutPanel);
             this.AboutTab.Location = new System.Drawing.Point(4, 22);
             this.AboutTab.Name = "AboutTab";
             this.AboutTab.Padding = new System.Windows.Forms.Padding(3);
@@ -167,15 +197,6 @@
             this.AboutTab.TabIndex = 2;
             this.AboutTab.Text = "About";
             this.AboutTab.UseVisualStyleBackColor = true;
-            // 
-            // AboutFlowLayout
-            // 
-            this.AboutFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AboutFlowLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.AboutFlowLayout.Location = new System.Drawing.Point(3, 3);
-            this.AboutFlowLayout.Name = "AboutFlowLayout";
-            this.AboutFlowLayout.Size = new System.Drawing.Size(334, 391);
-            this.AboutFlowLayout.TabIndex = 0;
             // 
             // MainCancelButton
             // 
@@ -197,28 +218,88 @@
             this.MainOkButton.UseVisualStyleBackColor = true;
             this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
             // 
-            // GeneralDivider1
+            // AboutTableLayoutPanel
             // 
-            this.GeneralDivider1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.GeneralDivider1.Location = new System.Drawing.Point(5, 75);
-            this.GeneralDivider1.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralDivider1.Name = "GeneralDivider1";
-            this.GeneralDivider1.Size = new System.Drawing.Size(315, 2);
-            this.GeneralDivider1.TabIndex = 6;
+            this.AboutTableLayoutPanel.ColumnCount = 1;
+            this.AboutTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.AboutTableLayoutPanel.Controls.Add(this.AboutLogoPictureBox, 0, 1);
+            this.AboutTableLayoutPanel.Controls.Add(this.AboutTitleLabel, 0, 2);
+            this.AboutTableLayoutPanel.Controls.Add(this.AboutVersionLabel, 0, 3);
+            this.AboutTableLayoutPanel.Controls.Add(this.AboutAuthorLabel, 0, 4);
+            this.AboutTableLayoutPanel.Controls.Add(this.AboutGithubButton, 0, 5);
+            this.AboutTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AboutTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
+            this.AboutTableLayoutPanel.Name = "AboutTableLayoutPanel";
+            this.AboutTableLayoutPanel.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.AboutTableLayoutPanel.RowCount = 6;
+            this.AboutTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.AboutTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.AboutTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.AboutTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.AboutTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.AboutTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.AboutTableLayoutPanel.Size = new System.Drawing.Size(334, 391);
+            this.AboutTableLayoutPanel.TabIndex = 0;
             // 
-            // GeneralLaunchComboBox
+            // AboutLogoPictureBox
             // 
-            this.GeneralLaunchComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralLaunchComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.GeneralLaunchComboBox.FormattingEnabled = true;
-            this.GeneralLaunchComboBox.Items.AddRange(new object[] {
-            "Play replay",
-            "Show details"});
-            this.GeneralLaunchComboBox.Location = new System.Drawing.Point(116, 87);
-            this.GeneralLaunchComboBox.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralLaunchComboBox.Name = "GeneralLaunchComboBox";
-            this.GeneralLaunchComboBox.Size = new System.Drawing.Size(213, 21);
-            this.GeneralLaunchComboBox.TabIndex = 7;
+            this.AboutLogoPictureBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.AboutLogoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AboutLogoPictureBox.Image")));
+            this.AboutLogoPictureBox.Location = new System.Drawing.Point(125, 28);
+            this.AboutLogoPictureBox.Name = "AboutLogoPictureBox";
+            this.AboutLogoPictureBox.Size = new System.Drawing.Size(84, 96);
+            this.AboutLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.AboutLogoPictureBox.TabIndex = 1;
+            this.AboutLogoPictureBox.TabStop = false;
+            // 
+            // AboutTitleLabel
+            // 
+            this.AboutTitleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AboutTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutTitleLabel.Location = new System.Drawing.Point(3, 127);
+            this.AboutTitleLabel.Name = "AboutTitleLabel";
+            this.AboutTitleLabel.Size = new System.Drawing.Size(328, 23);
+            this.AboutTitleLabel.TabIndex = 2;
+            this.AboutTitleLabel.Text = "ROFL Player";
+            this.AboutTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AboutVersionLabel
+            // 
+            this.AboutVersionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AboutVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutVersionLabel.Location = new System.Drawing.Point(3, 150);
+            this.AboutVersionLabel.Name = "AboutVersionLabel";
+            this.AboutVersionLabel.Size = new System.Drawing.Size(328, 23);
+            this.AboutVersionLabel.TabIndex = 3;
+            this.AboutVersionLabel.Text = "Beta";
+            this.AboutVersionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AboutAuthorLabel
+            // 
+            this.AboutAuthorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AboutAuthorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutAuthorLabel.Location = new System.Drawing.Point(3, 173);
+            this.AboutAuthorLabel.Name = "AboutAuthorLabel";
+            this.AboutAuthorLabel.Size = new System.Drawing.Size(328, 23);
+            this.AboutAuthorLabel.TabIndex = 4;
+            this.AboutAuthorLabel.Text = "Anchu Lee";
+            this.AboutAuthorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AboutGithubButton
+            // 
+            this.AboutGithubButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AboutGithubButton.Location = new System.Drawing.Point(130, 360);
+            this.AboutGithubButton.Margin = new System.Windows.Forms.Padding(130, 3, 130, 3);
+            this.AboutGithubButton.Name = "AboutGithubButton";
+            this.AboutGithubButton.Size = new System.Drawing.Size(74, 23);
+            this.AboutGithubButton.TabIndex = 5;
+            this.AboutGithubButton.Text = "GitHub";
+            this.AboutGithubButton.UseVisualStyleBackColor = true;
+            this.AboutGithubButton.Click += new System.EventHandler(this.AboutGithubButton_Click);
             // 
             // SettingsForm
             // 
@@ -240,6 +321,8 @@
             this.GeneralFlowLayout.ResumeLayout(false);
             this.GeneralFlowLayout.PerformLayout();
             this.AboutTab.ResumeLayout(false);
+            this.AboutTableLayoutPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AboutLogoPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -255,11 +338,16 @@
         private System.Windows.Forms.Button GeneralGameBrowseButton;
         private System.Windows.Forms.Button MainCancelButton;
         private System.Windows.Forms.Button MainOkButton;
-        private System.Windows.Forms.FlowLayoutPanel AboutFlowLayout;
         private System.Windows.Forms.Button GeneralGameClearButton;
         private System.Windows.Forms.Button DeleteMe;
         private System.Windows.Forms.Label GeneralLaunchLabel;
         private System.Windows.Forms.Label GeneralDivider1;
         private System.Windows.Forms.ComboBox GeneralLaunchComboBox;
+        private System.Windows.Forms.TableLayoutPanel AboutTableLayoutPanel;
+        private System.Windows.Forms.PictureBox AboutLogoPictureBox;
+        private System.Windows.Forms.Label AboutTitleLabel;
+        private System.Windows.Forms.Label AboutVersionLabel;
+        private System.Windows.Forms.Label AboutAuthorLabel;
+        private System.Windows.Forms.Button AboutGithubButton;
     }
 }
