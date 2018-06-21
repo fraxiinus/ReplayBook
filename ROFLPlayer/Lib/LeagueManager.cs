@@ -70,6 +70,29 @@ namespace ROFLPlayer.Lib
             return true;
         }
 
-        
+        public static bool CheckReplayFile(string replaypath)
+        {
+            if (!File.Exists(replaypath)) { return false; }
+            using (var filestream = new FileStream(replaypath, FileMode.Open))
+            {
+                var magicbuffer = new byte[4];
+                var magicnumber = new byte[] { 0x52, 0x49, 0x4F, 0x54 };    // R I O T
+                filestream.Read(magicbuffer, 0, 4);
+                if (magicbuffer.SequenceEqual(magicnumber))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static void DumpJSON(string replaypath)
+        {
+            if (!File.Exists(replaypath)) { return; }
+            using (var filestream = new FileStream(replaypath, FileMode.Open))
+            {
+
+            }
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace ROFLPlayer
                     }
                     else
                     {
-                        return;
+                        Application.Run(new DetailForm(args[0]));
                     }
                 }
                 //Application.Run(new Form1(args));
