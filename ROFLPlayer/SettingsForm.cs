@@ -32,7 +32,29 @@ namespace ROFLPlayer
                 return;
             }
 
-            this.GeneralGameTextBox.Text = filepath;
+            if(LeagueManager.CheckLeagueExecutable(filepath))
+            {
+                this.GeneralGameTextBox.Text = filepath;
+            }
+            else
+            {
+                MessageBox.Show("Invalid League executable", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void GeneralGameClearButton_Click(object sender, EventArgs e)
+        {
+            this.GeneralGameTextBox.Text = string.Empty;
+        }
+
+        private void DeleteMe_Click(object sender, EventArgs e)
+        {
+            var result = ReplayManager.StartReplay(@"C:\Users\Anchu\Documents\League of Legends\Replays\NA1-2808559688.rofl");
+            if(!result.Success)
+            {
+                MessageBox.Show(result.Message, "Error Starting Replay", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
