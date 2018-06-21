@@ -17,7 +17,10 @@ namespace ROFLPlayer.Lib
         public static void CloseWindow(Form form)
         {
             // Save and Exit form
+            // Save Executable location
             RoflSettings.Default.LoLExecLocation = form.Controls.Find("GeneralGameTextBox", true)[0].Text;
+            // Save double click launch option
+            RoflSettings.Default.StartupMode = ((ComboBox)form.Controls.Find("GeneralLaunchComboBox", true)[0]).SelectedIndex;
             RoflSettings.Default.Save();
             Environment.Exit(1);
         }

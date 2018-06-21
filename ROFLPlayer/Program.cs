@@ -21,13 +21,20 @@ namespace ROFLPlayer
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 // StartupMode, 0  = show detailed information, 1 = launch replay immediately
-                if(args.Length == RoflSettings.Default.StartupMode)
+                if(args.Length == 0)
                 {
                     Application.Run(new SettingsForm());
                 }
-                else
+                else 
                 {
-                    ReplayManager.StartReplay(args[0]);
+                    if(RoflSettings.Default.StartupMode == 0)
+                    {
+                        ReplayManager.StartReplay(args[0]);
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
                 //Application.Run(new Form1(args));
                 mutex.ReleaseMutex();

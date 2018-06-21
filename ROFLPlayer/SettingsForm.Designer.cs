@@ -31,20 +31,23 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.MainTabControl = new System.Windows.Forms.TabControl();
             this.GeneralTab = new System.Windows.Forms.TabPage();
-            this.AboutTab = new System.Windows.Forms.TabPage();
             this.GeneralFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.GeneralGameLabel = new System.Windows.Forms.Label();
             this.GeneralGameTextBox = new System.Windows.Forms.TextBox();
             this.GeneralGameBrowseButton = new System.Windows.Forms.Button();
-            this.MainCancelButton = new System.Windows.Forms.Button();
-            this.MainOkButton = new System.Windows.Forms.Button();
-            this.AboutFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.GeneralGameClearButton = new System.Windows.Forms.Button();
             this.DeleteMe = new System.Windows.Forms.Button();
+            this.GeneralLaunchLabel = new System.Windows.Forms.Label();
+            this.AboutTab = new System.Windows.Forms.TabPage();
+            this.AboutFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
+            this.MainCancelButton = new System.Windows.Forms.Button();
+            this.MainOkButton = new System.Windows.Forms.Button();
+            this.GeneralDivider1 = new System.Windows.Forms.Label();
+            this.GeneralLaunchComboBox = new System.Windows.Forms.ComboBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
-            this.AboutTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
+            this.AboutTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -69,17 +72,6 @@
             this.GeneralTab.Text = "General";
             this.GeneralTab.UseVisualStyleBackColor = true;
             // 
-            // AboutTab
-            // 
-            this.AboutTab.Controls.Add(this.AboutFlowLayout);
-            this.AboutTab.Location = new System.Drawing.Point(4, 22);
-            this.AboutTab.Name = "AboutTab";
-            this.AboutTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AboutTab.Size = new System.Drawing.Size(340, 382);
-            this.AboutTab.TabIndex = 2;
-            this.AboutTab.Text = "About";
-            this.AboutTab.UseVisualStyleBackColor = true;
-            // 
             // GeneralFlowLayout
             // 
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameLabel);
@@ -87,6 +79,9 @@
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameBrowseButton);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameClearButton);
             this.GeneralFlowLayout.Controls.Add(this.DeleteMe);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralDivider1);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralLaunchLabel);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralLaunchComboBox);
             this.GeneralFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GeneralFlowLayout.Location = new System.Drawing.Point(3, 3);
             this.GeneralFlowLayout.Name = "GeneralFlowLayout";
@@ -98,31 +93,89 @@
             // 
             this.GeneralGameLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.GeneralGameLabel.AutoSize = true;
-            this.GeneralGameLabel.Location = new System.Drawing.Point(3, 5);
+            this.GeneralGameLabel.Location = new System.Drawing.Point(5, 13);
+            this.GeneralGameLabel.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralGameLabel.Name = "GeneralGameLabel";
-            this.GeneralGameLabel.Size = new System.Drawing.Size(126, 13);
+            this.GeneralGameLabel.Size = new System.Drawing.Size(87, 13);
             this.GeneralGameLabel.TabIndex = 0;
-            this.GeneralGameLabel.Text = "League of Legends path:";
+            this.GeneralGameLabel.Text = "Executable path:";
             // 
             // GeneralGameTextBox
             // 
-            this.GeneralGameTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.GeneralGameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GeneralGameTextBox.Location = new System.Drawing.Point(3, 23);
+            this.GeneralGameTextBox.Location = new System.Drawing.Point(102, 10);
+            this.GeneralGameTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralGameTextBox.Name = "GeneralGameTextBox";
-            this.GeneralGameTextBox.Size = new System.Drawing.Size(234, 20);
+            this.GeneralGameTextBox.Size = new System.Drawing.Size(227, 20);
             this.GeneralGameTextBox.TabIndex = 1;
             // 
             // GeneralGameBrowseButton
             // 
             this.GeneralGameBrowseButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralGameBrowseButton.Location = new System.Drawing.Point(243, 21);
+            this.GeneralGameBrowseButton.Location = new System.Drawing.Point(5, 40);
+            this.GeneralGameBrowseButton.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralGameBrowseButton.Name = "GeneralGameBrowseButton";
             this.GeneralGameBrowseButton.Size = new System.Drawing.Size(88, 25);
             this.GeneralGameBrowseButton.TabIndex = 2;
             this.GeneralGameBrowseButton.Text = "Browse...";
             this.GeneralGameBrowseButton.UseVisualStyleBackColor = true;
             this.GeneralGameBrowseButton.Click += new System.EventHandler(this.GeneralGameBrowseButton_Click);
+            // 
+            // GeneralGameClearButton
+            // 
+            this.GeneralGameClearButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralGameClearButton.Enabled = false;
+            this.GeneralGameClearButton.Location = new System.Drawing.Point(103, 40);
+            this.GeneralGameClearButton.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGameClearButton.Name = "GeneralGameClearButton";
+            this.GeneralGameClearButton.Size = new System.Drawing.Size(88, 25);
+            this.GeneralGameClearButton.TabIndex = 3;
+            this.GeneralGameClearButton.Text = "Clear";
+            this.GeneralGameClearButton.UseVisualStyleBackColor = true;
+            this.GeneralGameClearButton.Click += new System.EventHandler(this.GeneralGameClearButton_Click);
+            // 
+            // DeleteMe
+            // 
+            this.DeleteMe.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.DeleteMe.Location = new System.Drawing.Point(201, 40);
+            this.DeleteMe.Margin = new System.Windows.Forms.Padding(5);
+            this.DeleteMe.Name = "DeleteMe";
+            this.DeleteMe.Size = new System.Drawing.Size(88, 25);
+            this.DeleteMe.TabIndex = 4;
+            this.DeleteMe.Text = "Play";
+            this.DeleteMe.UseVisualStyleBackColor = true;
+            this.DeleteMe.Click += new System.EventHandler(this.DeleteMe_Click);
+            // 
+            // GeneralLaunchLabel
+            // 
+            this.GeneralLaunchLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralLaunchLabel.AutoSize = true;
+            this.GeneralLaunchLabel.Location = new System.Drawing.Point(5, 92);
+            this.GeneralLaunchLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralLaunchLabel.Name = "GeneralLaunchLabel";
+            this.GeneralLaunchLabel.Size = new System.Drawing.Size(101, 13);
+            this.GeneralLaunchLabel.TabIndex = 5;
+            this.GeneralLaunchLabel.Text = "Double-click action:";
+            // 
+            // AboutTab
+            // 
+            this.AboutTab.Controls.Add(this.AboutFlowLayout);
+            this.AboutTab.Location = new System.Drawing.Point(4, 22);
+            this.AboutTab.Name = "AboutTab";
+            this.AboutTab.Padding = new System.Windows.Forms.Padding(3);
+            this.AboutTab.Size = new System.Drawing.Size(340, 397);
+            this.AboutTab.TabIndex = 2;
+            this.AboutTab.Text = "About";
+            this.AboutTab.UseVisualStyleBackColor = true;
+            // 
+            // AboutFlowLayout
+            // 
+            this.AboutFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AboutFlowLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.AboutFlowLayout.Location = new System.Drawing.Point(3, 3);
+            this.AboutFlowLayout.Name = "AboutFlowLayout";
+            this.AboutFlowLayout.Size = new System.Drawing.Size(334, 391);
+            this.AboutFlowLayout.TabIndex = 0;
             // 
             // MainCancelButton
             // 
@@ -144,36 +197,28 @@
             this.MainOkButton.UseVisualStyleBackColor = true;
             this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
             // 
-            // AboutFlowLayout
+            // GeneralDivider1
             // 
-            this.AboutFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AboutFlowLayout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.AboutFlowLayout.Location = new System.Drawing.Point(3, 3);
-            this.AboutFlowLayout.Name = "AboutFlowLayout";
-            this.AboutFlowLayout.Size = new System.Drawing.Size(334, 376);
-            this.AboutFlowLayout.TabIndex = 0;
+            this.GeneralDivider1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.GeneralDivider1.Location = new System.Drawing.Point(5, 75);
+            this.GeneralDivider1.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralDivider1.Name = "GeneralDivider1";
+            this.GeneralDivider1.Size = new System.Drawing.Size(315, 2);
+            this.GeneralDivider1.TabIndex = 6;
             // 
-            // GeneralGameClearButton
+            // GeneralLaunchComboBox
             // 
-            this.GeneralGameClearButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralGameClearButton.Location = new System.Drawing.Point(3, 52);
-            this.GeneralGameClearButton.Name = "GeneralGameClearButton";
-            this.GeneralGameClearButton.Size = new System.Drawing.Size(88, 25);
-            this.GeneralGameClearButton.TabIndex = 3;
-            this.GeneralGameClearButton.Text = "Clear";
-            this.GeneralGameClearButton.UseVisualStyleBackColor = true;
-            this.GeneralGameClearButton.Click += new System.EventHandler(this.GeneralGameClearButton_Click);
-            // 
-            // DeleteMe
-            // 
-            this.DeleteMe.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.DeleteMe.Location = new System.Drawing.Point(97, 52);
-            this.DeleteMe.Name = "DeleteMe";
-            this.DeleteMe.Size = new System.Drawing.Size(88, 25);
-            this.DeleteMe.TabIndex = 4;
-            this.DeleteMe.Text = "Play";
-            this.DeleteMe.UseVisualStyleBackColor = true;
-            this.DeleteMe.Click += new System.EventHandler(this.DeleteMe_Click);
+            this.GeneralLaunchComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralLaunchComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GeneralLaunchComboBox.FormattingEnabled = true;
+            this.GeneralLaunchComboBox.Items.AddRange(new object[] {
+            "Play replay",
+            "Show details"});
+            this.GeneralLaunchComboBox.Location = new System.Drawing.Point(116, 87);
+            this.GeneralLaunchComboBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralLaunchComboBox.Name = "GeneralLaunchComboBox";
+            this.GeneralLaunchComboBox.Size = new System.Drawing.Size(213, 21);
+            this.GeneralLaunchComboBox.TabIndex = 7;
             // 
             // SettingsForm
             // 
@@ -192,9 +237,9 @@
             this.Text = "ROFL Player Settings";
             this.MainTabControl.ResumeLayout(false);
             this.GeneralTab.ResumeLayout(false);
-            this.AboutTab.ResumeLayout(false);
             this.GeneralFlowLayout.ResumeLayout(false);
             this.GeneralFlowLayout.PerformLayout();
+            this.AboutTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -213,5 +258,8 @@
         private System.Windows.Forms.FlowLayoutPanel AboutFlowLayout;
         private System.Windows.Forms.Button GeneralGameClearButton;
         private System.Windows.Forms.Button DeleteMe;
+        private System.Windows.Forms.Label GeneralLaunchLabel;
+        private System.Windows.Forms.Label GeneralDivider1;
+        private System.Windows.Forms.ComboBox GeneralLaunchComboBox;
     }
 }

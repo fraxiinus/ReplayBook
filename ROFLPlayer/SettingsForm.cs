@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using ROFLPlayer.Lib;
+using System.Linq;
+using System.Collections;
 
 namespace ROFLPlayer
 {
@@ -10,7 +12,10 @@ namespace ROFLPlayer
         {
             InitializeComponent();
             this.GeneralGameTextBox.AutoSize = false;
-            this.GeneralGameTextBox.Size = new System.Drawing.Size(234, 23);
+            this.GeneralGameTextBox.Size = new System.Drawing.Size(227, 23);
+            this.GeneralLaunchComboBox.AutoSize = false;
+            this.GeneralLaunchComboBox.Size = new System.Drawing.Size(213, 23);
+            this.GeneralLaunchComboBox.SelectedItem = this.GeneralLaunchComboBox.Items[RoflSettings.Default.StartupMode];
             MainWindowManager.Load(this);
         }
 
@@ -48,6 +53,8 @@ namespace ROFLPlayer
             this.GeneralGameTextBox.Text = string.Empty;
         }
 
+
+        // DELETE ME!!!
         private void DeleteMe_Click(object sender, EventArgs e)
         {
             var result = ReplayManager.StartReplay(@"C:\Users\Anchu\Documents\League of Legends\Replays\NA1-2808559688.rofl");
