@@ -39,6 +39,8 @@
             this.MainCancelButton = new System.Windows.Forms.Button();
             this.MainOkButton = new System.Windows.Forms.Button();
             this.AboutFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
+            this.GeneralGameClearButton = new System.Windows.Forms.Button();
+            this.DeleteMe = new System.Windows.Forms.Button();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.AboutTab.SuspendLayout();
@@ -83,6 +85,8 @@
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameLabel);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameTextBox);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameBrowseButton);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralGameClearButton);
+            this.GeneralFlowLayout.Controls.Add(this.DeleteMe);
             this.GeneralFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GeneralFlowLayout.Location = new System.Drawing.Point(3, 3);
             this.GeneralFlowLayout.Name = "GeneralFlowLayout";
@@ -149,6 +153,28 @@
             this.AboutFlowLayout.Size = new System.Drawing.Size(334, 376);
             this.AboutFlowLayout.TabIndex = 0;
             // 
+            // GeneralGameClearButton
+            // 
+            this.GeneralGameClearButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralGameClearButton.Location = new System.Drawing.Point(3, 52);
+            this.GeneralGameClearButton.Name = "GeneralGameClearButton";
+            this.GeneralGameClearButton.Size = new System.Drawing.Size(88, 25);
+            this.GeneralGameClearButton.TabIndex = 3;
+            this.GeneralGameClearButton.Text = "Clear";
+            this.GeneralGameClearButton.UseVisualStyleBackColor = true;
+            this.GeneralGameClearButton.Click += new System.EventHandler(this.GeneralGameClearButton_Click);
+            // 
+            // DeleteMe
+            // 
+            this.DeleteMe.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.DeleteMe.Location = new System.Drawing.Point(97, 52);
+            this.DeleteMe.Name = "DeleteMe";
+            this.DeleteMe.Size = new System.Drawing.Size(88, 25);
+            this.DeleteMe.TabIndex = 4;
+            this.DeleteMe.Text = "Play";
+            this.DeleteMe.UseVisualStyleBackColor = true;
+            this.DeleteMe.Click += new System.EventHandler(this.DeleteMe_Click);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -185,5 +211,7 @@
         private System.Windows.Forms.Button MainCancelButton;
         private System.Windows.Forms.Button MainOkButton;
         private System.Windows.Forms.FlowLayoutPanel AboutFlowLayout;
+        private System.Windows.Forms.Button GeneralGameClearButton;
+        private System.Windows.Forms.Button DeleteMe;
     }
 }
