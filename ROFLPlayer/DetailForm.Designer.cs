@@ -43,12 +43,18 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.MainOkButton = new System.Windows.Forms.Button();
             this.MainCancelButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.GeneralGamePictureBox = new System.Windows.Forms.PictureBox();
+            this.GeneralGameRegionLabel = new System.Windows.Forms.Label();
+            this.GeneralGameRegionDataLabel = new System.Windows.Forms.Label();
+            this.GeneralGameFileLabel = new System.Windows.Forms.Label();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
             this.AboutTab.SuspendLayout();
             this.AboutTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AboutLogoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GeneralGamePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -75,7 +81,12 @@
             // 
             // GeneralFlowLayout
             // 
+            this.GeneralFlowLayout.Controls.Add(this.GeneralGamePictureBox);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralGameFileLabel);
             this.GeneralFlowLayout.Controls.Add(this.GeneralDivider1);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralGameRegionLabel);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralGameRegionDataLabel);
+            this.GeneralFlowLayout.Controls.Add(this.button1);
             this.GeneralFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GeneralFlowLayout.Location = new System.Drawing.Point(3, 3);
             this.GeneralFlowLayout.Name = "GeneralFlowLayout";
@@ -86,7 +97,7 @@
             // GeneralDivider1
             // 
             this.GeneralDivider1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.GeneralDivider1.Location = new System.Drawing.Point(5, 10);
+            this.GeneralDivider1.Location = new System.Drawing.Point(5, 70);
             this.GeneralDivider1.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralDivider1.Name = "GeneralDivider1";
             this.GeneralDivider1.Size = new System.Drawing.Size(315, 2);
@@ -131,7 +142,7 @@
             // AboutLogoPictureBox
             // 
             this.AboutLogoPictureBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.AboutLogoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AboutLogoPictureBox.Image")));
+            this.AboutLogoPictureBox.Image = global::ROFLPlayer.Properties.Resources.iconBMP;
             this.AboutLogoPictureBox.Location = new System.Drawing.Point(125, 28);
             this.AboutLogoPictureBox.Name = "AboutLogoPictureBox";
             this.AboutLogoPictureBox.Size = new System.Drawing.Size(84, 96);
@@ -217,6 +228,58 @@
             this.MainCancelButton.UseVisualStyleBackColor = true;
             this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(89, 80);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // GeneralGamePictureBox
+            // 
+            this.GeneralGamePictureBox.Location = new System.Drawing.Point(5, 10);
+            this.GeneralGamePictureBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGamePictureBox.Name = "GeneralGamePictureBox";
+            this.GeneralGamePictureBox.Size = new System.Drawing.Size(50, 50);
+            this.GeneralGamePictureBox.TabIndex = 8;
+            this.GeneralGamePictureBox.TabStop = false;
+            // 
+            // GeneralGameRegionLabel
+            // 
+            this.GeneralGameRegionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralGameRegionLabel.AutoSize = true;
+            this.GeneralGameRegionLabel.Location = new System.Drawing.Point(5, 85);
+            this.GeneralGameRegionLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGameRegionLabel.Name = "GeneralGameRegionLabel";
+            this.GeneralGameRegionLabel.Size = new System.Drawing.Size(44, 13);
+            this.GeneralGameRegionLabel.TabIndex = 9;
+            this.GeneralGameRegionLabel.Text = "Region:";
+            // 
+            // GeneralGameRegionDataLabel
+            // 
+            this.GeneralGameRegionDataLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralGameRegionDataLabel.AutoSize = true;
+            this.GeneralGameRegionDataLabel.Location = new System.Drawing.Point(59, 85);
+            this.GeneralGameRegionDataLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGameRegionDataLabel.Name = "GeneralGameRegionDataLabel";
+            this.GeneralGameRegionDataLabel.Size = new System.Drawing.Size(22, 13);
+            this.GeneralGameRegionDataLabel.TabIndex = 10;
+            this.GeneralGameRegionDataLabel.Text = "NA";
+            // 
+            // GeneralGameFileLabel
+            // 
+            this.GeneralGameFileLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralGameFileLabel.AutoSize = true;
+            this.GeneralGameFileLabel.Location = new System.Drawing.Point(65, 28);
+            this.GeneralGameFileLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGameFileLabel.Name = "GeneralGameFileLabel";
+            this.GeneralGameFileLabel.Size = new System.Drawing.Size(108, 13);
+            this.GeneralGameFileLabel.TabIndex = 11;
+            this.GeneralGameFileLabel.Text = "NA1-2808559688.rofl";
+            // 
             // DetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -235,9 +298,11 @@
             this.MainTabControl.ResumeLayout(false);
             this.GeneralTab.ResumeLayout(false);
             this.GeneralFlowLayout.ResumeLayout(false);
+            this.GeneralFlowLayout.PerformLayout();
             this.AboutTab.ResumeLayout(false);
             this.AboutTableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AboutLogoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GeneralGamePictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -258,5 +323,10 @@
         private System.Windows.Forms.Label AboutCatLabel;
         private System.Windows.Forms.Button MainOkButton;
         private System.Windows.Forms.Button MainCancelButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox GeneralGamePictureBox;
+        private System.Windows.Forms.Label GeneralGameRegionLabel;
+        private System.Windows.Forms.Label GeneralGameRegionDataLabel;
+        private System.Windows.Forms.Label GeneralGameFileLabel;
     }
 }

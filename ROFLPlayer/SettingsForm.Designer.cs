@@ -247,7 +247,7 @@
             // AboutLogoPictureBox
             // 
             this.AboutLogoPictureBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.AboutLogoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AboutLogoPictureBox.Image")));
+            this.AboutLogoPictureBox.Image = global::ROFLPlayer.Properties.Resources.iconBMP;
             this.AboutLogoPictureBox.Location = new System.Drawing.Point(125, 28);
             this.AboutLogoPictureBox.Name = "AboutLogoPictureBox";
             this.AboutLogoPictureBox.Size = new System.Drawing.Size(84, 96);
