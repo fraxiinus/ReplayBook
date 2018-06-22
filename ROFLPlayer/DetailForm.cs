@@ -13,8 +13,11 @@ namespace ROFLPlayer
 {
     public partial class DetailForm : Form
     {
+        private string replaypath = "";
+
         public DetailForm(string replayPath)
         {
+            replaypath = replayPath;
             InitializeComponent();
             if (LeagueManager.CheckReplayFile(replayPath))
             {
@@ -35,6 +38,11 @@ namespace ROFLPlayer
         private void MainOkButton_Click(object sender, EventArgs e)
         {
             Environment.Exit(1);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LeagueManager.DumpJSON(replaypath);
         }
     }
 }

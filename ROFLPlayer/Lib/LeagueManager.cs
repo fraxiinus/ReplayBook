@@ -91,7 +91,28 @@ namespace ROFLPlayer.Lib
             if (!File.Exists(replaypath)) { return; }
             using (var filestream = new FileStream(replaypath, FileMode.Open))
             {
+                var initialbuffer = new byte[39680];
+                // First read 0x9A00 bytes into the array
+                filestream.Seek(0x120, SeekOrigin.Begin);
+                filestream.Read(initialbuffer, 0, 39424);
 
+                ///* // Read the rest of the file 2 bytes at a time, checking for blank byte buffer after json data
+                var bufferoffset = 39424;
+                while(initialbuffer[bufferoffset - 1] != 0x0 && initialbuffer[bufferoffset - 2] != 0x0)
+                {
+                    filestream.Read(initialbuffer, bufferoffset, 2);
+                    bufferoffset += 2;
+                }//*/
+
+                var outputsize = bufferoffset - 5;
+
+                Array.Resize(ref initialbuffer, outputsize);
+                
+
+                using (var outputstream = new FileStream("out.txt", FileMode.Create))
+                {
+                    outputstream.Write(initialbuffer, 0, outputsize);
+                }
             }
         }
     }
