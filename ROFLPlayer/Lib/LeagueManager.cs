@@ -11,6 +11,8 @@ namespace ROFLPlayer.Lib
 {
     public class LeagueManager
     {
+        private static Int32 replayreaduntil = 0x3000;
+
         public static bool CheckLeagueExecutable()
         {
             var lolpath = RoflSettings.Default.LoLExecLocation;
@@ -94,17 +96,26 @@ namespace ROFLPlayer.Lib
                 var initialbuffer = new byte[39680];
                 // First read 0x9A00 bytes into the array
                 filestream.Seek(0x120, SeekOrigin.Begin);
-                filestream.Read(initialbuffer, 0, 39424);
+                filestream.Read(initialbuffer, 0, replayreaduntil);
 
                 ///* // Read the rest of the file 2 bytes at a time, checking for blank byte buffer after json data
-                var bufferoffset = 39424;
+                var bufferoffset = replayreaduntil;
+                var lastbracketpos = 0;
                 while (initialbuffer[bufferoffset - 1] != 0x0 && initialbuffer[bufferoffset - 2] != 0x0)
                 {
                     filestream.Read(initialbuffer, bufferoffset, 2);
+                    if(initialbuffer[bufferoffset] == 0x7D)
+                    {
+                        lastbracketpos = bufferoffset;
+                    }
+                    if(initialbuffer[bufferoffset + 1] == 0x7D)
+                    {
+                        lastbracketpos = bufferoffset + 1;
+                    }
                     bufferoffset += 2;
                 }//*/
 
-                var outputsize = bufferoffset - 5;
+                var outputsize = lastbracketpos + 1;
 
                 Array.Resize(ref initialbuffer, outputsize);
 
@@ -124,17 +135,26 @@ namespace ROFLPlayer.Lib
                 var initialbuffer = new byte[39680];
                 // First read 0x9A00 bytes into the array
                 filestream.Seek(0x120, SeekOrigin.Begin);
-                filestream.Read(initialbuffer, 0, 39424);
+                filestream.Read(initialbuffer, 0, replayreaduntil);
 
                 ///* // Read the rest of the file 2 bytes at a time, checking for blank byte buffer after json data
-                var bufferoffset = 39424;
+                var bufferoffset = replayreaduntil;
+                var lastbracketpos = 0;
                 while (initialbuffer[bufferoffset - 1] != 0x0 && initialbuffer[bufferoffset - 2] != 0x0)
                 {
                     filestream.Read(initialbuffer, bufferoffset, 2);
+                    if (initialbuffer[bufferoffset] == 0x7D)
+                    {
+                        lastbracketpos = bufferoffset;
+                    }
+                    if (initialbuffer[bufferoffset + 1] == 0x7D)
+                    {
+                        lastbracketpos = bufferoffset + 1;
+                    }
                     bufferoffset += 2;
                 }//*/
 
-                var outputsize = bufferoffset - 5;
+                var outputsize = lastbracketpos + 1;
 
                 Array.Resize(ref initialbuffer, outputsize);
 
