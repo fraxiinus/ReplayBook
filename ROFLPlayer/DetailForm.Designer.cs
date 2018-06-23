@@ -413,6 +413,7 @@
             // 
             // GeneralDebugDumpJsonButton
             // 
+            this.GeneralDebugDumpJsonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(5, 329);
             this.GeneralDebugDumpJsonButton.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralDebugDumpJsonButton.Name = "GeneralDebugDumpJsonButton";
@@ -424,7 +425,7 @@
             // 
             // GeneralGameStatsButton
             // 
-            this.GeneralGameStatsButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralGameStatsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.GeneralGameStatsButton.Enabled = false;
             this.GeneralGameStatsButton.Location = new System.Drawing.Point(90, 329);
             this.GeneralGameStatsButton.Margin = new System.Windows.Forms.Padding(5);
@@ -436,7 +437,7 @@
             // 
             // GeneralStartReplayButton
             // 
-            this.GeneralStartReplayButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralStartReplayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.GeneralStartReplayButton.Location = new System.Drawing.Point(175, 329);
             this.GeneralStartReplayButton.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralStartReplayButton.Name = "GeneralStartReplayButton";
@@ -444,6 +445,7 @@
             this.GeneralStartReplayButton.TabIndex = 30;
             this.GeneralStartReplayButton.Text = "Play replay";
             this.GeneralStartReplayButton.UseVisualStyleBackColor = true;
+            this.GeneralStartReplayButton.Click += new System.EventHandler(this.GeneralStartReplayButton_Click);
             // 
             // AboutTab
             // 

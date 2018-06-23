@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using IWshRuntimeLibrary;
 using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 public struct ReplayRunResult
 {
@@ -14,7 +16,57 @@ namespace ROFLPlayer.Lib
     public class ReplayManager
     {
 
-        public static ReplayRunResult StartReplay(string replayPath)
+        public static Task<ReplayRunResult> StartReplay(string replayPath, Button button)
+        {
+            button.Enabled = false;
+            ReplayRunResult returnValue = new ReplayRunResult { Success = false, Message = "" };
+            var replayname = Path.GetFileNameWithoutExtension(replayPath);
+
+            // Get the path of the file executable
+            var gamePath = CheckGameDirValid();
+
+            if (string.IsNullOrEmpty(gamePath))
+            {
+                returnValue.Message = "Failed to find League of Legends executable path.";
+                return Task.FromResult<ReplayRunResult>(returnValue);
+            }
+
+            // Create a shortcut in the league directory
+            var shortcutFile = CreateAlias(gamePath, replayPath);
+
+            if (shortcutFile == null)
+            {
+                returnValue.Message = "Failed to create replay shortcut.";
+                return Task.FromResult<ReplayRunResult>(returnValue);
+            }
+
+            // Run the replay
+            var gamefolder = Path.GetDirectoryName(gamePath);
+            var shortcutPath = Path.Combine(gamefolder, Path.GetFileNameWithoutExtension(replayPath) + ".lnk");
+            var process = RunReplay(shortcutPath);
+
+            if (process == null)
+            {
+                returnValue.Message = "Failed to start League of Legends.";
+                return Task.FromResult<ReplayRunResult>(returnValue);
+            }
+
+            process.WaitForExit();
+            button.Enabled = true;
+
+            // Clean up when replay is done
+
+            if (!CleanUp(shortcutPath))
+            {
+                returnValue.Message = "Failed to delete created replay shortcut";
+                return Task.FromResult<ReplayRunResult>(returnValue);
+            }
+
+            returnValue.Success = true;
+            return Task.FromResult<ReplayRunResult>(returnValue);
+        }
+
+        public static Task<ReplayRunResult> StartReplay(string replayPath)
         {
             ReplayRunResult returnValue = new ReplayRunResult { Success = false, Message = "" };
             var replayname = Path.GetFileNameWithoutExtension(replayPath);
@@ -25,7 +77,7 @@ namespace ROFLPlayer.Lib
             if (string.IsNullOrEmpty(gamePath))
             {
                 returnValue.Message = "Failed to find League of Legends executable path.";
-                return returnValue;
+                return Task.FromResult<ReplayRunResult>(returnValue);
             }
 
             // Create a shortcut in the league directory
@@ -34,7 +86,7 @@ namespace ROFLPlayer.Lib
             if(shortcutFile == null)
             {
                 returnValue.Message = "Failed to create replay shortcut.";
-                return returnValue;
+                return Task.FromResult<ReplayRunResult>(returnValue);
             }
 
             // Run the replay
@@ -45,19 +97,21 @@ namespace ROFLPlayer.Lib
             if(process == null)
             {
                 returnValue.Message = "Failed to start League of Legends.";
-                return returnValue;
+                return Task.FromResult<ReplayRunResult>(returnValue);
             }
+
+            process.WaitForExit();
 
             // Clean up when replay is done
 
-            if(!CleanUp(shortcutPath))
+            if (!CleanUp(shortcutPath))
             {
                 returnValue.Message = "Failed to delete created replay shortcut";
-                return returnValue;
+                return Task.FromResult<ReplayRunResult>(returnValue);
             }
 
             returnValue.Success = true;
-            return returnValue;
+            return  Task.FromResult<ReplayRunResult>(returnValue);
         }
 
         private static string CheckGameDirValid()

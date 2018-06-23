@@ -76,5 +76,10 @@ namespace ROFLPlayer
             LeagueManager.DumpReplayJSON(replaypath);
             //LeagueManager.DumpJSON(replaypath);
         }
+
+        private void GeneralStartReplayButton_Click(object sender, EventArgs e)
+        {
+            var playtask = Task.Run(() => ReplayManager.StartReplay(replaypath, GeneralStartReplayButton));
+        }
     }
 }

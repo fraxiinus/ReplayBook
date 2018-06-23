@@ -36,10 +36,11 @@
             this.GeneralGameTextBox = new System.Windows.Forms.TextBox();
             this.GeneralGameBrowseButton = new System.Windows.Forms.Button();
             this.GeneralGameClearButton = new System.Windows.Forms.Button();
-            this.DeleteMe = new System.Windows.Forms.Button();
             this.GeneralDivider1 = new System.Windows.Forms.Label();
             this.GeneralLaunchLabel = new System.Windows.Forms.Label();
             this.GeneralLaunchComboBox = new System.Windows.Forms.ComboBox();
+            this.GeneralUsernameLabel = new System.Windows.Forms.Label();
+            this.GeneralUsernameTextBox = new System.Windows.Forms.TextBox();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
@@ -50,8 +51,6 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.MainCancelButton = new System.Windows.Forms.Button();
             this.MainOkButton = new System.Windows.Forms.Button();
-            this.GeneralUsernameLabel = new System.Windows.Forms.Label();
-            this.GeneralUsernameTextBox = new System.Windows.Forms.TextBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -88,7 +87,6 @@
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameTextBox);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameBrowseButton);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameClearButton);
-            this.GeneralFlowLayout.Controls.Add(this.DeleteMe);
             this.GeneralFlowLayout.Controls.Add(this.GeneralDivider1);
             this.GeneralFlowLayout.Controls.Add(this.GeneralLaunchLabel);
             this.GeneralFlowLayout.Controls.Add(this.GeneralLaunchComboBox);
@@ -146,18 +144,6 @@
             this.GeneralGameClearButton.UseVisualStyleBackColor = true;
             this.GeneralGameClearButton.Click += new System.EventHandler(this.GeneralGameClearButton_Click);
             // 
-            // DeleteMe
-            // 
-            this.DeleteMe.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.DeleteMe.Location = new System.Drawing.Point(201, 40);
-            this.DeleteMe.Margin = new System.Windows.Forms.Padding(5);
-            this.DeleteMe.Name = "DeleteMe";
-            this.DeleteMe.Size = new System.Drawing.Size(88, 25);
-            this.DeleteMe.TabIndex = 4;
-            this.DeleteMe.Text = "Play";
-            this.DeleteMe.UseVisualStyleBackColor = true;
-            this.DeleteMe.Click += new System.EventHandler(this.DeleteMe_Click);
-            // 
             // GeneralDivider1
             // 
             this.GeneralDivider1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -190,6 +176,25 @@
             this.GeneralLaunchComboBox.Name = "GeneralLaunchComboBox";
             this.GeneralLaunchComboBox.Size = new System.Drawing.Size(200, 21);
             this.GeneralLaunchComboBox.TabIndex = 7;
+            // 
+            // GeneralUsernameLabel
+            // 
+            this.GeneralUsernameLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralUsernameLabel.Location = new System.Drawing.Point(5, 121);
+            this.GeneralUsernameLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralUsernameLabel.Name = "GeneralUsernameLabel";
+            this.GeneralUsernameLabel.Size = new System.Drawing.Size(105, 13);
+            this.GeneralUsernameLabel.TabIndex = 8;
+            this.GeneralUsernameLabel.Text = "Player name:";
+            // 
+            // GeneralUsernameTextBox
+            // 
+            this.GeneralUsernameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralUsernameTextBox.Location = new System.Drawing.Point(120, 118);
+            this.GeneralUsernameTextBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralUsernameTextBox.Name = "GeneralUsernameTextBox";
+            this.GeneralUsernameTextBox.Size = new System.Drawing.Size(200, 20);
+            this.GeneralUsernameTextBox.TabIndex = 9;
             // 
             // AboutTab
             // 
@@ -317,25 +322,6 @@
             this.MainOkButton.UseVisualStyleBackColor = true;
             this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
             // 
-            // GeneralUsernameLabel
-            // 
-            this.GeneralUsernameLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralUsernameLabel.Location = new System.Drawing.Point(5, 121);
-            this.GeneralUsernameLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralUsernameLabel.Name = "GeneralUsernameLabel";
-            this.GeneralUsernameLabel.Size = new System.Drawing.Size(105, 13);
-            this.GeneralUsernameLabel.TabIndex = 8;
-            this.GeneralUsernameLabel.Text = "Player name:";
-            // 
-            // GeneralUsernameTextBox
-            // 
-            this.GeneralUsernameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralUsernameTextBox.Location = new System.Drawing.Point(120, 118);
-            this.GeneralUsernameTextBox.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralUsernameTextBox.Name = "GeneralUsernameTextBox";
-            this.GeneralUsernameTextBox.Size = new System.Drawing.Size(200, 20);
-            this.GeneralUsernameTextBox.TabIndex = 9;
-            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -374,7 +360,6 @@
         private System.Windows.Forms.Button MainCancelButton;
         private System.Windows.Forms.Button MainOkButton;
         private System.Windows.Forms.Button GeneralGameClearButton;
-        private System.Windows.Forms.Button DeleteMe;
         private System.Windows.Forms.Label GeneralLaunchLabel;
         private System.Windows.Forms.Label GeneralDivider1;
         private System.Windows.Forms.ComboBox GeneralLaunchComboBox;

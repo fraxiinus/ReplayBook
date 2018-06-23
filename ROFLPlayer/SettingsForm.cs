@@ -57,17 +57,6 @@ namespace ROFLPlayer
             this.GeneralGameTextBox.Text = string.Empty;
         }
 
-
-        // DELETE ME!!!
-        private void DeleteMe_Click(object sender, EventArgs e)
-        {
-            var result = ReplayManager.StartReplay(@"C:\Users\Anchu\Documents\League of Legends\Replays\NA1-2808559688.rofl");
-            if(!result.Success)
-            {
-                MessageBox.Show(result.Message, "Error Starting Replay", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void AboutGithubButton_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(@"https://github.com/andrew1421lee/ROFL-Player");
