@@ -21,6 +21,7 @@ namespace ROFLPlayer
             InitializeComponent();
             if (LeagueManager.CheckReplayFile(replayPath))
             {
+                
                 // Read replay file async and get the required data
                 var readtask = Task.Run(() => DetailWindowManager.GetFileData(replaypath));
 
@@ -33,14 +34,25 @@ namespace ROFLPlayer
                 // Otherwise set label and enable button
 
                 var filedata = readtask.Result;
-
                 GeneralGameVersionDataLabel.Text = filedata.GameVersion;
                 GeneralGameLengthDataLabel.Text = ((float)filedata.GameLength / 60000.0).ToString("0.00");
-                GeneralUserInfoNameLabel.Text = filedata.Champion;
-                GeneralUserInfoScoreLabel.Text = $"{filedata.Kills} / {filedata.Deaths} / {filedata.Assists}";
-                GeneralUserInfoCreepScoreLabel.Text = filedata.CreepScore.ToString();
-                GeneralUserInfoGoldLabel.Text = filedata.GoldEarned.ToString();
-                GeneralUserInfoWinLabel.Text = filedata.WonGame;
+
+                if (filedata.Champion == null)
+                {
+                    GeneralUserInfoNameLabel.Text = $"{RoflSettings.Default.Username} is not a player in this replay.";
+                    GeneralUserInfoScoreLabel.Text = "";
+                    GeneralUserInfoCreepScoreLabel.Text = "";
+                    GeneralUserInfoGoldLabel.Text = "";
+                    GeneralUserInfoWinLabel.Text = "";
+                }
+                else
+                {
+                    GeneralUserInfoNameLabel.Text = filedata.Champion;
+                    GeneralUserInfoScoreLabel.Text = $"{filedata.Kills} / {filedata.Deaths} / {filedata.Assists}";
+                    GeneralUserInfoCreepScoreLabel.Text = filedata.CreepScore.ToString();
+                    GeneralUserInfoGoldLabel.Text = filedata.GoldEarned.ToString();
+                    GeneralUserInfoWinLabel.Text = filedata.WonGame;
+                }
             }
             else
             {

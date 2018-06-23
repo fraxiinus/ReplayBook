@@ -235,7 +235,7 @@
             this.GeneralMatchIDDataLabel.Name = "GeneralMatchIDDataLabel";
             this.GeneralMatchIDDataLabel.Size = new System.Drawing.Size(149, 13);
             this.GeneralMatchIDDataLabel.TabIndex = 18;
-            this.GeneralMatchIDDataLabel.Text = "2808559688";
+            this.GeneralMatchIDDataLabel.Text = "-";
             // 
             // GeneralSetMatchIDButton
             // 
@@ -267,7 +267,7 @@
             this.GeneralGameRegionDataLabel.Name = "GeneralGameRegionDataLabel";
             this.GeneralGameRegionDataLabel.Size = new System.Drawing.Size(230, 13);
             this.GeneralGameRegionDataLabel.TabIndex = 25;
-            this.GeneralGameRegionDataLabel.Text = "NA";
+            this.GeneralGameRegionDataLabel.Text = "-";
             // 
             // GeneralGameModeLabel
             // 
@@ -287,7 +287,7 @@
             this.GeneralGameModeDataLabel.Name = "GeneralGameModeDataLabel";
             this.GeneralGameModeDataLabel.Size = new System.Drawing.Size(230, 13);
             this.GeneralGameModeDataLabel.TabIndex = 15;
-            this.GeneralGameModeDataLabel.Text = "ARAM";
+            this.GeneralGameModeDataLabel.Text = "-";
             // 
             // GeneralGameMapLabel
             // 
@@ -307,7 +307,7 @@
             this.GeneralGameMapDataLabel.Name = "GeneralGameMapDataLabel";
             this.GeneralGameMapDataLabel.Size = new System.Drawing.Size(230, 13);
             this.GeneralGameMapDataLabel.TabIndex = 23;
-            this.GeneralGameMapDataLabel.Text = "Howling Abyss";
+            this.GeneralGameMapDataLabel.Text = "-";
             // 
             // GeneralGameDateLabel
             // 
@@ -327,7 +327,7 @@
             this.GeneralGameDateDataLabel.Name = "GeneralGameDateDataLabel";
             this.GeneralGameDateDataLabel.Size = new System.Drawing.Size(230, 13);
             this.GeneralGameDateDataLabel.TabIndex = 21;
-            this.GeneralGameDateDataLabel.Text = "Monday, June 18, 2018, 10:31 PM";
+            this.GeneralGameDateDataLabel.Text = "-";
             // 
             // GeneralDivider3
             // 
