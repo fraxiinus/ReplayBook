@@ -344,6 +344,7 @@
             this.GeneralUserChampionPictureBox.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralUserChampionPictureBox.Name = "GeneralUserChampionPictureBox";
             this.GeneralUserChampionPictureBox.Size = new System.Drawing.Size(50, 50);
+            this.GeneralUserChampionPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.GeneralUserChampionPictureBox.TabIndex = 27;
             this.GeneralUserChampionPictureBox.TabStop = false;
             // 

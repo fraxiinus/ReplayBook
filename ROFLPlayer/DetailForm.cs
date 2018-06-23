@@ -30,8 +30,17 @@ namespace ROFLPlayer
                 GeneralGameFileLabel.Text = filename;
 
                 // Read replay file name for match ID
-                // Query RIOT API for match information
-                // Otherwise set label and enable button
+                var matchid = DetailWindowManager.FindMatchIDInFilename(filename);
+                if(matchid != 0)
+                {
+                    // Query RIOT API for match information
+                    GeneralMatchIDDataLabel.Text = matchid.ToString();
+                }
+                else
+                {
+                    // Otherwise set label and enable button
+                    GeneralMatchIDDataLabel.Text = "Could not find match ID";
+                }
 
                 var filedata = readtask.Result;
                 GeneralGameVersionDataLabel.Text = filedata.GameVersion;
@@ -49,9 +58,11 @@ namespace ROFLPlayer
                 {
                     GeneralUserInfoNameLabel.Text = filedata.Champion;
                     GeneralUserInfoScoreLabel.Text = $"{filedata.Kills} / {filedata.Deaths} / {filedata.Assists}";
-                    GeneralUserInfoCreepScoreLabel.Text = filedata.CreepScore.ToString();
-                    GeneralUserInfoGoldLabel.Text = filedata.GoldEarned.ToString();
+                    GeneralUserInfoCreepScoreLabel.Text = filedata.CreepScore.ToString() + " CS";
+                    GeneralUserInfoGoldLabel.Text = filedata.GoldEarned.ToString("#,##0") + " Gold";
                     GeneralUserInfoWinLabel.Text = filedata.WonGame;
+
+                    GeneralUserChampionPictureBox.Load(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + filedata.Champion + ".png");
                 }
             }
             else

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -27,6 +27,19 @@ namespace ROFLPlayer.Lib
         public static string GetReplayFilename(string path)
         {
             return Path.GetFileName(path);
+        }
+
+        public static long FindMatchIDInFilename(string filename)
+        {
+            var match = Regex.Match(filename, "\\d{10}");
+            if(match.Success)
+            {
+                return long.Parse(match.Value);
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public static Task<FileBaseData> GetFileData(string path)
