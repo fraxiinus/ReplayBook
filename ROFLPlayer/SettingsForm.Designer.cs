@@ -41,8 +41,6 @@
             this.GeneralLaunchLabel = new System.Windows.Forms.Label();
             this.GeneralLaunchComboBox = new System.Windows.Forms.ComboBox();
             this.AboutTab = new System.Windows.Forms.TabPage();
-            this.MainCancelButton = new System.Windows.Forms.Button();
-            this.MainOkButton = new System.Windows.Forms.Button();
             this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
             this.AboutTitleLabel = new System.Windows.Forms.Label();
@@ -50,6 +48,10 @@
             this.AboutAuthorLabel = new System.Windows.Forms.Label();
             this.AboutGithubButton = new System.Windows.Forms.Button();
             this.AboutCatLabel = new System.Windows.Forms.Label();
+            this.MainCancelButton = new System.Windows.Forms.Button();
+            this.MainOkButton = new System.Windows.Forms.Button();
+            this.GeneralUsernameLabel = new System.Windows.Forms.Label();
+            this.GeneralUsernameTextBox = new System.Windows.Forms.TextBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -90,6 +92,8 @@
             this.GeneralFlowLayout.Controls.Add(this.GeneralDivider1);
             this.GeneralFlowLayout.Controls.Add(this.GeneralLaunchLabel);
             this.GeneralFlowLayout.Controls.Add(this.GeneralLaunchComboBox);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralUsernameLabel);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralUsernameTextBox);
             this.GeneralFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GeneralFlowLayout.Location = new System.Drawing.Point(3, 3);
             this.GeneralFlowLayout.Name = "GeneralFlowLayout";
@@ -114,7 +118,7 @@
             this.GeneralGameTextBox.Location = new System.Drawing.Point(102, 10);
             this.GeneralGameTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralGameTextBox.Name = "GeneralGameTextBox";
-            this.GeneralGameTextBox.Size = new System.Drawing.Size(227, 20);
+            this.GeneralGameTextBox.Size = new System.Drawing.Size(218, 20);
             this.GeneralGameTextBox.TabIndex = 1;
             // 
             // GeneralGameBrowseButton
@@ -166,11 +170,10 @@
             // GeneralLaunchLabel
             // 
             this.GeneralLaunchLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralLaunchLabel.AutoSize = true;
             this.GeneralLaunchLabel.Location = new System.Drawing.Point(5, 91);
             this.GeneralLaunchLabel.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralLaunchLabel.Name = "GeneralLaunchLabel";
-            this.GeneralLaunchLabel.Size = new System.Drawing.Size(101, 13);
+            this.GeneralLaunchLabel.Size = new System.Drawing.Size(105, 13);
             this.GeneralLaunchLabel.TabIndex = 5;
             this.GeneralLaunchLabel.Text = "Double-click action:";
             // 
@@ -182,10 +185,10 @@
             this.GeneralLaunchComboBox.Items.AddRange(new object[] {
             "Play replay",
             "Show details"});
-            this.GeneralLaunchComboBox.Location = new System.Drawing.Point(116, 87);
+            this.GeneralLaunchComboBox.Location = new System.Drawing.Point(120, 87);
             this.GeneralLaunchComboBox.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralLaunchComboBox.Name = "GeneralLaunchComboBox";
-            this.GeneralLaunchComboBox.Size = new System.Drawing.Size(213, 21);
+            this.GeneralLaunchComboBox.Size = new System.Drawing.Size(200, 21);
             this.GeneralLaunchComboBox.TabIndex = 7;
             // 
             // AboutTab
@@ -198,26 +201,6 @@
             this.AboutTab.TabIndex = 2;
             this.AboutTab.Text = "About";
             this.AboutTab.UseVisualStyleBackColor = true;
-            // 
-            // MainCancelButton
-            // 
-            this.MainCancelButton.Location = new System.Drawing.Point(275, 434);
-            this.MainCancelButton.Name = "MainCancelButton";
-            this.MainCancelButton.Size = new System.Drawing.Size(75, 23);
-            this.MainCancelButton.TabIndex = 2;
-            this.MainCancelButton.Text = "Cancel";
-            this.MainCancelButton.UseVisualStyleBackColor = true;
-            this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
-            // 
-            // MainOkButton
-            // 
-            this.MainOkButton.Location = new System.Drawing.Point(194, 434);
-            this.MainOkButton.Name = "MainOkButton";
-            this.MainOkButton.Size = new System.Drawing.Size(75, 23);
-            this.MainOkButton.TabIndex = 3;
-            this.MainOkButton.Text = "OK";
-            this.MainOkButton.UseVisualStyleBackColor = true;
-            this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
             // 
             // AboutTableLayoutPanel
             // 
@@ -314,6 +297,45 @@
             this.AboutCatLabel.Text = "buff nidalee";
             this.AboutCatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // MainCancelButton
+            // 
+            this.MainCancelButton.Location = new System.Drawing.Point(275, 434);
+            this.MainCancelButton.Name = "MainCancelButton";
+            this.MainCancelButton.Size = new System.Drawing.Size(75, 23);
+            this.MainCancelButton.TabIndex = 2;
+            this.MainCancelButton.Text = "Cancel";
+            this.MainCancelButton.UseVisualStyleBackColor = true;
+            this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
+            // 
+            // MainOkButton
+            // 
+            this.MainOkButton.Location = new System.Drawing.Point(194, 434);
+            this.MainOkButton.Name = "MainOkButton";
+            this.MainOkButton.Size = new System.Drawing.Size(75, 23);
+            this.MainOkButton.TabIndex = 3;
+            this.MainOkButton.Text = "OK";
+            this.MainOkButton.UseVisualStyleBackColor = true;
+            this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
+            // 
+            // GeneralUsernameLabel
+            // 
+            this.GeneralUsernameLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralUsernameLabel.Location = new System.Drawing.Point(5, 121);
+            this.GeneralUsernameLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralUsernameLabel.Name = "GeneralUsernameLabel";
+            this.GeneralUsernameLabel.Size = new System.Drawing.Size(105, 13);
+            this.GeneralUsernameLabel.TabIndex = 8;
+            this.GeneralUsernameLabel.Text = "Player name:";
+            // 
+            // GeneralUsernameTextBox
+            // 
+            this.GeneralUsernameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralUsernameTextBox.Location = new System.Drawing.Point(120, 118);
+            this.GeneralUsernameTextBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralUsernameTextBox.Name = "GeneralUsernameTextBox";
+            this.GeneralUsernameTextBox.Size = new System.Drawing.Size(200, 20);
+            this.GeneralUsernameTextBox.TabIndex = 9;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -363,5 +385,7 @@
         private System.Windows.Forms.Label AboutAuthorLabel;
         private System.Windows.Forms.Button AboutGithubButton;
         private System.Windows.Forms.Label AboutCatLabel;
+        private System.Windows.Forms.Label GeneralUsernameLabel;
+        private System.Windows.Forms.TextBox GeneralUsernameTextBox;
     }
 }

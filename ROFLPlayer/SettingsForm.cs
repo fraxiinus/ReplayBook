@@ -13,10 +13,13 @@ namespace ROFLPlayer
         {
             InitializeComponent();
             this.GeneralGameTextBox.AutoSize = false;
-            this.GeneralGameTextBox.Size = new System.Drawing.Size(227, 23);
+            this.GeneralGameTextBox.Size = new System.Drawing.Size(218, 23);
             this.GeneralLaunchComboBox.AutoSize = false;
-            this.GeneralLaunchComboBox.Size = new System.Drawing.Size(213, 23);
+            this.GeneralLaunchComboBox.Size = new System.Drawing.Size(200, 23);
+            this.GeneralUsernameTextBox.AutoSize = false;
+            this.GeneralUsernameTextBox.Size = new Size(200, 23);
             this.GeneralLaunchComboBox.SelectedItem = this.GeneralLaunchComboBox.Items[RoflSettings.Default.StartupMode];
+            this.GeneralUsernameTextBox.Text = RoflSettings.Default.Username;
             MainWindowManager.Load(this);
         }
 
