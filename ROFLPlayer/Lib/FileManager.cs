@@ -31,7 +31,6 @@ namespace ROFLPlayer.Lib
         // If the image is not downloaded already, then download it, otherwise return already downloaded image
         public static async Task<string> GetChampionIconImage(string champname)
         {
-            Thread.Sleep(10000);
             if (string.IsNullOrEmpty(champname)) { return null; }
 
             var cachepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");

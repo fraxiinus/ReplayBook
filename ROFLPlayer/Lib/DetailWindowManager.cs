@@ -81,7 +81,16 @@ namespace ROFLPlayer.Lib
                         try
                         {
                             champimage.WaitOnLoad = false;
-                            champimage.LoadAsync(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
+
+                            var imgtask = Task.Run<string>(() => FileManager.GetChampionIconImage(player.Champion));
+
+                            imgtask.ContinueWith(x => 
+                            {
+                                if (!string.IsNullOrEmpty(x.Result))
+                                {
+                                    champimage.LoadAsync(x.Result);
+                                }
+                            });
 
                         }
                         catch (WebException) { }
@@ -114,7 +123,16 @@ namespace ROFLPlayer.Lib
                         try
                         {
                             champimage.WaitOnLoad = false;
-                            champimage.LoadAsync(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
+                            var imgtask = Task.Run<string>(() => FileManager.GetChampionIconImage(player.Champion));
+
+                            imgtask.ContinueWith(x =>
+                            {
+                                if (!string.IsNullOrEmpty(x.Result))
+                                {
+                                    champimage.LoadAsync(x.Result);
+                                }
+                            });
+
                         }
                         catch (WebException) { }
 
