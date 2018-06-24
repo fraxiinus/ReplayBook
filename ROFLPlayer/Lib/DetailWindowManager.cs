@@ -58,36 +58,47 @@ namespace ROFLPlayer.Lib
             }
         }
 
-        public static Task<bool> PopulateGeneralGameData(FileBaseData data, Form form)
+        public static Task<bool> PopulateGeneralReplayData(FileBaseData data, Form form)
         {
+            form.BeginInvoke((Action)(() =>
+            {
+                form.Controls.Find("GeneralGameVersionDataLabel", true)[0].Text = data.GameVersion;
+                form.Controls.Find("GeneralGameLengthDataLabel", true)[0].Text = ((float)data.GameLength / 60000.0).ToString("0.00");
+            }));
+
             if (data.BluePlayers == null)
             { }
             else
             {
-                form.Controls.Find("GeneralMatchWinnerLabel", true)[0].Text = data.WonGame;
+                form.BeginInvoke((Action)(() => {
+                    form.Controls.Find("GeneralMatchWinnerLabel", true)[0].Text = data.WonGame;
+                }));
 
                 var counter = 1;
                 foreach (var player in data.BluePlayers)
                 {
-                    var namelabel = (Label)form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
-                    namelabel.Text = player.Name;
+                    form.BeginInvoke((Action)(() => {
+                        var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
+                        namelabel.Text = player.Name;
 
-                    var champimage = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
-                    new ToolTip().SetToolTip(champimage, player.Champion);
+                        var champimage = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
+                        counter++;
+                        new ToolTip().SetToolTip(champimage, player.Champion);
 
-                    try
-                    {
-                        champimage.Load(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
-                        
-                    }
-                    catch (WebException) { }
+                        try
+                        {
+                            champimage.Load(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
+
+                        }
+                        catch (WebException) { }
+
+                        if (player.Name.ToUpper() == RoflSettings.Default.Username.ToUpper())
+                        {
+                            namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
+                        }
+                    }));
+
                     
-                    if(player.Name.ToUpper() == RoflSettings.Default.Username.ToUpper())
-                    {
-                        namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
-                    }
-
-                    counter++;
                 }
             }
 
@@ -98,25 +109,28 @@ namespace ROFLPlayer.Lib
                 var counter = 6;
                 foreach (var player in data.PurplePlayers)
                 {
-                    var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
-                    namelabel.Text = player.Name;
-
-                    var champimage = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
-                    new ToolTip().SetToolTip(champimage, player.Champion);
-
-                    try
+                    form.BeginInvoke((Action)(() =>
                     {
-                        champimage.Load(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
+                        var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
+                        namelabel.Text = player.Name;
+
+                        var champimage = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
+                        counter++;
+                        new ToolTip().SetToolTip(champimage, player.Champion);
+
+                        try
+                        {
+                            champimage.Load(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
+
+                        }
+                        catch (WebException) { }
+
+                        if (player.Name.ToUpper() == RoflSettings.Default.Username.ToUpper())
+                        {
+                            namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
+                        }
                         
-                    }
-                    catch (WebException) { }
-
-                    if (player.Name.ToUpper() == RoflSettings.Default.Username.ToUpper())
-                    {
-                        namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
-                    }
-
-                    counter++;
+                    }));
                 }
             }
 
