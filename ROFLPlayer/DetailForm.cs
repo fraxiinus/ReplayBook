@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ROFLPlayer.Lib;
+using System.Net;
 
 namespace ROFLPlayer
 {
@@ -34,36 +35,21 @@ namespace ROFLPlayer
                 if(matchid != 0)
                 {
                     // Query RIOT API for match information
-                    GeneralMatchIDDataLabel.Text = matchid.ToString();
+                    MatchIDDataLabel.Text = matchid.ToString();
                 }
                 else
                 {
                     // Otherwise set label and enable button
-                    GeneralMatchIDDataLabel.Text = "Could not find match ID";
+                    MatchIDDataLabel.Text = "Could not find match ID";
                 }
 
                 var filedata = readtask.Result;
                 GeneralGameVersionDataLabel.Text = filedata.GameVersion;
                 GeneralGameLengthDataLabel.Text = ((float)filedata.GameLength / 60000.0).ToString("0.00");
 
-                if (filedata.Champion == null)
-                {
-                    GeneralUserInfoNameLabel.Text = $"{RoflSettings.Default.Username} is not a player in this replay.";
-                    GeneralUserInfoScoreLabel.Text = "";
-                    GeneralUserInfoCreepScoreLabel.Text = "";
-                    GeneralUserInfoGoldLabel.Text = "";
-                    GeneralUserInfoWinLabel.Text = "";
-                }
-                else
-                {
-                    GeneralUserInfoNameLabel.Text = filedata.Champion;
-                    GeneralUserInfoScoreLabel.Text = $"{filedata.Kills} / {filedata.Deaths} / {filedata.Assists}";
-                    GeneralUserInfoCreepScoreLabel.Text = filedata.CreepScore.ToString() + " CS";
-                    GeneralUserInfoGoldLabel.Text = filedata.GoldEarned.ToString("#,##0") + " Gold";
-                    GeneralUserInfoWinLabel.Text = filedata.WonGame;
 
-                    GeneralUserChampionPictureBox.Load(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + filedata.Champion + ".png");
-                }
+                DetailWindowManager.PopulateGeneralGameData(filedata, this);
+                
             }
             else
             {

@@ -6,20 +6,36 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
+using System.Windows.Forms;
+using System.Net;
+
 
 namespace ROFLPlayer.Lib
 {
+    public struct PlayerInfo
+    {
+        public string Champion;
+        public string Name;
+
+        public string Team;
+        public string Win;
+    }
+
     public struct FileBaseData
     {
         public long GameLength;
         public string GameVersion;
+        public PlayerInfo[] BluePlayers;
+        public PlayerInfo[] PurplePlayers;
+        public string WonGame;
+
+        /*
         public string Champion;
         public int CreepScore;
         public long GoldEarned;
-        public string WonGame;
         public int Kills;
         public int Deaths;
-        public int Assists;
+        public int Assists;*/
     }
 
     public class DetailWindowManager
@@ -42,6 +58,71 @@ namespace ROFLPlayer.Lib
             }
         }
 
+        public static Task<bool> PopulateGeneralGameData(FileBaseData data, Form form)
+        {
+            if (data.BluePlayers == null)
+            { }
+            else
+            {
+                form.Controls.Find("GeneralMatchWinnerLabel", true)[0].Text = data.WonGame;
+
+                var counter = 1;
+                foreach (var player in data.BluePlayers)
+                {
+                    var namelabel = (Label)form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
+                    namelabel.Text = player.Name;
+
+                    var champimage = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
+                    new ToolTip().SetToolTip(champimage, player.Champion);
+
+                    try
+                    {
+                        champimage.Load(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
+                        
+                    }
+                    catch (WebException) { }
+                    
+                    if(player.Name.ToUpper() == RoflSettings.Default.Username.ToUpper())
+                    {
+                        namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
+                    }
+
+                    counter++;
+                }
+            }
+
+            if (data.PurplePlayers == null)
+            { }
+            else
+            {
+                var counter = 6;
+                foreach (var player in data.PurplePlayers)
+                {
+                    var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
+                    namelabel.Text = player.Name;
+
+                    var champimage = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
+                    new ToolTip().SetToolTip(champimage, player.Champion);
+
+                    try
+                    {
+                        champimage.Load(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
+                        
+                    }
+                    catch (WebException) { }
+
+                    if (player.Name.ToUpper() == RoflSettings.Default.Username.ToUpper())
+                    {
+                        namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
+                    }
+
+                    counter++;
+                }
+            }
+
+            return Task.FromResult<bool>(true);
+        }
+
         public static Task<FileBaseData> GetFileData(string path)
         {
             FileBaseData returnVal = new FileBaseData();
@@ -53,30 +134,42 @@ namespace ROFLPlayer.Lib
 
             var playerData = JArray.Parse(((string)basicData["statsJson"]).Replace(@"\", ""));
 
-            var userinfo =
+            var blueplayers =
                 (from user in playerData
-                where ((string)user["NAME"]).ToUpper() == RoflSettings.Default.Username.ToUpper()
-                select user).FirstOrDefault();
+                 where (string)user["TEAM"] == "100"
+                 select new PlayerInfo { Name = (string)user["NAME"], Champion = (string)user["SKIN"], Team = (string)user["TEAM"],  Win = (string)user["WIN"]}).ToArray();
 
-            if (userinfo != null)
+            var purpleplayers =
+                (from user in playerData
+                 where (string)user["TEAM"] == "200"
+                 select new PlayerInfo { Name = (string)user["NAME"], Champion = (string)user["SKIN"], Team = (string)user["TEAM"], Win = (string)user["WIN"] }).ToArray();
+
+
+            if (blueplayers.Length > 0)
             {
-                returnVal.Champion = (string)userinfo["SKIN"];
-                returnVal.CreepScore = (int)userinfo["MINIONS_KILLED"];
-                returnVal.GoldEarned = (long)userinfo["GOLD_EARNED"];
-                returnVal.Kills = (int)userinfo["CHAMPIONS_KILLED"];
-                returnVal.Deaths = (int)userinfo["NUM_DEATHS"];
-                returnVal.Assists = (int)userinfo["ASSISTS"];
-                returnVal.WonGame = (string)userinfo["WIN"];
+                if(string.Equals(blueplayers[0].Win, "Win"))
+                {
+                    returnVal.WonGame = "Blue Victory";
+                }
+                else
+                {
+                    returnVal.WonGame = "Purple Victory";
+                }
+
+                returnVal.BluePlayers = blueplayers;
             }
             else
             {
-                returnVal.Champion = null;
-                returnVal.CreepScore = 0;
-                returnVal.GoldEarned = 0;
-                returnVal.Kills = 0;
-                returnVal.Deaths = 0;
-                returnVal.Assists = 0;
-                returnVal.WonGame = null;
+                returnVal.BluePlayers = null;
+            }
+
+            if(purpleplayers.Length > 0)
+            {
+                returnVal.PurplePlayers = purpleplayers;
+            }
+            else
+            {
+                returnVal.PurplePlayers = null;
             }
 
             return Task.FromResult<FileBaseData>(returnVal);
