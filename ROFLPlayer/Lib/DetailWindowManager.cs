@@ -87,7 +87,8 @@ namespace ROFLPlayer.Lib
 
                         try
                         {
-                            champimage.Load(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
+                            champimage.WaitOnLoad = false;
+                            champimage.LoadAsync(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
 
                         }
                         catch (WebException) { }
@@ -120,8 +121,8 @@ namespace ROFLPlayer.Lib
 
                         try
                         {
-                            champimage.Load(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
-
+                            champimage.WaitOnLoad = false;
+                            champimage.LoadAsync(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + player.Champion + ".png");
                         }
                         catch (WebException) { }
 
