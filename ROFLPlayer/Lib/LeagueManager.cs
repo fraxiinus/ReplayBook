@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace ROFLPlayer.Lib
 {
+
     public class LeagueManager
     {
         private static Int32 replayreaduntil = 0x3000;
@@ -88,9 +89,12 @@ namespace ROFLPlayer.Lib
             return false;
         }
 
-        public static void DumpReplayJSON(string replaypath)
+        public static RunResult DumpReplayJSON(string replaypath)
         {
-            if (!File.Exists(replaypath)) { return; }
+            if (!File.Exists(replaypath)) { return new RunResult { Success = false, Message = "Replay file does not exist." }; }
+
+            var outputpath = Path.Combine(Path.GetDirectoryName(replaypath), Path.GetFileNameWithoutExtension(replaypath) + ".txt");
+
             using (var filestream = new FileStream(replaypath, FileMode.Open))
             {
                 var initialbuffer = new byte[39680];
@@ -119,12 +123,13 @@ namespace ROFLPlayer.Lib
 
                 Array.Resize(ref initialbuffer, outputsize);
 
-
-                using (var outputstream = new FileStream("out.txt", FileMode.Create))
+                using (var outputstream = new FileStream(outputpath, FileMode.Create))
                 {
                     outputstream.Write(initialbuffer, 0, outputsize);
                 }
             }
+
+            return new RunResult { Success = true, Message = "Replay JSON dumped!" };
         }
 
         public static string GetReplayJSON(string path)

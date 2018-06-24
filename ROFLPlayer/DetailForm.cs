@@ -68,7 +68,15 @@ namespace ROFLPlayer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            LeagueManager.DumpReplayJSON(replaypath);
+            var result = LeagueManager.DumpReplayJSON(replaypath);
+            if(result.Success)
+            {
+                MessageBox.Show(result.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             //LeagueManager.DumpJSON(replaypath);
         }
 
