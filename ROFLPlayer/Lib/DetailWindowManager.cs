@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Windows.Forms;
 using System.Net;
+using System.Threading;
 
 
 namespace ROFLPlayer.Lib
@@ -140,6 +141,7 @@ namespace ROFLPlayer.Lib
 
         public static Task<FileBaseData> GetFileData(string path)
         {
+            
             FileBaseData returnVal = new FileBaseData();
 
             var basicData = JObject.Parse(LeagueManager.GetReplayJSON(path));

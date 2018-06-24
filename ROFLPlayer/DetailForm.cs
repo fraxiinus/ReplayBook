@@ -28,9 +28,9 @@ namespace ROFLPlayer
             {
 
                 // Read replay file async and get the required data
-                var readtask = Task.Run<FileBaseData>(() => DetailWindowManager.GetFileData(replaypath));
+                var readtask = Task.Run<FileBaseData>(() => DetailWindowManager.GetFileData(replaypath));   // This is properly run in a thread!
 
-                readtask.ContinueWith(x => DetailWindowManager.PopulateGeneralReplayData(readtask.Result, this));
+                readtask.ContinueWith(x => DetailWindowManager.PopulateGeneralReplayData(readtask.Result, this));   // this is properly run in a thread!
 
                 var filename = DetailWindowManager.GetReplayFilename(replaypath);
 
@@ -48,9 +48,6 @@ namespace ROFLPlayer
                     // Otherwise set label and enable button
                     MatchIDDataLabel.Text = "Could not find match ID";
                 }
-
-                //DetailWindowManager.PopulateGeneralGameData(filedata, this);
-
             }
             else
             {
