@@ -29,14 +29,6 @@ namespace ROFLPlayer.Lib
         public PlayerInfo[] BluePlayers;
         public PlayerInfo[] PurplePlayers;
         public string WonGame;
-
-        /*
-        public string Champion;
-        public int CreepScore;
-        public long GoldEarned;
-        public int Kills;
-        public int Deaths;
-        public int Assists;*/
     }
 
     public class DetailWindowManager

@@ -11,11 +11,30 @@ namespace ROFLPlayer
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static Mutex mutex = new Mutex(true, "{f847ab42-e13e-43ba-990a-1f781d5966e4}");
+        //static Mutex mutex = new Mutex(true, "{f847ab42-e13e-43ba-990a-1f781d5966e4}");
 
-        [STAThread]
+        //[STAThread]
         static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            // StartupMode, 0  = show detailed information, 1 = launch replay immediately
+            if (args.Length == 0)
+            {
+                Application.Run(new SettingsForm());
+            }
+            else
+            {
+                if (RoflSettings.Default.StartupMode == 0)
+                {
+                    ReplayManager.StartReplay(args[0]);
+                }
+                else
+                {
+                    Application.Run(new DetailForm(args[0]));
+                }
+            }
+            /*
             if(mutex.WaitOne(TimeSpan.Zero, true))
             {
                 Application.EnableVisualStyles();
@@ -55,7 +74,7 @@ namespace ROFLPlayer
                     WinMethods.WM_SHOWME,
                     IntPtr.Zero,
                     IntPtr.Zero);
-            }
+            }*/
         }
     }
 }
