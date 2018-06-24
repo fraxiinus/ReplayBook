@@ -163,7 +163,7 @@ namespace ROFLPlayer.Lib
 
                 Array.Resize(ref initialbuffer, outputsize);
 
-                return Encoding.Default.GetString(initialbuffer);
+                return Encoding.UTF8.GetString(initialbuffer);
             }
         }
     }
