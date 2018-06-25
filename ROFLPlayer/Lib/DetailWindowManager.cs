@@ -55,7 +55,10 @@ namespace ROFLPlayer.Lib
             form.BeginInvoke((Action)(() =>
             {
                 form.Controls.Find("GeneralGameVersionDataLabel", true)[0].Text = data.GameVersion;
-                form.Controls.Find("GeneralGameLengthDataLabel", true)[0].Text = ((float)data.GameLength / 60000.0).ToString("0.00");
+                var time = ((decimal)(data.GameLength / 1000) / 60);
+                var minutes = (int)time;
+                var seconds = (int)((time % 1.0m) * 60);
+                form.Controls.Find("GeneralGameLengthDataLabel", true)[0].Text = $"{minutes} minutes and {seconds} seconds";
             }));
 
             if (data.BluePlayers == null)
