@@ -16,6 +16,7 @@ namespace ROFLPlayer
     {
         private string replaypath = "";
 
+
         public DetailForm(string replayPath)
         {
             replaypath = replayPath;
@@ -30,7 +31,7 @@ namespace ROFLPlayer
                 // Read replay file async and get the required data
                 var readtask = Task.Run<FileBaseData>(() => DetailWindowManager.GetFileData(replaypath));   // This is properly run in a thread!
 
-                readtask.ContinueWith(x => DetailWindowManager.PopulateGeneralReplayData(readtask.Result, this));   // this is properly run in a thread!
+                readtask.ContinueWith(x => { DetailWindowManager.PopulateGeneralReplayData(readtask.Result, this); });   // this is properly run in a thread!
 
                 var filename = DetailWindowManager.GetReplayFilename(replaypath);
 
@@ -41,12 +42,14 @@ namespace ROFLPlayer
                 if (matchid != 0)
                 {
                     // Query RIOT API for match information
-                    MatchIDDataLabel.Text = matchid.ToString();
+                    GeneralGameMatchIDData.Text = matchid.ToString();
+                    
                 }
                 else
                 {
                     // Otherwise set label and enable button
-                    MatchIDDataLabel.Text = "Could not find match ID";
+                    GeneralGameMatchIDData.Text = "Not found";
+                    GeneralSetMatchIDButton.Enabled = true;
                 }
             }
             else

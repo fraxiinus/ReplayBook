@@ -17,7 +17,6 @@ namespace ROFLPlayer.Lib
     {
         public string Champion;
         public string Name;
-
         public string Team;
         public string Win;
     }
