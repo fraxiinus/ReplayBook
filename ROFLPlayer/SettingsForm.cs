@@ -26,6 +26,7 @@ namespace ROFLPlayer
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             this.GeneralLaunchComboBox.SelectedItem = this.GeneralLaunchComboBox.Items[RoflSettings.Default.StartupMode];
+            this.GeneralRegionComboBox.SelectedItem = RoflSettings.Default.Region;
             this.GeneralUsernameTextBox.Text = RoflSettings.Default.Username;
         }
 

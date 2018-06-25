@@ -11,5 +11,8 @@
     <Setting Name="Username" Type="System.String" Scope="User">
       <Value Profile="(Default)">Etirps</Value>
     </Setting>
+    <Setting Name="Region" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NA</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

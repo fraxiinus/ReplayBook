@@ -58,5 +58,17 @@ namespace ROFLPlayer {
                 this["Username"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("NA")]
+        public string Region {
+            get {
+                return ((string)(this["Region"]));
+            }
+            set {
+                this["Region"] = value;
+            }
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace ROFLPlayer.Lib
             // Save double click launch option
             RoflSettings.Default.StartupMode = ((ComboBox)form.Controls.Find("GeneralLaunchComboBox", true)[0]).SelectedIndex;
             RoflSettings.Default.Username = form.Controls.Find("GeneralUsernameTextBox", true)[0].Text;
+            RoflSettings.Default.Region = ((ComboBox)form.Controls.Find("GeneralRegionComboBox", true)[0]).Text;
             RoflSettings.Default.Save();
             Environment.Exit(1);
         }
