@@ -5,11 +5,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-public struct RunResult
-{
-    public bool Success;
-    public string Message;
-}
 
 namespace ROFLPlayer.Lib
 {

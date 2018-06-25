@@ -99,6 +99,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lib\DataTypes.cs" />
     <Compile Include="Lib\DetailWindowManager.cs" />
     <Compile Include="Lib\FileManager.cs" />
     <Compile Include="Lib\LeagueManager.cs" />
