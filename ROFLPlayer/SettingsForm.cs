@@ -13,7 +13,7 @@ namespace ROFLPlayer
         {
             InitializeComponent();
             this.GeneralGameTextBox.AutoSize = false;
-            this.GeneralGameTextBox.Size = new System.Drawing.Size(218, 23);
+            this.GeneralGameTextBox.Size = new System.Drawing.Size(200, 23);
             this.GeneralLaunchComboBox.AutoSize = false;
             this.GeneralLaunchComboBox.Size = new System.Drawing.Size(200, 23);
             this.GeneralUsernameTextBox.AutoSize = false;
