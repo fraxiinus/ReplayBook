@@ -358,6 +358,7 @@
             this.Padding = new System.Windows.Forms.Padding(5);
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "ROFL Player Settings";
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.MainTabControl.ResumeLayout(false);
             this.GeneralTab.ResumeLayout(false);
             this.GeneralFlowLayout.ResumeLayout(false);
