@@ -39,6 +39,8 @@
             this.GeneralGameVersionDataLabel = new System.Windows.Forms.TextBox();
             this.GeneralGameLengthLabel = new System.Windows.Forms.Label();
             this.GeneralGameLengthDataLabel = new System.Windows.Forms.TextBox();
+            this.GeneralGameMatchIDLabel = new System.Windows.Forms.Label();
+            this.GeneralGameMatchIDData = new System.Windows.Forms.TextBox();
             this.GeneralDivider2 = new System.Windows.Forms.Label();
             this.GeneralMatchWinnerLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -89,9 +91,6 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.MainOkButton = new System.Windows.Forms.Button();
             this.MainCancelButton = new System.Windows.Forms.Button();
-            this.GeneralGameMatchIDLabel = new System.Windows.Forms.Label();
-            this.GeneralGameMatchIDData = new System.Windows.Forms.TextBox();
-            this.GeneralSetMatchIDButton = new System.Windows.Forms.Button();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -148,7 +147,6 @@
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameLengthDataLabel);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameMatchIDLabel);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameMatchIDData);
-            this.GeneralFlowLayout.Controls.Add(this.GeneralSetMatchIDButton);
             this.GeneralFlowLayout.Controls.Add(this.GeneralDivider2);
             this.GeneralFlowLayout.Controls.Add(this.GeneralMatchWinnerLabel);
             this.GeneralFlowLayout.Controls.Add(this.tableLayoutPanel1);
@@ -238,6 +236,29 @@
             this.GeneralGameLengthDataLabel.Size = new System.Drawing.Size(231, 13);
             this.GeneralGameLengthDataLabel.TabIndex = 41;
             this.GeneralGameLengthDataLabel.Text = "-";
+            // 
+            // GeneralGameMatchIDLabel
+            // 
+            this.GeneralGameMatchIDLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralGameMatchIDLabel.Location = new System.Drawing.Point(5, 128);
+            this.GeneralGameMatchIDLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGameMatchIDLabel.Name = "GeneralGameMatchIDLabel";
+            this.GeneralGameMatchIDLabel.Size = new System.Drawing.Size(76, 13);
+            this.GeneralGameMatchIDLabel.TabIndex = 43;
+            this.GeneralGameMatchIDLabel.Text = "Match ID:";
+            // 
+            // GeneralGameMatchIDData
+            // 
+            this.GeneralGameMatchIDData.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralGameMatchIDData.BackColor = System.Drawing.SystemColors.Window;
+            this.GeneralGameMatchIDData.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GeneralGameMatchIDData.Location = new System.Drawing.Point(91, 128);
+            this.GeneralGameMatchIDData.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGameMatchIDData.Name = "GeneralGameMatchIDData";
+            this.GeneralGameMatchIDData.ReadOnly = true;
+            this.GeneralGameMatchIDData.Size = new System.Drawing.Size(231, 13);
+            this.GeneralGameMatchIDData.TabIndex = 44;
+            this.GeneralGameMatchIDData.Text = "-";
             // 
             // GeneralDivider2
             // 
@@ -838,41 +859,6 @@
             this.MainCancelButton.UseVisualStyleBackColor = true;
             this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
             // 
-            // GeneralGameMatchIDLabel
-            // 
-            this.GeneralGameMatchIDLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralGameMatchIDLabel.Location = new System.Drawing.Point(5, 128);
-            this.GeneralGameMatchIDLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralGameMatchIDLabel.Name = "GeneralGameMatchIDLabel";
-            this.GeneralGameMatchIDLabel.Size = new System.Drawing.Size(76, 13);
-            this.GeneralGameMatchIDLabel.TabIndex = 43;
-            this.GeneralGameMatchIDLabel.Text = "Match ID:";
-            // 
-            // GeneralGameMatchIDData
-            // 
-            this.GeneralGameMatchIDData.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralGameMatchIDData.BackColor = System.Drawing.SystemColors.Window;
-            this.GeneralGameMatchIDData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GeneralGameMatchIDData.Location = new System.Drawing.Point(91, 128);
-            this.GeneralGameMatchIDData.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralGameMatchIDData.Name = "GeneralGameMatchIDData";
-            this.GeneralGameMatchIDData.ReadOnly = true;
-            this.GeneralGameMatchIDData.Size = new System.Drawing.Size(156, 13);
-            this.GeneralGameMatchIDData.TabIndex = 44;
-            this.GeneralGameMatchIDData.Text = "-";
-            // 
-            // GeneralSetMatchIDButton
-            // 
-            this.GeneralSetMatchIDButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralSetMatchIDButton.Enabled = false;
-            this.GeneralSetMatchIDButton.Location = new System.Drawing.Point(252, 123);
-            this.GeneralSetMatchIDButton.Margin = new System.Windows.Forms.Padding(0);
-            this.GeneralSetMatchIDButton.Name = "GeneralSetMatchIDButton";
-            this.GeneralSetMatchIDButton.Size = new System.Drawing.Size(68, 23);
-            this.GeneralSetMatchIDButton.TabIndex = 45;
-            this.GeneralSetMatchIDButton.Text = "Select...";
-            this.GeneralSetMatchIDButton.UseVisualStyleBackColor = true;
-            // 
             // DetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -979,6 +965,5 @@
         private System.Windows.Forms.TextBox GeneralPlayerName10;
         private System.Windows.Forms.Label GeneralGameMatchIDLabel;
         private System.Windows.Forms.TextBox GeneralGameMatchIDData;
-        private System.Windows.Forms.Button GeneralSetMatchIDButton;
     }
 }
