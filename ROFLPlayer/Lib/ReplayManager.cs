@@ -11,10 +11,10 @@ namespace ROFLPlayer.Lib
     public class ReplayManager
     {
 
-        public static Task<RunResult> StartReplay(string replayPath, Button button)
+        public static Task<RunResult<bool>> StartReplay(string replayPath, Button button)
         {
             button.Enabled = false;
-            RunResult returnValue = new RunResult { Success = false, Message = "" };
+            RunResult<bool> returnValue = new RunResult<bool> { Success = false, Message = "" };
             var replayname = Path.GetFileNameWithoutExtension(replayPath);
 
             // Get the path of the file executable
@@ -23,7 +23,7 @@ namespace ROFLPlayer.Lib
             if (string.IsNullOrEmpty(gamePath))
             {
                 returnValue.Message = "Failed to find League of Legends executable path.";
-                return Task.FromResult<RunResult>(returnValue);
+                return Task.FromResult<RunResult<bool>>(returnValue);
             }
 
             // Create a shortcut in the league directory
@@ -32,7 +32,7 @@ namespace ROFLPlayer.Lib
             if (shortcutFile == null)
             {
                 returnValue.Message = "Failed to create replay shortcut.";
-                return Task.FromResult<RunResult>(returnValue);
+                return Task.FromResult<RunResult<bool>>(returnValue);
             }
 
             // Run the replay
@@ -43,7 +43,7 @@ namespace ROFLPlayer.Lib
             if (process == null)
             {
                 returnValue.Message = "Failed to start League of Legends.";
-                return Task.FromResult<RunResult>(returnValue);
+                return Task.FromResult<RunResult<bool>>(returnValue);
             }
 
             process.WaitForExit();
@@ -54,16 +54,16 @@ namespace ROFLPlayer.Lib
             if (!CleanUp(shortcutPath))
             {
                 returnValue.Message = "Failed to delete created replay shortcut";
-                return Task.FromResult<RunResult>(returnValue);
+                return Task.FromResult<RunResult<bool>>(returnValue);
             }
 
             returnValue.Success = true;
-            return Task.FromResult<RunResult>(returnValue);
+            return Task.FromResult<RunResult<bool>>(returnValue);
         }
 
-        public static Task<RunResult> StartReplay(string replayPath)
+        public static Task<RunResult<bool>> StartReplay(string replayPath)
         {
-            RunResult returnValue = new RunResult { Success = false, Message = "" };
+            RunResult<bool> returnValue = new RunResult<bool> { Success = false, Message = "" };
             var replayname = Path.GetFileNameWithoutExtension(replayPath);
 
             // Get the path of the file executable
@@ -72,7 +72,7 @@ namespace ROFLPlayer.Lib
             if (string.IsNullOrEmpty(gamePath))
             {
                 returnValue.Message = "Failed to find League of Legends executable path.";
-                return Task.FromResult<RunResult>(returnValue);
+                return Task.FromResult<RunResult<bool>>(returnValue);
             }
 
             // Create a shortcut in the league directory
@@ -81,7 +81,7 @@ namespace ROFLPlayer.Lib
             if(shortcutFile == null)
             {
                 returnValue.Message = "Failed to create replay shortcut.";
-                return Task.FromResult<RunResult>(returnValue);
+                return Task.FromResult<RunResult<bool>>(returnValue);
             }
 
             // Run the replay
@@ -92,7 +92,7 @@ namespace ROFLPlayer.Lib
             if(process == null)
             {
                 returnValue.Message = "Failed to start League of Legends.";
-                return Task.FromResult<RunResult>(returnValue);
+                return Task.FromResult<RunResult<bool>>(returnValue);
             }
 
             process.WaitForExit();
@@ -102,11 +102,11 @@ namespace ROFLPlayer.Lib
             if (!CleanUp(shortcutPath))
             {
                 returnValue.Message = "Failed to delete created replay shortcut";
-                return Task.FromResult<RunResult>(returnValue);
+                return Task.FromResult<RunResult<bool>>(returnValue);
             }
 
             returnValue.Success = true;
-            return  Task.FromResult<RunResult>(returnValue);
+            return  Task.FromResult<RunResult<bool>>(returnValue);
         }
 
         private static string CheckGameDirValid()

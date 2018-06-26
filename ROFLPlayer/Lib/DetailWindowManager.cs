@@ -134,6 +134,28 @@ namespace ROFLPlayer.Lib
             return Task.FromResult<bool>(true);
         }
 
+        public static async Task<RunResult<string>> WriteReplayHeaderToFile(string path, ReplayHeader header)
+        {
+            var result = new RunResult<string> { Success = false, Result= null };
+            try
+            {
+                using (var writer = new StreamWriter(path))
+                {
+                    await writer.WriteLineAsync(JsonConvert.SerializeObject(header));
+                }
+            }
+            catch(Exception ex)
+            {
+                result.Message = "Writing json to file: " + ex.Message;
+            }
+
+            result.Success = true;
+            result.Result = path;
+            result.Message = "Dumped header to file";
+
+            return result;
+        }
+
         public static Task<FileBaseData> GetFileData(string path)
         {
             

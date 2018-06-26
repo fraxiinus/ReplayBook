@@ -91,7 +91,7 @@ namespace ROFLPlayer.Lib
             return false;
         }
 
-        public static RunResult<ReplayHeader> LoadAndParseReplayHeaders(string replaypath)
+        public static async Task<RunResult<ReplayHeader>> LoadAndParseReplayHeaders(string replaypath)
         {
             var result = new RunResult<ReplayHeader> { Success = false, Message = "", Result = null };
 
@@ -111,7 +111,7 @@ namespace ROFLPlayer.Lib
                 try
                 {
                     filestream.Seek(262, SeekOrigin.Begin);
-                    filestream.Read(lengthHeaderBytes, 0, 26);
+                    await filestream.ReadAsync(lengthHeaderBytes, 0, 26);
                 }
                 catch(Exception ex)
                 {
@@ -126,7 +126,7 @@ namespace ROFLPlayer.Lib
                 try
                 {
                     filestream.Seek(replayLengthFields.MetadataOffset, SeekOrigin.Begin);
-                    filestream.Read(metadataBytes, 0, (int)replayLengthFields.MetadataLength);
+                    await filestream.ReadAsync(metadataBytes, 0, (int)replayLengthFields.MetadataLength);
                 }
                 catch (Exception ex)
                 {
@@ -140,7 +140,7 @@ namespace ROFLPlayer.Lib
                 try
                 {
                     filestream.Seek(replayLengthFields.MatchHeaderOffset, SeekOrigin.Begin);
-                    filestream.Read(matchheaderbytes, 0, (int)replayLengthFields.MatchHeaderLength);
+                    await filestream.ReadAsync(matchheaderbytes, 0, (int)replayLengthFields.MatchHeaderLength);
                 }
                 catch(Exception ex)
                 {

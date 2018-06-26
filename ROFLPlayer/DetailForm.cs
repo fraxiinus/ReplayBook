@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ROFLPlayer.Lib;
 using System.Net;
+using System.IO;
 
 namespace ROFLPlayer
 {
     public partial class DetailForm : Form
     {
         private string replaypath = "";
-
+        private ReplayHeader fileinfo = null;
 
         public DetailForm(string replayPath)
         {
@@ -69,18 +70,26 @@ namespace ROFLPlayer
             Environment.Exit(1);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            var result = LeagueManager.DumpReplayJSON(replaypath);
-            if(result.Success)
+            if(fileinfo == null)
             {
-                MessageBox.Show(result.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                fileinfo = (await LeagueManager.LoadAndParseReplayHeaders(replaypath)).Result;
             }
-            else
+
+            if(!string.IsNullOrEmpty(replaypath))
             {
-                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var outputfile = Path.Combine(Path.GetDirectoryName(replaypath), Path.GetFileNameWithoutExtension(replaypath) + ".json" );
+                var dumpresult = await DetailWindowManager.WriteReplayHeaderToFile(outputfile, fileinfo);
+                if (dumpresult.Success)
+                {
+                    MessageBox.Show(dumpresult.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(dumpresult.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            //LeagueManager.DumpJSON(replaypath);
         }
 
         private void GeneralStartReplayButton_Click(object sender, EventArgs e)
