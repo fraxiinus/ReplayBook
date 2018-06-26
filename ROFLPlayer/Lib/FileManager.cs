@@ -51,7 +51,7 @@ namespace ROFLPlayer.Lib
             }
 
             var savepath = cachepath + $"\\{champname}.png";
-            var dltask = await Task.Run<bool>(() => DownloadChampionIcon(champname, savepath));
+            var dltask = await DownloadChampionIcon(champname, savepath);
 
             if(dltask)
             {
@@ -64,13 +64,13 @@ namespace ROFLPlayer.Lib
 
         }
 
-        private static bool DownloadChampionIcon(string champname, string path)
+        private async static Task<bool> DownloadChampionIcon(string champname, string path)
         {
             using (WebClient wc = new WebClient())
             {
                 try
                 {
-                    wc.DownloadFile(new Uri(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + champname + ".png"), path);
+                    await wc.DownloadFileTaskAsync(new Uri(@"http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/" + champname + ".png"), path);
                     return true;
                 }
                 catch (WebException ex)

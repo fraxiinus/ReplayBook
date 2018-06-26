@@ -34,54 +34,77 @@ namespace ROFLPlayer.Lib
             }
         }
 
-        public static Task<bool> PopulateGeneralReplayData(FileBaseData data, Form form)
+        public async static Task PopulateGeneralReplayData(ReplayHeader data, Form form)
         {
             form.BeginInvoke((Action)(() =>
             {
-                form.Controls.Find("GeneralGameVersionDataLabel", true)[0].Text = data.GameVersion;
-                var time = ((decimal)(data.GameLength / 1000) / 60);
+                form.Controls.Find("GeneralGameVersionDataLabel", true)[0].Text = data.MatchMetadata.GameVersion;
+                var time = ((decimal)(data.MatchMetadata.GameDuration / 1000) / 60);
                 var minutes = (int)time;
                 var seconds = (int)((time % 1.0m) * 60);
                 form.Controls.Find("GeneralGameLengthDataLabel", true)[0].Text = $"{minutes} minutes and {seconds} seconds";
+                form.Controls.Find("GeneralGameMatchIDData", true)[0].Text = data.MatchHeader.MatchID.ToString();
             }));
 
-            if (data.BluePlayers == null)
+            var blueplayers =
+                (from player in data.MatchMetadata.PlayerStatsObject
+                where player["TEAM"].ToString() == "100"
+                select player).DefaultIfEmpty();
+
+            var purpleplayers =
+                (from player in data.MatchMetadata.PlayerStatsObject
+                where player["TEAM"].ToString() == "200"
+                select player).DefaultIfEmpty();
+
+            if(blueplayers == null && purpleplayers == null)
+            {
+                return;
+            }
+
+            string wongame = "";
+            if(blueplayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
+            {
+                wongame = "Blue Victory!";
+            }
+            else
+            {
+                wongame = "Purple Victory!";
+            }
+
+            if (blueplayers == null)
             { }
             else
             {
                 form.BeginInvoke((Action)(() => {
-                    form.Controls.Find("GeneralMatchWinnerLabel", true)[0].Text = data.WonGame;
+                    form.Controls.Find("GeneralMatchWinnerLabel", true)[0].Text = wongame;
                 }));
 
                 var counter = 1;
-                foreach (var player in data.BluePlayers)
+                foreach (var player in blueplayers)
                 {
+                    var imgpath = await FileManager.GetChampionIconImage(player["SKIN"].ToString());
+
                     form.BeginInvoke((Action)(() => {
                         var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
-                        namelabel.Text = player.Name;
+                        namelabel.Text = player["NAME"].ToString();
 
                         var champimage = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
                         counter++;
-                        new ToolTip().SetToolTip(champimage, player.Champion);
+                        new ToolTip().SetToolTip(champimage, player["SKIN"].ToString());
 
                         try
                         {
                             champimage.WaitOnLoad = false;
 
-                            var imgtask = Task.Run<string>(() => FileManager.GetChampionIconImage(player.Champion));
-
-                            imgtask.ContinueWith(x => 
+                            if (!string.IsNullOrEmpty(imgpath))
                             {
-                                if (!string.IsNullOrEmpty(x.Result))
-                                {
-                                    champimage.LoadAsync(x.Result);
-                                }
-                            });
+                                champimage.LoadAsync(imgpath);
+                            }
 
                         }
                         catch (WebException) { }
 
-                        if (player.Name.ToUpper() == RoflSettings.Default.Username.ToUpper())
+                        if (player["NAME"].ToString().ToUpper() == RoflSettings.Default.Username.ToUpper())
                         {
                             namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
                         }
@@ -90,48 +113,44 @@ namespace ROFLPlayer.Lib
                 }
             }
 
-            if (data.PurplePlayers == null)
+            if (purpleplayers == null)
             { }
             else
             {
                 var counter = 6;
-                foreach (var player in data.PurplePlayers)
+                foreach (var player in purpleplayers)
                 {
-                    form.BeginInvoke((Action)(() =>
-                    {
+                    var imgpath = await FileManager.GetChampionIconImage(player["SKIN"].ToString());
+
+                    form.BeginInvoke((Action)(() => {
                         var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
-                        namelabel.Text = player.Name;
+                        namelabel.Text = player["NAME"].ToString();
 
                         var champimage = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
                         counter++;
-                        new ToolTip().SetToolTip(champimage, player.Champion);
+                        new ToolTip().SetToolTip(champimage, player["SKIN"].ToString());
 
                         try
                         {
                             champimage.WaitOnLoad = false;
-                            var imgtask = Task.Run<string>(() => FileManager.GetChampionIconImage(player.Champion));
 
-                            imgtask.ContinueWith(x =>
+                            if (!string.IsNullOrEmpty(imgpath))
                             {
-                                if (!string.IsNullOrEmpty(x.Result))
-                                {
-                                    champimage.LoadAsync(x.Result);
-                                }
-                            });
+                                champimage.LoadAsync(imgpath);
+                            }
 
                         }
                         catch (WebException) { }
 
-                        if (player.Name.ToUpper() == RoflSettings.Default.Username.ToUpper())
+                        if (player["NAME"].ToString().ToUpper() == RoflSettings.Default.Username.ToUpper())
                         {
                             namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
                         }
-                        
                     }));
+
                 }
             }
-
-            return Task.FromResult<bool>(true);
+            return;
         }
 
         public static async Task<RunResult<string>> WriteReplayHeaderToFile(string path, ReplayHeader header)
@@ -156,6 +175,7 @@ namespace ROFLPlayer.Lib
             return result;
         }
 
+        /*
         public static Task<FileBaseData> GetFileData(string path)
         {
             
@@ -208,5 +228,6 @@ namespace ROFLPlayer.Lib
 
             return Task.FromResult<FileBaseData>(returnVal);
         }
+        */
     }
 }

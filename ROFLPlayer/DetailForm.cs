@@ -24,33 +24,23 @@ namespace ROFLPlayer
             InitializeComponent();
         }
 
-        private void DetailForm_Load(object sender, EventArgs e)
+        private async void DetailForm_Load(object sender, EventArgs e)
         {
             if (LeagueManager.CheckReplayFile(replaypath))
             {
-
-                // Read replay file async and get the required data
-                var readtask = Task.Run<FileBaseData>(() => DetailWindowManager.GetFileData(replaypath));   // This is properly run in a thread!
-
-                readtask.ContinueWith(x => { DetailWindowManager.PopulateGeneralReplayData(readtask.Result, this); });   // this is properly run in a thread!
-
                 var filename = DetailWindowManager.GetReplayFilename(replaypath);
-
                 GeneralGameFileLabel.Text = filename;
 
-                // Read replay file name for match ID
-                var matchid = DetailWindowManager.FindMatchIDInFilename(filename);
-                if (matchid != 0)
+                var parseresult = await LeagueManager.LoadAndParseReplayHeaders(replaypath);
+
+                if(parseresult.Success)
                 {
-                    // Query RIOT API for match information
-                    GeneralGameMatchIDData.Text = matchid.ToString();
-                    
+                    await DetailWindowManager.PopulateGeneralReplayData(parseresult.Result, this);
                 }
                 else
                 {
-                    // Otherwise set label and enable button
-                    GeneralGameMatchIDData.Text = "Not found";
-                    GeneralSetMatchIDButton.Enabled = true;
+                    MessageBox.Show("Error Parsing Replay: " + parseresult.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(1);
                 }
             }
             else

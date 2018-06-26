@@ -155,52 +155,8 @@ namespace ROFLPlayer.Lib
             result.Result = new ReplayHeader { LengthFields = replayLengthFields, MatchMetadata = replayMatchMetadata, MatchHeader = replayMatchHeader};
             return result;
         }
-        
+
         /*
-        public static RunResult DumpReplayJSON(string replaypath)
-        {
-            if (!File.Exists(replaypath)) { return new RunResult { Success = false, Message = "Replay file does not exist." }; }
-
-            var outputpath = Path.Combine(Path.GetDirectoryName(replaypath), Path.GetFileNameWithoutExtension(replaypath) + ".txt");
-
-            using (var filestream = new FileStream(replaypath, FileMode.Open))
-            {
-                var initialbuffer = new byte[39680];
-                // First read 0x9A00 bytes into the array
-                filestream.Seek(0x120, SeekOrigin.Begin);
-                filestream.Read(initialbuffer, 0, replayreaduntil);
-
-                ///* // Read the rest of the file 2 bytes at a time, checking for blank byte buffer after json data
-                var bufferoffset = replayreaduntil;
-                var lastbracketpos = 0;
-                while (initialbuffer[bufferoffset - 1] != 0x0 && initialbuffer[bufferoffset - 2] != 0x0)
-                {
-                    filestream.Read(initialbuffer, bufferoffset, 2);
-                    if(initialbuffer[bufferoffset] == 0x7D)
-                    {
-                        lastbracketpos = bufferoffset;
-                    }
-                    if(initialbuffer[bufferoffset + 1] == 0x7D)
-                    {
-                        lastbracketpos = bufferoffset + 1;
-                    }
-                    bufferoffset += 2;
-                }//
-
-                var outputsize = lastbracketpos + 1;
-
-                Array.Resize(ref initialbuffer, outputsize);
-
-                using (var outputstream = new FileStream(outputpath, FileMode.Create))
-                {
-                    outputstream.Write(initialbuffer, 0, outputsize);
-                }
-            }
-
-            return new RunResult { Success = true, Message = "Replay JSON dumped!" };
-        }
-        */
-
         public static string GetReplayJSON(string path)
         {
             if (!File.Exists(path)) { return null; }
@@ -226,7 +182,7 @@ namespace ROFLPlayer.Lib
                         lastbracketpos = bufferoffset + 1;
                     }
                     bufferoffset += 2;
-                }//*/
+                }//
 
                 var outputsize = lastbracketpos + 1;
 
@@ -234,7 +190,7 @@ namespace ROFLPlayer.Lib
 
                 return Encoding.UTF8.GetString(initialbuffer);
             }
-        }
+        }*/
 
         public static ReplayMatchHeader ParseMatchHeader(byte[] bytedata)
         {
