@@ -82,34 +82,31 @@ namespace ROFLPlayer.Lib
                 var counter = 1;
                 foreach (var player in blueplayers)
                 {
-                    var imgpath = await FileManager.GetChampionIconImage(player["SKIN"].ToString());
+                    var getimgtask = FileManager.GetChampionIconImage(player["SKIN"].ToString());
 
-                    form.BeginInvoke((Action)(() => {
+                    form.BeginInvoke((Action)(async () => {
                         var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
                         namelabel.Text = player["NAME"].ToString();
 
-                        var champimage = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
-                        counter++;
-                        new ToolTip().SetToolTip(champimage, player["SKIN"].ToString());
-
-                        try
-                        {
-                            champimage.WaitOnLoad = false;
-
-                            if (!string.IsNullOrEmpty(imgpath))
-                            {
-                                champimage.LoadAsync(imgpath);
-                            }
-
-                        }
-                        catch (WebException) { }
+                        var champimg = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
+                        new ToolTip().SetToolTip(champimg, player["SKIN"].ToString());
 
                         if (player["NAME"].ToString().ToUpper() == RoflSettings.Default.Username.ToUpper())
                         {
                             namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
                         }
-                    }));
 
+                        counter++;
+
+                        var imgpath = await getimgtask;
+
+                        if (!string.IsNullOrEmpty(imgpath))
+                        {
+                            champimg.WaitOnLoad = false;
+                            champimg.LoadAsync(imgpath);
+                        }
+                        
+                    }));
                 }
             }
 
@@ -120,34 +117,29 @@ namespace ROFLPlayer.Lib
                 var counter = 6;
                 foreach (var player in purpleplayers)
                 {
-                    var imgpath = await FileManager.GetChampionIconImage(player["SKIN"].ToString());
+                    var getimgtask = FileManager.GetChampionIconImage(player["SKIN"].ToString());
 
-                    form.BeginInvoke((Action)(() => {
+                    form.BeginInvoke((Action)(async () => {
                         var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
                         namelabel.Text = player["NAME"].ToString();
 
-                        var champimage = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
-                        counter++;
-                        new ToolTip().SetToolTip(champimage, player["SKIN"].ToString());
-
-                        try
-                        {
-                            champimage.WaitOnLoad = false;
-
-                            if (!string.IsNullOrEmpty(imgpath))
-                            {
-                                champimage.LoadAsync(imgpath);
-                            }
-
-                        }
-                        catch (WebException) { }
-
+                        var champimg = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
+                        new ToolTip().SetToolTip(champimg, player["SKIN"].ToString());
+                        
                         if (player["NAME"].ToString().ToUpper() == RoflSettings.Default.Username.ToUpper())
                         {
                             namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
                         }
+                        counter++;
+                        var imgpath = await getimgtask;
+                        
+                        if (!string.IsNullOrEmpty(imgpath))
+                        {
+                            champimg.WaitOnLoad = false;
+                            champimg.LoadAsync(imgpath);
+                        }
+                        
                     }));
-
                 }
             }
             return;
