@@ -156,42 +156,6 @@ namespace ROFLPlayer.Lib
             return result;
         }
 
-        /*
-        public static string GetReplayJSON(string path)
-        {
-            if (!File.Exists(path)) { return null; }
-            using (var filestream = new FileStream(path, FileMode.Open))
-            {
-                var initialbuffer = new byte[39680];
-                // First read 0x9A00 bytes into the array
-                filestream.Seek(0x120, SeekOrigin.Begin);
-                filestream.Read(initialbuffer, 0, replayreaduntil);
-
-                ///* // Read the rest of the file 2 bytes at a time, checking for blank byte buffer after json data
-                var bufferoffset = replayreaduntil;
-                var lastbracketpos = 0;
-                while (initialbuffer[bufferoffset - 1] != 0x0 && initialbuffer[bufferoffset - 2] != 0x0)
-                {
-                    filestream.Read(initialbuffer, bufferoffset, 2);
-                    if (initialbuffer[bufferoffset] == 0x7D)
-                    {
-                        lastbracketpos = bufferoffset;
-                    }
-                    if (initialbuffer[bufferoffset + 1] == 0x7D)
-                    {
-                        lastbracketpos = bufferoffset + 1;
-                    }
-                    bufferoffset += 2;
-                }//
-
-                var outputsize = lastbracketpos + 1;
-
-                Array.Resize(ref initialbuffer, outputsize);
-
-                return Encoding.UTF8.GetString(initialbuffer);
-            }
-        }*/
-
         public static ReplayMatchHeader ParseMatchHeader(byte[] bytedata)
         {
             var result = new ReplayMatchHeader { };
