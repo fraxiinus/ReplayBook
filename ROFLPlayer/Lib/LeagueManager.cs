@@ -13,9 +13,6 @@ namespace ROFLPlayer.Lib
 
     public class LeagueManager
     {
-
-        private static Int32 replayreaduntil = 0x3000;
-
         public static bool CheckLeagueExecutable()
         {
             var lolpath = RoflSettings.Default.LoLExecLocation;
