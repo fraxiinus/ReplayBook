@@ -7,6 +7,7 @@ using System.IO;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Rofl.Parser;
 
 namespace ROFLPlayer.Lib
 {
@@ -88,5 +89,28 @@ namespace ROFLPlayer.Lib
             return false;
         }
 
+        public static Maps GetMapType(ReplayHeader replay)
+        {
+
+            // Check if any players have killed jungle creeps, Rules out HA
+            var JungleCheck = (from player in replay.MatchMetadata.Players
+                               where player["NEUTRAL_MINIONS_KILLED"].ToObject<int>() > 0
+                               select player);
+
+            // Check if any players have placed wards, Rules out TT and HA
+            //var WardCheck = (from player in replay.MatchMetadata.Players
+            //                 where player["WARD_PLACED"].ToObject<int>() > 0
+            //                 select player);
+
+            if(JungleCheck.Count() > 0)
+            {
+                return Maps.SummonersRift;
+            }
+            else
+            {
+                return Maps.HowlingAbyss;
+            }
+
+        }
     }
 }
