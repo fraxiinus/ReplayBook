@@ -98,13 +98,26 @@ namespace ROFLPlayer.Lib
                                select player);
 
             // Check if any players have placed wards, Rules out TT and HA
-            //var WardCheck = (from player in replay.MatchMetadata.Players
-            //                 where player["WARD_PLACED"].ToObject<int>() > 0
-            //                 select player);
+            var WardCheck = (from player in replay.MatchMetadata.Players
+                             where player["WARD_PLACED"].ToObject<int>() > 0
+                             select player);
+
+            // Double check between TT and SR
+            var DragonCheck = (from player in replay.MatchMetadata.Players
+                               where player["DRAGON_KILLS"].ToObject<int>() > 0
+                               select player);
 
             if(JungleCheck.Count() > 0)
             {
-                return Maps.SummonersRift;
+                if(WardCheck.Count() == 0 && DragonCheck.Count() == 0)
+                {
+                    return Maps.TwistedTreeline;
+                }
+                else
+                {
+                    return Maps.SummonersRift;
+                }
+                
             }
             else
             {
