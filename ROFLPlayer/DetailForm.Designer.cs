@@ -64,7 +64,6 @@
             this.GeneralPlayerName8 = new System.Windows.Forms.TextBox();
             this.GeneralPlayerName9 = new System.Windows.Forms.TextBox();
             this.GeneralPlayerName10 = new System.Windows.Forms.TextBox();
-            this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
             this.GeneralGameViewOnlineButton = new System.Windows.Forms.Button();
             this.GeneralStartReplayButton = new System.Windows.Forms.Button();
             this.MatchTab = new System.Windows.Forms.TabPage();
@@ -91,6 +90,7 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.MainOkButton = new System.Windows.Forms.Button();
             this.MainCancelButton = new System.Windows.Forms.Button();
+            this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -150,7 +150,6 @@
             this.GeneralFlowLayout.Controls.Add(this.GeneralDivider2);
             this.GeneralFlowLayout.Controls.Add(this.GeneralMatchWinnerLabel);
             this.GeneralFlowLayout.Controls.Add(this.tableLayoutPanel1);
-            this.GeneralFlowLayout.Controls.Add(this.GeneralDebugDumpJsonButton);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameViewOnlineButton);
             this.GeneralFlowLayout.Controls.Add(this.GeneralStartReplayButton);
             this.GeneralFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -547,25 +546,13 @@
             this.GeneralPlayerName10.Text = "-";
             this.GeneralPlayerName10.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // GeneralDebugDumpJsonButton
-            // 
-            this.GeneralDebugDumpJsonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(5, 353);
-            this.GeneralDebugDumpJsonButton.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralDebugDumpJsonButton.Name = "GeneralDebugDumpJsonButton";
-            this.GeneralDebugDumpJsonButton.Size = new System.Drawing.Size(75, 23);
-            this.GeneralDebugDumpJsonButton.TabIndex = 7;
-            this.GeneralDebugDumpJsonButton.Text = "Dump JSON";
-            this.GeneralDebugDumpJsonButton.UseVisualStyleBackColor = true;
-            this.GeneralDebugDumpJsonButton.Click += new System.EventHandler(this.button1_Click);
-            // 
             // GeneralGameViewOnlineButton
             // 
             this.GeneralGameViewOnlineButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralGameViewOnlineButton.Location = new System.Drawing.Point(90, 353);
-            this.GeneralGameViewOnlineButton.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGameViewOnlineButton.Location = new System.Drawing.Point(5, 358);
+            this.GeneralGameViewOnlineButton.Margin = new System.Windows.Forms.Padding(5, 10, 5, 5);
             this.GeneralGameViewOnlineButton.Name = "GeneralGameViewOnlineButton";
-            this.GeneralGameViewOnlineButton.Size = new System.Drawing.Size(83, 23);
+            this.GeneralGameViewOnlineButton.Size = new System.Drawing.Size(85, 23);
             this.GeneralGameViewOnlineButton.TabIndex = 29;
             this.GeneralGameViewOnlineButton.Text = "View online...";
             this.GeneralGameViewOnlineButton.UseVisualStyleBackColor = true;
@@ -574,12 +561,12 @@
             // GeneralStartReplayButton
             // 
             this.GeneralStartReplayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralStartReplayButton.Location = new System.Drawing.Point(183, 353);
-            this.GeneralStartReplayButton.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralStartReplayButton.Location = new System.Drawing.Point(235, 358);
+            this.GeneralStartReplayButton.Margin = new System.Windows.Forms.Padding(140, 10, 5, 5);
             this.GeneralStartReplayButton.Name = "GeneralStartReplayButton";
-            this.GeneralStartReplayButton.Size = new System.Drawing.Size(140, 23);
+            this.GeneralStartReplayButton.Size = new System.Drawing.Size(85, 23);
             this.GeneralStartReplayButton.TabIndex = 30;
-            this.GeneralStartReplayButton.Text = "Play replay";
+            this.GeneralStartReplayButton.Text = "Watch replay";
             this.GeneralStartReplayButton.UseVisualStyleBackColor = true;
             this.GeneralStartReplayButton.Click += new System.EventHandler(this.GeneralStartReplayButton_Click);
             // 
@@ -608,6 +595,7 @@
             this.flowLayoutPanel1.Controls.Add(this.GameDateLabel);
             this.flowLayoutPanel1.Controls.Add(this.GameDateDataLabel);
             this.flowLayoutPanel1.Controls.Add(this.GeneralDivider3);
+            this.flowLayoutPanel1.Controls.Add(this.GeneralDebugDumpJsonButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -860,6 +848,17 @@
             this.MainCancelButton.UseVisualStyleBackColor = true;
             this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
             // 
+            // GeneralDebugDumpJsonButton
+            // 
+            this.GeneralDebugDumpJsonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(5, 132);
+            this.GeneralDebugDumpJsonButton.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralDebugDumpJsonButton.Name = "GeneralDebugDumpJsonButton";
+            this.GeneralDebugDumpJsonButton.Size = new System.Drawing.Size(75, 23);
+            this.GeneralDebugDumpJsonButton.TabIndex = 39;
+            this.GeneralDebugDumpJsonButton.Text = "Dump JSON";
+            this.GeneralDebugDumpJsonButton.UseVisualStyleBackColor = true;
+            // 
             // DetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -918,7 +917,6 @@
         private System.Windows.Forms.Label AboutCatLabel;
         private System.Windows.Forms.Button MainOkButton;
         private System.Windows.Forms.Button MainCancelButton;
-        private System.Windows.Forms.Button GeneralDebugDumpJsonButton;
         private System.Windows.Forms.PictureBox GeneralGamePictureBox;
         private System.Windows.Forms.Label GeneralGameLengthLabel;
         private System.Windows.Forms.Label GeneralGameVersionLabel;
@@ -966,5 +964,6 @@
         private System.Windows.Forms.TextBox GeneralPlayerName10;
         private System.Windows.Forms.Label GeneralGameMatchIDLabel;
         private System.Windows.Forms.TextBox GeneralGameMatchIDData;
+        private System.Windows.Forms.Button GeneralDebugDumpJsonButton;
     }
 }
