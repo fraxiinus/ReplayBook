@@ -65,7 +65,7 @@
             this.GeneralPlayerName9 = new System.Windows.Forms.TextBox();
             this.GeneralPlayerName10 = new System.Windows.Forms.TextBox();
             this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
-            this.GeneralGameStatsButton = new System.Windows.Forms.Button();
+            this.GeneralGameViewOnlineButton = new System.Windows.Forms.Button();
             this.GeneralStartReplayButton = new System.Windows.Forms.Button();
             this.MatchTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -151,7 +151,7 @@
             this.GeneralFlowLayout.Controls.Add(this.GeneralMatchWinnerLabel);
             this.GeneralFlowLayout.Controls.Add(this.tableLayoutPanel1);
             this.GeneralFlowLayout.Controls.Add(this.GeneralDebugDumpJsonButton);
-            this.GeneralFlowLayout.Controls.Add(this.GeneralGameStatsButton);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralGameViewOnlineButton);
             this.GeneralFlowLayout.Controls.Add(this.GeneralStartReplayButton);
             this.GeneralFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GeneralFlowLayout.Location = new System.Drawing.Point(3, 3);
@@ -166,6 +166,7 @@
             this.GeneralGamePictureBox.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralGamePictureBox.Name = "GeneralGamePictureBox";
             this.GeneralGamePictureBox.Size = new System.Drawing.Size(50, 50);
+            this.GeneralGamePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.GeneralGamePictureBox.TabIndex = 8;
             this.GeneralGamePictureBox.TabStop = false;
             // 
@@ -558,25 +559,25 @@
             this.GeneralDebugDumpJsonButton.UseVisualStyleBackColor = true;
             this.GeneralDebugDumpJsonButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // GeneralGameStatsButton
+            // GeneralGameViewOnlineButton
             // 
-            this.GeneralGameStatsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralGameStatsButton.Enabled = false;
-            this.GeneralGameStatsButton.Location = new System.Drawing.Point(90, 353);
-            this.GeneralGameStatsButton.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralGameStatsButton.Name = "GeneralGameStatsButton";
-            this.GeneralGameStatsButton.Size = new System.Drawing.Size(75, 23);
-            this.GeneralGameStatsButton.TabIndex = 29;
-            this.GeneralGameStatsButton.Text = "Details...";
-            this.GeneralGameStatsButton.UseVisualStyleBackColor = true;
+            this.GeneralGameViewOnlineButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralGameViewOnlineButton.Location = new System.Drawing.Point(90, 353);
+            this.GeneralGameViewOnlineButton.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGameViewOnlineButton.Name = "GeneralGameViewOnlineButton";
+            this.GeneralGameViewOnlineButton.Size = new System.Drawing.Size(83, 23);
+            this.GeneralGameViewOnlineButton.TabIndex = 29;
+            this.GeneralGameViewOnlineButton.Text = "View online...";
+            this.GeneralGameViewOnlineButton.UseVisualStyleBackColor = true;
+            this.GeneralGameViewOnlineButton.Click += new System.EventHandler(this.GeneralGameViewOnlineButton_Click);
             // 
             // GeneralStartReplayButton
             // 
             this.GeneralStartReplayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralStartReplayButton.Location = new System.Drawing.Point(175, 353);
+            this.GeneralStartReplayButton.Location = new System.Drawing.Point(183, 353);
             this.GeneralStartReplayButton.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralStartReplayButton.Name = "GeneralStartReplayButton";
-            this.GeneralStartReplayButton.Size = new System.Drawing.Size(75, 23);
+            this.GeneralStartReplayButton.Size = new System.Drawing.Size(140, 23);
             this.GeneralStartReplayButton.TabIndex = 30;
             this.GeneralStartReplayButton.Text = "Play replay";
             this.GeneralStartReplayButton.UseVisualStyleBackColor = true;
@@ -922,7 +923,7 @@
         private System.Windows.Forms.Label GeneralGameLengthLabel;
         private System.Windows.Forms.Label GeneralGameVersionLabel;
         private System.Windows.Forms.Label GeneralDivider2;
-        private System.Windows.Forms.Button GeneralGameStatsButton;
+        private System.Windows.Forms.Button GeneralGameViewOnlineButton;
         private System.Windows.Forms.Button GeneralStartReplayButton;
         private System.Windows.Forms.TabPage MatchTab;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;

@@ -89,5 +89,10 @@ namespace ROFLPlayer
         {
             var playtask = Task.Run(() => ReplayManager.StartReplay(replaypath, GeneralStartReplayButton));
         }
+
+        private void GeneralGameViewOnlineButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
