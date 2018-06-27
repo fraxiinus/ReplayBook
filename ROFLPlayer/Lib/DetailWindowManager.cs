@@ -37,7 +37,10 @@ namespace ROFLPlayer.Lib
 
         public async static Task PopulateGeneralReplayData(ReplayHeader data, Form form)
         {
-            form.BeginInvoke((Action)(() =>
+            var map = LeagueManager.GetMapType(data);
+            var maptask = FileManager.GetMinimapImage(map);
+
+            form.BeginInvoke((Action)(async () =>
             {
                 form.Controls.Find("GeneralGameVersionDataLabel", true)[0].Text = data.MatchMetadata.GameVersion;
                 var time = ((decimal)(data.MatchMetadata.GameDuration / 1000) / 60);
@@ -45,7 +48,18 @@ namespace ROFLPlayer.Lib
                 var seconds = (int)((time % 1.0m) * 60);
                 form.Controls.Find("GeneralGameLengthDataLabel", true)[0].Text = $"{minutes} minutes and {seconds} seconds";
                 form.Controls.Find("GeneralGameMatchIDData", true)[0].Text = data.MatchHeader.MatchID.ToString();
+                var mapimg = (PictureBox)form.Controls.Find($"GeneralGamePictureBox", true)[0];
+                new ToolTip().SetToolTip(mapimg, map.ToString());
+
+                var imgpath = await maptask;
+
+                if (!string.IsNullOrEmpty(imgpath))
+                {
+                    mapimg.WaitOnLoad = false;
+                    mapimg.LoadAsync(imgpath);
+                }
             }));
+
 
             var blueplayers =
                 (from player in data.MatchMetadata.Players
