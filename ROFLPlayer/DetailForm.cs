@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ROFLPlayer.Lib;
 using System.Net;
 using System.IO;
+using Rofl.Parser;
 
 namespace ROFLPlayer
 {
@@ -26,28 +27,29 @@ namespace ROFLPlayer
 
         private async void DetailForm_Load(object sender, EventArgs e)
         {
-            if (LeagueManager.CheckReplayFile(replaypath))
+            var filename = DetailWindowManager.GetReplayFilename(replaypath);
+            GeneralGameFileLabel.Text = filename;
+            //ReplayHeader parseresult = null;
+            try
             {
-                var filename = DetailWindowManager.GetReplayFilename(replaypath);
-                GeneralGameFileLabel.Text = filename;
+                fileinfo = await ReplayReader.ReadReplayFileAsync(replaypath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error Parsing Replay: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+            }
 
-                var parseresult = await LeagueManager.LoadAndParseReplayHeaders(replaypath);
-
-                if(parseresult.Success)
-                {
-                    await DetailWindowManager.PopulateGeneralReplayData(parseresult.Result, this);
-                }
-                else
-                {
-                    MessageBox.Show("Error Parsing Replay: " + parseresult.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Environment.Exit(1);
-                }
+            if (fileinfo != null)
+            {
+                await DetailWindowManager.PopulateGeneralReplayData(fileinfo, this);
             }
             else
             {
-                MessageBox.Show("File is not a valid replay.", "Invalid Replay File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error Parsing Replay", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
+
         }
 
         private void MainCancelButton_Click(object sender, EventArgs e)
@@ -64,7 +66,8 @@ namespace ROFLPlayer
         {
             if(fileinfo == null)
             {
-                fileinfo = (await LeagueManager.LoadAndParseReplayHeaders(replaypath)).Result;
+                //fileinfo = (await LeagueManager.LoadAndParseReplayHeaders(replaypath)).Result;
+                fileinfo = ReplayReader.ReadReplayFile(replaypath);
             }
 
             if(!string.IsNullOrEmpty(replaypath))

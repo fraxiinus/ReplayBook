@@ -9,6 +9,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Net;
 using System.Threading;
+using Rofl.Parser;
 
 
 namespace ROFLPlayer.Lib
@@ -47,13 +48,13 @@ namespace ROFLPlayer.Lib
             }));
 
             var blueplayers =
-                (from player in data.MatchMetadata.PlayerStatsObject
+                (from player in data.MatchMetadata.Players
                 where player["TEAM"].ToString() == "100"
                 select player).DefaultIfEmpty();
 
             var purpleplayers =
-                (from player in data.MatchMetadata.PlayerStatsObject
-                where player["TEAM"].ToString() == "200"
+                (from player in data.MatchMetadata.Players
+                 where player["TEAM"].ToString() == "200"
                 select player).DefaultIfEmpty();
 
             if(blueplayers == null && purpleplayers == null)
