@@ -8,6 +8,11 @@ using Newtonsoft.Json.Linq;
 namespace ROFLPlayer.Lib
 {
 
+    public enum Maps
+    {
+        TwistedTreeline = 10, SummonersRift = 11, HowlingAbyss = 12
+    }
+
     public struct RunResult<T>
     {
         public bool Success;
