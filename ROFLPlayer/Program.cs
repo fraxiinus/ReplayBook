@@ -13,7 +13,7 @@ namespace ROFLPlayer
         /// </summary>
         //static Mutex mutex = new Mutex(true, "{f847ab42-e13e-43ba-990a-1f781d5966e4}");
 
-        //[STAThread]
+        [STAThread]
         static void Main(string[] args)
         {
             Application.EnableVisualStyles();
