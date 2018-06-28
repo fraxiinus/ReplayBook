@@ -69,7 +69,7 @@
             this.PlayerTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.PlayerSelectLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.PlayerSelectComboBox = new System.Windows.Forms.ComboBox();
             this.GeneralDivider3 = new System.Windows.Forms.Label();
             this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
             this.ChartTab = new System.Windows.Forms.TabPage();
@@ -542,6 +542,7 @@
             // GeneralGameViewOnlineButton
             // 
             this.GeneralGameViewOnlineButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralGameViewOnlineButton.Enabled = false;
             this.GeneralGameViewOnlineButton.Location = new System.Drawing.Point(5, 358);
             this.GeneralGameViewOnlineButton.Margin = new System.Windows.Forms.Padding(5, 10, 5, 5);
             this.GeneralGameViewOnlineButton.Name = "GeneralGameViewOnlineButton";
@@ -577,7 +578,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.PlayerSelectLabel);
-            this.flowLayoutPanel1.Controls.Add(this.comboBox1);
+            this.flowLayoutPanel1.Controls.Add(this.PlayerSelectComboBox);
             this.flowLayoutPanel1.Controls.Add(this.GeneralDivider3);
             this.flowLayoutPanel1.Controls.Add(this.GeneralDebugDumpJsonButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -592,17 +593,18 @@
             this.PlayerSelectLabel.Location = new System.Drawing.Point(5, 7);
             this.PlayerSelectLabel.Margin = new System.Windows.Forms.Padding(5);
             this.PlayerSelectLabel.Name = "PlayerSelectLabel";
-            this.PlayerSelectLabel.Size = new System.Drawing.Size(76, 13);
+            this.PlayerSelectLabel.Size = new System.Drawing.Size(46, 13);
             this.PlayerSelectLabel.TabIndex = 29;
             this.PlayerSelectLabel.Text = "Player:";
             // 
-            // comboBox1
+            // PlayerSelectComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(89, 3);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(231, 21);
-            this.comboBox1.TabIndex = 40;
+            this.PlayerSelectComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PlayerSelectComboBox.FormattingEnabled = true;
+            this.PlayerSelectComboBox.Location = new System.Drawing.Point(59, 3);
+            this.PlayerSelectComboBox.Name = "PlayerSelectComboBox";
+            this.PlayerSelectComboBox.Size = new System.Drawing.Size(261, 21);
+            this.PlayerSelectComboBox.TabIndex = 40;
             // 
             // GeneralDivider3
             // 
@@ -856,7 +858,7 @@
         private System.Windows.Forms.TextBox GeneralGameMatchIDData;
         private System.Windows.Forms.Button GeneralDebugDumpJsonButton;
         private System.Windows.Forms.Label PlayerSelectLabel;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TabPage ChartTab;
+        private System.Windows.Forms.ComboBox PlayerSelectComboBox;
     }
 }

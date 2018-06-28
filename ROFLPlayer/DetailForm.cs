@@ -42,6 +42,7 @@ namespace ROFLPlayer
 
             if (fileinfo != null)
             {
+                DetailWindowManager.PopulatePlayerData(fileinfo.MatchMetadata, this);
                 await DetailWindowManager.PopulateGeneralReplayData(fileinfo, this);
             }
             else
@@ -106,7 +107,7 @@ namespace ROFLPlayer
 
         private void GeneralGameViewOnlineButton_Click(object sender, EventArgs e)
         {
-
+            //
         }
     }
 }

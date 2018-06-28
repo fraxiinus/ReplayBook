@@ -35,6 +35,18 @@ namespace ROFLPlayer.Lib
             }
         }
 
+        public static void PopulatePlayerData(ReplayMatchMetadata data, Form form)
+        {
+            var playernames =
+                from player in data.Players
+                select (string)player["NAME"];
+
+            form.BeginInvoke((Action)(() =>
+            {
+                ((ComboBox)form.Controls.Find("PlayerSelectComboBox", true)[0]).Items.AddRange(playernames.ToArray());
+            }));
+        }
+
         public async static Task PopulateGeneralReplayData(ReplayHeader data, Form form)
         {
             var map = LeagueManager.GetMapType(data);
