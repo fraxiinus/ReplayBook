@@ -66,20 +66,13 @@
             this.GeneralPlayerName10 = new System.Windows.Forms.TextBox();
             this.GeneralGameViewOnlineButton = new System.Windows.Forms.Button();
             this.GeneralStartReplayButton = new System.Windows.Forms.Button();
-            this.MatchTab = new System.Windows.Forms.TabPage();
+            this.PlayerTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.MatchIDLabel = new System.Windows.Forms.Label();
-            this.MatchIDDataLabel = new System.Windows.Forms.Label();
-            this.SetMatchIDButton = new System.Windows.Forms.Button();
-            this.GameRegionLabel = new System.Windows.Forms.Label();
-            this.GameRegionDataLabel = new System.Windows.Forms.Label();
-            this.GameModeLabel = new System.Windows.Forms.Label();
-            this.GameModeDataLabel = new System.Windows.Forms.Label();
-            this.GameMapLabel = new System.Windows.Forms.Label();
-            this.GameMapDataLabel = new System.Windows.Forms.Label();
-            this.GameDateLabel = new System.Windows.Forms.Label();
-            this.GameDateDataLabel = new System.Windows.Forms.Label();
+            this.PlayerSelectLabel = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.GeneralDivider3 = new System.Windows.Forms.Label();
+            this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
+            this.ChartTab = new System.Windows.Forms.TabPage();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
@@ -90,7 +83,6 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.MainOkButton = new System.Windows.Forms.Button();
             this.MainCancelButton = new System.Windows.Forms.Button();
-            this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -106,7 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage10)).BeginInit();
-            this.MatchTab.SuspendLayout();
+            this.PlayerTab.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.AboutTab.SuspendLayout();
             this.AboutTableLayoutPanel.SuspendLayout();
@@ -116,7 +108,8 @@
             // MainTabControl
             // 
             this.MainTabControl.Controls.Add(this.GeneralTab);
-            this.MainTabControl.Controls.Add(this.MatchTab);
+            this.MainTabControl.Controls.Add(this.PlayerTab);
+            this.MainTabControl.Controls.Add(this.ChartTab);
             this.MainTabControl.Controls.Add(this.AboutTab);
             this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.MainTabControl.Location = new System.Drawing.Point(5, 5);
@@ -570,30 +563,21 @@
             this.GeneralStartReplayButton.UseVisualStyleBackColor = true;
             this.GeneralStartReplayButton.Click += new System.EventHandler(this.GeneralStartReplayButton_Click);
             // 
-            // MatchTab
+            // PlayerTab
             // 
-            this.MatchTab.Controls.Add(this.flowLayoutPanel1);
-            this.MatchTab.Location = new System.Drawing.Point(4, 22);
-            this.MatchTab.Name = "MatchTab";
-            this.MatchTab.Padding = new System.Windows.Forms.Padding(3);
-            this.MatchTab.Size = new System.Drawing.Size(340, 397);
-            this.MatchTab.TabIndex = 3;
-            this.MatchTab.Text = "Match";
-            this.MatchTab.UseVisualStyleBackColor = true;
+            this.PlayerTab.Controls.Add(this.flowLayoutPanel1);
+            this.PlayerTab.Location = new System.Drawing.Point(4, 22);
+            this.PlayerTab.Name = "PlayerTab";
+            this.PlayerTab.Padding = new System.Windows.Forms.Padding(3);
+            this.PlayerTab.Size = new System.Drawing.Size(340, 397);
+            this.PlayerTab.TabIndex = 3;
+            this.PlayerTab.Text = "Player Stats";
+            this.PlayerTab.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.MatchIDLabel);
-            this.flowLayoutPanel1.Controls.Add(this.MatchIDDataLabel);
-            this.flowLayoutPanel1.Controls.Add(this.SetMatchIDButton);
-            this.flowLayoutPanel1.Controls.Add(this.GameRegionLabel);
-            this.flowLayoutPanel1.Controls.Add(this.GameRegionDataLabel);
-            this.flowLayoutPanel1.Controls.Add(this.GameModeLabel);
-            this.flowLayoutPanel1.Controls.Add(this.GameModeDataLabel);
-            this.flowLayoutPanel1.Controls.Add(this.GameMapLabel);
-            this.flowLayoutPanel1.Controls.Add(this.GameMapDataLabel);
-            this.flowLayoutPanel1.Controls.Add(this.GameDateLabel);
-            this.flowLayoutPanel1.Controls.Add(this.GameDateDataLabel);
+            this.flowLayoutPanel1.Controls.Add(this.PlayerSelectLabel);
+            this.flowLayoutPanel1.Controls.Add(this.comboBox1);
             this.flowLayoutPanel1.Controls.Add(this.GeneralDivider3);
             this.flowLayoutPanel1.Controls.Add(this.GeneralDebugDumpJsonButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -602,126 +586,53 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(334, 391);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // MatchIDLabel
+            // PlayerSelectLabel
             // 
-            this.MatchIDLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.MatchIDLabel.Location = new System.Drawing.Point(5, 5);
-            this.MatchIDLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.MatchIDLabel.Name = "MatchIDLabel";
-            this.MatchIDLabel.Size = new System.Drawing.Size(76, 13);
-            this.MatchIDLabel.TabIndex = 29;
-            this.MatchIDLabel.Text = "Match ID:";
+            this.PlayerSelectLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerSelectLabel.Location = new System.Drawing.Point(5, 7);
+            this.PlayerSelectLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.PlayerSelectLabel.Name = "PlayerSelectLabel";
+            this.PlayerSelectLabel.Size = new System.Drawing.Size(76, 13);
+            this.PlayerSelectLabel.TabIndex = 29;
+            this.PlayerSelectLabel.Text = "Player:";
             // 
-            // MatchIDDataLabel
+            // comboBox1
             // 
-            this.MatchIDDataLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.MatchIDDataLabel.Location = new System.Drawing.Point(91, 5);
-            this.MatchIDDataLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.MatchIDDataLabel.Name = "MatchIDDataLabel";
-            this.MatchIDDataLabel.Size = new System.Drawing.Size(149, 13);
-            this.MatchIDDataLabel.TabIndex = 30;
-            this.MatchIDDataLabel.Text = "-";
-            // 
-            // SetMatchIDButton
-            // 
-            this.SetMatchIDButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.SetMatchIDButton.Enabled = false;
-            this.SetMatchIDButton.Location = new System.Drawing.Point(245, 0);
-            this.SetMatchIDButton.Margin = new System.Windows.Forms.Padding(0);
-            this.SetMatchIDButton.Name = "SetMatchIDButton";
-            this.SetMatchIDButton.Size = new System.Drawing.Size(75, 23);
-            this.SetMatchIDButton.TabIndex = 31;
-            this.SetMatchIDButton.Text = "Select...";
-            this.SetMatchIDButton.UseVisualStyleBackColor = true;
-            // 
-            // GameRegionLabel
-            // 
-            this.GameRegionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameRegionLabel.Location = new System.Drawing.Point(5, 28);
-            this.GameRegionLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GameRegionLabel.Name = "GameRegionLabel";
-            this.GameRegionLabel.Size = new System.Drawing.Size(76, 13);
-            this.GameRegionLabel.TabIndex = 36;
-            this.GameRegionLabel.Text = "Region:";
-            // 
-            // GameRegionDataLabel
-            // 
-            this.GameRegionDataLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameRegionDataLabel.Location = new System.Drawing.Point(91, 28);
-            this.GameRegionDataLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GameRegionDataLabel.Name = "GameRegionDataLabel";
-            this.GameRegionDataLabel.Size = new System.Drawing.Size(230, 13);
-            this.GameRegionDataLabel.TabIndex = 37;
-            this.GameRegionDataLabel.Text = "-";
-            // 
-            // GameModeLabel
-            // 
-            this.GameModeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameModeLabel.Location = new System.Drawing.Point(5, 51);
-            this.GameModeLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GameModeLabel.Name = "GameModeLabel";
-            this.GameModeLabel.Size = new System.Drawing.Size(76, 13);
-            this.GameModeLabel.TabIndex = 27;
-            this.GameModeLabel.Text = "Game Mode:";
-            // 
-            // GameModeDataLabel
-            // 
-            this.GameModeDataLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameModeDataLabel.Location = new System.Drawing.Point(91, 51);
-            this.GameModeDataLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GameModeDataLabel.Name = "GameModeDataLabel";
-            this.GameModeDataLabel.Size = new System.Drawing.Size(230, 13);
-            this.GameModeDataLabel.TabIndex = 28;
-            this.GameModeDataLabel.Text = "-";
-            // 
-            // GameMapLabel
-            // 
-            this.GameMapLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameMapLabel.Location = new System.Drawing.Point(5, 74);
-            this.GameMapLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GameMapLabel.Name = "GameMapLabel";
-            this.GameMapLabel.Size = new System.Drawing.Size(76, 13);
-            this.GameMapLabel.TabIndex = 34;
-            this.GameMapLabel.Text = "Map:";
-            // 
-            // GameMapDataLabel
-            // 
-            this.GameMapDataLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameMapDataLabel.Location = new System.Drawing.Point(91, 74);
-            this.GameMapDataLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GameMapDataLabel.Name = "GameMapDataLabel";
-            this.GameMapDataLabel.Size = new System.Drawing.Size(230, 13);
-            this.GameMapDataLabel.TabIndex = 35;
-            this.GameMapDataLabel.Text = "-";
-            // 
-            // GameDateLabel
-            // 
-            this.GameDateLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameDateLabel.Location = new System.Drawing.Point(5, 97);
-            this.GameDateLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GameDateLabel.Name = "GameDateLabel";
-            this.GameDateLabel.Size = new System.Drawing.Size(76, 13);
-            this.GameDateLabel.TabIndex = 32;
-            this.GameDateLabel.Text = "Date:";
-            // 
-            // GameDateDataLabel
-            // 
-            this.GameDateDataLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GameDateDataLabel.Location = new System.Drawing.Point(91, 97);
-            this.GameDateDataLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GameDateDataLabel.Name = "GameDateDataLabel";
-            this.GameDateDataLabel.Size = new System.Drawing.Size(230, 13);
-            this.GameDateDataLabel.TabIndex = 33;
-            this.GameDateDataLabel.Text = "-";
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(89, 3);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(231, 21);
+            this.comboBox1.TabIndex = 40;
             // 
             // GeneralDivider3
             // 
             this.GeneralDivider3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.GeneralDivider3.Location = new System.Drawing.Point(5, 120);
+            this.GeneralDivider3.Location = new System.Drawing.Point(5, 32);
             this.GeneralDivider3.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralDivider3.Name = "GeneralDivider3";
             this.GeneralDivider3.Size = new System.Drawing.Size(315, 2);
             this.GeneralDivider3.TabIndex = 38;
+            // 
+            // GeneralDebugDumpJsonButton
+            // 
+            this.GeneralDebugDumpJsonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(5, 44);
+            this.GeneralDebugDumpJsonButton.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralDebugDumpJsonButton.Name = "GeneralDebugDumpJsonButton";
+            this.GeneralDebugDumpJsonButton.Size = new System.Drawing.Size(75, 23);
+            this.GeneralDebugDumpJsonButton.TabIndex = 39;
+            this.GeneralDebugDumpJsonButton.Text = "Dump JSON";
+            this.GeneralDebugDumpJsonButton.UseVisualStyleBackColor = true;
+            // 
+            // ChartTab
+            // 
+            this.ChartTab.Location = new System.Drawing.Point(4, 22);
+            this.ChartTab.Name = "ChartTab";
+            this.ChartTab.Padding = new System.Windows.Forms.Padding(3);
+            this.ChartTab.Size = new System.Drawing.Size(340, 397);
+            this.ChartTab.TabIndex = 4;
+            this.ChartTab.Text = "Charts";
+            this.ChartTab.UseVisualStyleBackColor = true;
             // 
             // AboutTab
             // 
@@ -756,6 +667,7 @@
             this.AboutTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.AboutTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.AboutTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.AboutTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.AboutTableLayoutPanel.Size = new System.Drawing.Size(334, 391);
             this.AboutTableLayoutPanel.TabIndex = 0;
             // 
@@ -848,17 +760,6 @@
             this.MainCancelButton.UseVisualStyleBackColor = true;
             this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
             // 
-            // GeneralDebugDumpJsonButton
-            // 
-            this.GeneralDebugDumpJsonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(5, 132);
-            this.GeneralDebugDumpJsonButton.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralDebugDumpJsonButton.Name = "GeneralDebugDumpJsonButton";
-            this.GeneralDebugDumpJsonButton.Size = new System.Drawing.Size(75, 23);
-            this.GeneralDebugDumpJsonButton.TabIndex = 39;
-            this.GeneralDebugDumpJsonButton.Text = "Dump JSON";
-            this.GeneralDebugDumpJsonButton.UseVisualStyleBackColor = true;
-            // 
             // DetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -892,7 +793,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage10)).EndInit();
-            this.MatchTab.ResumeLayout(false);
+            this.PlayerTab.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.AboutTab.ResumeLayout(false);
             this.AboutTableLayoutPanel.ResumeLayout(false);
@@ -923,19 +824,8 @@
         private System.Windows.Forms.Label GeneralDivider2;
         private System.Windows.Forms.Button GeneralGameViewOnlineButton;
         private System.Windows.Forms.Button GeneralStartReplayButton;
-        private System.Windows.Forms.TabPage MatchTab;
+        private System.Windows.Forms.TabPage PlayerTab;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Label MatchIDLabel;
-        private System.Windows.Forms.Label MatchIDDataLabel;
-        private System.Windows.Forms.Button SetMatchIDButton;
-        private System.Windows.Forms.Label GameRegionLabel;
-        private System.Windows.Forms.Label GameRegionDataLabel;
-        private System.Windows.Forms.Label GameModeLabel;
-        private System.Windows.Forms.Label GameModeDataLabel;
-        private System.Windows.Forms.Label GameMapLabel;
-        private System.Windows.Forms.Label GameMapDataLabel;
-        private System.Windows.Forms.Label GameDateLabel;
-        private System.Windows.Forms.Label GameDateDataLabel;
         private System.Windows.Forms.Label GeneralDivider3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label GeneralMatchWinnerLabel;
@@ -965,5 +855,8 @@
         private System.Windows.Forms.Label GeneralGameMatchIDLabel;
         private System.Windows.Forms.TextBox GeneralGameMatchIDData;
         private System.Windows.Forms.Button GeneralDebugDumpJsonButton;
+        private System.Windows.Forms.Label PlayerSelectLabel;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TabPage ChartTab;
     }
 }
