@@ -42,21 +42,27 @@ namespace ROFLPlayer
 
         private void GeneralGameBrowseButton_Click(object sender, EventArgs e)
         {
-            var filepath = MainWindowManager.ShowFileDialog();
-            if(string.IsNullOrEmpty(filepath))
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Executable files (*.exe)|*.exe";
+            dialog.Multiselect = false;
+            dialog.Title = "Select League of Legends executable";
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
-                return;
-            }
+                var filepath = dialog.FileName;
+                if (string.IsNullOrEmpty(filepath))
+                {
+                    return;
+                }
 
-            if(LeagueManager.CheckLeagueExecutable(filepath))
-            {
-                this.GeneralGameTextBox.Text = filepath;
+                if (LeagueManager.CheckLeagueExecutable(filepath))
+                {
+                    this.GeneralGameTextBox.Text = filepath;
+                }
+                else
+                {
+                    MessageBox.Show("Invalid League executable", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
-            {
-                MessageBox.Show("Invalid League executable", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
         }
 
         private void GeneralGameClearButton_Click(object sender, EventArgs e)
