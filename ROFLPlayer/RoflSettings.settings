@@ -14,5 +14,8 @@
     <Setting Name="Region" Type="System.String" Scope="User">
       <Value Profile="(Default)">NA</Value>
     </Setting>
+    <Setting Name="MatchHistoryBaseUrl" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://matchhistory.na.leagueoflegends.com/en/#match-details</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

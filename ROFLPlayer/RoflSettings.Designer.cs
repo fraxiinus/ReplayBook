@@ -70,5 +70,17 @@ namespace ROFLPlayer {
                 this["Region"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://matchhistory.na.leagueoflegends.com/en/#match-details")]
+        public string MatchHistoryBaseUrl {
+            get {
+                return ((string)(this["MatchHistoryBaseUrl"]));
+            }
+            set {
+                this["MatchHistoryBaseUrl"] = value;
+            }
+        }
     }
 }
