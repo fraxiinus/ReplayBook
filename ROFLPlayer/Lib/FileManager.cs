@@ -13,7 +13,7 @@ namespace ROFLPlayer.Lib
     public class FileManager
     {
         public static string ddragonurl = @"http://ddragon.leagueoflegends.com/cdn/";
-        public static string ddragonver = "8.12.1";
+        public static string ddragonver = "8.13.1";
         // Creates shortcuts, modifies shortcuts if exists
         public static IWshShortcut CreateShortcut(string shortcutpath, string execpath, string replaypath)
         {
@@ -27,6 +27,43 @@ namespace ROFLPlayer.Lib
             shortcut.Save();
 
             return shortcut;
+        }
+
+        public static async Task<string> GetItemImage(int itemId)
+        {
+            if(itemId == 0)
+            {
+                return null;
+            }
+
+            var cachepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "items");
+
+            if (!Directory.Exists(cachepath))
+            {
+                Directory.CreateDirectory(cachepath);
+            }
+
+            var imgfilepath =
+                (from file in Directory.GetFiles(cachepath)
+                 where Path.GetFileNameWithoutExtension(file) == itemId.ToString()
+                 select file).FirstOrDefault();
+
+            if (imgfilepath != null)
+            {
+                return imgfilepath;
+            }
+
+            var savepath = cachepath + $"\\{itemId.ToString()}.png";
+            var dltask = await DownloadItemIcon(itemId, savepath);
+
+            if (dltask)
+            {
+                return savepath;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         // If the image is not downloaded already, then download it, otherwise return already downloaded image
@@ -96,6 +133,25 @@ namespace ROFLPlayer.Lib
                 return null;
             }
         }
+
+        private async static Task<bool> DownloadItemIcon(int itemId, string path)
+        {
+            using (WebClient wc = new WebClient())
+            {
+                try
+                {
+                    var url = new Uri(ddragonurl + ddragonver + @"/img/item/" + itemId.ToString() + ".png");
+                    await wc.DownloadFileTaskAsync(url, path);
+                    return true;
+                }
+                catch (WebException ex)
+                {
+                    return false;
+                }
+            }
+        }
+
+
         private async static Task<bool> DownloadMapIcon(Maps mapid, string path)
         {
             using (WebClient wc = new WebClient())
