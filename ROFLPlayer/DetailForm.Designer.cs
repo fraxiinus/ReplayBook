@@ -71,7 +71,6 @@
             this.PlayerSelectLabel = new System.Windows.Forms.Label();
             this.PlayerSelectComboBox = new System.Windows.Forms.ComboBox();
             this.GeneralDivider3 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -83,6 +82,17 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.MainOkButton = new System.Windows.Forms.Button();
             this.MainCancelButton = new System.Windows.Forms.Button();
+            this.PlayerStatsChampImage = new System.Windows.Forms.PictureBox();
+            this.PlayerSpellsItemsTable = new System.Windows.Forms.TableLayoutPanel();
+            this.PlayerSummonerImage1 = new System.Windows.Forms.PictureBox();
+            this.PlayerSummonerImage2 = new System.Windows.Forms.PictureBox();
+            this.PlayerItemImage1 = new System.Windows.Forms.PictureBox();
+            this.PlayerItemImage2 = new System.Windows.Forms.PictureBox();
+            this.PlayerItemImage3 = new System.Windows.Forms.PictureBox();
+            this.PlayerItemImage4 = new System.Windows.Forms.PictureBox();
+            this.PlayerItemImage5 = new System.Windows.Forms.PictureBox();
+            this.PlayerItemImage6 = new System.Windows.Forms.PictureBox();
+            this.PlayerTrinketImage = new System.Windows.Forms.PictureBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -103,6 +113,17 @@
             this.AboutTab.SuspendLayout();
             this.AboutTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AboutLogoPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerStatsChampImage)).BeginInit();
+            this.PlayerSpellsItemsTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerSummonerImage1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerSummonerImage2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerTrinketImage)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -579,7 +600,8 @@
             this.flowLayoutPanel1.Controls.Add(this.PlayerSelectLabel);
             this.flowLayoutPanel1.Controls.Add(this.PlayerSelectComboBox);
             this.flowLayoutPanel1.Controls.Add(this.GeneralDivider3);
-            this.flowLayoutPanel1.Controls.Add(this.tableLayoutPanel2);
+            this.flowLayoutPanel1.Controls.Add(this.PlayerStatsChampImage);
+            this.flowLayoutPanel1.Controls.Add(this.PlayerSpellsItemsTable);
             this.flowLayoutPanel1.Controls.Add(this.GeneralDebugDumpJsonButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
@@ -605,6 +627,7 @@
             this.PlayerSelectComboBox.Name = "PlayerSelectComboBox";
             this.PlayerSelectComboBox.Size = new System.Drawing.Size(269, 21);
             this.PlayerSelectComboBox.TabIndex = 40;
+            this.PlayerSelectComboBox.SelectedIndexChanged += new System.EventHandler(this.PlayerSelectComboBox_SelectChanged);
             // 
             // GeneralDivider3
             // 
@@ -615,24 +638,10 @@
             this.GeneralDivider3.Size = new System.Drawing.Size(323, 2);
             this.GeneralDivider3.TabIndex = 38;
             // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(5, 44);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(5);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(323, 309);
-            this.tableLayoutPanel2.TabIndex = 41;
-            // 
             // GeneralDebugDumpJsonButton
             // 
             this.GeneralDebugDumpJsonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(5, 363);
+            this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(5, 129);
             this.GeneralDebugDumpJsonButton.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralDebugDumpJsonButton.Name = "GeneralDebugDumpJsonButton";
             this.GeneralDebugDumpJsonButton.Size = new System.Drawing.Size(75, 23);
@@ -766,6 +775,134 @@
             this.MainCancelButton.UseVisualStyleBackColor = true;
             this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
             // 
+            // PlayerStatsChampImage
+            // 
+            this.PlayerStatsChampImage.Location = new System.Drawing.Point(5, 44);
+            this.PlayerStatsChampImage.Margin = new System.Windows.Forms.Padding(5);
+            this.PlayerStatsChampImage.Name = "PlayerStatsChampImage";
+            this.PlayerStatsChampImage.Size = new System.Drawing.Size(75, 75);
+            this.PlayerStatsChampImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerStatsChampImage.TabIndex = 42;
+            this.PlayerStatsChampImage.TabStop = false;
+            // 
+            // PlayerSpellsItemsTable
+            // 
+            this.PlayerSpellsItemsTable.ColumnCount = 7;
+            this.PlayerSpellsItemsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.PlayerSpellsItemsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.PlayerSpellsItemsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.PlayerSpellsItemsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.PlayerSpellsItemsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.PlayerSpellsItemsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.PlayerSpellsItemsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerSummonerImage1, 0, 0);
+            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerSummonerImage2, 0, 1);
+            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerItemImage1, 2, 0);
+            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerItemImage2, 2, 1);
+            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerItemImage3, 3, 0);
+            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerItemImage4, 3, 1);
+            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerItemImage5, 4, 0);
+            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerItemImage6, 4, 1);
+            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerTrinketImage, 5, 0);
+            this.PlayerSpellsItemsTable.Location = new System.Drawing.Point(90, 44);
+            this.PlayerSpellsItemsTable.Margin = new System.Windows.Forms.Padding(5);
+            this.PlayerSpellsItemsTable.Name = "PlayerSpellsItemsTable";
+            this.PlayerSpellsItemsTable.RowCount = 2;
+            this.PlayerSpellsItemsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.PlayerSpellsItemsTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.PlayerSpellsItemsTable.Size = new System.Drawing.Size(238, 75);
+            this.PlayerSpellsItemsTable.TabIndex = 43;
+            // 
+            // PlayerSummonerImage1
+            // 
+            this.PlayerSummonerImage1.Location = new System.Drawing.Point(2, 2);
+            this.PlayerSummonerImage1.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerSummonerImage1.Name = "PlayerSummonerImage1";
+            this.PlayerSummonerImage1.Size = new System.Drawing.Size(33, 33);
+            this.PlayerSummonerImage1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerSummonerImage1.TabIndex = 0;
+            this.PlayerSummonerImage1.TabStop = false;
+            // 
+            // PlayerSummonerImage2
+            // 
+            this.PlayerSummonerImage2.Location = new System.Drawing.Point(2, 39);
+            this.PlayerSummonerImage2.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerSummonerImage2.Name = "PlayerSummonerImage2";
+            this.PlayerSummonerImage2.Size = new System.Drawing.Size(33, 33);
+            this.PlayerSummonerImage2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerSummonerImage2.TabIndex = 1;
+            this.PlayerSummonerImage2.TabStop = false;
+            // 
+            // PlayerItemImage1
+            // 
+            this.PlayerItemImage1.Location = new System.Drawing.Point(59, 2);
+            this.PlayerItemImage1.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerItemImage1.Name = "PlayerItemImage1";
+            this.PlayerItemImage1.Size = new System.Drawing.Size(33, 33);
+            this.PlayerItemImage1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerItemImage1.TabIndex = 2;
+            this.PlayerItemImage1.TabStop = false;
+            // 
+            // PlayerItemImage2
+            // 
+            this.PlayerItemImage2.Location = new System.Drawing.Point(59, 39);
+            this.PlayerItemImage2.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerItemImage2.Name = "PlayerItemImage2";
+            this.PlayerItemImage2.Size = new System.Drawing.Size(33, 33);
+            this.PlayerItemImage2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerItemImage2.TabIndex = 3;
+            this.PlayerItemImage2.TabStop = false;
+            // 
+            // PlayerItemImage3
+            // 
+            this.PlayerItemImage3.Location = new System.Drawing.Point(96, 2);
+            this.PlayerItemImage3.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerItemImage3.Name = "PlayerItemImage3";
+            this.PlayerItemImage3.Size = new System.Drawing.Size(33, 33);
+            this.PlayerItemImage3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerItemImage3.TabIndex = 4;
+            this.PlayerItemImage3.TabStop = false;
+            // 
+            // PlayerItemImage4
+            // 
+            this.PlayerItemImage4.Location = new System.Drawing.Point(96, 39);
+            this.PlayerItemImage4.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerItemImage4.Name = "PlayerItemImage4";
+            this.PlayerItemImage4.Size = new System.Drawing.Size(33, 33);
+            this.PlayerItemImage4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerItemImage4.TabIndex = 5;
+            this.PlayerItemImage4.TabStop = false;
+            // 
+            // PlayerItemImage5
+            // 
+            this.PlayerItemImage5.Location = new System.Drawing.Point(133, 2);
+            this.PlayerItemImage5.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerItemImage5.Name = "PlayerItemImage5";
+            this.PlayerItemImage5.Size = new System.Drawing.Size(33, 33);
+            this.PlayerItemImage5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerItemImage5.TabIndex = 6;
+            this.PlayerItemImage5.TabStop = false;
+            // 
+            // PlayerItemImage6
+            // 
+            this.PlayerItemImage6.Location = new System.Drawing.Point(133, 39);
+            this.PlayerItemImage6.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerItemImage6.Name = "PlayerItemImage6";
+            this.PlayerItemImage6.Size = new System.Drawing.Size(33, 33);
+            this.PlayerItemImage6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerItemImage6.TabIndex = 7;
+            this.PlayerItemImage6.TabStop = false;
+            // 
+            // PlayerTrinketImage
+            // 
+            this.PlayerTrinketImage.Location = new System.Drawing.Point(170, 2);
+            this.PlayerTrinketImage.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerTrinketImage.Name = "PlayerTrinketImage";
+            this.PlayerTrinketImage.Size = new System.Drawing.Size(33, 33);
+            this.PlayerTrinketImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerTrinketImage.TabIndex = 8;
+            this.PlayerTrinketImage.TabStop = false;
+            // 
             // DetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -804,6 +941,17 @@
             this.AboutTab.ResumeLayout(false);
             this.AboutTableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AboutLogoPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerStatsChampImage)).EndInit();
+            this.PlayerSpellsItemsTable.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerSummonerImage1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerSummonerImage2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerTrinketImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -863,6 +1011,16 @@
         private System.Windows.Forms.Button GeneralDebugDumpJsonButton;
         private System.Windows.Forms.Label PlayerSelectLabel;
         private System.Windows.Forms.ComboBox PlayerSelectComboBox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.PictureBox PlayerStatsChampImage;
+        private System.Windows.Forms.TableLayoutPanel PlayerSpellsItemsTable;
+        private System.Windows.Forms.PictureBox PlayerSummonerImage1;
+        private System.Windows.Forms.PictureBox PlayerSummonerImage2;
+        private System.Windows.Forms.PictureBox PlayerItemImage1;
+        private System.Windows.Forms.PictureBox PlayerItemImage2;
+        private System.Windows.Forms.PictureBox PlayerItemImage3;
+        private System.Windows.Forms.PictureBox PlayerItemImage4;
+        private System.Windows.Forms.PictureBox PlayerItemImage5;
+        private System.Windows.Forms.PictureBox PlayerItemImage6;
+        private System.Windows.Forms.PictureBox PlayerTrinketImage;
     }
 }
