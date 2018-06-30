@@ -53,6 +53,8 @@ namespace ROFLPlayer
 
         }
 
+        ///////////////////// General Tab Methods
+
         private void MainCancelButton_Click(object sender, EventArgs e)
         {
             Environment.Exit(1);
@@ -61,29 +63,6 @@ namespace ROFLPlayer
         private void MainOkButton_Click(object sender, EventArgs e)
         {
             Environment.Exit(1);
-        }
-
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            if(fileinfo == null)
-            {
-                //fileinfo = (await LeagueManager.LoadAndParseReplayHeaders(replaypath)).Result;
-                fileinfo = ReplayReader.ReadReplayFile(replaypath);
-            }
-
-            if(!string.IsNullOrEmpty(replaypath))
-            {
-                var outputfile = Path.Combine(Path.GetDirectoryName(replaypath), Path.GetFileNameWithoutExtension(replaypath) + ".json" );
-                var dumpresult = await DetailWindowManager.WriteReplayHeaderToFile(outputfile, fileinfo);
-                if (dumpresult.Success)
-                {
-                    MessageBox.Show(dumpresult.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show(dumpresult.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
         }
 
         private void GeneralStartReplayButton_Click(object sender, EventArgs e)
@@ -108,6 +87,38 @@ namespace ROFLPlayer
         private void GeneralGameViewOnlineButton_Click(object sender, EventArgs e)
         {
             //
+        }
+
+        ///////////////////// Player Tab Methods
+        private async void PlayerSelectComboBox_SelectChanged(object sender, EventArgs e)
+        {
+            var selectedplayername = PlayerSelectComboBox.Text;
+            
+
+        }
+
+        ///////////////////// Debug Methods
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            if (fileinfo == null)
+            {
+                //fileinfo = (await LeagueManager.LoadAndParseReplayHeaders(replaypath)).Result;
+                fileinfo = ReplayReader.ReadReplayFile(replaypath);
+            }
+
+            if (!string.IsNullOrEmpty(replaypath))
+            {
+                var outputfile = Path.Combine(Path.GetDirectoryName(replaypath), Path.GetFileNameWithoutExtension(replaypath) + ".json");
+                var dumpresult = await DetailWindowManager.WriteReplayHeaderToFile(outputfile, fileinfo);
+                if (dumpresult.Success)
+                {
+                    MessageBox.Show(dumpresult.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(dumpresult.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
