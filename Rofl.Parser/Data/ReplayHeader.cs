@@ -11,9 +11,9 @@ namespace Rofl.Parser
         public uint FileLength;
         public uint MetadataOffset;
         public uint MetadataLength;
-        public uint MatchHeaderOffset;
-        public uint MatchHeaderLength;
-        public uint MatchOffset;
+        public uint PayloadHeaderOffset;
+        public uint PayloadHeaderLength;
+        public uint PayloadOffset;
     }
 
     public struct ReplayMatchMetadata
@@ -25,7 +25,7 @@ namespace Rofl.Parser
         public JArray Players;
     }
 
-    public struct ReplayMatchHeader
+    public struct ReplayPayloadHeader
     {
         public ulong MatchID;
         public uint MatchLength;
@@ -42,6 +42,6 @@ namespace Rofl.Parser
     {
         public ReplayLengthFields LengthFields;
         public ReplayMatchMetadata MatchMetadata;
-        public ReplayMatchHeader MatchHeader;
+        public ReplayPayloadHeader MatchHeader;
     }
 }

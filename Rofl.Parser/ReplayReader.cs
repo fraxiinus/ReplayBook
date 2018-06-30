@@ -19,7 +19,7 @@ namespace Rofl.Parser
 
             ReplayLengthFields replayLengthFields;
             ReplayMatchMetadata replayMatchMetadata;
-            ReplayMatchHeader replayMatchHeader;
+            ReplayPayloadHeader replayPayloadHeader;
 
             using (var filestream = new FileStream(replaypath, FileMode.Open))
             {
@@ -64,21 +64,21 @@ namespace Rofl.Parser
 
                 replayMatchMetadata = ParseMetadata(metadataBytes);
 
-                byte[] matchheaderbytes = new byte[replayLengthFields.MatchHeaderLength];
+                byte[] matchheaderbytes = new byte[replayLengthFields.PayloadHeaderLength];
                 try
                 {
-                    filestream.Seek(replayLengthFields.MatchHeaderOffset, SeekOrigin.Begin);
-                    filestream.Read(matchheaderbytes, 0, (int)replayLengthFields.MatchHeaderLength);
+                    filestream.Seek(replayLengthFields.PayloadHeaderOffset, SeekOrigin.Begin);
+                    filestream.Read(matchheaderbytes, 0, (int)replayLengthFields.PayloadHeaderLength);
                 }
                 catch (Exception ex)
                 {
                     throw new IOException("Reading Match Header: " + ex.Message);
                 }
 
-                replayMatchHeader = ParseMatchHeader(matchheaderbytes);
+                replayPayloadHeader = ParseMatchHeader(matchheaderbytes);
             }
 
-            return new ReplayHeader { LengthFields = replayLengthFields, MatchMetadata = replayMatchMetadata, MatchHeader = replayMatchHeader };
+            return new ReplayHeader { LengthFields = replayLengthFields, MatchMetadata = replayMatchMetadata, MatchHeader = replayPayloadHeader };
         }
 
         public async static Task<ReplayHeader> ReadReplayFileAsync(string replaypath)
@@ -88,7 +88,7 @@ namespace Rofl.Parser
 
             ReplayLengthFields replayLengthFields;
             ReplayMatchMetadata replayMatchMetadata;
-            ReplayMatchHeader replayMatchHeader;
+            ReplayPayloadHeader replayPayloadHeader;
 
             using (var filestream = new FileStream(replaypath, FileMode.Open))
             {
@@ -133,26 +133,26 @@ namespace Rofl.Parser
 
                 replayMatchMetadata = ParseMetadata(metadataBytes);
 
-                byte[] matchheaderbytes = new byte[replayLengthFields.MatchHeaderLength];
+                byte[] matchheaderbytes = new byte[replayLengthFields.PayloadHeaderLength];
                 try
                 {
-                    filestream.Seek(replayLengthFields.MatchHeaderOffset, SeekOrigin.Begin);
-                    await filestream.ReadAsync(matchheaderbytes, 0, (int)replayLengthFields.MatchHeaderLength);
+                    filestream.Seek(replayLengthFields.PayloadHeaderOffset, SeekOrigin.Begin);
+                    await filestream.ReadAsync(matchheaderbytes, 0, (int)replayLengthFields.PayloadHeaderLength);
                 }
                 catch (Exception ex)
                 {
                     throw new IOException("Reading Match Header: " + ex.Message);
                 }
 
-                replayMatchHeader = ParseMatchHeader(matchheaderbytes);
+                replayPayloadHeader = ParseMatchHeader(matchheaderbytes);
             }
 
-            return new ReplayHeader { LengthFields = replayLengthFields, MatchMetadata = replayMatchMetadata, MatchHeader = replayMatchHeader };
+            return new ReplayHeader { LengthFields = replayLengthFields, MatchMetadata = replayMatchMetadata, MatchHeader = replayPayloadHeader };
         }
 
-        private static ReplayMatchHeader ParseMatchHeader(byte[] bytedata)
+        private static ReplayPayloadHeader ParseMatchHeader(byte[] bytedata)
         {
-            var result = new ReplayMatchHeader { };
+            var result = new ReplayPayloadHeader { };
 
             //byte[] ulong_bytes = bytedata.Take(8).ToArray();
             result.MatchID = BitConverter.ToUInt64(bytedata, 0);
@@ -219,13 +219,13 @@ namespace Rofl.Parser
             result.MetadataLength = BitConverter.ToUInt32(bytedata, 10);
 
             //uint_bytes = bytedata.Skip(14).Take(4).ToArray();
-            result.MatchHeaderOffset = BitConverter.ToUInt32(bytedata, 14);
+            result.PayloadHeaderOffset = BitConverter.ToUInt32(bytedata, 14);
 
             //uint_bytes = bytedata.Skip(18).Take(4).ToArray();
-            result.MatchHeaderLength = BitConverter.ToUInt32(bytedata, 18);
+            result.PayloadHeaderLength = BitConverter.ToUInt32(bytedata, 18);
 
             //uint_bytes = bytedata.Skip(22).Take(4).ToArray();
-            result.MatchOffset = BitConverter.ToUInt32(bytedata, 22);
+            result.PayloadOffset = BitConverter.ToUInt32(bytedata, 22);
 
             return result;
         }
