@@ -90,11 +90,25 @@ namespace ROFLPlayer
         }
 
         ///////////////////// Player Tab Methods
-        private async void PlayerSelectComboBox_SelectChanged(object sender, EventArgs e)
+        private void PlayerSelectComboBox_SelectChanged(object sender, EventArgs e)
         {
             var selectedplayername = PlayerSelectComboBox.Text;
-            
 
+            var player =
+                (from qplayer in fileinfo.MatchMetadata.Players
+                 where qplayer["NAME"].ToString().ToUpper() == selectedplayername.ToUpper()
+                 select qplayer).FirstOrDefault();
+
+            PlayerStatsChampImage.Image = null;
+            PlayerItemImage1.Image = null;
+            PlayerItemImage2.Image = null;
+            PlayerItemImage3.Image = null;
+            PlayerItemImage4.Image = null;
+            PlayerItemImage5.Image = null;
+            PlayerItemImage6.Image = null;
+            PlayerItemImage7.Image = null;
+
+            DetailWindowManager.PopulatePlayerStatsData(player, this);
         }
 
         ///////////////////// Debug Methods

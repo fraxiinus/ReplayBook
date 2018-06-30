@@ -92,7 +92,7 @@
             this.PlayerItemImage4 = new System.Windows.Forms.PictureBox();
             this.PlayerItemImage5 = new System.Windows.Forms.PictureBox();
             this.PlayerItemImage6 = new System.Windows.Forms.PictureBox();
-            this.PlayerTrinketImage = new System.Windows.Forms.PictureBox();
+            this.PlayerItemImage7 = new System.Windows.Forms.PictureBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -123,7 +123,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PlayerTrinketImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage7)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -803,7 +803,7 @@
             this.PlayerSpellsItemsTable.Controls.Add(this.PlayerItemImage4, 3, 1);
             this.PlayerSpellsItemsTable.Controls.Add(this.PlayerItemImage5, 4, 0);
             this.PlayerSpellsItemsTable.Controls.Add(this.PlayerItemImage6, 4, 1);
-            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerTrinketImage, 5, 0);
+            this.PlayerSpellsItemsTable.Controls.Add(this.PlayerItemImage7, 5, 0);
             this.PlayerSpellsItemsTable.Location = new System.Drawing.Point(90, 44);
             this.PlayerSpellsItemsTable.Margin = new System.Windows.Forms.Padding(5);
             this.PlayerSpellsItemsTable.Name = "PlayerSpellsItemsTable";
@@ -893,15 +893,15 @@
             this.PlayerItemImage6.TabIndex = 7;
             this.PlayerItemImage6.TabStop = false;
             // 
-            // PlayerTrinketImage
+            // PlayerItemImage7
             // 
-            this.PlayerTrinketImage.Location = new System.Drawing.Point(170, 2);
-            this.PlayerTrinketImage.Margin = new System.Windows.Forms.Padding(2);
-            this.PlayerTrinketImage.Name = "PlayerTrinketImage";
-            this.PlayerTrinketImage.Size = new System.Drawing.Size(33, 33);
-            this.PlayerTrinketImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.PlayerTrinketImage.TabIndex = 8;
-            this.PlayerTrinketImage.TabStop = false;
+            this.PlayerItemImage7.Location = new System.Drawing.Point(170, 2);
+            this.PlayerItemImage7.Margin = new System.Windows.Forms.Padding(2);
+            this.PlayerItemImage7.Name = "PlayerItemImage7";
+            this.PlayerItemImage7.Size = new System.Drawing.Size(33, 33);
+            this.PlayerItemImage7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PlayerItemImage7.TabIndex = 8;
+            this.PlayerItemImage7.TabStop = false;
             // 
             // DetailForm
             // 
@@ -951,7 +951,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PlayerTrinketImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage7)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1021,6 +1021,6 @@
         private System.Windows.Forms.PictureBox PlayerItemImage4;
         private System.Windows.Forms.PictureBox PlayerItemImage5;
         private System.Windows.Forms.PictureBox PlayerItemImage6;
-        private System.Windows.Forms.PictureBox PlayerTrinketImage;
+        private System.Windows.Forms.PictureBox PlayerItemImage7;
     }
 }
