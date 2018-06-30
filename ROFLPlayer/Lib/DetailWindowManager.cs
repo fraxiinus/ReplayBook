@@ -59,7 +59,7 @@ namespace ROFLPlayer.Lib
                 var minutes = (int)time;
                 var seconds = (int)((time % 1.0m) * 60);
                 form.Controls.Find("GeneralGameLengthDataLabel", true)[0].Text = $"{minutes} minutes and {seconds} seconds";
-                form.Controls.Find("GeneralGameMatchIDData", true)[0].Text = data.MatchHeader.MatchID.ToString();
+                form.Controls.Find("GeneralGameMatchIDData", true)[0].Text = data.MatchHeader.MatchId.ToString();
                 var mapimg = (PictureBox)form.Controls.Find($"GeneralGamePictureBox", true)[0];
                 new ToolTip().SetToolTip(mapimg, map.ToString());
 
