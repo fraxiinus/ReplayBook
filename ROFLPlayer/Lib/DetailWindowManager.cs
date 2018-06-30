@@ -172,6 +172,88 @@ namespace ROFLPlayer.Lib
             return;
         }
 
+        public static void PopulatePlayerStatsData(JToken player, Form form)
+        {
+            var getimgtask = FileManager.GetChampionIconImage(player["SKIN"].ToString());
+            var item0task = FileManager.GetItemImage(player["ITEM0"].ToObject<int>());
+            var item1task = FileManager.GetItemImage(player["ITEM1"].ToObject<int>());
+            var item2task = FileManager.GetItemImage(player["ITEM2"].ToObject<int>());
+            var item3task = FileManager.GetItemImage(player["ITEM3"].ToObject<int>());
+            var item4task = FileManager.GetItemImage(player["ITEM4"].ToObject<int>());
+            var item5task = FileManager.GetItemImage(player["ITEM5"].ToObject<int>());
+            var item6task = FileManager.GetItemImage(player["ITEM6"].ToObject<int>());
+
+            form.BeginInvoke((Action)(async () =>
+            {
+                var champimage = (PictureBox)form.Controls.Find("PlayerStatsChampImage", true)[0];
+
+                var allboxes = form.Controls.Find("PlayerSpellsItemsTable", true)[0].Controls;
+
+                var itemboxes =
+                    (from Control boxes in allboxes
+                    where boxes.Name.Contains("PlayerItemImage")
+                    select boxes).Cast<PictureBox>().ToArray();
+                
+                var imgpath = await getimgtask;
+                if(!string.IsNullOrEmpty(imgpath))
+                {
+                    champimage.WaitOnLoad = false;
+                    champimage.LoadAsync(imgpath);
+                }
+
+                var item0path = await item0task;
+                if (!string.IsNullOrEmpty(item0path))
+                {
+                    itemboxes[0].WaitOnLoad = false;
+                    itemboxes[0].LoadAsync(item0path);
+                }
+
+
+                var item1path = await item1task;
+                if (!string.IsNullOrEmpty(item1path))
+                {
+                    itemboxes[1].WaitOnLoad = false;
+                    itemboxes[1].LoadAsync(item1path);
+                }
+
+                var item2path = await item2task;
+                if (!string.IsNullOrEmpty(item2path))
+                {
+                    itemboxes[2].WaitOnLoad = false;
+                    itemboxes[2].LoadAsync(item2path);
+                }
+
+                var item3path = await item3task;
+                if (!string.IsNullOrEmpty(item3path))
+                {
+                    itemboxes[3].WaitOnLoad = false;
+                    itemboxes[3].LoadAsync(item3path);
+                }
+
+                var item4path = await item4task;
+                if (!string.IsNullOrEmpty(item4path))
+                {
+                    itemboxes[4].WaitOnLoad = false;
+                    itemboxes[4].LoadAsync(item4path);
+                }
+
+                var item5path = await item5task;
+                if (!string.IsNullOrEmpty(item5path))
+                {
+                    itemboxes[5].WaitOnLoad = false;
+                    itemboxes[5].LoadAsync(item5path);
+                }
+
+                var item6path = await item6task;
+                if (!string.IsNullOrEmpty(item6path))
+                {
+                    itemboxes[6].WaitOnLoad = false;
+                    itemboxes[6].LoadAsync(item6path);
+                }
+
+            }));
+        }
+
         public static async Task<RunResult<string>> WriteReplayHeaderToFile(string path, ReplayHeader header)
         {
             var result = new RunResult<string> { Success = false, Result= null };
