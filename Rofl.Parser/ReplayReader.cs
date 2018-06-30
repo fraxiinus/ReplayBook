@@ -48,23 +48,31 @@ namespace Rofl.Parser
                 {
                     throw new IOException("Reading Length Header: " + ex.Message);
                 }
-
                 replayLengthFields = ParseLengthFields(lengthHeaderBytes);
+
+                /*
                 byte[] metadataBytes = new byte[replayLengthFields.MetadataLength];
+                replayMatchMetadata = ParseMetadata(metadataBytes);
+                byte[] matchheaderbytes = new byte[replayLengthFields.PayloadHeaderLength];
+                */
+
+                var metadataPayloadLength = replayLengthFields.MetadataLength + replayLengthFields.PayloadHeaderLength;
+                byte[] replayMetadataPayloadBytes = new byte[metadataPayloadLength];
 
                 try
                 {
                     filestream.Seek(replayLengthFields.MetadataOffset, SeekOrigin.Begin);
-                    filestream.Read(metadataBytes, 0, (int)replayLengthFields.MetadataLength);
+                    filestream.Read(replayMetadataPayloadBytes, 0, (int)metadataPayloadLength);
                 }
                 catch (Exception ex)
                 {
-                    throw new IOException("Reading JSON Metadata: " + ex.Message);
+                    throw new IOException("Reading Metadata + Payload Header: " + ex.Message);
                 }
 
-                replayMatchMetadata = ParseMetadata(metadataBytes);
+                replayMatchMetadata = ParseMetadata(replayMetadataPayloadBytes.Take((int)replayLengthFields.MetadataLength).ToArray());
+                replayPayloadHeader = ParseMatchHeader(replayMetadataPayloadBytes.Skip((int)replayLengthFields.PayloadHeaderOffset).Take((int)replayLengthFields.PayloadHeaderLength).ToArray());
 
-                byte[] matchheaderbytes = new byte[replayLengthFields.PayloadHeaderLength];
+                /*
                 try
                 {
                     filestream.Seek(replayLengthFields.PayloadHeaderOffset, SeekOrigin.Begin);
@@ -73,9 +81,8 @@ namespace Rofl.Parser
                 catch (Exception ex)
                 {
                     throw new IOException("Reading Match Header: " + ex.Message);
-                }
+                }*/
 
-                replayPayloadHeader = ParseMatchHeader(matchheaderbytes);
             }
 
             return new ReplayHeader { LengthFields = replayLengthFields, MatchMetadata = replayMatchMetadata, MatchHeader = replayPayloadHeader };
