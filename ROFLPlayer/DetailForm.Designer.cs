@@ -73,7 +73,6 @@
             this.GeneralDivider3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
-            this.ChartTab = new System.Windows.Forms.TabPage();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
@@ -110,7 +109,6 @@
             // 
             this.MainTabControl.Controls.Add(this.GeneralTab);
             this.MainTabControl.Controls.Add(this.PlayerTab);
-            this.MainTabControl.Controls.Add(this.ChartTab);
             this.MainTabControl.Controls.Add(this.AboutTab);
             this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.MainTabControl.Location = new System.Drawing.Point(5, 5);
@@ -642,16 +640,6 @@
             this.GeneralDebugDumpJsonButton.Text = "Dump JSON";
             this.GeneralDebugDumpJsonButton.UseVisualStyleBackColor = true;
             // 
-            // ChartTab
-            // 
-            this.ChartTab.Location = new System.Drawing.Point(4, 22);
-            this.ChartTab.Name = "ChartTab";
-            this.ChartTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ChartTab.Size = new System.Drawing.Size(340, 397);
-            this.ChartTab.TabIndex = 4;
-            this.ChartTab.Text = "Charts";
-            this.ChartTab.UseVisualStyleBackColor = true;
-            // 
             // AboutTab
             // 
             this.AboutTab.Controls.Add(this.AboutTableLayoutPanel);
@@ -874,7 +862,6 @@
         private System.Windows.Forms.TextBox GeneralGameMatchIDData;
         private System.Windows.Forms.Button GeneralDebugDumpJsonButton;
         private System.Windows.Forms.Label PlayerSelectLabel;
-        private System.Windows.Forms.TabPage ChartTab;
         private System.Windows.Forms.ComboBox PlayerSelectComboBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
