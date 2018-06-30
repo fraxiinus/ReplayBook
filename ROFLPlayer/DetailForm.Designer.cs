@@ -270,7 +270,7 @@
             this.GeneralMatchWinnerLabel.Location = new System.Drawing.Point(5, 163);
             this.GeneralMatchWinnerLabel.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralMatchWinnerLabel.Name = "GeneralMatchWinnerLabel";
-            this.GeneralMatchWinnerLabel.Size = new System.Drawing.Size(316, 16);
+            this.GeneralMatchWinnerLabel.Size = new System.Drawing.Size(323, 16);
             this.GeneralMatchWinnerLabel.TabIndex = 39;
             this.GeneralMatchWinnerLabel.Text = "-";
             this.GeneralMatchWinnerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
