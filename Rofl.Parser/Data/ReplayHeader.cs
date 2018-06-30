@@ -27,7 +27,7 @@ namespace Rofl.Parser
 
     public struct ReplayPayloadHeader
     {
-        public ulong MatchID;
+        public ulong MatchId;
         public uint MatchLength;
         public uint KeyframeAmount;
         public uint ChunkAmount;
@@ -36,6 +36,24 @@ namespace Rofl.Parser
         public uint KeyframeInterval;
         public ushort EncryptionKeyLength;
         public string EncryptionKey; // base64
+    }
+
+    public struct ReplayChunkHeader
+    {
+        public uint ChunkId;
+        public byte ChunkType;
+        public uint ChunkLength;
+        public uint NextChunkId;
+        public uint Offset;
+    }
+
+    public struct ReplayKeyframeHeader
+    {
+        public uint KeyframeId;
+        public byte KeyframeType;
+        public uint KeyframeLength;
+        public uint NextKeyframeId;
+        public uint Offset;
     }
 
     public class ReplayHeader

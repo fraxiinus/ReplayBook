@@ -154,35 +154,17 @@ namespace Rofl.Parser
         {
             var result = new ReplayPayloadHeader { };
 
-            //byte[] ulong_bytes = bytedata.Take(8).ToArray();
-            result.MatchID = BitConverter.ToUInt64(bytedata, 0);
-
-            //byte[] uint_bytes = bytedata.Skip(8).Take(4).ToArray();
+            result.MatchId = BitConverter.ToUInt64(bytedata, 0);
             result.MatchLength = BitConverter.ToUInt32(bytedata, 8);
-
-            //uint_bytes = bytedata.Skip(12).Take(4).ToArray();
             result.KeyframeAmount = BitConverter.ToUInt32(bytedata, 12);
-
-            //uint_bytes = bytedata.Skip(16).Take(4).ToArray();
             result.ChunkAmount = BitConverter.ToUInt32(bytedata, 16);
-
-            //uint_bytes = bytedata.Skip(20).Take(4).ToArray();
             result.EndChunkID = BitConverter.ToUInt32(bytedata, 20);
-
-            //uint_bytes = bytedata.Skip(24).Take(4).ToArray();
             result.StartChunkID = BitConverter.ToUInt32(bytedata, 24);
-
-            //uint_bytes = bytedata.Skip(28).Take(4).ToArray();
             result.KeyframeInterval = BitConverter.ToUInt32(bytedata, 28);
-
-            //uint_bytes = bytedata.Skip(32).Take(2).ToArray();
             result.EncryptionKeyLength = BitConverter.ToUInt16(bytedata, 32);
-
-            //byte[] uint_bytes = bytedata.Skip(34).Take(result.EncryptionKeyLength).ToArray();
             result.EncryptionKey = Encoding.UTF8.GetString(bytedata, 34, result.EncryptionKeyLength);
 
             return result;
-
         }
 
         private static ReplayMatchMetadata ParseMetadata(byte[] bytedata)
@@ -205,26 +187,12 @@ namespace Rofl.Parser
         private static ReplayLengthFields ParseLengthFields(byte[] bytedata)
         {
             var result = new ReplayLengthFields { };
-
-            //byte[] ushort_bytes = bytedata.Take(2).ToArray();
             result.HeaderLength = BitConverter.ToUInt16(bytedata, 0);
-
-            //byte[] uint_bytes = bytedata.Skip(2).Take(4).ToArray();
             result.FileLength = BitConverter.ToUInt32(bytedata, 2);
-
-            //uint_bytes = bytedata.Skip(6).Take(4).ToArray();
             result.MetadataOffset = BitConverter.ToUInt32(bytedata, 6);
-
-            //uint_bytes = bytedata.Skip(10).Take(4).ToArray();
             result.MetadataLength = BitConverter.ToUInt32(bytedata, 10);
-
-            //uint_bytes = bytedata.Skip(14).Take(4).ToArray();
             result.PayloadHeaderOffset = BitConverter.ToUInt32(bytedata, 14);
-
-            //uint_bytes = bytedata.Skip(18).Take(4).ToArray();
             result.PayloadHeaderLength = BitConverter.ToUInt32(bytedata, 18);
-
-            //uint_bytes = bytedata.Skip(22).Take(4).ToArray();
             result.PayloadOffset = BitConverter.ToUInt32(bytedata, 22);
 
             return result;
