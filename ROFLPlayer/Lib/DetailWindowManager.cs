@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Threading;
 using Rofl.Parser;
-
+using System.Drawing;
 
 namespace ROFLPlayer.Lib
 {
@@ -169,6 +169,9 @@ namespace ROFLPlayer.Lib
                     }));
                 }
             }
+
+
+
             return;
         }
 
@@ -185,8 +188,41 @@ namespace ROFLPlayer.Lib
 
             form.BeginInvoke((Action)(async () =>
             {
+                ///// General Information
                 var champimage = (PictureBox)form.Controls.Find("PlayerStatsChampImage", true)[0];
 
+                var imgpath = await getimgtask;
+                if (!string.IsNullOrEmpty(imgpath))
+                {
+                    champimage.WaitOnLoad = false;
+                    champimage.LoadAsync(imgpath);
+                }
+
+                var victorylabel = (TextBox)form.Controls.Find("PlayerStatswin", true)[0];
+                if(player["WIN"].ToString() == "Fail")
+                {
+                    victorylabel.Text = "Defeat";
+                    victorylabel.ForeColor = Color.Red;
+                }
+                else
+                {
+                    victorylabel.Text = "Victory!";
+                    victorylabel.ForeColor = Color.Green;
+                }
+
+                var champlabel = (TextBox)form.Controls.Find("PlayerStatsChampName", true)[0];
+                champlabel.Text = player["SKIN"].ToString();
+
+                var levellabel = (TextBox)form.Controls.Find("PlayerStatsChampLevel", true)[0];
+                levellabel.Text = $"Level {player["LEVEL"].ToString()}";
+
+                var kdalabel = (TextBox)form.Controls.Find("PlayerStatsKDA", true)[0];
+                kdalabel.Text = $"{player["CHAMPIONS_KILLED"].ToString()} / {player["NUM_DEATHS"].ToString()} / {player["ASSISTS"].ToString()}";
+
+                var cslabel = (TextBox)form.Controls.Find("PlayerStatsCreeps", true)[0];
+                cslabel.Text = $"{player["MINIONS_KILLED"].ToString()} CS";
+
+                ///// Player Inventory
                 var allboxes = form.Controls.Find("PlayerSpellsItemsTable", true)[0].Controls;
 
                 var itemboxes =
@@ -194,12 +230,6 @@ namespace ROFLPlayer.Lib
                     where boxes.Name.Contains("PlayerItemImage")
                     select boxes).Cast<PictureBox>().ToArray();
                 
-                var imgpath = await getimgtask;
-                if(!string.IsNullOrEmpty(imgpath))
-                {
-                    champimage.WaitOnLoad = false;
-                    champimage.LoadAsync(imgpath);
-                }
 
                 var item0path = await item0task;
                 if (!string.IsNullOrEmpty(item0path))
@@ -250,7 +280,6 @@ namespace ROFLPlayer.Lib
                     itemboxes[6].WaitOnLoad = false;
                     itemboxes[6].LoadAsync(item6path);
                 }
-
             }));
         }
 
