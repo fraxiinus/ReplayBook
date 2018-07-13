@@ -11,6 +11,7 @@ using ROFLPlayer.Lib;
 using System.Net;
 using System.IO;
 using Rofl.Parser;
+using System.Threading;
 
 namespace ROFLPlayer
 {
@@ -109,6 +110,18 @@ namespace ROFLPlayer
             PlayerItemImage7.Image = null;
 
             DetailWindowManager.PopulatePlayerStatsData(player, this);
+        }
+
+        private void PlayerStatsChampName_TextChanged(object sender, EventArgs e)
+        {
+            Size size = TextRenderer.MeasureText(PlayerStatsChampName.Text, PlayerStatsChampName.Font);
+            PlayerStatsChampName.Width = size.Width;
+        }
+
+        private void PlayerStatsKDA_TextChanged(object sender, EventArgs e)
+        {
+            Size size = TextRenderer.MeasureText(PlayerStatsKDA.Text, PlayerStatsKDA.Font);
+            PlayerStatsKDA.Width = size.Width;
         }
 
         ///////////////////// Debug Methods
