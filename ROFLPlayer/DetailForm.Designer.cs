@@ -123,7 +123,6 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.GeneralStartReplayButton = new System.Windows.Forms.Button();
             this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
-            this.MainOkButton = new System.Windows.Forms.Button();
             this.MainCancelButton = new System.Windows.Forms.Button();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
@@ -331,7 +330,7 @@
             this.GeneralPlayerNamesTable.ColumnCount = 5;
             this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage1, 0, 0);
@@ -465,7 +464,7 @@
             // 
             // GeneralPlayerImage6
             // 
-            this.GeneralPlayerImage6.Location = new System.Drawing.Point(295, 3);
+            this.GeneralPlayerImage6.Location = new System.Drawing.Point(294, 3);
             this.GeneralPlayerImage6.Name = "GeneralPlayerImage6";
             this.GeneralPlayerImage6.Size = new System.Drawing.Size(24, 24);
             this.GeneralPlayerImage6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -474,7 +473,7 @@
             // 
             // GeneralPlayerImage7
             // 
-            this.GeneralPlayerImage7.Location = new System.Drawing.Point(295, 33);
+            this.GeneralPlayerImage7.Location = new System.Drawing.Point(294, 33);
             this.GeneralPlayerImage7.Name = "GeneralPlayerImage7";
             this.GeneralPlayerImage7.Size = new System.Drawing.Size(24, 24);
             this.GeneralPlayerImage7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -483,7 +482,7 @@
             // 
             // GeneralPlayerImage8
             // 
-            this.GeneralPlayerImage8.Location = new System.Drawing.Point(295, 63);
+            this.GeneralPlayerImage8.Location = new System.Drawing.Point(294, 63);
             this.GeneralPlayerImage8.Name = "GeneralPlayerImage8";
             this.GeneralPlayerImage8.Size = new System.Drawing.Size(24, 24);
             this.GeneralPlayerImage8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -492,7 +491,7 @@
             // 
             // GeneralPlayerImage9
             // 
-            this.GeneralPlayerImage9.Location = new System.Drawing.Point(295, 93);
+            this.GeneralPlayerImage9.Location = new System.Drawing.Point(294, 93);
             this.GeneralPlayerImage9.Name = "GeneralPlayerImage9";
             this.GeneralPlayerImage9.Size = new System.Drawing.Size(24, 24);
             this.GeneralPlayerImage9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -501,7 +500,7 @@
             // 
             // GeneralPlayerImage10
             // 
-            this.GeneralPlayerImage10.Location = new System.Drawing.Point(295, 123);
+            this.GeneralPlayerImage10.Location = new System.Drawing.Point(294, 123);
             this.GeneralPlayerImage10.Name = "GeneralPlayerImage10";
             this.GeneralPlayerImage10.Size = new System.Drawing.Size(24, 24);
             this.GeneralPlayerImage10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -526,7 +525,7 @@
             this.GeneralPlayerName6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.GeneralPlayerName6.BackColor = System.Drawing.SystemColors.Window;
             this.GeneralPlayerName6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GeneralPlayerName6.Location = new System.Drawing.Point(191, 8);
+            this.GeneralPlayerName6.Location = new System.Drawing.Point(178, 8);
             this.GeneralPlayerName6.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralPlayerName6.Name = "GeneralPlayerName6";
             this.GeneralPlayerName6.ReadOnly = true;
@@ -540,7 +539,7 @@
             this.GeneralPlayerName7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.GeneralPlayerName7.BackColor = System.Drawing.SystemColors.Window;
             this.GeneralPlayerName7.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GeneralPlayerName7.Location = new System.Drawing.Point(191, 38);
+            this.GeneralPlayerName7.Location = new System.Drawing.Point(178, 38);
             this.GeneralPlayerName7.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralPlayerName7.Name = "GeneralPlayerName7";
             this.GeneralPlayerName7.ReadOnly = true;
@@ -554,7 +553,7 @@
             this.GeneralPlayerName8.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.GeneralPlayerName8.BackColor = System.Drawing.SystemColors.Window;
             this.GeneralPlayerName8.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GeneralPlayerName8.Location = new System.Drawing.Point(191, 68);
+            this.GeneralPlayerName8.Location = new System.Drawing.Point(178, 68);
             this.GeneralPlayerName8.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralPlayerName8.Name = "GeneralPlayerName8";
             this.GeneralPlayerName8.ReadOnly = true;
@@ -568,7 +567,7 @@
             this.GeneralPlayerName9.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.GeneralPlayerName9.BackColor = System.Drawing.SystemColors.Window;
             this.GeneralPlayerName9.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GeneralPlayerName9.Location = new System.Drawing.Point(191, 98);
+            this.GeneralPlayerName9.Location = new System.Drawing.Point(178, 98);
             this.GeneralPlayerName9.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralPlayerName9.Name = "GeneralPlayerName9";
             this.GeneralPlayerName9.ReadOnly = true;
@@ -582,7 +581,7 @@
             this.GeneralPlayerName10.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.GeneralPlayerName10.BackColor = System.Drawing.SystemColors.Window;
             this.GeneralPlayerName10.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GeneralPlayerName10.Location = new System.Drawing.Point(191, 130);
+            this.GeneralPlayerName10.Location = new System.Drawing.Point(178, 130);
             this.GeneralPlayerName10.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralPlayerName10.Name = "GeneralPlayerName10";
             this.GeneralPlayerName10.ReadOnly = true;
@@ -1354,17 +1353,6 @@
             this.GeneralDebugDumpJsonButton.UseVisualStyleBackColor = true;
             this.GeneralDebugDumpJsonButton.Click += new System.EventHandler(this.GeneralDebugDumpJsonButton_Click);
             // 
-            // MainOkButton
-            // 
-            this.MainOkButton.Location = new System.Drawing.Point(103, 434);
-            this.MainOkButton.Name = "MainOkButton";
-            this.MainOkButton.Size = new System.Drawing.Size(75, 23);
-            this.MainOkButton.TabIndex = 5;
-            this.MainOkButton.Text = "OK";
-            this.MainOkButton.UseVisualStyleBackColor = true;
-            this.MainOkButton.Visible = false;
-            this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
-            // 
             // MainCancelButton
             // 
             this.MainCancelButton.Location = new System.Drawing.Point(275, 434);
@@ -1380,7 +1368,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(358, 465);
-            this.Controls.Add(this.MainOkButton);
             this.Controls.Add(this.MainCancelButton);
             this.Controls.Add(this.MainTabControl);
             this.Controls.Add(this.GeneralStartReplayButton);
@@ -1448,7 +1435,6 @@
         private System.Windows.Forms.Label AboutAuthorLabel;
         private System.Windows.Forms.Button AboutGithubButton;
         private System.Windows.Forms.Label AboutCatLabel;
-        private System.Windows.Forms.Button MainOkButton;
         private System.Windows.Forms.Button MainCancelButton;
         private System.Windows.Forms.PictureBox GeneralGamePictureBox;
         private System.Windows.Forms.Label GeneralGameLengthLabel;
