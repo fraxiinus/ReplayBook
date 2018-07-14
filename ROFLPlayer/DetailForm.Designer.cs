@@ -98,6 +98,15 @@
             this.PlayerItemImage6 = new System.Windows.Forms.PictureBox();
             this.PlayerItemImage4 = new System.Windows.Forms.PictureBox();
             this.PlayerItemImage2 = new System.Windows.Forms.PictureBox();
+            this.PlayerGoldTable = new System.Windows.Forms.TableLayoutPanel();
+            this.PlayerGoldEarned = new System.Windows.Forms.TextBox();
+            this.PlayerGoldSpent = new System.Windows.Forms.TextBox();
+            this.PlayerGoldNeutralCreeps = new System.Windows.Forms.TextBox();
+            this.PlayerGoldEarnedLabel = new System.Windows.Forms.Label();
+            this.PlayerGoldSpentEarned = new System.Windows.Forms.Label();
+            this.PlayerNeutralKills = new System.Windows.Forms.Label();
+            this.PlayerTowerKillsLabel = new System.Windows.Forms.Label();
+            this.PlayerGoldTowerKills = new System.Windows.Forms.TextBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -128,6 +137,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage2)).BeginInit();
+            this.PlayerGoldTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -608,6 +618,7 @@
             this.flowLayoutPanel1.Controls.Add(this.PlayerStatsGeneralTable);
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.PlayerSpellsItemsTable);
+            this.flowLayoutPanel1.Controls.Add(this.PlayerGoldTable);
             this.flowLayoutPanel1.Controls.Add(this.GeneralDebugDumpJsonButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
@@ -720,7 +731,7 @@
             // GeneralDebugDumpJsonButton
             // 
             this.GeneralDebugDumpJsonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(163, 167);
+            this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(5, 226);
             this.GeneralDebugDumpJsonButton.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralDebugDumpJsonButton.Name = "GeneralDebugDumpJsonButton";
             this.GeneralDebugDumpJsonButton.Size = new System.Drawing.Size(75, 23);
@@ -870,9 +881,9 @@
             this.PlayerStatsGeneralTable.Name = "PlayerStatsGeneralTable";
             this.PlayerStatsGeneralTable.RowCount = 3;
             this.PlayerStatsGeneralTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.PlayerStatsGeneralTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.PlayerStatsGeneralTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.PlayerStatsGeneralTable.Size = new System.Drawing.Size(238, 75);
+            this.PlayerStatsGeneralTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.PlayerStatsGeneralTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
+            this.PlayerStatsGeneralTable.Size = new System.Drawing.Size(238, 61);
             this.PlayerStatsGeneralTable.TabIndex = 44;
             // 
             // label1
@@ -889,12 +900,12 @@
             this.PlayerStatsChampName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.PlayerStatsChampName.BackColor = System.Drawing.SystemColors.Window;
             this.PlayerStatsChampName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerStatsChampName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerStatsChampName.Location = new System.Drawing.Point(5, 30);
-            this.PlayerStatsChampName.Margin = new System.Windows.Forms.Padding(5);
+            this.PlayerStatsChampName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerStatsChampName.Location = new System.Drawing.Point(0, 27);
+            this.PlayerStatsChampName.Margin = new System.Windows.Forms.Padding(0);
             this.PlayerStatsChampName.Name = "PlayerStatsChampName";
             this.PlayerStatsChampName.ReadOnly = true;
-            this.PlayerStatsChampName.Size = new System.Drawing.Size(109, 14);
+            this.PlayerStatsChampName.Size = new System.Drawing.Size(109, 13);
             this.PlayerStatsChampName.TabIndex = 44;
             this.PlayerStatsChampName.Text = "-";
             this.PlayerStatsChampName.TextChanged += new System.EventHandler(this.PlayerStatsChampName_TextChanged);
@@ -904,12 +915,12 @@
             this.PlayerStatsChampLevel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.PlayerStatsChampLevel.BackColor = System.Drawing.SystemColors.Window;
             this.PlayerStatsChampLevel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerStatsChampLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerStatsChampLevel.Location = new System.Drawing.Point(124, 30);
-            this.PlayerStatsChampLevel.Margin = new System.Windows.Forms.Padding(5);
+            this.PlayerStatsChampLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerStatsChampLevel.Location = new System.Drawing.Point(109, 27);
+            this.PlayerStatsChampLevel.Margin = new System.Windows.Forms.Padding(0);
             this.PlayerStatsChampLevel.Name = "PlayerStatsChampLevel";
             this.PlayerStatsChampLevel.ReadOnly = true;
-            this.PlayerStatsChampLevel.Size = new System.Drawing.Size(109, 14);
+            this.PlayerStatsChampLevel.Size = new System.Drawing.Size(109, 13);
             this.PlayerStatsChampLevel.TabIndex = 45;
             this.PlayerStatsChampLevel.Text = "-";
             // 
@@ -918,12 +929,12 @@
             this.PlayerStatsKDA.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.PlayerStatsKDA.BackColor = System.Drawing.SystemColors.Window;
             this.PlayerStatsKDA.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerStatsKDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerStatsKDA.Location = new System.Drawing.Point(5, 55);
-            this.PlayerStatsKDA.Margin = new System.Windows.Forms.Padding(5);
+            this.PlayerStatsKDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerStatsKDA.Location = new System.Drawing.Point(0, 45);
+            this.PlayerStatsKDA.Margin = new System.Windows.Forms.Padding(0);
             this.PlayerStatsKDA.Name = "PlayerStatsKDA";
             this.PlayerStatsKDA.ReadOnly = true;
-            this.PlayerStatsKDA.Size = new System.Drawing.Size(109, 14);
+            this.PlayerStatsKDA.Size = new System.Drawing.Size(109, 13);
             this.PlayerStatsKDA.TabIndex = 46;
             this.PlayerStatsKDA.Text = "-";
             this.PlayerStatsKDA.TextChanged += new System.EventHandler(this.PlayerStatsKDA_TextChanged);
@@ -934,8 +945,8 @@
             this.PlayerStatsWin.BackColor = System.Drawing.SystemColors.Window;
             this.PlayerStatsWin.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.PlayerStatsWin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerStatsWin.Location = new System.Drawing.Point(5, 5);
-            this.PlayerStatsWin.Margin = new System.Windows.Forms.Padding(5);
+            this.PlayerStatsWin.Location = new System.Drawing.Point(0, 3);
+            this.PlayerStatsWin.Margin = new System.Windows.Forms.Padding(0);
             this.PlayerStatsWin.Name = "PlayerStatsWin";
             this.PlayerStatsWin.ReadOnly = true;
             this.PlayerStatsWin.Size = new System.Drawing.Size(58, 19);
@@ -947,12 +958,12 @@
             this.PlayerStatsCreeps.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.PlayerStatsCreeps.BackColor = System.Drawing.SystemColors.Window;
             this.PlayerStatsCreeps.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerStatsCreeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerStatsCreeps.Location = new System.Drawing.Point(124, 55);
-            this.PlayerStatsCreeps.Margin = new System.Windows.Forms.Padding(5);
+            this.PlayerStatsCreeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerStatsCreeps.Location = new System.Drawing.Point(109, 45);
+            this.PlayerStatsCreeps.Margin = new System.Windows.Forms.Padding(0);
             this.PlayerStatsCreeps.Name = "PlayerStatsCreeps";
             this.PlayerStatsCreeps.ReadOnly = true;
-            this.PlayerStatsCreeps.Size = new System.Drawing.Size(109, 14);
+            this.PlayerStatsCreeps.Size = new System.Drawing.Size(109, 13);
             this.PlayerStatsCreeps.TabIndex = 48;
             this.PlayerStatsCreeps.Text = "-";
             // 
@@ -985,6 +996,126 @@
             this.PlayerItemImage2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PlayerItemImage2.TabIndex = 3;
             this.PlayerItemImage2.TabStop = false;
+            // 
+            // PlayerGoldTable
+            // 
+            this.PlayerGoldTable.ColumnCount = 2;
+            this.PlayerGoldTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.PlayerGoldTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
+            this.PlayerGoldTable.Controls.Add(this.PlayerTowerKillsLabel, 0, 3);
+            this.PlayerGoldTable.Controls.Add(this.PlayerNeutralKills, 0, 2);
+            this.PlayerGoldTable.Controls.Add(this.PlayerGoldSpent, 1, 1);
+            this.PlayerGoldTable.Controls.Add(this.PlayerGoldEarned, 1, 0);
+            this.PlayerGoldTable.Controls.Add(this.PlayerGoldNeutralCreeps, 1, 2);
+            this.PlayerGoldTable.Controls.Add(this.PlayerGoldEarnedLabel, 0, 0);
+            this.PlayerGoldTable.Controls.Add(this.PlayerGoldSpentEarned, 0, 1);
+            this.PlayerGoldTable.Controls.Add(this.PlayerGoldTowerKills, 1, 3);
+            this.PlayerGoldTable.Location = new System.Drawing.Point(163, 141);
+            this.PlayerGoldTable.Margin = new System.Windows.Forms.Padding(5);
+            this.PlayerGoldTable.Name = "PlayerGoldTable";
+            this.PlayerGoldTable.RowCount = 4;
+            this.PlayerGoldTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.PlayerGoldTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.PlayerGoldTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.PlayerGoldTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.PlayerGoldTable.Size = new System.Drawing.Size(165, 72);
+            this.PlayerGoldTable.TabIndex = 46;
+            // 
+            // PlayerGoldEarned
+            // 
+            this.PlayerGoldEarned.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerGoldEarned.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerGoldEarned.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerGoldEarned.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerGoldEarned.Location = new System.Drawing.Point(70, 2);
+            this.PlayerGoldEarned.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerGoldEarned.Name = "PlayerGoldEarned";
+            this.PlayerGoldEarned.ReadOnly = true;
+            this.PlayerGoldEarned.Size = new System.Drawing.Size(95, 13);
+            this.PlayerGoldEarned.TabIndex = 47;
+            this.PlayerGoldEarned.Text = "-";
+            // 
+            // PlayerGoldSpent
+            // 
+            this.PlayerGoldSpent.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerGoldSpent.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerGoldSpent.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerGoldSpent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerGoldSpent.Location = new System.Drawing.Point(70, 20);
+            this.PlayerGoldSpent.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerGoldSpent.Name = "PlayerGoldSpent";
+            this.PlayerGoldSpent.ReadOnly = true;
+            this.PlayerGoldSpent.Size = new System.Drawing.Size(95, 13);
+            this.PlayerGoldSpent.TabIndex = 48;
+            this.PlayerGoldSpent.Text = "-";
+            // 
+            // PlayerGoldNeutralCreeps
+            // 
+            this.PlayerGoldNeutralCreeps.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerGoldNeutralCreeps.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerGoldNeutralCreeps.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerGoldNeutralCreeps.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerGoldNeutralCreeps.Location = new System.Drawing.Point(70, 38);
+            this.PlayerGoldNeutralCreeps.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerGoldNeutralCreeps.Name = "PlayerGoldNeutralCreeps";
+            this.PlayerGoldNeutralCreeps.ReadOnly = true;
+            this.PlayerGoldNeutralCreeps.Size = new System.Drawing.Size(95, 13);
+            this.PlayerGoldNeutralCreeps.TabIndex = 49;
+            this.PlayerGoldNeutralCreeps.Text = "-";
+            // 
+            // PlayerGoldEarnedLabel
+            // 
+            this.PlayerGoldEarnedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerGoldEarnedLabel.Location = new System.Drawing.Point(0, 2);
+            this.PlayerGoldEarnedLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerGoldEarnedLabel.Name = "PlayerGoldEarnedLabel";
+            this.PlayerGoldEarnedLabel.Size = new System.Drawing.Size(70, 13);
+            this.PlayerGoldEarnedLabel.TabIndex = 50;
+            this.PlayerGoldEarnedLabel.Text = "Gold Earned: ";
+            // 
+            // PlayerGoldSpentEarned
+            // 
+            this.PlayerGoldSpentEarned.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerGoldSpentEarned.Location = new System.Drawing.Point(0, 20);
+            this.PlayerGoldSpentEarned.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerGoldSpentEarned.Name = "PlayerGoldSpentEarned";
+            this.PlayerGoldSpentEarned.Size = new System.Drawing.Size(70, 13);
+            this.PlayerGoldSpentEarned.TabIndex = 51;
+            this.PlayerGoldSpentEarned.Text = "Gold Spent: ";
+            // 
+            // PlayerNeutralKills
+            // 
+            this.PlayerNeutralKills.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerNeutralKills.Location = new System.Drawing.Point(0, 38);
+            this.PlayerNeutralKills.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerNeutralKills.Name = "PlayerNeutralKills";
+            this.PlayerNeutralKills.Size = new System.Drawing.Size(70, 13);
+            this.PlayerNeutralKills.TabIndex = 52;
+            this.PlayerNeutralKills.Text = "Neutral Kills: ";
+            // 
+            // PlayerTowerKillsLabel
+            // 
+            this.PlayerTowerKillsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerTowerKillsLabel.Location = new System.Drawing.Point(0, 56);
+            this.PlayerTowerKillsLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerTowerKillsLabel.Name = "PlayerTowerKillsLabel";
+            this.PlayerTowerKillsLabel.Size = new System.Drawing.Size(70, 13);
+            this.PlayerTowerKillsLabel.TabIndex = 53;
+            this.PlayerTowerKillsLabel.Text = "Tower Kills: ";
+            // 
+            // PlayerGoldTowerKills
+            // 
+            this.PlayerGoldTowerKills.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerGoldTowerKills.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerGoldTowerKills.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerGoldTowerKills.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerGoldTowerKills.Location = new System.Drawing.Point(70, 56);
+            this.PlayerGoldTowerKills.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerGoldTowerKills.Name = "PlayerGoldTowerKills";
+            this.PlayerGoldTowerKills.ReadOnly = true;
+            this.PlayerGoldTowerKills.Size = new System.Drawing.Size(95, 13);
+            this.PlayerGoldTowerKills.TabIndex = 54;
+            this.PlayerGoldTowerKills.Text = "-";
             // 
             // DetailForm
             // 
@@ -1035,6 +1166,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerItemImage2)).EndInit();
+            this.PlayerGoldTable.ResumeLayout(false);
+            this.PlayerGoldTable.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1110,5 +1243,14 @@
         private System.Windows.Forms.PictureBox PlayerItemImage2;
         private System.Windows.Forms.PictureBox PlayerItemImage4;
         private System.Windows.Forms.PictureBox PlayerItemImage6;
+        private System.Windows.Forms.TableLayoutPanel PlayerGoldTable;
+        private System.Windows.Forms.TextBox PlayerGoldEarned;
+        private System.Windows.Forms.TextBox PlayerGoldSpent;
+        private System.Windows.Forms.TextBox PlayerGoldNeutralCreeps;
+        private System.Windows.Forms.Label PlayerGoldEarnedLabel;
+        private System.Windows.Forms.Label PlayerGoldSpentEarned;
+        private System.Windows.Forms.Label PlayerNeutralKills;
+        private System.Windows.Forms.Label PlayerTowerKillsLabel;
+        private System.Windows.Forms.TextBox PlayerGoldTowerKills;
     }
 }

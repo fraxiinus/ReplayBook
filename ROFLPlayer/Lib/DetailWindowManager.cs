@@ -222,6 +222,25 @@ namespace ROFLPlayer.Lib
                 var cslabel = (TextBox)form.Controls.Find("PlayerStatsCreeps", true)[0];
                 cslabel.Text = $"{player["MINIONS_KILLED"].ToString()} CS";
 
+                ///// Player Gold
+                var goldearnedlabel = (TextBox)form.Controls.Find("PlayerGoldEarned", true)[0];
+                if(int.TryParse(player["GOLD_EARNED"].ToString(), out int goldearned))
+                {
+                    goldearnedlabel.Text = goldearned.ToString("N0");
+                }
+
+                var goldspendlabel = (TextBox)form.Controls.Find("PlayerGoldSpent", true)[0];
+                if (int.TryParse(player["GOLD_SPENT"].ToString(), out int goldspent))
+                {
+                    goldspendlabel.Text = goldspent.ToString("N0");
+                }
+
+                var neutralkillslabel = (TextBox)form.Controls.Find("PlayerGoldNeutralCreeps", true)[0];
+                neutralkillslabel.Text = player["NEUTRAL_MINIONS_KILLED"].ToString();
+
+                var towerskilledlabel = (TextBox)form.Controls.Find("PlayerGoldTowerKills", true)[0];
+                towerskilledlabel.Text = player["TURRETS_KILLED"].ToString();
+
                 ///// Player Inventory
                 var allboxes = form.Controls.Find("PlayerSpellsItemsTable", true)[0].Controls;
 
