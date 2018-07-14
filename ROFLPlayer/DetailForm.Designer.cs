@@ -1316,6 +1316,7 @@
             this.AboutGithubButton.TabIndex = 5;
             this.AboutGithubButton.Text = "GitHub";
             this.AboutGithubButton.UseVisualStyleBackColor = true;
+            this.AboutGithubButton.Click += new System.EventHandler(this.AboutGithubButton_Click);
             // 
             // AboutCatLabel
             // 
