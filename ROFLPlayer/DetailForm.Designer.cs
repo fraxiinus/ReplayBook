@@ -602,6 +602,7 @@
             this.GeneralGameViewOnlineButton.TabIndex = 29;
             this.GeneralGameViewOnlineButton.Text = "View online...";
             this.GeneralGameViewOnlineButton.UseVisualStyleBackColor = true;
+            this.GeneralGameViewOnlineButton.Visible = false;
             this.GeneralGameViewOnlineButton.Click += new System.EventHandler(this.GeneralGameViewOnlineButton_Click);
             // 
             // PlayerTab
