@@ -9,6 +9,10 @@ Features include:
 * View match information without an internet connection or having to open League of Legends
 * Double click a replay file to instantly start playing, or view match information
 
+## Download
+Download the latest release here
+https://github.com/andrew1421lee/ROFL-Player/releases
+
 ## Setup
 
 1. Simply download the application and extract it to where you want it to be.
