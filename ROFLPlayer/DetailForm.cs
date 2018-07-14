@@ -30,10 +30,11 @@ namespace ROFLPlayer
         {
             var filename = DetailWindowManager.GetReplayFilename(replaypath);
             GeneralGameFileLabel.Text = filename;
-            //ReplayHeader parseresult = null;
+
             try
             {
                 fileinfo = await ReplayReader.ReadReplayFileAsync(replaypath);
+                FileManager.SetDataDragonVersion(fileinfo.MatchMetadata.GameVersion.ToString());
             }
             catch (Exception ex)
             {

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using IWshRuntimeLibrary;
 using System.Net;
 using System.IO;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System.Threading;
 
 namespace ROFLPlayer.Lib
@@ -27,6 +29,21 @@ namespace ROFLPlayer.Lib
             shortcut.Save();
 
             return shortcut;
+        }
+
+        public static async void SetDataDragonVersion(string gameversion)
+        {
+            var inputversion = gameversion.Substring(0, gameversion.IndexOf('.', gameversion.IndexOf('.') + 1));
+            var versions = await GetVersions();
+            
+            if(versions == null)
+            {
+                throw new NullReferenceException("Data Dragon Versions request returned null");
+            }
+
+            ddragonver = (from version in versions
+                          where version.ToString().StartsWith(inputversion)
+                          select version).First().ToString();
         }
 
         public static async Task<string> GetItemImage(int itemId)
@@ -131,6 +148,22 @@ namespace ROFLPlayer.Lib
             else
             {
                 return null;
+            }
+        }
+
+        private async static Task<JArray> GetVersions()
+        {
+            using (WebClient wc = new WebClient())
+            {
+                try
+                {
+                    var result = await wc.DownloadStringTaskAsync(@"https://ddragon.leagueoflegends.com/api/versions.json");
+                    return JArray.Parse(result);
+                }
+                catch (WebException ex)
+                {
+                    return null;
+                }
             }
         }
 
