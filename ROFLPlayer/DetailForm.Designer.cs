@@ -43,7 +43,7 @@
             this.GeneralGameMatchIDData = new System.Windows.Forms.TextBox();
             this.GeneralDivider2 = new System.Windows.Forms.Label();
             this.GeneralMatchWinnerLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.GeneralPlayerNamesTable = new System.Windows.Forms.TableLayoutPanel();
             this.GeneralPlayerImage1 = new System.Windows.Forms.PictureBox();
             this.GeneralPlayerImage2 = new System.Windows.Forms.PictureBox();
             this.GeneralPlayerImage3 = new System.Windows.Forms.PictureBox();
@@ -65,7 +65,6 @@
             this.GeneralPlayerName9 = new System.Windows.Forms.TextBox();
             this.GeneralPlayerName10 = new System.Windows.Forms.TextBox();
             this.GeneralGameViewOnlineButton = new System.Windows.Forms.Button();
-            this.GeneralStartReplayButton = new System.Windows.Forms.Button();
             this.PlayerTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.PlayerSelectLabel = new System.Windows.Forms.Label();
@@ -98,8 +97,22 @@
             this.PlayerGoldTowerKills = new System.Windows.Forms.TextBox();
             this.PlayerDivider3 = new System.Windows.Forms.Label();
             this.PlayerMiscStatsTable = new System.Windows.Forms.TableLayoutPanel();
+            this.PlayerWardsPlacedLabel = new System.Windows.Forms.Label();
+            this.PlayerVisionScoreLabel = new System.Windows.Forms.Label();
             this.PlayerTotalDamageToChampionsLabel = new System.Windows.Forms.Label();
-            this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
+            this.PlayerTotalDamageToObjectivesLabel = new System.Windows.Forms.Label();
+            this.PlayerTotalDamagetoTurretsLabel = new System.Windows.Forms.Label();
+            this.PlayerTotalDamageDealtLabel = new System.Windows.Forms.Label();
+            this.PlayerDamageHealedLabel = new System.Windows.Forms.Label();
+            this.PlayerDamageTakenLabel = new System.Windows.Forms.Label();
+            this.PlayerTotalDamageToChampions = new System.Windows.Forms.TextBox();
+            this.PlayerTotalDamageToObjectives = new System.Windows.Forms.TextBox();
+            this.PlayerTotalDamageToTurrets = new System.Windows.Forms.TextBox();
+            this.PlayerTotalDamageDealt = new System.Windows.Forms.TextBox();
+            this.PlayerDamageHealed = new System.Windows.Forms.TextBox();
+            this.PlayerDamageTaken = new System.Windows.Forms.TextBox();
+            this.PlayerVisionScore = new System.Windows.Forms.TextBox();
+            this.PlayerWardsPlaced = new System.Windows.Forms.TextBox();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
@@ -108,28 +121,15 @@
             this.AboutAuthorLabel = new System.Windows.Forms.Label();
             this.AboutGithubButton = new System.Windows.Forms.Button();
             this.AboutCatLabel = new System.Windows.Forms.Label();
+            this.GeneralStartReplayButton = new System.Windows.Forms.Button();
+            this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
             this.MainOkButton = new System.Windows.Forms.Button();
             this.MainCancelButton = new System.Windows.Forms.Button();
-            this.PlayerTotalDamageDealtLabel = new System.Windows.Forms.Label();
-            this.PlayerTotalDamageToObjectivesLabel = new System.Windows.Forms.Label();
-            this.PlayerTotalDamagetoTurretsLabel = new System.Windows.Forms.Label();
-            this.PlayerDamageHealedLabel = new System.Windows.Forms.Label();
-            this.PlayerDamageTakenLabel = new System.Windows.Forms.Label();
-            this.PlayerVisionScoreLabel = new System.Windows.Forms.Label();
-            this.PlayerTotalDamageToChampions = new System.Windows.Forms.TextBox();
-            this.PlayerTotalDamageToObjectives = new System.Windows.Forms.TextBox();
-            this.PlayerTotalDamageToTurrets = new System.Windows.Forms.TextBox();
-            this.PlayerTotalDamageDealt = new System.Windows.Forms.TextBox();
-            this.PlayerDamageHealed = new System.Windows.Forms.TextBox();
-            this.PlayerDamageTaken = new System.Windows.Forms.TextBox();
-            this.PlayerVisionScore = new System.Windows.Forms.TextBox();
-            this.PlayerWardsPlacedLabel = new System.Windows.Forms.Label();
-            this.PlayerWardsPlaced = new System.Windows.Forms.TextBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralGamePictureBox)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.GeneralPlayerNamesTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage3)).BeginInit();
@@ -195,9 +195,8 @@
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameMatchIDData);
             this.GeneralFlowLayout.Controls.Add(this.GeneralDivider2);
             this.GeneralFlowLayout.Controls.Add(this.GeneralMatchWinnerLabel);
-            this.GeneralFlowLayout.Controls.Add(this.tableLayoutPanel1);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralPlayerNamesTable);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameViewOnlineButton);
-            this.GeneralFlowLayout.Controls.Add(this.GeneralStartReplayButton);
             this.GeneralFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GeneralFlowLayout.Location = new System.Drawing.Point(3, 3);
             this.GeneralFlowLayout.Name = "GeneralFlowLayout";
@@ -327,45 +326,45 @@
             this.GeneralMatchWinnerLabel.Text = "-";
             this.GeneralMatchWinnerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tableLayoutPanel1
+            // GeneralPlayerNamesTable
             // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerImage1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerImage2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerImage3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerImage4, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerName1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerName2, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerImage5, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerName3, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerName4, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerImage6, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerImage7, 4, 1);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerImage8, 4, 2);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerImage9, 4, 3);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerImage10, 4, 4);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerName5, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerName6, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerName7, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerName8, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerName9, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.GeneralPlayerName10, 3, 4);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 189);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 10);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(323, 154);
-            this.tableLayoutPanel1.TabIndex = 28;
+            this.GeneralPlayerNamesTable.ColumnCount = 5;
+            this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage1, 0, 0);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage2, 0, 1);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage3, 0, 2);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage4, 0, 3);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerName1, 1, 0);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerName2, 1, 1);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage5, 0, 4);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerName3, 1, 2);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerName4, 1, 3);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage6, 4, 0);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage7, 4, 1);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage8, 4, 2);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage9, 4, 3);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage10, 4, 4);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerName5, 1, 4);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerName6, 3, 0);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerName7, 3, 1);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerName8, 3, 2);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerName9, 3, 3);
+            this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerName10, 3, 4);
+            this.GeneralPlayerNamesTable.Location = new System.Drawing.Point(5, 189);
+            this.GeneralPlayerNamesTable.Margin = new System.Windows.Forms.Padding(5, 5, 5, 10);
+            this.GeneralPlayerNamesTable.Name = "GeneralPlayerNamesTable";
+            this.GeneralPlayerNamesTable.RowCount = 5;
+            this.GeneralPlayerNamesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.GeneralPlayerNamesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.GeneralPlayerNamesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.GeneralPlayerNamesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.GeneralPlayerNamesTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.GeneralPlayerNamesTable.Size = new System.Drawing.Size(323, 154);
+            this.GeneralPlayerNamesTable.TabIndex = 28;
             // 
             // GeneralPlayerImage1
             // 
@@ -604,18 +603,6 @@
             this.GeneralGameViewOnlineButton.Text = "View online...";
             this.GeneralGameViewOnlineButton.UseVisualStyleBackColor = true;
             this.GeneralGameViewOnlineButton.Click += new System.EventHandler(this.GeneralGameViewOnlineButton_Click);
-            // 
-            // GeneralStartReplayButton
-            // 
-            this.GeneralStartReplayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralStartReplayButton.Location = new System.Drawing.Point(243, 363);
-            this.GeneralStartReplayButton.Margin = new System.Windows.Forms.Padding(148, 10, 5, 5);
-            this.GeneralStartReplayButton.Name = "GeneralStartReplayButton";
-            this.GeneralStartReplayButton.Size = new System.Drawing.Size(85, 23);
-            this.GeneralStartReplayButton.TabIndex = 30;
-            this.GeneralStartReplayButton.Text = "Watch replay";
-            this.GeneralStartReplayButton.UseVisualStyleBackColor = true;
-            this.GeneralStartReplayButton.Click += new System.EventHandler(this.GeneralStartReplayButton_Click);
             // 
             // PlayerTab
             // 
@@ -883,7 +870,7 @@
             // 
             this.PlayerGoldTable.ColumnCount = 2;
             this.PlayerGoldTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
-            this.PlayerGoldTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 44F));
+            this.PlayerGoldTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 94F));
             this.PlayerGoldTable.Controls.Add(this.PlayerTowerKillsLabel, 0, 3);
             this.PlayerGoldTable.Controls.Add(this.PlayerNeutralKills, 0, 2);
             this.PlayerGoldTable.Controls.Add(this.PlayerGoldSpent, 1, 1);
@@ -1012,7 +999,7 @@
             // 
             this.PlayerMiscStatsTable.ColumnCount = 2;
             this.PlayerMiscStatsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 166F));
-            this.PlayerMiscStatsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.PlayerMiscStatsTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 159F));
             this.PlayerMiscStatsTable.Controls.Add(this.PlayerWardsPlacedLabel, 0, 7);
             this.PlayerMiscStatsTable.Controls.Add(this.PlayerVisionScoreLabel, 0, 6);
             this.PlayerMiscStatsTable.Controls.Add(this.PlayerTotalDamageToChampionsLabel, 0, 0);
@@ -1043,6 +1030,26 @@
             this.PlayerMiscStatsTable.Size = new System.Drawing.Size(325, 144);
             this.PlayerMiscStatsTable.TabIndex = 48;
             // 
+            // PlayerWardsPlacedLabel
+            // 
+            this.PlayerWardsPlacedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerWardsPlacedLabel.Location = new System.Drawing.Point(0, 128);
+            this.PlayerWardsPlacedLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerWardsPlacedLabel.Name = "PlayerWardsPlacedLabel";
+            this.PlayerWardsPlacedLabel.Size = new System.Drawing.Size(166, 13);
+            this.PlayerWardsPlacedLabel.TabIndex = 65;
+            this.PlayerWardsPlacedLabel.Text = "Wards Placed:";
+            // 
+            // PlayerVisionScoreLabel
+            // 
+            this.PlayerVisionScoreLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerVisionScoreLabel.Location = new System.Drawing.Point(0, 110);
+            this.PlayerVisionScoreLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerVisionScoreLabel.Name = "PlayerVisionScoreLabel";
+            this.PlayerVisionScoreLabel.Size = new System.Drawing.Size(166, 13);
+            this.PlayerVisionScoreLabel.TabIndex = 57;
+            this.PlayerVisionScoreLabel.Text = "Vision Score:";
+            // 
             // PlayerTotalDamageToChampionsLabel
             // 
             this.PlayerTotalDamageToChampionsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -1053,17 +1060,167 @@
             this.PlayerTotalDamageToChampionsLabel.TabIndex = 51;
             this.PlayerTotalDamageToChampionsLabel.Text = "Total Damage to Champions:";
             // 
-            // GeneralDebugDumpJsonButton
+            // PlayerTotalDamageToObjectivesLabel
             // 
-            this.GeneralDebugDumpJsonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(5, 434);
-            this.GeneralDebugDumpJsonButton.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralDebugDumpJsonButton.Name = "GeneralDebugDumpJsonButton";
-            this.GeneralDebugDumpJsonButton.Size = new System.Drawing.Size(75, 23);
-            this.GeneralDebugDumpJsonButton.TabIndex = 39;
-            this.GeneralDebugDumpJsonButton.Text = "Dump JSON";
-            this.GeneralDebugDumpJsonButton.UseVisualStyleBackColor = true;
-            this.GeneralDebugDumpJsonButton.Click += new System.EventHandler(this.GeneralDebugDumpJsonButton_Click);
+            this.PlayerTotalDamageToObjectivesLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerTotalDamageToObjectivesLabel.Location = new System.Drawing.Point(0, 20);
+            this.PlayerTotalDamageToObjectivesLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerTotalDamageToObjectivesLabel.Name = "PlayerTotalDamageToObjectivesLabel";
+            this.PlayerTotalDamageToObjectivesLabel.Size = new System.Drawing.Size(166, 13);
+            this.PlayerTotalDamageToObjectivesLabel.TabIndex = 53;
+            this.PlayerTotalDamageToObjectivesLabel.Text = "Total Damage to Objectives:";
+            // 
+            // PlayerTotalDamagetoTurretsLabel
+            // 
+            this.PlayerTotalDamagetoTurretsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerTotalDamagetoTurretsLabel.Location = new System.Drawing.Point(0, 38);
+            this.PlayerTotalDamagetoTurretsLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerTotalDamagetoTurretsLabel.Name = "PlayerTotalDamagetoTurretsLabel";
+            this.PlayerTotalDamagetoTurretsLabel.Size = new System.Drawing.Size(166, 13);
+            this.PlayerTotalDamagetoTurretsLabel.TabIndex = 54;
+            this.PlayerTotalDamagetoTurretsLabel.Text = "Total Damage to Turrets:";
+            // 
+            // PlayerTotalDamageDealtLabel
+            // 
+            this.PlayerTotalDamageDealtLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerTotalDamageDealtLabel.Location = new System.Drawing.Point(0, 56);
+            this.PlayerTotalDamageDealtLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerTotalDamageDealtLabel.Name = "PlayerTotalDamageDealtLabel";
+            this.PlayerTotalDamageDealtLabel.Size = new System.Drawing.Size(166, 13);
+            this.PlayerTotalDamageDealtLabel.TabIndex = 52;
+            this.PlayerTotalDamageDealtLabel.Text = "Total Damage Dealt:";
+            // 
+            // PlayerDamageHealedLabel
+            // 
+            this.PlayerDamageHealedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerDamageHealedLabel.Location = new System.Drawing.Point(0, 74);
+            this.PlayerDamageHealedLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerDamageHealedLabel.Name = "PlayerDamageHealedLabel";
+            this.PlayerDamageHealedLabel.Size = new System.Drawing.Size(166, 13);
+            this.PlayerDamageHealedLabel.TabIndex = 55;
+            this.PlayerDamageHealedLabel.Text = "Damage Healed:";
+            // 
+            // PlayerDamageTakenLabel
+            // 
+            this.PlayerDamageTakenLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.PlayerDamageTakenLabel.Location = new System.Drawing.Point(0, 92);
+            this.PlayerDamageTakenLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerDamageTakenLabel.Name = "PlayerDamageTakenLabel";
+            this.PlayerDamageTakenLabel.Size = new System.Drawing.Size(166, 13);
+            this.PlayerDamageTakenLabel.TabIndex = 56;
+            this.PlayerDamageTakenLabel.Text = "Damage Taken:";
+            // 
+            // PlayerTotalDamageToChampions
+            // 
+            this.PlayerTotalDamageToChampions.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerTotalDamageToChampions.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerTotalDamageToChampions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerTotalDamageToChampions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerTotalDamageToChampions.Location = new System.Drawing.Point(166, 2);
+            this.PlayerTotalDamageToChampions.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerTotalDamageToChampions.Name = "PlayerTotalDamageToChampions";
+            this.PlayerTotalDamageToChampions.ReadOnly = true;
+            this.PlayerTotalDamageToChampions.Size = new System.Drawing.Size(159, 13);
+            this.PlayerTotalDamageToChampions.TabIndex = 58;
+            this.PlayerTotalDamageToChampions.Text = "-";
+            // 
+            // PlayerTotalDamageToObjectives
+            // 
+            this.PlayerTotalDamageToObjectives.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerTotalDamageToObjectives.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerTotalDamageToObjectives.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerTotalDamageToObjectives.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerTotalDamageToObjectives.Location = new System.Drawing.Point(166, 20);
+            this.PlayerTotalDamageToObjectives.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerTotalDamageToObjectives.Name = "PlayerTotalDamageToObjectives";
+            this.PlayerTotalDamageToObjectives.ReadOnly = true;
+            this.PlayerTotalDamageToObjectives.Size = new System.Drawing.Size(159, 13);
+            this.PlayerTotalDamageToObjectives.TabIndex = 59;
+            this.PlayerTotalDamageToObjectives.Text = "-";
+            // 
+            // PlayerTotalDamageToTurrets
+            // 
+            this.PlayerTotalDamageToTurrets.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerTotalDamageToTurrets.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerTotalDamageToTurrets.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerTotalDamageToTurrets.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerTotalDamageToTurrets.Location = new System.Drawing.Point(166, 38);
+            this.PlayerTotalDamageToTurrets.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerTotalDamageToTurrets.Name = "PlayerTotalDamageToTurrets";
+            this.PlayerTotalDamageToTurrets.ReadOnly = true;
+            this.PlayerTotalDamageToTurrets.Size = new System.Drawing.Size(159, 13);
+            this.PlayerTotalDamageToTurrets.TabIndex = 60;
+            this.PlayerTotalDamageToTurrets.Text = "-";
+            // 
+            // PlayerTotalDamageDealt
+            // 
+            this.PlayerTotalDamageDealt.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerTotalDamageDealt.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerTotalDamageDealt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerTotalDamageDealt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerTotalDamageDealt.Location = new System.Drawing.Point(166, 56);
+            this.PlayerTotalDamageDealt.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerTotalDamageDealt.Name = "PlayerTotalDamageDealt";
+            this.PlayerTotalDamageDealt.ReadOnly = true;
+            this.PlayerTotalDamageDealt.Size = new System.Drawing.Size(159, 13);
+            this.PlayerTotalDamageDealt.TabIndex = 61;
+            this.PlayerTotalDamageDealt.Text = "-";
+            // 
+            // PlayerDamageHealed
+            // 
+            this.PlayerDamageHealed.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerDamageHealed.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerDamageHealed.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerDamageHealed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerDamageHealed.Location = new System.Drawing.Point(166, 74);
+            this.PlayerDamageHealed.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerDamageHealed.Name = "PlayerDamageHealed";
+            this.PlayerDamageHealed.ReadOnly = true;
+            this.PlayerDamageHealed.Size = new System.Drawing.Size(159, 13);
+            this.PlayerDamageHealed.TabIndex = 62;
+            this.PlayerDamageHealed.Text = "-";
+            // 
+            // PlayerDamageTaken
+            // 
+            this.PlayerDamageTaken.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerDamageTaken.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerDamageTaken.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerDamageTaken.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerDamageTaken.Location = new System.Drawing.Point(166, 92);
+            this.PlayerDamageTaken.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerDamageTaken.Name = "PlayerDamageTaken";
+            this.PlayerDamageTaken.ReadOnly = true;
+            this.PlayerDamageTaken.Size = new System.Drawing.Size(159, 13);
+            this.PlayerDamageTaken.TabIndex = 63;
+            this.PlayerDamageTaken.Text = "-";
+            // 
+            // PlayerVisionScore
+            // 
+            this.PlayerVisionScore.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerVisionScore.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerVisionScore.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerVisionScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerVisionScore.Location = new System.Drawing.Point(166, 110);
+            this.PlayerVisionScore.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerVisionScore.Name = "PlayerVisionScore";
+            this.PlayerVisionScore.ReadOnly = true;
+            this.PlayerVisionScore.Size = new System.Drawing.Size(159, 13);
+            this.PlayerVisionScore.TabIndex = 64;
+            this.PlayerVisionScore.Text = "-";
+            // 
+            // PlayerWardsPlaced
+            // 
+            this.PlayerWardsPlaced.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.PlayerWardsPlaced.BackColor = System.Drawing.SystemColors.Window;
+            this.PlayerWardsPlaced.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.PlayerWardsPlaced.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayerWardsPlaced.Location = new System.Drawing.Point(166, 128);
+            this.PlayerWardsPlaced.Margin = new System.Windows.Forms.Padding(0);
+            this.PlayerWardsPlaced.Name = "PlayerWardsPlaced";
+            this.PlayerWardsPlaced.ReadOnly = true;
+            this.PlayerWardsPlaced.Size = new System.Drawing.Size(159, 13);
+            this.PlayerWardsPlaced.TabIndex = 66;
+            this.PlayerWardsPlaced.Text = "-";
             // 
             // AboutTab
             // 
@@ -1171,14 +1328,39 @@
             this.AboutCatLabel.Text = "buff nidalee";
             this.AboutCatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // GeneralStartReplayButton
+            // 
+            this.GeneralStartReplayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralStartReplayButton.Location = new System.Drawing.Point(192, 434);
+            this.GeneralStartReplayButton.Margin = new System.Windows.Forms.Padding(148, 10, 5, 5);
+            this.GeneralStartReplayButton.Name = "GeneralStartReplayButton";
+            this.GeneralStartReplayButton.Size = new System.Drawing.Size(75, 23);
+            this.GeneralStartReplayButton.TabIndex = 30;
+            this.GeneralStartReplayButton.Text = "Play";
+            this.GeneralStartReplayButton.UseVisualStyleBackColor = true;
+            this.GeneralStartReplayButton.Click += new System.EventHandler(this.GeneralStartReplayButton_Click);
+            // 
+            // GeneralDebugDumpJsonButton
+            // 
+            this.GeneralDebugDumpJsonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralDebugDumpJsonButton.Location = new System.Drawing.Point(5, 434);
+            this.GeneralDebugDumpJsonButton.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralDebugDumpJsonButton.Name = "GeneralDebugDumpJsonButton";
+            this.GeneralDebugDumpJsonButton.Size = new System.Drawing.Size(75, 23);
+            this.GeneralDebugDumpJsonButton.TabIndex = 39;
+            this.GeneralDebugDumpJsonButton.Text = "Dump JSON";
+            this.GeneralDebugDumpJsonButton.UseVisualStyleBackColor = true;
+            this.GeneralDebugDumpJsonButton.Click += new System.EventHandler(this.GeneralDebugDumpJsonButton_Click);
+            // 
             // MainOkButton
             // 
-            this.MainOkButton.Location = new System.Drawing.Point(194, 434);
+            this.MainOkButton.Location = new System.Drawing.Point(103, 434);
             this.MainOkButton.Name = "MainOkButton";
             this.MainOkButton.Size = new System.Drawing.Size(75, 23);
             this.MainOkButton.TabIndex = 5;
             this.MainOkButton.Text = "OK";
             this.MainOkButton.UseVisualStyleBackColor = true;
+            this.MainOkButton.Visible = false;
             this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
             // 
             // MainCancelButton
@@ -1187,191 +1369,9 @@
             this.MainCancelButton.Name = "MainCancelButton";
             this.MainCancelButton.Size = new System.Drawing.Size(75, 23);
             this.MainCancelButton.TabIndex = 4;
-            this.MainCancelButton.Text = "Cancel";
+            this.MainCancelButton.Text = "Close";
             this.MainCancelButton.UseVisualStyleBackColor = true;
             this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
-            // 
-            // PlayerTotalDamageDealtLabel
-            // 
-            this.PlayerTotalDamageDealtLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayerTotalDamageDealtLabel.Location = new System.Drawing.Point(0, 56);
-            this.PlayerTotalDamageDealtLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerTotalDamageDealtLabel.Name = "PlayerTotalDamageDealtLabel";
-            this.PlayerTotalDamageDealtLabel.Size = new System.Drawing.Size(166, 13);
-            this.PlayerTotalDamageDealtLabel.TabIndex = 52;
-            this.PlayerTotalDamageDealtLabel.Text = "Total Damage Dealt:";
-            // 
-            // PlayerTotalDamageToObjectivesLabel
-            // 
-            this.PlayerTotalDamageToObjectivesLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayerTotalDamageToObjectivesLabel.Location = new System.Drawing.Point(0, 20);
-            this.PlayerTotalDamageToObjectivesLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerTotalDamageToObjectivesLabel.Name = "PlayerTotalDamageToObjectivesLabel";
-            this.PlayerTotalDamageToObjectivesLabel.Size = new System.Drawing.Size(166, 13);
-            this.PlayerTotalDamageToObjectivesLabel.TabIndex = 53;
-            this.PlayerTotalDamageToObjectivesLabel.Text = "Total Damage to Objectives:";
-            // 
-            // PlayerTotalDamagetoTurretsLabel
-            // 
-            this.PlayerTotalDamagetoTurretsLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayerTotalDamagetoTurretsLabel.Location = new System.Drawing.Point(0, 38);
-            this.PlayerTotalDamagetoTurretsLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerTotalDamagetoTurretsLabel.Name = "PlayerTotalDamagetoTurretsLabel";
-            this.PlayerTotalDamagetoTurretsLabel.Size = new System.Drawing.Size(166, 13);
-            this.PlayerTotalDamagetoTurretsLabel.TabIndex = 54;
-            this.PlayerTotalDamagetoTurretsLabel.Text = "Total Damage to Turrets:";
-            // 
-            // PlayerDamageHealedLabel
-            // 
-            this.PlayerDamageHealedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayerDamageHealedLabel.Location = new System.Drawing.Point(0, 74);
-            this.PlayerDamageHealedLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerDamageHealedLabel.Name = "PlayerDamageHealedLabel";
-            this.PlayerDamageHealedLabel.Size = new System.Drawing.Size(166, 13);
-            this.PlayerDamageHealedLabel.TabIndex = 55;
-            this.PlayerDamageHealedLabel.Text = "Damage Healed:";
-            // 
-            // PlayerDamageTakenLabel
-            // 
-            this.PlayerDamageTakenLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayerDamageTakenLabel.Location = new System.Drawing.Point(0, 92);
-            this.PlayerDamageTakenLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerDamageTakenLabel.Name = "PlayerDamageTakenLabel";
-            this.PlayerDamageTakenLabel.Size = new System.Drawing.Size(166, 13);
-            this.PlayerDamageTakenLabel.TabIndex = 56;
-            this.PlayerDamageTakenLabel.Text = "Damage Taken:";
-            // 
-            // PlayerVisionScoreLabel
-            // 
-            this.PlayerVisionScoreLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayerVisionScoreLabel.Location = new System.Drawing.Point(0, 110);
-            this.PlayerVisionScoreLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerVisionScoreLabel.Name = "PlayerVisionScoreLabel";
-            this.PlayerVisionScoreLabel.Size = new System.Drawing.Size(166, 13);
-            this.PlayerVisionScoreLabel.TabIndex = 57;
-            this.PlayerVisionScoreLabel.Text = "Vision Score:";
-            // 
-            // PlayerTotalDamageToChampions
-            // 
-            this.PlayerTotalDamageToChampions.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.PlayerTotalDamageToChampions.BackColor = System.Drawing.SystemColors.Window;
-            this.PlayerTotalDamageToChampions.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerTotalDamageToChampions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerTotalDamageToChampions.Location = new System.Drawing.Point(166, 2);
-            this.PlayerTotalDamageToChampions.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerTotalDamageToChampions.Name = "PlayerTotalDamageToChampions";
-            this.PlayerTotalDamageToChampions.ReadOnly = true;
-            this.PlayerTotalDamageToChampions.Size = new System.Drawing.Size(159, 13);
-            this.PlayerTotalDamageToChampions.TabIndex = 58;
-            this.PlayerTotalDamageToChampions.Text = "-";
-            // 
-            // PlayerTotalDamageToObjectives
-            // 
-            this.PlayerTotalDamageToObjectives.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.PlayerTotalDamageToObjectives.BackColor = System.Drawing.SystemColors.Window;
-            this.PlayerTotalDamageToObjectives.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerTotalDamageToObjectives.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerTotalDamageToObjectives.Location = new System.Drawing.Point(166, 20);
-            this.PlayerTotalDamageToObjectives.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerTotalDamageToObjectives.Name = "PlayerTotalDamageToObjectives";
-            this.PlayerTotalDamageToObjectives.ReadOnly = true;
-            this.PlayerTotalDamageToObjectives.Size = new System.Drawing.Size(159, 13);
-            this.PlayerTotalDamageToObjectives.TabIndex = 59;
-            this.PlayerTotalDamageToObjectives.Text = "-";
-            // 
-            // PlayerTotalDamageToTurrets
-            // 
-            this.PlayerTotalDamageToTurrets.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.PlayerTotalDamageToTurrets.BackColor = System.Drawing.SystemColors.Window;
-            this.PlayerTotalDamageToTurrets.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerTotalDamageToTurrets.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerTotalDamageToTurrets.Location = new System.Drawing.Point(166, 38);
-            this.PlayerTotalDamageToTurrets.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerTotalDamageToTurrets.Name = "PlayerTotalDamageToTurrets";
-            this.PlayerTotalDamageToTurrets.ReadOnly = true;
-            this.PlayerTotalDamageToTurrets.Size = new System.Drawing.Size(159, 13);
-            this.PlayerTotalDamageToTurrets.TabIndex = 60;
-            this.PlayerTotalDamageToTurrets.Text = "-";
-            // 
-            // PlayerTotalDamageDealt
-            // 
-            this.PlayerTotalDamageDealt.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.PlayerTotalDamageDealt.BackColor = System.Drawing.SystemColors.Window;
-            this.PlayerTotalDamageDealt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerTotalDamageDealt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerTotalDamageDealt.Location = new System.Drawing.Point(166, 56);
-            this.PlayerTotalDamageDealt.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerTotalDamageDealt.Name = "PlayerTotalDamageDealt";
-            this.PlayerTotalDamageDealt.ReadOnly = true;
-            this.PlayerTotalDamageDealt.Size = new System.Drawing.Size(159, 13);
-            this.PlayerTotalDamageDealt.TabIndex = 61;
-            this.PlayerTotalDamageDealt.Text = "-";
-            // 
-            // PlayerDamageHealed
-            // 
-            this.PlayerDamageHealed.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.PlayerDamageHealed.BackColor = System.Drawing.SystemColors.Window;
-            this.PlayerDamageHealed.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerDamageHealed.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerDamageHealed.Location = new System.Drawing.Point(166, 74);
-            this.PlayerDamageHealed.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerDamageHealed.Name = "PlayerDamageHealed";
-            this.PlayerDamageHealed.ReadOnly = true;
-            this.PlayerDamageHealed.Size = new System.Drawing.Size(159, 13);
-            this.PlayerDamageHealed.TabIndex = 62;
-            this.PlayerDamageHealed.Text = "-";
-            // 
-            // PlayerDamageTaken
-            // 
-            this.PlayerDamageTaken.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.PlayerDamageTaken.BackColor = System.Drawing.SystemColors.Window;
-            this.PlayerDamageTaken.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerDamageTaken.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerDamageTaken.Location = new System.Drawing.Point(166, 92);
-            this.PlayerDamageTaken.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerDamageTaken.Name = "PlayerDamageTaken";
-            this.PlayerDamageTaken.ReadOnly = true;
-            this.PlayerDamageTaken.Size = new System.Drawing.Size(159, 13);
-            this.PlayerDamageTaken.TabIndex = 63;
-            this.PlayerDamageTaken.Text = "-";
-            // 
-            // PlayerVisionScore
-            // 
-            this.PlayerVisionScore.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.PlayerVisionScore.BackColor = System.Drawing.SystemColors.Window;
-            this.PlayerVisionScore.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerVisionScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerVisionScore.Location = new System.Drawing.Point(166, 110);
-            this.PlayerVisionScore.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerVisionScore.Name = "PlayerVisionScore";
-            this.PlayerVisionScore.ReadOnly = true;
-            this.PlayerVisionScore.Size = new System.Drawing.Size(159, 13);
-            this.PlayerVisionScore.TabIndex = 64;
-            this.PlayerVisionScore.Text = "-";
-            // 
-            // PlayerWardsPlacedLabel
-            // 
-            this.PlayerWardsPlacedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PlayerWardsPlacedLabel.Location = new System.Drawing.Point(0, 128);
-            this.PlayerWardsPlacedLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerWardsPlacedLabel.Name = "PlayerWardsPlacedLabel";
-            this.PlayerWardsPlacedLabel.Size = new System.Drawing.Size(166, 13);
-            this.PlayerWardsPlacedLabel.TabIndex = 65;
-            this.PlayerWardsPlacedLabel.Text = "Wards Placed:";
-            // 
-            // PlayerWardsPlaced
-            // 
-            this.PlayerWardsPlaced.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.PlayerWardsPlaced.BackColor = System.Drawing.SystemColors.Window;
-            this.PlayerWardsPlaced.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.PlayerWardsPlaced.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PlayerWardsPlaced.Location = new System.Drawing.Point(166, 128);
-            this.PlayerWardsPlaced.Margin = new System.Windows.Forms.Padding(0);
-            this.PlayerWardsPlaced.Name = "PlayerWardsPlaced";
-            this.PlayerWardsPlaced.ReadOnly = true;
-            this.PlayerWardsPlaced.Size = new System.Drawing.Size(159, 13);
-            this.PlayerWardsPlaced.TabIndex = 66;
-            this.PlayerWardsPlaced.Text = "-";
             // 
             // DetailForm
             // 
@@ -1381,6 +1381,7 @@
             this.Controls.Add(this.MainOkButton);
             this.Controls.Add(this.MainCancelButton);
             this.Controls.Add(this.MainTabControl);
+            this.Controls.Add(this.GeneralStartReplayButton);
             this.Controls.Add(this.GeneralDebugDumpJsonButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1395,8 +1396,8 @@
             this.GeneralFlowLayout.ResumeLayout(false);
             this.GeneralFlowLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralGamePictureBox)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.GeneralPlayerNamesTable.ResumeLayout(false);
+            this.GeneralPlayerNamesTable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage3)).EndInit();
@@ -1456,7 +1457,7 @@
         private System.Windows.Forms.TabPage PlayerTab;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label PlayerDivider1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel GeneralPlayerNamesTable;
         private System.Windows.Forms.Label GeneralMatchWinnerLabel;
         private System.Windows.Forms.PictureBox GeneralPlayerImage1;
         private System.Windows.Forms.PictureBox GeneralPlayerImage2;
