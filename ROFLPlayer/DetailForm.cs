@@ -125,7 +125,8 @@ namespace ROFLPlayer
         }
 
         ///////////////////// Debug Methods
-        private async void button1_Click(object sender, EventArgs e)
+
+        private async void GeneralDebugDumpJsonButton_Click(object sender, EventArgs e)
         {
             if (fileinfo == null)
             {

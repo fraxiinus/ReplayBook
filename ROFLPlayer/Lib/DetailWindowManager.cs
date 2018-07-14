@@ -179,10 +179,10 @@ namespace ROFLPlayer.Lib
         {
             var getimgtask = FileManager.GetChampionIconImage(player["SKIN"].ToString());
             var item0task = FileManager.GetItemImage(player["ITEM0"].ToObject<int>());
-            var item1task = FileManager.GetItemImage(player["ITEM1"].ToObject<int>());
-            var item2task = FileManager.GetItemImage(player["ITEM2"].ToObject<int>());
-            var item3task = FileManager.GetItemImage(player["ITEM3"].ToObject<int>());
-            var item4task = FileManager.GetItemImage(player["ITEM4"].ToObject<int>());
+            var item1task = FileManager.GetItemImage(player["ITEM3"].ToObject<int>());
+            var item2task = FileManager.GetItemImage(player["ITEM1"].ToObject<int>());
+            var item3task = FileManager.GetItemImage(player["ITEM4"].ToObject<int>());
+            var item4task = FileManager.GetItemImage(player["ITEM2"].ToObject<int>());
             var item5task = FileManager.GetItemImage(player["ITEM5"].ToObject<int>());
             var item6task = FileManager.GetItemImage(player["ITEM6"].ToObject<int>());
 
