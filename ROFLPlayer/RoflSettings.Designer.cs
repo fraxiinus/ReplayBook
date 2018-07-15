@@ -49,7 +49,7 @@ namespace ROFLPlayer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Etirps")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string Username {
             get {
                 return ((string)(this["Username"]));
@@ -80,6 +80,18 @@ namespace ROFLPlayer {
             }
             set {
                 this["MatchHistoryBaseUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Riot Games")]
+        public string StartFolder {
+            get {
+                return ((string)(this["StartFolder"]));
+            }
+            set {
+                this["StartFolder"] = value;
             }
         }
     }

@@ -14,29 +14,64 @@ namespace ROFLPlayer.Lib
 
     public class LeagueManager
     {
+        // This method should be able to find the League of Legends executable starting from the Riot Games folder
+        public static string FindLeagueExecutable(string startingpath)
+        {
+            if(string.IsNullOrEmpty(startingpath))
+            {
+                throw new ArgumentNullException("Input path cannot be empty");
+            }
+            if(!Directory.Exists(startingpath))
+            {
+                throw new DirectoryNotFoundException("Input path does not exist");
+            }
+
+            // Browse to releases folder
+            var browse = Path.Combine(startingpath, "League of Legends", "RADS", "solutions", "lol_game_client_sln", "releases");
+            if(!Directory.Exists(browse))
+            {
+                throw new DirectoryNotFoundException("Critical League of Legends folders do not exist");
+            }
+            else
+            {
+                RoflSettings.Default.StartFolder = browse;
+            }
+
+            var releasefolders = Directory.GetDirectories(browse);
+            if(releasefolders.Count() > 1)
+            {
+                // somehow choose
+                
+            }
+            else if(releasefolders.Count() == 1)
+            {
+                browse = Path.Combine(browse, releasefolders[0], "deploy");
+            }
+            else
+            {
+                throw new DirectoryNotFoundException("No release folder found");
+            }
+
+            browse = Path.Combine(browse, "League of Legends.exe");
+
+            if (CheckLeagueExecutable(browse))
+            {
+                RoflSettings.Default.LoLExecLocation = browse;
+                RoflSettings.Default.Save();
+                return browse;
+            }
+            else
+            {
+                throw new FileNotFoundException("Could not find League of Legends.exe");
+            }
+        }
+
         public static bool CheckLeagueExecutable()
         {
             var lolpath = RoflSettings.Default.LoLExecLocation;
 
             // Check the name of the file
-            if (string.IsNullOrEmpty(lolpath))
-            {
-                return false;
-            }
-
-            if (!lolpath.Contains("League of Legends.exe"))
-            {
-                return false;
-            }
-
-            // Check file exists
-            if (!File.Exists(lolpath))
-            {
-                return false;
-            }
-
-            // Check the description of the file
-            if (!string.Equals(FileVersionInfo.GetVersionInfo(lolpath).FileDescription, @"League of Legends (TM) Client"))
+            if (string.IsNullOrEmpty(lolpath) || !lolpath.Contains("League of Legends.exe") || !File.Exists(lolpath) || !string.Equals(FileVersionInfo.GetVersionInfo(lolpath).FileDescription, @"League of Legends (TM) Client"))
             {
                 return false;
             }
@@ -48,24 +83,7 @@ namespace ROFLPlayer.Lib
         {
 
             // Check the name of the file
-            if (string.IsNullOrEmpty(lolpath))
-            {
-                return false;
-            }
-
-            if (!lolpath.Contains("League of Legends.exe"))
-            {
-                return false;
-            }
-
-            // Check file exists
-            if (!File.Exists(lolpath))
-            {
-                return false;
-            }
-
-            // Check the description of the file
-            if (!string.Equals(FileVersionInfo.GetVersionInfo(lolpath).FileDescription, @"League of Legends (TM) Client"))
+            if (string.IsNullOrEmpty(lolpath) || !lolpath.Contains("League of Legends.exe") || !File.Exists(lolpath) || !string.Equals(FileVersionInfo.GetVersionInfo(lolpath).FileDescription, @"League of Legends (TM) Client"))
             {
                 return false;
             }

@@ -9,13 +9,16 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="Username" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Etirps</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Region" Type="System.String" Scope="User">
       <Value Profile="(Default)">NA</Value>
     </Setting>
     <Setting Name="MatchHistoryBaseUrl" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://matchhistory.na.leagueoflegends.com/en/#match-details</Value>
+    </Setting>
+    <Setting Name="StartFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Riot Games</Value>
     </Setting>
   </Settings>
 </SettingsFile>
