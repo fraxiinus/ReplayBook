@@ -183,8 +183,7 @@ namespace ROFLPlayer.Lib
                 }
             }
         }
-
-
+        
         private async static Task<bool> DownloadMapIcon(Maps mapid, string path)
         {
             using (WebClient wc = new WebClient())
