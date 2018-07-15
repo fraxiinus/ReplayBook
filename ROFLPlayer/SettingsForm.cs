@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using ROFLPlayer.Lib;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Collections;
 
@@ -25,6 +26,24 @@ namespace ROFLPlayer
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(RoflSettings.Default.LoLExecLocation) || !File.Exists(RoflSettings.Default.LoLExecLocation))
+            {
+                try
+                {
+                    var path = LeagueManager.FindLeagueExecutable(RoflSettings.Default.StartFolder);
+                    RoflSettings.Default.LoLExecLocation = path;
+                    this.GeneralGameTextBox.Text = path;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Could not find League of Legends executable, please set the path in settings\n" + ex.GetType().ToString() + ex.Message, "Error finding game", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                this.GeneralGameTextBox.Text = RoflSettings.Default.LoLExecLocation;
+            }
+
             this.GeneralLaunchComboBox.SelectedItem = this.GeneralLaunchComboBox.Items[RoflSettings.Default.StartupMode];
             this.GeneralRegionComboBox.SelectedItem = RoflSettings.Default.Region;
             this.GeneralUsernameTextBox.Text = RoflSettings.Default.Username;
