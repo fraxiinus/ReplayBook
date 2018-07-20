@@ -85,7 +85,7 @@ namespace ROFLPlayer {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Riot Games")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string StartFolder {
             get {
                 return ((string)(this["StartFolder"]));
