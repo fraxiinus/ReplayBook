@@ -28,15 +28,26 @@ namespace ROFLPlayer
         {
             if (string.IsNullOrEmpty(RoflSettings.Default.LoLExecLocation) || !File.Exists(RoflSettings.Default.LoLExecLocation))
             {
-                try
+                if (FileManager.FindLeagueInstallPath(out string path))
                 {
-                    var path = LeagueManager.FindLeagueExecutable(RoflSettings.Default.StartFolder);
-                    RoflSettings.Default.LoLExecLocation = path;
-                    this.GeneralGameTextBox.Text = path;
+                    try
+                    {
+                        var execPath = LeagueManager.FindLeagueExecutable(path);
+                        RoflSettings.Default.LoLExecLocation = path;
+                        this.GeneralGameTextBox.Text = execPath;
+
+                        MessageBox.Show("Automatically detected League of Legends install!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Could not find League of Legends executable, please select the game executable (League of Legends.exe)\n\n" + ex.Message, "Error finding game executable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        GeneralGameBrowseButton_Click(this, new EventArgs());
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Could not find League of Legends executable, please set the path in settings\n" + ex.GetType().ToString() + ex.Message, "Error finding game", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Could not find League of Legends install location, please select the game launcher (LeagueClient.exe)", "Error finding install path", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    GeneralInstallBrowseButton_Click(this, new EventArgs());
                 }
             }
             else
@@ -62,10 +73,10 @@ namespace ROFLPlayer
         private void GeneralGameBrowseButton_Click(object sender, EventArgs e)
         {
             var dialog = new OpenFileDialog();
-            dialog.Filter = "Executable files (*.exe)|*.exe";
+            dialog.Filter = "League of Legends.exe (*.exe)|*.exe";
             dialog.Multiselect = false;
             dialog.Title = "Select League of Legends executable";
-            if (dialog.ShowDialog() == DialogResult.OK)
+            while (dialog.ShowDialog() == DialogResult.OK)
             {
                 var filepath = dialog.FileName;
                 if (string.IsNullOrEmpty(filepath))
@@ -76,10 +87,39 @@ namespace ROFLPlayer
                 if (LeagueManager.CheckLeagueExecutable(filepath))
                 {
                     this.GeneralGameTextBox.Text = filepath;
+                    return;
                 }
                 else
                 {
                     MessageBox.Show("Invalid League executable", "Invalid File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void GeneralInstallBrowseButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "LeagueClient.exe (*.exe)|*.exe";
+            dialog.Multiselect = false;
+            dialog.Title = "Select League of Legends client";
+            while (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var filepath = dialog.FileName;
+                if (string.IsNullOrEmpty(filepath))
+                {
+                    return;
+                }
+
+                try
+                {
+                    var path = LeagueManager.FindLeagueExecutable(Path.GetDirectoryName(filepath));
+                    RoflSettings.Default.LoLExecLocation = path;
+                    this.GeneralGameTextBox.Text = path;
+                    return;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Could not find League of Legends executable, please try again\n\n" + ex.Message, "Error finding game executable", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
