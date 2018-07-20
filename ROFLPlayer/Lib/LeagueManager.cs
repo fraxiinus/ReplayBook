@@ -27,21 +27,17 @@ namespace ROFLPlayer.Lib
             }
 
             // Browse to releases folder
-            var browse = Path.Combine(startingpath, "League of Legends", "RADS", "solutions", "lol_game_client_sln", "releases");
+            var browse = Path.Combine(startingpath, "RADS", "solutions", "lol_game_client_sln", "releases");
             if(!Directory.Exists(browse))
             {
                 throw new DirectoryNotFoundException("Critical League of Legends folders do not exist");
-            }
-            else
-            {
-                RoflSettings.Default.StartFolder = browse;
             }
 
             var releasefolders = Directory.GetDirectories(browse);
             if(releasefolders.Count() > 1)
             {
-                // somehow choose
-                
+                // Somehow choose
+                throw new Exception("More than one release folder found");
             }
             else if(releasefolders.Count() == 1)
             {
