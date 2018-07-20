@@ -110,25 +110,34 @@ namespace ROFLPlayer.Lib
         private static string CheckGameDirValid()
         {
             // Check if LOL executable directory is found
-            // TODO: Needs to be able to find latest directory after patch
             if(LeagueManager.CheckLeagueExecutable())
             {
                 return RoflSettings.Default.LoLExecLocation;
             }
             else
             {
-                if(FileManager.FindLeagueInstallPath(out string path))
+                if (!string.IsNullOrEmpty(RoflSettings.Default.StartFolder))
                 {
-                    RoflSettings.Default.StartFolder = path;
-                    LeagueManager.FindLeagueExecutable(path);
-                    RoflSettings.Default.LoLExecLocation = path;
+                    var execPath = LeagueManager.FindLeagueExecutable(RoflSettings.Default.StartFolder);
+                    RoflSettings.Default.LoLExecLocation = execPath;
                     RoflSettings.Default.Save();
-                    return path;
+                    return execPath;
                 }
                 else
                 {
-                    MessageBox.Show("Could not find League of Legends, please open ROFLPlayer and set the path", "Error playing replay", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return string.Empty;
+                    if (FileManager.FindLeagueInstallPath(out string path))
+                    {
+                        RoflSettings.Default.StartFolder = path;
+                        var execPath = LeagueManager.FindLeagueExecutable(path);
+                        RoflSettings.Default.LoLExecLocation = execPath;
+                        RoflSettings.Default.Save();
+                        return execPath;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Could not find League of Legends, please open ROFLPlayer and set the path", "Error playing replay", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return string.Empty;
+                    }
                 }
             }
         }
