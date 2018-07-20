@@ -62,7 +62,6 @@ namespace ROFLPlayer.Lib
         */
         public static Task<bool> StartReplay(string replayPath)
         {
-            //RunResult<bool> returnValue = new RunResult<bool> { Success = false, Message = "" };
             var replayname = Path.GetFileNameWithoutExtension(replayPath);
 
             // Get the path of the file executable
@@ -116,7 +115,22 @@ namespace ROFLPlayer.Lib
             {
                 return RoflSettings.Default.LoLExecLocation;
             }
-            return null;
+            else
+            {
+                if(FileManager.FindLeagueInstallPath(out string path))
+                {
+                    RoflSettings.Default.StartFolder = path;
+                    LeagueManager.FindLeagueExecutable(path);
+                    RoflSettings.Default.LoLExecLocation = path;
+                    RoflSettings.Default.Save();
+                    return path;
+                }
+                else
+                {
+                    MessageBox.Show("Could not find League of Legends, please open ROFLPlayer and set the path", "Error playing replay", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return string.Empty;
+                }
+            }
         }
 
         private static IWshShortcut CreateAlias(string execPath, string replayPath)
