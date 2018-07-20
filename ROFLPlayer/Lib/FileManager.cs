@@ -9,6 +9,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Threading;
+using Microsoft.Win32;
 
 namespace ROFLPlayer.Lib
 {
@@ -29,6 +30,35 @@ namespace ROFLPlayer.Lib
             shortcut.Save();
 
             return shortcut;
+        }
+
+        /// <summary>
+        /// Searches the Windows Registry for where League of Legends is installed. Path is returned if found.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool FindLeagueInstallPath(out string path)
+        {
+            using(RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node"))
+            {
+                var riotSubkeyName = (from subkeyName in key.GetSubKeyNames()
+                                      where subkeyName == "Riot Games, Inc"
+                                      select subkeyName).FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(riotSubkeyName))
+                {
+                    using(RegistryKey subkey = key.OpenSubKey($@"{riotSubkeyName}\League of Legends"))
+                    {
+                        path = subkey.GetValue("Location").ToString();
+                    }
+                    RoflSettings.Default.StartFolder = path;
+                    RoflSettings.Default.Save();
+                    return true;
+                }
+            }
+
+            path = string.Empty;
+            return false;
         }
 
         public static async void SetDataDragonVersion(string gameversion)
