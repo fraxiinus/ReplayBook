@@ -18,7 +18,7 @@
       <Value Profile="(Default)">https://matchhistory.na.leagueoflegends.com/en/#match-details</Value>
     </Setting>
     <Setting Name="StartFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Riot Games</Value>
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
