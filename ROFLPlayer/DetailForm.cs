@@ -52,7 +52,6 @@ namespace ROFLPlayer
                 MessageBox.Show("Error Parsing Replay", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
-
         }
 
         ///////////////////// General Tab Methods
@@ -88,7 +87,7 @@ namespace ROFLPlayer
 
         private void GeneralGameViewOnlineButton_Click(object sender, EventArgs e)
         {
-            //
+            throw new NotImplementedException();
         }
 
         ///////////////////// Player Tab Methods
@@ -138,14 +137,14 @@ namespace ROFLPlayer
             if (!string.IsNullOrEmpty(replaypath))
             {
                 var outputfile = Path.Combine(Path.GetDirectoryName(replaypath), Path.GetFileNameWithoutExtension(replaypath) + ".json");
-                var dumpresult = await DetailWindowManager.WriteReplayHeaderToFile(outputfile, fileinfo);
-                if (dumpresult.Success)
+                var success = await DetailWindowManager.WriteReplayHeaderToFile(outputfile, fileinfo);
+                if (success)
                 {
-                    MessageBox.Show(dumpresult.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Dumped JSON!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show(dumpresult.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to dump JSON", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

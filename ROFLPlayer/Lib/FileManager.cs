@@ -17,7 +17,14 @@ namespace ROFLPlayer.Lib
     {
         public static string ddragonurl = @"http://ddragon.leagueoflegends.com/cdn/";
         public static string ddragonver = "8.13.1";
-        // Creates shortcuts, modifies shortcuts if exists
+
+        /// <summary>
+        /// Creates shortcuts, modifies shortcuts if exists
+        /// </summary>
+        /// <param name="shortcutpath"></param>
+        /// <param name="execpath"></param>
+        /// <param name="replaypath"></param>
+        /// <returns></returns>
         public static IWshShortcut CreateShortcut(string shortcutpath, string execpath, string replaypath)
         {
             var shell = new WshShell();
@@ -61,6 +68,10 @@ namespace ROFLPlayer.Lib
             return false;
         }
 
+        /// <summary>
+        /// Set data endpoint version to replay version
+        /// </summary>
+        /// <param name="gameversion"></param>
         public static async void SetDataDragonVersion(string gameversion)
         {
             var inputversion = gameversion.Substring(0, gameversion.IndexOf('.', gameversion.IndexOf('.') + 1));
@@ -76,6 +87,11 @@ namespace ROFLPlayer.Lib
                           select version).First().ToString();
         }
 
+        /// <summary>
+        /// Download item image if it does not exist in cache
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
         public static async Task<string> GetItemImage(int itemId)
         {
             if(itemId == 0)
@@ -113,7 +129,11 @@ namespace ROFLPlayer.Lib
             }
         }
 
-        // If the image is not downloaded already, then download it, otherwise return already downloaded image
+        /// <summary>
+        ///  Download map image if it does not exist in cache
+        /// </summary>
+        /// <param name="mapid"></param>
+        /// <returns></returns>
         public static async Task<string> GetMinimapImage(Maps mapid)
         {
             var cachepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "maps");
@@ -146,7 +166,11 @@ namespace ROFLPlayer.Lib
             }
         }
 
-        // If the image is not downloaded already, then download it, otherwise return already downloaded image
+        /// <summary>
+        /// Download champion image if it does not exist in cache
+        /// </summary>
+        /// <param name="champname"></param>
+        /// <returns></returns>
         public static async Task<string> GetChampionIconImage(string champname)
         {
             if (string.IsNullOrEmpty(champname)) { return null; }

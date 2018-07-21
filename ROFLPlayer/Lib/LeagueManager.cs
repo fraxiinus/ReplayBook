@@ -14,7 +14,11 @@ namespace ROFLPlayer.Lib
 
     public class LeagueManager
     {
-        // This method should be able to find the League of Legends executable starting from the Riot Games folder
+        /// <summary>
+        /// Returns the League of Legends executable
+        /// </summary>
+        /// <param name="startingpath"></param>
+        /// <returns></returns>
         public static string FindLeagueExecutable(string startingpath)
         {
             if(string.IsNullOrEmpty(startingpath))
@@ -62,6 +66,10 @@ namespace ROFLPlayer.Lib
             }
         }
 
+        /// <summary>
+        /// Check if league of legends executable is valid
+        /// </summary>
+        /// <returns></returns>
         public static bool CheckLeagueExecutable()
         {
             var lolpath = RoflSettings.Default.LoLExecLocation;
@@ -75,6 +83,10 @@ namespace ROFLPlayer.Lib
             return true;
         }
 
+        /// <summary>
+        /// Check if league of legends executable is valid
+        /// </summary>
+        /// <returns></returns>
         public static bool CheckLeagueExecutable(string lolpath)
         {
 
@@ -87,22 +99,11 @@ namespace ROFLPlayer.Lib
             return true;
         }
 
-        public static bool CheckReplayFile(string replaypath)
-        {
-            if (!File.Exists(replaypath)) { return false; }
-            using (var filestream = new FileStream(replaypath, FileMode.Open))
-            {
-                var magicbuffer = new byte[4];
-                var magicnumber = new byte[] { 0x52, 0x49, 0x4F, 0x54 };    // R I O T
-                filestream.Read(magicbuffer, 0, 4);
-                if (magicbuffer.SequenceEqual(magicnumber))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
+        /// <summary>
+        /// Deduct the map type from game information
+        /// </summary>
+        /// <param name="replay"></param>
+        /// <returns></returns>
         public static Maps GetMapType(ReplayHeader replay)
         {
 

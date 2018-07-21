@@ -352,9 +352,8 @@ namespace ROFLPlayer.Lib
             }));
         }
 
-        public static async Task<RunResult<string>> WriteReplayHeaderToFile(string path, ReplayHeader header)
+        public static async Task<bool> WriteReplayHeaderToFile(string path, ReplayHeader header)
         {
-            var result = new RunResult<string> { Success = false, Result= null };
             try
             {
                 using (var writer = new StreamWriter(path))
@@ -364,14 +363,10 @@ namespace ROFLPlayer.Lib
             }
             catch(Exception ex)
             {
-                result.Message = "Writing json to file: " + ex.Message;
+                return false;
             }
 
-            result.Success = true;
-            result.Result = path;
-            result.Message = "Dumped header to file";
-
-            return result;
+            return true;
         }
     }
 }

@@ -16,6 +16,7 @@ namespace ROFLPlayer
         [STAThread]
         static void Main(string[] args)
         {
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             // StartupMode, 0  = show detailed information, 1 = launch replay immediately

@@ -26,25 +26,5 @@ namespace ROFLPlayer.Lib
             RoflSettings.Default.Save();
             Environment.Exit(1);
         }
-
-        /*
-        public static string ShowFileDialog(Form form)
-        {
-            form.BeginInvoke((Action)(() =>
-            {
-                var dialog = new OpenFileDialog();
-                dialog.Filter = "Executable files (*.exe)|*.exe";
-                dialog.Multiselect = false;
-                dialog.Title = "Select League of Legends executable";
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    return dialog.FileName;
-                }
-                else
-                {
-                    return string.Empty;
-                }
-            }));
-        }*/
     }
 }

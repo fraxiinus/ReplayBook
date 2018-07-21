@@ -8,10 +8,16 @@ using System.Threading.Tasks;
 
 namespace Rofl.Parser
 {
+
     public class ReplayReader
     {
         public static byte[] MagicBytes = new byte[] { 0x52, 0x49, 0x4F, 0x54 };    // R I O T
 
+        /// <summary>
+        /// Parse a given replay file into a ReplayHeader
+        /// </summary>
+        /// <param name="replaypath"></param>
+        /// <returns></returns>
         public static ReplayHeader ReadReplayFile(string replaypath)
         {
 
@@ -50,12 +56,6 @@ namespace Rofl.Parser
                 }
                 replayLengthFields = ParseLengthFields(lengthHeaderBytes);
 
-                /*
-                byte[] metadataBytes = new byte[replayLengthFields.MetadataLength];
-                replayMatchMetadata = ParseMetadata(metadataBytes);
-                byte[] matchheaderbytes = new byte[replayLengthFields.PayloadHeaderLength];
-                */
-
                 var metadataPayloadLength = replayLengthFields.MetadataLength + replayLengthFields.PayloadHeaderLength;
                 byte[] replayMetadataPayloadBytes = new byte[metadataPayloadLength];
 
@@ -72,22 +72,16 @@ namespace Rofl.Parser
                 replayMatchMetadata = ParseMetadata(replayMetadataPayloadBytes.Take((int)replayLengthFields.MetadataLength).ToArray());
                 replayPayloadHeader = ParseMatchHeader(replayMetadataPayloadBytes.Skip((int)replayLengthFields.PayloadHeaderOffset).Take((int)replayLengthFields.PayloadHeaderLength).ToArray());
 
-                /*
-                try
-                {
-                    filestream.Seek(replayLengthFields.PayloadHeaderOffset, SeekOrigin.Begin);
-                    filestream.Read(matchheaderbytes, 0, (int)replayLengthFields.PayloadHeaderLength);
-                }
-                catch (Exception ex)
-                {
-                    throw new IOException("Reading Match Header: " + ex.Message);
-                }*/
-
             }
 
             return new ReplayHeader { LengthFields = replayLengthFields, MatchMetadata = replayMatchMetadata, MatchHeader = replayPayloadHeader };
         }
 
+        /// <summary>
+        /// Parse a given replay file into a ReplayHeader
+        /// </summary>
+        /// <param name="replaypath"></param>
+        /// <returns></returns>
         public async static Task<ReplayHeader> ReadReplayFileAsync(string replaypath)
         {
 

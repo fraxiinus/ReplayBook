@@ -5,6 +5,9 @@ using Newtonsoft.Json.Linq;
 
 namespace Rofl.Parser
 {
+    /// <summary>
+    /// Length information about the replay
+    /// </summary>
     public struct ReplayLengthFields
     {
         public ushort HeaderLength;
@@ -16,6 +19,9 @@ namespace Rofl.Parser
         public uint PayloadOffset;
     }
 
+    /// <summary>
+    /// Information about the match
+    /// </summary>
     public struct ReplayMatchMetadata
     {
         public ulong GameDuration;
@@ -25,6 +31,9 @@ namespace Rofl.Parser
         public JArray Players;
     }
 
+    /// <summary>
+    /// Information about the replay
+    /// </summary>
     public struct ReplayPayloadHeader
     {
         public ulong MatchId;
@@ -37,7 +46,7 @@ namespace Rofl.Parser
         public ushort EncryptionKeyLength;
         public string EncryptionKey; // base64
     }
-
+    
     public struct ReplayChunkHeader
     {
         public uint ChunkId;
