@@ -332,7 +332,7 @@
             this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.GeneralPlayerNamesTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage1, 0, 0);
             this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage2, 0, 1);
             this.GeneralPlayerNamesTable.Controls.Add(this.GeneralPlayerImage3, 0, 2);
@@ -529,7 +529,7 @@
             this.GeneralPlayerName6.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralPlayerName6.Name = "GeneralPlayerName6";
             this.GeneralPlayerName6.ReadOnly = true;
-            this.GeneralPlayerName6.Size = new System.Drawing.Size(93, 13);
+            this.GeneralPlayerName6.Size = new System.Drawing.Size(108, 13);
             this.GeneralPlayerName6.TabIndex = 52;
             this.GeneralPlayerName6.Text = "-";
             this.GeneralPlayerName6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -543,7 +543,7 @@
             this.GeneralPlayerName7.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralPlayerName7.Name = "GeneralPlayerName7";
             this.GeneralPlayerName7.ReadOnly = true;
-            this.GeneralPlayerName7.Size = new System.Drawing.Size(93, 13);
+            this.GeneralPlayerName7.Size = new System.Drawing.Size(108, 13);
             this.GeneralPlayerName7.TabIndex = 53;
             this.GeneralPlayerName7.Text = "-";
             this.GeneralPlayerName7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -557,7 +557,7 @@
             this.GeneralPlayerName8.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralPlayerName8.Name = "GeneralPlayerName8";
             this.GeneralPlayerName8.ReadOnly = true;
-            this.GeneralPlayerName8.Size = new System.Drawing.Size(93, 13);
+            this.GeneralPlayerName8.Size = new System.Drawing.Size(108, 13);
             this.GeneralPlayerName8.TabIndex = 54;
             this.GeneralPlayerName8.Text = "-";
             this.GeneralPlayerName8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -571,7 +571,7 @@
             this.GeneralPlayerName9.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralPlayerName9.Name = "GeneralPlayerName9";
             this.GeneralPlayerName9.ReadOnly = true;
-            this.GeneralPlayerName9.Size = new System.Drawing.Size(93, 13);
+            this.GeneralPlayerName9.Size = new System.Drawing.Size(108, 13);
             this.GeneralPlayerName9.TabIndex = 55;
             this.GeneralPlayerName9.Text = "-";
             this.GeneralPlayerName9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -585,7 +585,7 @@
             this.GeneralPlayerName10.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralPlayerName10.Name = "GeneralPlayerName10";
             this.GeneralPlayerName10.ReadOnly = true;
-            this.GeneralPlayerName10.Size = new System.Drawing.Size(93, 13);
+            this.GeneralPlayerName10.Size = new System.Drawing.Size(108, 13);
             this.GeneralPlayerName10.TabIndex = 56;
             this.GeneralPlayerName10.Text = "-";
             this.GeneralPlayerName10.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
