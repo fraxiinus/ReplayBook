@@ -798,6 +798,8 @@
             // 
             // PlayerItemImage1
             // 
+            this.PlayerItemImage1.BackColor = System.Drawing.Color.Transparent;
+            this.PlayerItemImage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PlayerItemImage1.Location = new System.Drawing.Point(2, 2);
             this.PlayerItemImage1.Margin = new System.Windows.Forms.Padding(2);
             this.PlayerItemImage1.Name = "PlayerItemImage1";
@@ -808,6 +810,7 @@
             // 
             // PlayerItemImage2
             // 
+            this.PlayerItemImage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PlayerItemImage2.Location = new System.Drawing.Point(2, 39);
             this.PlayerItemImage2.Margin = new System.Windows.Forms.Padding(2);
             this.PlayerItemImage2.Name = "PlayerItemImage2";
@@ -818,6 +821,7 @@
             // 
             // PlayerItemImage3
             // 
+            this.PlayerItemImage3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PlayerItemImage3.Location = new System.Drawing.Point(39, 2);
             this.PlayerItemImage3.Margin = new System.Windows.Forms.Padding(2);
             this.PlayerItemImage3.Name = "PlayerItemImage3";
@@ -828,6 +832,7 @@
             // 
             // PlayerItemImage4
             // 
+            this.PlayerItemImage4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PlayerItemImage4.Location = new System.Drawing.Point(39, 39);
             this.PlayerItemImage4.Margin = new System.Windows.Forms.Padding(2);
             this.PlayerItemImage4.Name = "PlayerItemImage4";
@@ -838,6 +843,7 @@
             // 
             // PlayerItemImage5
             // 
+            this.PlayerItemImage5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PlayerItemImage5.Location = new System.Drawing.Point(76, 2);
             this.PlayerItemImage5.Margin = new System.Windows.Forms.Padding(2);
             this.PlayerItemImage5.Name = "PlayerItemImage5";
@@ -848,6 +854,7 @@
             // 
             // PlayerItemImage6
             // 
+            this.PlayerItemImage6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PlayerItemImage6.Location = new System.Drawing.Point(76, 39);
             this.PlayerItemImage6.Margin = new System.Windows.Forms.Padding(2);
             this.PlayerItemImage6.Name = "PlayerItemImage6";
@@ -858,6 +865,7 @@
             // 
             // PlayerItemImage7
             // 
+            this.PlayerItemImage7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PlayerItemImage7.Location = new System.Drawing.Point(113, 2);
             this.PlayerItemImage7.Margin = new System.Windows.Forms.Padding(2);
             this.PlayerItemImage7.Name = "PlayerItemImage7";

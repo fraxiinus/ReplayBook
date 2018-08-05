@@ -47,7 +47,7 @@ namespace ROFLPlayer.Lib
             }));
         }
 
-        public async static Task PopulateGeneralReplayData(ReplayHeader data, Form form)
+        public static void PopulateGeneralReplayData(ReplayHeader data, Form form)
         {
             var map = LeagueManager.GetMapType(data);
             var maptask = FileManager.GetMinimapImage(map);
@@ -170,8 +170,6 @@ namespace ROFLPlayer.Lib
                 }
             }
 
-
-
             return;
         }
 
@@ -241,6 +239,56 @@ namespace ROFLPlayer.Lib
                 var towerskilledlabel = (TextBox)form.Controls.Find("PlayerGoldTowerKills", true)[0];
                 towerskilledlabel.Text = player["TURRETS_KILLED"].ToString();
 
+                ///// Player Misc Stats Table
+
+                var damagetochampslabel = (TextBox)form.Controls.Find("PlayerTotalDamageToChampions", true)[0];
+                if (int.TryParse(player["TOTAL_DAMAGE_DEALT_TO_CHAMPIONS"].ToString(), out int totaldamagetochamps))
+                {
+                    damagetochampslabel.Text = totaldamagetochamps.ToString("N0");
+                }
+
+                var damagetoobjlabel = (TextBox)form.Controls.Find("PlayerTotalDamageToObjectives", true)[0];
+                if (int.TryParse(player["TOTAL_DAMAGE_DEALT_TO_OBJECTIVES"].ToString(), out int totaldamagetoobjective))
+                {
+                    damagetoobjlabel.Text = totaldamagetoobjective.ToString("N0");
+                }
+
+                var damagetotowerlabel = (TextBox)form.Controls.Find("PlayerTotalDamageToTurrets", true)[0];
+                if (int.TryParse(player["TOTAL_DAMAGE_DEALT_TO_TURRETS"].ToString(), out int totaldamagetotower))
+                {
+                    damagetotowerlabel.Text = totaldamagetotower.ToString("N0");
+                }
+
+                var totaldamagelabel = (TextBox)form.Controls.Find("PlayerTotalDamageDealt", true)[0];
+                if (int.TryParse(player["TOTAL_DAMAGE_DEALT"].ToString(), out int totaldamage))
+                {
+                    totaldamagelabel.Text = totaldamage.ToString("N0");
+                }
+
+                var totalheallabel = (TextBox)form.Controls.Find("PlayerDamageHealed", true)[0];
+                if (int.TryParse(player["TOTAL_HEAL"].ToString(), out int totalheal))
+                {
+                    totalheallabel.Text = totalheal.ToString("N0");
+                }
+
+                var totaltakenlabel = (TextBox)form.Controls.Find("PlayerDamageTaken", true)[0];
+                if (int.TryParse(player["TOTAL_DAMAGE_TAKEN"].ToString(), out int totaltaken))
+                {
+                    totaltakenlabel.Text = totaltaken.ToString("N0");
+                }
+
+                var visionscorelabel = (TextBox)form.Controls.Find("PlayerVisionScore", true)[0];
+                if (int.TryParse(player["VISION_SCORE"].ToString(), out int visionscore))
+                {
+                    visionscorelabel.Text = visionscore.ToString("N0");
+                }
+
+                var wardsplacedlabel = (TextBox)form.Controls.Find("PlayerWardsPlaced", true)[0];
+                if (int.TryParse(player["WARD_PLACED"].ToString(), out int wardsplaced))
+                {
+                    wardsplacedlabel.Text = wardsplaced.ToString("N0");
+                }
+
                 ///// Player Inventory
                 var allboxes = form.Controls.Find("PlayerSpellsItemsTable", true)[0].Controls;
 
@@ -298,56 +346,6 @@ namespace ROFLPlayer.Lib
                 {
                     itemboxes[6].WaitOnLoad = false;
                     itemboxes[6].LoadAsync(item6path);
-                }
-
-                ///// Player Misc Stats Table
-
-                var damagetochampslabel = (TextBox)form.Controls.Find("PlayerTotalDamageToChampions", true)[0];
-                if (int.TryParse(player["TOTAL_DAMAGE_DEALT_TO_CHAMPIONS"].ToString(), out int totaldamagetochamps))
-                {
-                    damagetochampslabel.Text = totaldamagetochamps.ToString("N0");
-                }
-
-                var damagetoobjlabel = (TextBox)form.Controls.Find("PlayerTotalDamageToObjectives", true)[0];
-                if (int.TryParse(player["TOTAL_DAMAGE_DEALT_TO_OBJECTIVES"].ToString(), out int totaldamagetoobjective))
-                {
-                    damagetoobjlabel.Text = totaldamagetoobjective.ToString("N0");
-                }
-
-                var damagetotowerlabel = (TextBox)form.Controls.Find("PlayerTotalDamageToTurrets", true)[0];
-                if (int.TryParse(player["TOTAL_DAMAGE_DEALT_TO_TURRETS"].ToString(), out int totaldamagetotower))
-                {
-                    damagetotowerlabel.Text = totaldamagetotower.ToString("N0");
-                }
-
-                var totaldamagelabel = (TextBox)form.Controls.Find("PlayerTotalDamageDealt", true)[0];
-                if (int.TryParse(player["TOTAL_DAMAGE_DEALT"].ToString(), out int totaldamage))
-                {
-                    totaldamagelabel.Text = totaldamage.ToString("N0");
-                }
-
-                var totalheallabel = (TextBox)form.Controls.Find("PlayerDamageHealed", true)[0];
-                if (int.TryParse(player["TOTAL_HEAL"].ToString(), out int totalheal))
-                {
-                    totalheallabel.Text = totalheal.ToString("N0");
-                }
-
-                var totaltakenlabel = (TextBox)form.Controls.Find("PlayerDamageTaken", true)[0];
-                if (int.TryParse(player["TOTAL_DAMAGE_TAKEN"].ToString(), out int totaltaken))
-                {
-                    totaltakenlabel.Text = totaltaken.ToString("N0");
-                }
-
-                var visionscorelabel = (TextBox)form.Controls.Find("PlayerVisionScore", true)[0];
-                if (int.TryParse(player["VISION_SCORE"].ToString(), out int visionscore))
-                {
-                    visionscorelabel.Text = visionscore.ToString("N0");
-                }
-
-                var wardsplacedlabel = (TextBox)form.Controls.Find("PlayerWardsPlaced", true)[0];
-                if (int.TryParse(player["WARD_PLACED"].ToString(), out int wardsplaced))
-                {
-                    wardsplacedlabel.Text = wardsplaced.ToString("N0");
                 }
             }));
         }

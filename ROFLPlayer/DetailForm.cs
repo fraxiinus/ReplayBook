@@ -45,7 +45,7 @@ namespace ROFLPlayer
             if (fileinfo != null)
             {
                 DetailWindowManager.PopulatePlayerData(fileinfo.MatchMetadata, this);
-                await DetailWindowManager.PopulateGeneralReplayData(fileinfo, this);
+                DetailWindowManager.PopulateGeneralReplayData(fileinfo, this);
             }
             else
             {
