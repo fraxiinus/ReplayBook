@@ -169,6 +169,7 @@
             this.MainTabControl.SelectedIndex = 0;
             this.MainTabControl.Size = new System.Drawing.Size(348, 423);
             this.MainTabControl.TabIndex = 1;
+            this.MainTabControl.SelectedIndexChanged += new System.EventHandler(this.MainTabControl_IndexChanged);
             // 
             // GeneralTab
             // 

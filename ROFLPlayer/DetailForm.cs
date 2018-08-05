@@ -54,6 +54,23 @@ namespace ROFLPlayer
             }
         }
 
+        private void MainTabControl_IndexChanged(object sender, EventArgs e)
+        {
+            switch (MainTabControl.SelectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    if (PlayerSelectComboBox.SelectedIndex == -1 && PlayerSelectComboBox.Items.Contains(RoflSettings.Default.Username))
+                    {
+                        PlayerSelectComboBox.SelectedItem = RoflSettings.Default.Username;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
         ///////////////////// General Tab Methods
 
         private void MainCancelButton_Click(object sender, EventArgs e)
@@ -112,6 +129,7 @@ namespace ROFLPlayer
             DetailWindowManager.PopulatePlayerStatsData(player, this);
         }
 
+        // Resize the player champ name and KDA text box based on the length of the text
         private void PlayerStatsChampName_TextChanged(object sender, EventArgs e)
         {
             Size size = TextRenderer.MeasureText(PlayerStatsChampName.Text, PlayerStatsChampName.Font);
