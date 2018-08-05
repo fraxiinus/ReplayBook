@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using ROFLPlayer.Lib;
+using ROFLPlayer.Utilities;
+using ROFLPlayer.Managers;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Collections;
-
 namespace ROFLPlayer
 {
     public partial class SettingsForm : Form
@@ -28,11 +26,11 @@ namespace ROFLPlayer
         {
             if (string.IsNullOrEmpty(RoflSettings.Default.LoLExecLocation) || !File.Exists(RoflSettings.Default.LoLExecLocation))
             {
-                if (FileManager.FindLeagueInstallPath(out string path))
+                if (GameLocator.FindLeagueInstallPath(out string path))
                 {
                     try
                     {
-                        var execPath = LeagueManager.FindLeagueExecutable(path);
+                        var execPath = GameLocator.FindLeagueExecutable(path);
                         RoflSettings.Default.LoLExecLocation = path;
                         this.GeneralGameTextBox.Text = execPath;
 
@@ -84,7 +82,7 @@ namespace ROFLPlayer
                     return;
                 }
 
-                if (LeagueManager.CheckLeagueExecutable(filepath))
+                if (GameLocator.CheckLeagueExecutable(filepath))
                 {
                     this.GeneralGameTextBox.Text = filepath;
                     return;
@@ -112,7 +110,7 @@ namespace ROFLPlayer
 
                 try
                 {
-                    var path = LeagueManager.FindLeagueExecutable(Path.GetDirectoryName(filepath));
+                    var path = GameLocator.FindLeagueExecutable(Path.GetDirectoryName(filepath));
                     RoflSettings.Default.LoLExecLocation = path;
                     this.GeneralGameTextBox.Text = path;
                     return;

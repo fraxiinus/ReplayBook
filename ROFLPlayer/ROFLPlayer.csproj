@@ -94,18 +94,13 @@
     <Compile Include="DetailForm.Designer.cs">
       <DependentUpon>DetailForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Lib\DataTypes.cs" />
-    <Compile Include="Lib\DetailWindowManager.cs" />
-    <Compile Include="Lib\FileManager.cs" />
-    <Compile Include="Lib\LeagueManager.cs" />
-    <Compile Include="Lib\MainWindowManager.cs" />
-    <Compile Include="Lib\ReplayManager.cs" />
+    <Compile Include="Models\DataTypes.cs" />
+    <Compile Include="Managers\DetailWindowManager.cs" />
+    <Compile Include="Utilities\GameDetailsReader.cs" />
+    <Compile Include="Utilities\ImageDownloader.cs" />
+    <Compile Include="Utilities\GameLocator.cs" />
+    <Compile Include="Managers\MainWindowManager.cs" />
+    <Compile Include="Utilities\ReplayManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoflSettings.Designer.cs">
@@ -119,12 +114,9 @@
     <Compile Include="SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lib\WinMethods.cs" />
+    <Compile Include="Utilities\Shortcuts.cs" />
     <EmbeddedResource Include="DetailForm.resx">
       <DependentUpon>DetailForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

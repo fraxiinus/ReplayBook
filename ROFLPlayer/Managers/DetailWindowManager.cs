@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -7,12 +6,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Windows.Forms;
-using System.Net;
-using System.Threading;
 using Rofl.Parser;
+using ROFLPlayer.Utilities;
 using System.Drawing;
 
-namespace ROFLPlayer.Lib
+namespace ROFLPlayer.Managers
 {
 
     public class DetailWindowManager
@@ -49,8 +47,8 @@ namespace ROFLPlayer.Lib
 
         public static void PopulateGeneralReplayData(ReplayHeader data, Form form)
         {
-            var map = LeagueManager.GetMapType(data);
-            var maptask = FileManager.GetMinimapImage(map);
+            var map = GameDetailsReader.GetMapType(data);
+            var maptask = ImageDownloader.GetMinimapImageAsync(map);
 
             form.BeginInvoke((Action)(async () =>
             {
@@ -109,7 +107,7 @@ namespace ROFLPlayer.Lib
                 var counter = 1;
                 foreach (var player in blueplayers)
                 {
-                    var getimgtask = FileManager.GetChampionIconImage(player["SKIN"].ToString());
+                    var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
 
                     form.BeginInvoke((Action)(async () => {
                         var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
@@ -144,7 +142,7 @@ namespace ROFLPlayer.Lib
                 var counter = 6;
                 foreach (var player in purpleplayers)
                 {
-                    var getimgtask = FileManager.GetChampionIconImage(player["SKIN"].ToString());
+                    var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
 
                     form.BeginInvoke((Action)(async () => {
                         var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
@@ -175,14 +173,14 @@ namespace ROFLPlayer.Lib
 
         public static void PopulatePlayerStatsData(JToken player, Form form)
         {
-            var getimgtask = FileManager.GetChampionIconImage(player["SKIN"].ToString());
-            var item0task = FileManager.GetItemImage(player["ITEM0"].ToObject<int>());
-            var item1task = FileManager.GetItemImage(player["ITEM3"].ToObject<int>());
-            var item2task = FileManager.GetItemImage(player["ITEM1"].ToObject<int>());
-            var item3task = FileManager.GetItemImage(player["ITEM4"].ToObject<int>());
-            var item4task = FileManager.GetItemImage(player["ITEM2"].ToObject<int>());
-            var item5task = FileManager.GetItemImage(player["ITEM5"].ToObject<int>());
-            var item6task = FileManager.GetItemImage(player["ITEM6"].ToObject<int>());
+            var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
+            var item0task = ImageDownloader.GetItemImageAsync(player["ITEM0"].ToObject<int>());
+            var item1task = ImageDownloader.GetItemImageAsync(player["ITEM3"].ToObject<int>());
+            var item2task = ImageDownloader.GetItemImageAsync(player["ITEM1"].ToObject<int>());
+            var item3task = ImageDownloader.GetItemImageAsync(player["ITEM4"].ToObject<int>());
+            var item4task = ImageDownloader.GetItemImageAsync(player["ITEM2"].ToObject<int>());
+            var item5task = ImageDownloader.GetItemImageAsync(player["ITEM5"].ToObject<int>());
+            var item6task = ImageDownloader.GetItemImageAsync(player["ITEM6"].ToObject<int>());
 
             form.BeginInvoke((Action)(async () =>
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace ROFLPlayer.Lib
+namespace ROFLPlayer.Utilities
 {
     public class ReplayManager
     {
@@ -59,7 +59,7 @@ namespace ROFLPlayer.Lib
         private static string CheckGameDirValid()
         {
             // Check if LOL executable directory is found
-            if(LeagueManager.CheckLeagueExecutable())
+            if(GameLocator.CheckLeagueExecutable())
             {
                 return RoflSettings.Default.LoLExecLocation;
             }
@@ -67,17 +67,17 @@ namespace ROFLPlayer.Lib
             {
                 if (!string.IsNullOrEmpty(RoflSettings.Default.StartFolder))
                 {
-                    var execPath = LeagueManager.FindLeagueExecutable(RoflSettings.Default.StartFolder);
+                    var execPath = GameLocator.FindLeagueExecutable(RoflSettings.Default.StartFolder);
                     RoflSettings.Default.LoLExecLocation = execPath;
                     RoflSettings.Default.Save();
                     return execPath;
                 }
                 else
                 {
-                    if (FileManager.FindLeagueInstallPath(out string path))
+                    if (GameLocator.FindLeagueInstallPath(out string path))
                     {
                         RoflSettings.Default.StartFolder = path;
-                        var execPath = LeagueManager.FindLeagueExecutable(path);
+                        var execPath = GameLocator.FindLeagueExecutable(path);
                         RoflSettings.Default.LoLExecLocation = execPath;
                         RoflSettings.Default.Save();
                         return execPath;
@@ -98,7 +98,7 @@ namespace ROFLPlayer.Lib
             var filepath = Path.Combine(dir, Path.GetFileNameWithoutExtension(replayPath) + ".lnk");
             // Create a new shortcut that launches league and includes replay path
             
-            return FileManager.CreateShortcut(filepath, execPath, replayPath);
+            return Shortcuts.CreateShortcut(filepath, execPath, replayPath);
         }
 
         private static Process RunReplay(string shortcutPath)

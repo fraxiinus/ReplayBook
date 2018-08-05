@@ -1,19 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Rofl.Parser;
+using ROFLPlayer.Models;
+using Microsoft.Win32;
 
-namespace ROFLPlayer.Lib
+
+namespace ROFLPlayer.Utilities
 {
 
-    public class LeagueManager
+    public class GameLocator
     {
+        /// <summary>
+        /// Searches the Windows Registry for where League of Legends is installed. Path is returned if found.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool FindLeagueInstallPath(out string path)
+        {
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node"))
+            {
+                var riotSubkeyName = (from subkeyName in key.GetSubKeyNames()
+                                      where subkeyName == "Riot Games, Inc"
+                                      select subkeyName).FirstOrDefault();
+
+                if (!string.IsNullOrEmpty(riotSubkeyName))
+                {
+                    using (RegistryKey subkey = key.OpenSubKey($@"{riotSubkeyName}\League of Legends"))
+                    {
+                        path = subkey.GetValue("Location").ToString();
+                    }
+                    RoflSettings.Default.StartFolder = path;
+                    RoflSettings.Default.Save();
+                    return true;
+                }
+            }
+
+            path = string.Empty;
+            return false;
+        }
+
         /// <summary>
         /// Returns the League of Legends executable
         /// </summary>
@@ -97,48 +124,6 @@ namespace ROFLPlayer.Lib
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// Deduct the map type from game information
-        /// </summary>
-        /// <param name="replay"></param>
-        /// <returns></returns>
-        public static Maps GetMapType(ReplayHeader replay)
-        {
-
-            // Check if any players have killed jungle creeps, Rules out HA
-            var JungleCheck = (from player in replay.MatchMetadata.Players
-                               where player["NEUTRAL_MINIONS_KILLED"].ToObject<int>() > 0
-                               select player);
-
-            // Check if any players have placed wards, Rules out TT and HA
-            var WardCheck = (from player in replay.MatchMetadata.Players
-                             where player["WARD_PLACED"].ToObject<int>() > 0
-                             select player);
-
-            // Double check between TT and SR
-            var DragonCheck = (from player in replay.MatchMetadata.Players
-                               where player["DRAGON_KILLS"].ToObject<int>() > 0
-                               select player);
-
-            if(JungleCheck.Count() > 0)
-            {
-                if(WardCheck.Count() == 0 && DragonCheck.Count() == 0)
-                {
-                    return Maps.TwistedTreeline;
-                }
-                else
-                {
-                    return Maps.SummonersRift;
-                }
-                
-            }
-            else
-            {
-                return Maps.HowlingAbyss;
-            }
-
         }
     }
 }

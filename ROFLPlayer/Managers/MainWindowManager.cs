@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ROFLPlayer.Lib
+namespace ROFLPlayer.Managers
 {
     public class MainWindowManager
     {

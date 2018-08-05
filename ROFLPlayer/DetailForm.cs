@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ROFLPlayer.Lib;
-using System.Net;
+using ROFLPlayer.Utilities;
+using ROFLPlayer.Managers;
 using System.IO;
 using Rofl.Parser;
-using System.Threading;
 
 namespace ROFLPlayer
 {
@@ -34,7 +30,7 @@ namespace ROFLPlayer
             try
             {
                 fileinfo = await ReplayReader.ReadReplayFileAsync(replaypath);
-                FileManager.SetDataDragonVersion(fileinfo.MatchMetadata.GameVersion.ToString());
+                ImageDownloader.SetDataDragonVersion(fileinfo.MatchMetadata.GameVersion.ToString());
             }
             catch (Exception ex)
             {
