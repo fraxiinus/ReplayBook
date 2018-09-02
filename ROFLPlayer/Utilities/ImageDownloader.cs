@@ -41,7 +41,7 @@ namespace ROFLPlayer.Utilities
         {
             if (id == 0) { return null; }
 
-            var cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "champs");
+            var cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "items");
 
             var cacheResult = CheckCache(cachePath, id.ToString());
             if(!string.IsNullOrEmpty(cacheResult))
