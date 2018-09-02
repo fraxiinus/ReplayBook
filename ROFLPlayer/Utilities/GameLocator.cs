@@ -29,7 +29,15 @@ namespace ROFLPlayer.Utilities
                 {
                     using (RegistryKey subkey = key.OpenSubKey($@"{riotSubkeyName}\League of Legends"))
                     {
-                        path = subkey.GetValue("Location").ToString();
+                        if(subkey == null)
+                        {
+                            path = "Could not find League of Legends subkey in registry";
+                            return false;
+                        }
+                        else
+                        {
+                            path = subkey.GetValue("Location").ToString();
+                        }
                     }
                     RoflSettings.Default.StartFolder = path;
                     RoflSettings.Default.Save();
@@ -37,7 +45,7 @@ namespace ROFLPlayer.Utilities
                 }
             }
 
-            path = string.Empty;
+            path = "Could not find Riot Games, Inc subkey in registry";
             return false;
         }
 

@@ -84,7 +84,7 @@ namespace ROFLPlayer.Utilities
                     }
                     else
                     {
-                        MessageBox.Show("Could not find League of Legends, please open ROFLPlayer and set the path", "Error playing replay", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Could not find League of Legends, please open ROFLPlayer and set the path.\n\n" + path + ".", "Error playing replay", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return string.Empty;
                     }
                 }

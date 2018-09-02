@@ -44,7 +44,7 @@ namespace ROFLPlayer
                 }
                 else
                 {
-                    MessageBox.Show("Could not find League of Legends install location, please select the game launcher (LeagueClient.exe)", "Error finding install path", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Could not find League of Legends install location, please select the game launcher (LeagueClient.exe)\n\n" + path + ".", "Error finding install path", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     GeneralInstallBrowseButton_Click(this, new EventArgs());
                 }
             }
