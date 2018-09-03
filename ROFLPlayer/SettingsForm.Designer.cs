@@ -35,23 +35,22 @@
             this.GeneralGameLabel = new System.Windows.Forms.Label();
             this.GeneralGameTextBox = new System.Windows.Forms.TextBox();
             this.GeneralGameBrowseButton = new System.Windows.Forms.Button();
-            this.GeneralDivider1 = new System.Windows.Forms.Label();
             this.GeneralLaunchLabel = new System.Windows.Forms.Label();
             this.GeneralLaunchComboBox = new System.Windows.Forms.ComboBox();
+            this.GeneralDivider1 = new System.Windows.Forms.Label();
             this.GeneralUsernameLabel = new System.Windows.Forms.Label();
             this.GeneralUsernameTextBox = new System.Windows.Forms.TextBox();
+            this.GeneralRegionLabel = new System.Windows.Forms.Label();
+            this.GeneralRegionComboBox = new System.Windows.Forms.ComboBox();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
             this.AboutTitleLabel = new System.Windows.Forms.Label();
             this.AboutVersionLabel = new System.Windows.Forms.Label();
-            this.AboutAuthorLabel = new System.Windows.Forms.Label();
             this.AboutGithubButton = new System.Windows.Forms.Button();
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.MainCancelButton = new System.Windows.Forms.Button();
             this.MainOkButton = new System.Windows.Forms.Button();
-            this.GeneralRegionLabel = new System.Windows.Forms.Label();
-            this.GeneralRegionComboBox = new System.Windows.Forms.ComboBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -132,15 +131,6 @@
             this.GeneralGameBrowseButton.UseVisualStyleBackColor = true;
             this.GeneralGameBrowseButton.Click += new System.EventHandler(this.GeneralGameBrowseButton_Click);
             // 
-            // GeneralDivider1
-            // 
-            this.GeneralDivider1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.GeneralDivider1.Location = new System.Drawing.Point(5, 106);
-            this.GeneralDivider1.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralDivider1.Name = "GeneralDivider1";
-            this.GeneralDivider1.Size = new System.Drawing.Size(315, 2);
-            this.GeneralDivider1.TabIndex = 6;
-            // 
             // GeneralLaunchLabel
             // 
             this.GeneralLaunchLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -165,6 +155,15 @@
             this.GeneralLaunchComboBox.Size = new System.Drawing.Size(200, 21);
             this.GeneralLaunchComboBox.TabIndex = 7;
             // 
+            // GeneralDivider1
+            // 
+            this.GeneralDivider1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.GeneralDivider1.Location = new System.Drawing.Point(5, 106);
+            this.GeneralDivider1.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralDivider1.Name = "GeneralDivider1";
+            this.GeneralDivider1.Size = new System.Drawing.Size(315, 2);
+            this.GeneralDivider1.TabIndex = 6;
+            // 
             // GeneralUsernameLabel
             // 
             this.GeneralUsernameLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -184,6 +183,39 @@
             this.GeneralUsernameTextBox.Size = new System.Drawing.Size(200, 20);
             this.GeneralUsernameTextBox.TabIndex = 9;
             // 
+            // GeneralRegionLabel
+            // 
+            this.GeneralRegionLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralRegionLabel.Location = new System.Drawing.Point(5, 152);
+            this.GeneralRegionLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralRegionLabel.Name = "GeneralRegionLabel";
+            this.GeneralRegionLabel.Size = new System.Drawing.Size(105, 13);
+            this.GeneralRegionLabel.TabIndex = 10;
+            this.GeneralRegionLabel.Text = "Region:";
+            // 
+            // GeneralRegionComboBox
+            // 
+            this.GeneralRegionComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralRegionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GeneralRegionComboBox.FormattingEnabled = true;
+            this.GeneralRegionComboBox.Items.AddRange(new object[] {
+            "BR",
+            "EUNE",
+            "EUW",
+            "JP",
+            "KR",
+            "LAN",
+            "LAS",
+            "NA",
+            "OCE",
+            "TR",
+            "RU"});
+            this.GeneralRegionComboBox.Location = new System.Drawing.Point(120, 148);
+            this.GeneralRegionComboBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralRegionComboBox.Name = "GeneralRegionComboBox";
+            this.GeneralRegionComboBox.Size = new System.Drawing.Size(200, 21);
+            this.GeneralRegionComboBox.TabIndex = 11;
+            // 
             // AboutTab
             // 
             this.AboutTab.Controls.Add(this.AboutTableLayoutPanel);
@@ -202,7 +234,6 @@
             this.AboutTableLayoutPanel.Controls.Add(this.AboutLogoPictureBox, 0, 1);
             this.AboutTableLayoutPanel.Controls.Add(this.AboutTitleLabel, 0, 2);
             this.AboutTableLayoutPanel.Controls.Add(this.AboutVersionLabel, 0, 3);
-            this.AboutTableLayoutPanel.Controls.Add(this.AboutAuthorLabel, 0, 4);
             this.AboutTableLayoutPanel.Controls.Add(this.AboutGithubButton, 0, 6);
             this.AboutTableLayoutPanel.Controls.Add(this.AboutCatLabel, 0, 5);
             this.AboutTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -255,18 +286,6 @@
             this.AboutVersionLabel.Text = "Beta";
             this.AboutVersionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // AboutAuthorLabel
-            // 
-            this.AboutAuthorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AboutAuthorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AboutAuthorLabel.Location = new System.Drawing.Point(3, 173);
-            this.AboutAuthorLabel.Name = "AboutAuthorLabel";
-            this.AboutAuthorLabel.Size = new System.Drawing.Size(328, 23);
-            this.AboutAuthorLabel.TabIndex = 4;
-            this.AboutAuthorLabel.Text = "Anchu Lee";
-            this.AboutAuthorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // AboutGithubButton
             // 
             this.AboutGithubButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -283,7 +302,7 @@
             this.AboutCatLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AboutCatLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AboutCatLabel.Location = new System.Drawing.Point(3, 196);
+            this.AboutCatLabel.Location = new System.Drawing.Point(3, 173);
             this.AboutCatLabel.Name = "AboutCatLabel";
             this.AboutCatLabel.Size = new System.Drawing.Size(328, 20);
             this.AboutCatLabel.TabIndex = 6;
@@ -309,39 +328,6 @@
             this.MainOkButton.Text = "OK";
             this.MainOkButton.UseVisualStyleBackColor = true;
             this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
-            // 
-            // GeneralRegionLabel
-            // 
-            this.GeneralRegionLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralRegionLabel.Location = new System.Drawing.Point(5, 152);
-            this.GeneralRegionLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralRegionLabel.Name = "GeneralRegionLabel";
-            this.GeneralRegionLabel.Size = new System.Drawing.Size(105, 13);
-            this.GeneralRegionLabel.TabIndex = 10;
-            this.GeneralRegionLabel.Text = "Region:";
-            // 
-            // GeneralRegionComboBox
-            // 
-            this.GeneralRegionComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralRegionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.GeneralRegionComboBox.FormattingEnabled = true;
-            this.GeneralRegionComboBox.Items.AddRange(new object[] {
-            "BR",
-            "EUNE",
-            "EUW",
-            "JP",
-            "KR",
-            "LAN",
-            "LAS",
-            "NA",
-            "OCE",
-            "TR",
-            "RU"});
-            this.GeneralRegionComboBox.Location = new System.Drawing.Point(120, 148);
-            this.GeneralRegionComboBox.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralRegionComboBox.Name = "GeneralRegionComboBox";
-            this.GeneralRegionComboBox.Size = new System.Drawing.Size(200, 21);
-            this.GeneralRegionComboBox.TabIndex = 11;
             // 
             // SettingsForm
             // 
@@ -388,7 +374,6 @@
         private System.Windows.Forms.PictureBox AboutLogoPictureBox;
         private System.Windows.Forms.Label AboutTitleLabel;
         private System.Windows.Forms.Label AboutVersionLabel;
-        private System.Windows.Forms.Label AboutAuthorLabel;
         private System.Windows.Forms.Button AboutGithubButton;
         private System.Windows.Forms.Label AboutCatLabel;
         private System.Windows.Forms.Label GeneralUsernameLabel;

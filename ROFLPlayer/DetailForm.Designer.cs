@@ -118,7 +118,6 @@
             this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
             this.AboutTitleLabel = new System.Windows.Forms.Label();
             this.AboutVersionLabel = new System.Windows.Forms.Label();
-            this.AboutAuthorLabel = new System.Windows.Forms.Label();
             this.AboutGithubButton = new System.Windows.Forms.Button();
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.GeneralStartReplayButton = new System.Windows.Forms.Button();
@@ -1249,7 +1248,6 @@
             this.AboutTableLayoutPanel.Controls.Add(this.AboutLogoPictureBox, 0, 1);
             this.AboutTableLayoutPanel.Controls.Add(this.AboutTitleLabel, 0, 2);
             this.AboutTableLayoutPanel.Controls.Add(this.AboutVersionLabel, 0, 3);
-            this.AboutTableLayoutPanel.Controls.Add(this.AboutAuthorLabel, 0, 4);
             this.AboutTableLayoutPanel.Controls.Add(this.AboutGithubButton, 0, 6);
             this.AboutTableLayoutPanel.Controls.Add(this.AboutCatLabel, 0, 5);
             this.AboutTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1303,18 +1301,6 @@
             this.AboutVersionLabel.Text = "Beta";
             this.AboutVersionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // AboutAuthorLabel
-            // 
-            this.AboutAuthorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AboutAuthorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AboutAuthorLabel.Location = new System.Drawing.Point(3, 173);
-            this.AboutAuthorLabel.Name = "AboutAuthorLabel";
-            this.AboutAuthorLabel.Size = new System.Drawing.Size(328, 23);
-            this.AboutAuthorLabel.TabIndex = 4;
-            this.AboutAuthorLabel.Text = "Anchu Lee";
-            this.AboutAuthorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // AboutGithubButton
             // 
             this.AboutGithubButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1331,7 +1317,7 @@
             this.AboutCatLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AboutCatLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AboutCatLabel.Location = new System.Drawing.Point(3, 196);
+            this.AboutCatLabel.Location = new System.Drawing.Point(3, 173);
             this.AboutCatLabel.Name = "AboutCatLabel";
             this.AboutCatLabel.Size = new System.Drawing.Size(328, 20);
             this.AboutCatLabel.TabIndex = 6;
@@ -1441,7 +1427,6 @@
         private System.Windows.Forms.PictureBox AboutLogoPictureBox;
         private System.Windows.Forms.Label AboutTitleLabel;
         private System.Windows.Forms.Label AboutVersionLabel;
-        private System.Windows.Forms.Label AboutAuthorLabel;
         private System.Windows.Forms.Button AboutGithubButton;
         private System.Windows.Forms.Label AboutCatLabel;
         private System.Windows.Forms.Button MainCancelButton;
