@@ -18,7 +18,6 @@ namespace ROFLPlayer
             // StartupMode, 0  = show detailed information, 1 = launch replay immediately
             try
             {
-                throw new Exception("fucked");
                 if (args.Length == 0)
                 {
                     Application.Run(new SettingsForm());
