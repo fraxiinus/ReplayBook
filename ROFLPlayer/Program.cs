@@ -16,20 +16,29 @@ namespace ROFLPlayer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             // StartupMode, 0  = show detailed information, 1 = launch replay immediately
-            if (args.Length == 0)
+            try
             {
-                Application.Run(new SettingsForm());
-            }
-            else
-            {
-                if (RoflSettings.Default.StartupMode == 0)
+                throw new Exception("fucked");
+                if (args.Length == 0)
                 {
-                    ReplayManager.StartReplay(args[0]);
+                    Application.Run(new SettingsForm());
                 }
                 else
                 {
-                    Application.Run(new DetailForm(args[0]));
+                    if (RoflSettings.Default.StartupMode == 0)
+                    {
+                        ReplayManager.StartReplay(args[0]);
+                    }
+                    else
+                    {
+                        Application.Run(new DetailForm(args[0]));
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@"ROFLPlayer encountered an unhandled exception, please record this message and report it here https://github.com/andrew1421lee/ROFL-Player/issues" + "\n\n" + ex.ToString() + "\n" + ex.Source, "Critical Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         }
     }
