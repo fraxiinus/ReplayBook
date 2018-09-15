@@ -72,22 +72,13 @@ namespace ROFLPlayer.Utilities
                 throw new DirectoryNotFoundException("Critical League of Legends folders do not exist");
             }
 
-            var releasefolders = Directory.GetDirectories(browse);
-            if(releasefolders.Count() > 1)
-            {
-                // Somehow choose
-                throw new Exception("More than one release folder found");
-            }
-            else if(releasefolders.Count() == 1)
-            {
-                browse = Path.Combine(browse, releasefolders[0], "deploy");
-            }
-            else
+            var releasefolder = GetMostRecentReleaseFolder(new DirectoryInfo(browse).GetDirectories());
+            if(string.IsNullOrEmpty(releasefolder))
             {
                 throw new DirectoryNotFoundException("No release folder found");
             }
 
-            browse = Path.Combine(browse, "League of Legends.exe");
+            browse = Path.Combine(browse, releasefolder, "deploy", "League of Legends.exe");
 
             if (CheckLeagueExecutable(browse))
             {
@@ -99,6 +90,14 @@ namespace ROFLPlayer.Utilities
             {
                 throw new FileNotFoundException("Could not find League of Legends.exe");
             }
+        }
+
+        private static string GetMostRecentReleaseFolder(DirectoryInfo[] folders)
+        {
+            if (!folders.Any()) { return string.Empty; }
+            if(folders.Count() == 1) { return folders[0].FullName; }
+
+            return folders.OrderBy(x => x.LastWriteTime).Last().FullName;
         }
 
         /// <summary>
