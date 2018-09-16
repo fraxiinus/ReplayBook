@@ -81,28 +81,18 @@ namespace ROFLPlayer.Managers
                  where player["TEAM"].ToString() == "200"
                 select player).DefaultIfEmpty();
 
-            if(blueplayers == null && purpleplayers == null)
-            {
-                return;
-            }
+            string wongame = "No Contest";
 
-            string wongame = "";
-            if(blueplayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
+            if (blueplayers.ElementAt(0) != null)
             {
-                wongame = "Blue Victory!";
-            }
-            else
-            {
-                wongame = "Purple Victory!";
-            }
-
-            if (blueplayers == null)
-            { }
-            else
-            {
-                form.BeginInvoke((Action)(() => {
-                    form.Controls.Find("GeneralMatchWinnerLabel", true)[0].Text = wongame;
-                }));
+                if(blueplayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
+                {
+                    wongame = "Blue Victory";
+                }
+                else
+                {
+                    wongame = "Purple Victory";
+                }
 
                 var counter = 1;
                 foreach (var player in blueplayers)
@@ -130,15 +120,21 @@ namespace ROFLPlayer.Managers
                             champimg.WaitOnLoad = false;
                             champimg.LoadAsync(imgpath);
                         }
-                        
                     }));
                 }
             }
 
-            if (purpleplayers == null)
-            { }
-            else
+            if(purpleplayers.ElementAt(0) != null)
             {
+                if (purpleplayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
+                {
+                    wongame = "Purple Victory";
+                }
+                else
+                {
+                    wongame = "Blue Victory";
+                }
+
                 var counter = 6;
                 foreach (var player in purpleplayers)
                 {
@@ -150,23 +146,27 @@ namespace ROFLPlayer.Managers
 
                         var champimg = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
                         new ToolTip().SetToolTip(champimg, player["SKIN"].ToString());
-                        
+
                         if (player["NAME"].ToString().ToUpper() == RoflSettings.Default.Username.ToUpper())
                         {
                             namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
                         }
                         counter++;
                         var imgpath = await getimgtask;
-                        
+
                         if (!string.IsNullOrEmpty(imgpath))
                         {
                             champimg.WaitOnLoad = false;
                             champimg.LoadAsync(imgpath);
                         }
-                        
+
                     }));
                 }
             }
+
+            form.BeginInvoke((Action)(() => {
+                form.Controls.Find("GeneralMatchWinnerLabel", true)[0].Text = wongame;
+            }));
 
             return;
         }
