@@ -39,6 +39,10 @@ I couldn't find any tools that let you view the information in a replay file, so
 
 It does not do anything except copy files and launch the game executable. Nothing is altered, so a ban is not likely.
 
+**Can ROFLPlayer play replays from older patches?**
+
+Unfortunately that is something that ROFLPlayer can't do. With some extra effort it is possible, but it requires you to keep an old installation of the game that is the correct version as the replay.
+
 ## ROFLParser
 
 ROFLParser is a class library that is capable of parsing ROFL files. Simply point a file path at it and it will return an ReplayHeader object containing all information inside the replay header.
