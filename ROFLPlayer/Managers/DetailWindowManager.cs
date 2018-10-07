@@ -139,7 +139,7 @@ namespace ROFLPlayer.Managers
                     wongame = "Blue Victory";
                 }
 
-                var counter = 6;
+                var counter = 7;
                 foreach (var player in purpleplayers)
                 {
                     var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
