@@ -120,6 +120,10 @@ namespace ROFLPlayer.Managers
                             champimg.WaitOnLoad = false;
                             champimg.LoadAsync(imgpath);
                         }
+                        else
+                        {
+                            champimg.Image = champimg.ErrorImage;
+                        }
                     }));
                 }
             }
@@ -159,6 +163,10 @@ namespace ROFLPlayer.Managers
                             champimg.WaitOnLoad = false;
                             champimg.LoadAsync(imgpath);
                         }
+                        else
+                        {
+                            champimg.Image = champimg.ErrorImage;
+                        }
 
                     }));
                 }
@@ -192,6 +200,10 @@ namespace ROFLPlayer.Managers
                 {
                     champimage.WaitOnLoad = false;
                     champimage.LoadAsync(imgpath);
+                }
+                else
+                {
+                    champimage.Image = champimage.ErrorImage;
                 }
 
                 var victorylabel = (TextBox)form.Controls.Find("PlayerStatswin", true)[0];
@@ -294,7 +306,6 @@ namespace ROFLPlayer.Managers
                     (from Control boxes in allboxes
                     where boxes.Name.Contains("PlayerItemImage")
                     select boxes).Cast<PictureBox>().ToArray();
-                
 
                 var item0path = await item0task;
                 if (!string.IsNullOrEmpty(item0path))
@@ -302,7 +313,6 @@ namespace ROFLPlayer.Managers
                     itemboxes[0].WaitOnLoad = false;
                     itemboxes[0].LoadAsync(item0path);
                 }
-
 
                 var item1path = await item1task;
                 if (!string.IsNullOrEmpty(item1path))
