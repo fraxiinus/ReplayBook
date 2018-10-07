@@ -23,8 +23,14 @@ https://github.com/andrew1421lee/ROFL-Player/releases
 
 ![SettingsWindow](https://i.imgur.com/yrsUL2y.png)
 
-4. Right click a ".rofl" file and select **Properties**. If you downloaded a replay from the game client, replays are stored in Documents\League of Legends\Replays.
-5. Change the **Opens with** field to "ROFLPlayer.exe"
+4. Right click a ".rofl" file and select **Open with**. If you downloaded a replay from the game client, replays are stored in Documents\League of Legends\Replays.
+
+![RightClickOpen](https://i.imgur.com/2X2Ear7.png)
+
+5. In the popup, select "ROFLPlayer.exe"
+
+![PopupOpen](https://i.imgur.com/865d0eN.png)
+
 6. You're done! ROFLPlayer will now be used when opening League of Legends replay files!
 
 Please let me know about any bugs or issues
