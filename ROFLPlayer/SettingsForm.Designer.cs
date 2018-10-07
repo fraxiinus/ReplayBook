@@ -209,7 +209,8 @@
             "NA",
             "OCE",
             "TR",
-            "RU"});
+            "RU",
+            "PBE"});
             this.GeneralRegionComboBox.Location = new System.Drawing.Point(120, 148);
             this.GeneralRegionComboBox.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralRegionComboBox.Name = "GeneralRegionComboBox";

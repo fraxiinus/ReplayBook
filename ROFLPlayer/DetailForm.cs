@@ -100,7 +100,53 @@ namespace ROFLPlayer
 
         private void GeneralGameViewOnlineButton_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var matchId = fileinfo.MatchHeader.MatchId;
+            string regionEndpoint;
+
+            switch (RoflSettings.Default.Region)
+            {
+                case "BR":
+                    regionEndpoint = "BR1";
+                    break;
+                case "EUNE":
+                    regionEndpoint = "EUN1";
+                    break;
+                case "EUW":
+                    regionEndpoint = "EUW1";
+                    break;
+                case "JP":
+                    regionEndpoint = "JP1";
+                    break;
+                case "KR":
+                    regionEndpoint = "KR";
+                    break;
+                case "LAN":
+                    regionEndpoint = "LA1";
+                    break;
+                case "LAS":
+                    regionEndpoint = "LA2";
+                    break;
+                case "NA":
+                    regionEndpoint = "NA1";
+                    break;
+                case "OCE":
+                    regionEndpoint = "OC1";
+                    break;
+                case "TR":
+                    regionEndpoint = "TR1";
+                    break;
+                case "RU":
+                    regionEndpoint = "RU";
+                    break;
+                case "PBE":
+                    regionEndpoint = "PBE1";
+                    break;
+                default:
+                    regionEndpoint = null;
+                    break;
+            }
+
+            System.Diagnostics.Process.Start(@"https://matchhistory.na.leagueoflegends.com/en/#match-details/" + regionEndpoint + "/" + matchId);
         }
 
         ///////////////////// Player Tab Methods

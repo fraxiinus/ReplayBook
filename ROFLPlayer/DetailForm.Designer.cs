@@ -191,6 +191,7 @@
             // 
             this.GeneralFlowLayout.Controls.Add(this.GeneralGamePictureBox);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameFileLabel);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralGameViewOnlineButton);
             this.GeneralFlowLayout.Controls.Add(this.GeneralDivider1);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameVersionLabel);
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameVersionDataLabel);
@@ -227,7 +228,7 @@
             this.GeneralGameFileLabel.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralGameFileLabel.Name = "GeneralGameFileLabel";
             this.GeneralGameFileLabel.ReadOnly = true;
-            this.GeneralGameFileLabel.Size = new System.Drawing.Size(263, 13);
+            this.GeneralGameFileLabel.Size = new System.Drawing.Size(177, 13);
             this.GeneralGameFileLabel.TabIndex = 42;
             this.GeneralGameFileLabel.Text = "-";
             // 
@@ -603,15 +604,13 @@
             // GeneralGameViewOnlineButton
             // 
             this.GeneralGameViewOnlineButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralGameViewOnlineButton.Enabled = false;
-            this.GeneralGameViewOnlineButton.Location = new System.Drawing.Point(90, 434);
+            this.GeneralGameViewOnlineButton.Location = new System.Drawing.Point(252, 26);
             this.GeneralGameViewOnlineButton.Margin = new System.Windows.Forms.Padding(5, 10, 5, 5);
             this.GeneralGameViewOnlineButton.Name = "GeneralGameViewOnlineButton";
-            this.GeneralGameViewOnlineButton.Size = new System.Drawing.Size(85, 23);
+            this.GeneralGameViewOnlineButton.Size = new System.Drawing.Size(75, 23);
             this.GeneralGameViewOnlineButton.TabIndex = 29;
-            this.GeneralGameViewOnlineButton.Text = "View online...";
+            this.GeneralGameViewOnlineButton.Text = "View online";
             this.GeneralGameViewOnlineButton.UseVisualStyleBackColor = true;
-            this.GeneralGameViewOnlineButton.Visible = false;
             this.GeneralGameViewOnlineButton.Click += new System.EventHandler(this.GeneralGameViewOnlineButton_Click);
             // 
             // PlayerTab
@@ -1422,7 +1421,6 @@
             this.Controls.Add(this.MainTabControl);
             this.Controls.Add(this.GeneralStartReplayButton);
             this.Controls.Add(this.GeneralDebugDumpJsonButton);
-            this.Controls.Add(this.GeneralGameViewOnlineButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
