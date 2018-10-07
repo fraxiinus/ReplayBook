@@ -182,13 +182,13 @@ namespace ROFLPlayer.Managers
         public static void PopulatePlayerStatsData(JToken player, Form form)
         {
             var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
-            var item0task = ImageDownloader.GetItemImageAsync(player["ITEM0"].ToObject<int>());
-            var item1task = ImageDownloader.GetItemImageAsync(player["ITEM3"].ToObject<int>());
-            var item2task = ImageDownloader.GetItemImageAsync(player["ITEM1"].ToObject<int>());
-            var item3task = ImageDownloader.GetItemImageAsync(player["ITEM4"].ToObject<int>());
-            var item4task = ImageDownloader.GetItemImageAsync(player["ITEM2"].ToObject<int>());
-            var item5task = ImageDownloader.GetItemImageAsync(player["ITEM5"].ToObject<int>());
-            var item6task = ImageDownloader.GetItemImageAsync(player["ITEM6"].ToObject<int>());
+
+            Task<string>[] itemTasks = new Task<string>[7];
+
+            for (int taskCounter = 0; taskCounter < 7; taskCounter++)
+            {
+                itemTasks[taskCounter] = ImageDownloader.GetItemImageAsync(player["ITEM" + taskCounter].ToObject<int>());
+            }
 
             form.BeginInvoke((Action)(async () =>
             {
@@ -307,53 +307,18 @@ namespace ROFLPlayer.Managers
                     where boxes.Name.Contains("PlayerItemImage")
                     select boxes).Cast<PictureBox>().ToArray();
 
-                var item0path = await item0task;
-                if (!string.IsNullOrEmpty(item0path))
+                for (int loadImageCounter = 0; loadImageCounter < 7; loadImageCounter++)
                 {
-                    itemboxes[0].WaitOnLoad = false;
-                    itemboxes[0].LoadAsync(item0path);
-                }
-
-                var item1path = await item1task;
-                if (!string.IsNullOrEmpty(item1path))
-                {
-                    itemboxes[1].WaitOnLoad = false;
-                    itemboxes[1].LoadAsync(item1path);
-                }
-
-                var item2path = await item2task;
-                if (!string.IsNullOrEmpty(item2path))
-                {
-                    itemboxes[2].WaitOnLoad = false;
-                    itemboxes[2].LoadAsync(item2path);
-                }
-
-                var item3path = await item3task;
-                if (!string.IsNullOrEmpty(item3path))
-                {
-                    itemboxes[3].WaitOnLoad = false;
-                    itemboxes[3].LoadAsync(item3path);
-                }
-
-                var item4path = await item4task;
-                if (!string.IsNullOrEmpty(item4path))
-                {
-                    itemboxes[4].WaitOnLoad = false;
-                    itemboxes[4].LoadAsync(item4path);
-                }
-
-                var item5path = await item5task;
-                if (!string.IsNullOrEmpty(item5path))
-                {
-                    itemboxes[5].WaitOnLoad = false;
-                    itemboxes[5].LoadAsync(item5path);
-                }
-
-                var item6path = await item6task;
-                if (!string.IsNullOrEmpty(item6path))
-                {
-                    itemboxes[6].WaitOnLoad = false;
-                    itemboxes[6].LoadAsync(item6path);
+                    var itemPath = await itemTasks[loadImageCounter];
+                    if(!string.IsNullOrEmpty(itemPath))
+                    {
+                        itemboxes[loadImageCounter].WaitOnLoad = false;
+                        itemboxes[loadImageCounter].LoadAsync(itemPath);
+                    }
+                    else
+                    {
+                        itemboxes[loadImageCounter].Image = itemboxes[loadImageCounter].ErrorImage;
+                    }
                 }
             }));
         }
