@@ -267,6 +267,7 @@
             this.ExecAddButton.TabIndex = 3;
             this.ExecAddButton.Text = "Add";
             this.ExecAddButton.UseVisualStyleBackColor = true;
+            this.ExecAddButton.Click += new System.EventHandler(this.ExecAddButton_Click);
             // 
             // ExecEditButton
             // 

@@ -94,8 +94,15 @@
     <Compile Include="DetailForm.Designer.cs">
       <DependentUpon>DetailForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExecAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExecAddForm.Designer.cs">
+      <DependentUpon>ExecAddForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataTypes.cs" />
     <Compile Include="Managers\DetailWindowManager.cs" />
+    <Compile Include="Models\LeagueExecutable.cs" />
     <Compile Include="Utilities\GameDetailsReader.cs" />
     <Compile Include="Utilities\ImageDownloader.cs" />
     <Compile Include="Utilities\GameLocator.cs" />
@@ -117,6 +124,9 @@
     <Compile Include="Utilities\Shortcuts.cs" />
     <EmbeddedResource Include="DetailForm.resx">
       <DependentUpon>DetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExecAddForm.resx">
+      <DependentUpon>ExecAddForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

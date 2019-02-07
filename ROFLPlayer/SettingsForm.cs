@@ -133,5 +133,11 @@ namespace ROFLPlayer
         {
             System.Diagnostics.Process.Start(@"https://github.com/andrew1421lee/ROFL-Player");
         }
+
+        private void ExecAddButton_Click(object sender, EventArgs e)
+        {
+            var addForm = new ExecAddForm();
+            addForm.Show();
+        }
     }
 }
