@@ -16,13 +16,13 @@ namespace ROFLPlayer
     public partial class ExecAddForm : Form
     {
 
-        private LeagueExecutable leagueExecutable;
+        public LeagueExecutable NewLeagueExec { get; }
 
         public ExecAddForm()
         {
             InitializeComponent();
             InitForm();
-            leagueExecutable = new LeagueExecutable();
+            NewLeagueExec = new LeagueExecutable();
         }
 
         private void InitForm()
@@ -67,10 +67,11 @@ namespace ROFLPlayer
                 {
                     case "LeagueClient.exe":
                         {
+                            // Enable update checkbox if ever disabled
                             ExecUpdateCheckbox.Enabled = true;
-                            // Find the league of legends.exe using game locator
                             try
                             {
+                                // Find the league of legends.exe using game locator
                                 gamePath = GameLocator.FindLeagueExecutable(Path.GetDirectoryName(filepath));
                             }
                             catch (Exception ex)
@@ -81,6 +82,7 @@ namespace ROFLPlayer
                         }
                     case "League of Legends.exe":
                         {
+                            // Disable update checkbox, could cause big problems
                             ExecUpdateCheckbox.Checked = false;
                             ExecUpdateCheckbox.Enabled = false;
                             gamePath = filepath;
@@ -90,14 +92,37 @@ namespace ROFLPlayer
 
                 this.ExecTargetTextBox.Text = gamePath;
                 this.ExecStartTextBox.Text = Path.GetDirectoryName(filepath);
-                leagueExecutable.TargetPath = gamePath;
-                leagueExecutable.StartFolder = Path.GetDirectoryName(filepath);
+                NewLeagueExec.TargetPath = gamePath;
+                NewLeagueExec.StartFolder = Path.GetDirectoryName(filepath);
                 return;
             }
         }
 
         private void ExecCancelButton_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void ExecUpdateCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            NewLeagueExec.EnableUpdates = this.ExecUpdateCheckbox.Checked;
+        }
+
+        private void ExecUpdateCheckbox_ToolTip(object sender, EventArgs e)
+        {
+            CheckBox updateBox = (CheckBox)sender;
+
+            var visTime = 3000;
+
+            var toolTip = new ToolTip();
+            toolTip.Show("ROFLPlayer can automatically update target path when League of Legends updates", updateBox, 0, 20, visTime);
+        }
+
+        private void ExecSaveButton_Click(object sender, EventArgs e)
+        {
+            NewLeagueExec.Name = this.ExecNameTextBox.Text;
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
     }

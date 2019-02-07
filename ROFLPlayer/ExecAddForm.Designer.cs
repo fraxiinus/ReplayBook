@@ -130,6 +130,8 @@
             this.ExecUpdateCheckbox.TabIndex = 10;
             this.ExecUpdateCheckbox.Text = "Allow updates";
             this.ExecUpdateCheckbox.UseVisualStyleBackColor = true;
+            this.ExecUpdateCheckbox.CheckedChanged += new System.EventHandler(this.ExecUpdateCheckbox_CheckedChanged);
+            this.ExecUpdateCheckbox.MouseEnter += new System.EventHandler(this.ExecUpdateCheckbox_ToolTip);
             // 
             // ExecBrowseButton
             // 
@@ -162,6 +164,7 @@
             this.ExecSaveButton.TabIndex = 9;
             this.ExecSaveButton.Text = "Save";
             this.ExecSaveButton.UseVisualStyleBackColor = true;
+            this.ExecSaveButton.Click += new System.EventHandler(this.ExecSaveButton_Click);
             // 
             // ExecCancelButton
             // 
