@@ -27,9 +27,17 @@ namespace ROFLPlayer.Utilities
                 throw new NullReferenceException("Data Dragon Versions request returned null");
             }
 
-            ddragonver = (from version in versions
+            var versionQuery = (from version in versions
                           where version.ToString().StartsWith(inputversion)
-                          select version).First().ToString();
+                          select version).FirstOrDefault();
+
+            if(versionQuery == null)
+            {
+                ddragonver = versions.First.ToString();
+            } else
+            {
+                ddragonver = versionQuery.ToString();
+            }
         }
 
         /// <summary>
