@@ -13,6 +13,13 @@ namespace ROFLPlayer.Models
         public string StartFolder { get; set; }
         public string PatchVersion { get; set; }
 
+        public bool EnableUpdates { get; set; }
+
         public DateTime ModifiedDate { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name}\tUpdates:{EnableUpdates}\n{TargetPath}";
+        }
     }
 }
