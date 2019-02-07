@@ -34,7 +34,7 @@
             this.ExecPathLabel = new System.Windows.Forms.Label();
             this.ExecTargetTextBox = new System.Windows.Forms.TextBox();
             this.ExecBrowseButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ExecStartLabel = new System.Windows.Forms.Label();
             this.ExecStartTextBox = new System.Windows.Forms.TextBox();
             this.ExecInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.ExecCancelButton = new System.Windows.Forms.Button();
@@ -48,7 +48,7 @@
             this.ExecFlowLayout.Controls.Add(this.ExecNameTextBox);
             this.ExecFlowLayout.Controls.Add(this.ExecPathLabel);
             this.ExecFlowLayout.Controls.Add(this.ExecTargetTextBox);
-            this.ExecFlowLayout.Controls.Add(this.label1);
+            this.ExecFlowLayout.Controls.Add(this.ExecStartLabel);
             this.ExecFlowLayout.Controls.Add(this.ExecStartTextBox);
             this.ExecFlowLayout.Controls.Add(this.ExecBrowseButton);
             this.ExecFlowLayout.Controls.Add(this.ExecInfoGroupBox);
@@ -63,39 +63,39 @@
             // 
             // ExecNameLabel
             // 
-            this.ExecNameLabel.AutoSize = true;
-            this.ExecNameLabel.Location = new System.Drawing.Point(3, 5);
+            this.ExecNameLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ExecNameLabel.Location = new System.Drawing.Point(5, 13);
+            this.ExecNameLabel.Margin = new System.Windows.Forms.Padding(5);
             this.ExecNameLabel.Name = "ExecNameLabel";
-            this.ExecNameLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.ExecNameLabel.Size = new System.Drawing.Size(48, 23);
+            this.ExecNameLabel.Size = new System.Drawing.Size(75, 13);
             this.ExecNameLabel.TabIndex = 0;
             this.ExecNameLabel.Text = "Name:";
             // 
             // ExecNameTextBox
             // 
-            this.ExecNameTextBox.Location = new System.Drawing.Point(107, 10);
-            this.ExecNameTextBox.Margin = new System.Windows.Forms.Padding(53, 5, 5, 5);
+            this.ExecNameTextBox.Location = new System.Drawing.Point(90, 10);
+            this.ExecNameTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.ExecNameTextBox.Name = "ExecNameTextBox";
-            this.ExecNameTextBox.Size = new System.Drawing.Size(227, 20);
+            this.ExecNameTextBox.Size = new System.Drawing.Size(245, 20);
             this.ExecNameTextBox.TabIndex = 1;
             // 
             // ExecPathLabel
             // 
-            this.ExecPathLabel.AutoSize = true;
-            this.ExecPathLabel.Location = new System.Drawing.Point(3, 35);
+            this.ExecPathLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ExecPathLabel.Location = new System.Drawing.Point(5, 43);
+            this.ExecPathLabel.Margin = new System.Windows.Forms.Padding(5);
             this.ExecPathLabel.Name = "ExecPathLabel";
-            this.ExecPathLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.ExecPathLabel.Size = new System.Drawing.Size(51, 23);
+            this.ExecPathLabel.Size = new System.Drawing.Size(75, 13);
             this.ExecPathLabel.TabIndex = 2;
             this.ExecPathLabel.Text = "Target:";
             // 
             // ExecTargetTextBox
             // 
-            this.ExecTargetTextBox.Location = new System.Drawing.Point(107, 40);
-            this.ExecTargetTextBox.Margin = new System.Windows.Forms.Padding(50, 5, 5, 5);
+            this.ExecTargetTextBox.Location = new System.Drawing.Point(90, 40);
+            this.ExecTargetTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.ExecTargetTextBox.Name = "ExecTargetTextBox";
             this.ExecTargetTextBox.ReadOnly = true;
-            this.ExecTargetTextBox.Size = new System.Drawing.Size(227, 20);
+            this.ExecTargetTextBox.Size = new System.Drawing.Size(245, 20);
             this.ExecTargetTextBox.TabIndex = 3;
             // 
             // ExecBrowseButton
@@ -107,24 +107,25 @@
             this.ExecBrowseButton.TabIndex = 4;
             this.ExecBrowseButton.Text = "Browse...";
             this.ExecBrowseButton.UseVisualStyleBackColor = true;
+            this.ExecBrowseButton.Click += new System.EventHandler(this.ExecBrowseButton_Click);
             // 
-            // label1
+            // ExecStartLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 65);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(5);
-            this.label1.Size = new System.Drawing.Size(53, 23);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Start in:";
+            this.ExecStartLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ExecStartLabel.Location = new System.Drawing.Point(5, 73);
+            this.ExecStartLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.ExecStartLabel.Name = "ExecStartLabel";
+            this.ExecStartLabel.Size = new System.Drawing.Size(75, 13);
+            this.ExecStartLabel.TabIndex = 5;
+            this.ExecStartLabel.Text = "Start in:";
             // 
             // ExecStartTextBox
             // 
-            this.ExecStartTextBox.Location = new System.Drawing.Point(107, 70);
-            this.ExecStartTextBox.Margin = new System.Windows.Forms.Padding(48, 5, 5, 5);
+            this.ExecStartTextBox.Location = new System.Drawing.Point(90, 70);
+            this.ExecStartTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.ExecStartTextBox.Name = "ExecStartTextBox";
             this.ExecStartTextBox.ReadOnly = true;
-            this.ExecStartTextBox.Size = new System.Drawing.Size(227, 20);
+            this.ExecStartTextBox.Size = new System.Drawing.Size(245, 20);
             this.ExecStartTextBox.TabIndex = 6;
             // 
             // ExecInfoGroupBox
@@ -182,7 +183,7 @@
         private System.Windows.Forms.Label ExecPathLabel;
         private System.Windows.Forms.TextBox ExecTargetTextBox;
         private System.Windows.Forms.Button ExecBrowseButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ExecStartLabel;
         private System.Windows.Forms.TextBox ExecStartTextBox;
         private System.Windows.Forms.GroupBox ExecInfoGroupBox;
         private System.Windows.Forms.Button ExecSaveButton;
