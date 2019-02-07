@@ -18,6 +18,8 @@ namespace ROFLPlayer
             this.GeneralLaunchComboBox.Size = new System.Drawing.Size(200, 23);
             this.GeneralUsernameTextBox.AutoSize = false;
             this.GeneralUsernameTextBox.Size = new Size(200, 23);
+            this.GeneralRegionComboBox.AutoSize = false;
+            this.GeneralRegionComboBox.Size = new Size(200, 23);
             
             MainWindowManager.Load(this);
         }

@@ -42,6 +42,11 @@
             this.GeneralUsernameTextBox = new System.Windows.Forms.TextBox();
             this.GeneralRegionLabel = new System.Windows.Forms.Label();
             this.GeneralRegionComboBox = new System.Windows.Forms.ComboBox();
+            this.ExecutablesTab = new System.Windows.Forms.TabPage();
+            this.ExecFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
+            this.ExecItemsList = new System.Windows.Forms.ListBox();
+            this.ExecAddButton = new System.Windows.Forms.Button();
+            this.ExecEditButton = new System.Windows.Forms.Button();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
@@ -54,6 +59,8 @@
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
+            this.ExecutablesTab.SuspendLayout();
+            this.ExecFlowLayout.SuspendLayout();
             this.AboutTab.SuspendLayout();
             this.AboutTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AboutLogoPictureBox)).BeginInit();
@@ -62,6 +69,7 @@
             // MainTabControl
             // 
             this.MainTabControl.Controls.Add(this.GeneralTab);
+            this.MainTabControl.Controls.Add(this.ExecutablesTab);
             this.MainTabControl.Controls.Add(this.AboutTab);
             this.MainTabControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.MainTabControl.Location = new System.Drawing.Point(5, 5);
@@ -217,6 +225,60 @@
             this.GeneralRegionComboBox.Size = new System.Drawing.Size(200, 21);
             this.GeneralRegionComboBox.TabIndex = 11;
             // 
+            // ExecutablesTab
+            // 
+            this.ExecutablesTab.Controls.Add(this.ExecFlowLayout);
+            this.ExecutablesTab.Location = new System.Drawing.Point(4, 22);
+            this.ExecutablesTab.Name = "ExecutablesTab";
+            this.ExecutablesTab.Padding = new System.Windows.Forms.Padding(3);
+            this.ExecutablesTab.Size = new System.Drawing.Size(340, 397);
+            this.ExecutablesTab.TabIndex = 3;
+            this.ExecutablesTab.Text = "Executables";
+            this.ExecutablesTab.UseVisualStyleBackColor = true;
+            // 
+            // ExecFlowLayout
+            // 
+            this.ExecFlowLayout.Controls.Add(this.ExecItemsList);
+            this.ExecFlowLayout.Controls.Add(this.ExecAddButton);
+            this.ExecFlowLayout.Controls.Add(this.ExecEditButton);
+            this.ExecFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ExecFlowLayout.Location = new System.Drawing.Point(3, 3);
+            this.ExecFlowLayout.Name = "ExecFlowLayout";
+            this.ExecFlowLayout.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.ExecFlowLayout.Size = new System.Drawing.Size(334, 391);
+            this.ExecFlowLayout.TabIndex = 0;
+            // 
+            // ExecItemsList
+            // 
+            this.ExecItemsList.FormattingEnabled = true;
+            this.ExecItemsList.Location = new System.Drawing.Point(5, 10);
+            this.ExecItemsList.Margin = new System.Windows.Forms.Padding(5);
+            this.ExecItemsList.Name = "ExecItemsList";
+            this.ExecItemsList.Size = new System.Drawing.Size(315, 342);
+            this.ExecItemsList.TabIndex = 0;
+            // 
+            // ExecAddButton
+            // 
+            this.ExecAddButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ExecAddButton.Location = new System.Drawing.Point(140, 362);
+            this.ExecAddButton.Margin = new System.Windows.Forms.Padding(140, 5, 5, 5);
+            this.ExecAddButton.Name = "ExecAddButton";
+            this.ExecAddButton.Size = new System.Drawing.Size(88, 25);
+            this.ExecAddButton.TabIndex = 3;
+            this.ExecAddButton.Text = "Add";
+            this.ExecAddButton.UseVisualStyleBackColor = true;
+            // 
+            // ExecEditButton
+            // 
+            this.ExecEditButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ExecEditButton.Location = new System.Drawing.Point(233, 362);
+            this.ExecEditButton.Margin = new System.Windows.Forms.Padding(0, 5, 5, 5);
+            this.ExecEditButton.Name = "ExecEditButton";
+            this.ExecEditButton.Size = new System.Drawing.Size(88, 25);
+            this.ExecEditButton.TabIndex = 4;
+            this.ExecEditButton.Text = "Edit...";
+            this.ExecEditButton.UseVisualStyleBackColor = true;
+            // 
             // AboutTab
             // 
             this.AboutTab.Controls.Add(this.AboutTableLayoutPanel);
@@ -350,6 +412,8 @@
             this.GeneralTab.ResumeLayout(false);
             this.GeneralFlowLayout.ResumeLayout(false);
             this.GeneralFlowLayout.PerformLayout();
+            this.ExecutablesTab.ResumeLayout(false);
+            this.ExecFlowLayout.ResumeLayout(false);
             this.AboutTab.ResumeLayout(false);
             this.AboutTableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AboutLogoPictureBox)).EndInit();
@@ -381,5 +445,10 @@
         private System.Windows.Forms.TextBox GeneralUsernameTextBox;
         private System.Windows.Forms.Label GeneralRegionLabel;
         private System.Windows.Forms.ComboBox GeneralRegionComboBox;
+        private System.Windows.Forms.TabPage ExecutablesTab;
+        private System.Windows.Forms.FlowLayoutPanel ExecFlowLayout;
+        private System.Windows.Forms.ListBox ExecItemsList;
+        private System.Windows.Forms.Button ExecAddButton;
+        private System.Windows.Forms.Button ExecEditButton;
     }
 }
