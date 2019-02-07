@@ -56,6 +56,7 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.MainCancelButton = new System.Windows.Forms.Button();
             this.MainOkButton = new System.Windows.Forms.Button();
+            this.ExecGroupBox = new System.Windows.Forms.GroupBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -239,6 +240,7 @@
             // ExecFlowLayout
             // 
             this.ExecFlowLayout.Controls.Add(this.ExecItemsList);
+            this.ExecFlowLayout.Controls.Add(this.ExecGroupBox);
             this.ExecFlowLayout.Controls.Add(this.ExecAddButton);
             this.ExecFlowLayout.Controls.Add(this.ExecEditButton);
             this.ExecFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -250,29 +252,30 @@
             // 
             // ExecItemsList
             // 
-            this.ExecItemsList.FormattingEnabled = true;
+            this.ExecItemsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExecItemsList.ItemHeight = 16;
             this.ExecItemsList.Location = new System.Drawing.Point(5, 10);
             this.ExecItemsList.Margin = new System.Windows.Forms.Padding(5);
             this.ExecItemsList.Name = "ExecItemsList";
-            this.ExecItemsList.Size = new System.Drawing.Size(315, 342);
+            this.ExecItemsList.Size = new System.Drawing.Size(315, 164);
             this.ExecItemsList.TabIndex = 0;
             // 
             // ExecAddButton
             // 
             this.ExecAddButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ExecAddButton.Location = new System.Drawing.Point(140, 362);
-            this.ExecAddButton.Margin = new System.Windows.Forms.Padding(140, 5, 5, 5);
+            this.ExecAddButton.Location = new System.Drawing.Point(5, 364);
+            this.ExecAddButton.Margin = new System.Windows.Forms.Padding(5);
             this.ExecAddButton.Name = "ExecAddButton";
             this.ExecAddButton.Size = new System.Drawing.Size(88, 25);
             this.ExecAddButton.TabIndex = 3;
-            this.ExecAddButton.Text = "Add";
+            this.ExecAddButton.Text = "Add...";
             this.ExecAddButton.UseVisualStyleBackColor = true;
             this.ExecAddButton.Click += new System.EventHandler(this.ExecAddButton_Click);
             // 
             // ExecEditButton
             // 
             this.ExecEditButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ExecEditButton.Location = new System.Drawing.Point(233, 362);
+            this.ExecEditButton.Location = new System.Drawing.Point(98, 364);
             this.ExecEditButton.Margin = new System.Windows.Forms.Padding(0, 5, 5, 5);
             this.ExecEditButton.Name = "ExecEditButton";
             this.ExecEditButton.Size = new System.Drawing.Size(88, 25);
@@ -393,6 +396,17 @@
             this.MainOkButton.UseVisualStyleBackColor = true;
             this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
             // 
+            // ExecGroupBox
+            // 
+            this.ExecGroupBox.Location = new System.Drawing.Point(5, 184);
+            this.ExecGroupBox.Margin = new System.Windows.Forms.Padding(5);
+            this.ExecGroupBox.Name = "ExecGroupBox";
+            this.ExecGroupBox.Padding = new System.Windows.Forms.Padding(0);
+            this.ExecGroupBox.Size = new System.Drawing.Size(315, 170);
+            this.ExecGroupBox.TabIndex = 5;
+            this.ExecGroupBox.TabStop = false;
+            this.ExecGroupBox.Text = "Entry Information";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -451,5 +465,6 @@
         private System.Windows.Forms.ListBox ExecItemsList;
         private System.Windows.Forms.Button ExecAddButton;
         private System.Windows.Forms.Button ExecEditButton;
+        private System.Windows.Forms.GroupBox ExecGroupBox;
     }
 }

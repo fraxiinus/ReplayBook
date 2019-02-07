@@ -137,7 +137,13 @@ namespace ROFLPlayer
         private void ExecAddButton_Click(object sender, EventArgs e)
         {
             var addForm = new ExecAddForm();
-            addForm.ShowDialog();
+            var formResult = addForm.ShowDialog();
+
+            if(formResult == DialogResult.OK)
+            {
+                var newExec = addForm.NewLeagueExec;
+                this.ExecItemsList.Items.Add(newExec.Name);
+            }
         }
     }
 }
