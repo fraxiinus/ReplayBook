@@ -35,7 +35,7 @@
             this.ExecTargetTextBox = new System.Windows.Forms.TextBox();
             this.ExecStartLabel = new System.Windows.Forms.Label();
             this.ExecStartTextBox = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.ExecUpdateCheckbox = new System.Windows.Forms.CheckBox();
             this.ExecBrowseButton = new System.Windows.Forms.Button();
             this.ExecInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.ExecSaveButton = new System.Windows.Forms.Button();
@@ -51,7 +51,7 @@
             this.ExecFlowLayout.Controls.Add(this.ExecTargetTextBox);
             this.ExecFlowLayout.Controls.Add(this.ExecStartLabel);
             this.ExecFlowLayout.Controls.Add(this.ExecStartTextBox);
-            this.ExecFlowLayout.Controls.Add(this.checkBox1);
+            this.ExecFlowLayout.Controls.Add(this.ExecUpdateCheckbox);
             this.ExecFlowLayout.Controls.Add(this.ExecBrowseButton);
             this.ExecFlowLayout.Controls.Add(this.ExecInfoGroupBox);
             this.ExecFlowLayout.Controls.Add(this.ExecSaveButton);
@@ -119,17 +119,17 @@
             this.ExecStartTextBox.Size = new System.Drawing.Size(245, 20);
             this.ExecStartTextBox.TabIndex = 6;
             // 
-            // checkBox1
+            // ExecUpdateCheckbox
             // 
-            this.checkBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(159, 103);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(159, 5, 5, 5);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(92, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "Allow updates";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.ExecUpdateCheckbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ExecUpdateCheckbox.AutoSize = true;
+            this.ExecUpdateCheckbox.Location = new System.Drawing.Point(159, 103);
+            this.ExecUpdateCheckbox.Margin = new System.Windows.Forms.Padding(159, 5, 5, 5);
+            this.ExecUpdateCheckbox.Name = "ExecUpdateCheckbox";
+            this.ExecUpdateCheckbox.Size = new System.Drawing.Size(92, 17);
+            this.ExecUpdateCheckbox.TabIndex = 10;
+            this.ExecUpdateCheckbox.Text = "Allow updates";
+            this.ExecUpdateCheckbox.UseVisualStyleBackColor = true;
             // 
             // ExecBrowseButton
             // 
@@ -165,6 +165,7 @@
             // 
             // ExecCancelButton
             // 
+            this.ExecCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.ExecCancelButton.Location = new System.Drawing.Point(85, 311);
             this.ExecCancelButton.Margin = new System.Windows.Forms.Padding(0, 5, 5, 5);
             this.ExecCancelButton.Name = "ExecCancelButton";
@@ -208,6 +209,6 @@
         private System.Windows.Forms.GroupBox ExecInfoGroupBox;
         private System.Windows.Forms.Button ExecSaveButton;
         private System.Windows.Forms.Button ExecCancelButton;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox ExecUpdateCheckbox;
     }
 }

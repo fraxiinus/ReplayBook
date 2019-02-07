@@ -39,34 +39,60 @@ namespace ROFLPlayer
 
         private void ExecBrowseButton_Click(object sender, EventArgs e)
         {
+            
             var dialog = new OpenFileDialog
             {
-                Filter = "LeagueClient.exe (*.exe)|*.exe|League of Legends.exe (*.exe)|*.exe",
+                // Filter out only exes
+                Filter = "LeagueClient.exe or League of Legends.exe (*.exe)|*.exe",
+                // Show only files starting with "League"
+                FileName = "League*",
+                // Only allow one file to be selected
                 Multiselect = false,
+                // Set title of dialog
                 Title = "Select League of Legends client"
             };
+            // Wait for user to press ok
             while (dialog.ShowDialog() == DialogResult.OK)
             {
                 var filepath = dialog.FileName;
-                if (string.IsNullOrEmpty(filepath))
+                // They didn't select anything, do nothing
+                if (string.IsNullOrEmpty(filepath) || filepath.Equals("League*"))
                 {
                     return;
                 }
 
-                try
+                string gamePath = "";
+                // Now did they select leagueclient or league of legends?
+                switch (Path.GetFileName(filepath))
                 {
-                    var path = GameLocator.FindLeagueExecutable(Path.GetDirectoryName(filepath));
-                    //RoflSettings.Default.LoLExecLocation = path;
-                    this.ExecTargetTextBox.Text = path;
-                    this.ExecStartTextBox.Text = Path.GetDirectoryName(filepath);
-                    leagueExecutable.TargetPath = path;
-                    leagueExecutable.StartFolder = Path.GetDirectoryName(filepath);
-                    return;
+                    case "LeagueClient.exe":
+                        {
+                            ExecUpdateCheckbox.Enabled = true;
+                            // Find the league of legends.exe using game locator
+                            try
+                            {
+                                gamePath = GameLocator.FindLeagueExecutable(Path.GetDirectoryName(filepath));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Could not find League of Legends executable, please try again\n\n" + ex.Message, "Error finding game executable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            break;
+                        }
+                    case "League of Legends.exe":
+                        {
+                            ExecUpdateCheckbox.Checked = false;
+                            ExecUpdateCheckbox.Enabled = false;
+                            gamePath = filepath;
+                            break;
+                        }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Could not find League of Legends executable, please try again\n\n" + ex.Message, "Error finding game executable", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                this.ExecTargetTextBox.Text = gamePath;
+                this.ExecStartTextBox.Text = Path.GetDirectoryName(filepath);
+                leagueExecutable.TargetPath = gamePath;
+                leagueExecutable.StartFolder = Path.GetDirectoryName(filepath);
+                return;
             }
         }
 
