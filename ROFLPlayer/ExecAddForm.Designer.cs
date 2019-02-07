@@ -33,12 +33,13 @@
             this.ExecNameTextBox = new System.Windows.Forms.TextBox();
             this.ExecPathLabel = new System.Windows.Forms.Label();
             this.ExecTargetTextBox = new System.Windows.Forms.TextBox();
-            this.ExecBrowseButton = new System.Windows.Forms.Button();
             this.ExecStartLabel = new System.Windows.Forms.Label();
             this.ExecStartTextBox = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.ExecBrowseButton = new System.Windows.Forms.Button();
             this.ExecInfoGroupBox = new System.Windows.Forms.GroupBox();
-            this.ExecCancelButton = new System.Windows.Forms.Button();
             this.ExecSaveButton = new System.Windows.Forms.Button();
+            this.ExecCancelButton = new System.Windows.Forms.Button();
             this.ExecFlowLayout.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,6 +51,7 @@
             this.ExecFlowLayout.Controls.Add(this.ExecTargetTextBox);
             this.ExecFlowLayout.Controls.Add(this.ExecStartLabel);
             this.ExecFlowLayout.Controls.Add(this.ExecStartTextBox);
+            this.ExecFlowLayout.Controls.Add(this.checkBox1);
             this.ExecFlowLayout.Controls.Add(this.ExecBrowseButton);
             this.ExecFlowLayout.Controls.Add(this.ExecInfoGroupBox);
             this.ExecFlowLayout.Controls.Add(this.ExecSaveButton);
@@ -98,17 +100,6 @@
             this.ExecTargetTextBox.Size = new System.Drawing.Size(245, 20);
             this.ExecTargetTextBox.TabIndex = 3;
             // 
-            // ExecBrowseButton
-            // 
-            this.ExecBrowseButton.Location = new System.Drawing.Point(260, 100);
-            this.ExecBrowseButton.Margin = new System.Windows.Forms.Padding(260, 5, 5, 5);
-            this.ExecBrowseButton.Name = "ExecBrowseButton";
-            this.ExecBrowseButton.Size = new System.Drawing.Size(75, 23);
-            this.ExecBrowseButton.TabIndex = 4;
-            this.ExecBrowseButton.Text = "Browse...";
-            this.ExecBrowseButton.UseVisualStyleBackColor = true;
-            this.ExecBrowseButton.Click += new System.EventHandler(this.ExecBrowseButton_Click);
-            // 
             // ExecStartLabel
             // 
             this.ExecStartLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -128,6 +119,30 @@
             this.ExecStartTextBox.Size = new System.Drawing.Size(245, 20);
             this.ExecStartTextBox.TabIndex = 6;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(159, 103);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(159, 5, 5, 5);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(92, 17);
+            this.checkBox1.TabIndex = 10;
+            this.checkBox1.Text = "Allow updates";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // ExecBrowseButton
+            // 
+            this.ExecBrowseButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.ExecBrowseButton.Location = new System.Drawing.Point(261, 100);
+            this.ExecBrowseButton.Margin = new System.Windows.Forms.Padding(5);
+            this.ExecBrowseButton.Name = "ExecBrowseButton";
+            this.ExecBrowseButton.Size = new System.Drawing.Size(75, 23);
+            this.ExecBrowseButton.TabIndex = 4;
+            this.ExecBrowseButton.Text = "Browse...";
+            this.ExecBrowseButton.UseVisualStyleBackColor = true;
+            this.ExecBrowseButton.Click += new System.EventHandler(this.ExecBrowseButton_Click);
+            // 
             // ExecInfoGroupBox
             // 
             this.ExecInfoGroupBox.Location = new System.Drawing.Point(5, 133);
@@ -137,16 +152,6 @@
             this.ExecInfoGroupBox.TabIndex = 7;
             this.ExecInfoGroupBox.TabStop = false;
             this.ExecInfoGroupBox.Text = "Target Information";
-            // 
-            // ExecCancelButton
-            // 
-            this.ExecCancelButton.Location = new System.Drawing.Point(85, 311);
-            this.ExecCancelButton.Margin = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.ExecCancelButton.Name = "ExecCancelButton";
-            this.ExecCancelButton.Size = new System.Drawing.Size(75, 23);
-            this.ExecCancelButton.TabIndex = 8;
-            this.ExecCancelButton.Text = "Cancel";
-            this.ExecCancelButton.UseVisualStyleBackColor = true;
             // 
             // ExecSaveButton
             // 
@@ -158,13 +163,28 @@
             this.ExecSaveButton.Text = "Save";
             this.ExecSaveButton.UseVisualStyleBackColor = true;
             // 
+            // ExecCancelButton
+            // 
+            this.ExecCancelButton.Location = new System.Drawing.Point(85, 311);
+            this.ExecCancelButton.Margin = new System.Windows.Forms.Padding(0, 5, 5, 5);
+            this.ExecCancelButton.Name = "ExecCancelButton";
+            this.ExecCancelButton.Size = new System.Drawing.Size(75, 23);
+            this.ExecCancelButton.TabIndex = 8;
+            this.ExecCancelButton.Text = "Cancel";
+            this.ExecCancelButton.UseVisualStyleBackColor = true;
+            this.ExecCancelButton.Click += new System.EventHandler(this.ExecCancelButton_Click);
+            // 
             // ExecAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.ExecCancelButton;
             this.ClientSize = new System.Drawing.Size(358, 356);
             this.Controls.Add(this.ExecFlowLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ExecAddForm";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -188,5 +208,6 @@
         private System.Windows.Forms.GroupBox ExecInfoGroupBox;
         private System.Windows.Forms.Button ExecSaveButton;
         private System.Windows.Forms.Button ExecCancelButton;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

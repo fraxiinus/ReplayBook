@@ -41,7 +41,7 @@ namespace ROFLPlayer
         {
             var dialog = new OpenFileDialog
             {
-                Filter = "LeagueClient.exe (*.exe)|*.exe",
+                Filter = "LeagueClient.exe (*.exe)|*.exe|League of Legends.exe (*.exe)|*.exe",
                 Multiselect = false,
                 Title = "Select League of Legends client"
             };
@@ -68,6 +68,11 @@ namespace ROFLPlayer
                     MessageBox.Show("Could not find League of Legends executable, please try again\n\n" + ex.Message, "Error finding game executable", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void ExecCancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

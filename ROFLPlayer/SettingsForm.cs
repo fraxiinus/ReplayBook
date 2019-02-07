@@ -137,7 +137,7 @@ namespace ROFLPlayer
         private void ExecAddButton_Click(object sender, EventArgs e)
         {
             var addForm = new ExecAddForm();
-            addForm.Show();
+            addForm.ShowDialog();
         }
     }
 }
