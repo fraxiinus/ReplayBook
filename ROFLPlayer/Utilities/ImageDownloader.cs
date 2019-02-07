@@ -47,7 +47,7 @@ namespace ROFLPlayer.Utilities
         /// <returns></returns>
         public static async Task<string> GetItemImageAsync(int id)
         {
-            if (id == 0) { return null; }
+            if (id == 0) { return "EMPTY"; }
 
             var cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "items");
 

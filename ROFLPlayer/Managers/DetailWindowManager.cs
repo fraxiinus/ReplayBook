@@ -310,10 +310,14 @@ namespace ROFLPlayer.Managers
                 for (int loadImageCounter = 0; loadImageCounter < 7; loadImageCounter++)
                 {
                     var itemPath = await itemTasks[loadImageCounter];
-                    if(!string.IsNullOrEmpty(itemPath))
+                    if(!string.IsNullOrEmpty(itemPath) && !itemPath.Equals("EMPTY"))
                     {
                         itemboxes[loadImageCounter].WaitOnLoad = false;
                         itemboxes[loadImageCounter].LoadAsync(itemPath);
+                    }
+                    else if (itemPath.Equals("EMPTY"))
+                    {
+                        itemboxes[loadImageCounter].Image = null;
                     }
                     else
                     {
