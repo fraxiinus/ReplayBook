@@ -34,6 +34,7 @@
             this.GeneralFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.GeneralGamePictureBox = new System.Windows.Forms.PictureBox();
             this.GeneralGameFileLabel = new System.Windows.Forms.TextBox();
+            this.GeneralGameViewOnlineButton = new System.Windows.Forms.Button();
             this.GeneralDivider1 = new System.Windows.Forms.Label();
             this.GeneralGameVersionLabel = new System.Windows.Forms.Label();
             this.GeneralGameVersionDataLabel = new System.Windows.Forms.TextBox();
@@ -44,6 +45,7 @@
             this.GeneralDivider2 = new System.Windows.Forms.Label();
             this.GeneralMatchWinnerLabel = new System.Windows.Forms.Label();
             this.GeneralPlayerNamesTable = new System.Windows.Forms.TableLayoutPanel();
+            this.GeneralPlayerImage6 = new System.Windows.Forms.PictureBox();
             this.GeneralPlayerImage1 = new System.Windows.Forms.PictureBox();
             this.GeneralPlayerImage2 = new System.Windows.Forms.PictureBox();
             this.GeneralPlayerImage3 = new System.Windows.Forms.PictureBox();
@@ -59,12 +61,14 @@
             this.GeneralPlayerImage10 = new System.Windows.Forms.PictureBox();
             this.GeneralPlayerImage11 = new System.Windows.Forms.PictureBox();
             this.GeneralPlayerName5 = new System.Windows.Forms.TextBox();
-            this.GeneralPlayerName7 = new System.Windows.Forms.TextBox();
             this.GeneralPlayerName8 = new System.Windows.Forms.TextBox();
             this.GeneralPlayerName9 = new System.Windows.Forms.TextBox();
             this.GeneralPlayerName10 = new System.Windows.Forms.TextBox();
             this.GeneralPlayerName11 = new System.Windows.Forms.TextBox();
-            this.GeneralGameViewOnlineButton = new System.Windows.Forms.Button();
+            this.GeneralPlayerName7 = new System.Windows.Forms.TextBox();
+            this.GeneralPlayerName6 = new System.Windows.Forms.TextBox();
+            this.GeneralPlayerName12 = new System.Windows.Forms.TextBox();
+            this.GeneralPlayerImage12 = new System.Windows.Forms.PictureBox();
             this.PlayerTab = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.PlayerSelectLabel = new System.Windows.Forms.Label();
@@ -123,15 +127,12 @@
             this.GeneralStartReplayButton = new System.Windows.Forms.Button();
             this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
             this.MainCancelButton = new System.Windows.Forms.Button();
-            this.GeneralPlayerName6 = new System.Windows.Forms.TextBox();
-            this.GeneralPlayerName12 = new System.Windows.Forms.TextBox();
-            this.GeneralPlayerImage12 = new System.Windows.Forms.PictureBox();
-            this.GeneralPlayerImage6 = new System.Windows.Forms.PictureBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralGamePictureBox)).BeginInit();
             this.GeneralPlayerNamesTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage3)).BeginInit();
@@ -142,6 +143,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage12)).BeginInit();
             this.PlayerTab.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerStatsChampImage)).BeginInit();
@@ -159,8 +161,6 @@
             this.AboutTab.SuspendLayout();
             this.AboutTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AboutLogoPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage6)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -231,6 +231,18 @@
             this.GeneralGameFileLabel.Size = new System.Drawing.Size(177, 13);
             this.GeneralGameFileLabel.TabIndex = 42;
             this.GeneralGameFileLabel.Text = "-";
+            // 
+            // GeneralGameViewOnlineButton
+            // 
+            this.GeneralGameViewOnlineButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GeneralGameViewOnlineButton.Location = new System.Drawing.Point(252, 26);
+            this.GeneralGameViewOnlineButton.Margin = new System.Windows.Forms.Padding(5, 10, 5, 5);
+            this.GeneralGameViewOnlineButton.Name = "GeneralGameViewOnlineButton";
+            this.GeneralGameViewOnlineButton.Size = new System.Drawing.Size(75, 23);
+            this.GeneralGameViewOnlineButton.TabIndex = 29;
+            this.GeneralGameViewOnlineButton.Text = "View online";
+            this.GeneralGameViewOnlineButton.UseVisualStyleBackColor = true;
+            this.GeneralGameViewOnlineButton.Click += new System.EventHandler(this.GeneralGameViewOnlineButton_Click);
             // 
             // GeneralDivider1
             // 
@@ -376,6 +388,15 @@
             this.GeneralPlayerNamesTable.Size = new System.Drawing.Size(323, 180);
             this.GeneralPlayerNamesTable.TabIndex = 28;
             // 
+            // GeneralPlayerImage6
+            // 
+            this.GeneralPlayerImage6.Location = new System.Drawing.Point(3, 153);
+            this.GeneralPlayerImage6.Name = "GeneralPlayerImage6";
+            this.GeneralPlayerImage6.Size = new System.Drawing.Size(24, 24);
+            this.GeneralPlayerImage6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.GeneralPlayerImage6.TabIndex = 60;
+            this.GeneralPlayerImage6.TabStop = false;
+            // 
             // GeneralPlayerImage1
             // 
             this.GeneralPlayerImage1.Location = new System.Drawing.Point(3, 3);
@@ -423,7 +444,6 @@
             this.GeneralPlayerName1.ReadOnly = true;
             this.GeneralPlayerName1.Size = new System.Drawing.Size(93, 13);
             this.GeneralPlayerName1.TabIndex = 43;
-            this.GeneralPlayerName1.Text = "-";
             // 
             // GeneralPlayerName2
             // 
@@ -436,7 +456,6 @@
             this.GeneralPlayerName2.ReadOnly = true;
             this.GeneralPlayerName2.Size = new System.Drawing.Size(93, 13);
             this.GeneralPlayerName2.TabIndex = 44;
-            this.GeneralPlayerName2.Text = "-";
             // 
             // GeneralPlayerImage5
             // 
@@ -458,7 +477,6 @@
             this.GeneralPlayerName3.ReadOnly = true;
             this.GeneralPlayerName3.Size = new System.Drawing.Size(93, 13);
             this.GeneralPlayerName3.TabIndex = 45;
-            this.GeneralPlayerName3.Text = "-";
             // 
             // GeneralPlayerName4
             // 
@@ -471,7 +489,6 @@
             this.GeneralPlayerName4.ReadOnly = true;
             this.GeneralPlayerName4.Size = new System.Drawing.Size(93, 13);
             this.GeneralPlayerName4.TabIndex = 46;
-            this.GeneralPlayerName4.Text = "-";
             // 
             // GeneralPlayerImage7
             // 
@@ -529,21 +546,6 @@
             this.GeneralPlayerName5.ReadOnly = true;
             this.GeneralPlayerName5.Size = new System.Drawing.Size(93, 13);
             this.GeneralPlayerName5.TabIndex = 51;
-            this.GeneralPlayerName5.Text = "-";
-            // 
-            // GeneralPlayerName7
-            // 
-            this.GeneralPlayerName7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralPlayerName7.BackColor = System.Drawing.SystemColors.Window;
-            this.GeneralPlayerName7.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GeneralPlayerName7.Location = new System.Drawing.Point(178, 8);
-            this.GeneralPlayerName7.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralPlayerName7.Name = "GeneralPlayerName7";
-            this.GeneralPlayerName7.ReadOnly = true;
-            this.GeneralPlayerName7.Size = new System.Drawing.Size(108, 13);
-            this.GeneralPlayerName7.TabIndex = 52;
-            this.GeneralPlayerName7.Text = "-";
-            this.GeneralPlayerName7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // GeneralPlayerName8
             // 
@@ -556,7 +558,6 @@
             this.GeneralPlayerName8.ReadOnly = true;
             this.GeneralPlayerName8.Size = new System.Drawing.Size(108, 13);
             this.GeneralPlayerName8.TabIndex = 53;
-            this.GeneralPlayerName8.Text = "-";
             this.GeneralPlayerName8.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // GeneralPlayerName9
@@ -570,7 +571,6 @@
             this.GeneralPlayerName9.ReadOnly = true;
             this.GeneralPlayerName9.Size = new System.Drawing.Size(108, 13);
             this.GeneralPlayerName9.TabIndex = 54;
-            this.GeneralPlayerName9.Text = "-";
             this.GeneralPlayerName9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // GeneralPlayerName10
@@ -584,7 +584,6 @@
             this.GeneralPlayerName10.ReadOnly = true;
             this.GeneralPlayerName10.Size = new System.Drawing.Size(108, 13);
             this.GeneralPlayerName10.TabIndex = 55;
-            this.GeneralPlayerName10.Text = "-";
             this.GeneralPlayerName10.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // GeneralPlayerName11
@@ -598,20 +597,54 @@
             this.GeneralPlayerName11.ReadOnly = true;
             this.GeneralPlayerName11.Size = new System.Drawing.Size(108, 13);
             this.GeneralPlayerName11.TabIndex = 56;
-            this.GeneralPlayerName11.Text = "-";
             this.GeneralPlayerName11.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // GeneralGameViewOnlineButton
+            // GeneralPlayerName7
             // 
-            this.GeneralGameViewOnlineButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralGameViewOnlineButton.Location = new System.Drawing.Point(252, 26);
-            this.GeneralGameViewOnlineButton.Margin = new System.Windows.Forms.Padding(5, 10, 5, 5);
-            this.GeneralGameViewOnlineButton.Name = "GeneralGameViewOnlineButton";
-            this.GeneralGameViewOnlineButton.Size = new System.Drawing.Size(75, 23);
-            this.GeneralGameViewOnlineButton.TabIndex = 29;
-            this.GeneralGameViewOnlineButton.Text = "View online";
-            this.GeneralGameViewOnlineButton.UseVisualStyleBackColor = true;
-            this.GeneralGameViewOnlineButton.Click += new System.EventHandler(this.GeneralGameViewOnlineButton_Click);
+            this.GeneralPlayerName7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralPlayerName7.BackColor = System.Drawing.SystemColors.Window;
+            this.GeneralPlayerName7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GeneralPlayerName7.Location = new System.Drawing.Point(178, 8);
+            this.GeneralPlayerName7.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralPlayerName7.Name = "GeneralPlayerName7";
+            this.GeneralPlayerName7.ReadOnly = true;
+            this.GeneralPlayerName7.Size = new System.Drawing.Size(108, 13);
+            this.GeneralPlayerName7.TabIndex = 52;
+            this.GeneralPlayerName7.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // GeneralPlayerName6
+            // 
+            this.GeneralPlayerName6.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralPlayerName6.BackColor = System.Drawing.SystemColors.Window;
+            this.GeneralPlayerName6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GeneralPlayerName6.Location = new System.Drawing.Point(35, 158);
+            this.GeneralPlayerName6.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralPlayerName6.Name = "GeneralPlayerName6";
+            this.GeneralPlayerName6.ReadOnly = true;
+            this.GeneralPlayerName6.Size = new System.Drawing.Size(93, 13);
+            this.GeneralPlayerName6.TabIndex = 57;
+            // 
+            // GeneralPlayerName12
+            // 
+            this.GeneralPlayerName12.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralPlayerName12.BackColor = System.Drawing.SystemColors.Window;
+            this.GeneralPlayerName12.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GeneralPlayerName12.Location = new System.Drawing.Point(178, 158);
+            this.GeneralPlayerName12.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralPlayerName12.Name = "GeneralPlayerName12";
+            this.GeneralPlayerName12.ReadOnly = true;
+            this.GeneralPlayerName12.Size = new System.Drawing.Size(108, 13);
+            this.GeneralPlayerName12.TabIndex = 58;
+            this.GeneralPlayerName12.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // GeneralPlayerImage12
+            // 
+            this.GeneralPlayerImage12.Location = new System.Drawing.Point(294, 153);
+            this.GeneralPlayerImage12.Name = "GeneralPlayerImage12";
+            this.GeneralPlayerImage12.Size = new System.Drawing.Size(24, 24);
+            this.GeneralPlayerImage12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.GeneralPlayerImage12.TabIndex = 59;
+            this.GeneralPlayerImage12.TabStop = false;
             // 
             // PlayerTab
             // 
@@ -1368,51 +1401,6 @@
             this.MainCancelButton.UseVisualStyleBackColor = true;
             this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
             // 
-            // GeneralPlayerName6
-            // 
-            this.GeneralPlayerName6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralPlayerName6.BackColor = System.Drawing.SystemColors.Window;
-            this.GeneralPlayerName6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GeneralPlayerName6.Location = new System.Drawing.Point(35, 158);
-            this.GeneralPlayerName6.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralPlayerName6.Name = "GeneralPlayerName6";
-            this.GeneralPlayerName6.ReadOnly = true;
-            this.GeneralPlayerName6.Size = new System.Drawing.Size(93, 13);
-            this.GeneralPlayerName6.TabIndex = 57;
-            this.GeneralPlayerName6.Text = "-";
-            // 
-            // GeneralPlayerName12
-            // 
-            this.GeneralPlayerName12.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralPlayerName12.BackColor = System.Drawing.SystemColors.Window;
-            this.GeneralPlayerName12.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GeneralPlayerName12.Location = new System.Drawing.Point(178, 158);
-            this.GeneralPlayerName12.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralPlayerName12.Name = "GeneralPlayerName12";
-            this.GeneralPlayerName12.ReadOnly = true;
-            this.GeneralPlayerName12.Size = new System.Drawing.Size(108, 13);
-            this.GeneralPlayerName12.TabIndex = 58;
-            this.GeneralPlayerName12.Text = "-";
-            this.GeneralPlayerName12.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // GeneralPlayerImage12
-            // 
-            this.GeneralPlayerImage12.Location = new System.Drawing.Point(294, 153);
-            this.GeneralPlayerImage12.Name = "GeneralPlayerImage12";
-            this.GeneralPlayerImage12.Size = new System.Drawing.Size(24, 24);
-            this.GeneralPlayerImage12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.GeneralPlayerImage12.TabIndex = 59;
-            this.GeneralPlayerImage12.TabStop = false;
-            // 
-            // GeneralPlayerImage6
-            // 
-            this.GeneralPlayerImage6.Location = new System.Drawing.Point(3, 153);
-            this.GeneralPlayerImage6.Name = "GeneralPlayerImage6";
-            this.GeneralPlayerImage6.Size = new System.Drawing.Size(24, 24);
-            this.GeneralPlayerImage6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.GeneralPlayerImage6.TabIndex = 60;
-            this.GeneralPlayerImage6.TabStop = false;
-            // 
             // DetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1438,6 +1426,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.GeneralGamePictureBox)).EndInit();
             this.GeneralPlayerNamesTable.ResumeLayout(false);
             this.GeneralPlayerNamesTable.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage3)).EndInit();
@@ -1448,6 +1437,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage12)).EndInit();
             this.PlayerTab.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PlayerStatsChampImage)).EndInit();
@@ -1468,8 +1458,6 @@
             this.AboutTab.ResumeLayout(false);
             this.AboutTableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AboutLogoPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GeneralPlayerImage6)).EndInit();
             this.ResumeLayout(false);
 
         }

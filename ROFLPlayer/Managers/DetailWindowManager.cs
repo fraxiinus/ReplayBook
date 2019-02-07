@@ -126,6 +126,12 @@ namespace ROFLPlayer.Managers
                         }
                     }));
                 }
+
+                for(int i = blueplayers.Count() + 1; i <= 6; i++)
+                {
+                    var namelabel = form.Controls.Find($"GeneralPlayerName{i}", true)[0];
+                    namelabel.Visible = false;
+                }
             }
 
             if(purpleplayers.ElementAt(0) != null)
@@ -170,6 +176,13 @@ namespace ROFLPlayer.Managers
 
                     }));
                 }
+
+                for (int i = purpleplayers.Count() + 7; i <= 12; i++)
+                {
+                    var namelabel = form.Controls.Find($"GeneralPlayerName{i}", true)[0];
+                    namelabel.Visible = false;
+                }
+
             }
 
             form.BeginInvoke((Action)(() => {
