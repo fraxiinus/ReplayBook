@@ -61,6 +61,9 @@ namespace ROFLPlayer
                     {
                         PlayerSelectComboBox.SelectedItem = RoflSettings.Default.Username;
                     }
+                    else {
+                        PlayerSelectComboBox.SelectedIndex = 0;
+                    }
                     break;
                 default:
                     break;
