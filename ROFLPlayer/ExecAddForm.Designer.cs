@@ -40,7 +40,16 @@
             this.ExecInfoGroupBox = new System.Windows.Forms.GroupBox();
             this.ExecSaveButton = new System.Windows.Forms.Button();
             this.ExecCancelButton = new System.Windows.Forms.Button();
+            this.GBoxExecNameLabel = new System.Windows.Forms.Label();
+            this.GBoxExecNameTextBox = new System.Windows.Forms.TextBox();
+            this.GBoxPatchVersTextBox = new System.Windows.Forms.TextBox();
+            this.GBoxPatchVersLabel = new System.Windows.Forms.Label();
+            this.GBoxFileDescTextBox = new System.Windows.Forms.TextBox();
+            this.GBoxFileDescLabel = new System.Windows.Forms.Label();
+            this.GBoxLastModifTextBox = new System.Windows.Forms.TextBox();
+            this.GBoxLastModifLabel = new System.Windows.Forms.Label();
             this.ExecFlowLayout.SuspendLayout();
+            this.ExecInfoGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // ExecFlowLayout
@@ -147,6 +156,14 @@
             // 
             // ExecInfoGroupBox
             // 
+            this.ExecInfoGroupBox.Controls.Add(this.GBoxLastModifTextBox);
+            this.ExecInfoGroupBox.Controls.Add(this.GBoxLastModifLabel);
+            this.ExecInfoGroupBox.Controls.Add(this.GBoxFileDescTextBox);
+            this.ExecInfoGroupBox.Controls.Add(this.GBoxFileDescLabel);
+            this.ExecInfoGroupBox.Controls.Add(this.GBoxPatchVersTextBox);
+            this.ExecInfoGroupBox.Controls.Add(this.GBoxPatchVersLabel);
+            this.ExecInfoGroupBox.Controls.Add(this.GBoxExecNameTextBox);
+            this.ExecInfoGroupBox.Controls.Add(this.GBoxExecNameLabel);
             this.ExecInfoGroupBox.Location = new System.Drawing.Point(5, 133);
             this.ExecInfoGroupBox.Margin = new System.Windows.Forms.Padding(5);
             this.ExecInfoGroupBox.Name = "ExecInfoGroupBox";
@@ -178,6 +195,90 @@
             this.ExecCancelButton.UseVisualStyleBackColor = true;
             this.ExecCancelButton.Click += new System.EventHandler(this.ExecCancelButton_Click);
             // 
+            // GBoxExecNameLabel
+            // 
+            this.GBoxExecNameLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GBoxExecNameLabel.Location = new System.Drawing.Point(8, 23);
+            this.GBoxExecNameLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxExecNameLabel.Name = "GBoxExecNameLabel";
+            this.GBoxExecNameLabel.Size = new System.Drawing.Size(100, 13);
+            this.GBoxExecNameLabel.TabIndex = 0;
+            this.GBoxExecNameLabel.Text = "Executable Name:";
+            // 
+            // GBoxExecNameTextBox
+            // 
+            this.GBoxExecNameTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.GBoxExecNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GBoxExecNameTextBox.Location = new System.Drawing.Point(117, 23);
+            this.GBoxExecNameTextBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxExecNameTextBox.Name = "GBoxExecNameTextBox";
+            this.GBoxExecNameTextBox.ReadOnly = true;
+            this.GBoxExecNameTextBox.Size = new System.Drawing.Size(205, 13);
+            this.GBoxExecNameTextBox.TabIndex = 1;
+            // 
+            // GBoxPatchVersTextBox
+            // 
+            this.GBoxPatchVersTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.GBoxPatchVersTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GBoxPatchVersTextBox.Location = new System.Drawing.Point(117, 46);
+            this.GBoxPatchVersTextBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxPatchVersTextBox.Name = "GBoxPatchVersTextBox";
+            this.GBoxPatchVersTextBox.ReadOnly = true;
+            this.GBoxPatchVersTextBox.Size = new System.Drawing.Size(205, 13);
+            this.GBoxPatchVersTextBox.TabIndex = 3;
+            // 
+            // GBoxPatchVersLabel
+            // 
+            this.GBoxPatchVersLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GBoxPatchVersLabel.Location = new System.Drawing.Point(8, 46);
+            this.GBoxPatchVersLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxPatchVersLabel.Name = "GBoxPatchVersLabel";
+            this.GBoxPatchVersLabel.Size = new System.Drawing.Size(100, 13);
+            this.GBoxPatchVersLabel.TabIndex = 2;
+            this.GBoxPatchVersLabel.Text = "Patch Version:";
+            // 
+            // GBoxFileDescTextBox
+            // 
+            this.GBoxFileDescTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.GBoxFileDescTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GBoxFileDescTextBox.Location = new System.Drawing.Point(117, 69);
+            this.GBoxFileDescTextBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxFileDescTextBox.Name = "GBoxFileDescTextBox";
+            this.GBoxFileDescTextBox.ReadOnly = true;
+            this.GBoxFileDescTextBox.Size = new System.Drawing.Size(205, 13);
+            this.GBoxFileDescTextBox.TabIndex = 5;
+            // 
+            // GBoxFileDescLabel
+            // 
+            this.GBoxFileDescLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GBoxFileDescLabel.Location = new System.Drawing.Point(8, 69);
+            this.GBoxFileDescLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxFileDescLabel.Name = "GBoxFileDescLabel";
+            this.GBoxFileDescLabel.Size = new System.Drawing.Size(100, 13);
+            this.GBoxFileDescLabel.TabIndex = 4;
+            this.GBoxFileDescLabel.Text = "File Description:";
+            // 
+            // GBoxLastModifTextBox
+            // 
+            this.GBoxLastModifTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.GBoxLastModifTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GBoxLastModifTextBox.Location = new System.Drawing.Point(117, 92);
+            this.GBoxLastModifTextBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxLastModifTextBox.Name = "GBoxLastModifTextBox";
+            this.GBoxLastModifTextBox.ReadOnly = true;
+            this.GBoxLastModifTextBox.Size = new System.Drawing.Size(205, 13);
+            this.GBoxLastModifTextBox.TabIndex = 7;
+            // 
+            // GBoxLastModifLabel
+            // 
+            this.GBoxLastModifLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GBoxLastModifLabel.Location = new System.Drawing.Point(8, 92);
+            this.GBoxLastModifLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxLastModifLabel.Name = "GBoxLastModifLabel";
+            this.GBoxLastModifLabel.Size = new System.Drawing.Size(100, 13);
+            this.GBoxLastModifLabel.TabIndex = 6;
+            this.GBoxLastModifLabel.Text = "Last Modified:";
+            // 
             // ExecAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,6 +296,8 @@
             this.Text = "Add Executable...";
             this.ExecFlowLayout.ResumeLayout(false);
             this.ExecFlowLayout.PerformLayout();
+            this.ExecInfoGroupBox.ResumeLayout(false);
+            this.ExecInfoGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -213,5 +316,13 @@
         private System.Windows.Forms.Button ExecSaveButton;
         private System.Windows.Forms.Button ExecCancelButton;
         private System.Windows.Forms.CheckBox ExecUpdateCheckbox;
+        private System.Windows.Forms.TextBox GBoxExecNameTextBox;
+        private System.Windows.Forms.Label GBoxExecNameLabel;
+        private System.Windows.Forms.TextBox GBoxPatchVersTextBox;
+        private System.Windows.Forms.Label GBoxPatchVersLabel;
+        private System.Windows.Forms.TextBox GBoxFileDescTextBox;
+        private System.Windows.Forms.Label GBoxFileDescLabel;
+        private System.Windows.Forms.TextBox GBoxLastModifTextBox;
+        private System.Windows.Forms.Label GBoxLastModifLabel;
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -77,6 +78,7 @@ namespace ROFLPlayer
                             catch (Exception ex)
                             {
                                 MessageBox.Show("Could not find League of Legends executable, please try again\n\n" + ex.Message, "Error finding game executable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
                             }
                             break;
                         }
@@ -94,6 +96,16 @@ namespace ROFLPlayer
                 this.ExecStartTextBox.Text = Path.GetDirectoryName(filepath);
                 NewLeagueExec.TargetPath = gamePath;
                 NewLeagueExec.StartFolder = Path.GetDirectoryName(filepath);
+
+                var fileInfo = FileVersionInfo.GetVersionInfo(gamePath);
+
+                this.GBoxExecNameTextBox.Text = Path.GetFileName(gamePath);
+                this.GBoxPatchVersTextBox.Text = fileInfo.FileVersion;
+                this.GBoxFileDescTextBox.Text = fileInfo.FileDescription;
+
+                NewLeagueExec.ModifiedDate = File.GetLastWriteTime(gamePath);
+                this.GBoxLastModifTextBox.Text = NewLeagueExec.ModifiedDate.ToString("yyyy/dd/MM");
+
                 return;
             }
         }
