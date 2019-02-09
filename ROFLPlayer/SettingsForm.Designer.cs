@@ -294,12 +294,12 @@
             // 
             this.GBoxTargetLocationTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.GBoxTargetLocationTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GBoxTargetLocationTextBox.Location = new System.Drawing.Point(114, 90);
+            this.GBoxTargetLocationTextBox.Location = new System.Drawing.Point(93, 90);
             this.GBoxTargetLocationTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.GBoxTargetLocationTextBox.Multiline = true;
             this.GBoxTargetLocationTextBox.Name = "GBoxTargetLocationTextBox";
             this.GBoxTargetLocationTextBox.ReadOnly = true;
-            this.GBoxTargetLocationTextBox.Size = new System.Drawing.Size(190, 72);
+            this.GBoxTargetLocationTextBox.Size = new System.Drawing.Size(221, 72);
             this.GBoxTargetLocationTextBox.TabIndex = 17;
             // 
             // GBoxTargetLocationLabel
@@ -316,11 +316,11 @@
             // 
             this.GBoxLastModifTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.GBoxLastModifTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GBoxLastModifTextBox.Location = new System.Drawing.Point(114, 67);
+            this.GBoxLastModifTextBox.Location = new System.Drawing.Point(93, 67);
             this.GBoxLastModifTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.GBoxLastModifTextBox.Name = "GBoxLastModifTextBox";
             this.GBoxLastModifTextBox.ReadOnly = true;
-            this.GBoxLastModifTextBox.Size = new System.Drawing.Size(190, 13);
+            this.GBoxLastModifTextBox.Size = new System.Drawing.Size(221, 13);
             this.GBoxLastModifTextBox.TabIndex = 15;
             // 
             // GBoxLastModifLabel
@@ -337,11 +337,11 @@
             // 
             this.GBoxPatchVersTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.GBoxPatchVersTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GBoxPatchVersTextBox.Location = new System.Drawing.Point(114, 44);
+            this.GBoxPatchVersTextBox.Location = new System.Drawing.Point(93, 44);
             this.GBoxPatchVersTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.GBoxPatchVersTextBox.Name = "GBoxPatchVersTextBox";
             this.GBoxPatchVersTextBox.ReadOnly = true;
-            this.GBoxPatchVersTextBox.Size = new System.Drawing.Size(190, 13);
+            this.GBoxPatchVersTextBox.Size = new System.Drawing.Size(221, 13);
             this.GBoxPatchVersTextBox.TabIndex = 11;
             // 
             // GBoxPatchVersLabel
@@ -358,11 +358,11 @@
             // 
             this.GBoxExecNameTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.GBoxExecNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GBoxExecNameTextBox.Location = new System.Drawing.Point(114, 21);
+            this.GBoxExecNameTextBox.Location = new System.Drawing.Point(93, 21);
             this.GBoxExecNameTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.GBoxExecNameTextBox.Name = "GBoxExecNameTextBox";
             this.GBoxExecNameTextBox.ReadOnly = true;
-            this.GBoxExecNameTextBox.Size = new System.Drawing.Size(190, 13);
+            this.GBoxExecNameTextBox.Size = new System.Drawing.Size(221, 13);
             this.GBoxExecNameTextBox.TabIndex = 9;
             // 
             // GBoxExecNameLabel
@@ -390,6 +390,7 @@
             // ExecDeleteButton
             // 
             this.ExecDeleteButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ExecDeleteButton.Enabled = false;
             this.ExecDeleteButton.Location = new System.Drawing.Point(98, 364);
             this.ExecDeleteButton.Margin = new System.Windows.Forms.Padding(0, 5, 5, 5);
             this.ExecDeleteButton.Name = "ExecDeleteButton";
@@ -397,6 +398,7 @@
             this.ExecDeleteButton.TabIndex = 6;
             this.ExecDeleteButton.Text = "Delete";
             this.ExecDeleteButton.UseVisualStyleBackColor = true;
+            this.ExecDeleteButton.Click += new System.EventHandler(this.ExecDeleteButton_Click);
             // 
             // AboutTab
             // 

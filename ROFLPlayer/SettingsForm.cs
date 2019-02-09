@@ -62,9 +62,10 @@ namespace ROFLPlayer
 
         private void SettingsForm_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.MainTabControl.SelectedIndex == 1 && this.ExecItemsList.Items.Count == 0)
+            if (this.MainTabControl.SelectedIndex == 1)
             {
                 // Populate List of execs
+                this.ExecItemsList.Items.Clear();
                 this.ExecItemsList.Items.AddRange(ExecsManager.GetSavedExecs());
             }
         }
@@ -145,10 +146,12 @@ namespace ROFLPlayer
 
         private void ExecItemsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedItemIndex = (string)this.ExecItemsList.SelectedItem;
-            var selectedExec = ExecsManager.GetExec(selectedItemIndex);
+            var selectedItemName = (string)this.ExecItemsList.SelectedItem;
+            var selectedExec = ExecsManager.GetExec(selectedItemName);
 
             if (selectedExec == null) { return; }
+
+            this.ExecDeleteButton.Enabled = true;
 
             // Update groupbox
 
@@ -169,6 +172,31 @@ namespace ROFLPlayer
                 // Save execinfo file
                 ExecsManager.SaveExecFile(newExec);
                 this.ExecItemsList.Items.Add(newExec.Name);
+            }
+        }
+
+        private void ExecDeleteButton_Click(object sender, EventArgs e)
+        {
+            var selectedName = (string)this.ExecItemsList.SelectedItem;
+
+            var result = ExecsManager.DeleteExecFile(selectedName);
+
+            if(result.StartsWith("FALSE"))
+            {
+                MessageBox.Show(result.Substring(result.IndexOf(':') + 1), "Error deleting entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } 
+            else if(result.StartsWith("TRUE"))
+            {
+                this.ExecItemsList.Items.Clear();
+                this.ExecItemsList.Items.AddRange(ExecsManager.GetSavedExecs());
+
+
+                this.GBoxExecNameTextBox.Text = "";
+                this.GBoxTargetLocationTextBox.Text = "";
+                this.GBoxPatchVersTextBox.Text = "";
+                this.GBoxLastModifTextBox.Text = "";
+
+                ExecDeleteButton.Enabled = false;
             }
         }
     }
