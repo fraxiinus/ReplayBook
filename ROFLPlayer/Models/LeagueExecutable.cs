@@ -14,6 +14,7 @@ namespace ROFLPlayer.Models
         public string PatchVersion { get; set; }
 
         public bool EnableUpdates { get; set; }
+        public bool IsDefault { get; set; }
 
         public DateTime ModifiedDate { get; set; }
 

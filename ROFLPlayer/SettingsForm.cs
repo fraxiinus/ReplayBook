@@ -203,5 +203,10 @@ namespace ROFLPlayer
                 ExecDeleteButton.Enabled = false;
             }
         }
+
+        private void GBoxSetDefaultCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

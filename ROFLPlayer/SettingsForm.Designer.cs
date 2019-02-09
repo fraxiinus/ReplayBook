@@ -46,6 +46,7 @@
             this.ExecFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.ExecItemsList = new System.Windows.Forms.ListBox();
             this.ExecGroupBox = new System.Windows.Forms.GroupBox();
+            this.GBoxSetDefaultCheckBox = new System.Windows.Forms.CheckBox();
             this.GBoxTargetLocationTextBox = new System.Windows.Forms.TextBox();
             this.GBoxTargetLocationLabel = new System.Windows.Forms.Label();
             this.GBoxLastModifTextBox = new System.Windows.Forms.TextBox();
@@ -273,6 +274,7 @@
             // 
             // ExecGroupBox
             // 
+            this.ExecGroupBox.Controls.Add(this.GBoxSetDefaultCheckBox);
             this.ExecGroupBox.Controls.Add(this.GBoxTargetLocationTextBox);
             this.ExecGroupBox.Controls.Add(this.GBoxTargetLocationLabel);
             this.ExecGroupBox.Controls.Add(this.GBoxLastModifTextBox);
@@ -290,6 +292,19 @@
             this.ExecGroupBox.TabStop = false;
             this.ExecGroupBox.Text = "Entry Information";
             // 
+            // GBoxSetDefaultCheckBox
+            // 
+            this.GBoxSetDefaultCheckBox.AutoSize = true;
+            this.GBoxSetDefaultCheckBox.Location = new System.Drawing.Point(5, 145);
+            this.GBoxSetDefaultCheckBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxSetDefaultCheckBox.Name = "GBoxSetDefaultCheckBox";
+            this.GBoxSetDefaultCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.GBoxSetDefaultCheckBox.Size = new System.Drawing.Size(91, 17);
+            this.GBoxSetDefaultCheckBox.TabIndex = 19;
+            this.GBoxSetDefaultCheckBox.Text = "Set as default";
+            this.GBoxSetDefaultCheckBox.UseVisualStyleBackColor = true;
+            this.GBoxSetDefaultCheckBox.CheckedChanged += new System.EventHandler(this.GBoxSetDefaultCheckBox_CheckedChanged);
+            // 
             // GBoxTargetLocationTextBox
             // 
             this.GBoxTargetLocationTextBox.BackColor = System.Drawing.SystemColors.Window;
@@ -299,7 +314,7 @@
             this.GBoxTargetLocationTextBox.Multiline = true;
             this.GBoxTargetLocationTextBox.Name = "GBoxTargetLocationTextBox";
             this.GBoxTargetLocationTextBox.ReadOnly = true;
-            this.GBoxTargetLocationTextBox.Size = new System.Drawing.Size(221, 72);
+            this.GBoxTargetLocationTextBox.Size = new System.Drawing.Size(221, 45);
             this.GBoxTargetLocationTextBox.TabIndex = 17;
             // 
             // GBoxTargetLocationLabel
@@ -582,5 +597,6 @@
         private System.Windows.Forms.TextBox GBoxTargetLocationTextBox;
         private System.Windows.Forms.Label GBoxTargetLocationLabel;
         private System.Windows.Forms.Button ExecDeleteButton;
+        private System.Windows.Forms.CheckBox GBoxSetDefaultCheckBox;
     }
 }
