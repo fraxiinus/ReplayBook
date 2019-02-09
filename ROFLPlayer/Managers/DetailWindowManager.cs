@@ -349,7 +349,7 @@ namespace ROFLPlayer.Managers
                     await writer.WriteLineAsync(JsonConvert.SerializeObject(header));
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return false;
             }
