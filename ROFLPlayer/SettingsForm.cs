@@ -60,6 +60,15 @@ namespace ROFLPlayer
             this.GeneralUsernameTextBox.Text = RoflSettings.Default.Username;
         }
 
+        private void SettingsForm_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.MainTabControl.SelectedIndex == 1 && this.ExecItemsList.Items.Count == 0)
+            {
+                // Populate List of execs
+                this.ExecItemsList.Items.AddRange(ExecsManager.GetSavedExecs());
+            }
+        }
+
         private void MainOkButton_Click(object sender, EventArgs e)
         {
             MainWindowManager.CloseWindow(this);
@@ -142,6 +151,8 @@ namespace ROFLPlayer
             if(formResult == DialogResult.OK)
             {
                 var newExec = addForm.NewLeagueExec;
+                // Save execinfo file
+                ExecsManager.SaveExecFile(newExec);
                 this.ExecItemsList.Items.Add(newExec.Name);
             }
         }
