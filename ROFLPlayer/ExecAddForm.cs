@@ -102,6 +102,7 @@ namespace ROFLPlayer
                 this.GBoxExecNameTextBox.Text = Path.GetFileName(gamePath);
                 this.GBoxPatchVersTextBox.Text = fileInfo.FileVersion;
                 this.GBoxFileDescTextBox.Text = fileInfo.FileDescription;
+                NewLeagueExec.PatchVersion = fileInfo.FileVersion;
 
                 NewLeagueExec.ModifiedDate = File.GetLastWriteTime(gamePath);
                 this.GBoxLastModifTextBox.Text = NewLeagueExec.ModifiedDate.ToString("yyyy/dd/MM");
