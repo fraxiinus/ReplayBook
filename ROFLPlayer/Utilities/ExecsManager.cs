@@ -27,7 +27,11 @@ namespace ROFLPlayer.Utilities
 
         public static LeagueExecutable GetExec(string name)
         {
-            return null;
+            var filePath = Path.Combine(ExecsFolder, name + ".json");
+
+            if(!File.Exists(filePath)) { return null; }
+
+            return JsonConvert.DeserializeObject<LeagueExecutable>(File.ReadAllText(filePath));
         }
 
         public static bool DeleteExecFile(string name)
