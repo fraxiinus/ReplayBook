@@ -157,7 +157,7 @@ namespace ROFLPlayer.Utilities
                     var result = await wc.DownloadStringTaskAsync(@"https://ddragon.leagueoflegends.com/api/versions.json");
                     return JArray.Parse(result);
                 }
-                catch (WebException ex)
+                catch (WebException)
                 {
                     return null;
                 }
@@ -174,7 +174,7 @@ namespace ROFLPlayer.Utilities
                     await wc.DownloadFileTaskAsync(url, path);
                     return true;
                 }
-                catch (WebException ex)
+                catch (WebException)
                 {
                     return false;
                 }
@@ -190,7 +190,7 @@ namespace ROFLPlayer.Utilities
                     await wc.DownloadFileTaskAsync(new Uri(ddragonurl + ddragonver + @"/img/map/map" + mapid.ToString("D") + ".png"), path);
                     return true;
                 }
-                catch (WebException ex)
+                catch (WebException)
                 {
                     return false;
                 }
@@ -206,7 +206,7 @@ namespace ROFLPlayer.Utilities
                     await wc.DownloadFileTaskAsync(new Uri(ddragonurl + ddragonver + @"/img/champion/" + champname + ".png"), path);
                     return true;
                 }
-                catch (WebException ex)
+                catch (WebException)
                 {
                     return false;
                 }

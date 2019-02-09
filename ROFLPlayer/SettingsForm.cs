@@ -82,10 +82,12 @@ namespace ROFLPlayer
 
         private void GeneralGameBrowseButton_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = "League of Legends.exe (*.exe)|*.exe";
-            dialog.Multiselect = false;
-            dialog.Title = "Select League of Legends executable";
+            var dialog = new OpenFileDialog
+            {
+                Filter = "League of Legends.exe (*.exe)|*.exe",
+                Multiselect = false,
+                Title = "Select League of Legends executable"
+            };
             while (dialog.ShowDialog() == DialogResult.OK)
             {
                 var filepath = dialog.FileName;
@@ -108,10 +110,12 @@ namespace ROFLPlayer
 
         private void GeneralInstallBrowseButton_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = "LeagueClient.exe (*.exe)|*.exe";
-            dialog.Multiselect = false;
-            dialog.Title = "Select League of Legends client";
+            var dialog = new OpenFileDialog
+            {
+                Filter = "LeagueClient.exe (*.exe)|*.exe",
+                Multiselect = false,
+                Title = "Select League of Legends client"
+            };
             while (dialog.ShowDialog() == DialogResult.OK)
             {
                 var filepath = dialog.FileName;
