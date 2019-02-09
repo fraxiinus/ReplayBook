@@ -143,6 +143,21 @@ namespace ROFLPlayer
             System.Diagnostics.Process.Start(@"https://github.com/andrew1421lee/ROFL-Player");
         }
 
+        private void ExecItemsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedItemIndex = (string)this.ExecItemsList.SelectedItem;
+            var selectedExec = ExecsManager.GetExec(selectedItemIndex);
+
+            if (selectedExec == null) { return; }
+
+            // Update groupbox
+
+            this.GBoxExecNameTextBox.Text = selectedExec.Name;
+            this.GBoxTargetLocationTextBox.Text = selectedExec.TargetPath;
+            this.GBoxPatchVersTextBox.Text = selectedExec.PatchVersion;
+            this.GBoxLastModifTextBox.Text = selectedExec.ModifiedDate.ToString("yyyy/dd/MM");
+        }
+
         private void ExecAddButton_Click(object sender, EventArgs e)
         {
             var addForm = new ExecAddForm();
