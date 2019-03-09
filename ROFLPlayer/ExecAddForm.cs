@@ -40,13 +40,8 @@ namespace ROFLPlayer
             this.ExecStartTextBox.Text = NewLeagueExec.StartFolder;
             this.GBoxExecNameTextBox.Text = Path.GetFileName(NewLeagueExec.TargetPath);
             this.GBoxPatchVersTextBox.Text = NewLeagueExec.PatchVersion;
+            this.GBoxFileDescTextBox.Text = "League of Legends(TM) Client";
             this.GBoxLastModifTextBox.Text = NewLeagueExec.ModifiedDate.ToString("yyyy/dd/MM");
-
-            var fileInfo = FileVersionInfo.GetVersionInfo(NewLeagueExec.TargetPath);
-            this.GBoxFileDescTextBox.Text = fileInfo.FileDescription;
-
-
-            this.ExecNameTextBox.Text = NewLeagueExec.Name;
         }
 
         private void InitForm()
@@ -147,17 +142,17 @@ namespace ROFLPlayer
 
                 var fileInfo = FileVersionInfo.GetVersionInfo(gamePath);
 
-                NewLeagueExec.TargetPath = gamePath;
-                NewLeagueExec.StartFolder = Path.GetDirectoryName(filepath);
-                NewLeagueExec.PatchVersion = fileInfo.FileVersion;
-                NewLeagueExec.ModifiedDate = File.GetLastWriteTime(gamePath);
-
                 this.ExecTargetTextBox.Text = gamePath;
                 this.ExecStartTextBox.Text = Path.GetDirectoryName(filepath);
                 this.GBoxExecNameTextBox.Text = Path.GetFileName(gamePath);
                 this.GBoxPatchVersTextBox.Text = fileInfo.FileVersion;
                 this.GBoxFileDescTextBox.Text = fileInfo.FileDescription;
                 this.GBoxLastModifTextBox.Text = NewLeagueExec.ModifiedDate.ToString("yyyy/dd/MM");
+
+                NewLeagueExec.TargetPath = gamePath;
+                NewLeagueExec.StartFolder = Path.GetDirectoryName(filepath);
+                NewLeagueExec.PatchVersion = fileInfo.FileVersion;
+                NewLeagueExec.ModifiedDate = File.GetLastWriteTime(gamePath);
 
                 return;
             }
