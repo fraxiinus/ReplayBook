@@ -58,7 +58,7 @@ namespace ROFLPlayer
 
             if(this.GBoxFileDescTextBox.Text == "League of Legends(TM) Client")
             {
-                toolTip.Show("File match does not match League of Legends", this.GBoxFileDescTextBox, 0, 20, 3000);
+                toolTip.Show("File does not match League of Legends", this.GBoxFileDescTextBox, 0, 20, 3000);
                 return false;
             }
 
