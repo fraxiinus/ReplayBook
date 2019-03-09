@@ -156,6 +156,7 @@ namespace ROFLPlayer
             if (selectedExec == null) { return; }
 
             this.ExecDeleteButton.Enabled = true;
+            this.ExecEditButton.Enabled = true;
 
             // Update groupbox
 
@@ -201,6 +202,43 @@ namespace ROFLPlayer
                 this.GBoxLastModifTextBox.Text = "";
 
                 ExecDeleteButton.Enabled = false;
+                ExecEditButton.Enabled = false;
+            }
+        }
+
+        private void ExecEditButton_Click(object sender, EventArgs e)
+        {
+            var selectedName = (string)this.ExecItemsList.SelectedItem;
+            var exec = ExecsManager.GetExec(selectedName);
+
+            if(exec == null)
+            {
+                MessageBox.Show("Specified entry does not exist. Delete and re-add", "Error reading entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                var editForm = new ExecAddForm(exec);
+                var formResult = editForm.ShowDialog();
+
+                if (formResult == DialogResult.OK)
+                {
+                    var newExec = editForm.NewLeagueExec;
+                    // Save execinfo file
+                    ExecsManager.DeleteExecFile(selectedName);
+                    ExecsManager.SaveExecFile(newExec);
+
+                    this.ExecItemsList.Items.Clear();
+                    this.ExecItemsList.Items.AddRange(ExecsManager.GetSavedExecs());
+
+
+                    this.GBoxExecNameTextBox.Text = "";
+                    this.GBoxTargetLocationTextBox.Text = "";
+                    this.GBoxPatchVersTextBox.Text = "";
+                    this.GBoxLastModifTextBox.Text = "";
+
+                    ExecDeleteButton.Enabled = false;
+                    ExecEditButton.Enabled = false;
+                }
             }
         }
 
