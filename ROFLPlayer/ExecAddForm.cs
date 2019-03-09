@@ -36,12 +36,23 @@ namespace ROFLPlayer
             toolTip = new ToolTip();
 
             NewLeagueExec = leagueExecutable;
+            if(!File.Exists(NewLeagueExec.TargetPath))
+            {
+                MessageBox.Show("Target specified in entry does not exist. Delete and re-add", "Error reading entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var fileInfo = FileVersionInfo.GetVersionInfo(NewLeagueExec.TargetPath);
+
+            this.ExecNameTextBox.Text = NewLeagueExec.Name;
+
             this.ExecTargetTextBox.Text = NewLeagueExec.TargetPath;
             this.ExecStartTextBox.Text = NewLeagueExec.StartFolder;
             this.GBoxExecNameTextBox.Text = Path.GetFileName(NewLeagueExec.TargetPath);
             this.GBoxPatchVersTextBox.Text = NewLeagueExec.PatchVersion;
-            this.GBoxFileDescTextBox.Text = "League of Legends(TM) Client";
+            this.GBoxFileDescTextBox.Text = fileInfo.FileDescription;
             this.GBoxLastModifTextBox.Text = NewLeagueExec.ModifiedDate.ToString("yyyy/dd/MM");
+            this.ExecUpdateCheckbox.Checked = NewLeagueExec.AllowUpdates;
         }
 
         private void InitForm()
@@ -142,17 +153,17 @@ namespace ROFLPlayer
 
                 var fileInfo = FileVersionInfo.GetVersionInfo(gamePath);
 
+                NewLeagueExec.TargetPath = gamePath;
+                NewLeagueExec.StartFolder = Path.GetDirectoryName(filepath);
+                NewLeagueExec.PatchVersion = fileInfo.FileVersion;
+                NewLeagueExec.ModifiedDate = File.GetLastWriteTime(gamePath);
+
                 this.ExecTargetTextBox.Text = gamePath;
                 this.ExecStartTextBox.Text = Path.GetDirectoryName(filepath);
                 this.GBoxExecNameTextBox.Text = Path.GetFileName(gamePath);
                 this.GBoxPatchVersTextBox.Text = fileInfo.FileVersion;
                 this.GBoxFileDescTextBox.Text = fileInfo.FileDescription;
                 this.GBoxLastModifTextBox.Text = NewLeagueExec.ModifiedDate.ToString("yyyy/dd/MM");
-
-                NewLeagueExec.TargetPath = gamePath;
-                NewLeagueExec.StartFolder = Path.GetDirectoryName(filepath);
-                NewLeagueExec.PatchVersion = fileInfo.FileVersion;
-                NewLeagueExec.ModifiedDate = File.GetLastWriteTime(gamePath);
 
                 return;
             }
