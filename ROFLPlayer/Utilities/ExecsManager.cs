@@ -57,10 +57,11 @@ namespace ROFLPlayer.Utilities
 
             var filePath = Path.Combine(ExecsFolder, leagueExecutable.Name + ".json");
 
+            /*
             if (File.Exists(filePath))
             {
                 return "!EXISTS";
-            }
+            }*/
 
             if(!Directory.Exists(ExecsFolder))
             {
@@ -79,6 +80,38 @@ namespace ROFLPlayer.Utilities
             }
 
             return filePath;
+        }
+
+        public static string GetDefaultExecName()
+        {
+            foreach(var name in GetSavedExecs())
+            {
+                var exec = GetExec(name);
+                if(exec.IsDefault)
+                {
+                    return name;
+                }
+            }
+
+            return null;
+        }
+
+        public static void SetDefaultExecByName(string target)
+        {
+            foreach (var name in GetSavedExecs())
+            {
+                var exec = GetExec(name);
+                if (exec.IsDefault && name != target)
+                {
+                    exec.IsDefault = false;
+                    SaveExecFile(exec);
+                }
+                else if (name.Equals(target) && !exec.IsDefault)
+                {
+                    exec.IsDefault = true;
+                    SaveExecFile(exec);
+                }
+            }
         }
     }
 }
