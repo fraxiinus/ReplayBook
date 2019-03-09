@@ -164,6 +164,7 @@ namespace ROFLPlayer
             this.GBoxTargetLocationTextBox.Text = selectedExec.TargetPath;
             this.GBoxPatchVersTextBox.Text = selectedExec.PatchVersion;
             this.GBoxLastModifTextBox.Text = selectedExec.ModifiedDate.ToString("yyyy/dd/MM");
+            this.GBoxAllowUpdatesTextBox.Text = selectedExec.AllowUpdates.ToString();
         }
 
         private void ExecAddButton_Click(object sender, EventArgs e)

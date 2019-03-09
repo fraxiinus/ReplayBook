@@ -46,7 +46,6 @@
             this.ExecFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.ExecItemsList = new System.Windows.Forms.ListBox();
             this.ExecGroupBox = new System.Windows.Forms.GroupBox();
-            this.GBoxSetDefaultCheckBox = new System.Windows.Forms.CheckBox();
             this.GBoxTargetLocationTextBox = new System.Windows.Forms.TextBox();
             this.GBoxTargetLocationLabel = new System.Windows.Forms.Label();
             this.GBoxLastModifTextBox = new System.Windows.Forms.TextBox();
@@ -56,8 +55,8 @@
             this.GBoxExecNameTextBox = new System.Windows.Forms.TextBox();
             this.GBoxExecNameLabel = new System.Windows.Forms.Label();
             this.ExecAddButton = new System.Windows.Forms.Button();
-            this.ExecDeleteButton = new System.Windows.Forms.Button();
             this.ExecEditButton = new System.Windows.Forms.Button();
+            this.ExecDeleteButton = new System.Windows.Forms.Button();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
@@ -67,6 +66,8 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.MainCancelButton = new System.Windows.Forms.Button();
             this.MainOkButton = new System.Windows.Forms.Button();
+            this.GBoxAllowUpdatesLabel = new System.Windows.Forms.Label();
+            this.GBoxAllowUpdatesTextBox = new System.Windows.Forms.TextBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -276,7 +277,8 @@
             // 
             // ExecGroupBox
             // 
-            this.ExecGroupBox.Controls.Add(this.GBoxSetDefaultCheckBox);
+            this.ExecGroupBox.Controls.Add(this.GBoxAllowUpdatesTextBox);
+            this.ExecGroupBox.Controls.Add(this.GBoxAllowUpdatesLabel);
             this.ExecGroupBox.Controls.Add(this.GBoxTargetLocationTextBox);
             this.ExecGroupBox.Controls.Add(this.GBoxTargetLocationLabel);
             this.ExecGroupBox.Controls.Add(this.GBoxLastModifTextBox);
@@ -294,35 +296,22 @@
             this.ExecGroupBox.TabStop = false;
             this.ExecGroupBox.Text = "Entry Information";
             // 
-            // GBoxSetDefaultCheckBox
-            // 
-            this.GBoxSetDefaultCheckBox.AutoSize = true;
-            this.GBoxSetDefaultCheckBox.Location = new System.Drawing.Point(5, 145);
-            this.GBoxSetDefaultCheckBox.Margin = new System.Windows.Forms.Padding(5);
-            this.GBoxSetDefaultCheckBox.Name = "GBoxSetDefaultCheckBox";
-            this.GBoxSetDefaultCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.GBoxSetDefaultCheckBox.Size = new System.Drawing.Size(91, 17);
-            this.GBoxSetDefaultCheckBox.TabIndex = 19;
-            this.GBoxSetDefaultCheckBox.Text = "Set as default";
-            this.GBoxSetDefaultCheckBox.UseVisualStyleBackColor = true;
-            this.GBoxSetDefaultCheckBox.CheckedChanged += new System.EventHandler(this.GBoxSetDefaultCheckBox_CheckedChanged);
-            // 
             // GBoxTargetLocationTextBox
             // 
             this.GBoxTargetLocationTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.GBoxTargetLocationTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GBoxTargetLocationTextBox.Location = new System.Drawing.Point(93, 90);
+            this.GBoxTargetLocationTextBox.Location = new System.Drawing.Point(93, 113);
             this.GBoxTargetLocationTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.GBoxTargetLocationTextBox.Multiline = true;
             this.GBoxTargetLocationTextBox.Name = "GBoxTargetLocationTextBox";
             this.GBoxTargetLocationTextBox.ReadOnly = true;
-            this.GBoxTargetLocationTextBox.Size = new System.Drawing.Size(221, 45);
+            this.GBoxTargetLocationTextBox.Size = new System.Drawing.Size(221, 54);
             this.GBoxTargetLocationTextBox.TabIndex = 17;
             // 
             // GBoxTargetLocationLabel
             // 
             this.GBoxTargetLocationLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GBoxTargetLocationLabel.Location = new System.Drawing.Point(5, 90);
+            this.GBoxTargetLocationLabel.Location = new System.Drawing.Point(5, 113);
             this.GBoxTargetLocationLabel.Margin = new System.Windows.Forms.Padding(5);
             this.GBoxTargetLocationLabel.Name = "GBoxTargetLocationLabel";
             this.GBoxTargetLocationLabel.Size = new System.Drawing.Size(100, 13);
@@ -404,19 +393,6 @@
             this.ExecAddButton.UseVisualStyleBackColor = true;
             this.ExecAddButton.Click += new System.EventHandler(this.ExecAddButton_Click);
             // 
-            // ExecDeleteButton
-            // 
-            this.ExecDeleteButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ExecDeleteButton.Enabled = false;
-            this.ExecDeleteButton.Location = new System.Drawing.Point(191, 364);
-            this.ExecDeleteButton.Margin = new System.Windows.Forms.Padding(0, 5, 5, 5);
-            this.ExecDeleteButton.Name = "ExecDeleteButton";
-            this.ExecDeleteButton.Size = new System.Drawing.Size(88, 25);
-            this.ExecDeleteButton.TabIndex = 7;
-            this.ExecDeleteButton.Text = "Delete";
-            this.ExecDeleteButton.UseVisualStyleBackColor = true;
-            this.ExecDeleteButton.Click += new System.EventHandler(this.ExecDeleteButton_Click);
-            // 
             // ExecEditButton
             // 
             this.ExecEditButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -429,6 +405,19 @@
             this.ExecEditButton.Text = "Edit...";
             this.ExecEditButton.UseVisualStyleBackColor = true;
             this.ExecEditButton.Click += new System.EventHandler(this.ExecEditButton_Click);
+            // 
+            // ExecDeleteButton
+            // 
+            this.ExecDeleteButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ExecDeleteButton.Enabled = false;
+            this.ExecDeleteButton.Location = new System.Drawing.Point(191, 364);
+            this.ExecDeleteButton.Margin = new System.Windows.Forms.Padding(0, 5, 5, 5);
+            this.ExecDeleteButton.Name = "ExecDeleteButton";
+            this.ExecDeleteButton.Size = new System.Drawing.Size(88, 25);
+            this.ExecDeleteButton.TabIndex = 7;
+            this.ExecDeleteButton.Text = "Delete";
+            this.ExecDeleteButton.UseVisualStyleBackColor = true;
+            this.ExecDeleteButton.Click += new System.EventHandler(this.ExecDeleteButton_Click);
             // 
             // AboutTab
             // 
@@ -543,6 +532,27 @@
             this.MainOkButton.UseVisualStyleBackColor = true;
             this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
             // 
+            // GBoxAllowUpdatesLabel
+            // 
+            this.GBoxAllowUpdatesLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GBoxAllowUpdatesLabel.Location = new System.Drawing.Point(5, 90);
+            this.GBoxAllowUpdatesLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxAllowUpdatesLabel.Name = "GBoxAllowUpdatesLabel";
+            this.GBoxAllowUpdatesLabel.Size = new System.Drawing.Size(100, 13);
+            this.GBoxAllowUpdatesLabel.TabIndex = 18;
+            this.GBoxAllowUpdatesLabel.Text = "Allow Updates:";
+            // 
+            // GBoxAllowUpdatesTextBox
+            // 
+            this.GBoxAllowUpdatesTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.GBoxAllowUpdatesTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GBoxAllowUpdatesTextBox.Location = new System.Drawing.Point(93, 90);
+            this.GBoxAllowUpdatesTextBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxAllowUpdatesTextBox.Name = "GBoxAllowUpdatesTextBox";
+            this.GBoxAllowUpdatesTextBox.ReadOnly = true;
+            this.GBoxAllowUpdatesTextBox.Size = new System.Drawing.Size(221, 13);
+            this.GBoxAllowUpdatesTextBox.TabIndex = 19;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -612,7 +622,8 @@
         private System.Windows.Forms.TextBox GBoxTargetLocationTextBox;
         private System.Windows.Forms.Label GBoxTargetLocationLabel;
         private System.Windows.Forms.Button ExecDeleteButton;
-        private System.Windows.Forms.CheckBox GBoxSetDefaultCheckBox;
         private System.Windows.Forms.Button ExecEditButton;
+        private System.Windows.Forms.TextBox GBoxAllowUpdatesTextBox;
+        private System.Windows.Forms.Label GBoxAllowUpdatesLabel;
     }
 }
