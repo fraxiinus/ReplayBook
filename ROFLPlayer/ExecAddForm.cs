@@ -19,11 +19,14 @@ namespace ROFLPlayer
 
         public LeagueExecutable NewLeagueExec { get; }
 
+        private ToolTip toolTip;
+
         public ExecAddForm()
         {
             InitializeComponent();
             InitForm();
             NewLeagueExec = new LeagueExecutable();
+            toolTip = new ToolTip();
         }
 
         private void InitForm()
@@ -36,6 +39,30 @@ namespace ROFLPlayer
 
             this.ExecStartTextBox.AutoSize = false;
             this.ExecStartTextBox.Size = new Size(245, 23);
+        }
+
+        private bool ValidateForm()
+        {
+            var toolTip = new ToolTip();
+            if (String.IsNullOrEmpty(this.ExecNameTextBox.Text))
+            {
+                toolTip.Show("Required Field", this.ExecNameTextBox, 0, 20, 3000);
+                return false;
+            }
+
+            if(String.IsNullOrEmpty(this.ExecTargetTextBox.Text))
+            {
+                toolTip.Show("Required Field", this.ExecBrowseButton, 0, 20, 3000);
+                return false;
+            }
+
+            if(this.GBoxFileDescTextBox.Text == "League of Legends(TM) Client")
+            {
+                toolTip.Show("File match does not match League of Legends", this.GBoxFileDescTextBox, 0, 20, 3000);
+                return false;
+            }
+
+            return true;
         }
 
         private void ExecBrowseButton_Click(object sender, EventArgs e)
@@ -90,22 +117,27 @@ namespace ROFLPlayer
                             gamePath = filepath;
                             break;
                         }
+                    default:
+                        {
+                            MessageBox.Show("Selected file is not LeagueClient.exe or League of Legends.exe", "Invalid executable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            continue;
+                        }
                 }
 
-                this.ExecTargetTextBox.Text = gamePath;
-                this.ExecStartTextBox.Text = Path.GetDirectoryName(filepath);
-                NewLeagueExec.TargetPath = gamePath;
-                NewLeagueExec.StartFolder = Path.GetDirectoryName(filepath);
 
                 var fileInfo = FileVersionInfo.GetVersionInfo(gamePath);
 
+                this.ExecTargetTextBox.Text = gamePath;
+                this.ExecStartTextBox.Text = Path.GetDirectoryName(filepath);
                 this.GBoxExecNameTextBox.Text = Path.GetFileName(gamePath);
                 this.GBoxPatchVersTextBox.Text = fileInfo.FileVersion;
                 this.GBoxFileDescTextBox.Text = fileInfo.FileDescription;
-                NewLeagueExec.PatchVersion = fileInfo.FileVersion;
-
-                NewLeagueExec.ModifiedDate = File.GetLastWriteTime(gamePath);
                 this.GBoxLastModifTextBox.Text = NewLeagueExec.ModifiedDate.ToString("yyyy/dd/MM");
+
+                NewLeagueExec.TargetPath = gamePath;
+                NewLeagueExec.StartFolder = Path.GetDirectoryName(filepath);
+                NewLeagueExec.PatchVersion = fileInfo.FileVersion;
+                NewLeagueExec.ModifiedDate = File.GetLastWriteTime(gamePath);
 
                 return;
             }
@@ -128,12 +160,16 @@ namespace ROFLPlayer
 
             var visTime = 3000;
 
-            var toolTip = new ToolTip();
             toolTip.Show("ROFLPlayer can automatically update target path when League of Legends updates", updateBox, 0, 20, visTime);
         }
 
         private void ExecSaveButton_Click(object sender, EventArgs e)
         {
+            if(!ValidateForm())
+            {
+                return;
+            }
+
             NewLeagueExec.Name = this.ExecNameTextBox.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();
