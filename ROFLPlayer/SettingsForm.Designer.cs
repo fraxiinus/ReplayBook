@@ -57,6 +57,7 @@
             this.GBoxExecNameLabel = new System.Windows.Forms.Label();
             this.ExecAddButton = new System.Windows.Forms.Button();
             this.ExecDeleteButton = new System.Windows.Forms.Button();
+            this.ExecEditButton = new System.Windows.Forms.Button();
             this.AboutTab = new System.Windows.Forms.TabPage();
             this.AboutTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.AboutLogoPictureBox = new System.Windows.Forms.PictureBox();
@@ -253,6 +254,7 @@
             this.ExecFlowLayout.Controls.Add(this.ExecItemsList);
             this.ExecFlowLayout.Controls.Add(this.ExecGroupBox);
             this.ExecFlowLayout.Controls.Add(this.ExecAddButton);
+            this.ExecFlowLayout.Controls.Add(this.ExecEditButton);
             this.ExecFlowLayout.Controls.Add(this.ExecDeleteButton);
             this.ExecFlowLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ExecFlowLayout.Location = new System.Drawing.Point(3, 3);
@@ -406,14 +408,27 @@
             // 
             this.ExecDeleteButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ExecDeleteButton.Enabled = false;
-            this.ExecDeleteButton.Location = new System.Drawing.Point(98, 364);
+            this.ExecDeleteButton.Location = new System.Drawing.Point(191, 364);
             this.ExecDeleteButton.Margin = new System.Windows.Forms.Padding(0, 5, 5, 5);
             this.ExecDeleteButton.Name = "ExecDeleteButton";
             this.ExecDeleteButton.Size = new System.Drawing.Size(88, 25);
-            this.ExecDeleteButton.TabIndex = 6;
+            this.ExecDeleteButton.TabIndex = 7;
             this.ExecDeleteButton.Text = "Delete";
             this.ExecDeleteButton.UseVisualStyleBackColor = true;
             this.ExecDeleteButton.Click += new System.EventHandler(this.ExecDeleteButton_Click);
+            // 
+            // ExecEditButton
+            // 
+            this.ExecEditButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ExecEditButton.Enabled = false;
+            this.ExecEditButton.Location = new System.Drawing.Point(98, 364);
+            this.ExecEditButton.Margin = new System.Windows.Forms.Padding(0, 5, 5, 5);
+            this.ExecEditButton.Name = "ExecEditButton";
+            this.ExecEditButton.Size = new System.Drawing.Size(88, 25);
+            this.ExecEditButton.TabIndex = 6;
+            this.ExecEditButton.Text = "Edit...";
+            this.ExecEditButton.UseVisualStyleBackColor = true;
+            this.ExecEditButton.Click += new System.EventHandler(this.ExecEditButton_Click);
             // 
             // AboutTab
             // 
@@ -598,5 +613,6 @@
         private System.Windows.Forms.Label GBoxTargetLocationLabel;
         private System.Windows.Forms.Button ExecDeleteButton;
         private System.Windows.Forms.CheckBox GBoxSetDefaultCheckBox;
+        private System.Windows.Forms.Button ExecEditButton;
     }
 }
