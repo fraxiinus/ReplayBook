@@ -33,8 +33,6 @@
             this.GeneralTab = new System.Windows.Forms.TabPage();
             this.GeneralFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.GeneralGameLabel = new System.Windows.Forms.Label();
-            this.GeneralGameTextBox = new System.Windows.Forms.TextBox();
-            this.GeneralGameBrowseButton = new System.Windows.Forms.Button();
             this.GeneralLaunchLabel = new System.Windows.Forms.Label();
             this.GeneralLaunchComboBox = new System.Windows.Forms.ComboBox();
             this.GeneralDivider1 = new System.Windows.Forms.Label();
@@ -68,6 +66,7 @@
             this.MainOkButton = new System.Windows.Forms.Button();
             this.GBoxAllowUpdatesLabel = new System.Windows.Forms.Label();
             this.GBoxAllowUpdatesTextBox = new System.Windows.Forms.TextBox();
+            this.GeneralGameComboBox = new System.Windows.Forms.ComboBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -106,8 +105,7 @@
             // GeneralFlowLayout
             // 
             this.GeneralFlowLayout.Controls.Add(this.GeneralGameLabel);
-            this.GeneralFlowLayout.Controls.Add(this.GeneralGameTextBox);
-            this.GeneralFlowLayout.Controls.Add(this.GeneralGameBrowseButton);
+            this.GeneralFlowLayout.Controls.Add(this.GeneralGameComboBox);
             this.GeneralFlowLayout.Controls.Add(this.GeneralLaunchLabel);
             this.GeneralFlowLayout.Controls.Add(this.GeneralLaunchComboBox);
             this.GeneralFlowLayout.Controls.Add(this.GeneralDivider1);
@@ -125,38 +123,17 @@
             // GeneralGameLabel
             // 
             this.GeneralGameLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralGameLabel.Location = new System.Drawing.Point(5, 13);
+            this.GeneralGameLabel.Location = new System.Drawing.Point(5, 14);
             this.GeneralGameLabel.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralGameLabel.Name = "GeneralGameLabel";
             this.GeneralGameLabel.Size = new System.Drawing.Size(105, 13);
             this.GeneralGameLabel.TabIndex = 0;
-            this.GeneralGameLabel.Text = "Executable path:";
-            // 
-            // GeneralGameTextBox
-            // 
-            this.GeneralGameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GeneralGameTextBox.Location = new System.Drawing.Point(120, 10);
-            this.GeneralGameTextBox.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralGameTextBox.Name = "GeneralGameTextBox";
-            this.GeneralGameTextBox.Size = new System.Drawing.Size(200, 20);
-            this.GeneralGameTextBox.TabIndex = 1;
-            // 
-            // GeneralGameBrowseButton
-            // 
-            this.GeneralGameBrowseButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralGameBrowseButton.Location = new System.Drawing.Point(233, 40);
-            this.GeneralGameBrowseButton.Margin = new System.Windows.Forms.Padding(233, 5, 5, 5);
-            this.GeneralGameBrowseButton.Name = "GeneralGameBrowseButton";
-            this.GeneralGameBrowseButton.Size = new System.Drawing.Size(88, 25);
-            this.GeneralGameBrowseButton.TabIndex = 2;
-            this.GeneralGameBrowseButton.Text = "Browse...";
-            this.GeneralGameBrowseButton.UseVisualStyleBackColor = true;
-            this.GeneralGameBrowseButton.Click += new System.EventHandler(this.GeneralGameBrowseButton_Click);
+            this.GeneralGameLabel.Text = "Default Executable:";
             // 
             // GeneralLaunchLabel
             // 
             this.GeneralLaunchLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralLaunchLabel.Location = new System.Drawing.Point(5, 79);
+            this.GeneralLaunchLabel.Location = new System.Drawing.Point(5, 45);
             this.GeneralLaunchLabel.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralLaunchLabel.Name = "GeneralLaunchLabel";
             this.GeneralLaunchLabel.Size = new System.Drawing.Size(105, 13);
@@ -171,7 +148,7 @@
             this.GeneralLaunchComboBox.Items.AddRange(new object[] {
             "Play replay",
             "Show details"});
-            this.GeneralLaunchComboBox.Location = new System.Drawing.Point(120, 75);
+            this.GeneralLaunchComboBox.Location = new System.Drawing.Point(120, 41);
             this.GeneralLaunchComboBox.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralLaunchComboBox.Name = "GeneralLaunchComboBox";
             this.GeneralLaunchComboBox.Size = new System.Drawing.Size(200, 21);
@@ -180,7 +157,7 @@
             // GeneralDivider1
             // 
             this.GeneralDivider1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.GeneralDivider1.Location = new System.Drawing.Point(5, 106);
+            this.GeneralDivider1.Location = new System.Drawing.Point(5, 72);
             this.GeneralDivider1.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralDivider1.Name = "GeneralDivider1";
             this.GeneralDivider1.Size = new System.Drawing.Size(315, 2);
@@ -189,7 +166,7 @@
             // GeneralUsernameLabel
             // 
             this.GeneralUsernameLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralUsernameLabel.Location = new System.Drawing.Point(5, 121);
+            this.GeneralUsernameLabel.Location = new System.Drawing.Point(5, 87);
             this.GeneralUsernameLabel.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralUsernameLabel.Name = "GeneralUsernameLabel";
             this.GeneralUsernameLabel.Size = new System.Drawing.Size(105, 13);
@@ -199,7 +176,7 @@
             // GeneralUsernameTextBox
             // 
             this.GeneralUsernameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralUsernameTextBox.Location = new System.Drawing.Point(120, 118);
+            this.GeneralUsernameTextBox.Location = new System.Drawing.Point(120, 84);
             this.GeneralUsernameTextBox.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralUsernameTextBox.Name = "GeneralUsernameTextBox";
             this.GeneralUsernameTextBox.Size = new System.Drawing.Size(200, 20);
@@ -208,7 +185,7 @@
             // GeneralRegionLabel
             // 
             this.GeneralRegionLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralRegionLabel.Location = new System.Drawing.Point(5, 152);
+            this.GeneralRegionLabel.Location = new System.Drawing.Point(5, 118);
             this.GeneralRegionLabel.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralRegionLabel.Name = "GeneralRegionLabel";
             this.GeneralRegionLabel.Size = new System.Drawing.Size(105, 13);
@@ -233,7 +210,7 @@
             "TR",
             "RU",
             "PBE"});
-            this.GeneralRegionComboBox.Location = new System.Drawing.Point(120, 148);
+            this.GeneralRegionComboBox.Location = new System.Drawing.Point(120, 114);
             this.GeneralRegionComboBox.Margin = new System.Windows.Forms.Padding(5);
             this.GeneralRegionComboBox.Name = "GeneralRegionComboBox";
             this.GeneralRegionComboBox.Size = new System.Drawing.Size(200, 21);
@@ -553,6 +530,17 @@
             this.GBoxAllowUpdatesTextBox.Size = new System.Drawing.Size(221, 13);
             this.GBoxAllowUpdatesTextBox.TabIndex = 19;
             // 
+            // GeneralGameComboBox
+            // 
+            this.GeneralGameComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralGameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GeneralGameComboBox.FormattingEnabled = true;
+            this.GeneralGameComboBox.Location = new System.Drawing.Point(120, 10);
+            this.GeneralGameComboBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGameComboBox.Name = "GeneralGameComboBox";
+            this.GeneralGameComboBox.Size = new System.Drawing.Size(200, 21);
+            this.GeneralGameComboBox.TabIndex = 12;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -591,8 +579,6 @@
         private System.Windows.Forms.TabPage AboutTab;
         private System.Windows.Forms.FlowLayoutPanel GeneralFlowLayout;
         private System.Windows.Forms.Label GeneralGameLabel;
-        private System.Windows.Forms.TextBox GeneralGameTextBox;
-        private System.Windows.Forms.Button GeneralGameBrowseButton;
         private System.Windows.Forms.Button MainCancelButton;
         private System.Windows.Forms.Button MainOkButton;
         private System.Windows.Forms.Label GeneralLaunchLabel;
@@ -625,5 +611,6 @@
         private System.Windows.Forms.Button ExecEditButton;
         private System.Windows.Forms.TextBox GBoxAllowUpdatesTextBox;
         private System.Windows.Forms.Label GBoxAllowUpdatesLabel;
+        private System.Windows.Forms.ComboBox GeneralGameComboBox;
     }
 }
