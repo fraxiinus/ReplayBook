@@ -59,7 +59,8 @@ namespace ROFLPlayer.Utilities
 
             if (File.Exists(filePath))
             {
-                return "!EXISTS";
+                // Overwrite
+                File.Delete(filePath);
             }
 
             if(!Directory.Exists(ExecsFolder))

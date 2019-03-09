@@ -156,6 +156,7 @@ namespace ROFLPlayer
             if (selectedExec == null) { return; }
 
             this.ExecDeleteButton.Enabled = true;
+            this.ExecEditButton.Enabled = true;
 
             // Update groupbox
 
@@ -201,7 +202,45 @@ namespace ROFLPlayer
                 this.GBoxLastModifTextBox.Text = "";
 
                 ExecDeleteButton.Enabled = false;
+                ExecEditButton.Enabled = false;
             }
+        }
+
+        private void ExecEditButton_Click(object sender, EventArgs e)
+        {
+            var selectedName = (string)this.ExecItemsList.SelectedItem;
+            var execFile = ExecsManager.GetExec(selectedName);
+
+            if (execFile == null)
+            {
+                MessageBox.Show("Entry is either invalid or corrupted. Delete and try again.", "Error reading entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                var editForm = new ExecAddForm(execFile);
+                var formResult = editForm.ShowDialog();
+
+                if (formResult == DialogResult.OK)
+                {
+                    var newExec = editForm.NewLeagueExec;
+                    if(selectedName != newExec.Name)
+                    {
+                        ExecsManager.DeleteExecFile(selectedName);
+                    }
+                    // Save execinfo file
+                    ExecsManager.SaveExecFile(newExec);
+
+                    this.ExecItemsList.Items.Clear();
+                    this.ExecItemsList.Items.AddRange(ExecsManager.GetSavedExecs());
+
+                    this.GBoxExecNameTextBox.Text = "";
+                    this.GBoxTargetLocationTextBox.Text = "";
+                    this.GBoxPatchVersTextBox.Text = "";
+                    this.GBoxLastModifTextBox.Text = "";
+                }
+            }
+
+
         }
 
         private void GBoxSetDefaultCheckBox_CheckedChanged(object sender, EventArgs e)
