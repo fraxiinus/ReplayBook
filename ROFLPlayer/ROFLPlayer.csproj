@@ -106,7 +106,6 @@
     <Compile Include="Utilities\GameDetailsReader.cs" />
     <Compile Include="Utilities\ImageDownloader.cs" />
     <Compile Include="Utilities\GameLocator.cs" />
-    <Compile Include="Managers\MainWindowManager.cs" />
     <Compile Include="Utilities\ExecsManager.cs" />
     <Compile Include="Utilities\ReplayManager.cs" />
     <Compile Include="Program.cs" />
