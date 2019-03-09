@@ -12,8 +12,8 @@ namespace ROFLPlayer
         {
             InitializeComponent();
             // Do sizing on objects
-            this.GeneralGameTextBox.AutoSize = false;
-            this.GeneralGameTextBox.Size = new System.Drawing.Size(200, 23);
+            this.GeneralGameComboBox.AutoSize = false;
+            this.GeneralGameComboBox.Size = new System.Drawing.Size(200, 23);
             this.GeneralLaunchComboBox.AutoSize = false;
             this.GeneralLaunchComboBox.Size = new System.Drawing.Size(200, 23);
             this.GeneralUsernameTextBox.AutoSize = false;
@@ -21,11 +21,14 @@ namespace ROFLPlayer
             this.GeneralRegionComboBox.AutoSize = false;
             this.GeneralRegionComboBox.Size = new Size(200, 23);
             
-            MainWindowManager.Load(this);
+            //MainWindowManager.Load(this);
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+            /// THIS BLOCK OF CODE IS FOR AUTOMATICALLY UPDATING THE EXECUTABLE LOCATION
+            // TODO MOVE THIS SOMEWHERE ELSE LOL
+            /*
             if (string.IsNullOrEmpty(RoflSettings.Default.LoLExecLocation) || !File.Exists(RoflSettings.Default.LoLExecLocation))
             {
                 if (GameLocator.FindLeagueInstallPath(out string path))
@@ -53,6 +56,15 @@ namespace ROFLPlayer
             else
             {
                 this.GeneralGameTextBox.Text = RoflSettings.Default.LoLExecLocation;
+            } */
+            ///
+
+            this.GeneralGameComboBox.Items.AddRange(ExecsManager.GetSavedExecs());
+
+            var selectedItem = ExecsManager.GetDefaultExecName();
+            if(selectedItem != null)
+            {
+                this.GeneralGameComboBox.SelectedItem = selectedItem;
             }
 
             this.GeneralLaunchComboBox.SelectedItem = this.GeneralLaunchComboBox.Items[RoflSettings.Default.StartupMode];
@@ -68,11 +80,33 @@ namespace ROFLPlayer
                 this.ExecItemsList.Items.Clear();
                 this.ExecItemsList.Items.AddRange(ExecsManager.GetSavedExecs());
             }
+            else if (this.MainTabControl.SelectedIndex == 0)
+            {
+                this.GeneralGameComboBox.Items.Clear();
+                this.GeneralGameComboBox.Items.AddRange(ExecsManager.GetSavedExecs());
+                // TODO
+                var selectedItem = ExecsManager.GetDefaultExecName();
+                if (selectedItem != null)
+                {
+                    this.GeneralGameComboBox.SelectedItem = selectedItem;
+                }
+            }
         }
 
         private void MainOkButton_Click(object sender, EventArgs e)
         {
-            MainWindowManager.CloseWindow(this);
+            //MainWindowManager.CloseWindow(this);
+
+            //RoflSettings.Default.DefaultExecutable = this.GeneralGameComboBox.SelectedItem.ToString();
+            //RoflSettings.Default.DefaultExecutableIndex = this.GeneralGameComboBox.SelectedIndex;
+
+            ExecsManager.SetDefaultExecByName(this.GeneralGameComboBox.SelectedItem.ToString());
+            // Save double click launch option
+            RoflSettings.Default.StartupMode = this.GeneralLaunchComboBox.SelectedIndex;
+            RoflSettings.Default.Username = this.GeneralUsernameTextBox.Text;
+            RoflSettings.Default.Region = this.GeneralRegionComboBox.Text;
+            RoflSettings.Default.Save();
+            Environment.Exit(1);
         }
 
         private void MainCancelButton_Click(object sender, EventArgs e)
@@ -80,6 +114,7 @@ namespace ROFLPlayer
             Environment.Exit(1);
         }
 
+        /*
         private void GeneralGameBrowseButton_Click(object sender, EventArgs e)
         {
             var dialog = new OpenFileDialog
@@ -107,7 +142,9 @@ namespace ROFLPlayer
                 }
             }
         }
+        */
 
+        /*
         private void GeneralInstallBrowseButton_Click(object sender, EventArgs e)
         {
             var dialog = new OpenFileDialog
@@ -137,11 +174,14 @@ namespace ROFLPlayer
                 }
             }
         }
+        */
 
+        /*
         private void GeneralGameClearButton_Click(object sender, EventArgs e)
         {
             this.GeneralGameTextBox.Text = string.Empty;
         }
+        */
 
         private void AboutGithubButton_Click(object sender, EventArgs e)
         {
@@ -241,11 +281,6 @@ namespace ROFLPlayer
                     ExecEditButton.Enabled = false;
                 }
             }
-        }
-
-        private void GBoxSetDefaultCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
