@@ -29,6 +29,21 @@ namespace ROFLPlayer
             toolTip = new ToolTip();
         }
 
+        public ExecAddForm(LeagueExecutable leagueExecutable)
+        {
+            InitializeComponent();
+            InitForm();
+            toolTip = new ToolTip();
+
+            NewLeagueExec = leagueExecutable;
+            this.ExecTargetTextBox.Text = NewLeagueExec.TargetPath;
+            this.ExecStartTextBox.Text = NewLeagueExec.StartFolder;
+            this.GBoxExecNameTextBox.Text = Path.GetFileName(NewLeagueExec.TargetPath);
+            this.GBoxPatchVersTextBox.Text = NewLeagueExec.PatchVersion;
+            this.GBoxFileDescTextBox.Text = "League of Legends(TM) Client";
+            this.GBoxLastModifTextBox.Text = NewLeagueExec.ModifiedDate.ToString("yyyy/dd/MM");
+        }
+
         private void InitForm()
         {
             this.ExecNameTextBox.AutoSize = false;
@@ -151,7 +166,7 @@ namespace ROFLPlayer
 
         private void ExecUpdateCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            NewLeagueExec.EnableUpdates = this.ExecUpdateCheckbox.Checked;
+            NewLeagueExec.AllowUpdates = this.ExecUpdateCheckbox.Checked;
         }
 
         private void ExecUpdateCheckbox_ToolTip(object sender, EventArgs e)
