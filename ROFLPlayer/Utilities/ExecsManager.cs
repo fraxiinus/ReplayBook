@@ -160,5 +160,40 @@ namespace ROFLPlayer.Utilities
                 }
             }
         }
+
+        public static string UpdateLeaguePath(string target)
+        {
+            // Get exec
+            var exec = GetExec(target);
+
+            // If the target path does not exist
+            if(!File.Exists(exec.TargetPath))
+            {
+                // If target starting folder exists
+                if(Directory.Exists(exec.StartFolder))
+                {
+                    try
+                    {
+                        // Find executable
+                        exec.TargetPath = GameLocator.FindLeagueExecutable(exec.StartFolder);
+                        SaveExecFile(exec);
+
+                        return "TRUE";
+                    }
+                    catch (Exception ex)
+                    {
+                        // Error trying to navigate and find league exec
+                        return "FALSE: Exception - " + ex.ToString();
+                    }
+                }
+                else
+                {
+                    // No information to continue
+                    return "FALSE: Start folder does not exist";
+                }
+            }
+
+            return "FALSE: League path already exists";
+        }
     }
 }
