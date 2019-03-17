@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using ROFLPlayer.Utilities;
-using ROFLPlayer.Managers;
 using System.Drawing;
-using System.IO;
+
 namespace ROFLPlayer
 {
     public partial class SettingsForm : Form
@@ -11,6 +10,7 @@ namespace ROFLPlayer
         public SettingsForm()
         {
             InitializeComponent();
+
             // Do sizing on objects
             this.GeneralGameComboBox.AutoSize = false;
             this.GeneralGameComboBox.Size = new System.Drawing.Size(200, 23);
@@ -20,8 +20,15 @@ namespace ROFLPlayer
             this.GeneralUsernameTextBox.Size = new Size(200, 23);
             this.GeneralRegionComboBox.AutoSize = false;
             this.GeneralRegionComboBox.Size = new Size(200, 23);
-            
-            //MainWindowManager.Load(this);
+        }
+
+        /**
+         * Refresh execs list
+         */ 
+        private void RefreshExecListBox()
+        {
+            this.ExecItemsList.Items.Clear();
+            this.ExecItemsList.Items.AddRange(ExecsManager.GetSavedExecs());
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
@@ -59,32 +66,41 @@ namespace ROFLPlayer
             } */
             ///
 
+            // Load saved executable entries for combo box
             this.GeneralGameComboBox.Items.AddRange(ExecsManager.GetSavedExecs());
 
+            // Restore saved default entry
             var selectedItem = ExecsManager.GetDefaultExecName();
             if(selectedItem != null)
             {
                 this.GeneralGameComboBox.SelectedItem = selectedItem;
             }
 
+            // Restore saved settings
             this.GeneralLaunchComboBox.SelectedItem = this.GeneralLaunchComboBox.Items[RoflSettings.Default.StartupMode];
             this.GeneralRegionComboBox.SelectedItem = RoflSettings.Default.Region;
             this.GeneralUsernameTextBox.Text = RoflSettings.Default.Username;
         }
 
+        /**
+         * Actions for when main tab changes
+         **/
         private void SettingsForm_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // If tab is now on executables
             if (this.MainTabControl.SelectedIndex == 1)
             {
                 // Populate List of execs
-                this.ExecItemsList.Items.Clear();
-                this.ExecItemsList.Items.AddRange(ExecsManager.GetSavedExecs());
+                RefreshExecListBox();
             }
+            // If tab is now on general
             else if (this.MainTabControl.SelectedIndex == 0)
             {
+                // Populate List of execs
                 this.GeneralGameComboBox.Items.Clear();
                 this.GeneralGameComboBox.Items.AddRange(ExecsManager.GetSavedExecs());
-                // TODO
+
+                // Select saved item by name
                 var selectedItem = ExecsManager.GetDefaultExecName();
                 if (selectedItem != null)
                 {
@@ -93,22 +109,31 @@ namespace ROFLPlayer
             }
         }
 
+        /**
+         * Actions for ok button
+         **/
         private void MainOkButton_Click(object sender, EventArgs e)
         {
-            //MainWindowManager.CloseWindow(this);
-
-            //RoflSettings.Default.DefaultExecutable = this.GeneralGameComboBox.SelectedItem.ToString();
-            //RoflSettings.Default.DefaultExecutableIndex = this.GeneralGameComboBox.SelectedIndex;
-
+            // Save selected default exec
             ExecsManager.SetDefaultExecByName(this.GeneralGameComboBox.SelectedItem.ToString());
+
             // Save double click launch option
             RoflSettings.Default.StartupMode = this.GeneralLaunchComboBox.SelectedIndex;
+
+            // Save username
             RoflSettings.Default.Username = this.GeneralUsernameTextBox.Text;
+
+            // Save region
             RoflSettings.Default.Region = this.GeneralRegionComboBox.Text;
+
+            // Save config
             RoflSettings.Default.Save();
             Environment.Exit(1);
         }
 
+        /**
+         * Actions for cancel button
+         **/
         private void MainCancelButton_Click(object sender, EventArgs e)
         {
             Environment.Exit(1);
@@ -183,23 +208,31 @@ namespace ROFLPlayer
         }
         */
 
+        /**
+         * Actions for github button
+         */
         private void AboutGithubButton_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(@"https://github.com/andrew1421lee/ROFL-Player");
         }
 
+        /**
+         * Actions for selecting exec
+         */
         private void ExecItemsList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Get exec that is selected
             var selectedItemName = (string)this.ExecItemsList.SelectedItem;
             var selectedExec = ExecsManager.GetExec(selectedItemName);
 
+            // Nothing? Weird, just return
             if (selectedExec == null) { return; }
 
+            // Enable selected context buttons
             this.ExecDeleteButton.Enabled = true;
             this.ExecEditButton.Enabled = true;
 
             // Update groupbox
-
             this.GBoxExecNameTextBox.Text = selectedExec.Name;
             this.GBoxTargetLocationTextBox.Text = selectedExec.TargetPath;
             this.GBoxPatchVersTextBox.Text = selectedExec.PatchVersion;
@@ -207,51 +240,72 @@ namespace ROFLPlayer
             this.GBoxAllowUpdatesTextBox.Text = selectedExec.AllowUpdates.ToString();
         }
 
+        /**
+         * Actions for add exec button
+         */
         private void ExecAddButton_Click(object sender, EventArgs e)
         {
+            // Start add exec form
             var addForm = new ExecAddForm();
             var formResult = addForm.ShowDialog();
 
+            // If form exited with ok
             if(formResult == DialogResult.OK)
             {
+                // Get new exec
                 var newExec = addForm.NewLeagueExec;
+
                 // Save execinfo file
                 ExecsManager.SaveExecFile(newExec);
-                this.ExecItemsList.Items.Add(newExec.Name);
+
+                // Add to exec items list
+                RefreshExecListBox();
             }
         }
 
+        /**
+         * Actions for delete exec button
+         */
         private void ExecDeleteButton_Click(object sender, EventArgs e)
         {
+            // Get exec that is selected
             var selectedName = (string)this.ExecItemsList.SelectedItem;
 
+            // Attempt to delete
             var result = ExecsManager.DeleteExecFile(selectedName);
 
+            // Check for error/result
             if(result.StartsWith("FALSE"))
             {
                 MessageBox.Show(result.Substring(result.IndexOf(':') + 1), "Error deleting entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } 
             else if(result.StartsWith("TRUE"))
             {
-                this.ExecItemsList.Items.Clear();
-                this.ExecItemsList.Items.AddRange(ExecsManager.GetSavedExecs());
+                // Repopulate list
+                RefreshExecListBox();
 
-
+                // Reset info box
                 this.GBoxExecNameTextBox.Text = "";
                 this.GBoxTargetLocationTextBox.Text = "";
                 this.GBoxPatchVersTextBox.Text = "";
                 this.GBoxLastModifTextBox.Text = "";
 
+                // turn off context buttons
                 ExecDeleteButton.Enabled = false;
                 ExecEditButton.Enabled = false;
             }
         }
 
+        /**
+         *  Actions for edit exec button, also called on double click action
+         */
         private void ExecEditButton_Click(object sender, EventArgs e)
         {
+            // Get exec that is selected
             var selectedName = (string)this.ExecItemsList.SelectedItem;
             var exec = ExecsManager.GetExec(selectedName);
 
+            // Check is gotten exec
             if(exec == null)
             {
                 // This happens when nothing is selected
@@ -259,25 +313,30 @@ namespace ROFLPlayer
             }
             else
             {
+                // Start add form, but in edit mode
                 var editForm = new ExecAddForm(exec);
                 var formResult = editForm.ShowDialog();
 
+                // if form exited with ok
                 if (formResult == DialogResult.OK)
                 {
+                    // Get edited exec
                     var newExec = editForm.NewLeagueExec;
-                    // Save execinfo file
+
+                    // Save exec file
                     ExecsManager.DeleteExecFile(selectedName);
                     ExecsManager.SaveExecFile(newExec);
 
-                    this.ExecItemsList.Items.Clear();
-                    this.ExecItemsList.Items.AddRange(ExecsManager.GetSavedExecs());
+                    // Refresh list of execs
+                    RefreshExecListBox();
 
-
+                    // Clear info box
                     this.GBoxExecNameTextBox.Text = "";
                     this.GBoxTargetLocationTextBox.Text = "";
                     this.GBoxPatchVersTextBox.Text = "";
                     this.GBoxLastModifTextBox.Text = "";
 
+                    // disable context buttons
                     ExecDeleteButton.Enabled = false;
                     ExecEditButton.Enabled = false;
                 }
