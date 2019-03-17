@@ -33,6 +33,7 @@
             this.GeneralTab = new System.Windows.Forms.TabPage();
             this.GeneralFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.GeneralGameLabel = new System.Windows.Forms.Label();
+            this.GeneralGameComboBox = new System.Windows.Forms.ComboBox();
             this.GeneralLaunchLabel = new System.Windows.Forms.Label();
             this.GeneralLaunchComboBox = new System.Windows.Forms.ComboBox();
             this.GeneralDivider1 = new System.Windows.Forms.Label();
@@ -44,6 +45,8 @@
             this.ExecFlowLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.ExecItemsList = new System.Windows.Forms.ListBox();
             this.ExecGroupBox = new System.Windows.Forms.GroupBox();
+            this.GBoxAllowUpdatesTextBox = new System.Windows.Forms.TextBox();
+            this.GBoxAllowUpdatesLabel = new System.Windows.Forms.Label();
             this.GBoxTargetLocationTextBox = new System.Windows.Forms.TextBox();
             this.GBoxTargetLocationLabel = new System.Windows.Forms.Label();
             this.GBoxLastModifTextBox = new System.Windows.Forms.TextBox();
@@ -64,9 +67,6 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.MainCancelButton = new System.Windows.Forms.Button();
             this.MainOkButton = new System.Windows.Forms.Button();
-            this.GBoxAllowUpdatesLabel = new System.Windows.Forms.Label();
-            this.GBoxAllowUpdatesTextBox = new System.Windows.Forms.TextBox();
-            this.GeneralGameComboBox = new System.Windows.Forms.ComboBox();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -129,6 +129,17 @@
             this.GeneralGameLabel.Size = new System.Drawing.Size(105, 13);
             this.GeneralGameLabel.TabIndex = 0;
             this.GeneralGameLabel.Text = "Default Executable:";
+            // 
+            // GeneralGameComboBox
+            // 
+            this.GeneralGameComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GeneralGameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GeneralGameComboBox.FormattingEnabled = true;
+            this.GeneralGameComboBox.Location = new System.Drawing.Point(120, 10);
+            this.GeneralGameComboBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GeneralGameComboBox.Name = "GeneralGameComboBox";
+            this.GeneralGameComboBox.Size = new System.Drawing.Size(200, 21);
+            this.GeneralGameComboBox.TabIndex = 12;
             // 
             // GeneralLaunchLabel
             // 
@@ -251,6 +262,7 @@
             this.ExecItemsList.Size = new System.Drawing.Size(322, 164);
             this.ExecItemsList.TabIndex = 0;
             this.ExecItemsList.SelectedIndexChanged += new System.EventHandler(this.ExecItemsList_SelectedIndexChanged);
+            this.ExecItemsList.DoubleClick += new System.EventHandler(this.ExecEditButton_Click);
             // 
             // ExecGroupBox
             // 
@@ -272,6 +284,27 @@
             this.ExecGroupBox.TabIndex = 5;
             this.ExecGroupBox.TabStop = false;
             this.ExecGroupBox.Text = "Entry Information";
+            // 
+            // GBoxAllowUpdatesTextBox
+            // 
+            this.GBoxAllowUpdatesTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.GBoxAllowUpdatesTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GBoxAllowUpdatesTextBox.Location = new System.Drawing.Point(93, 90);
+            this.GBoxAllowUpdatesTextBox.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxAllowUpdatesTextBox.Name = "GBoxAllowUpdatesTextBox";
+            this.GBoxAllowUpdatesTextBox.ReadOnly = true;
+            this.GBoxAllowUpdatesTextBox.Size = new System.Drawing.Size(221, 13);
+            this.GBoxAllowUpdatesTextBox.TabIndex = 19;
+            // 
+            // GBoxAllowUpdatesLabel
+            // 
+            this.GBoxAllowUpdatesLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GBoxAllowUpdatesLabel.Location = new System.Drawing.Point(5, 90);
+            this.GBoxAllowUpdatesLabel.Margin = new System.Windows.Forms.Padding(5);
+            this.GBoxAllowUpdatesLabel.Name = "GBoxAllowUpdatesLabel";
+            this.GBoxAllowUpdatesLabel.Size = new System.Drawing.Size(100, 13);
+            this.GBoxAllowUpdatesLabel.TabIndex = 18;
+            this.GBoxAllowUpdatesLabel.Text = "Allow Updates:";
             // 
             // GBoxTargetLocationTextBox
             // 
@@ -508,38 +541,6 @@
             this.MainOkButton.Text = "OK";
             this.MainOkButton.UseVisualStyleBackColor = true;
             this.MainOkButton.Click += new System.EventHandler(this.MainOkButton_Click);
-            // 
-            // GBoxAllowUpdatesLabel
-            // 
-            this.GBoxAllowUpdatesLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GBoxAllowUpdatesLabel.Location = new System.Drawing.Point(5, 90);
-            this.GBoxAllowUpdatesLabel.Margin = new System.Windows.Forms.Padding(5);
-            this.GBoxAllowUpdatesLabel.Name = "GBoxAllowUpdatesLabel";
-            this.GBoxAllowUpdatesLabel.Size = new System.Drawing.Size(100, 13);
-            this.GBoxAllowUpdatesLabel.TabIndex = 18;
-            this.GBoxAllowUpdatesLabel.Text = "Allow Updates:";
-            // 
-            // GBoxAllowUpdatesTextBox
-            // 
-            this.GBoxAllowUpdatesTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.GBoxAllowUpdatesTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.GBoxAllowUpdatesTextBox.Location = new System.Drawing.Point(93, 90);
-            this.GBoxAllowUpdatesTextBox.Margin = new System.Windows.Forms.Padding(5);
-            this.GBoxAllowUpdatesTextBox.Name = "GBoxAllowUpdatesTextBox";
-            this.GBoxAllowUpdatesTextBox.ReadOnly = true;
-            this.GBoxAllowUpdatesTextBox.Size = new System.Drawing.Size(221, 13);
-            this.GBoxAllowUpdatesTextBox.TabIndex = 19;
-            // 
-            // GeneralGameComboBox
-            // 
-            this.GeneralGameComboBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.GeneralGameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.GeneralGameComboBox.FormattingEnabled = true;
-            this.GeneralGameComboBox.Location = new System.Drawing.Point(120, 10);
-            this.GeneralGameComboBox.Margin = new System.Windows.Forms.Padding(5);
-            this.GeneralGameComboBox.Name = "GeneralGameComboBox";
-            this.GeneralGameComboBox.Size = new System.Drawing.Size(200, 21);
-            this.GeneralGameComboBox.TabIndex = 12;
             // 
             // SettingsForm
             // 

@@ -254,7 +254,8 @@ namespace ROFLPlayer
 
             if(exec == null)
             {
-                MessageBox.Show("Specified entry does not exist. Delete and re-add", "Error reading entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // This happens when nothing is selected
+                //MessageBox.Show("Specified entry does not exist. Delete and re-add", "Error reading entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {

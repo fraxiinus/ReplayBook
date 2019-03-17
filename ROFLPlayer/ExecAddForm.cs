@@ -53,6 +53,8 @@ namespace ROFLPlayer
             this.GBoxFileDescTextBox.Text = fileInfo.FileDescription;
             this.GBoxLastModifTextBox.Text = NewLeagueExec.ModifiedDate.ToString("yyyy/dd/MM");
             this.ExecUpdateCheckbox.Checked = NewLeagueExec.AllowUpdates;
+
+            this.Text = "Edit Executable...";
         }
 
         private void InitForm()
