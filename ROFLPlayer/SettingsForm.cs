@@ -22,9 +22,9 @@ namespace ROFLPlayer
             this.GeneralRegionComboBox.Size = new Size(200, 23);
         }
 
-        /**
-         * Refresh execs list
-         */ 
+        /// <summary>
+        /// Refresh execs list
+        /// </summary>
         private void RefreshExecListBox()
         {
             this.ExecItemsList.Items.Clear();
@@ -82,9 +82,9 @@ namespace ROFLPlayer
             this.GeneralUsernameTextBox.Text = RoflSettings.Default.Username;
         }
 
-        /**
-         * Actions for when main tab changes
-         **/
+        /// <summary>
+        /// Actions for when main tab changes
+        /// </summary>
         private void SettingsForm_SelectedIndexChanged(object sender, EventArgs e)
         {
             // If tab is now on executables
@@ -109,9 +109,9 @@ namespace ROFLPlayer
             }
         }
 
-        /**
-         * Actions for ok button
-         **/
+        /// <summary>
+        /// Actions for ok button
+        /// </summary>
         private void MainOkButton_Click(object sender, EventArgs e)
         {
             // Save selected default exec
@@ -131,9 +131,9 @@ namespace ROFLPlayer
             Environment.Exit(1);
         }
 
-        /**
-         * Actions for cancel button
-         **/
+        /// <summary>
+        /// Actions for cancel button
+        /// </summary>
         private void MainCancelButton_Click(object sender, EventArgs e)
         {
             Environment.Exit(1);
@@ -208,17 +208,17 @@ namespace ROFLPlayer
         }
         */
 
-        /**
-         * Actions for github button
-         */
+        /// <summary>
+        /// Actions for github button
+        /// </summary>
         private void AboutGithubButton_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(@"https://github.com/andrew1421lee/ROFL-Player");
         }
 
-        /**
-         * Actions for selecting exec
-         */
+        /// <summary>
+        /// Actions for selecting exec
+        /// </summary>
         private void ExecItemsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get exec that is selected
@@ -240,9 +240,9 @@ namespace ROFLPlayer
             this.GBoxAllowUpdatesTextBox.Text = selectedExec.AllowUpdates.ToString();
         }
 
-        /**
-         * Actions for add exec button
-         */
+        /// <summary>
+        /// Actions for add exec button
+        /// </summary>
         private void ExecAddButton_Click(object sender, EventArgs e)
         {
             // Start add exec form
@@ -263,9 +263,9 @@ namespace ROFLPlayer
             }
         }
 
-        /**
-         * Actions for delete exec button
-         */
+        /// <summary>
+        /// Actions for delete exec button
+        /// </summary>
         private void ExecDeleteButton_Click(object sender, EventArgs e)
         {
             // Get exec that is selected
@@ -296,9 +296,9 @@ namespace ROFLPlayer
             }
         }
 
-        /**
-         *  Actions for edit exec button, also called on double click action
-         */
+        /// <summary>
+        /// Actions for edit exec button, also called on double click action
+        /// </summary>
         private void ExecEditButton_Click(object sender, EventArgs e)
         {
             // Get exec that is selected
