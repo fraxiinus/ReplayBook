@@ -11,16 +11,16 @@ namespace ROFLPlayer.Utilities
     public class ReplayManager
     {
         
-        public static Task<bool> StartReplay(string replayPath)
+        public static Task<bool> StartReplay(string replayPath, string gamePath)
         {
             var replayname = Path.GetFileNameWithoutExtension(replayPath);
 
             // Get the path of the file executable
-            var gamePath = CheckGameDirValid();
+            //var gamePath = CheckGameDirValid();
 
-            if (string.IsNullOrEmpty(gamePath))
+            if (string.IsNullOrEmpty(gamePath) || !System.IO.File.Exists(gamePath))
             {
-                throw new FileNotFoundException("Failed to find League of Legends executable path.");
+                throw new FileNotFoundException("Failed to find League of Legends executable path");
             }
 
             // Create a shortcut in the league directory
@@ -28,7 +28,7 @@ namespace ROFLPlayer.Utilities
 
             if(shortcutFile == null)
             {
-                throw new IOException("Failed to create replay shortcut.");
+                throw new IOException("Failed to create replay shortcut");
             }
 
             // Run the replay
@@ -41,7 +41,7 @@ namespace ROFLPlayer.Utilities
             }
             catch(Exception ex)
             {
-                throw new Exception("Failed to start League of Legends.", ex);
+                throw new Exception("Failed to start League of Legends", ex);
             }
 
             process.WaitForExit();
@@ -50,12 +50,13 @@ namespace ROFLPlayer.Utilities
 
             if (!CleanUp(shortcutPath))
             {
-                throw new IOException("Failed to delete created replay shortcut.");
+                throw new IOException("Failed to delete created replay shortcut");
             }
 
             return Task.FromResult<bool>(true);
         }
 
+        /* This shouldn't be used anymore
         private static string CheckGameDirValid()
         {
             // Check if LOL executable directory is found
@@ -89,7 +90,7 @@ namespace ROFLPlayer.Utilities
                     }
                 }
             }
-        }
+        }*/
 
         private static IWshShortcut CreateAlias(string execPath, string replayPath)
         {
