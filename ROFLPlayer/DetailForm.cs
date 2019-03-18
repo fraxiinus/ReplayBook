@@ -149,6 +149,10 @@ namespace ROFLPlayer
                     break;
             }
 
+            MessageBox.Show("This feature is still a work in progress! I need more information from different regions. Let me know if you encounter any problems.\n\n" +
+                            $"Region: {RoflSettings.Default.Region}\n" +
+                            $"Region Endpoint: {regionEndpoint}", "Beta Feature", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             System.Diagnostics.Process.Start(@"https://matchhistory.na.leagueoflegends.com/en/#match-details/" + regionEndpoint + "/" + matchId);
         }
 
