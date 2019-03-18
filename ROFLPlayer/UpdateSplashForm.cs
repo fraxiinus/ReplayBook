@@ -17,7 +17,9 @@ namespace ROFLPlayer
         {
             // Get default exec
             var defaultExec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
-            this.LoadingProgressBar.Value = 30;
+            this.LoadingProgressBar.Value = 50;
+
+            await WaitDelay(300);
 
             // Double check if target exists
             if(!File.Exists(defaultExec.TargetPath))
@@ -32,38 +34,33 @@ namespace ROFLPlayer
                     if(result.StartsWith("FALSE"))
                     {
                         MessageBox.Show("Error", result.Substring(result.IndexOf(':') + 1), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        await WaitDelay();
-                        this.Close();
                     }
                     // If update worked
                     else
                     {
                         this.TitleLabel.Text = "Successfully updated League executable";
                         this.LoadingProgressBar.Value = 100;
-                        await WaitDelay();
-                        this.Close();
                     }
                 }
                 // Entry does not allow updates
                 else
                 {
                     MessageBox.Show("Error", "League executable could not be found, entry does not allow updating", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    await WaitDelay();
-                    this.Close();
                 }
             }
             else
             {
                 this.TitleLabel.Text = "Found League executable";
                 this.LoadingProgressBar.Value = 100;
-                await WaitDelay();
-                this.Close();
             }
+
+            await WaitDelay(300);
+            this.Close();
         }
 
-        private async Task WaitDelay()
+        private async Task WaitDelay(int millis)
         {
-            await Task.Delay(500);
+            await Task.Delay(millis);
         }
     }
 }
