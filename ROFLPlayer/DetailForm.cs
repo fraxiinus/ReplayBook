@@ -8,6 +8,7 @@ using ROFLPlayer.Utilities;
 using ROFLPlayer.Managers;
 using System.IO;
 using Rofl.Parser;
+using ROFLPlayer.Models;
 
 namespace ROFLPlayer
 {
@@ -48,6 +49,28 @@ namespace ROFLPlayer
                 MessageBox.Show("Error Parsing Replay", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
+
+            // Load split button menu
+            var listOfExecs = ExecsManager.GetSavedExecs().Where(x => !x.Equals(ExecsManager.GetDefaultExecName())).ToArray();
+
+            // No items? Don't load the menu
+            if(listOfExecs.Count() > 0)
+            {
+                var execMenu = new ContextMenuStrip
+                {
+                    ShowCheckMargin = false,
+                    ShowImageMargin = false,
+                };
+
+                execMenu.ItemClicked += new ToolStripItemClickedEventHandler(GeneralStartReplayMenuItem_Click);
+
+                foreach (var item in listOfExecs)
+                {
+                    execMenu.Items.Add(item);
+                }
+
+                this.GeneralPlayReplaySplitButton.Menu = execMenu;
+            }
         }
 
         private void MainTabControl_IndexChanged(object sender, EventArgs e)
@@ -82,21 +105,51 @@ namespace ROFLPlayer
             Environment.Exit(1);
         }
 
-        private void GeneralStartReplayButton_Click(object sender, EventArgs e)
+        private void GeneralStartReplayMenuItem_Click(object sender, ToolStripItemClickedEventArgs e)
         {
-            GeneralStartReplayButton.Enabled = false;
+            GeneralPlayReplaySplitButton.Enabled = false;
+            StartReplay(e.ClickedItem.Text);
+        }
+
+        private void GeneralStartReplaySplitButton_Click(object sender, EventArgs e)
+        {
+            GeneralPlayReplaySplitButton.Enabled = false;
+            StartReplay();
+        }
+
+        private void StartReplay(string execName = "default")
+        {
+            LeagueExecutable exec = null;
+
+            // Get default exec or specified exec
+            if(execName.Equals("default"))
+            {
+                exec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+            } else
+            {
+                exec = ExecsManager.GetExec(execName);
+            }
+
+            if(exec == null)
+            {
+                MessageBox.Show("Failed to start replay", $"Could not find executable data {execName}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var result = new UpdateSplashForm().ShowDialog();
+
             var playtask = Task.Run(() =>
             {
-                ReplayManager.StartReplay(replaypath);
+                ReplayManager.StartReplay(replaypath, exec.TargetPath);
             }).ContinueWith((t) =>
             {
                 this.BeginInvoke((Action)(() =>
                 {
                     if (t.IsFaulted)
                     {
-                        MessageBox.Show("Failed to play replay: " + t.Exception.GetType().ToString() + "\n" +  t.Exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Failed to play replay: " + t.Exception.GetType().ToString() + "\n" + t.Exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    GeneralStartReplayButton.Enabled = true;
+                    GeneralPlayReplaySplitButton.Enabled = true;
                 }));
             });
         }

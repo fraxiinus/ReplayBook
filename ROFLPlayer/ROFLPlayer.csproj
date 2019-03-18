@@ -103,6 +103,9 @@
     <Compile Include="Models\DataTypes.cs" />
     <Compile Include="Managers\DetailWindowManager.cs" />
     <Compile Include="Models\LeagueExecutable.cs" />
+    <Compile Include="Models\SplitButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UpdateSplashForm.cs">
       <SubType>Form</SubType>
     </Compile>
