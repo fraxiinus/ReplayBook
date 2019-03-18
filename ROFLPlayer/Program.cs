@@ -67,7 +67,7 @@ namespace ROFLPlayer
                 return;
             }
 
-            var result = new UpdateSplashForm().ShowDialog();
+            Application.Run(new UpdateSplashForm());
 
             ReplayManager.StartReplay(replayPath, exec.TargetPath);
         }
