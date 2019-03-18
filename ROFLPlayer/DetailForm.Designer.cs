@@ -124,9 +124,9 @@
             this.AboutVersionLabel = new System.Windows.Forms.Label();
             this.AboutGithubButton = new System.Windows.Forms.Button();
             this.AboutCatLabel = new System.Windows.Forms.Label();
-            this.GeneralStartReplayButton = new System.Windows.Forms.Button();
             this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
             this.MainCancelButton = new System.Windows.Forms.Button();
+            this.GeneralPlayReplaySplitButton = new ROFLPlayer.Models.SplitButton();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -1366,18 +1366,6 @@
             this.AboutCatLabel.Text = "buff nidalee";
             this.AboutCatLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // GeneralStartReplayButton
-            // 
-            this.GeneralStartReplayButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GeneralStartReplayButton.Location = new System.Drawing.Point(192, 434);
-            this.GeneralStartReplayButton.Margin = new System.Windows.Forms.Padding(148, 10, 5, 5);
-            this.GeneralStartReplayButton.Name = "GeneralStartReplayButton";
-            this.GeneralStartReplayButton.Size = new System.Drawing.Size(75, 23);
-            this.GeneralStartReplayButton.TabIndex = 30;
-            this.GeneralStartReplayButton.Text = "Play";
-            this.GeneralStartReplayButton.UseVisualStyleBackColor = true;
-            this.GeneralStartReplayButton.Click += new System.EventHandler(this.GeneralStartReplayButton_Click);
-            // 
             // GeneralDebugDumpJsonButton
             // 
             this.GeneralDebugDumpJsonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -1401,15 +1389,26 @@
             this.MainCancelButton.UseVisualStyleBackColor = true;
             this.MainCancelButton.Click += new System.EventHandler(this.MainCancelButton_Click);
             // 
+            // GeneralPlayReplaySplitButton
+            // 
+            this.GeneralPlayReplaySplitButton.Location = new System.Drawing.Point(192, 434);
+            this.GeneralPlayReplaySplitButton.Margin = new System.Windows.Forms.Padding(148, 10, 5, 5);
+            this.GeneralPlayReplaySplitButton.Name = "GeneralPlayReplaySplitButton";
+            this.GeneralPlayReplaySplitButton.Size = new System.Drawing.Size(75, 23);
+            this.GeneralPlayReplaySplitButton.TabIndex = 40;
+            this.GeneralPlayReplaySplitButton.Text = "Play";
+            this.GeneralPlayReplaySplitButton.UseVisualStyleBackColor = true;
+            this.GeneralPlayReplaySplitButton.Click += new System.EventHandler(this.GeneralStartReplaySplitButton_Click);
+            // 
             // DetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.MainCancelButton;
             this.ClientSize = new System.Drawing.Size(358, 465);
+            this.Controls.Add(this.GeneralPlayReplaySplitButton);
             this.Controls.Add(this.MainCancelButton);
             this.Controls.Add(this.MainTabControl);
-            this.Controls.Add(this.GeneralStartReplayButton);
             this.Controls.Add(this.GeneralDebugDumpJsonButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1481,7 +1480,6 @@
         private System.Windows.Forms.Label GeneralGameVersionLabel;
         private System.Windows.Forms.Label GeneralDivider2;
         private System.Windows.Forms.Button GeneralGameViewOnlineButton;
-        private System.Windows.Forms.Button GeneralStartReplayButton;
         private System.Windows.Forms.TabPage PlayerTab;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label PlayerDivider1;
@@ -1562,5 +1560,6 @@
         private System.Windows.Forms.TextBox GeneralPlayerName12;
         private System.Windows.Forms.PictureBox GeneralPlayerImage12;
         private System.Windows.Forms.PictureBox GeneralPlayerImage6;
+        private Models.SplitButton GeneralPlayReplaySplitButton;
     }
 }
