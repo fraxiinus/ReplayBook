@@ -103,6 +103,12 @@
     <Compile Include="Models\DataTypes.cs" />
     <Compile Include="Managers\DetailWindowManager.cs" />
     <Compile Include="Models\LeagueExecutable.cs" />
+    <Compile Include="UpdateSplashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateSplashForm.Designer.cs">
+      <DependentUpon>UpdateSplashForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\GameDetailsReader.cs" />
     <Compile Include="Utilities\ImageDownloader.cs" />
     <Compile Include="Utilities\GameLocator.cs" />
@@ -140,6 +146,9 @@
     </Compile>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateSplashForm.resx">
+      <DependentUpon>UpdateSplashForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
