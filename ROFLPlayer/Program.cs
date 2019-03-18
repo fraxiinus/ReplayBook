@@ -16,6 +16,10 @@ namespace ROFLPlayer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             // StartupMode, 0  = show detailed information, 1 = launch replay immediately
+
+            Application.Run(new UpdateSplashForm());
+
+            //*/
             try
             {
                 if (args.Length == 0)
@@ -39,6 +43,7 @@ namespace ROFLPlayer
                 MessageBox.Show(@"ROFLPlayer encountered an unhandled exception, please record this message and report it here https://github.com/andrew1421lee/ROFL-Player/issues" + "\n\n" + ex.ToString() + "\n" + ex.Source, "Critical Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
+            //*/
         }
     }
 }
