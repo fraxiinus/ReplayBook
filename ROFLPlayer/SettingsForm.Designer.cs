@@ -496,7 +496,7 @@
             this.AboutVersionLabel.Name = "AboutVersionLabel";
             this.AboutVersionLabel.Size = new System.Drawing.Size(328, 23);
             this.AboutVersionLabel.TabIndex = 3;
-            this.AboutVersionLabel.Text = "Beta Release 5";
+            this.AboutVersionLabel.Text = "Beta Release 6";
             this.AboutVersionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AboutGithubButton
