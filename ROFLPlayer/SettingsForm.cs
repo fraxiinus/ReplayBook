@@ -92,6 +92,8 @@ namespace ROFLPlayer
             {
                 // Populate List of execs
                 RefreshExecListBox();
+                this.ExecDeleteButton.Enabled = false;
+                this.ExecEditButton.Enabled = false;
             }
             // If tab is now on general
             else if (this.MainTabControl.SelectedIndex == 0)
@@ -213,7 +215,7 @@ namespace ROFLPlayer
         /// </summary>
         private void AboutGithubButton_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"https://github.com/andrew1421lee/ROFL-Player");
+            System.Diagnostics.Process.Start(@"https://github.com/leeanchu/ROFL-Player");
         }
 
         /// <summary>
