@@ -66,6 +66,9 @@ namespace ROFLPlayer
             } */
             ///
 
+            // Set version text in about tab
+            this.AboutVersionLabel.Text = RoflSettings.Default.VersionString;
+
             // Load saved executable entries for combo box
             this.GeneralGameComboBox.Items.AddRange(ExecsManager.GetSavedExecs());
 

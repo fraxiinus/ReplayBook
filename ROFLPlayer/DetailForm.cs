@@ -50,6 +50,9 @@ namespace ROFLPlayer
                 Environment.Exit(1);
             }
 
+            // Set version text in about tab
+            this.AboutVersionLabel.Text = RoflSettings.Default.VersionString;
+
             // Load split button menu
             var listOfExecs = ExecsManager.GetSavedExecs().Where(x => !x.Equals(ExecsManager.GetDefaultExecName())).ToArray();
 

@@ -20,5 +20,8 @@
     <Setting Name="StartFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="VersionString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.9 Beta</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

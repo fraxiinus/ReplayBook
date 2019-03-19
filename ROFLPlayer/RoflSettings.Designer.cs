@@ -94,5 +94,17 @@ namespace ROFLPlayer {
                 this["StartFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.9 Beta")]
+        public string VersionString {
+            get {
+                return ((string)(this["VersionString"]));
+            }
+            set {
+                this["VersionString"] = value;
+            }
+        }
     }
 }
