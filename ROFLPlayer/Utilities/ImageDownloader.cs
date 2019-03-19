@@ -17,10 +17,10 @@ namespace ROFLPlayer.Utilities
         /// Set data endpoint version to replay version
         /// </summary>
         /// <param name="gameversion"></param>
-        public static async void SetDataDragonVersion(string gameversion)
+        public static void SetDataDragonVersion(string gameversion)
         {
             var inputversion = gameversion.Substring(0, gameversion.IndexOf('.', gameversion.IndexOf('.') + 1));
-            var versions = await GetVersions();
+            var versions = GetVersions();
 
             if (versions == null)
             {
@@ -148,13 +148,13 @@ namespace ROFLPlayer.Utilities
             return string.Empty;
         }
 
-        private async static Task<JArray> GetVersions()
+        private static JArray GetVersions()
         {
             using (WebClient wc = new WebClient())
             {
                 try
                 {
-                    var result = await wc.DownloadStringTaskAsync(@"https://ddragon.leagueoflegends.com/api/versions.json");
+                    var result = wc.DownloadString(@"https://ddragon.leagueoflegends.com/api/versions.json");
                     return JArray.Parse(result);
                 }
                 catch (WebException)
