@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ROFLPlayer.Models;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -194,6 +195,51 @@ namespace ROFLPlayer.Utilities
             }
 
             return "FALSE: League path already exists";
+        }
+
+        /// <summary>
+        /// Attempt to find League exec and save as default
+        /// </summary>
+        public static string FindAndAddLeagueExec(string startPath = "")
+        {
+            // If start path is empty, use game locator to find one to use
+            if(startPath == "")
+            {
+                if(GameLocator.FindLeagueInstallPath(out string foundPath))
+                {
+                    startPath = foundPath;
+                }
+                else
+                {
+                    return "FALSE: Could not find install path";
+                }
+            }
+            
+            try
+            {
+                var targetPath = GameLocator.FindLeagueExecutable(startPath);
+
+                var fileInfo = FileVersionInfo.GetVersionInfo(targetPath);
+
+                var newExec = new LeagueExecutable
+                {
+                    StartFolder = startPath,
+                    TargetPath = targetPath,
+                    IsDefault = true,
+                    AllowUpdates = true,
+                    PatchVersion = fileInfo.FileVersion,
+                    Name = "Default",
+                    ModifiedDate = File.GetLastWriteTime(targetPath)
+                };
+
+                SaveExecFile(newExec);
+            }
+            catch (Exception ex)
+            {
+                return "FALSE: Exception - " + ex.ToString();
+            }
+
+            return "Default";
         }
     }
 }
