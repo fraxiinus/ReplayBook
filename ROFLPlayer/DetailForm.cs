@@ -73,6 +73,9 @@ namespace ROFLPlayer
             }
         }
 
+        /// <summary>
+        /// Actions for when user changes tabs
+        /// </summary>
         private void MainTabControl_IndexChanged(object sender, EventArgs e)
         {
             switch (MainTabControl.SelectedIndex)
@@ -80,12 +83,19 @@ namespace ROFLPlayer
                 case 0:
                     break;
                 case 1:
-                    if (PlayerSelectComboBox.SelectedIndex == -1 && PlayerSelectComboBox.Items.Contains(RoflSettings.Default.Username))
+                    // If window just started
+                    if (PlayerSelectComboBox.SelectedIndex == -1)
                     {
-                        PlayerSelectComboBox.SelectedItem = RoflSettings.Default.Username;
-                    }
-                    else {
-                        PlayerSelectComboBox.SelectedIndex = 0;
+                        // Check if player name is part of the players
+                        if (PlayerSelectComboBox.Items.Contains(RoflSettings.Default.Username))
+                        {
+                            // Select plater
+                            PlayerSelectComboBox.SelectedItem = RoflSettings.Default.Username;
+                        } else
+                        {
+                            // Select first
+                            PlayerSelectComboBox.SelectedIndex = 0;
+                        }
                     }
                     break;
                 default:
