@@ -271,7 +271,7 @@ namespace ROFLPlayer
 
         private void AboutGithubButton_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"https://github.com/andrew1421lee/ROFL-Player");
+            System.Diagnostics.Process.Start(@"https://github.com/leeanchu/ROFL-Player");
         }
     }
 }
