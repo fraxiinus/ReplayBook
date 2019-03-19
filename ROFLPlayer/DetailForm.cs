@@ -132,7 +132,7 @@ namespace ROFLPlayer
 
             if(exec == null)
             {
-                MessageBox.Show("Failed to start replay", $"Could not find executable data {execName}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Could not find executable data {execName}\nPlease run ROFL Player and check the executables", "Failed to start replay",  MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
