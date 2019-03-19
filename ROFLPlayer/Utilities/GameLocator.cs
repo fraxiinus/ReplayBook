@@ -2,8 +2,6 @@
 using System.Linq;
 using System.IO;
 using System.Diagnostics;
-using Rofl.Parser;
-using ROFLPlayer.Models;
 using Microsoft.Win32;
 
 
@@ -50,7 +48,7 @@ namespace ROFLPlayer.Utilities
         }
 
         /// <summary>
-        /// Returns the League of Legends executable
+        /// Returns the League of Legends executable if given BASE FOLDER (contains RADS)
         /// </summary>
         /// <param name="startingpath"></param>
         /// <returns></returns>
@@ -82,8 +80,8 @@ namespace ROFLPlayer.Utilities
 
             if (CheckLeagueExecutable(browse))
             {
-                RoflSettings.Default.LoLExecLocation = browse;
-                RoflSettings.Default.Save();
+                //RoflSettings.Default.LoLExecLocation = browse;
+                //RoflSettings.Default.Save();
                 return browse;
             }
             else
