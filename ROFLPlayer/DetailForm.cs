@@ -137,19 +137,42 @@ namespace ROFLPlayer
             // Get default exec or specified exec
             if(execName.Equals("default"))
             {
-                exec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+                // Start update form with default
+                var result = new UpdateSplashForm().ShowDialog();
+
+                if(result == DialogResult.OK)
+                {
+                    exec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+                }
+                else
+                {
+                    // Failed to get exec, stop
+                    this.GeneralPlayReplaySplitButton.Enabled = true;
+                    return;
+                }
             } else
             {
-                exec = ExecsManager.GetExec(execName);
+                // Start update form with target
+                var result = new UpdateSplashForm(execName).ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    exec = ExecsManager.GetExec(execName);
+                }
+                else
+                {
+                    // Failed to get exec, stop
+                    this.GeneralPlayReplaySplitButton.Enabled = true;
+                    return;
+                }
             }
 
+            // This really shouldn't happen, but just to be safe
             if(exec == null)
             {
                 MessageBox.Show($"Could not find executable data {execName}\nPlease run ROFL Player and check the executables", "Failed to start replay",  MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            var result = new UpdateSplashForm().ShowDialog();
 
             var playtask = Task.Run(() =>
             {
