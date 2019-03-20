@@ -8,21 +8,51 @@ namespace ROFLPlayer
 {
     public partial class UpdateSplashForm : Form
     {
+        private string TargetExecToUpdate = null;
+
         public UpdateSplashForm()
         {
             InitializeComponent();
         }
 
+        public UpdateSplashForm(string targetExec)
+        {
+            TargetExecToUpdate = targetExec;
+            InitializeComponent();
+        }
+
         private async void UpdateSplashForm_Load(object sender, EventArgs e)
         {
-            // Get default exec
-            var defaultExec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+            this.TitleLabel.Text = "Getting League of Legends executable...";
+            await WaitDelay(100);
+
+            // Get default exec, as default exec
+            var targetExec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+
+            // Choose exec to update if given
+            if (string.IsNullOrEmpty(TargetExecToUpdate))
+            {
+                var tempExec = ExecsManager.GetExec(TargetExecToUpdate);
+
+                // target by that name does not exist, do not do anything and close the form
+                if(tempExec == null)
+                {
+                    MessageBox.Show("Could not find executable with name: " + targetExec + ". Please try again", "No Exec Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.DialogResult = DialogResult.Abort;
+                    this.Close();
+                }
+                else // set target to new exec
+                {
+                    targetExec = tempExec;
+                }
+            }
+
             this.LoadingProgressBar.Value = 20;
+            this.TitleLabel.Text = "Checking executable...";
+            await WaitDelay(100);
 
-            await WaitDelay(300);
-
-            // No default exec??? Find one
-            if(defaultExec == null)
+            // This should only happen if there is NO default exec, will be skipped on target exec
+            if(targetExec == null)
             {
                 MessageBox.Show("Could not find any executables saved, ROFL Player will try to automatically locate League of Legends", "No Default Exec Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -43,36 +73,44 @@ namespace ROFLPlayer
                         if(string.IsNullOrEmpty(installPath))
                         {
                             MessageBox.Show("Invalid install folder", "Could not find install folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            Environment.Exit(0);
+                            this.DialogResult = DialogResult.Abort;
+                            this.Close();
                         }
 
                         // Save using given path
                         ExecsManager.FindAndAddLeagueExec(installPath);
                     }
-                    else
+                    else // Some other error, besides finding install path, happened when trying to find exec
                     {
-                        MessageBox.Show("Exception occured", result.Substring(result.IndexOf(':') + 1), MessageBoxButtons.OK, MessageBoxIcon.Error); Environment.Exit(0);
-                        Environment.Exit(0);
+                        MessageBox.Show(result.Substring(result.IndexOf(':') + 1), "Exception occured", MessageBoxButtons.OK, MessageBoxIcon.Error); Environment.Exit(0);
+                        this.DialogResult = DialogResult.Abort;
+                        this.Close();
                     }
                 }
 
-                // Set new default exec
-                defaultExec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+                // Set new default exec we just found
+                targetExec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
             }
 
+            this.LoadingProgressBar.Value = 40;
+            this.TitleLabel.Text = "Checking if executable needs updating...";
+            await WaitDelay(100);
+
             // Double check if target exists
-            if (!File.Exists(defaultExec.TargetPath))
+            if (!File.Exists(targetExec.TargetPath))
             {
-                // Check if entry allows updates
-                if(defaultExec.AllowUpdates)
+                // Check if entry allows updates if it doesn't exist
+                if(targetExec.AllowUpdates)
                 {
                     // Update exec path
-                    var result = ExecsManager.UpdateLeaguePath(defaultExec.Name);
+                    var result = ExecsManager.UpdateLeaguePath(targetExec.Name);
 
                     // If update failed
                     if(result.StartsWith("FALSE"))
                     {
-                        MessageBox.Show("Error", result.Substring(result.IndexOf(':') + 1), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(result.Substring(result.IndexOf(':') + 1), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.DialogResult = DialogResult.Abort;
+                        this.Close();
                     }
                     // If update worked
                     else
@@ -85,6 +123,8 @@ namespace ROFLPlayer
                 else
                 {
                     MessageBox.Show("League executable could not be found, entry does not allow updating", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.DialogResult = DialogResult.Abort;
+                    this.Close();
                 }
             }
             else
@@ -93,7 +133,8 @@ namespace ROFLPlayer
                 this.LoadingProgressBar.Value = 100;
             }
 
-            await WaitDelay(300);
+            await WaitDelay(200);
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
