@@ -30,14 +30,14 @@ namespace ROFLPlayer
             var targetExec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
 
             // Choose exec to update if given
-            if (string.IsNullOrEmpty(TargetExecToUpdate))
+            if (!string.IsNullOrEmpty(TargetExecToUpdate))
             {
                 var tempExec = ExecsManager.GetExec(TargetExecToUpdate);
 
                 // target by that name does not exist, do not do anything and close the form
                 if(tempExec == null)
                 {
-                    MessageBox.Show("Could not find executable with name: " + targetExec + ". Please try again", "No Exec Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Could not find executable with name: " + targetExec.Name + ". Please try again", "No Exec Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.DialogResult = DialogResult.Abort;
                     this.Close();
                 }
