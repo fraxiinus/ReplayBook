@@ -17,18 +17,20 @@ namespace ROFLPlayer
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // StartupMode, 0  = show detailed information, 1 = launch replay immediately
 
             //*/
             try
             {
                 if (args.Length == 0)
                 {
+                    // Update default exec
                     Application.Run(new UpdateSplashForm());
                     Application.Run(new SettingsForm());
                 }
                 else
                 {
+                    // StartupMode, 1  = show detailed information, 0 = launch replay immediately
+
                     if (RoflSettings.Default.StartupMode == 0)
                     {
                         StartReplay(args[0]);
@@ -54,11 +56,35 @@ namespace ROFLPlayer
             // Get default exec or specified exec
             if (execName.Equals("default"))
             {
-                exec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+                // Start update form with default
+                var result = new UpdateSplashForm().ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    exec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+                }
+                else
+                {
+                    // Failed to get exec, stop
+                    MessageBox.Show("Failed to start replay", $"Could not find executable data {execName}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             else
             {
-                exec = ExecsManager.GetExec(execName);
+                // Start update form with target
+                var result = new UpdateSplashForm(execName).ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    exec = ExecsManager.GetExec(execName);
+                }
+                else
+                {
+                    // Failed to get exec, stop
+                    MessageBox.Show("Failed to start replay", $"Could not find executable data {execName}", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
 
             if (exec == null)
@@ -66,9 +92,7 @@ namespace ROFLPlayer
                 MessageBox.Show("Failed to start replay", $"Could not find executable data {execName}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            Application.Run(new UpdateSplashForm());
-
+            
             ReplayManager.StartReplay(replayPath, exec.TargetPath);
         }
     }
