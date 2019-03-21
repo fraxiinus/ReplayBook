@@ -1,35 +1,35 @@
 # ROFLPlayer
 
-![Screenshot](https://i.imgur.com/69LOd0x.png)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/leeanchu/ROFL-Player/blob/master/LICENSE)
+[![Version](https://img.shields.io/badge/version-0.9--beta-blue.svg)](https://github.com/leeanchu/ROFL-Player/releases)
 
-ROFLPlayer is a simple Windows program that allows you to view replay files from League of Legends.
+ROFLPlayer is a simple Windows program for viewing and playing replay files from League of Legends.
 
-Features include: 
+**[Download ROFLPlayer](https://github.com/andrew1421lee/ROFL-Player/releases)**
+
+![Screenshot](https://i.imgur.com/vW562kM.png)
+
+## Features
+* View match information for replay files before playing
 * Play replay files from other people or games no longer viewable from the client
-* View match information without an internet connection or having to open League of Legends
-* Dump all replay information into JSON, allowing you to view every single statistic stored
-* Double click a replay file to instantly start playing, or view match information
-* Super easy to use, no installation necessary
+* Supports multiple installs of League of Legends, keep old installations to play replays from older patches
+* Save all replay metadata to JSON
 
-## Download
-Download the latest release here
-https://github.com/andrew1421lee/ROFL-Player/releases
+## How To Use
 
-## Setup
+1. Download ROFLPlayer and extract it wherever you like.
+2. Double-click **ROFLPlayer.exe** to launch the program. ROFLPlayer will attempt to automatically find your League of Legends install folder. You may encounter errors if your League of Legends install is in an odd location.
+3. The following window will then appear, Set the player name field so ROFLPlayer can highlight you name when viewing replay details. Set the region field so the program can properly load the match history website when using the "View online" button.
 
-1. Download the application and extract it to where you want it to be.
-2. Launch "ROFLPlayer.exe", ROFLPlayer will attempt to automatically find your League of Legends install folder. If it cannot, then the program will prompt you for help.
-3. The following window will then appear, Set the player name field so ROFLPlayer can highlight you name when viewing replay details. Set the region field so the program can properly load the match history website when using the "view online" button.
+![SettingsWindow](https://i.imgur.com/CA1EHqW.png)
 
-![SettingsWindow](https://i.imgur.com/yrsUL2y.png)
+4. (Optional) Add any other League of Legends installations you may have. You can name entries and set if ROFLPlayer should automatically update the entry along with the game. The default executable will be used on play button press and, if set, double click action.
 
-4. Right click a ".rofl" file and select **Open with**. If you downloaded a replay from the game client, replays are stored in Documents\League of Legends\Replays.
+If you have multiple entries, ROFLPlayer will display a drop down menu for the play button.
 
-![RightClickOpen](https://i.imgur.com/2X2Ear7.png)
+![AddEntry](https://i.imgur.com/He4htTt.png)
 
-5. In the popup, select "ROFLPlayer.exe"
-
-![PopupOpen](https://i.imgur.com/865d0eN.png)
+5. Make ROFLPlayer the default app for *.rofl files by right clicking a *.rofl file and setting "Open with" in properties.
 
 6. You're done! ROFLPlayer will now be used when opening League of Legends replay files!
 
@@ -41,13 +41,17 @@ Please let me know about any bugs or issues
 
 I couldn't find any tools that let you view the information in a replay file, so I made one!
 
+**Does this require an internet connection?**
+
+Yes, and no. ROFLPlayer will run without one, but it won't be able to download champion and item images. ROFLPlayer will cache all the images it downloads, so it won't download twice.
+
 **Will this get me banned?**
 
 It does not do anything except copy files and launch the game executable. Nothing is altered, so a ban is not likely.
 
 **Can ROFLPlayer play replays from older patches?**
 
-Unfortunately that is something that ROFLPlayer can't do. With some extra effort it is possible, but it requires you to keep an old installation of the game that is the correct version as the replay.
+Unfortunately that is something that ROFLPlayer can't do without additional work. You can keep older patches around by copy-pasting the League of Legends installation folder before you patch. You can then set that old version as an option in the settings menu for ROFLPlayer.
 
 ## ROFLParser
 
