@@ -177,6 +177,11 @@ namespace ROFLPlayer.Utilities
                     {
                         // Find executable
                         exec.TargetPath = GameLocator.FindLeagueExecutable(exec.StartFolder);
+                        var fileInfo = FileVersionInfo.GetVersionInfo(exec.TargetPath);
+
+                        exec.PatchVersion = fileInfo.FileVersion;
+                        exec.ModifiedDate = File.GetLastWriteTime(exec.TargetPath);
+
                         SaveExecFile(exec);
 
                         return "TRUE";
