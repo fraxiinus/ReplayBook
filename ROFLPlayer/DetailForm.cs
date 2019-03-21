@@ -20,7 +20,30 @@ namespace ROFLPlayer
         public DetailForm(string replayPath)
         {
             replaypath = replayPath;
+
             InitializeComponent();
+
+            // Load split button menu
+            var listOfExecs = ExecsManager.GetSavedExecs().Where(x => !x.Equals(ExecsManager.GetDefaultExecName())).ToArray();
+
+            // No items? Don't load the menu
+            if (listOfExecs.Count() > 0)
+            {
+                var execMenu = new ContextMenuStrip
+                {
+                    ShowCheckMargin = false,
+                    ShowImageMargin = false,
+                };
+
+                execMenu.ItemClicked += new ToolStripItemClickedEventHandler(GeneralStartReplayMenuItem_Click);
+
+                foreach (var item in listOfExecs)
+                {
+                    execMenu.Items.Add(item);
+                }
+
+                this.GeneralPlayReplaySplitButton.Menu = execMenu;
+            }
         }
 
         private async void DetailForm_Load(object sender, EventArgs e)
@@ -52,28 +75,7 @@ namespace ROFLPlayer
 
             // Set version text in about tab
             this.AboutVersionLabel.Text = RoflSettings.Default.VersionString;
-
-            // Load split button menu
-            var listOfExecs = ExecsManager.GetSavedExecs().Where(x => !x.Equals(ExecsManager.GetDefaultExecName())).ToArray();
-
-            // No items? Don't load the menu
-            if(listOfExecs.Count() > 0)
-            {
-                var execMenu = new ContextMenuStrip
-                {
-                    ShowCheckMargin = false,
-                    ShowImageMargin = false,
-                };
-
-                execMenu.ItemClicked += new ToolStripItemClickedEventHandler(GeneralStartReplayMenuItem_Click);
-
-                foreach (var item in listOfExecs)
-                {
-                    execMenu.Items.Add(item);
-                }
-
-                this.GeneralPlayReplaySplitButton.Menu = execMenu;
-            }
+            
         }
 
         /// <summary>
