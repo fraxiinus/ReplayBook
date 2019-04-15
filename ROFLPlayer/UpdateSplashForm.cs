@@ -40,6 +40,7 @@ namespace ROFLPlayer
                     MessageBox.Show("Could not find executable with name: " + targetExec.Name + ". Please try again", "No Exec Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.DialogResult = DialogResult.Abort;
                     this.Close();
+                    return;
                 }
                 else // set target to new exec
                 {
@@ -67,14 +68,19 @@ namespace ROFLPlayer
                     {
                         // show browse dialog
                         MessageBox.Show("ROFL Player could not find League of Legends install folder, please select it", "Could not find install folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        var installPath = BrowseDialog();
+                        var installPath = "INVALID";
 
-                        // Check if result is empty
-                        if(string.IsNullOrEmpty(installPath))
+                        while (installPath.Equals("INVALID"))
                         {
-                            MessageBox.Show("Invalid install folder", "Could not find install folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            this.DialogResult = DialogResult.Abort;
-                            this.Close();
+                            installPath = BrowseDialog();
+                            // Check if result is empty
+                            if (string.IsNullOrEmpty(installPath))
+                            {
+                                MessageBox.Show("Invalid install folder", "Could not find install folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                this.DialogResult = DialogResult.Abort;
+                                this.Close();
+                                return;
+                            }
                         }
 
                         // Save using given path
@@ -85,6 +91,7 @@ namespace ROFLPlayer
                         MessageBox.Show(result.Substring(result.IndexOf(':') + 1), "Exception occured", MessageBoxButtons.OK, MessageBoxIcon.Error); Environment.Exit(0);
                         this.DialogResult = DialogResult.Abort;
                         this.Close();
+                        return;
                     }
                 }
 
@@ -111,6 +118,7 @@ namespace ROFLPlayer
                         MessageBox.Show(result.Substring(result.IndexOf(':') + 1), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         this.DialogResult = DialogResult.Abort;
                         this.Close();
+                        return;
                     }
                     // If update worked
                     else
@@ -125,6 +133,7 @@ namespace ROFLPlayer
                     MessageBox.Show("League executable could not be found, entry does not allow updating", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.DialogResult = DialogResult.Abort;
                     this.Close();
+                    return;
                 }
             }
             else
@@ -143,6 +152,12 @@ namespace ROFLPlayer
             await Task.Delay(millis);
         }
 
+        /// <summary>
+        /// Displays browse dialog for user to select LeagueClient.exe
+        /// Returns "INVALID" if user selected a bad directory and pressed OK
+        /// Returns null if user presses cancel
+        /// </summary>
+        /// <returns></returns>
         private string BrowseDialog()
         {
             var dialog = new OpenFileDialog
@@ -153,12 +168,12 @@ namespace ROFLPlayer
                 FileName = "LeagueClient.exe"
             };
 
-            while (dialog.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 var filepath = dialog.FileName;
                 if (string.IsNullOrEmpty(filepath))
                 {
-                    return null;
+                    return "INVALID";
                 }
 
                 try
@@ -172,7 +187,8 @@ namespace ROFLPlayer
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Could not find League of Legends executable, please try again\n\n" + ex.Message, "Error finding game executable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Could not find League of Legends executable, please try again\n\nReason: " + ex.Message, "Error finding game executable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return "INVALID";
                 }
             }
 

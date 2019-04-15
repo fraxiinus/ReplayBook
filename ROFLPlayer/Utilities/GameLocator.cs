@@ -37,9 +37,11 @@ namespace ROFLPlayer.Utilities
                             path = subkey.GetValue("Location").ToString();
                         }
                     }
-                    RoflSettings.Default.StartFolder = path;
-                    RoflSettings.Default.Save();
-                    return true;
+
+                    //RoflSettings.Default.StartFolder = path;
+                    //RoflSettings.Default.Save();
+
+                    return Directory.Exists(path);
                 }
             }
 
