@@ -91,7 +91,7 @@ namespace ROFLPlayer.Utilities
             var browse = Path.Combine(startfolder, "RADS", "solutions", "lol_game_client_sln", "releases");
             if (!Directory.Exists(browse))
             {
-                throw new DirectoryNotFoundException("Critical League of Legends folders do not exist");
+                throw new DirectoryNotFoundException("Critical League of Legends folders do not exist. Does the path " + browse + " exist?");
             }
 
             // Get most recent release by folder modification date
