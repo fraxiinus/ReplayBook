@@ -50,7 +50,7 @@ namespace ROFLPlayer.Utilities
         }
 
         /// <summary>
-        /// Returns the League of Legends executable if given BASE FOLDER (contains RADS)
+        /// Returns the League of Legends executable if given BASE FOLDER (contains RADS or Game folder)
         /// </summary>
         /// <param name="startingpath"></param>
         /// <returns></returns>
@@ -65,25 +65,47 @@ namespace ROFLPlayer.Utilities
                 throw new DirectoryNotFoundException("Input path does not exist");
             }
 
+            // Get names of folders in the directory
+            var dirs = Directory.GetDirectories(startingpath).Select(x => Path.GetFileName(x)).ToArray();
+            if(dirs.Contains("Game"))
+            {
+                // Install is using new pather
+                var newPath = Path.Combine(startingpath, "Game", "League of Legends.exe");
+                if(File.Exists(newPath))
+                {
+                    return newPath;
+                } else
+                {
+                    throw new FileNotFoundException("Could not find League of Legends.exe");
+                }
+            } else
+            {
+                // Install is from RADS era
+                return BrowseRADS(startingpath);
+            }
+        }
+
+        private static string BrowseRADS(string startfolder)
+        {
             // Browse to releases folder
-            var browse = Path.Combine(startingpath, "RADS", "solutions", "lol_game_client_sln", "releases");
-            if(!Directory.Exists(browse))
+            var browse = Path.Combine(startfolder, "RADS", "solutions", "lol_game_client_sln", "releases");
+            if (!Directory.Exists(browse))
             {
                 throw new DirectoryNotFoundException("Critical League of Legends folders do not exist");
             }
 
+            // Get most recent release by folder modification date
             var releasefolder = GetMostRecentReleaseFolder(new DirectoryInfo(browse).GetDirectories());
-            if(string.IsNullOrEmpty(releasefolder))
+            if (string.IsNullOrEmpty(releasefolder))
             {
                 throw new DirectoryNotFoundException("No release folder found");
             }
 
+            // Browse to executable
             browse = Path.Combine(browse, releasefolder, "deploy", "League of Legends.exe");
 
             if (CheckLeagueExecutable(browse))
             {
-                //RoflSettings.Default.LoLExecLocation = browse;
-                //RoflSettings.Default.Save();
                 return browse;
             }
             else
@@ -92,6 +114,11 @@ namespace ROFLPlayer.Utilities
             }
         }
 
+        /// <summary>
+        /// Given a list of directories, will return directory name that was most recently modified
+        /// </summary>
+        /// <param name="folders"></param>
+        /// <returns></returns>
         private static string GetMostRecentReleaseFolder(DirectoryInfo[] folders)
         {
             if (!folders.Any()) { return string.Empty; }
