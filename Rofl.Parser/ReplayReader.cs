@@ -23,9 +23,9 @@ namespace Rofl.Parser
 
             if (!File.Exists(replaypath)) { throw new FileNotFoundException("Selected file not found"); }
 
-            ReplayLengthFields replayLengthFields;
-            ReplayMatchMetadata replayMatchMetadata;
-            ReplayPayloadHeader replayPayloadHeader;
+            LengthFields replayLengthFields;
+            MatchMetadata replayMatchMetadata;
+            PayloadFields replayPayloadHeader;
 
             using (var filestream = new FileStream(replaypath, FileMode.Open))
             {
@@ -87,9 +87,9 @@ namespace Rofl.Parser
 
             if (!File.Exists(replaypath)) { throw new FileNotFoundException("Selected file not found"); }
 
-            ReplayLengthFields replayLengthFields;
-            ReplayMatchMetadata replayMatchMetadata;
-            ReplayPayloadHeader replayPayloadHeader;
+            LengthFields replayLengthFields;
+            MatchMetadata replayMatchMetadata;
+            PayloadFields replayPayloadHeader;
 
             using (var filestream = new FileStream(replaypath, FileMode.Open))
             {
@@ -151,9 +151,9 @@ namespace Rofl.Parser
             return new ReplayHeader { LengthFields = replayLengthFields, MatchMetadata = replayMatchMetadata, MatchHeader = replayPayloadHeader };
         }
 
-        private static ReplayPayloadHeader ParseMatchHeader(byte[] bytedata)
+        private static PayloadFields ParseMatchHeader(byte[] bytedata)
         {
-            var result = new ReplayPayloadHeader { };
+            var result = new PayloadFields { };
 
             result.MatchId = BitConverter.ToUInt64(bytedata, 0);
             result.MatchLength = BitConverter.ToUInt32(bytedata, 8);
@@ -168,9 +168,9 @@ namespace Rofl.Parser
             return result;
         }
 
-        private static ReplayMatchMetadata ParseMetadata(byte[] bytedata)
+        private static MatchMetadata ParseMetadata(byte[] bytedata)
         {
-            var result = new ReplayMatchMetadata { };
+            var result = new MatchMetadata { };
             var jsonstring = Encoding.UTF8.GetString(bytedata);
 
             var jsonobject = JObject.Parse(jsonstring);
@@ -185,9 +185,9 @@ namespace Rofl.Parser
             return result;
         }
 
-        private static ReplayLengthFields ParseLengthFields(byte[] bytedata)
+        private static LengthFields ParseLengthFields(byte[] bytedata)
         {
-            var result = new ReplayLengthFields { };
+            var result = new LengthFields { };
             result.HeaderLength = BitConverter.ToUInt16(bytedata, 0);
             result.FileLength = BitConverter.ToUInt32(bytedata, 2);
             result.MetadataOffset = BitConverter.ToUInt32(bytedata, 6);

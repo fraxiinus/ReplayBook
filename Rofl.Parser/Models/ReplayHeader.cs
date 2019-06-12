@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Collections.Generic;
 
 namespace Rofl.Parser
 {
     /// <summary>
     /// Length information about the replay
     /// </summary>
-    public struct ReplayLengthFields
+    public struct LengthFields
     {
         public ushort HeaderLength;
         public uint FileLength;
@@ -19,19 +19,20 @@ namespace Rofl.Parser
     /// <summary>
     /// Information about the match
     /// </summary>
-    public struct ReplayMatchMetadata
+    public struct MatchMetadata
     {
         public ulong GameDuration;
         public string GameVersion;
         public uint LastGameChunkID;
         public uint LastKeyframeID;
-        public JArray Players;
+        public Dictionary<string, string> BlueTeam;
+        public Dictionary<string, string> RedTeam;
     }
 
     /// <summary>
     /// Information about the replay
     /// </summary>
-    public struct ReplayPayloadHeader
+    public struct PayloadFields
     {
         public ulong MatchId;
         public uint MatchLength;
@@ -44,7 +45,7 @@ namespace Rofl.Parser
         public string EncryptionKey; // base64
     }
     
-    public struct ReplayChunkHeader
+    public struct PayloadChunkFields
     {
         public uint ChunkId;
         public byte ChunkType;
@@ -53,7 +54,7 @@ namespace Rofl.Parser
         public uint Offset;
     }
 
-    public struct ReplayKeyframeHeader
+    public struct PayloadKeyframeFields
     {
         public uint KeyframeId;
         public byte KeyframeType;
@@ -64,8 +65,8 @@ namespace Rofl.Parser
 
     public class ReplayHeader
     {
-        public ReplayLengthFields LengthFields;
-        public ReplayMatchMetadata MatchMetadata;
-        public ReplayPayloadHeader MatchHeader;
+        public LengthFields LengthFields;
+        public MatchMetadata MatchMetadata;
+        public PayloadFields MatchHeader;
     }
 }
