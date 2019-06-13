@@ -2,16 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Rofl.Parser</AssemblyName>
-    <RootNamespace>Rofl.Parser</RootNamespace>
+    <AssemblyName>Rofl.Parsers</AssemblyName>
+    <RootNamespace>Rofl.Parsers</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>

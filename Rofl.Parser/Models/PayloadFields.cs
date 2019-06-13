@@ -1,4 +1,4 @@
-﻿namespace Rofl.Parser.Models
+﻿namespace Rofl.Parsers.Models
 {
     public class PayloadFields
     {

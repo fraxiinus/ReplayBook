@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rofl.Player", "ROFLPlayer\Rofl.Player.csproj", "{8EA3D1B0-88A4-4909-89A4-788FDE0D977D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Parser", "Rofl.Parser\Rofl.Parser.csproj", "{B4369113-5A5C-4BF7-B0E5-577776D8FC35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Parsers", "Rofl.Parser\Rofl.Parsers.csproj", "{B4369113-5A5C-4BF7-B0E5-577776D8FC35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

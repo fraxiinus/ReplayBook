@@ -2,13 +2,12 @@
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using System.IO;
 using System.Threading.Tasks;
+using Rofl.Parsers.Models;
 
-namespace Rofl.Parser
+namespace Rofl.Parsers
 {
-
     public class ReplayReader
     {
         public static byte[] MagicBytes = new byte[] { 0x52, 0x49, 0x4F, 0x54 };    // R I O T
