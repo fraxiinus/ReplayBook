@@ -139,8 +139,8 @@ namespace Rofl.Parsers.Parsers
                 }
             }
 
-            result.BlueTeam = blueTeam.ToArray();
-            result.RedTeam = redTeam.ToArray();
+            result.BluePlayers = blueTeam.ToArray();
+            result.RedPlayers = redTeam.ToArray();
 
             //result.Players = JArray.Parse(((string)jsonobject["statsJson"]).Replace(@"\", ""));
 
