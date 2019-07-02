@@ -4,6 +4,6 @@
     {
         public LengthFields LengthFields;
         public MatchMetadata MatchMetadata;
-        public PayloadFields MatchHeader;
+        public PayloadFields PayloadFields;
     }
 }

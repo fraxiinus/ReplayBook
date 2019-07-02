@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
+using System.Threading.Tasks;
+using Rofl.Parsers.Models;
 
 namespace Rofl.Parsers.Parsers
 {
-    interface IReplayParser
+    public interface IReplayParser
     {
+        Task<ReplayHeader> ReadReplayAsync(FileStream stream);
     }
 }

@@ -203,9 +203,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rofl.Parser\Rofl.Parser.csproj">
+    <ProjectReference Include="..\Rofl.Parser\Rofl.Parsers.csproj">
       <Project>{b4369113-5a5c-4bf7-b0e5-577776d8fc35}</Project>
-      <Name>Rofl.Parser</Name>
+      <Name>Rofl.Parsers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

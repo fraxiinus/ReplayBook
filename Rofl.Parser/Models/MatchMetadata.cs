@@ -8,7 +8,7 @@ namespace Rofl.Parsers.Models
         public string GameVersion;
         public uint LastGameChunkID;
         public uint LastKeyframeID;
-        public Dictionary<string, string> BlueTeam;
-        public Dictionary<string, string> RedTeam;
+        public Dictionary<string, string>[] BlueTeam;
+        public Dictionary<string, string>[] RedTeam;
     }
 }
