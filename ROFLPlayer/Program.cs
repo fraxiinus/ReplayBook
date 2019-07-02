@@ -1,5 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Rofl.Parsers;
+using Rofl.Parsers.Models;
 using ROFLPlayer.Models;
 using ROFLPlayer.Utilities;
 
@@ -10,7 +14,7 @@ namespace ROFLPlayer
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
+        [STAThread] // This is required for system dialogs
         static void Main(string[] args)
         {
 
@@ -36,7 +40,11 @@ namespace ROFLPlayer
                     }
                     else
                     {
-                        Application.Run(new DetailForm(args[0]));
+                        var replayFile = Task.Run(() => SetupReplayFileAsync(args[0]));
+
+                        replayFile.Wait();
+
+                        Application.Run(new DetailForm(replayFile.Result));
                     }
                 }
             }
@@ -46,6 +54,51 @@ namespace ROFLPlayer
                 Application.Exit();
             }
             //*/
+        }
+
+        /// <summary>
+        /// Given replay path, construct ReplayFile with all properties initialized
+        /// </summary>
+        /// <param name="replayPath"></param>
+        /// <returns></returns>
+        private static async Task<ReplayFile> SetupReplayFileAsync(string replayPath)
+        {
+            var fileInfo = new ReplayFile
+            {
+                Location = replayPath,
+                Name = Path.GetFileName(replayPath),
+            };
+
+            switch (Path.GetExtension(replayPath))
+            {
+                case ".rofl":
+                    fileInfo.Type = REPLAYTYPES.ROFL;
+                    break;
+                case ".lrf":
+                    fileInfo.Type = REPLAYTYPES.LOLR;
+                    break;
+                case ".lpr":
+                    fileInfo.Type = REPLAYTYPES.BARON;
+                    break;
+                default:
+                    MessageBox.Show($"{fileInfo.Name} is not a supported file type", "Unsupported File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                    break;
+            }
+
+            var replayReader = new ReplayReader();
+            
+            try
+            {
+                fileInfo = await replayReader.ReadFile(fileInfo);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Exception occured when parsing file:\n{ex.Message}", "Parsing Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+
+            return fileInfo;
         }
 
         private static void StartReplay(string replayPath, string execName = "default")

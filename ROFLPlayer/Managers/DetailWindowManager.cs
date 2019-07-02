@@ -6,20 +6,16 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Windows.Forms;
-using Rofl.Parser;
+using Rofl.Parsers.Models;
 using ROFLPlayer.Utilities;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace ROFLPlayer.Managers
 {
 
     public class DetailWindowManager
     {
-        public static string GetReplayFilename(string path)
-        {
-            return Path.GetFileName(path);
-        }
-
         public static long FindMatchIDInFilename(string filename)
         {
             var match = Regex.Match(filename, "\\d{10}");
@@ -33,10 +29,10 @@ namespace ROFLPlayer.Managers
             }
         }
 
-        public static void PopulatePlayerData(ReplayMatchMetadata data, Form form)
+        public static void PopulatePlayerData(MatchMetadata data, Form form)
         {
             var playernames =
-                from player in data.Players
+                from player in data.AllPlayers
                 select (string)player["NAME"];
 
             form.BeginInvoke((Action)(() =>
@@ -57,7 +53,7 @@ namespace ROFLPlayer.Managers
                 var minutes = (int)time;
                 var seconds = (int)((time % 1.0m) * 60);
                 form.Controls.Find("GeneralGameLengthDataLabel", true)[0].Text = $"{minutes} minutes and {seconds} seconds";
-                form.Controls.Find("GeneralGameMatchIDData", true)[0].Text = data.MatchHeader.MatchId.ToString();
+                form.Controls.Find("GeneralGameMatchIDData", true)[0].Text = data.PayloadFields.MatchId.ToString();
                 var mapimg = (PictureBox)form.Controls.Find($"GeneralGamePictureBox", true)[0];
                 new ToolTip().SetToolTip(mapimg, map.ToString());
 
@@ -70,7 +66,7 @@ namespace ROFLPlayer.Managers
                 }
             }));
 
-
+            /*
             var blueplayers =
                 (from player in data.MatchMetadata.Players
                 where player["TEAM"].ToString() == "100"
@@ -80,12 +76,13 @@ namespace ROFLPlayer.Managers
                 (from player in data.MatchMetadata.Players
                  where player["TEAM"].ToString() == "200"
                 select player).DefaultIfEmpty();
+                */
 
             string wongame = "No Contest";
 
-            if (blueplayers.ElementAt(0) != null)
+            if (data.MatchMetadata.BluePlayers.ElementAt(0) != null)
             {
-                if(blueplayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
+                if(data.MatchMetadata.BluePlayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
                 {
                     wongame = "Blue Victory";
                 }
@@ -95,7 +92,7 @@ namespace ROFLPlayer.Managers
                 }
 
                 var counter = 1;
-                foreach (var player in blueplayers)
+                foreach (var player in data.MatchMetadata.BluePlayers)
                 {
                     var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
 
@@ -127,16 +124,16 @@ namespace ROFLPlayer.Managers
                     }));
                 }
 
-                for(int i = blueplayers.Count() + 1; i <= 6; i++)
+                for(int i = data.MatchMetadata.BluePlayers.Count() + 1; i <= 6; i++)
                 {
                     var namelabel = form.Controls.Find($"GeneralPlayerName{i}", true)[0];
                     namelabel.Visible = false;
                 }
             }
 
-            if(purpleplayers.ElementAt(0) != null)
+            if(data.MatchMetadata.RedPlayers.ElementAt(0) != null)
             {
-                if (purpleplayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
+                if (data.MatchMetadata.RedPlayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
                 {
                     wongame = "Purple Victory";
                 }
@@ -146,7 +143,7 @@ namespace ROFLPlayer.Managers
                 }
 
                 var counter = 7;
-                foreach (var player in purpleplayers)
+                foreach (var player in data.MatchMetadata.RedPlayers)
                 {
                     var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
 
@@ -177,7 +174,7 @@ namespace ROFLPlayer.Managers
                     }));
                 }
 
-                for (int i = purpleplayers.Count() + 7; i <= 12; i++)
+                for (int i = data.MatchMetadata.RedPlayers.Count() + 7; i <= 12; i++)
                 {
                     var namelabel = form.Controls.Find($"GeneralPlayerName{i}", true)[0];
                     namelabel.Visible = false;
@@ -192,7 +189,7 @@ namespace ROFLPlayer.Managers
             return;
         }
 
-        public static void PopulatePlayerStatsData(JToken player, Form form)
+        public static void PopulatePlayerStatsData(Dictionary<string, string> player, Form form)
         {
             var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
 
@@ -200,7 +197,7 @@ namespace ROFLPlayer.Managers
 
             for (int taskCounter = 0; taskCounter < 7; taskCounter++)
             {
-                itemTasks[taskCounter] = ImageDownloader.GetItemImageAsync(player["ITEM" + taskCounter].ToObject<int>());
+                itemTasks[taskCounter] = ImageDownloader.GetItemImageAsync(int.Parse(player["ITEM" + taskCounter]));
             }
 
             form.BeginInvoke((Action)(async () =>

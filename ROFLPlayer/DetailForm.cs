@@ -7,23 +7,23 @@ using System.Windows.Forms;
 using ROFLPlayer.Utilities;
 using ROFLPlayer.Managers;
 using System.IO;
-using Rofl.Parser;
+using Rofl.Parsers;
+using Rofl.Parsers.Models;
 using ROFLPlayer.Models;
 
 namespace ROFLPlayer
 {
     public partial class DetailForm : Form
     {
-        private string replaypath = "";
-        private ReplayHeader fileinfo = null;
+        private ReplayFile _fileInfo;
 
-        public DetailForm(string replayPath)
+        public DetailForm(ReplayFile replayFile)
         {
-            replaypath = replayPath;
+            _fileInfo = replayFile;
 
             InitializeComponent();
 
-            // Load split button menu
+            // Load split button menu for game executables
             var listOfExecs = ExecsManager.GetSavedExecs().Where(x => !x.Equals(ExecsManager.GetDefaultExecName())).ToArray();
 
             // No items? Don't load the menu
@@ -46,15 +46,13 @@ namespace ROFLPlayer
             }
         }
 
-        private async void DetailForm_Load(object sender, EventArgs e)
+        private void DetailForm_Load(object sender, EventArgs e)
         {
-            var filename = DetailWindowManager.GetReplayFilename(replaypath);
-            GeneralGameFileLabel.Text = filename;
-
+            /*
             try
             {
-                fileinfo = await ReplayReader.ReadReplayFileAsync(replaypath);
-                ImageDownloader.SetDataDragonVersion(fileinfo.MatchMetadata.GameVersion.ToString());
+                _fileInfo = await ReplayReader.ReadReplayFileAsync(replaypath);
+                ImageDownloader.SetDataDragonVersion(_fileInfo.MatchMetadata.GameVersion.ToString());
             }
             catch (Exception ex)
             {
@@ -62,20 +60,26 @@ namespace ROFLPlayer
                 Environment.Exit(1);
             }
 
-            if (fileinfo != null)
+            if (_fileInfo != null)
             {
-                DetailWindowManager.PopulatePlayerData(fileinfo.MatchMetadata, this);
-                DetailWindowManager.PopulateGeneralReplayData(fileinfo, this);
+                DetailWindowManager.PopulatePlayerData(_fileInfo.MatchMetadata, this);
+                DetailWindowManager.PopulateGeneralReplayData(_fileInfo, this);
             }
             else
             {
                 MessageBox.Show("Error Parsing Replay", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
-            }
+            }*/
+
 
             // Set version text in about tab
             this.AboutVersionLabel.Text = RoflSettings.Default.VersionString;
-            
+            this.GeneralGameFileLabel.Text = _fileInfo.Name;
+
+            ImageDownloader.SetDataDragonVersion(_fileInfo.Data.MatchMetadata.GameVersion.ToString());
+
+            DetailWindowManager.PopulatePlayerData(_fileInfo.Data.MatchMetadata, this);
+            DetailWindowManager.PopulateGeneralReplayData(_fileInfo.Data, this);
         }
 
         /// <summary>
@@ -178,7 +182,7 @@ namespace ROFLPlayer
 
             var playtask = Task.Run(() =>
             {
-                ReplayManager.StartReplay(replaypath, exec.TargetPath);
+                ReplayManager.StartReplay(_fileInfo.Location, exec.TargetPath);
             }).ContinueWith((t) =>
             {
                 this.BeginInvoke((Action)(() =>
@@ -194,7 +198,7 @@ namespace ROFLPlayer
 
         private void GeneralGameViewOnlineButton_Click(object sender, EventArgs e)
         {
-            var matchId = fileinfo.MatchHeader.MatchId;
+            var matchId = _fileInfo.Data.PayloadFields.MatchId;
             string regionEndpoint;
 
             switch (RoflSettings.Default.Region)
@@ -252,8 +256,9 @@ namespace ROFLPlayer
         {
             var selectedplayername = PlayerSelectComboBox.Text;
 
+            // Find the selected player dictionary
             var player =
-                (from qplayer in fileinfo.MatchMetadata.Players
+                (from qplayer in _fileInfo.Data.MatchMetadata.AllPlayers
                  where qplayer["NAME"].ToString().ToUpper() == selectedplayername.ToUpper()
                  select qplayer).FirstOrDefault();
 
@@ -286,16 +291,18 @@ namespace ROFLPlayer
 
         private async void GeneralDebugDumpJsonButton_Click(object sender, EventArgs e)
         {
-            if (fileinfo == null)
+            /*
+            if (_fileInfo == null)
             {
                 //fileinfo = (await LeagueManager.LoadAndParseReplayHeaders(replaypath)).Result;
-                fileinfo = ReplayReader.ReadReplayFile(replaypath);
+                _fileInfo = ReplayReader.ReadReplayFile(replaypath);
             }
+            */
 
-            if (!string.IsNullOrEmpty(replaypath))
+            if (!string.IsNullOrEmpty(_fileInfo.Location))
             {
-                var outputfile = Path.Combine(Path.GetDirectoryName(replaypath), Path.GetFileNameWithoutExtension(replaypath) + ".json");
-                var success = await DetailWindowManager.WriteReplayHeaderToFile(outputfile, fileinfo);
+                var outputfile = Path.Combine(Path.GetDirectoryName(_fileInfo.Location), Path.GetFileNameWithoutExtension(_fileInfo.Location) + ".json");
+                var success = await DetailWindowManager.WriteReplayHeaderToFile(outputfile, _fileInfo.Data);
                 if (success)
                 {
                     MessageBox.Show("Dumped JSON!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);

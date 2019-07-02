@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Rofl.Parser;
+using Rofl.Parsers.Models;
 using ROFLPlayer.Models;
 
 namespace ROFLPlayer.Utilities
@@ -16,18 +16,18 @@ namespace ROFLPlayer.Utilities
         {
 
             // Check if any players have killed jungle creeps, Rules out HA
-            var JungleCheck = (from player in replay.MatchMetadata.Players
-                               where player["NEUTRAL_MINIONS_KILLED"].ToObject<int>() > 0
+            var JungleCheck = (from player in replay.MatchMetadata.AllPlayers
+                               where int.Parse(player["NEUTRAL_MINIONS_KILLED"]) > 0
                                select player);
 
             // Check if any players have placed wards, Rules out TT and HA
-            var WardCheck = (from player in replay.MatchMetadata.Players
-                             where player["WARD_PLACED"].ToObject<int>() > 0
+            var WardCheck = (from player in replay.MatchMetadata.AllPlayers
+                             where int.Parse(player["WARD_PLACED"]) > 0
                              select player);
 
             // Double check between TT and SR
-            var DragonCheck = (from player in replay.MatchMetadata.Players
-                               where player["DRAGON_KILLS"].ToObject<int>() > 0
+            var DragonCheck = (from player in replay.MatchMetadata.AllPlayers
+                               where int.Parse(player["DRAGON_KILLS"]) > 0
                                select player);
 
             if (JungleCheck.Count() > 0)
