@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Rofl.Parsers.Models
 {
@@ -8,7 +9,16 @@ namespace Rofl.Parsers.Models
         public string GameVersion;
         public uint LastGameChunkID;
         public uint LastKeyframeID;
-        public Dictionary<string, string>[] BlueTeam;
-        public Dictionary<string, string>[] RedTeam;
+
+        public Dictionary<string, string>[] BluePlayers;
+        public Dictionary<string, string>[] RedPlayers;
+
+        public Dictionary<string, string>[] AllPlayers
+        {
+            get
+            {
+                return BluePlayers.Union(RedPlayers).ToArray();
+            }
+        }
     }
 }
