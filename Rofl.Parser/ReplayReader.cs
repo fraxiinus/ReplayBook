@@ -11,7 +11,7 @@ namespace Rofl.Parsers
         private readonly string exceptionOriginName = "ReplayReader";
 
         /// <summary>
-        /// Given non-null ReplayFile object with valid Location and Name,
+        /// Given non-null ReplayFile object with valid Location, Name, and Type - 
         /// Returns ReplayFile object with filled out Data.
         /// </summary>
         /// <param name="file"></param>
