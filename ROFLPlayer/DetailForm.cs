@@ -48,30 +48,6 @@ namespace ROFLPlayer
 
         private void DetailForm_Load(object sender, EventArgs e)
         {
-            /*
-            try
-            {
-                _fileInfo = await ReplayReader.ReadReplayFileAsync(replaypath);
-                ImageDownloader.SetDataDragonVersion(_fileInfo.MatchMetadata.GameVersion.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error Parsing Replay: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(1);
-            }
-
-            if (_fileInfo != null)
-            {
-                DetailWindowManager.PopulatePlayerData(_fileInfo.MatchMetadata, this);
-                DetailWindowManager.PopulateGeneralReplayData(_fileInfo, this);
-            }
-            else
-            {
-                MessageBox.Show("Error Parsing Replay", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(1);
-            }*/
-
-
             // Set version text in about tab
             this.AboutVersionLabel.Text = RoflSettings.Default.VersionString;
             this.GeneralGameFileLabel.Text = _fileInfo.Name;
@@ -89,9 +65,9 @@ namespace ROFLPlayer
         {
             switch (MainTabControl.SelectedIndex)
             {
-                case 0:
+                case 0: // General Tab
                     break;
-                case 1:
+                case 1: // Stats Tab
                     // If window just started
                     if (PlayerSelectComboBox.SelectedIndex == -1)
                     {
@@ -116,13 +92,15 @@ namespace ROFLPlayer
 
         private void MainCancelButton_Click(object sender, EventArgs e)
         {
-            Environment.Exit(1);
+            Application.Exit();
         }
 
+        /*
         private void MainOkButton_Click(object sender, EventArgs e)
         {
-            Environment.Exit(1);
+            Application.Exit();
         }
+        */
 
         private void GeneralStartReplayMenuItem_Click(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -180,10 +158,12 @@ namespace ROFLPlayer
                 return;
             }
 
+            // Start League of Legends,
             var playtask = Task.Run(() =>
             {
                 ReplayManager.StartReplay(_fileInfo.Location, exec.TargetPath);
             }).ContinueWith((t) =>
+            // When the user closes the game
             {
                 this.BeginInvoke((Action)(() =>
                 {
@@ -199,50 +179,7 @@ namespace ROFLPlayer
         private void GeneralGameViewOnlineButton_Click(object sender, EventArgs e)
         {
             var matchId = _fileInfo.Data.PayloadFields.MatchId;
-            string regionEndpoint;
-
-            switch (RoflSettings.Default.Region)
-            {
-                case "BR":
-                    regionEndpoint = "BR1";
-                    break;
-                case "EUNE":
-                    regionEndpoint = "EUN1";
-                    break;
-                case "EUW":
-                    regionEndpoint = "EUW1";
-                    break;
-                case "JP":
-                    regionEndpoint = "JP1";
-                    break;
-                case "KR":
-                    regionEndpoint = "KR";
-                    break;
-                case "LAN":
-                    regionEndpoint = "LA1";
-                    break;
-                case "LAS":
-                    regionEndpoint = "LA2";
-                    break;
-                case "NA":
-                    regionEndpoint = "NA1";
-                    break;
-                case "OCE":
-                    regionEndpoint = "OC1";
-                    break;
-                case "TR":
-                    regionEndpoint = "TR1";
-                    break;
-                case "RU":
-                    regionEndpoint = "RU";
-                    break;
-                case "PBE":
-                    regionEndpoint = "PBE1";
-                    break;
-                default:
-                    regionEndpoint = null;
-                    break;
-            }
+            string regionEndpoint = DetailWindowManager.GetRegionEndpointName(RoflSettings.Default.Region);
 
             MessageBox.Show("This feature is still a work in progress! I need more information from different regions. Let me know if you encounter any problems.\n\n" +
                             $"Region: {RoflSettings.Default.Region}\n" +
@@ -262,15 +199,17 @@ namespace ROFLPlayer
                  where qplayer["NAME"].ToString().ToUpper() == selectedplayername.ToUpper()
                  select qplayer).FirstOrDefault();
 
+            // Set images to null, so they appear blank
             PlayerStatsChampImage.Image = null;
             PlayerItemImage1.Image = null;
-            PlayerItemImage2.Image = null;
-            PlayerItemImage3.Image = null;
             PlayerItemImage4.Image = null;
+            PlayerItemImage2.Image = null;
             PlayerItemImage5.Image = null;
+            PlayerItemImage3.Image = null;
             PlayerItemImage6.Image = null;
             PlayerItemImage7.Image = null;
 
+            // Call the manager to populate data
             DetailWindowManager.PopulatePlayerStatsData(player, this);
         }
 
@@ -291,13 +230,6 @@ namespace ROFLPlayer
 
         private async void GeneralDebugDumpJsonButton_Click(object sender, EventArgs e)
         {
-            /*
-            if (_fileInfo == null)
-            {
-                //fileinfo = (await LeagueManager.LoadAndParseReplayHeaders(replaypath)).Result;
-                _fileInfo = ReplayReader.ReadReplayFile(replaypath);
-            }
-            */
 
             if (!string.IsNullOrEmpty(_fileInfo.Location))
             {

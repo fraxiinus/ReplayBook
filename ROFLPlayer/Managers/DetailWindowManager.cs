@@ -16,6 +16,7 @@ namespace ROFLPlayer.Managers
 
     public class DetailWindowManager
     {
+        /*
         public static long FindMatchIDInFilename(string filename)
         {
             var match = Regex.Match(filename, "\\d{10}");
@@ -28,12 +29,18 @@ namespace ROFLPlayer.Managers
                 return 0;
             }
         }
+        */
 
+        /// <summary>
+        /// Fill the Combo Box with player names
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="form"></param>
         public static void PopulatePlayerData(MatchMetadata data, Form form)
         {
             var playernames =
                 from player in data.AllPlayers
-                select (string)player["NAME"];
+                select player["NAME"];
 
             form.BeginInvoke((Action)(() =>
             {
@@ -41,22 +48,33 @@ namespace ROFLPlayer.Managers
             }));
         }
 
+        /// <summary>
+        /// Fill out the list of player names and images. Set the victory text
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="form"></param>
         public static void PopulateGeneralReplayData(ReplayHeader data, Form form)
         {
+            // Figure out which map the replay is for and download map image
             var map = GameDetailsReader.GetMapType(data);
             var maptask = ImageDownloader.GetMinimapImageAsync(map);
 
             form.BeginInvoke((Action)(async () =>
             {
                 form.Controls.Find("GeneralGameVersionDataLabel", true)[0].Text = data.MatchMetadata.GameVersion;
+                form.Controls.Find("GeneralGameMatchIDData", true)[0].Text = data.PayloadFields.MatchId.ToString();
+
+                // Calculate game duration
                 var time = ((decimal)(data.MatchMetadata.GameDuration / 1000) / 60);
                 var minutes = (int)time;
                 var seconds = (int)((time % 1.0m) * 60);
                 form.Controls.Find("GeneralGameLengthDataLabel", true)[0].Text = $"{minutes} minutes and {seconds} seconds";
-                form.Controls.Find("GeneralGameMatchIDData", true)[0].Text = data.PayloadFields.MatchId.ToString();
+
+                // Find the map picturebox and set the tooltip
                 var mapimg = (PictureBox)form.Controls.Find($"GeneralGamePictureBox", true)[0];
                 new ToolTip().SetToolTip(mapimg, map.ToString());
 
+                // Set the map image
                 var imgpath = await maptask;
 
                 if (!string.IsNullOrEmpty(imgpath))
@@ -66,43 +84,37 @@ namespace ROFLPlayer.Managers
                 }
             }));
 
-            /*
-            var blueplayers =
-                (from player in data.MatchMetadata.Players
-                where player["TEAM"].ToString() == "100"
-                select player).DefaultIfEmpty();
-
-            var purpleplayers =
-                (from player in data.MatchMetadata.Players
-                 where player["TEAM"].ToString() == "200"
-                select player).DefaultIfEmpty();
-                */
-
+            // Default victory text to draw
             string wongame = "No Contest";
 
+            // If there are any blue players
             if (data.MatchMetadata.BluePlayers.ElementAt(0) != null)
             {
+                // Since we're looking at blue players first, check who won
                 if(data.MatchMetadata.BluePlayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
                 {
                     wongame = "Blue Victory";
                 }
                 else
                 {
-                    wongame = "Purple Victory";
+                    wongame = "Red Victory";
                 }
 
-                var counter = 1;
+                var counter = 1; // Counter used to match player number to UI views
                 foreach (var player in data.MatchMetadata.BluePlayers)
                 {
+                    // Kick off task to download champion image
                     var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
 
                     form.BeginInvoke((Action)(async () => {
                         var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
                         namelabel.Text = player["NAME"].ToString();
 
+                        // Set the tooltip for champion image
                         var champimg = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
                         new ToolTip().SetToolTip(champimg, player["SKIN"].ToString());
 
+                        // Bold the name of the user
                         if (player["NAME"].ToString().ToUpper() == RoflSettings.Default.Username.ToUpper())
                         {
                             namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
@@ -110,6 +122,7 @@ namespace ROFLPlayer.Managers
 
                         counter++;
 
+                        // Set the champion image
                         var imgpath = await getimgtask;
 
                         if (!string.IsNullOrEmpty(imgpath))
@@ -124,6 +137,7 @@ namespace ROFLPlayer.Managers
                     }));
                 }
 
+                // Hide labels for extra player spots
                 for(int i = data.MatchMetadata.BluePlayers.Count() + 1; i <= 6; i++)
                 {
                     var namelabel = form.Controls.Find($"GeneralPlayerName{i}", true)[0];
@@ -131,8 +145,10 @@ namespace ROFLPlayer.Managers
                 }
             }
 
+            // If there are any red players
             if(data.MatchMetadata.RedPlayers.ElementAt(0) != null)
             {
+                // Maybe there were no blue players, so lets see if red won (this seems redundant...)
                 if (data.MatchMetadata.RedPlayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
                 {
                     wongame = "Purple Victory";
@@ -142,23 +158,30 @@ namespace ROFLPlayer.Managers
                     wongame = "Blue Victory";
                 }
 
-                var counter = 7;
+                var counter = 7; // Counter used to match player number to UI views
                 foreach (var player in data.MatchMetadata.RedPlayers)
                 {
+                    // Kick off task to download champion image
                     var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
 
-                    form.BeginInvoke((Action)(async () => {
+                    form.BeginInvoke((Action)(async () =>
+                    {
                         var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
                         namelabel.Text = player["NAME"].ToString();
 
+                        // Set the tooltip for champion image
                         var champimg = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
                         new ToolTip().SetToolTip(champimg, player["SKIN"].ToString());
 
+                        // Bold the name of the user
                         if (player["NAME"].ToString().ToUpper() == RoflSettings.Default.Username.ToUpper())
                         {
                             namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
                         }
+
                         counter++;
+
+                        // Set the champion image
                         var imgpath = await getimgtask;
 
                         if (!string.IsNullOrEmpty(imgpath))
@@ -174,6 +197,7 @@ namespace ROFLPlayer.Managers
                     }));
                 }
 
+                // Hide labels for extra player spots
                 for (int i = data.MatchMetadata.RedPlayers.Count() + 7; i <= 12; i++)
                 {
                     var namelabel = form.Controls.Find($"GeneralPlayerName{i}", true)[0];
@@ -182,17 +206,23 @@ namespace ROFLPlayer.Managers
 
             }
 
+            // We should know who won by now
             form.BeginInvoke((Action)(() => {
                 form.Controls.Find("GeneralMatchWinnerLabel", true)[0].Text = wongame;
             }));
-
-            return;
         }
 
+        /// <summary>
+        /// Fill out player stats
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="form"></param>
         public static void PopulatePlayerStatsData(Dictionary<string, string> player, Form form)
         {
+            // We should already have downloaded the champion image, double check. Will return if we do.
             var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
 
+            // Setup tasks that will be used to download item images
             Task<string>[] itemTasks = new Task<string>[7];
 
             for (int taskCounter = 0; taskCounter < 7; taskCounter++)
@@ -205,6 +235,7 @@ namespace ROFLPlayer.Managers
                 ///// General Information
                 var champimage = (PictureBox)form.Controls.Find("PlayerStatsChampImage", true)[0];
 
+                // set champion image
                 var imgpath = await getimgtask;
                 if (!string.IsNullOrEmpty(imgpath))
                 {
@@ -216,6 +247,7 @@ namespace ROFLPlayer.Managers
                     champimage.Image = champimage.ErrorImage;
                 }
 
+                // Set victory text
                 var victorylabel = (TextBox)form.Controls.Find("PlayerStatswin", true)[0];
                 if(player["WIN"].ToString() == "Fail")
                 {
@@ -228,6 +260,7 @@ namespace ROFLPlayer.Managers
                     victorylabel.ForeColor = Color.Green;
                 }
 
+                ///// Champion, Level, KDA, CS
                 var champlabel = (TextBox)form.Controls.Find("PlayerStatsChampName", true)[0];
                 champlabel.Text = player["SKIN"].ToString();
 
@@ -240,7 +273,7 @@ namespace ROFLPlayer.Managers
                 var cslabel = (TextBox)form.Controls.Find("PlayerStatsCreeps", true)[0];
                 cslabel.Text = $"{player["MINIONS_KILLED"].ToString()} CS";
 
-                ///// Player Gold
+                ///// Player Gold, Neutral Kills, Turrets
                 var goldearnedlabel = (TextBox)form.Controls.Find("PlayerGoldEarned", true)[0];
                 if(int.TryParse(player["GOLD_EARNED"].ToString(), out int goldearned))
                 {
@@ -312,11 +345,13 @@ namespace ROFLPlayer.Managers
                 ///// Player Inventory
                 var allboxes = form.Controls.Find("PlayerSpellsItemsTable", true)[0].Controls;
 
+                // Grab all item image boxes
                 var itemboxes =
                     (from Control boxes in allboxes
                     where boxes.Name.Contains("PlayerItemImage")
                     select boxes).Cast<PictureBox>().ToArray();
 
+                // Set item images
                 for (int loadImageCounter = 0; loadImageCounter < 7; loadImageCounter++)
                 {
                     var itemPath = await itemTasks[loadImageCounter];
@@ -337,6 +372,12 @@ namespace ROFLPlayer.Managers
             }));
         }
 
+        /// <summary>
+        /// Output all header data into a JSON file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="header"></param>
+        /// <returns></returns>
         public static async Task<bool> WriteReplayHeaderToFile(string path, ReplayHeader header)
         {
             try
@@ -352,6 +393,44 @@ namespace ROFLPlayer.Managers
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Given region name (e.g. NA, EUW), return region endpoint name for URLs
+        /// </summary>
+        /// <param name="regionName"></param>
+        /// <returns></returns>
+        public static string GetRegionEndpointName(string regionName)
+        {
+            switch (regionName)
+            {
+                case "BR":
+                    return "BR1";
+                case "EUNE":
+                    return "EUN1";
+                case "EUW":
+                    return "EUW1";
+                case "JP":
+                    return "JP1";
+                case "KR":
+                    return "KR";
+                case "LAN":
+                    return "LA1";
+                case "LAS":
+                    return "LA2";
+                case "NA":
+                    return "NA1";
+                case "OCE":
+                    return "OC1";
+                case "TR":
+                    return "TR1";
+                case "RU":
+                    return "RU";
+                case "PBE":
+                    return "PBE1";
+                default:
+                    return null;
+            }
         }
     }
 }
