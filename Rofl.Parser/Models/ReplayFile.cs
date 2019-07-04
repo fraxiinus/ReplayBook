@@ -9,7 +9,7 @@ namespace Rofl.Parsers.Models
     /// BARON (.lpr) files are replays from the unofficial Baron Replays
     /// LOLR (.lrf) files are replays from the unofficial LoLReplay
     /// </summary>
-    public enum REPLAYTYPES { ROFL, BARON, LOLR }
+    public enum REPLAYTYPES { ROFL, LPR, LRF }
 
     public class ReplayFile
     {
