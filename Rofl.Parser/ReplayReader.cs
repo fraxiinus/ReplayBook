@@ -33,9 +33,10 @@ namespace Rofl.Parsers
                 case REPLAYTYPES.ROFL:
                     file.Data = await ReadROFL(file.Location);
                     break;
-                case REPLAYTYPES.LOLR:
-                    throw new NotImplementedException($"{exceptionOriginName} - LoLReplay support not yet implemented");
-                case REPLAYTYPES.BARON:
+                case REPLAYTYPES.LRF:
+                    file.Data = await ReadLRF(file.Location);
+                    break;
+                case REPLAYTYPES.LPR:
                     throw new NotImplementedException($"{exceptionOriginName} - BaronReplay support not yet implemented");
             }
 
@@ -49,6 +50,16 @@ namespace Rofl.Parsers
             using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
             {
                 return await roflParser.ReadReplayAsync(fileStream);
+            }
+        }
+
+        public async Task<ReplayHeader> ReadLRF(string filePath)
+        {
+            var lrfParser = new LrfParser();
+
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+            {
+                return await lrfParser.ReadReplayAsync(fileStream);
             }
         }
     }
