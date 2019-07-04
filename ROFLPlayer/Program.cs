@@ -75,10 +75,11 @@ namespace ROFLPlayer
                     fileInfo.Type = REPLAYTYPES.ROFL;
                     break;
                 case ".lrf":
-                    fileInfo.Type = REPLAYTYPES.LOLR;
+                    MessageBox.Show($"{fileInfo.Name} is a old LoLReplay file. ROFLPlayer will only be able to show you basic match metadata.", "Compatibility Mode", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    fileInfo.Type = REPLAYTYPES.LRF;
                     break;
                 case ".lpr":
-                    fileInfo.Type = REPLAYTYPES.BARON;
+                    fileInfo.Type = REPLAYTYPES.LPR;
                     break;
                 default:
                     MessageBox.Show($"{fileInfo.Name} is not a supported file type", "Unsupported File", MessageBoxButtons.OK, MessageBoxIcon.Error);
