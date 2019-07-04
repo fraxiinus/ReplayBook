@@ -48,6 +48,12 @@ namespace ROFLPlayer
 
         private void DetailForm_Load(object sender, EventArgs e)
         {
+            if(_fileInfo.Type != REPLAYTYPES.ROFL)
+            {
+                this.Text = this.Text + " - Compatibility Mode";
+                this.GeneralPlayReplaySplitButton.Enabled = false;
+            }
+
             // Set version text in about tab
             this.AboutVersionLabel.Text = RoflSettings.Default.VersionString;
             this.GeneralGameFileLabel.Text = _fileInfo.Name;
