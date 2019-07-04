@@ -151,7 +151,7 @@ namespace ROFLPlayer.Managers
                 // Maybe there were no blue players, so lets see if red won (this seems redundant...)
                 if (data.MatchMetadata.RedPlayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
                 {
-                    wongame = "Purple Victory";
+                    wongame = "Red Victory";
                 }
                 else
                 {
@@ -249,7 +249,7 @@ namespace ROFLPlayer.Managers
 
                 // Set victory text
                 var victorylabel = (TextBox)form.Controls.Find("PlayerStatswin", true)[0];
-                if(player["WIN"].ToString() == "Fail")
+                if(player["WIN"].ToString().ToUpper() == "FAIL")
                 {
                     victorylabel.Text = "Defeat";
                     victorylabel.ForeColor = Color.Red;
