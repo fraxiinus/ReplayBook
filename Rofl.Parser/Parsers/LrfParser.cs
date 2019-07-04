@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Rofl.Parsers.Models;
 using Rofl.Parsers.Utilities;
@@ -81,7 +82,8 @@ namespace Rofl.Parsers.Parsers
             {
                 LengthFields = replayLengthField,
                 MatchMetadata = replayMatchMetadata,
-                PayloadFields = replayPayloadFields
+                PayloadFields = replayPayloadFields,
+                RawJsonData = JsonConvert.SerializeObject(deserializedJson)
             };
         }
 

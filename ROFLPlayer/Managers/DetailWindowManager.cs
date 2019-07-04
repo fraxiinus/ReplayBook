@@ -384,7 +384,14 @@ namespace ROFLPlayer.Managers
             {
                 using (var writer = new StreamWriter(path))
                 {
-                    await writer.WriteLineAsync(JsonConvert.SerializeObject(header));
+                    if(String.IsNullOrEmpty(header.RawJsonData))
+                    {
+                        await writer.WriteLineAsync(JsonConvert.SerializeObject(header));
+                    } else
+                    {
+                        await writer.WriteLineAsync(header.RawJsonData);
+                    }
+
                 }
             }
             catch(Exception)
