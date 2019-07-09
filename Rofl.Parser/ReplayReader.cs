@@ -37,7 +37,8 @@ namespace Rofl.Parsers
                     file.Data = await ReadLRF(file.Location);
                     break;
                 case REPLAYTYPES.LPR:
-                    throw new NotImplementedException($"{exceptionOriginName} - BaronReplay support not yet implemented");
+                    file.Data = await ReadLPR(file.Location);
+                    break;
             }
 
             return file;
@@ -60,6 +61,16 @@ namespace Rofl.Parsers
             using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
             {
                 return await lrfParser.ReadReplayAsync(fileStream);
+            }
+        }
+
+        public async Task<ReplayHeader> ReadLPR(string filePath)
+        {
+            var lprParser = new LprParser();
+
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+            {
+                return await lprParser.ReadReplayAsync(fileStream);
             }
         }
     }
