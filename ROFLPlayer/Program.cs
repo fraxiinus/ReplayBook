@@ -51,7 +51,7 @@ namespace ROFLPlayer
             catch (Exception ex)
             {
                 MessageBox.Show(@"ROFLPlayer encountered an unhandled exception, please record this message and report it here https://github.com/andrew1421lee/ROFL-Player/issues" + "\n\n" + ex.ToString() + "\n" + ex.Source, "Critical Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
+                Environment.Exit(1);
             }
             //*/
         }
@@ -75,16 +75,17 @@ namespace ROFLPlayer
                     fileInfo.Type = REPLAYTYPES.ROFL;
                     break;
                 case ".lrf":
-                    MessageBox.Show($"{fileInfo.Name} is a old LoLReplay file. ROFLPlayer will only be able to show you basic match metadata.", "Compatibility Mode", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"{fileInfo.Name} is a old LoLReplay file.\nROFLPlayer will try to open this file in compatibility mode, some data or features may be missing.", "Compatibility Mode", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     fileInfo.Type = REPLAYTYPES.LRF;
                     break;
                 case ".lpr":
-                    MessageBox.Show($"{fileInfo.Name} is a old BaronReplay file. ROFLPlayer will only be able to show you basic match metadata.", "Compatibility Mode", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"{fileInfo.Name} is a old BaronReplay file. ROFLPlayer does not support opening this file.", "Compatibility Mode", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     fileInfo.Type = REPLAYTYPES.LPR;
+                    Environment.Exit(1);
                     break;
                 default:
                     MessageBox.Show($"{fileInfo.Name} is not a supported file type", "Unsupported File", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
+                    Environment.Exit(1);
                     break;
             }
 
@@ -97,7 +98,7 @@ namespace ROFLPlayer
             catch(Exception ex)
             {
                 MessageBox.Show($"Exception occured when parsing file:\n{ex.Message}", "Parsing Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
+                Environment.Exit(1);
             }
 
             return fileInfo;
