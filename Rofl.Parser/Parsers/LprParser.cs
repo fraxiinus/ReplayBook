@@ -12,6 +12,11 @@ namespace Rofl.Parsers.Parsers
     {
         private readonly string _exceptionOriginName = "LprParser";
 
+        /// <summary>
+        /// DO NOT USE
+        /// </summary>
+        /// <param name="fileStream"></param>
+        /// <returns></returns>
         public async Task<ReplayHeader> ReadReplayAsync(FileStream fileStream)
         {
             if (!fileStream.CanRead)
@@ -170,6 +175,8 @@ namespace Rofl.Parsers.Parsers
                 header.OldResults = await ReadOldEndGameResults(fileStream);
             }
 
+
+            // TODO BROKEN
             return null;
         }
 
