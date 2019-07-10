@@ -48,6 +48,7 @@ namespace ROFLPlayer
 
         private void DetailForm_Load(object sender, EventArgs e)
         {
+            // Load in compatibility mode
             if(_fileInfo.Type != REPLAYTYPES.ROFL)
             {
                 this.Text = this.Text + " - Compatibility Mode";
@@ -167,7 +168,7 @@ namespace ROFLPlayer
             // Start League of Legends,
             var playtask = Task.Run(() =>
             {
-                ReplayManager.StartReplay(_fileInfo.Location, exec.TargetPath);
+                ReplayManager.StartReplay(_fileInfo.Location, "C:\fuck");
             }).ContinueWith((t) =>
             // When the user closes the game
             {
@@ -175,7 +176,13 @@ namespace ROFLPlayer
                 {
                     if (t.IsFaulted)
                     {
-                        MessageBox.Show("Failed to play replay: " + t.Exception.GetType().ToString() + "\n" + t.Exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        string exceptionMsg = $"{t.Exception.GetType().ToString()} : {t.Exception.Message}\n";
+                        foreach (var exception in t.Exception.InnerExceptions)
+                        {
+                            exceptionMsg += $"\n{exception.GetType().ToString()} : {exception.Message}\n";
+                        }
+
+                        MessageBox.Show("Failed to play replay!\n\n" + exceptionMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     GeneralPlayReplaySplitButton.Enabled = true;
                 }));
