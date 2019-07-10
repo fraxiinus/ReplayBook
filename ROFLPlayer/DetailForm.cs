@@ -168,7 +168,7 @@ namespace ROFLPlayer
             // Start League of Legends,
             var playtask = Task.Run(() =>
             {
-                ReplayManager.StartReplay(_fileInfo.Location, "C:\fuck");
+                ReplayManager.StartReplay(_fileInfo.Location, exec.TargetPath);
             }).ContinueWith((t) =>
             // When the user closes the game
             {
