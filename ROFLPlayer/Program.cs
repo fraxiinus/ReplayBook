@@ -1,5 +1,10 @@
 ﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Rofl.Parsers;
+using Rofl.Parsers.Models;
+using Rofl.Requests;
 using ROFLPlayer.Models;
 using ROFLPlayer.Utilities;
 
@@ -10,10 +15,9 @@ namespace ROFLPlayer
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
+        [STAThread] // This is required for system dialogs
         static void Main(string[] args)
         {
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -36,16 +40,70 @@ namespace ROFLPlayer
                     }
                     else
                     {
-                        Application.Run(new DetailForm(args[0]));
+                        var replayFile = Task.Run(() => SetupReplayFileAsync(args[0]));
+
+                        replayFile.Wait();
+
+                        RequestManager requestManager = new RequestManager();
+
+                        Application.Run(new DetailForm(replayFile.Result, requestManager));
                     }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(@"ROFLPlayer encountered an unhandled exception, please record this message and report it here https://github.com/andrew1421lee/ROFL-Player/issues" + "\n\n" + ex.ToString() + "\n" + ex.Source, "Critical Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
+                Environment.Exit(1);
             }
             //*/
+        }
+
+        /// <summary>
+        /// Given replay path, construct ReplayFile with all properties initialized
+        /// </summary>
+        /// <param name="replayPath"></param>
+        /// <returns></returns>
+        private static async Task<ReplayFile> SetupReplayFileAsync(string replayPath)
+        {
+            var fileInfo = new ReplayFile
+            {
+                Location = replayPath,
+                Name = Path.GetFileName(replayPath),
+            };
+
+            switch (Path.GetExtension(replayPath))
+            {
+                case ".rofl":
+                    fileInfo.Type = REPLAYTYPES.ROFL;
+                    break;
+                case ".lrf":
+                    MessageBox.Show($"{fileInfo.Name} is a old LoLReplay file.\nROFLPlayer will try to open this file in compatibility mode, some data or features may be missing.", "Compatibility Mode", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    fileInfo.Type = REPLAYTYPES.LRF;
+                    break;
+                case ".lpr":
+                    MessageBox.Show($"{fileInfo.Name} is a old BaronReplay file. ROFLPlayer does not support opening this file.", "Compatibility Mode", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    fileInfo.Type = REPLAYTYPES.LPR;
+                    Environment.Exit(1);
+                    break;
+                default:
+                    MessageBox.Show($"{fileInfo.Name} is not a supported file type", "Unsupported File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Environment.Exit(1);
+                    break;
+            }
+
+            var replayReader = new ReplayReader();
+            
+            try
+            {
+                fileInfo = await replayReader.ReadFile(fileInfo);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"Exception occured when parsing file:\n{ex.Message}", "Parsing Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+            }
+
+            return fileInfo;
         }
 
         private static void StartReplay(string replayPath, string execName = "default")
