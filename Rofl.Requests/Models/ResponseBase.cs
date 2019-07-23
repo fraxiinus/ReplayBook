@@ -19,7 +19,7 @@ namespace Rofl.Requests.Models
 
         public bool IsFaulted { get; set; }
 
-        public string FaultMessage { get; set; }
+        public Exception Exception { get; set; }
 
         public RequestBase Request { get; set; }
     }

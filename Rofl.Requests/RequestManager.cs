@@ -36,7 +36,7 @@ namespace Rofl.Requests
             {
                 return new ResponseBase()
                 {
-                    FaultMessage = ex.Message,
+                    Exception = ex,
                     IsFaulted = true
                 };
             }
@@ -55,7 +55,7 @@ namespace Rofl.Requests
             {
                 return new ResponseBase()
                 {
-                    FaultMessage = ex.Message,
+                    Exception = ex,
                     IsFaulted = true
                 };
             }

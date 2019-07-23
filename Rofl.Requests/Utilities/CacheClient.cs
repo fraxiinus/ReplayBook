@@ -53,7 +53,7 @@ namespace Rofl.Requests.Utilities
             if (!File.Exists(downloadLocation))
             {
                 response.IsFaulted = true;
-                response.FaultMessage = "Request does not exist in cache";
+                response.Exception = new FileNotFoundException("Cache miss", downloadLocation);
                 return response;
             }
 
