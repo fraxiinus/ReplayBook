@@ -1,7 +1,7 @@
 # ROFLPlayer
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/leeanchu/ROFL-Player/blob/master/LICENSE)
-[![Version](https://img.shields.io/badge/version-0.9b--beta-blue.svg)](https://github.com/leeanchu/ROFL-Player/releases)
+[![Version](https://img.shields.io/badge/version-0.9c--beta-blue.svg)](https://github.com/leeanchu/ROFL-Player/releases)
 
 ROFLPlayer is a simple Windows program for viewing and playing replay files from League of Legends.
 
@@ -13,11 +13,12 @@ ROFLPlayer is a simple Windows program for viewing and playing replay files from
 * View match information for replay files before playing
 * Play replay files from other people or games no longer viewable from the client
 * Supports multiple installs of League of Legends, keep old installations to play replays from older patches
+* View the metadata for old LoLReplay (.LRF) files!
 * Save all replay metadata to JSON
 
 ## How To Use
 
-1. Download ROFLPlayer and extract it wherever you like.
+1. Download ROFLPlayer and extract the folder to wherever you like.
 2. Double-click **ROFLPlayer.exe** to launch the program. ROFLPlayer will attempt to automatically find your League of Legends install folder. You may encounter errors if your League of Legends install is in an odd location.
 3. The following window will then appear, Set the player name field so ROFLPlayer can highlight you name when viewing replay details. Set the region field so the program can properly load the match history website when using the "View online" button.
 
