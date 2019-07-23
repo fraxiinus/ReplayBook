@@ -51,7 +51,7 @@ namespace Rofl.Requests
             {
                 return await _downloadClient.DownloadIconImageAsync(request, DataDragonVersion);
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
                 return new ResponseBase()
                 {

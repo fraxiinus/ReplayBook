@@ -52,6 +52,11 @@ namespace Rofl.Requests.Utilities
                     break;
 
                 case ItemRequest i:
+                    if(i.ItemID.Equals("0"))
+                    {
+                        throw new Exception("empty");
+                    }
+
                     downloadUrl = DataDragonBaseUrl + version + ItemBaseUrl + i.ItemID + ".png";
                     downloadLocation = Path.Combine(DownloadRootPath, "items", $"{i.ItemID}.png");
                     break;
