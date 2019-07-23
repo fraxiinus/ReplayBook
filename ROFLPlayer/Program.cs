@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Rofl.Parsers;
 using Rofl.Parsers.Models;
+using Rofl.Requests;
 using ROFLPlayer.Models;
 using ROFLPlayer.Utilities;
 
@@ -17,7 +18,6 @@ namespace ROFLPlayer
         [STAThread] // This is required for system dialogs
         static void Main(string[] args)
         {
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -44,7 +44,9 @@ namespace ROFLPlayer
 
                         replayFile.Wait();
 
-                        Application.Run(new DetailForm(replayFile.Result));
+                        RequestManager requestManager = new RequestManager();
+
+                        Application.Run(new DetailForm(replayFile.Result, requestManager));
                     }
                 }
             }

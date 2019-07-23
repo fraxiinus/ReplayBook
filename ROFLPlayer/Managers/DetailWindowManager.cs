@@ -10,27 +10,16 @@ using Rofl.Parsers.Models;
 using ROFLPlayer.Utilities;
 using System.Drawing;
 using System.Collections.Generic;
+using Rofl.Parsers.Utilities;
+using Rofl.Requests;
+using Rofl.Requests.Models;
+using System.Net;
 
 namespace ROFLPlayer.Managers
 {
 
     public class DetailWindowManager
     {
-        /*
-        public static long FindMatchIDInFilename(string filename)
-        {
-            var match = Regex.Match(filename, "\\d{10}");
-            if(match.Success)
-            {
-                return long.Parse(match.Value);
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        */
-
         /// <summary>
         /// Fill the Combo Box with player names
         /// </summary>
@@ -40,7 +29,7 @@ namespace ROFLPlayer.Managers
         {
             var playernames =
                 from player in data.AllPlayers
-                select player["NAME"];
+                select player.SafeGet("NAME");
 
             form.BeginInvoke((Action)(() =>
             {
@@ -53,11 +42,15 @@ namespace ROFLPlayer.Managers
         /// </summary>
         /// <param name="data"></param>
         /// <param name="form"></param>
-        public static void PopulateGeneralReplayData(ReplayHeader data, Form form)
+        public static void PopulateGeneralReplayData(RequestManager requests, ReplayHeader data, Form form)
         {
             // Figure out which map the replay is for and download map image
             var map = GameDetailsReader.GetMapType(data);
-            var maptask = ImageDownloader.GetMinimapImageAsync(map);
+            Task<ResponseBase> maptask = requests.MakeRequestAsync(new MapRequest()
+            {
+                MapID = map.ToString("D"),
+                MapName = map.ToString("G")
+            });
 
             form.BeginInvoke((Action)(async () =>
             {
@@ -75,12 +68,16 @@ namespace ROFLPlayer.Managers
                 new ToolTip().SetToolTip(mapimg, map.ToString());
 
                 // Set the map image
-                var imgpath = await maptask;
+                ResponseBase mapImageResponse = await maptask;
 
-                if (!string.IsNullOrEmpty(imgpath))
+                if (!mapImageResponse.IsFaulted)
                 {
                     mapimg.WaitOnLoad = false;
-                    mapimg.LoadAsync(imgpath);
+                    mapimg.Image = mapImageResponse.ResponseImage;
+                }
+                else
+                {
+                    mapimg.Image = mapimg.ErrorImage;
                 }
             }));
 
@@ -91,7 +88,7 @@ namespace ROFLPlayer.Managers
             if (data.MatchMetadata.BluePlayers.ElementAt(0) != null)
             {
                 // Since we're looking at blue players first, check who won
-                if(data.MatchMetadata.BluePlayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
+                if(data.MatchMetadata.BluePlayers.ElementAt(0).SafeGet("WIN").ToUpper() == "WIN")
                 {
                     wongame = "Blue Victory";
                 }
@@ -104,31 +101,34 @@ namespace ROFLPlayer.Managers
                 foreach (var player in data.MatchMetadata.BluePlayers)
                 {
                     // Kick off task to download champion image
-                    var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
+                    Task<ResponseBase> champImgTask = requests.MakeRequestAsync(new ChampionRequest()
+                    {
+                        ChampionName = player.SafeGet("SKIN")
+                    });
 
                     form.BeginInvoke((Action)(async () => {
                         var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
-                        namelabel.Text = player["NAME"].ToString();
+                        namelabel.Text = player.SafeGet("NAME");
 
                         // Set the tooltip for champion image
                         var champimg = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
-                        new ToolTip().SetToolTip(champimg, player["SKIN"].ToString());
+                        new ToolTip().SetToolTip(champimg, player.SafeGet("SKIN"));
 
                         // Bold the name of the user
-                        if (player["NAME"].ToString().ToUpper() == RoflSettings.Default.Username.ToUpper())
+                        if (player.SafeGet("NAME").ToUpper() == RoflSettings.Default.Username.ToUpper())
                         {
-                            namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
+                            namelabel.Font = new Font(namelabel.Font.FontFamily, namelabel.Font.Size, FontStyle.Bold);
                         }
 
                         counter++;
 
                         // Set the champion image
-                        var imgpath = await getimgtask;
+                        ResponseBase imgResponse = await champImgTask;
 
-                        if (!string.IsNullOrEmpty(imgpath))
+                        if (!imgResponse.IsFaulted)
                         {
                             champimg.WaitOnLoad = false;
-                            champimg.LoadAsync(imgpath);
+                            champimg.Image = imgResponse.ResponseImage;
                         }
                         else
                         {
@@ -149,7 +149,7 @@ namespace ROFLPlayer.Managers
             if(data.MatchMetadata.RedPlayers.ElementAt(0) != null)
             {
                 // Maybe there were no blue players, so lets see if red won (this seems redundant...)
-                if (data.MatchMetadata.RedPlayers.ElementAt(0)["WIN"].ToString().ToUpper() == "WIN")
+                if (data.MatchMetadata.RedPlayers.ElementAt(0).SafeGet("WIN").ToUpper() == "WIN")
                 {
                     wongame = "Red Victory";
                 }
@@ -162,32 +162,35 @@ namespace ROFLPlayer.Managers
                 foreach (var player in data.MatchMetadata.RedPlayers)
                 {
                     // Kick off task to download champion image
-                    var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
+                    Task<ResponseBase> champImgTask = requests.MakeRequestAsync(new ChampionRequest()
+                    {
+                        ChampionName = player.SafeGet("SKIN")
+                    });
 
                     form.BeginInvoke((Action)(async () =>
                     {
                         var namelabel = form.Controls.Find($"GeneralPlayerName{counter}", true)[0];
-                        namelabel.Text = player["NAME"].ToString();
+                        namelabel.Text = player.SafeGet("NAME");
 
                         // Set the tooltip for champion image
                         var champimg = (PictureBox)form.Controls.Find($"GeneralPlayerImage{counter}", true)[0];
-                        new ToolTip().SetToolTip(champimg, player["SKIN"].ToString());
+                        new ToolTip().SetToolTip(champimg, player.SafeGet("SKIN"));
 
                         // Bold the name of the user
-                        if (player["NAME"].ToString().ToUpper() == RoflSettings.Default.Username.ToUpper())
+                        if (player.SafeGet("NAME").ToUpper() == RoflSettings.Default.Username.ToUpper())
                         {
-                            namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, System.Drawing.FontStyle.Bold);
+                            namelabel.Font = new System.Drawing.Font(namelabel.Font.FontFamily, namelabel.Font.Size, FontStyle.Bold);
                         }
 
                         counter++;
 
                         // Set the champion image
-                        var imgpath = await getimgtask;
+                        ResponseBase imgResponse = await champImgTask;
 
-                        if (!string.IsNullOrEmpty(imgpath))
+                        if (!imgResponse.IsFaulted)
                         {
                             champimg.WaitOnLoad = false;
-                            champimg.LoadAsync(imgpath);
+                            champimg.Image = imgResponse.ResponseImage;
                         }
                         else
                         {
@@ -217,39 +220,45 @@ namespace ROFLPlayer.Managers
         /// </summary>
         /// <param name="player"></param>
         /// <param name="form"></param>
-        public static void PopulatePlayerStatsData(Dictionary<string, string> player, Form form)
+        public static void PopulatePlayerStatsData(RequestManager requests, Dictionary<string, string> player, Form form)
         {
             // We should already have downloaded the champion image, double check. Will return if we do.
-            var getimgtask = ImageDownloader.GetChampionIconImageAsync(player["SKIN"].ToString());
+            Task<ResponseBase> champImageTask = requests.MakeRequestAsync(new ChampionRequest()
+            {
+                ChampionName = player.SafeGet("SKIN")
+            });
 
             // Setup tasks that will be used to download item images
-            Task<string>[] itemTasks = new Task<string>[7];
+            Task<ResponseBase>[] itemImageTasks = new Task<ResponseBase>[7];
 
             for (int taskCounter = 0; taskCounter < 7; taskCounter++)
             {
-                itemTasks[taskCounter] = ImageDownloader.GetItemImageAsync(int.Parse(player["ITEM" + taskCounter]));
+                itemImageTasks[taskCounter] = requests.MakeRequestAsync(new ItemRequest()
+                {
+                    ItemID = player.SafeGet("ITEM" + taskCounter)
+                });
             }
 
             form.BeginInvoke((Action)(async () =>
             {
                 ///// General Information
-                var champimage = (PictureBox)form.Controls.Find("PlayerStatsChampImage", true)[0];
+                PictureBox champimage = (PictureBox)form.Controls.Find("PlayerStatsChampImage", true)[0];
 
                 // set champion image
-                var imgpath = await getimgtask;
-                if (!string.IsNullOrEmpty(imgpath))
+                ResponseBase champResponse = await champImageTask;
+                if (champResponse == null || champResponse.IsFaulted)
                 {
-                    champimage.WaitOnLoad = false;
-                    champimage.LoadAsync(imgpath);
+                    champimage.Image = champimage.ErrorImage;
                 }
                 else
                 {
-                    champimage.Image = champimage.ErrorImage;
+                    champimage.WaitOnLoad = false;
+                    champimage.Image = champResponse.ResponseImage;
                 }
 
                 // Set victory text
                 var victorylabel = (TextBox)form.Controls.Find("PlayerStatswin", true)[0];
-                if(player["WIN"].ToString().ToUpper() == "FAIL")
+                if(player.SafeGet("WIN").ToUpper() == "FAIL")
                 {
                     victorylabel.Text = "Defeat";
                     victorylabel.ForeColor = Color.Red;
@@ -262,82 +271,82 @@ namespace ROFLPlayer.Managers
 
                 ///// Champion, Level, KDA, CS
                 var champlabel = (TextBox)form.Controls.Find("PlayerStatsChampName", true)[0];
-                champlabel.Text = player["SKIN"].ToString();
+                champlabel.Text = player.SafeGet("SKIN");
 
                 var levellabel = (TextBox)form.Controls.Find("PlayerStatsChampLevel", true)[0];
-                levellabel.Text = $"Level {player["LEVEL"].ToString()}";
+                levellabel.Text = $"Level {player.SafeGet("LEVEL")}";
 
                 var kdalabel = (TextBox)form.Controls.Find("PlayerStatsKDA", true)[0];
-                kdalabel.Text = $"{player["CHAMPIONS_KILLED"].ToString()} / {player["NUM_DEATHS"].ToString()} / {player["ASSISTS"].ToString()}";
+                kdalabel.Text = $"{player.SafeGet("CHAMPIONS_KILLED")} / {player.SafeGet("NUM_DEATHS")} / {player.SafeGet("ASSISTS")}";
 
                 var cslabel = (TextBox)form.Controls.Find("PlayerStatsCreeps", true)[0];
-                cslabel.Text = $"{player["MINIONS_KILLED"].ToString()} CS";
+                cslabel.Text = $"{player.SafeGet("MINIONS_KILLED")} CS";
 
                 ///// Player Gold, Neutral Kills, Turrets
                 var goldearnedlabel = (TextBox)form.Controls.Find("PlayerGoldEarned", true)[0];
-                if(int.TryParse(player["GOLD_EARNED"].ToString(), out int goldearned))
+                if(int.TryParse(player.SafeGet("GOLD_EARNED"), out int goldearned))
                 {
                     goldearnedlabel.Text = goldearned.ToString("N0");
                 }
 
                 var goldspendlabel = (TextBox)form.Controls.Find("PlayerGoldSpent", true)[0];
-                if (int.TryParse(player["GOLD_SPENT"].ToString(), out int goldspent))
+                if (int.TryParse(player.SafeGet("GOLD_SPENT"), out int goldspent))
                 {
                     goldspendlabel.Text = goldspent.ToString("N0");
                 }
 
                 var neutralkillslabel = (TextBox)form.Controls.Find("PlayerGoldNeutralCreeps", true)[0];
-                neutralkillslabel.Text = player["NEUTRAL_MINIONS_KILLED"].ToString();
+                neutralkillslabel.Text = player.SafeGet("NEUTRAL_MINIONS_KILLED");
 
                 var towerskilledlabel = (TextBox)form.Controls.Find("PlayerGoldTowerKills", true)[0];
-                towerskilledlabel.Text = player["TURRETS_KILLED"].ToString();
+                towerskilledlabel.Text = player.SafeGet("TURRETS_KILLED");
 
                 ///// Player Misc Stats Table
 
                 var damagetochampslabel = (TextBox)form.Controls.Find("PlayerTotalDamageToChampions", true)[0];
-                if (int.TryParse(player["TOTAL_DAMAGE_DEALT_TO_CHAMPIONS"].ToString(), out int totaldamagetochamps))
+                if (int.TryParse(player.SafeGet("TOTAL_DAMAGE_DEALT_TO_CHAMPIONS"), out int totaldamagetochamps))
                 {
                     damagetochampslabel.Text = totaldamagetochamps.ToString("N0");
                 }
 
                 var damagetoobjlabel = (TextBox)form.Controls.Find("PlayerTotalDamageToObjectives", true)[0];
-                if (int.TryParse(player["TOTAL_DAMAGE_DEALT_TO_OBJECTIVES"].ToString(), out int totaldamagetoobjective))
+                if (int.TryParse(player.SafeGet("TOTAL_DAMAGE_DEALT_TO_OBJECTIVES"), out int totaldamagetoobjective))
                 {
                     damagetoobjlabel.Text = totaldamagetoobjective.ToString("N0");
                 }
 
                 var damagetotowerlabel = (TextBox)form.Controls.Find("PlayerTotalDamageToTurrets", true)[0];
-                if (int.TryParse(player["TOTAL_DAMAGE_DEALT_TO_TURRETS"].ToString(), out int totaldamagetotower))
+                if (int.TryParse(player.SafeGet("TOTAL_DAMAGE_DEALT_TO_TURRETS"), out int totaldamagetotower))
                 {
                     damagetotowerlabel.Text = totaldamagetotower.ToString("N0");
                 }
 
                 var totaldamagelabel = (TextBox)form.Controls.Find("PlayerTotalDamageDealt", true)[0];
-                if (int.TryParse(player["TOTAL_DAMAGE_DEALT"].ToString(), out int totaldamage))
+                if (int.TryParse(player.SafeGet("TOTAL_DAMAGE_DEALT"), out int totaldamage))
                 {
                     totaldamagelabel.Text = totaldamage.ToString("N0");
                 }
 
                 var totalheallabel = (TextBox)form.Controls.Find("PlayerDamageHealed", true)[0];
-                if (int.TryParse(player["TOTAL_HEAL"].ToString(), out int totalheal))
+                if (int.TryParse(player.SafeGet("TOTAL_HEAL"), out int totalheal))
                 {
                     totalheallabel.Text = totalheal.ToString("N0");
                 }
 
                 var totaltakenlabel = (TextBox)form.Controls.Find("PlayerDamageTaken", true)[0];
-                if (int.TryParse(player["TOTAL_DAMAGE_TAKEN"].ToString(), out int totaltaken))
+                if (int.TryParse(player.SafeGet("TOTAL_DAMAGE_TAKEN"), out int totaltaken))
                 {
                     totaltakenlabel.Text = totaltaken.ToString("N0");
                 }
 
                 var visionscorelabel = (TextBox)form.Controls.Find("PlayerVisionScore", true)[0];
-                if (int.TryParse(player["VISION_SCORE"].ToString(), out int visionscore))
+                if (int.TryParse(player.SafeGet("VISION_SCORE"), out int visionscore))
                 {
                     visionscorelabel.Text = visionscore.ToString("N0");
                 }
 
                 var wardsplacedlabel = (TextBox)form.Controls.Find("PlayerWardsPlaced", true)[0];
-                if (int.TryParse(player["WARD_PLACED"].ToString(), out int wardsplaced))
+                if (int.TryParse(player.SafeGet("WARD_PLACED"), out int wardsplaced))
                 {
                     wardsplacedlabel.Text = wardsplaced.ToString("N0");
                 }
@@ -354,19 +363,19 @@ namespace ROFLPlayer.Managers
                 // Set item images
                 for (int loadImageCounter = 0; loadImageCounter < 7; loadImageCounter++)
                 {
-                    var itemPath = await itemTasks[loadImageCounter];
-                    if(!string.IsNullOrEmpty(itemPath) && !itemPath.Equals("EMPTY"))
-                    {
-                        itemboxes[loadImageCounter].WaitOnLoad = false;
-                        itemboxes[loadImageCounter].LoadAsync(itemPath);
-                    }
-                    else if (itemPath.Equals("EMPTY"))
+                    var itemResponse = await itemImageTasks[loadImageCounter];
+                    if(itemResponse.IsFaulted && itemResponse.Exception.Message.Equals("empty"))
                     {
                         itemboxes[loadImageCounter].Image = null;
                     }
-                    else
+                    else if (itemResponse.IsFaulted)
                     {
                         itemboxes[loadImageCounter].Image = itemboxes[loadImageCounter].ErrorImage;
+                    }
+                    else
+                    {
+                        itemboxes[loadImageCounter].WaitOnLoad = false;
+                        itemboxes[loadImageCounter].Image = itemResponse.ResponseImage;
                     }
                 }
             }));

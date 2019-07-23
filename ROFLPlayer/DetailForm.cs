@@ -7,19 +7,21 @@ using System.Windows.Forms;
 using ROFLPlayer.Utilities;
 using ROFLPlayer.Managers;
 using System.IO;
-using Rofl.Parsers;
 using Rofl.Parsers.Models;
 using ROFLPlayer.Models;
+using Rofl.Requests;
 
 namespace ROFLPlayer
 {
     public partial class DetailForm : Form
     {
         private ReplayFile _fileInfo;
+        private RequestManager _requestManager;
 
-        public DetailForm(ReplayFile replayFile)
+        public DetailForm(ReplayFile replayFile, RequestManager requestManager)
         {
             _fileInfo = replayFile;
+            _requestManager = requestManager;
 
             InitializeComponent();
 
@@ -46,7 +48,7 @@ namespace ROFLPlayer
             }
         }
 
-        private void DetailForm_Load(object sender, EventArgs e)
+        private async void DetailForm_Load(object sender, EventArgs e)
         {
             // Load in compatibility mode
             if(_fileInfo.Type != REPLAYTYPES.ROFL)
@@ -59,10 +61,10 @@ namespace ROFLPlayer
             this.AboutVersionLabel.Text = RoflSettings.Default.VersionString;
             this.GeneralGameFileLabel.Text = _fileInfo.Name;
 
-            ImageDownloader.SetDataDragonVersion(_fileInfo.Data.MatchMetadata.GameVersion.ToString());
+            await _requestManager.SetDataDragonVersionAsync(_fileInfo.Data.MatchMetadata.GameVersion);
 
             DetailWindowManager.PopulatePlayerData(_fileInfo.Data.MatchMetadata, this);
-            DetailWindowManager.PopulateGeneralReplayData(_fileInfo.Data, this);
+            DetailWindowManager.PopulateGeneralReplayData(_requestManager, _fileInfo.Data, this);
         }
 
         /// <summary>
@@ -223,7 +225,7 @@ namespace ROFLPlayer
             PlayerItemImage7.Image = null;
 
             // Call the manager to populate data
-            DetailWindowManager.PopulatePlayerStatsData(player, this);
+            DetailWindowManager.PopulatePlayerStatsData(_requestManager, player, this);
         }
 
         // Resize the player champ name and KDA text box based on the length of the text
