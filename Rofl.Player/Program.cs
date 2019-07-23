@@ -2,8 +2,8 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Rofl.Parsers;
-using Rofl.Parsers.Models;
+using Rofl.Reader;
+using Rofl.Reader.Models;
 using Rofl.Requests;
 using ROFLPlayer.Models;
 using ROFLPlayer.Utilities;

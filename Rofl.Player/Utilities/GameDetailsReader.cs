@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Rofl.Parsers.Models;
+using Rofl.Reader.Models;
 using ROFLPlayer.Models;
 
 namespace ROFLPlayer.Utilities

@@ -1,4 +1,4 @@
-﻿namespace Rofl.Parsers.Models
+﻿namespace Rofl.Reader.Models
 {
     public class LengthFields
     {

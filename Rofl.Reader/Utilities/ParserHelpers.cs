@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rofl.Parsers.Utilities
+namespace Rofl.Reader.Utilities
 {
     public static class ParserHelpers
     {

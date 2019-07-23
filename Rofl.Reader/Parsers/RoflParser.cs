@@ -1,14 +1,14 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Rofl.Parsers.Parsers;
-using Rofl.Parsers.Models;
+using Rofl.Reader.Parsers;
+using Rofl.Reader.Models;
 using System.Linq;
 using System;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
-namespace Rofl.Parsers.Parsers
+namespace Rofl.Reader.Parsers
 {
     /// <summary>
     /// Parses Official League of Legends Replays

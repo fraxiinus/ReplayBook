@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Rofl.Parsers.Models;
+using Rofl.Reader.Models;
 
-namespace Rofl.Parsers.Parsers
+namespace Rofl.Reader.Parsers
 {
     public interface IReplayParser
     {

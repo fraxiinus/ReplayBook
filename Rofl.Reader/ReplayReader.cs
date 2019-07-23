@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Rofl.Parsers.Parsers;
-using Rofl.Parsers.Models;
+using Rofl.Reader.Parsers;
+using Rofl.Reader.Models;
 
-namespace Rofl.Parsers
+namespace Rofl.Reader
 {
     public class ReplayReader
     {

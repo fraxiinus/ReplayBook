@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rofl.Parsers.Models
+namespace Rofl.Reader.Models
 {
     /// <summary>
     /// ROFL (.rofl) files are replays from Riot's official replay system

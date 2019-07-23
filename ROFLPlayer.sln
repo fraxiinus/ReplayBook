@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rofl.Player", "ROFLPlayer\Rofl.Player.csproj", "{8EA3D1B0-88A4-4909-89A4-788FDE0D977D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rofl.Player", "Rofl.Player\Rofl.Player.csproj", "{8EA3D1B0-88A4-4909-89A4-788FDE0D977D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Parsers", "Rofl.Parser\Rofl.Parsers.csproj", "{B4369113-5A5C-4BF7-B0E5-577776D8FC35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Reader", "Rofl.Reader\Rofl.Reader.csproj", "{B4369113-5A5C-4BF7-B0E5-577776D8FC35}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Requests", "Rofl.Requests\Rofl.Requests.csproj", "{6F3E0D23-5235-4333-BFB8-9E00996BDE12}"
 EndProject

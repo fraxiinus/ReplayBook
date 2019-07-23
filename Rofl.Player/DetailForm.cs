@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using ROFLPlayer.Utilities;
 using ROFLPlayer.Managers;
 using System.IO;
-using Rofl.Parsers.Models;
+using Rofl.Reader.Models;
 using ROFLPlayer.Models;
 using Rofl.Requests;
 

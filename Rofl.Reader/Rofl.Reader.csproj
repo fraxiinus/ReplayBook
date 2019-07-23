@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Rofl.Parsers</AssemblyName>
-    <RootNamespace>Rofl.Parsers</RootNamespace>
+    <AssemblyName>Rofl.Reader</AssemblyName>
+    <RootNamespace>Rofl.Reader</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

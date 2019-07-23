@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Rofl.Parsers.Models;
-using Rofl.Parsers.Utilities;
+using Rofl.Reader.Models;
+using Rofl.Reader.Utilities;
 
-namespace Rofl.Parsers.Parsers
+namespace Rofl.Reader.Parsers
 {
     public class LprParser : IReplayParser
     {

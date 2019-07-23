@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Rofl.Parsers.Utilities
+namespace Rofl.Reader.Utilities
 {
     public static class DictionaryExtensions
     {
