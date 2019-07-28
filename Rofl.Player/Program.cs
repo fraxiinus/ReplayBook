@@ -5,6 +5,9 @@ using System.Windows.Forms;
 using Rofl.Reader;
 using Rofl.Reader.Models;
 using Rofl.Requests;
+using Rofl.Executables;
+using Rofl.Executables.Models;
+using Rofl.Executables.Utilities;
 using ROFLPlayer.Models;
 using ROFLPlayer.Utilities;
 
@@ -24,19 +27,47 @@ namespace ROFLPlayer
             //*/
             try
             {
+                ExeManager exeManager = null;
+                try
+                {
+                    exeManager = new ExeManager();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("ROFLPlayer was not able to find League of Legends. Please add it now.", "First start setup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Start add exec form
+                    var addForm = new ExecAddForm(new ExeTools());
+                    var formResult = addForm.ShowDialog();
+
+                    // If form exited with ok
+                    if (formResult == DialogResult.OK)
+                    {
+                        // Get new exec
+                        LeagueExecutable newExec = addForm.NewLeagueExec;
+                        newExec.IsDefault = true;
+
+                        // Save execinfo file
+                        exeManager = new ExeManager(newExec);
+                    }
+                    else
+                    {
+                        Environment.Exit(1);
+                    }
+                }
+
                 if (args.Length == 0)
                 {
                     // Update default exec
-                    Application.Run(new UpdateSplashForm());
-                    Application.Run(new SettingsForm());
+                    Application.Run(new UpdateSplashForm(exeManager));
+                    Application.Run(new SettingsForm(exeManager));
                 }
                 else
                 {
-                    // StartupMode, 1  = show detailed information, 0 = launch replay immediately
 
+                    // StartupMode, 1  = show detailed information, 0 = launch replay immediately
                     if (RoflSettings.Default.StartupMode == 0)
                     {
-                        StartReplay(args[0]);
+                        StartReplay(args[0], exeManager);
                     }
                     else
                     {
@@ -46,13 +77,13 @@ namespace ROFLPlayer
 
                         RequestManager requestManager = new RequestManager();
 
-                        Application.Run(new DetailForm(replayFile.Result, requestManager));
+                        Application.Run(new DetailForm(replayFile.Result, requestManager, exeManager));
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@"ROFLPlayer encountered an unhandled exception, please record this message and report it here https://github.com/andrew1421lee/ROFL-Player/issues" + "\n\n" + ex.ToString() + "\n" + ex.Source, "Critical Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"ROFLPlayer encountered an unhandled exception, please record this message and report it here https://github.com/andrew1421lee/ROFL-Player/issues" + "\n\n" + ex.ToString(), "Critical Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(1);
             }
             //*/
@@ -106,7 +137,7 @@ namespace ROFLPlayer
             return fileInfo;
         }
 
-        private static void StartReplay(string replayPath, string execName = "default")
+        private static void StartReplay(string replayPath, ExeManager exeManager, string execName = "default")
         {
             LeagueExecutable exec = null;
 
@@ -114,11 +145,11 @@ namespace ROFLPlayer
             if (execName.Equals("default"))
             {
                 // Start update form with default
-                var result = new UpdateSplashForm().ShowDialog();
+                var result = new UpdateSplashForm(exeManager).ShowDialog();
 
                 if (result == DialogResult.OK)
                 {
-                    exec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+                    exec = exeManager.GetDefaultExecutable();
                 }
                 else
                 {
@@ -134,7 +165,7 @@ namespace ROFLPlayer
 
                 if (result == DialogResult.OK)
                 {
-                    exec = ExecsManager.GetExec(execName);
+                    exec = exeManager.GetExecutable(execName);
                 }
                 else
                 {

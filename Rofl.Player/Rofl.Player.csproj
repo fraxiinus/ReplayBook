@@ -73,6 +73,9 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Win32.Registry, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.4.5.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -83,6 +86,12 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Drawing.Common.4.5.1\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -109,7 +118,6 @@
     </Compile>
     <Compile Include="Models\DataTypes.cs" />
     <Compile Include="Managers\DetailWindowManager.cs" />
-    <Compile Include="Models\LeagueExecutable.cs" />
     <Compile Include="Models\SplitButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -120,8 +128,6 @@
       <DependentUpon>UpdateSplashForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\GameDetailsReader.cs" />
-    <Compile Include="Utilities\GameLocator.cs" />
-    <Compile Include="Utilities\ExecsManager.cs" />
     <Compile Include="Utilities\ReplayManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -172,7 +178,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="ROFLPlayer_TemporaryKey.pfx" />
     <None Include="RoflSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>RoflSettings.Designer.cs</LastGenOutput>
@@ -211,6 +216,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rofl.Executables\Rofl.Executables.csproj">
+      <Project>{bf19585d-983d-4276-a5d0-c7a97dc28499}</Project>
+      <Name>Rofl.Executables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj">
       <Project>{b4369113-5a5c-4bf7-b0e5-577776d8fc35}</Project>
       <Name>Rofl.Reader</Name>

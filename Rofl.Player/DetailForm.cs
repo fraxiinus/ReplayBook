@@ -8,7 +8,8 @@ using ROFLPlayer.Utilities;
 using ROFLPlayer.Managers;
 using System.IO;
 using Rofl.Reader.Models;
-using ROFLPlayer.Models;
+using Rofl.Executables;
+using Rofl.Executables.Models;
 using Rofl.Requests;
 
 namespace ROFLPlayer
@@ -17,16 +18,18 @@ namespace ROFLPlayer
     {
         private ReplayFile _fileInfo;
         private RequestManager _requestManager;
+        private ExeManager _exeManager;
 
-        public DetailForm(ReplayFile replayFile, RequestManager requestManager)
+        public DetailForm(ReplayFile replayFile, RequestManager requestManager, ExeManager exeManager)
         {
             _fileInfo = replayFile;
             _requestManager = requestManager;
+            _exeManager = exeManager;
 
             InitializeComponent();
 
             // Load split button menu for game executables
-            var listOfExecs = ExecsManager.GetSavedExecs().Where(x => !x.Equals(ExecsManager.GetDefaultExecName())).ToArray();
+            LeagueExecutable[] listOfExecs = _exeManager.GetExecutables();
 
             // No items? Don't load the menu
             if (listOfExecs.Count() > 0)
@@ -41,7 +44,7 @@ namespace ROFLPlayer
 
                 foreach (var item in listOfExecs)
                 {
-                    execMenu.Items.Add(item);
+                    execMenu.Items.Add(item.Name);
                 }
 
                 this.GeneralPlayReplaySplitButton.Menu = execMenu;
@@ -131,11 +134,11 @@ namespace ROFLPlayer
             if(execName.Equals("default"))
             {
                 // Start update form with default
-                var result = new UpdateSplashForm().ShowDialog();
+                var result = new UpdateSplashForm(_exeManager).ShowDialog();
 
                 if(result == DialogResult.OK)
                 {
-                    exec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+                    exec = _exeManager.GetDefaultExecutable();
                 }
                 else
                 {
@@ -150,7 +153,7 @@ namespace ROFLPlayer
 
                 if (result == DialogResult.OK)
                 {
-                    exec = ExecsManager.GetExec(execName);
+                    exec = _exeManager.GetExecutable(execName);
                 }
                 else
                 {

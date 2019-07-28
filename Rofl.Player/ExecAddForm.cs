@@ -1,10 +1,11 @@
-﻿using ROFLPlayer.Models;
-using ROFLPlayer.Utilities;
+﻿using ROFLPlayer.Utilities;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Rofl.Executables.Models;
+using Rofl.Executables.Utilities;
 
 namespace ROFLPlayer
 {
@@ -15,12 +16,15 @@ namespace ROFLPlayer
 
         private ToolTip toolTip;
 
-        public ExecAddForm()
+        private ExeTools _exeTools;
+
+        public ExecAddForm(ExeTools exeTools)
         {
             InitializeComponent();
             InitForm();
             NewLeagueExec = new LeagueExecutable();
             toolTip = new ToolTip();
+            _exeTools = exeTools;
         }
 
         public ExecAddForm(LeagueExecutable leagueExecutable)
@@ -122,7 +126,7 @@ namespace ROFLPlayer
                             try
                             {
                                 // Find the league of legends.exe using game locator
-                                gamePath = GameLocator.FindLeagueExecutable(Path.GetDirectoryName(filepath));
+                                gamePath = _exeTools.FindLeagueExecutablePath(Path.GetDirectoryName(filepath));
                             }
                             catch (Exception ex)
                             {

@@ -3,15 +3,19 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Rofl.Executables.Models;
+using Rofl.Executables;
 
 namespace ROFLPlayer
 {
     public partial class UpdateSplashForm : Form
     {
         private string TargetExecToUpdate = null;
+        private ExeManager _exeManager;
 
-        public UpdateSplashForm()
+        public UpdateSplashForm(ExeManager exeManager)
         {
+            _exeManager = exeManager;
             InitializeComponent();
         }
 
@@ -27,12 +31,13 @@ namespace ROFLPlayer
             await WaitDelay(100);
 
             // Get default exec, as default exec
-            var targetExec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+            LeagueExecutable targetExec = _exeManager.GetDefaultExecutable();
 
             // Choose exec to update if given
             if (!string.IsNullOrEmpty(TargetExecToUpdate))
             {
-                var tempExec = ExecsManager.GetExec(TargetExecToUpdate);
+                //var tempExec = ExecsManager.GetExec(TargetExecToUpdate);
+                var tempExec = _exeManager.GetExecutable(TargetExecToUpdate);
 
                 // target by that name does not exist, do not do anything and close the form
                 if(tempExec == null)
@@ -53,50 +58,13 @@ namespace ROFLPlayer
             await WaitDelay(100);
 
             // This should only happen if there is NO default exec, will be skipped on target exec
+            // Should pretty much NEVER happen now with new ExeManager
             if(targetExec == null)
             {
-                MessageBox.Show("Could not find any executables saved, ROFL Player will try to automatically locate League of Legends", "No Default Exec Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                // Result should be the name of the new exec, will be "false" if something happens
-                var result = ExecsManager.FindAndAddLeagueExec();
-
-                // Ok, failed to find exec
-                if(result.StartsWith("FALSE"))
-                {
-                    // Failed to find install path, have user find it!
-                    if(result.Contains("Could not find install path"))
-                    {
-                        // show browse dialog
-                        MessageBox.Show("ROFL Player could not find League of Legends install folder, please select it", "Could not find install folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        var installPath = "INVALID";
-
-                        while (installPath.Equals("INVALID"))
-                        {
-                            installPath = BrowseDialog();
-                            // Check if result is empty
-                            if (string.IsNullOrEmpty(installPath))
-                            {
-                                MessageBox.Show("Invalid install folder", "Could not find install folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                this.DialogResult = DialogResult.Abort;
-                                this.Close();
-                                return;
-                            }
-                        }
-
-                        // Save using given path
-                        ExecsManager.FindAndAddLeagueExec(installPath);
-                    }
-                    else // Some other error, besides finding install path, happened when trying to find exec
-                    {
-                        MessageBox.Show(result.Substring(result.IndexOf(':') + 1), "Exception occured", MessageBoxButtons.OK, MessageBoxIcon.Error); Environment.Exit(0);
-                        this.DialogResult = DialogResult.Abort;
-                        this.Close();
-                        return;
-                    }
-                }
-
-                // Set new default exec we just found
-                targetExec = ExecsManager.GetExec(ExecsManager.GetDefaultExecName());
+                MessageBox.Show("Could not find any executables saved, ROFL Player was not able to find League of Legends", "No Default Exec Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.Abort;
+                this.Close();
+                return;
             }
 
             this.LoadingProgressBar.Value = 40;
@@ -110,22 +78,20 @@ namespace ROFLPlayer
                 if(targetExec.AllowUpdates)
                 {
                     // Update exec path
-                    var result = ExecsManager.UpdateLeaguePath(targetExec.Name);
-
-                    // If update failed
-                    if(result.StartsWith("FALSE"))
+                    try
                     {
-                        MessageBox.Show(result.Substring(result.IndexOf(':') + 1), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        this.DialogResult = DialogResult.Abort;
+                        _exeManager.UpdateExecutableTarget(targetExec.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.GetType().ToString()} - {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         this.Close();
                         return;
                     }
-                    // If update worked
-                    else
-                    {
-                        this.TitleLabel.Text = "Successfully updated League executable";
-                        this.LoadingProgressBar.Value = 100;
-                    }
+
+                    this.TitleLabel.Text = "Successfully updated League executable";
+                    this.LoadingProgressBar.Value = 100;
+
                 }
                 // Entry does not allow updates
                 else
@@ -150,49 +116,6 @@ namespace ROFLPlayer
         private async Task WaitDelay(int millis)
         {
             await Task.Delay(millis);
-        }
-
-        /// <summary>
-        /// Displays browse dialog for user to select LeagueClient.exe
-        /// Returns "INVALID" if user selected a bad directory and pressed OK
-        /// Returns null if user presses cancel
-        /// </summary>
-        /// <returns></returns>
-        private string BrowseDialog()
-        {
-            var dialog = new OpenFileDialog
-            {
-                Filter = "LeagueClient.exe (*.exe)|*.exe",
-                Multiselect = false,
-                Title = "Select League of Legends client",
-                FileName = "LeagueClient.exe"
-            };
-
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                var filepath = dialog.FileName;
-                if (string.IsNullOrEmpty(filepath))
-                {
-                    return "INVALID";
-                }
-
-                try
-                {
-                    var path = GameLocator.FindLeagueExecutable(Path.GetDirectoryName(filepath));
-                    //RoflSettings.Default.LoLExecLocation = path;
-                    if(!string.IsNullOrEmpty(path))
-                    {
-                        return Path.GetDirectoryName(filepath);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Could not find League of Legends executable, please try again\n\nReason: " + ex.Message, "Error finding game executable", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return "INVALID";
-                }
-            }
-
-            return null;
         }
     }
 }
