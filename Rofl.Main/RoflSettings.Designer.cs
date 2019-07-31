@@ -97,7 +97,7 @@ namespace Rofl.Main {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.9 Beta")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.0")]
         public string VersionString {
             get {
                 return ((string)(this["VersionString"]));
