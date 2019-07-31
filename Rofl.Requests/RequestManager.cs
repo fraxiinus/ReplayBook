@@ -15,7 +15,7 @@ namespace Rofl.Requests
 
         private readonly CacheClient _cacheClient = new CacheClient(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache"));
 
-        private readonly string _exceptionOriginName = "Rofl.Requests";
+        private readonly string _exceptionOriginName = "Rofl.Requests.RequestManager";
 
         public string DataDragonVersion { get; private set; } = null;
 
