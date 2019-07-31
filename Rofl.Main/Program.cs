@@ -4,7 +4,7 @@ using Rofl.Executables.Utilities;
 using Rofl.Reader;
 using Rofl.Reader.Models;
 using Rofl.Requests;
-using Serilog;
+using Rofl.Logger;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -14,6 +14,8 @@ namespace Rofl.Main
 {
     static class Program
     {
+        private static string _className = "Program";
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -23,14 +25,7 @@ namespace Rofl.Main
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var logger = new LoggerConfiguration()
-                .WriteTo.File($"logs/log_{DateTime.Now.ToString("yyyyMMdd_HHmm")}.log")
-#if DEBUG
-                .MinimumLevel.Debug()
-#else
-                .MinimumLevel.Error()
-#endif
-                .CreateLogger();
+            Scribe logger = new Scribe();
 
             //*/
             try
@@ -43,7 +38,7 @@ namespace Rofl.Main
                 catch (Exception ex)
                 {
                     MessageBox.Show("ROFLPlayer was not able to find League of Legends. Please add it now.", "First time setup", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    logger.Information($"First time setup kicked off by exception:\n{ex.ToString()}");
+                    logger.Info(_className, $"First time setup kicked off by exception:\n{ex.ToString()}");
                     // Start add exec form
                     var addForm = new ExecAddForm(new ExeTools());
                     var formResult = addForm.ShowDialog();
@@ -51,6 +46,7 @@ namespace Rofl.Main
                     // If form exited with ok
                     if (formResult == DialogResult.OK)
                     {
+
                         // Get new exec
                         LeagueExecutable newExec = addForm.NewLeagueExec;
                         newExec.IsDefault = true;
@@ -64,6 +60,8 @@ namespace Rofl.Main
                         // Exit if form exited any other way
                         Environment.Exit(1);
                     }
+
+                    addForm.Dispose();
                 }
 
                 ReplayPlayer replayPlayer = new ReplayPlayer(exeManager);
@@ -97,6 +95,7 @@ namespace Rofl.Main
             catch (Exception ex)
             {
                 MessageBox.Show(@"ROFLPlayer encountered an unhandled exception, please record this message and report it here https://github.com/andrew1421lee/ROFL-Player/issues" + "\n\n" + ex.ToString(), "Critical Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Error(_className, "Unhandled exception: " + ex.ToString());
                 Environment.Exit(1);
             }
             //*/
