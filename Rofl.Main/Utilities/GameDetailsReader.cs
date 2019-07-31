@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Rofl.Reader.Models;
-using ROFLPlayer.Models;
+using Rofl.Main.Models;
 
-namespace ROFLPlayer.Utilities
+namespace Rofl.Main.Utilities
 {
     public class GameDetailsReader
     {

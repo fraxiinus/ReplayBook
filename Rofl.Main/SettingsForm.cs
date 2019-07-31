@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
-using ROFLPlayer.Utilities;
+using Rofl.Main.Utilities;
 using System.Drawing;
 using Rofl.Executables;
 using Rofl.Executables.Models;
 using System.Linq;
 
-namespace ROFLPlayer
+namespace Rofl.Main
 {
     public partial class SettingsForm : Form
     {

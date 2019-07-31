@@ -4,27 +4,30 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ROFLPlayer.Utilities;
-using ROFLPlayer.Managers;
+using Rofl.Main.Utilities;
+using Rofl.Main.Managers;
 using System.IO;
 using Rofl.Reader.Models;
 using Rofl.Executables;
 using Rofl.Executables.Models;
+using Rofl.Executables.Utilities;
 using Rofl.Requests;
 
-namespace ROFLPlayer
+namespace Rofl.Main
 {
     public partial class DetailForm : Form
     {
-        private ReplayFile _fileInfo;
+        private ReplayFile _replayFile;
         private RequestManager _requestManager;
         private ExeManager _exeManager;
+        private ReplayPlayer _replayPlayer;
 
-        public DetailForm(ReplayFile replayFile, RequestManager requestManager, ExeManager exeManager)
+        public DetailForm(ReplayFile replayFile, RequestManager requestManager, ExeManager exeManager, ReplayPlayer replayPlayer)
         {
-            _fileInfo = replayFile;
+            _replayFile = replayFile;
             _requestManager = requestManager;
             _exeManager = exeManager;
+            _replayPlayer = replayPlayer;
 
             InitializeComponent();
 
@@ -54,7 +57,7 @@ namespace ROFLPlayer
         private async void DetailForm_Load(object sender, EventArgs e)
         {
             // Load in compatibility mode
-            if(_fileInfo.Type != REPLAYTYPES.ROFL)
+            if(_replayFile.Type != REPLAYTYPES.ROFL)
             {
                 this.Text = this.Text + " - Compatibility Mode";
                 this.GeneralPlayReplaySplitButton.Enabled = false;
@@ -62,12 +65,12 @@ namespace ROFLPlayer
 
             // Set version text in about tab
             this.AboutVersionLabel.Text = RoflSettings.Default.VersionString;
-            this.GeneralGameFileLabel.Text = _fileInfo.Name;
+            this.GeneralGameFileLabel.Text = _replayFile.Name;
 
-            await _requestManager.SetDataDragonVersionAsync(_fileInfo.Data.MatchMetadata.GameVersion);
+            await _requestManager.SetDataDragonVersionAsync(_replayFile.Data.MatchMetadata.GameVersion);
 
-            DetailWindowManager.PopulatePlayerData(_fileInfo.Data.MatchMetadata, this);
-            DetailWindowManager.PopulateGeneralReplayData(_requestManager, _fileInfo.Data, this);
+            DetailWindowManager.PopulatePlayerData(_replayFile.Data.MatchMetadata, this);
+            DetailWindowManager.PopulateGeneralReplayData(_requestManager, _replayFile.Data, this);
         }
 
         /// <summary>
@@ -173,7 +176,8 @@ namespace ROFLPlayer
             // Start League of Legends,
             var playtask = Task.Run(() =>
             {
-                ReplayManager.StartReplay(_fileInfo.Location, exec.TargetPath);
+                //ReplayManager.StartReplay(_fileInfo.Location, exec.TargetPath);
+                _replayPlayer.Play(exec, _replayFile.Location);
             }).ContinueWith((t) =>
             // When the user closes the game
             {
@@ -196,7 +200,7 @@ namespace ROFLPlayer
 
         private void GeneralGameViewOnlineButton_Click(object sender, EventArgs e)
         {
-            var matchId = _fileInfo.Data.PayloadFields.MatchId;
+            var matchId = _replayFile.Data.PayloadFields.MatchId;
             string regionEndpoint = DetailWindowManager.GetRegionEndpointName(RoflSettings.Default.Region);
 
             MessageBox.Show("This feature is still a work in progress! I need more information from different regions. Let me know if you encounter any problems.\n\n" +
@@ -213,7 +217,7 @@ namespace ROFLPlayer
 
             // Find the selected player dictionary
             var player =
-                (from qplayer in _fileInfo.Data.MatchMetadata.AllPlayers
+                (from qplayer in _replayFile.Data.MatchMetadata.AllPlayers
                  where qplayer["NAME"].ToString().ToUpper() == selectedplayername.ToUpper()
                  select qplayer).FirstOrDefault();
 
@@ -249,10 +253,10 @@ namespace ROFLPlayer
         private async void GeneralDebugDumpJsonButton_Click(object sender, EventArgs e)
         {
 
-            if (!string.IsNullOrEmpty(_fileInfo.Location))
+            if (!string.IsNullOrEmpty(_replayFile.Location))
             {
-                var outputfile = Path.Combine(Path.GetDirectoryName(_fileInfo.Location), Path.GetFileNameWithoutExtension(_fileInfo.Location) + ".json");
-                var success = await DetailWindowManager.WriteReplayHeaderToFile(outputfile, _fileInfo.Data);
+                var outputfile = Path.Combine(Path.GetDirectoryName(_replayFile.Location), Path.GetFileNameWithoutExtension(_replayFile.Location) + ".json");
+                var success = await DetailWindowManager.WriteReplayHeaderToFile(outputfile, _replayFile.Data);
                 if (success)
                 {
                     MessageBox.Show("Dumped JSON!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);

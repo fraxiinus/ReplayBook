@@ -7,7 +7,7 @@ using System.Windows.Forms;
 /// Original SplitButton class by Sverrir Sigmundarson
 /// https://stackoverflow.com/questions/10803184/windows-forms-button-with-drop-down-menu/27173509#27173509
 /// </summary>
-namespace ROFLPlayer.Models
+namespace Rofl.Main.Models
 {
     public class SplitButton : Button
     {

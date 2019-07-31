@@ -1,4 +1,4 @@
-﻿using ROFLPlayer.Utilities;
+﻿using Rofl.Main.Utilities;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Rofl.Executables.Models;
 using Rofl.Executables.Utilities;
 
-namespace ROFLPlayer
+namespace Rofl.Main
 {
     public partial class ExecAddForm : Form
     {

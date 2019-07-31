@@ -1,4 +1,4 @@
-﻿namespace ROFLPlayer
+﻿namespace Rofl.Main
 {
     partial class DetailForm
     {
@@ -126,7 +126,7 @@
             this.AboutCatLabel = new System.Windows.Forms.Label();
             this.GeneralDebugDumpJsonButton = new System.Windows.Forms.Button();
             this.MainCancelButton = new System.Windows.Forms.Button();
-            this.GeneralPlayReplaySplitButton = new ROFLPlayer.Models.SplitButton();
+            this.GeneralPlayReplaySplitButton = new Rofl.Main.Models.SplitButton();
             this.MainTabControl.SuspendLayout();
             this.GeneralTab.SuspendLayout();
             this.GeneralFlowLayout.SuspendLayout();
@@ -1311,7 +1311,7 @@
             // AboutLogoPictureBox
             // 
             this.AboutLogoPictureBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.AboutLogoPictureBox.Image = global::ROFLPlayer.Properties.Resources.iconBMP;
+            this.AboutLogoPictureBox.Image = global::Rofl.Main.Properties.Resources.iconBMP;
             this.AboutLogoPictureBox.Location = new System.Drawing.Point(125, 28);
             this.AboutLogoPictureBox.Name = "AboutLogoPictureBox";
             this.AboutLogoPictureBox.Size = new System.Drawing.Size(84, 96);

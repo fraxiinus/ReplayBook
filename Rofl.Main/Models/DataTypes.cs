@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace ROFLPlayer.Models
+namespace Rofl.Main.Models
 {
     public enum Maps
     {

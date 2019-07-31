@@ -1,4 +1,4 @@
-﻿namespace ROFLPlayer
+﻿namespace Rofl.Main
 {
     partial class ExecAddForm
     {

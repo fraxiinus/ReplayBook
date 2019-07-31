@@ -1,17 +1,15 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Rofl.Executables;
+using Rofl.Executables.Models;
+using Rofl.Executables.Utilities;
 using Rofl.Reader;
 using Rofl.Reader.Models;
 using Rofl.Requests;
-using Rofl.Executables;
-using Rofl.Executables.Models;
-using Rofl.Executables.Utilities;
-using ROFLPlayer.Models;
-using ROFLPlayer.Utilities;
+using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace ROFLPlayer
+namespace Rofl.Main
 {
     static class Program
     {
@@ -51,9 +49,12 @@ namespace ROFLPlayer
                     }
                     else
                     {
+                        // Exit if form exited any other way
                         Environment.Exit(1);
                     }
                 }
+
+                ReplayPlayer replayPlayer = new ReplayPlayer(exeManager);
 
                 if (args.Length == 0)
                 {
@@ -67,7 +68,7 @@ namespace ROFLPlayer
                     // StartupMode, 1  = show detailed information, 0 = launch replay immediately
                     if (RoflSettings.Default.StartupMode == 0)
                     {
-                        StartReplay(args[0], exeManager);
+                        StartReplay(args[0], exeManager, replayPlayer);
                     }
                     else
                     {
@@ -77,7 +78,7 @@ namespace ROFLPlayer
 
                         RequestManager requestManager = new RequestManager();
 
-                        Application.Run(new DetailForm(replayFile.Result, requestManager, exeManager));
+                        Application.Run(new DetailForm(replayFile.Result, requestManager, exeManager, replayPlayer));
                     }
                 }
             }
@@ -137,7 +138,7 @@ namespace ROFLPlayer
             return fileInfo;
         }
 
-        private static void StartReplay(string replayPath, ExeManager exeManager, string execName = "default")
+        private static void StartReplay(string replayPath, ExeManager exeManager, ReplayPlayer replayPlayer, string execName = "default")
         {
             LeagueExecutable exec = null;
 
@@ -180,8 +181,8 @@ namespace ROFLPlayer
                 MessageBox.Show("Failed to start replay", $"Could not find executable data {execName}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
-            ReplayManager.StartReplay(replayPath, exec.TargetPath);
+
+            replayPlayer.Play(exec, replayPath);
         }
     }
 }

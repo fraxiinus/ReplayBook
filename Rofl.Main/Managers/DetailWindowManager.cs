@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Windows.Forms;
 using Rofl.Reader.Models;
-using ROFLPlayer.Utilities;
+using Rofl.Main.Utilities;
 using System.Drawing;
 using System.Collections.Generic;
 using Rofl.Reader.Utilities;
@@ -15,7 +15,7 @@ using Rofl.Requests;
 using Rofl.Requests.Models;
 using System.Net;
 
-namespace ROFLPlayer.Managers
+namespace Rofl.Main.Managers
 {
 
     public class DetailWindowManager

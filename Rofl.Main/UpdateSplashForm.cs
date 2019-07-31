@@ -1,4 +1,4 @@
-﻿using ROFLPlayer.Utilities;
+﻿using Rofl.Main.Utilities;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Rofl.Executables.Models;
 using Rofl.Executables;
 
-namespace ROFLPlayer
+namespace Rofl.Main
 {
     public partial class UpdateSplashForm : Form
     {
