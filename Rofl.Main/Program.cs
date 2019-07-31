@@ -4,6 +4,7 @@ using Rofl.Executables.Utilities;
 using Rofl.Reader;
 using Rofl.Reader.Models;
 using Rofl.Requests;
+using Serilog;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -22,6 +23,15 @@ namespace Rofl.Main
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            var logger = new LoggerConfiguration()
+                .WriteTo.File($"logs/log_{DateTime.Now.ToString("yyyyMMdd_HHmm")}.log")
+#if DEBUG
+                .MinimumLevel.Debug()
+#else
+                .MinimumLevel.Error()
+#endif
+                .CreateLogger();
+
             //*/
             try
             {
@@ -30,9 +40,10 @@ namespace Rofl.Main
                 {
                     exeManager = new ExeManager();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("ROFLPlayer was not able to find League of Legends. Please add it now.", "First start setup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("ROFLPlayer was not able to find League of Legends. Please add it now.", "First time setup", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Information($"First time setup kicked off by exception:\n{ex.ToString()}");
                     // Start add exec form
                     var addForm = new ExecAddForm(new ExeTools());
                     var formResult = addForm.ShowDialog();
@@ -46,6 +57,7 @@ namespace Rofl.Main
 
                         // Save execinfo file
                         exeManager = new ExeManager(newExec);
+                        exeManager.Save();
                     }
                     else
                     {
