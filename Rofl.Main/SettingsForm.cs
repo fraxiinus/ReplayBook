@@ -116,7 +116,7 @@ namespace Rofl.Main
                 _exeManager.SetDefaultExectuable(this.GeneralGameComboBox.SelectedItem.ToString());
             }
 
-            exeManager.Save();
+            _exeManager.Save();
 
             // Save double click launch option
             RoflSettings.Default.StartupMode = this.GeneralLaunchComboBox.SelectedIndex;
