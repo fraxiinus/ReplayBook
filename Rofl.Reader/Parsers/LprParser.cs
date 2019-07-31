@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Rofl.Reader.Models;
+using Rofl.Reader.Utilities;
+using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Rofl.Reader.Models;
-using Rofl.Reader.Utilities;
 
 namespace Rofl.Reader.Parsers
 {

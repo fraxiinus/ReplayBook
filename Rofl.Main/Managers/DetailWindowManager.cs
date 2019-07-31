@@ -1,19 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.IO;
-using System.Windows.Forms;
+﻿using Newtonsoft.Json;
 using Rofl.Reader.Models;
-using Rofl.Main.Utilities;
-using System.Drawing;
-using System.Collections.Generic;
 using Rofl.Reader.Utilities;
 using Rofl.Requests;
 using Rofl.Requests.Models;
-using System.Net;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Rofl.Main.Managers
 {
@@ -45,7 +41,7 @@ namespace Rofl.Main.Managers
         public static void PopulateGeneralReplayData(RequestManager requests, ReplayHeader data, Form form)
         {
             // Figure out which map the replay is for and download map image
-            var map = GameDetailsReader.GetMapType(data);
+            var map = data.InferredData.MapID;
             Task<ResponseBase> maptask = requests.MakeRequestAsync(new MapRequest()
             {
                 MapID = map.ToString("D"),

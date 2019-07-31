@@ -116,7 +116,6 @@
     <Compile Include="ExecAddForm.Designer.cs">
       <DependentUpon>ExecAddForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataTypes.cs" />
     <Compile Include="Managers\DetailWindowManager.cs" />
     <Compile Include="Models\SplitButton.cs">
       <SubType>Component</SubType>
@@ -127,7 +126,6 @@
     <Compile Include="UpdateSplashForm.Designer.cs">
       <DependentUpon>UpdateSplashForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\GameDetailsReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoflSettings.Designer.cs">

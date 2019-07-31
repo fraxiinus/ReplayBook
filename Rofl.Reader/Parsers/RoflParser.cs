@@ -1,12 +1,11 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using Rofl.Reader.Parsers;
+﻿using Newtonsoft.Json.Linq;
 using Rofl.Reader.Models;
-using System.Linq;
 using System;
-using System.Text;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Rofl.Reader.Parsers
 {

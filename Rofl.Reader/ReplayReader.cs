@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Rofl.Reader.Parsers;
 using Rofl.Reader.Models;
+using Rofl.Reader.Utilities;
 
 namespace Rofl.Reader
 {
@@ -40,6 +41,14 @@ namespace Rofl.Reader
                     file.Data = await ReadLPR(file.Location);
                     break;
             }
+
+            // Make some educated guesses
+            GameDetailsInferrer detailsInferrer = new GameDetailsInferrer();
+
+            file.Data.InferredData = new InferredData()
+            {
+                MapID = detailsInferrer.InferMap(file.Data.MatchMetadata)
+            };
 
             return file;
         }
