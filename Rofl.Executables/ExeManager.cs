@@ -224,7 +224,7 @@ namespace Rofl.Executables
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="DirectoryNotFoundException"></exception>
         /// <exception cref="FileNotFoundException"></exception>
-        private void ValidateExecutable(LeagueExecutable exe)
+        public void ValidateExecutable(LeagueExecutable exe)
         {
             // Name must not already exist
             // Start folder must exist
