@@ -1,7 +1,7 @@
 # ROFLPlayer
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/leeanchu/ROFL-Player/blob/master/LICENSE)
-[![Version](https://img.shields.io/badge/version-0.9c--beta-blue.svg)](https://github.com/leeanchu/ROFL-Player/releases)
+[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/leeanchu/ROFL-Player/releases)
 
 ROFLPlayer is a simple Windows program for viewing and playing replay files from League of Legends.
 
@@ -57,7 +57,3 @@ Unfortunately that is something that ROFLPlayer can't do without additional work
 **What kind of information can you get from a replay?**
 
 You can get nearly everything you can find in the post-match screen. There are some extra information like how many times a spell was cast. However, some data is missing, like summoner spell information. There is also no way to view information about the match at a particular time. To view all the data, use the "Dump JSON" to save all the usable information into a file. 
-
-## ROFLParser
-
-ROFLParser is a class library that is capable of parsing ROFL files. Simply point a file path at it and it will return an ReplayHeader object containing all information inside the replay header.
