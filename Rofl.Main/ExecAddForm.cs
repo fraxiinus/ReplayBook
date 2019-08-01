@@ -32,7 +32,19 @@ namespace Rofl.Main
             InitForm();
             toolTip = new ToolTip();
 
-            NewLeagueExec = leagueExecutable;
+            NewLeagueExec = new LeagueExecutable()
+            {
+                TargetPath = leagueExecutable.TargetPath,
+                Name = leagueExecutable.Name,
+                StartFolder = leagueExecutable.StartFolder,
+                PatchVersion = leagueExecutable.PatchVersion,
+                ModifiedDate = leagueExecutable.ModifiedDate,
+                AllowUpdates = leagueExecutable.AllowUpdates,
+                IsDefault = leagueExecutable.IsDefault,
+                UseOldLaunchArguments = leagueExecutable.UseOldLaunchArguments
+            };
+
+
             if(!File.Exists(NewLeagueExec.TargetPath))
             {
                 MessageBox.Show("Target specified in entry does not exist. Delete and re-add", "Error reading entry", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -50,6 +62,7 @@ namespace Rofl.Main
             this.GBoxFileDescTextBox.Text = fileInfo.FileDescription;
             this.GBoxLastModifTextBox.Text = NewLeagueExec.ModifiedDate.ToString("yyyy/dd/MM");
             this.ExecUpdateCheckbox.Checked = NewLeagueExec.AllowUpdates;
+            this.ExecArgsCheckbox.Checked = NewLeagueExec.UseOldLaunchArguments;
 
             this.Text = "Edit Executable...";
         }
@@ -179,6 +192,11 @@ namespace Rofl.Main
             NewLeagueExec.AllowUpdates = this.ExecUpdateCheckbox.Checked;
         }
 
+        private void ExecArgsCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            NewLeagueExec.UseOldLaunchArguments = this.ExecArgsCheckbox.Checked;
+        }
+
         private void ExecUpdateCheckbox_ToolTip(object sender, EventArgs e)
         {
             CheckBox updateBox = (CheckBox)sender;
@@ -186,6 +204,15 @@ namespace Rofl.Main
             var visTime = 3000;
 
             toolTip.Show("ROFLPlayer can automatically update target path when League of Legends updates", updateBox, 0, 20, visTime);
+        }
+
+        private void ExecArgsCheckbox_ToolTip(object sender, EventArgs e)
+        {
+            CheckBox updateBox = (CheckBox)sender;
+
+            var visTime = 3000;
+
+            toolTip.Show("Use old launch arguments, required for old versions of League of Legends", updateBox, 0, 20, visTime);
         }
 
         private void ExecSaveButton_Click(object sender, EventArgs e)

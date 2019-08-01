@@ -20,6 +20,9 @@ namespace Rofl.Executables.Models
         [JsonProperty("allow-updates")]
         public bool AllowUpdates { get; set; }
 
+        [JsonProperty("use-old-launch-args")]
+        public bool UseOldLaunchArguments { get; set; }
+
         [JsonProperty("default")]
         public bool IsDefault { get; set; }
 
