@@ -33,7 +33,7 @@ namespace Rofl.Logger
 
                 foreach (LogEntry entry in _entryList)
                 {
-                    logOutput += $"{entry.Timestamp}\t|\t{entry.ClassName} -> {entry.MethodName}\t|\t{entry.Level}\t|\t{entry.Message}\n";
+                    logOutput += $"{entry.Timestamp} | {entry.ClassName} -> {entry.MethodName} | {entry.Level} | {entry.Message}\n";
                 }
 
                 File.WriteAllText(outputFileName, logOutput);
