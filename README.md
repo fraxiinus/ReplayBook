@@ -1,8 +1,8 @@
 # ROFLPlayer
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/leeanchu/ROFL-Player/blob/master/LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/leeanchu/ROFL-Player/releases)
-[![Discord](https://img.shields.io/badge/discord-c33Rc5J-blue.svg)](https://discord.gg/c33Rc5J)
+[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/leeanchu/ROFL-Player/releases) 
+![Discord](https://img.shields.io/discord/606263917211156501?color=blue&label=chat&logo=discord&style=social)
 
 ROFLPlayer is a simple Windows program for viewing and playing replay files from League of Legends.
 
