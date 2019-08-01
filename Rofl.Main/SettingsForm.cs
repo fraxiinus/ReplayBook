@@ -263,6 +263,10 @@ namespace Rofl.Main
                         _exeManager.DeleteExecutable(selectedName);
                         _exeManager.AddExecutable(newExec);
                     }
+                    else
+                    {
+                        _exeManager.ReplaceDefaultExecutable(newExec);
+                    }
 
                     // Refresh list of execs
                     RefreshExecListBox();

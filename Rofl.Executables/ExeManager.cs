@@ -185,6 +185,11 @@ namespace Rofl.Executables
             _executables.Add(oldDefault);
         }
 
+        public void ReplaceDefaultExecutable(LeagueExecutable exe)
+        {
+            _defaultExecutable = exe;
+        }
+
         public void UpdateExecutableTarget(string name)
         {
             LeagueExecutable targetExe = GetExecutable(name);
@@ -210,6 +215,7 @@ namespace Rofl.Executables
             returnExe.ModifiedDate = ExeTools.GetLastModifiedDate(returnExe.TargetPath);
             returnExe.PatchVersion = ExeTools.GetLeagueVersion(returnExe.TargetPath);
             returnExe.AllowUpdates = true;
+            returnExe.UseOldLaunchArguments = false;
             returnExe.IsDefault = true;
             returnExe.Name = "Default";
 
@@ -224,7 +230,7 @@ namespace Rofl.Executables
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="DirectoryNotFoundException"></exception>
         /// <exception cref="FileNotFoundException"></exception>
-        public void ValidateExecutable(LeagueExecutable exe)
+        public void ValidateExecutable(LeagueExecutable exe, bool requireUniqueName = true)
         {
             // Name must not already exist
             // Start folder must exist
@@ -251,7 +257,10 @@ namespace Rofl.Executables
 
             bool defaultMatches = _defaultExecutable.Name.ToUpper().Equals(exe.Name);
 
-            if (matchingExe != null || defaultMatches) { throw new ArgumentException($"{_exceptionOriginName} - Executable by \"{exe.Name}\" already exists"); }
+            if(requireUniqueName)
+            {
+                if (matchingExe != null || defaultMatches) { throw new ArgumentException($"{_exceptionOriginName} - Executable by \"{exe.Name}\" already exists"); }
+            }
 
             // Check if start folder exists
             if (!Directory.Exists(exe.StartFolder)) { throw new DirectoryNotFoundException($"{_exceptionOriginName} - Start folder \"{exe.StartFolder}\" does not exist"); }

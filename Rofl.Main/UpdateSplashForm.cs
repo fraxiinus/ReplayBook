@@ -18,8 +18,9 @@ namespace Rofl.Main
             InitializeComponent();
         }
 
-        public UpdateSplashForm(string targetExec)
+        public UpdateSplashForm(ExeManager exeManager, string targetExec)
         {
+            _exeManager = exeManager;
             TargetExecToUpdate = targetExec;
             InitializeComponent();
         }

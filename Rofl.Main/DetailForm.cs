@@ -1,6 +1,7 @@
 ﻿using Rofl.Executables;
 using Rofl.Executables.Models;
 using Rofl.Executables.Utilities;
+using Rofl.Logger;
 using Rofl.Main.Managers;
 using Rofl.Reader.Models;
 using Rofl.Requests;
@@ -20,13 +21,15 @@ namespace Rofl.Main
         private RequestManager _requestManager;
         private ExeManager _exeManager;
         private ReplayPlayer _replayPlayer;
+        private Scribe _logger;
 
-        public DetailForm(ReplayFile replayFile, RequestManager requestManager, ExeManager exeManager, ReplayPlayer replayPlayer)
+        public DetailForm(ReplayFile replayFile, RequestManager requestManager, ExeManager exeManager, ReplayPlayer replayPlayer, Scribe scribe)
         {
             _replayFile = replayFile;
             _requestManager = requestManager;
             _exeManager = exeManager;
             _replayPlayer = replayPlayer;
+            _logger = scribe;
 
             InitializeComponent();
 
@@ -151,7 +154,7 @@ namespace Rofl.Main
             } else
             {
                 // Start update form with target
-                var result = new UpdateSplashForm(execName).ShowDialog();
+                var result = new UpdateSplashForm(_exeManager, execName).ShowDialog();
 
                 if (result == DialogResult.OK)
                 {
@@ -184,13 +187,8 @@ namespace Rofl.Main
                 {
                     if (t.IsFaulted)
                     {
-                        string exceptionMsg = $"{t.Exception.GetType().ToString()} : {t.Exception.Message}\n";
-                        foreach (var exception in t.Exception.InnerExceptions)
-                        {
-                            exceptionMsg += $"\n{exception.GetType().ToString()} : {exception.Message}\n";
-                        }
-
-                        MessageBox.Show("Failed to play replay!\n\n" + exceptionMsg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        _logger.Error(this.GetType().ToString(), t.Exception.ToString());
+                        MessageBox.Show("Failed to play replay! Check logs for detailed information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     GeneralPlayReplaySplitButton.Enabled = true;
                 }));
