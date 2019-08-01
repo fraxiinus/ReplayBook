@@ -88,7 +88,7 @@ namespace Rofl.Main
 
                         RequestManager requestManager = new RequestManager();
 
-                        Application.Run(new DetailForm(replayFile.Result, requestManager, exeManager, replayPlayer));
+                        Application.Run(new DetailForm(replayFile.Result, requestManager, exeManager, replayPlayer, logger));
                     }
                 }
             }
@@ -173,7 +173,7 @@ namespace Rofl.Main
             else
             {
                 // Start update form with target
-                var result = new UpdateSplashForm(execName).ShowDialog();
+                var result = new UpdateSplashForm(exeManager, execName).ShowDialog();
 
                 if (result == DialogResult.OK)
                 {

@@ -30,7 +30,8 @@ namespace Rofl.Executables.Utilities
             }
 
             // This will throw an exception if exe has issues
-            _exeManager.ValidateExecutable(leagueExe);
+            // Turning off unique name flag, otherwise will trigger exception
+            _exeManager.ValidateExecutable(leagueExe, false);
 
             // Create the launch arguments, each argument is put in quotes
             // <replay file path> GameBaseDir=... <other arguments>
@@ -40,10 +41,17 @@ namespace Rofl.Executables.Utilities
                 combinedArgs += $" \"{arg}\"";
             }
 
+            var launchArgs = combinedArgs;
+
+            if(leagueExe.UseOldLaunchArguments)
+            {
+                launchArgs = "\"" + replayPath + "\"";
+            }
+
             ProcessStartInfo processStartInfo = new ProcessStartInfo
             {
                 FileName = leagueExe.TargetPath,
-                Arguments = combinedArgs,
+                Arguments = launchArgs,
 
                 // The game client uses the working directory to find the data files
                 WorkingDirectory = Path.GetDirectoryName(leagueExe.TargetPath)

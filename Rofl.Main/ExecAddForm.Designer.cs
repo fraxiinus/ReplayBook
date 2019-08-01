@@ -48,6 +48,7 @@
             this.GBoxExecNameLabel = new System.Windows.Forms.Label();
             this.ExecSaveButton = new System.Windows.Forms.Button();
             this.ExecCancelButton = new System.Windows.Forms.Button();
+            this.ExecArgsCheckbox = new System.Windows.Forms.CheckBox();
             this.ExecFlowLayout.SuspendLayout();
             this.ExecInfoGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +61,7 @@
             this.ExecFlowLayout.Controls.Add(this.ExecTargetTextBox);
             this.ExecFlowLayout.Controls.Add(this.ExecStartLabel);
             this.ExecFlowLayout.Controls.Add(this.ExecStartTextBox);
+            this.ExecFlowLayout.Controls.Add(this.ExecArgsCheckbox);
             this.ExecFlowLayout.Controls.Add(this.ExecUpdateCheckbox);
             this.ExecFlowLayout.Controls.Add(this.ExecBrowseButton);
             this.ExecFlowLayout.Controls.Add(this.ExecInfoGroupBox);
@@ -132,20 +134,20 @@
             // 
             this.ExecUpdateCheckbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ExecUpdateCheckbox.AutoSize = true;
-            this.ExecUpdateCheckbox.Location = new System.Drawing.Point(159, 103);
-            this.ExecUpdateCheckbox.Margin = new System.Windows.Forms.Padding(159, 5, 5, 5);
+            this.ExecUpdateCheckbox.Location = new System.Drawing.Point(161, 103);
+            this.ExecUpdateCheckbox.Margin = new System.Windows.Forms.Padding(5);
             this.ExecUpdateCheckbox.Name = "ExecUpdateCheckbox";
             this.ExecUpdateCheckbox.Size = new System.Drawing.Size(92, 17);
             this.ExecUpdateCheckbox.TabIndex = 10;
             this.ExecUpdateCheckbox.Text = "Allow updates";
             this.ExecUpdateCheckbox.UseVisualStyleBackColor = true;
             this.ExecUpdateCheckbox.CheckedChanged += new System.EventHandler(this.ExecUpdateCheckbox_CheckedChanged);
-            this.ExecUpdateCheckbox.MouseEnter += new System.EventHandler(this.ExecUpdateCheckbox_ToolTip);
+            this.ExecUpdateCheckbox.MouseHover += new System.EventHandler(this.ExecUpdateCheckbox_ToolTip);
             // 
             // ExecBrowseButton
             // 
             this.ExecBrowseButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.ExecBrowseButton.Location = new System.Drawing.Point(261, 100);
+            this.ExecBrowseButton.Location = new System.Drawing.Point(263, 100);
             this.ExecBrowseButton.Margin = new System.Windows.Forms.Padding(5);
             this.ExecBrowseButton.Name = "ExecBrowseButton";
             this.ExecBrowseButton.Size = new System.Drawing.Size(75, 23);
@@ -280,6 +282,20 @@
             this.ExecCancelButton.UseVisualStyleBackColor = true;
             this.ExecCancelButton.Click += new System.EventHandler(this.ExecCancelButton_Click);
             // 
+            // ExecArgsCheckbox
+            // 
+            this.ExecArgsCheckbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.ExecArgsCheckbox.AutoSize = true;
+            this.ExecArgsCheckbox.Location = new System.Drawing.Point(38, 103);
+            this.ExecArgsCheckbox.Margin = new System.Windows.Forms.Padding(38, 5, 5, 5);
+            this.ExecArgsCheckbox.Name = "ExecArgsCheckbox";
+            this.ExecArgsCheckbox.Size = new System.Drawing.Size(113, 17);
+            this.ExecArgsCheckbox.TabIndex = 11;
+            this.ExecArgsCheckbox.Text = "Use old play mode";
+            this.ExecArgsCheckbox.UseVisualStyleBackColor = true;
+            this.ExecArgsCheckbox.CheckedChanged += new System.EventHandler(this.ExecArgsCheckbox_CheckedChanged);
+            this.ExecArgsCheckbox.MouseHover += new System.EventHandler(this.ExecArgsCheckbox_ToolTip);
+            // 
             // ExecAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -325,5 +341,6 @@
         private System.Windows.Forms.Label GBoxFileDescLabel;
         private System.Windows.Forms.TextBox GBoxLastModifTextBox;
         private System.Windows.Forms.Label GBoxLastModifLabel;
+        private System.Windows.Forms.CheckBox ExecArgsCheckbox;
     }
 }
