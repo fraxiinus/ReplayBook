@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Requests", "Rofl.Reque
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Executables", "Rofl.Executables\Rofl.Executables.csproj", "{BF19585D-983D-4276-A5D0-C7A97DC28499}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rofl.Logger", "Rofl.Logger\Rofl.Logger.csproj", "{DF505361-8E36-4187-9458-1663A7F5B3EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Logger", "Rofl.Logger\Rofl.Logger.csproj", "{DF505361-8E36-4187-9458-1663A7F5B3EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rofl.UI.Main", "Rofl.UI.Main\Rofl.UI.Main.csproj", "{1C7F813A-4CD3-4F7D-A110-AB65608633FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DF505361-8E36-4187-9458-1663A7F5B3EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF505361-8E36-4187-9458-1663A7F5B3EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF505361-8E36-4187-9458-1663A7F5B3EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C7F813A-4CD3-4F7D-A110-AB65608633FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C7F813A-4CD3-4F7D-A110-AB65608633FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C7F813A-4CD3-4F7D-A110-AB65608633FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C7F813A-4CD3-4F7D-A110-AB65608633FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
