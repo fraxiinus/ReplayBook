@@ -1,0 +1,35 @@
+﻿<Window x:Class="Rofl.UI.Main.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rofl.UI.Main"
+        xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
+        mc:Ignorable="d"
+        Title="{StaticResource ProgramName}" 
+        ResizeMode="NoResize"
+        Height="600" 
+        Width="1000">
+
+    <DockPanel>
+        
+        <DockPanel DockPanel.Dock="Left"
+                   Width="350">
+
+            <controls:ToolPanel DockPanel.Dock="Top"/>
+
+            <ScrollViewer Background="Aqua"
+                          VerticalScrollBarVisibility="Hidden">
+
+            </ScrollViewer>
+            
+        </DockPanel>
+        
+        <Frame DockPanel.Dock="Right"
+               Background="Aquamarine">
+            
+        </Frame>
+        
+    </DockPanel>
+    
+</Window>
