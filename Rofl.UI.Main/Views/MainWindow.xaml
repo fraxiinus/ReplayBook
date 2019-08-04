@@ -7,7 +7,10 @@
         xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
         mc:Ignorable="d"
         Title="{StaticResource ProgramName}" 
-        ResizeMode="NoResize"
+        Icon="{StaticResource ProgramIcon}"
+        ResizeMode="CanResize"
+        MinHeight="600"
+        MinWidth="1000"
         Height="600" 
         Width="1000">
 
@@ -18,11 +21,12 @@
 
             <controls:ToolPanel DockPanel.Dock="Top"/>
 
-            <ScrollViewer Background="Aqua"
-                          VerticalScrollBarVisibility="Hidden">
+            <ListView Margin="0" Padding="0" BorderThickness="0">
+                <ListViewItem Padding="0">
+                    <controls:ReplayItem/>
+                </ListViewItem>
+            </ListView>
 
-            </ScrollViewer>
-            
         </DockPanel>
         
         <Frame DockPanel.Dock="Right"

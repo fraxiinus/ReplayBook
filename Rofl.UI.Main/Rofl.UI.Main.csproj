@@ -57,6 +57,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\ReplayItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ToolPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -76,6 +80,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\ReplayItem.xaml.cs">
+      <DependentUpon>ReplayItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ToolPanel.xaml.cs">
       <DependentUpon>ToolPanel.xaml</DependentUpon>
@@ -114,7 +121,6 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\folder_open_black.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Icons\settings_black.png" />
   </ItemGroup>
@@ -123,6 +129,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\sort_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\program_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\share_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\play_circle_black.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

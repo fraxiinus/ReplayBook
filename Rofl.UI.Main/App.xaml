@@ -12,10 +12,14 @@
                 <ResourceDictionary Source="Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
+            <!--Load icon images-->
             <BitmapImage x:Key="OpenFolderIcon" UriSource="Resources/Icons/folder_open_black.png"/>
             <BitmapImage x:Key="SettingsIcon" UriSource="Resources/Icons/settings_black.png"/>
             <BitmapImage x:Key="SearchIcon" UriSource="Resources/Icons/search_black.png"/>
             <BitmapImage x:Key="SortIcon" UriSource="Resources/Icons/sort_black.png"/>
+            <BitmapImage x:Key="ProgramIcon" UriSource="Resources/Icons/program_icon.ico"/>
+            <BitmapImage x:Key="ShareIcon" UriSource="Resources/Icons/share_black.png"/>
+            <BitmapImage x:Key="PlayIcon" UriSource="Resources/Icons/play_circle_black.png"/>
 
         </ResourceDictionary>
     </Application.Resources>

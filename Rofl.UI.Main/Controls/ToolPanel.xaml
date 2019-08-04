@@ -30,20 +30,23 @@
             </DockPanel>
             
         </Border>
-        
+
 
         <Button x:Name="SortButton"
-                Style="{DynamicResource PanelButton}">
+                ToolTip="{StaticResource SortToolTip}"
+                Style="{StaticResource PanelButton}">
             <Image Source="{StaticResource SortIcon}"/>
         </Button>
 
         <Button x:Name="OpenFolderButton"
-                Style="{DynamicResource PanelButton}">
+                ToolTip="{StaticResource OpenToolTip}"
+                Style="{StaticResource PanelButton}">
             <Image Source="{StaticResource OpenFolderIcon}"/>
         </Button>
 
         <Button x:Name="SettingsButton"
-                Style="{DynamicResource PanelButton}">
+                ToolTip="{StaticResource SettingsToolTip}"
+                Style="{StaticResource PanelButton}">
             <Image Source="{StaticResource SettingsIcon}"/>
         </Button>
 

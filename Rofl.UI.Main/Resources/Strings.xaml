@@ -3,6 +3,17 @@
                     xmlns:local="clr-namespace:Rofl.UI.Main.Resources"
                     xmlns:string="clr-namespace:System;assembly=mscorlib">
     
+    <!--General UI Text-->
     <string:String x:Key="ProgramName">Replay Manager</string:String>
     <string:String x:Key="SearchDefaultText">Search...</string:String>
+
+    <!--ToolTip Text-->
+    <string:String x:Key="SortToolTip">Sort</string:String>
+    <string:String x:Key="OpenToolTip">Open</string:String>
+    <string:String x:Key="SettingsToolTip">Settings</string:String>
+
+    <!--Replay Text-->
+    <string:String x:Key="VictoryText">VICTORY</string:String>
+    <string:String x:Key="DefeatText">DEFEAT</string:String>
+    
 </ResourceDictionary>
