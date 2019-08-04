@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="75" d:DesignWidth="346">
+             d:DesignHeight="75" d:DesignWidth="350">
 
     <StackPanel Orientation="Horizontal"
                 Background="White"
-                Height="75" Width="346">
+                Height="75" Width="350">
         
         <Grid>
             <Image x:Name="ChampionImage"
@@ -112,17 +112,17 @@
         </Grid>
 
         <StackPanel Orientation="Vertical"
-                    Margin="5 5 5 5">
+                    Margin="8 5 5 5">
             <Button x:Name="PlayButton"
                     Margin="0 0 0 5"
                     Style="{StaticResource PanelButton}">
                 <Image Source="{StaticResource PlayIcon}"/>
             </Button>
             
-            <Button x:Name="ShareButton"
+            <Button x:Name="Morebutton"
                     Margin="0"
                     Style="{StaticResource PanelButton}">
-                <Image Source="{StaticResource ShareIcon}"/>
+                <Image Source="{StaticResource MoreIcon}"/>
             </Button>
         </StackPanel>
         

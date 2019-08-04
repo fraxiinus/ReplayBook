@@ -20,6 +20,7 @@
             <BitmapImage x:Key="ProgramIcon" UriSource="Resources/Icons/program_icon.ico"/>
             <BitmapImage x:Key="ShareIcon" UriSource="Resources/Icons/share_black.png"/>
             <BitmapImage x:Key="PlayIcon" UriSource="Resources/Icons/play_circle_black.png"/>
+            <BitmapImage x:Key="MoreIcon" UriSource="Resources/Icons/more_black.png"/>
 
         </ResourceDictionary>
     </Application.Resources>

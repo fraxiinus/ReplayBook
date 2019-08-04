@@ -16,15 +16,18 @@
 
     <DockPanel>
         
-        <DockPanel DockPanel.Dock="Left"
-                   Width="350">
+        <DockPanel DockPanel.Dock="Left">
 
             <controls:ToolPanel DockPanel.Dock="Top"/>
 
-            <ListView Margin="0" Padding="0" BorderThickness="0">
+            <ListView Margin="0" Padding="0" 
+                      BorderThickness="0" 
+                      Style="{StaticResource ReplayListStyle}">
+                
                 <ListViewItem Padding="0">
-                    <controls:ReplayItem/>
+                    <controls:ReplayItem Style="{StaticResource ReplayItemStyle}"/>
                 </ListViewItem>
+                
             </ListView>
 
         </DockPanel>
