@@ -9,10 +9,10 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
     </Style>
 
-    <Style x:Key="ReplayItemStyle" TargetType="{x:Type Controls:ReplayItem}">
+    <Style x:Key="ReplayItemStyle" TargetType="{x:Type Controls:ReplayItemControl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Controls:ReplayItem}">
+                <ControlTemplate TargetType="{x:Type Controls:ReplayItemControl}">
                     <Border BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             Background="{TemplateBinding Background}" 

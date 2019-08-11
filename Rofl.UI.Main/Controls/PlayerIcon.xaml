@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Rofl.UI.Main.Controls.PlayerIcon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="30">
+
+    <Grid ToolTip="{Binding Path=CombinedName}">
+        
+        <Image x:Name="PlayerImage"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               Width="30"
+               Source="D:\Etirps\Documents\League of Legends\ROFLPlayer\cache\champs\Ahri.png"/>
+
+        <Rectangle x:Name="MarkerRectangle"
+                   Width="5"
+                   Height="5"
+                   Margin="0 1 1 0"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top">
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="True">
+                            <Setter Property="Fill" Value="Yellow"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="False">
+                            <Setter Property="Fill" Value="Transparent"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+    </Grid>
+    
+</UserControl>

@@ -20,14 +20,15 @@
 
             <controls:ToolPanel DockPanel.Dock="Top"/>
 
-            <ListView Margin="0" Padding="0" 
-                      BorderThickness="0" 
-                      Style="{StaticResource ReplayListStyle}">
-                
-                <ListViewItem Padding="0">
-                    <controls:ReplayItem Style="{StaticResource ReplayItemStyle}"/>
-                </ListViewItem>
-                
+            <ListView x:Name="ReplayListView"
+                      Style="{StaticResource ReplayListStyle}"
+                      ItemsSource="{Binding Path=Replays}"
+                      Loaded="ReplayListView_Loaded">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <controls:ReplayItemControl/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
 
         </DockPanel>

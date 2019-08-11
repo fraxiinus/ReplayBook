@@ -19,7 +19,7 @@
 
                 <Image DockPanel.Dock="Left" 
                        Width="25" 
-                       Source="{StaticResource SearchIcon}"/>
+                       Source="{StaticResource SearchDrawingImage}"/>
 
                 <TextBox x:Name="SearchBox"
                          FontSize="18"
@@ -35,19 +35,19 @@
         <Button x:Name="SortButton"
                 ToolTip="{StaticResource SortToolTip}"
                 Style="{StaticResource PanelButton}">
-            <Image Source="{StaticResource SortIcon}"/>
+            <Image Source="{StaticResource SortDrawingImage}"/>
         </Button>
 
         <Button x:Name="OpenFolderButton"
                 ToolTip="{StaticResource OpenToolTip}"
                 Style="{StaticResource PanelButton}">
-            <Image Source="{StaticResource OpenFolderIcon}"/>
+            <Image Source="{StaticResource FolderOpenDrawingImage}"/>
         </Button>
 
         <Button x:Name="SettingsButton"
                 ToolTip="{StaticResource SettingsToolTip}"
                 Style="{StaticResource PanelButton}">
-            <Image Source="{StaticResource SettingsIcon}"/>
+            <Image Source="{StaticResource SettingsDrawingImage}"/>
         </Button>
 
     </StackPanel>
