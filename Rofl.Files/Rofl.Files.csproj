@@ -13,4 +13,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj" />
+  </ItemGroup>
+
 </Project>

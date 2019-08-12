@@ -29,17 +29,24 @@ namespace Rofl.Reader
                 throw new FileNotFoundException($"{exceptionOriginName} - File path not found, does the file exist?");
             }
 
-            switch (file.Type)
+            // Unsure if "ToLower" needs to be specified, just to be safe...
+            switch (Path.GetExtension(file.Location).ToLower())
             {
-                case REPLAYTYPES.ROFL:
+                case ".rofl":
+                    file.Type = REPLAYTYPES.ROFL;
                     file.Data = await ReadROFL(file.Location);
                     break;
-                case REPLAYTYPES.LRF:
+                case ".lrf":
+                    file.Type = REPLAYTYPES.LRF;
                     file.Data = await ReadLRF(file.Location);
                     break;
-                case REPLAYTYPES.LPR:
-                    file.Data = await ReadLPR(file.Location);
+                // LPR is baronreplays, which is not working currently
+                case ".lpr":
+                    file.Type = REPLAYTYPES.LPR;
+                    file.Data = null;
                     break;
+                default:
+                    throw new NotSupportedException($"{exceptionOriginName} - File is not an accepted format: (rofl, lrf)");
             }
 
             // Make some educated guesses
@@ -47,7 +54,8 @@ namespace Rofl.Reader
 
             file.Data.InferredData = new InferredData()
             {
-                MapID = detailsInferrer.InferMap(file.Data.MatchMetadata)
+                MapID = detailsInferrer.InferMap(file.Data.MatchMetadata),
+                BlueVictory = detailsInferrer.InferBlueVictory(file.Data.MatchMetadata)
             };
 
             return file;
@@ -73,6 +81,7 @@ namespace Rofl.Reader
             }
         }
 
+        // Broken, do not use
         public async Task<ReplayHeader> ReadLPR(string filePath)
         {
             var lprParser = new LprParser();

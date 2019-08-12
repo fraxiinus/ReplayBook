@@ -1,4 +1,5 @@
-﻿using Rofl.UI.Main.Models;
+﻿using Rofl.Files;
+using Rofl.UI.Main.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,44 +11,27 @@ namespace Rofl.UI.Main.ViewModels
 {
     public class ReplayItemViewModel
     {
+
+        private FolderWatcher _folderWatcher;
+
         public ObservableCollection<ReplayItemModel> Replays { get; private set; }
+
+        public ReplayItemViewModel(FolderWatcher folderWatcher)
+        {
+            _folderWatcher = folderWatcher;
+        }
 
         public void LoadReplays()
         {
-            Replays = new ObservableCollection<ReplayItemModel>();
+            var data = Task.Run(() => _folderWatcher.GetReplayFiles());
 
-            Replays.Add(new ReplayItemModel()
-            {
-                ItemName = "Replay test item",
-                MapName = "Howling Abyss",
-                GameLength = 1212,
-                PatchNumber = "69.69",
-                IsBlueVictorious = false,
-                BluePlayers = new PlayerInfoModel[]
-                {
-                    new PlayerInfoModel()
-                    {
-                        ChampionName = "Ahri",
-                        PlayerName = "LostLegendLister",
-                        IsKnownPlayer = true
-                    },
-                    new PlayerInfoModel()
-                    {
-                        ChampionName = "Yuumi",
-                        PlayerName = "Etirps",
-                        IsKnownPlayer = true
-                    }
-                },
-                RedPlayers = new PlayerInfoModel[]
-                {
-                    new PlayerInfoModel()
-                    {
-                        ChampionName = "Tristana",
-                        PlayerName = "Lord Retard",
-                        IsKnownPlayer = false
-                    }
-                }
-            });
+            data.Wait();
+
+            var length = data.Result[0].Data.MatchMetadata.GameDuration;
+
+            Replays = new ObservableCollection<ReplayItemModel>(from replayFile in data.Result
+                                                                select new ReplayItemModel(replayFile));
+
         }
     }
 }

@@ -12,7 +12,7 @@
         <Image x:Name="PlayerImage"
                RenderOptions.BitmapScalingMode="HighQuality"
                Width="30"
-               Source="D:\Etirps\Documents\League of Legends\ROFLPlayer\cache\champs\Ahri.png"/>
+               Source="D:\Etirps\Documents\League of Legends\ROFLPlayer\cache\champs\Yuumi.png"/>
 
         <Rectangle x:Name="MarkerRectangle"
                    Width="5"

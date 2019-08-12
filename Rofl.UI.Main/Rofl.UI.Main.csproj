@@ -144,6 +144,7 @@
     <Compile Include="Models\PlayerInfoModel.cs" />
     <Compile Include="Models\ReplayItemModel.cs" />
     <Compile Include="ViewModels\ReplayItemViewModel.cs" />
+    <Compile Include="Views\async.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -180,9 +181,29 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rofl.Executables\Rofl.Executables.csproj">
+      <Project>{bf19585d-983d-4276-a5d0-c7a97dc28499}</Project>
+      <Name>Rofl.Executables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rofl.Files\Rofl.Files.csproj">
       <Project>{0de2b53b-f1a7-4cb4-beb1-e95302d51597}</Project>
       <Name>Rofl.Files</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rofl.Logger\Rofl.Logger.csproj">
+      <Project>{df505361-8e36-4187-9458-1663a7f5b3ea}</Project>
+      <Name>Rofl.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rofl.Main\Rofl.Main.csproj">
+      <Project>{8ea3d1b0-88a4-4909-89a4-788fde0d977d}</Project>
+      <Name>Rofl.Main</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj">
+      <Project>{b4369113-5a5c-4bf7-b0e5-577776d8fc35}</Project>
+      <Name>Rofl.Reader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rofl.Requests\Rofl.Requests.csproj">
+      <Project>{6f3e0d23-5235-4333-bfb8-9e00996bde12}</Project>
+      <Name>Rofl.Requests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

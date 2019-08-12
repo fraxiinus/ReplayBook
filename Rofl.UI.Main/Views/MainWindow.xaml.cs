@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Rofl.Files;
+using Rofl.Reader;
 using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.ViewModels;
 using System;
@@ -26,7 +27,9 @@ namespace Rofl.UI.Main
     {
         private IConfiguration _config;
 
-        private FileManager _fileManager;
+        private FolderWatcher _folderWatcher;
+
+        private ReplayReader _replayReader;
 
         public MainWindow()
         {
@@ -37,13 +40,15 @@ namespace Rofl.UI.Main
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
+            _replayReader = new ReplayReader();
 
-            _fileManager = new FileManager(_config);
+            _folderWatcher = new FolderWatcher(_config, _replayReader);
+
         }
 
         private void ReplayListView_Loaded(object sender, RoutedEventArgs e)
         {
-            ReplayItemViewModel replayItemViewModel = new ReplayItemViewModel();
+            ReplayItemViewModel replayItemViewModel = new ReplayItemViewModel(_folderWatcher);
             replayItemViewModel.LoadReplays();
 
             this.ReplayListView.DataContext = replayItemViewModel;
