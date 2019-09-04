@@ -15,7 +15,23 @@ namespace Rofl.UI.Main.Models
         public ReplayItemModel(ReplayFile replayFile)
         {
             ItemName = replayFile.Name;
-            MapName = replayFile.Data.InferredData.MapID.ToString();
+
+            switch (replayFile.Data.InferredData.MapID)
+            {
+                case Map.HowlingAbyss:
+                    MapName = "Howling Abyss";
+                    break;
+                case Map.SummonersRift:
+                    MapName = "Summoner's Rift";
+                    break;
+                case Map.TwistedTreeline:
+                    MapName = "Twisted Treeline";
+                    break;
+                default:
+                    MapName = "Uknown Map";
+                    break;
+            }
+
             GameLength = (int) replayFile.Data.MatchMetadata.GameDuration / 1000;
             PatchNumber = replayFile.Data.MatchMetadata.GameVersion;
 

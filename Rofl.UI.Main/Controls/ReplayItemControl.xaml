@@ -54,64 +54,50 @@
                     Orientation="Vertical"
                     VerticalAlignment="Center">
 
-            <!--Select which border to set to green vs transparent to show which side won-->
-            <Border BorderThickness="0 2 0 0"
+            <!--Select which border to set to red vs blue to show which side won-->
+            <Border BorderThickness="3 0 0 0"
                     Padding="2 0 0 0">
                 <Border.Style>
                     <Style TargetType="Border">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="True">
-                                <Setter Property="BorderBrush" Value="Green"/>
+                                <Setter Property="BorderBrush" Value="LightSkyBlue"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
-                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="OrangeRed"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
 
-                <ItemsControl ItemsSource="{Binding Path=BluePlayers}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0 1 0 2"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <local:PlayerIcon Margin="0 0 2 0"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-                
-            </Border>
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding Path=BluePlayers}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0 1 0 2"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:PlayerIcon Margin="0 0 2 0"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
-            <Border BorderThickness="0 0 0 2"
-                    Padding="2 0 0 0">
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
-                                <Setter Property="BorderBrush" Value="Green"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="True">
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-
-                <ItemsControl ItemsSource="{Binding Path=RedPlayers}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0 2 0 1"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <local:PlayerIcon Margin="0 0 2 0"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding Path=RedPlayers}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="0 2 0 1"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:PlayerIcon Margin="0 0 2 0"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    
+                </StackPanel>
                 
             </Border>
 
