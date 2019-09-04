@@ -1,4 +1,6 @@
 ﻿using Rofl.Files;
+using Rofl.Reader;
+using Rofl.Reader.Models;
 using Rofl.UI.Main.Models;
 using System;
 using System.Collections.Generic;
@@ -13,25 +15,42 @@ namespace Rofl.UI.Main.ViewModels
     {
 
         private FolderWatcher _folderWatcher;
+        private ReplayReader _replayReader;
+        private TaskScheduler _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
         public ObservableCollection<ReplayItemModel> Replays { get; private set; }
 
-        public ReplayItemViewModel(FolderWatcher folderWatcher)
+        public ReplayItemViewModel(FolderWatcher folderWatcher, ReplayReader replayReader)
         {
             _folderWatcher = folderWatcher;
+            _replayReader = replayReader;
         }
 
         public void LoadReplays()
         {
-            var data = Task.Run(() => _folderWatcher.GetReplayFiles());
+            // Kick off background task which loads files
+            Task<ReplayFile[]> loadReplayTask = Task.Run(async () =>
+            {
+                var replayFiles = _folderWatcher.GetReplayFiles();
 
-            data.Wait();
+                var readTasks = (from file in replayFiles
+                                 select _replayReader.ReadFile(file));
 
-            var length = data.Result[0].Data.MatchMetadata.GameDuration;
+                await Task.Delay(5000);
 
-            Replays = new ObservableCollection<ReplayItemModel>(from replayFile in data.Result
-                                                                select new ReplayItemModel(replayFile));
+                return await Task.WhenAll(readTasks);
+            });
 
+            Replays = new ObservableCollection<ReplayItemModel>();
+
+            // When the background task finishes, add them all
+            loadReplayTask.ContinueWith(x =>
+            {
+                foreach (var file in x.Result)
+                {
+                    Replays.Add(new ReplayItemModel(file));
+                }
+            }, _uiScheduler);
         }
     }
 }

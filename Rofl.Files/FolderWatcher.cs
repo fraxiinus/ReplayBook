@@ -9,34 +9,43 @@ using System.Threading.Tasks;
 
 namespace Rofl.Files
 {
+    /// <summary>
+    /// Watches given folders defined in config file for new replay files
+    /// Once a new file is detected, parse the data and place it in the database
+    /// (depends on if database supports on update)
+    /// ViewModel asks the database(wrapper???) for the replay data
+    /// </summary>
     public class FolderWatcher
     {
 
         private IConfiguration _config;
-        private ReplayReader _replayReader;
 
         private List<string> folderPaths;
 
-        public FolderWatcher(IConfiguration config, ReplayReader replayReader)
+        public FolderWatcher(IConfiguration config)
         {
             _config = config;
-            _replayReader = replayReader;
 
             folderPaths = _config.GetSection("folder-watcher:folders").Get<List<string>>();
         }
 
-        public async Task<ReplayFile[]> GetReplayFiles()
+        /// <summary>
+        /// Returns array of unparsed ReplayFiles
+        /// </summary>
+        /// <returns></returns>
+        public ReplayFile[] GetReplayFiles()
         {
             List<ReplayFile> replayFiles = new List<ReplayFile>();
 
             foreach (string path in folderPaths)
             {
-
+                // Grab the contents of the folder, sorted newest first
                 DirectoryInfo DirInfo = new DirectoryInfo(path);
                 var files = DirInfo.EnumerateFiles().OrderByDescending(f => f.CreationTime);
 
                 foreach (var file in files)
                 {
+                    // If the file is not supported, skip it
                     if (!(file.Name.EndsWith(".rofl", StringComparison.OrdinalIgnoreCase) ||
                           file.Name.EndsWith(".lrf", StringComparison.OrdinalIgnoreCase)))
                     {
@@ -49,26 +58,9 @@ namespace Rofl.Files
                         Name = Path.GetFileNameWithoutExtension(file.Name),
                     };
 
-                    newReplay = await _replayReader.ReadFile(newReplay);
-
                     replayFiles.Add(newReplay);
                 }
-
-                //var matchingFiles = Directory
-                //    .EnumerateFiles(path)
-                //    .Where(file => file.EndsWith(".rofl", StringComparison.OrdinalIgnoreCase) || 
-                //                   file.EndsWith(".lrf", StringComparison.OrdinalIgnoreCase))
-                //    .Select(file => new ReplayFile()
-                //    {
-                //        Location = file,
-                //        Name = file,
-                //    })
-                //    .ToList();
-
-                //replayFiles.AddRange(matchingFiles);
             }
-
-            //replayFiles.ForEach(async x => x = await _replayReader.ReadFile(x));
 
             return replayFiles.ToArray();
         }

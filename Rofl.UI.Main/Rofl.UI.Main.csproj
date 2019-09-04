@@ -144,7 +144,6 @@
     <Compile Include="Models\PlayerInfoModel.cs" />
     <Compile Include="Models\ReplayItemModel.cs" />
     <Compile Include="ViewModels\ReplayItemViewModel.cs" />
-    <Compile Include="Views\async.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

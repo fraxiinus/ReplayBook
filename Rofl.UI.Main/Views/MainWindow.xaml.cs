@@ -42,13 +42,13 @@ namespace Rofl.UI.Main
 
             _replayReader = new ReplayReader();
 
-            _folderWatcher = new FolderWatcher(_config, _replayReader);
+            _folderWatcher = new FolderWatcher(_config);
 
         }
 
         private void ReplayListView_Loaded(object sender, RoutedEventArgs e)
         {
-            ReplayItemViewModel replayItemViewModel = new ReplayItemViewModel(_folderWatcher);
+            ReplayItemViewModel replayItemViewModel = new ReplayItemViewModel(_folderWatcher, _replayReader);
             replayItemViewModel.LoadReplays();
 
             this.ReplayListView.DataContext = replayItemViewModel;
