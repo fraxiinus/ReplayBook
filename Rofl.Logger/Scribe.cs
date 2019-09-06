@@ -20,6 +20,11 @@ namespace Rofl.Logger
         {
             _entryList = new List<LogEntry>();
             _errorFlag = false;
+
+            if (!Directory.Exists(OutputDirectory))
+            {
+                Directory.CreateDirectory(OutputDirectory);
+            }
         }
 
         ~Scribe()
