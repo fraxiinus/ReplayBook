@@ -84,8 +84,13 @@ namespace Rofl.Reader.Parsers
 
             var replayPayloadFields = ParseMatchHeader(payloadFieldBuffer);
 
+            // set the ids so that it can be stored in the database
+            replayLengthFields.Id = replayPayloadFields.MatchId;
+            replayMatchMetadata.Id = replayPayloadFields.MatchId;
+
             return new ReplayHeader
             {
+                Id = replayPayloadFields.MatchId,
                 LengthFields = replayLengthFields,
                 MatchMetadata = replayMatchMetadata,
                 PayloadFields = replayPayloadFields

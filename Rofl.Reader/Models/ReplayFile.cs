@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiteDB;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,6 +16,10 @@ namespace Rofl.Reader.Models
     {
         public REPLAYTYPES Type { get; set; }
         public string Name { get; set; }
+
+        /// <summary>
+        /// Used as the ID for the database
+        /// </summary>
         public string Location { get; set; }
         public ReplayHeader Data { get; set; }
     }

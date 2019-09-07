@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Rofl.Files.Models;
+using Rofl.Logger;
 using Rofl.Reader;
 using Rofl.Reader.Models;
 using System;
@@ -7,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Rofl.Files
+namespace Rofl.Files.Repositories
 {
     /// <summary>
     /// Watches given folders defined in config file for new replay files
@@ -15,35 +17,39 @@ namespace Rofl.Files
     /// (depends on if database supports on update)
     /// ViewModel asks the database(wrapper???) for the replay data
     /// </summary>
-    public class FolderWatcher
+    public class FolderRepository
     {
 
         private IConfiguration _config;
 
-        private List<string> folderPaths;
+        private Scribe _log;
 
-        public FolderWatcher(IConfiguration config)
+        private List<string> _folderPaths;
+
+        public FolderRepository(IConfiguration config, Scribe log)
         {
             _config = config;
 
-            folderPaths = _config.GetSection("folder-watcher:folders").Get<List<string>>();
+            _log = log;
+
+            _folderPaths = _config.GetSection("folder-watcher:folders").Get<List<string>>();
         }
 
         /// <summary>
-        /// Returns array of unparsed ReplayFiles
+        /// Returns full paths of every replay file to show
         /// </summary>
         /// <returns></returns>
-        public ReplayFile[] GetReplayFiles()
+        public ReplayFileInfo[] GetAllReplayFileInfo()
         {
-            List<ReplayFile> replayFiles = new List<ReplayFile>();
+            List<ReplayFileInfo> returnList = new List<ReplayFileInfo>();
 
-            foreach (string path in folderPaths)
+            foreach (string folder in _folderPaths)
             {
-                // Grab the contents of the folder, sorted newest first
-                DirectoryInfo DirInfo = new DirectoryInfo(path);
-                var files = DirInfo.EnumerateFiles().OrderByDescending(f => f.CreationTime);
+                // Grab the contents of the folder
+                DirectoryInfo dirInfo = new DirectoryInfo(folder);
+                var innerFiles = dirInfo.EnumerateFiles();
 
-                foreach (var file in files)
+                foreach (var file in innerFiles)
                 {
                     // If the file is not supported, skip it
                     if (!(file.Name.EndsWith(".rofl", StringComparison.OrdinalIgnoreCase) ||
@@ -52,17 +58,15 @@ namespace Rofl.Files
                         continue;
                     }
 
-                    var newReplay = new ReplayFile()
+                    returnList.Add(new ReplayFileInfo()
                     {
-                        Location = file.FullName,
-                        Name = Path.GetFileNameWithoutExtension(file.Name),
-                    };
-
-                    replayFiles.Add(newReplay);
+                        Path = file.FullName,
+                        CreationTime = file.CreationTime
+                    });
                 }
             }
 
-            return replayFiles.ToArray();
+            return returnList.ToArray();
         }
     }
 }

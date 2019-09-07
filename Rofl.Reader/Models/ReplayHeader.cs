@@ -2,10 +2,15 @@
 { 
     public class ReplayHeader
     {
-        public LengthFields LengthFields;
-        public MatchMetadata MatchMetadata;
-        public PayloadFields PayloadFields;
-        public InferredData InferredData;
-        public string RawJsonData;
+        /// <summary>
+        /// Used as the ID for the database
+        /// </summary>
+        public ulong Id { get; set; }
+
+        public LengthFields LengthFields { get; set; }
+        public MatchMetadata MatchMetadata { get; set; }
+        public PayloadFields PayloadFields { get; set; }
+        public InferredData InferredData { get; set; }
+        public string RawJsonData { get; set; }
     }
 }

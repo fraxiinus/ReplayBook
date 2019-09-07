@@ -11,10 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Rofl.Logger\Rofl.Logger.csproj" />
     <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj" />
   </ItemGroup>
 

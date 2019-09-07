@@ -14,37 +14,24 @@ namespace Rofl.UI.Main.ViewModels
     public class ReplayItemViewModel
     {
 
-        private FolderWatcher _folderWatcher;
-        private ReplayReader _replayReader;
+        private FileManager _files;
         private TaskScheduler _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
         public ObservableCollection<ReplayItemModel> Replays { get; private set; }
 
-        public ReplayItemViewModel(FolderWatcher folderWatcher, ReplayReader replayReader)
+        public ReplayItemViewModel(FileManager files)
         {
-            _folderWatcher = folderWatcher;
-            _replayReader = replayReader;
+            _files = files;
         }
 
         public void LoadReplays()
         {
-            // Kick off background task which loads files
-            Task<ReplayFile[]> loadReplayTask = Task.Run(async () =>
-            {
-                var replayFiles = _folderWatcher.GetReplayFiles();
-
-                var readTasks = (from file in replayFiles
-                                 select _replayReader.ReadFile(file));
-
-                await Task.Delay(5000);
-
-                return await Task.WhenAll(readTasks);
-            });
-
             Replays = new ObservableCollection<ReplayItemModel>();
 
+            var loadReplaysTask = _files.GetReplayFiles();
+
             // When the background task finishes, add them all
-            loadReplayTask.ContinueWith(x =>
+            loadReplaysTask.ContinueWith(x =>
             {
                 foreach (var file in x.Result)
                 {

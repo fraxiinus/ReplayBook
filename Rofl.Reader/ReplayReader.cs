@@ -54,6 +54,7 @@ namespace Rofl.Reader
 
             file.Data.InferredData = new InferredData()
             {
+                Id = file.Data.PayloadFields.MatchId,
                 MapID = detailsInferrer.InferMap(file.Data.MatchMetadata),
                 BlueVictory = detailsInferrer.InferBlueVictory(file.Data.MatchMetadata)
             };
