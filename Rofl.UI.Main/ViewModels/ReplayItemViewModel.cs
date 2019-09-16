@@ -17,7 +17,7 @@ namespace Rofl.UI.Main.ViewModels
         private FileManager _files;
         private TaskScheduler _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-        public ObservableCollection<ReplayItemModel> Replays { get; private set; }
+        public ObservableCollection<ReplayListItemModel> Replays { get; private set; }
 
         public ReplayItemViewModel(FileManager files)
         {
@@ -26,7 +26,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public void LoadReplays()
         {
-            Replays = new ObservableCollection<ReplayItemModel>();
+            Replays = new ObservableCollection<ReplayListItemModel>();
 
             var loadReplaysTask = _files.GetReplayFiles();
 
@@ -35,7 +35,7 @@ namespace Rofl.UI.Main.ViewModels
             {
                 foreach (var file in x.Result)
                 {
-                    Replays.Add(new ReplayItemModel(file));
+                    Replays.Add(new ReplayListItemModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile));
                 }
             }, _uiScheduler);
         }

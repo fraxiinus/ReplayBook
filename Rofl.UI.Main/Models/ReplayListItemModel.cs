@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 
 namespace Rofl.UI.Main.Models
 {
-    public class ReplayItemModel : INotifyPropertyChanged
+    public class ReplayListItemModel
     {
 
-        public ReplayItemModel(ReplayFile replayFile, bool newFile = false)
+        public ReplayListItemModel(ReplayFile replayFile, DateTime creationDate, bool newFile = false)
         {
             FileName = replayFile.Name;
+            CreationDate = creationDate;
             IsNewFile = newFile;
+
+            MapId = replayFile.Data.InferredData.MapID;
 
             switch (replayFile.Data.InferredData.MapID)
             {
@@ -37,8 +40,13 @@ namespace Rofl.UI.Main.Models
             GameLength = (int) replayFile.Data.MatchMetadata.GameDuration / 1000;
             PatchNumber = replayFile.Data.MatchMetadata.GameVersion;
 
+            PlayerNames = (from player in replayFile.Data.MatchMetadata.AllPlayers
+                           select player.SafeGet("NAME")).ToArray();
+            ChampionNames = (from player in replayFile.Data.MatchMetadata.AllPlayers
+                             select player.SafeGet("SKIN")).ToArray();
+
             BluePlayers = (from bplayers in replayFile.Data.MatchMetadata.BluePlayers
-                           select new PlayerInfoModel()
+                           select new PlayerPreviewModel()
                            {
                                ChampionName = bplayers.SafeGet("SKIN"),
                                PlayerName = bplayers.SafeGet("NAME"),
@@ -46,7 +54,7 @@ namespace Rofl.UI.Main.Models
                            }).ToArray();
 
             RedPlayers = (from rplayers in replayFile.Data.MatchMetadata.RedPlayers
-                          select new PlayerInfoModel()
+                          select new PlayerPreviewModel()
                           {
                               ChampionName = rplayers.SafeGet("SKIN"),
                               PlayerName = rplayers.SafeGet("NAME"),
@@ -58,7 +66,11 @@ namespace Rofl.UI.Main.Models
 
         public string FileName { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
         public bool IsNewFile { get; set; }
+
+        public Map MapId { get; set; }
 
         public string MapName { get; set; }
 
@@ -77,20 +89,15 @@ namespace Rofl.UI.Main.Models
 
         public string PatchNumber { get; set; }
 
-        public PlayerInfoModel[] BluePlayers { get; set; }
-
-        public PlayerInfoModel[] RedPlayers { get; set; }
-
         public bool IsBlueVictorious { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public string[] PlayerNames { get; set; }
 
-        private void RaisePropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
-            }
-        }
+        public string[] ChampionNames { get; set; }
+
+        public PlayerPreviewModel[] BluePlayers { get; set; }
+
+        public PlayerPreviewModel[] RedPlayers { get; set; }
+
     }
 }
