@@ -46,8 +46,6 @@ namespace Rofl.Files
                 List<ReplayFile> totalReplays = new List<ReplayFile>();
                 List<Task<ReplayFile>> parseTasks = new List<Task<ReplayFile>>();
 
-                await Task.Delay(5000);
-
                 foreach (var fileInfo in allFiles)
                 {
                     var newReplay = new ReplayFile()

@@ -12,9 +12,10 @@ namespace Rofl.UI.Main.Models
     public class ReplayItemModel : INotifyPropertyChanged
     {
 
-        public ReplayItemModel(ReplayFile replayFile)
+        public ReplayItemModel(ReplayFile replayFile, bool newFile = false)
         {
-            ItemName = replayFile.Name;
+            FileName = replayFile.Name;
+            IsNewFile = newFile;
 
             switch (replayFile.Data.InferredData.MapID)
             {
@@ -32,6 +33,7 @@ namespace Rofl.UI.Main.Models
                     break;
             }
 
+            MatchId = (long) replayFile.Data.PayloadFields.MatchId;
             GameLength = (int) replayFile.Data.MatchMetadata.GameDuration / 1000;
             PatchNumber = replayFile.Data.MatchMetadata.GameVersion;
 
@@ -54,9 +56,13 @@ namespace Rofl.UI.Main.Models
             IsBlueVictorious = replayFile.Data.InferredData.BlueVictory;
         }
 
-        public string ItemName { get; set; }
+        public string FileName { get; set; }
+
+        public bool IsNewFile { get; set; }
 
         public string MapName { get; set; }
+
+        public long MatchId { get; set; }
 
         public int GameLength { get; set; }
 
@@ -76,7 +82,6 @@ namespace Rofl.UI.Main.Models
         public PlayerInfoModel[] RedPlayers { get; set; }
 
         public bool IsBlueVictorious { get; set; }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 

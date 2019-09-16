@@ -23,6 +23,7 @@
             <ListView x:Name="ReplayListView"
                       Style="{StaticResource ReplayListStyle}"
                       ItemsSource="{Binding Path=Replays}"
+                      ItemContainerStyle="{StaticResource ReplayListItemStyle}"
                       Loaded="ReplayListView_Loaded">
                 <ListView.ItemTemplate>
                     <DataTemplate>
