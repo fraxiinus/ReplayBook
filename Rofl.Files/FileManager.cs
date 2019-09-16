@@ -35,7 +35,11 @@ namespace Rofl.Files
             _reader = new ReplayReader();
         }
 
-        public Task<ReplayFile[]> GetReplayFiles()
+        /// <summary>
+        /// Gets all <see cref="ReplayFile"/> objects paired with a flag indicating if it was a cache miss or not.
+        /// </summary>
+        /// <returns></returns>
+        public Task<FileResult[]> GetReplayFiles()
         {
 
             // Get all replay file infos...
@@ -43,8 +47,7 @@ namespace Rofl.Files
 
             return Task.Run(async () =>
             {
-                List<ReplayFile> totalReplays = new List<ReplayFile>();
-                List<Task<ReplayFile>> parseTasks = new List<Task<ReplayFile>>();
+                List<FileResult> totalReplays = new List<FileResult>();
 
                 foreach (var fileInfo in allFiles)
                 {
@@ -62,27 +65,29 @@ namespace Rofl.Files
                     {
                         _log.Info(this.GetType().Name, $"Database hit: {newReplay.Location}");
 
-                        totalReplays.Add(cacheResult);
+                        totalReplays.Add(new FileResult()
+                        {
+                            ReplayFile = cacheResult,
+                            FileInfo = fileInfo,
+                            IsNewFile = false
+                        });
                     }
                     else
                     {
                         _log.Info(this.GetType().Name, $"Database miss: {newReplay.Location}");
                         // create new tasks to read replays
-                        var readTask = _reader.ReadFile(newReplay);
-                        parseTasks.Add(readTask);
+                        totalReplays.Add(new FileResult()
+                        {
+                            ReplayFile = await _reader.ReadFile(newReplay),
+                            FileInfo = fileInfo,
+                            IsNewFile = true
+                        });
                     }
                 }
 
-                await Task.WhenAll(parseTasks).ContinueWith(x =>
-                {
-                    foreach (var replay in x.Result)
-                    {
-                        _database.UpdateOrInsertReplayFile(replay);
-                        totalReplays.Add(replay);
-                    }
-                });
-
-                return totalReplays.ToArray();
+                return (from result in totalReplays
+                        orderby result.FileInfo.CreationTime descending
+                        select result).ToArray();
             });
         }
     }

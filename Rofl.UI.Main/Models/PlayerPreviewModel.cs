@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rofl.UI.Main.Models
 {
-    public class PlayerInfoModel
+    public class PlayerPreviewModel
     {
         public string ChampionName { get; set; }
 

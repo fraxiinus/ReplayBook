@@ -144,8 +144,8 @@
     <Compile Include="Controls\ToolPanel.xaml.cs">
       <DependentUpon>ToolPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\PlayerInfoModel.cs" />
-    <Compile Include="Models\ReplayItemModel.cs" />
+    <Compile Include="Models\PlayerPreviewModel.cs" />
+    <Compile Include="Models\ReplayListItemModel.cs" />
     <Compile Include="ViewModels\ReplayItemViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
