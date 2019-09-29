@@ -16,7 +16,7 @@ namespace Rofl.Files
     public class FileManager
     {
         private FolderRepository _fileSystem;
-        private DatabaseRepository _database;
+        //private DatabaseRepository _database;
 
         private IConfiguration _config;
 
@@ -30,7 +30,7 @@ namespace Rofl.Files
             _log = log;
 
             _fileSystem = new FolderRepository(config, log);
-            _database = new DatabaseRepository(log);
+            //_database = new DatabaseRepository(log);
 
             _reader = new ReplayReader();
         }
@@ -39,56 +39,50 @@ namespace Rofl.Files
         /// Gets all <see cref="ReplayFile"/> objects paired with a flag indicating if it was a cache miss or not.
         /// </summary>
         /// <returns></returns>
-        public Task<FileResult[]> GetReplayFiles()
+        public async Task<FileResult[]> GetReplayFilesAsync()
         {
 
             // Get all replay file infos...
             ReplayFileInfo[] allFiles = _fileSystem.GetAllReplayFileInfo();
 
-            return Task.Run(async () =>
+            List<FileResult> totalReplays = new List<FileResult>();
+
+            foreach (var fileInfo in allFiles)
             {
-                List<FileResult> totalReplays = new List<FileResult>();
+                string replayName = Path.GetFileNameWithoutExtension(fileInfo.Path);
+                string replayPath = fileInfo.Path;
 
-                foreach (var fileInfo in allFiles)
+                // Ask database repository if file exists, using file path as the key
+                // If hit: Use database entry to create new ReplayFile
+                // If not hit:
+                ReplayFile cacheResult = null;// _database.GetReplayFile(replayPath);
+                if (false)//(cacheResult != null)
                 {
-                    var newReplay = new ReplayFile()
-                    {
-                        Location = fileInfo.Path,
-                        Name = Path.GetFileNameWithoutExtension(fileInfo.Path),
-                    };
+                    _log.Info(this.GetType().Name, $"Database hit: {replayPath}");
 
-                    // Ask database repository if file exists, using file path as the key
-                    // If hit: Use database entry to create new ReplayFile
-                    // If not hit:
-                    ReplayFile cacheResult = _database.GetReplayFile(newReplay.Location);
-                    if (cacheResult != null)
+                    totalReplays.Add(new FileResult()
                     {
-                        _log.Info(this.GetType().Name, $"Database hit: {newReplay.Location}");
-
-                        totalReplays.Add(new FileResult()
-                        {
-                            ReplayFile = cacheResult,
-                            FileInfo = fileInfo,
-                            IsNewFile = false
-                        });
-                    }
-                    else
-                    {
-                        _log.Info(this.GetType().Name, $"Database miss: {newReplay.Location}");
-                        // create new tasks to read replays
-                        totalReplays.Add(new FileResult()
-                        {
-                            ReplayFile = await _reader.ReadFile(newReplay),
-                            FileInfo = fileInfo,
-                            IsNewFile = true
-                        });
-                    }
+                        ReplayFile = cacheResult,
+                        FileInfo = fileInfo,
+                        IsNewFile = false
+                    });
                 }
+                else
+                {
+                    _log.Info(this.GetType().Name, $"Database miss: {replayPath}");
+                    // create new tasks to read replays
+                    totalReplays.Add(new FileResult()
+                    {
+                        ReplayFile = await _reader.ReadFile(replayPath),
+                        FileInfo = fileInfo,
+                        IsNewFile = true
+                    });
+                }
+            }
 
-                return (from result in totalReplays
-                        orderby result.FileInfo.CreationTime descending
-                        select result).ToArray();
-            });
+            return (from result in totalReplays
+                    orderby result.FileInfo.CreationTime descending
+                    select result).ToArray();
         }
     }
 }

@@ -195,10 +195,6 @@
       <Project>{df505361-8e36-4187-9458-1663a7f5b3ea}</Project>
       <Name>Rofl.Logger</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Rofl.Main\Rofl.Main.csproj">
-      <Project>{8ea3d1b0-88a4-4909-89a4-788fde0d977d}</Project>
-      <Name>Rofl.Main</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj">
       <Project>{b4369113-5a5c-4bf7-b0e5-577776d8fc35}</Project>
       <Name>Rofl.Reader</Name>

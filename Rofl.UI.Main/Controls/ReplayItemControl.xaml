@@ -34,7 +34,7 @@
                 <TextBlock x:Name="FilenameText"
                        FontSize="12"
                        FontWeight="Bold"
-                       Text="{Binding Path=FileName}"/>
+                       Text="{Binding Path=Name}"/>
 
                 <TextBlock x:Name="MapNameText"
                        FontSize="12"
@@ -51,7 +51,7 @@
                     <TextBlock x:Name="PatchNumberText"
                        FontSize="12"
                        Foreground="Red"
-                       Text="{Binding Path=PatchNumber}"/>
+                       Text="{Binding Path=GameVersion}"/>
 
                     <TextBlock x:Name="PatchCheckText"
                        FontSize="12"

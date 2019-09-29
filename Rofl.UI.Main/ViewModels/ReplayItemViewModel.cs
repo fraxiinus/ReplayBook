@@ -24,20 +24,16 @@ namespace Rofl.UI.Main.ViewModels
             _files = files;
         }
 
-        public void LoadReplays()
+        public async Task LoadReplays()
         {
             Replays = new ObservableCollection<ReplayListItemModel>();
 
-            var loadReplaysTask = _files.GetReplayFiles();
+            var results = await _files.GetReplayFilesAsync();
 
-            // When the background task finishes, add them all
-            loadReplaysTask.ContinueWith(x =>
+            foreach (var file in results)
             {
-                foreach (var file in x.Result)
-                {
-                    Replays.Add(new ReplayListItemModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile));
-                }
-            }, _uiScheduler);
+                Replays.Add(new ReplayListItemModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile));
+            }
         }
     }
 }
