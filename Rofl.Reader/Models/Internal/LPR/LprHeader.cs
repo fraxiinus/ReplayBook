@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rofl.Reader.Models
+namespace Rofl.Reader.Models.Internal.LPR
 {
     public class LprHeader
     {

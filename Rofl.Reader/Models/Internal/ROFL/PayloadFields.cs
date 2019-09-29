@@ -1,12 +1,11 @@
-﻿namespace Rofl.Reader.Models
+﻿namespace Rofl.Reader.Models.Internal.ROFL
 {
+    /// <summary>
+    /// Low level model of payload header in ROFL file
+    /// </summary>
     public class PayloadFields
     {
-        /// <summary>
-        /// Used as the ID for the database
-        /// </summary>
         public ulong MatchId { get; set; }
-
         public uint MatchLength { get; set; }
         public uint KeyframeAmount { get; set; }
         public uint ChunkAmount { get; set; }

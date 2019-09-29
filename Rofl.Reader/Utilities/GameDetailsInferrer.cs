@@ -6,23 +6,23 @@ namespace Rofl.Reader.Utilities
 {
     public class GameDetailsInferrer
     {
-        public bool InferBlueVictory(MatchMetadata matchMetadata)
+        public bool InferBlueVictory(Player[] bluePlayers, Player[] redPlayers)
         {
             // If there are blue players
-            if(matchMetadata.BluePlayers.Count() > 0)
+            if(bluePlayers.Count() > 0)
             {
                 // Get the first one, and check if they won
-                var winText = matchMetadata.BluePlayers[0].SafeGet("WIN");
+                var winText = bluePlayers[0].WIN;
                 if(winText.Equals("win", StringComparison.OrdinalIgnoreCase))
                 {
                     return true;
                 }
             }
             // No blue players, are there red players?
-            else if(matchMetadata.RedPlayers.Count() > 0)
+            else if(redPlayers.Count() > 0)
             {
                 // If so, get the first one and check if they won
-                var winText = matchMetadata.RedPlayers[0].SafeGet("WIN");
+                var winText = redPlayers[0].WIN;
                 if (winText.Equals("win", StringComparison.OrdinalIgnoreCase))
                 {
                     return false;
@@ -33,38 +33,52 @@ namespace Rofl.Reader.Utilities
             return false;
         }
 
-        public Map InferMap(MatchMetadata matchMetadata)
+        public MapCode InferMap(Player[] players)
         {
             // Check if any players have killed jungle creeps, Rules out HowlingAbyss
-            var JungleCheck = (from player in matchMetadata.AllPlayers
-                               where int.Parse(player["NEUTRAL_MINIONS_KILLED"]) > 0
+            var JungleCheck = (from player in players
+                               where int.Parse(player.NEUTRAL_MINIONS_KILLED) > 0
                                select player);
 
             // Check if any players have placed wards, Rules out TwistedTreeline and HowlingAbyss
-            var WardCheck = (from player in matchMetadata.AllPlayers
-                             where int.Parse(player["WARD_PLACED"]) > 0
+            var WardCheck = (from player in players
+                             where int.Parse(player.WARD_PLACED) > 0
                              select player);
 
             // Double check between TwistedTreeline and SummonersRift
-            var DragonCheck = (from player in matchMetadata.AllPlayers
-                               where int.Parse(player["DRAGON_KILLS"]) > 0
+            var DragonCheck = (from player in players
+                               where int.Parse(player.DRAGON_KILLS) > 0
                                select player);
 
             if (JungleCheck.Count() > 0)
             {
                 if (WardCheck.Count() == 0 && DragonCheck.Count() == 0)
                 {
-                    return Map.TwistedTreeline;
+                    return MapCode.TwistedTreeline;
                 }
                 else
                 {
-                    return Map.SummonersRift;
+                    return MapCode.SummonersRift;
                 }
-
             }
             else
             {
-                return Map.HowlingAbyss;
+                return MapCode.HowlingAbyss;
+            }
+        }
+
+        public string GetMapName(MapCode map)
+        {
+            switch (map)
+            {
+                case MapCode.HowlingAbyss:
+                    return "Howling Abyss";
+                case MapCode.SummonersRift:
+                    return "Summoner's Rift";
+                case MapCode.TwistedTreeline:
+                    return "Twisted Treeline";
+                default:
+                    return "Uknown Map";
             }
         }
     }

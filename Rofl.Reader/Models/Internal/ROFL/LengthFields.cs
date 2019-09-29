@@ -1,12 +1,10 @@
-﻿namespace Rofl.Reader.Models
+﻿namespace Rofl.Reader.Models.Internal.ROFL
 {
+    /// <summary>
+    /// Low level model of length header in ROFL file
+    /// </summary>
     public class LengthFields
     {
-        /// <summary>
-        /// Used as the ID for the database
-        /// </summary>
-        public ulong Id { get; set; }
-
         public ushort HeaderLength { get; set; }
         public uint FileLength { get; set; }
         public uint MetadataOffset { get; set; }

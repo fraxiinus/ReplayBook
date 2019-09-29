@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Rofl.Reader.Models
+namespace Rofl.Reader.Models.Internal.LPR
 {
     public class LprOldResults
     {

@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Rofl.Reader.Parsers;
 using Rofl.Reader.Models;
 using Rofl.Reader.Utilities;
+using Rofl.Reader.Models.Internal.ROFL;
+using System.Linq;
 
 namespace Rofl.Reader
 {
@@ -11,40 +13,37 @@ namespace Rofl.Reader
     {
         private readonly string exceptionOriginName = "ReplayReader";
 
-        /// <summary>
-        /// Given non-null ReplayFile object with valid Location, Name, and Type - 
-        /// Returns ReplayFile object with filled out Data.
-        /// </summary>
-        /// <param name="file"></param>
-        /// <returns></returns>
-        public async Task<ReplayFile> ReadFile(ReplayFile file)
+        public async Task<ReplayFile> ReadFile(string filePath)
         {
-            if (file == null || String.IsNullOrEmpty(file.Location) || String.IsNullOrEmpty(file.Name))
+            // Make sure file exists
+            if (String.IsNullOrEmpty(filePath))
             {
                 throw new ArgumentNullException($"{exceptionOriginName} - File reference is null");
             }
 
-            if (!File.Exists(file.Location))
+            if (!File.Exists(filePath))
             {
                 throw new FileNotFoundException($"{exceptionOriginName} - File path not found, does the file exist?");
             }
 
-            // Unsure if "ToLower" needs to be specified, just to be safe...
-            switch (Path.GetExtension(file.Location).ToLower())
+            // Reads the first 4 bytes and tries to find out the replay type
+            ReplayType type = await ParserHelpers.GetReplayTypeAsync(filePath);
+            
+            // Match parsers to file types
+            ReplayFile result;
+            switch (type)
             {
-                case ".rofl":
-                    file.Type = REPLAYTYPES.ROFL;
-                    file.Data = await ReadROFL(file.Location);
+                case ReplayType.ROFL:   // Official Replays
+                    result = await ReadROFL(filePath);
                     break;
-                case ".lrf":
-                    file.Type = REPLAYTYPES.LRF;
-                    file.Data = await ReadLRF(file.Location);
-                    break;
-                // LPR is baronreplays, which is not working currently
-                case ".lpr":
-                    file.Type = REPLAYTYPES.LPR;
-                    file.Data = null;
-                    break;
+                //case ReplayType.LRF:    // LOLReplay
+                //    file.Type = ReplayType.LRF;
+                //    file.Data = await ReadLRF(file.Location);
+                //    break;
+                //case ReplayType.LPR:    // BaronReplays
+                //    file.Type = ReplayType.LPR;
+                //    file.Data = null;
+                //    break;
                 default:
                     throw new NotSupportedException($"{exceptionOriginName} - File is not an accepted format: (rofl, lrf)");
             }
@@ -52,45 +51,60 @@ namespace Rofl.Reader
             // Make some educated guesses
             GameDetailsInferrer detailsInferrer = new GameDetailsInferrer();
 
-            file.Data.InferredData = new InferredData()
+            result.Players = result.BluePlayers.Union(result.RedPlayers).ToArray();
+            result.MapId = detailsInferrer.InferMap(result.Players);
+            result.MapName = detailsInferrer.GetMapName(result.MapId);
+            result.IsBlueVictorious = detailsInferrer.InferBlueVictory(result.BluePlayers, result.RedPlayers);
+
+            return result;
+        }
+
+        public async Task<ReplayFile> ReadROFL(string filePath)
+        {
+            // Create a new parser
+            ROFLParser roflParser = new ROFLParser();
+
+            // Open file stream and parse
+            ROFLHeader parseResult = null;
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
             {
-                Id = file.Data.PayloadFields.MatchId,
-                MapID = detailsInferrer.InferMap(file.Data.MatchMetadata),
-                BlueVictory = detailsInferrer.InferBlueVictory(file.Data.MatchMetadata)
+                parseResult = (ROFLHeader) await roflParser.ReadReplayAsync(fileStream);
+            }
+
+            // Create replay file based on header
+            return new ReplayFile
+            {
+                Type = ReplayType.ROFL,
+                Name = Path.GetFileNameWithoutExtension(filePath),
+                Location = filePath,
+                MatchId = parseResult.PayloadFields.MatchId,
+                GameDuration = TimeSpan.FromMilliseconds(parseResult.MatchMetadata.GameDuration),
+                GameVersion = parseResult.MatchMetadata.GameVersion,
+                BluePlayers = parseResult.MatchMetadata.BluePlayers ?? new Player[0],
+                RedPlayers = parseResult.MatchMetadata.RedPlayers ?? new Player[0],
+                RawJsonString = parseResult.RawJsonString
             };
-
-            return file;
         }
 
-        public async Task<ReplayHeader> ReadROFL(string filePath)
-        {
-            var roflParser = new RoflParser();
+        //public async Task<ReplayHeader> ReadLRF(string filePath)
+        //{
+        //    var lrfParser = new LrfParser();
 
-            using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
-            {
-                return await roflParser.ReadReplayAsync(fileStream);
-            }
-        }
+        //    using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+        //    {
+        //        return await lrfParser.ReadReplayAsync(fileStream);
+        //    }
+        //}
 
-        public async Task<ReplayHeader> ReadLRF(string filePath)
-        {
-            var lrfParser = new LrfParser();
+        //// Broken, do not use
+        //public async Task<ReplayHeader> ReadLPR(string filePath)
+        //{
+        //    var lprParser = new LprParser();
 
-            using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
-            {
-                return await lrfParser.ReadReplayAsync(fileStream);
-            }
-        }
-
-        // Broken, do not use
-        public async Task<ReplayHeader> ReadLPR(string filePath)
-        {
-            var lprParser = new LprParser();
-
-            using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
-            {
-                return await lprParser.ReadReplayAsync(fileStream);
-            }
-        }
+        //    using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+        //    {
+        //        return await lprParser.ReadReplayAsync(fileStream);
+        //    }
+        //}
     }
 }
