@@ -114,7 +114,12 @@ namespace Rofl.Files.Repositories
             {
                 var serializer = new JsonSerializer();
                 FileResult item = serializer.Deserialize(file, typeof(FileResult)) as FileResult;
+                // if it's from cache, it isnt new
                 item.IsNewFile = false;
+                // duplicate files use the same cache item. Make them properly show correct file
+                item.FileInfo.Path = path;
+                item.ReplayFile.Location = path;
+                item.ReplayFile.Name = Path.GetFileNameWithoutExtension(path);
                 return item;
             }
         }
