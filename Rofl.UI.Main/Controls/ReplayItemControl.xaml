@@ -17,7 +17,7 @@
                 <Style TargetType="Border">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=IsNewFile}" Value="True">
-                            <Setter Property="BorderBrush" Value="LightSkyBlue"/>
+                            <Setter Property="BorderBrush" Value="Blue"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=IsNewFile}" Value="False">
                             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -34,7 +34,8 @@
                 <TextBlock x:Name="FilenameText"
                        FontSize="12"
                        FontWeight="Bold"
-                       Text="{Binding Path=Name}"/>
+                       Text="{Binding Path=Name}"
+                       ToolTip="{Binding Path=Name}"/>
 
                 <TextBlock x:Name="MapNameText"
                        FontSize="12"
@@ -42,7 +43,8 @@
 
                 <TextBlock x:Name="GameLengthText"
                        FontSize="12"
-                       Text="{Binding Path=GameLengthString}"/>
+                       Text="{Binding Path=GameLengthString}"
+                       ToolTip="{Binding Path=GameDuration}"/>
 
                 <!--Stack panel so tooltip only happens over checkmark-->
                 <StackPanel x:Name="PatchTextPanel"
