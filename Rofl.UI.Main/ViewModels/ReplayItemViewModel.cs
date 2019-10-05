@@ -1,4 +1,5 @@
 ﻿using Rofl.Files;
+using Rofl.Files.Models;
 using Rofl.Reader;
 using Rofl.Reader.Models;
 using Rofl.UI.Main.Models;
@@ -17,22 +18,30 @@ namespace Rofl.UI.Main.ViewModels
         private FileManager _files;
         private TaskScheduler _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-        public ObservableCollection<ReplayListItemModel> Replays { get; private set; }
+        /// <summary>
+        /// Smaller, preview objects of replays
+        /// </summary>
+        public ObservableCollection<ReplayListItemModel> PreviewReplays { get; private set; }
+
+        /// <summary>
+        /// Full replay objects
+        /// </summary>
+        public List<FileResult> FileResults { get; private set; }
 
         public ReplayItemViewModel(FileManager files)
         {
             _files = files;
+            PreviewReplays = new ObservableCollection<ReplayListItemModel>();
+            FileResults = new List<FileResult>();
         }
 
-        public async Task LoadReplays()
+        public async Task InitialLoadReplays()
         {
-            Replays = new ObservableCollection<ReplayListItemModel>();
+            FileResults.AddRange(await _files.GetReplayFilesAsync());
 
-            var results = await _files.GetReplayFilesAsync();
-
-            foreach (var file in results)
+            foreach (var file in FileResults)
             {
-                Replays.Add(new ReplayListItemModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile));
+                PreviewReplays.Add(new ReplayListItemModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile));
             }
         }
     }

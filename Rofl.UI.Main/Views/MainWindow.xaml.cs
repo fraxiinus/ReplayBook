@@ -50,7 +50,7 @@ namespace Rofl.UI.Main
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
         {
             ReplayItemViewModel replayItemViewModel = new ReplayItemViewModel(_files);
-            await replayItemViewModel.LoadReplays();
+            await replayItemViewModel.InitialLoadReplays();
 
             this.ReplayListView.DataContext = replayItemViewModel;
         }

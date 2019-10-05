@@ -4,23 +4,16 @@ using System.Linq;
 
 namespace Rofl.UI.Main.Models
 {
-    public class ReplayListItemModel : ReplayFile
+    public class ReplayListItemModel
     {
 
         public ReplayListItemModel(ReplayFile replayFile, DateTimeOffset creationDate, bool newFile = false)
         {
             // Copy all the replay file fields
-            Type = replayFile.Type;
             Name = replayFile.Name;
-            Location = replayFile.Location;
             GameDuration = replayFile.GameDuration;
             GameVersion = replayFile.GameVersion;
             MatchId = replayFile.MatchId;
-            Players = replayFile.Players;
-            BluePlayers = replayFile.BluePlayers;
-            RedPlayers = replayFile.RedPlayers;
-            RawJsonString = replayFile.RawJsonString;
-            MapId = replayFile.MapId;
             MapName = replayFile.MapName;
             IsBlueVictorious = replayFile.IsBlueVictorious;
 
@@ -28,12 +21,7 @@ namespace Rofl.UI.Main.Models
             CreationDate = creationDate;
             IsNewFile = newFile;
 
-            PlayerNames = (from player in Players
-                           select player.NAME).ToArray();
-            ChampionNames = (from player in Players
-                             select player.SKIN).ToArray();
-
-            BluePreviewPlayers = (from bplayer in BluePlayers
+            BluePreviewPlayers = (from bplayer in replayFile.BluePlayers
                                   select new PlayerPreviewModel()
                                   {
                                       ChampionName = bplayer.SKIN,
@@ -41,7 +29,7 @@ namespace Rofl.UI.Main.Models
                                       IsKnownPlayer = false
                                   }).ToArray();
 
-            RedPreviewPlayers = (from rplayer in RedPlayers
+            RedPreviewPlayers = (from rplayer in replayFile.RedPlayers
                                  select new PlayerPreviewModel()
                                  {
                                      ChampionName = rplayer.SKIN,
@@ -49,6 +37,18 @@ namespace Rofl.UI.Main.Models
                                      IsKnownPlayer = false
                                  }).ToArray();
         }
+
+        public string Name { get; private set; }
+
+        public TimeSpan GameDuration { get; private set; }
+
+        public string GameVersion { get; private set; }
+
+        public ulong MatchId { get; private set; }
+
+        public string MapName { get; private set; }
+
+        public bool IsBlueVictorious { get; private set; }
 
         public DateTimeOffset CreationDate { get; set; }
 
@@ -60,10 +60,6 @@ namespace Rofl.UI.Main.Models
                 return $"{(int)GameDuration.TotalMinutes} m {GameDuration.Seconds} s";
             }
         }
-
-        public string[] PlayerNames { get; set; }
-
-        public string[] ChampionNames { get; set; }
 
         public PlayerPreviewModel[] BluePreviewPlayers { get; set; }
 

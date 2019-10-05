@@ -86,7 +86,7 @@
                 </Border.Style>
 
                 <StackPanel>
-                    <ItemsControl ItemsSource="{Binding Path=BluePlayers}">
+                    <ItemsControl ItemsSource="{Binding Path=BluePreviewPlayers}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0 1 0 2"/>
@@ -99,7 +99,7 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <ItemsControl ItemsSource="{Binding Path=RedPlayers}">
+                    <ItemsControl ItemsSource="{Binding Path=RedPreviewPlayers}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0 2 0 1"/>
