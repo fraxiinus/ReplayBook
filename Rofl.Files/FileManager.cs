@@ -16,7 +16,7 @@ namespace Rofl.Files
     public class FileManager
     {
         private FolderRepository _fileSystem;
-        //private DatabaseRepository _database;
+        private CacheRepository _cache;
 
         private IConfiguration _config;
 
@@ -24,13 +24,17 @@ namespace Rofl.Files
 
         private ReplayReader _reader;
 
+        private string _myName;
+
         public FileManager(IConfiguration config, Scribe log)
         {
             _config = config;
             _log = log;
+            _myName = this.GetType().ToString();
+
 
             _fileSystem = new FolderRepository(config, log);
-            //_database = new DatabaseRepository(log);
+            _cache = new CacheRepository(config, log);
 
             _reader = new ReplayReader();
         }
@@ -55,28 +59,25 @@ namespace Rofl.Files
                 // Ask database repository if file exists, using file path as the key
                 // If hit: Use database entry to create new ReplayFile
                 // If not hit:
-                ReplayFile cacheResult = null;// _database.GetReplayFile(replayPath);
-                if (false)//(cacheResult != null)
+                FileResult item = _cache.CheckCache(replayPath);
+                if (item != null)
                 {
-                    _log.Info(this.GetType().Name, $"Database hit: {replayPath}");
-
-                    totalReplays.Add(new FileResult()
-                    {
-                        ReplayFile = cacheResult,
-                        FileInfo = fileInfo,
-                        IsNewFile = false
-                    });
+                    _log.Info(_myName, $"Database hit: {replayPath}");
+                    totalReplays.Add(item);
                 }
                 else
                 {
-                    _log.Info(this.GetType().Name, $"Database miss: {replayPath}");
+                    _log.Info(_myName, $"Database miss: {replayPath}");
                     // create new tasks to read replays
-                    totalReplays.Add(new FileResult()
+                    FileResult newResult = new FileResult
                     {
                         ReplayFile = await _reader.ReadFile(replayPath),
                         FileInfo = fileInfo,
                         IsNewFile = true
-                    });
+                    };
+                    // add to cache
+                    _cache.AddCache(newResult);
+                    totalReplays.Add(newResult);
                 }
             }
 

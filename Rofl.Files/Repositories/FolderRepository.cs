@@ -32,7 +32,7 @@ namespace Rofl.Files.Repositories
 
             _log = log;
 
-            _folderPaths = _config.GetSection("folder-watcher:folders").Get<List<string>>();
+            _folderPaths = _config.GetSection("folder:list").Get<List<string>>();
         }
 
         /// <summary>
