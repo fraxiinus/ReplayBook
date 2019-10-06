@@ -7,8 +7,6 @@ namespace Rofl.Requests.Models
 {
     public class ResponseBase
     {
-        public Image ResponseImage { get; set; }
-
         public string ResponsePath { get; set; }
 
         public DateTime ResponseDate { get; set; }

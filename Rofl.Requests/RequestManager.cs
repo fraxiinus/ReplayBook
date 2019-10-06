@@ -6,41 +6,40 @@ using System.Threading.Tasks;
 using Rofl.Requests.Utilities;
 using Rofl.Requests.Models;
 using System.IO;
+using Microsoft.Extensions.Configuration;
+using Rofl.Logger;
 
 namespace Rofl.Requests
 {
     public class RequestManager
     {
-        private readonly DownloadClient _downloadClient = new DownloadClient(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache"));
+        private readonly DownloadClient _downloadClient;
 
-        private readonly CacheClient _cacheClient = new CacheClient(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache"));
+        private readonly CacheClient _cacheClient;
 
-        private readonly string _exceptionOriginName = "Rofl.Requests.RequestManager";
+        private readonly string _myName;
 
-        public string DataDragonVersion { get; private set; } = null;
+        private Scribe _log;
+        private IConfiguration _config;
+        private string _cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
+
+        public RequestManager(IConfiguration config, Scribe log)
+        {
+            _config = config;
+            _log = log;
+
+            // TODO these should use log and config
+            _downloadClient = new DownloadClient(_cachePath, _config, _log);
+            _cacheClient = new CacheClient(_cachePath, _log);
+        }
 
         public async Task<ResponseBase> MakeRequestAsync(RequestBase request)
         {
-            if(string.IsNullOrEmpty(DataDragonVersion))
-            {
-                throw new Exception("Data dragon version must be set before making requests");
-            }
 
-            ResponseBase cacheResponse;
             // Check cache first, return response if found
-            try
-            {
-                cacheResponse = _cacheClient.CheckImageCache(request);
-            }
-            catch (OutOfMemoryException ex)
-            {
-                return new ResponseBase()
-                {
-                    Exception = ex,
-                    IsFaulted = true
-                };
-            }
+            ResponseBase cacheResponse = _cacheClient.CheckImageCache(request);
 
+            // Fault occurs if cache is unable to find the file, or if the file is corrupted
             if (!cacheResponse.IsFaulted)
             {
                 return cacheResponse;
@@ -49,7 +48,7 @@ namespace Rofl.Requests
             // Does not exist in cache, make download request
             try
             {
-                return await _downloadClient.DownloadIconImageAsync(request, DataDragonVersion);
+                return await _downloadClient.DownloadIconImageAsync(request);
             }
             catch (Exception ex)
             {
@@ -62,15 +61,17 @@ namespace Rofl.Requests
         }
 
         /// <summary>
-        /// Given replay version string, set appropriate DataDragon version.
+        /// Given replay version string, returns appropriate DataDragon version.
         /// Only compares first two numbers.
         /// </summary>
-        public async Task SetDataDragonVersionAsync(string replayVersion)
+        public async Task<string> GetDataDragonVersionAsync(string replayVersion)
         {
             string versionRef = replayVersion.VersionSubstring();
             if(string.IsNullOrEmpty(versionRef))
             {
-                throw new ArgumentException($"{_exceptionOriginName} - Replay version: \"{replayVersion}\" is not valid.");
+                string errorMsg = $"{_myName} - Replay version: \"{replayVersion}\" is not valid";
+                _log.Error(_myName, errorMsg);
+                throw new ArgumentException(errorMsg);
             }
 
             string[] allVersions;
@@ -82,7 +83,9 @@ namespace Rofl.Requests
 
             } catch (Exception ex)
             {
-                throw new Exception($"{_exceptionOriginName} - Error requesting Data Dragon versions\n\n{ex.GetType().ToString()} - {ex.Message}");
+                string errorMsg = $"{_myName} - Error requesting Data Dragon versions\n\n{ex.GetType().ToString()} - {ex.Message}";
+                _log.Error(_myName, errorMsg);
+                throw new Exception(errorMsg);
             }
 
             string versionQueryResult = (from version in allVersions
@@ -91,7 +94,7 @@ namespace Rofl.Requests
 
             // TODO to add caching,if query doesn't have any results, call GetDataDragonVersions again
             // If it still returns no results, return default (maybe error?)
-            DataDragonVersion = string.IsNullOrEmpty(versionQueryResult) ? allVersions.First() : versionQueryResult;
+            return string.IsNullOrEmpty(versionQueryResult) ? allVersions.First() : versionQueryResult;
         }
 
         /// <summary>

@@ -2,29 +2,39 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Rofl.Requests.Models;
 using System.Drawing;
+using Rofl.Logger;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
 
 namespace Rofl.Requests.Utilities
 {
     public class DownloadClient
     {
-        public string DownloadRootPath { get; set; }
+        private string _downloadRootFolder;
+        private IConfiguration _config;
+        private Scribe _log;
+        private string _myName;
 
-        public string DataDragonBaseUrl { get; private set; } = @"http://ddragon.leagueoflegends.com/cdn/";
+        private string _dataDragonBaseUrl;
+        private string _championRelUrl;
+        private string _mapRelUrl;
+        private string _itemRelUrl;
 
-        public string ChampionBaseUrl { get; private set; } = @"/img/champion/";
-
-        public string MapBaseUrl { get; private set; } = @"/img/map/map";
-
-        public string ItemBaseUrl { get; private set; } = @"/img/item/";
-
-        public DownloadClient(string downloadPath)
+        public DownloadClient(string downloadPath, IConfiguration config, Scribe log)
         {
-            DownloadRootPath = downloadPath;
+            _config = config;
+            _log = log;
+            _downloadRootFolder = downloadPath;
+            _myName = this.GetType().ToString();
+
+            _dataDragonBaseUrl = _config.GetSection("downloader:datadragon_baseurl").Value;
+            _championRelUrl = _config.GetSection("downloader:champion_relurl").Value;
+            _mapRelUrl = _config.GetSection("downloader:map_relurl").Value;
+            _itemRelUrl = _config.GetSection("downloader:item_relurl").Value;
         }
 
         /// <summary>
@@ -34,9 +44,9 @@ namespace Rofl.Requests.Utilities
         /// <param name="version"></param>
         /// <param name="downloadRoot"></param>
         /// <returns></returns>
-        public async Task<ResponseBase> DownloadIconImageAsync(RequestBase request, string version)
+        public async Task<ResponseBase> DownloadIconImageAsync(RequestBase request)
         {
-            if (String.IsNullOrEmpty(version) || String.IsNullOrEmpty(DownloadRootPath))
+            if (String.IsNullOrEmpty(request.DataDragonVersion) || String.IsNullOrEmpty(_downloadRootFolder))
             {
                 throw new ArgumentNullException();
             }
@@ -47,8 +57,14 @@ namespace Rofl.Requests.Utilities
             switch (request)
             {
                 case ChampionRequest c:
-                    downloadUrl = DataDragonBaseUrl + version + ChampionBaseUrl + c.ChampionName + ".png";
-                    downloadLocation = Path.Combine(DownloadRootPath, "champs", $"{c.ChampionName}.png");
+                    // Fuck fiddlesticks
+                    if (c.ChampionName == "FiddleSticks")
+                    {
+                        c.ChampionName = "Fiddlesticks";
+                    }
+
+                    downloadUrl = _dataDragonBaseUrl + c.DataDragonVersion + _championRelUrl + c.ChampionName + ".png";
+                    downloadLocation = Path.Combine(_downloadRootFolder, "champs", $"{c.ChampionName}.png");
                     break;
 
                 case ItemRequest i:
@@ -57,56 +73,101 @@ namespace Rofl.Requests.Utilities
                         throw new Exception("empty");
                     }
 
-                    downloadUrl = DataDragonBaseUrl + version + ItemBaseUrl + i.ItemID + ".png";
-                    downloadLocation = Path.Combine(DownloadRootPath, "items", $"{i.ItemID}.png");
+                    downloadUrl = _dataDragonBaseUrl + i.DataDragonVersion + _itemRelUrl + i.ItemID + ".png";
+                    downloadLocation = Path.Combine(_downloadRootFolder, "items", $"{i.ItemID}.png");
                     break;
 
                 case MapRequest m:
-                    downloadUrl = DataDragonBaseUrl + version + MapBaseUrl + m.MapID + ".png";
-                    downloadLocation = Path.Combine(DownloadRootPath, "maps", $"{m.MapID}.png");
+                    downloadUrl = _dataDragonBaseUrl + m.DataDragonVersion + _mapRelUrl + m.MapID + ".png";
+                    downloadLocation = Path.Combine(_downloadRootFolder, "maps", $"{m.MapID}.png");
                     break;
 
                 default:
                     break;
             }
 
-            Image itemImage = await DownloadImage(downloadUrl);
-
-            SaveImage(itemImage, downloadLocation);
+            string filePath = await DownloadImage(downloadUrl, downloadLocation);
+            // failed to download an image!
+            if(filePath == null)
+            {
+                return new ResponseBase()
+                {
+                    DataVersion = request.DataDragonVersion,
+                    Request = request,
+                    IsFaulted = true,
+                    RequestUrl = downloadUrl,
+                    ResponseDate = DateTime.Now,
+                    ResponsePath = null
+                };
+            }
 
             return new ResponseBase()
             {
-                DataVersion = version,
+                DataVersion = request.DataDragonVersion,
                 Request = request,
                 IsFaulted = false,
                 RequestUrl = downloadUrl,
                 ResponseDate = DateTime.Now,
-                ResponseImage = itemImage,
-                ResponsePath = downloadLocation
+                ResponsePath = filePath
             };
         }
 
-        private async Task<Image> DownloadImage(string url)
+        private async Task<String> DownloadImage(string url, string location)
         {
-            using (WebClient wc = new WebClient())
+            using (HttpClient client = new HttpClient())
             {
-                byte[] rawImage = await wc.DownloadDataTaskAsync(url);
-
-                using (MemoryStream ms = new MemoryStream(rawImage))
+                HttpResponseMessage response;
+                try
                 {
-                    return Image.FromStream(ms);
+                    response = await client.GetAsync(url);
+
+                }
+                catch (HttpRequestException)
+                {
+                    _log.Error(_myName, $"Unable to send HTTP request {url}");
+                    return null;
+                }
+
+                if (response.IsSuccessStatusCode)
+                {
+                    _log.Info(_myName, $"Made successful HTTP request {url}");
+                    using (Stream s = await response.Content.ReadAsStreamAsync())
+                    {
+                        // Creates or overwrites the file
+                        if (!Directory.Exists(Path.GetDirectoryName(location)))
+                        {
+                            Directory.CreateDirectory(Path.GetDirectoryName(location));
+                        }
+                        using (var file = File.Create(location))
+                        {
+                            await s.CopyToAsync(file);
+                        }
+                    }
+                    return location;
+                }
+                else
+                {
+                    _log.Warning(_myName, $"HTTP request failed {(int) response.StatusCode} {url}");
+                    return null;
                 }
             }
         }
 
-        private void SaveImage(Image image, string path)
-        {
-            if (!Directory.Exists(Path.GetDirectoryName(path)))
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
-            }
+        //private void SaveImage(Image image, string path)
+        //{
+        //    if (!Directory.Exists(Path.GetDirectoryName(path)))
+        //    {
+        //        Directory.CreateDirectory(Path.GetDirectoryName(path));
+        //    }
 
-            image.Save(path);
-        }
+        //    // Delete if already exists, this happens if the existing file failed to read
+        //    if (File.Exists(path))
+        //    {
+        //        _log.Info(_myName, $"Image already exists, deleting {path}");
+        //        File.Delete(path);
+        //    }
+
+        //    image.Save(path);
+        //}
     }
 }
