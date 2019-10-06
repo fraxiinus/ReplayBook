@@ -2,6 +2,7 @@
 using Rofl.Files;
 using Rofl.Logger;
 using Rofl.Reader;
+using Rofl.Requests;
 using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.ViewModels;
 using System;
@@ -30,6 +31,8 @@ namespace Rofl.UI.Main
 
         private FileManager _files;
 
+        private RequestManager _requests;
+
         private Scribe _log;
 
         public MainWindow()
@@ -45,14 +48,17 @@ namespace Rofl.UI.Main
 
             _files = new FileManager(_config, _log);
 
+            _requests = new RequestManager(_config, _log);
+
+            _log.Error("lol", "lol");
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
         {
-            ReplayItemViewModel replayItemViewModel = new ReplayItemViewModel(_files);
+            ReplayItemViewModel replayItemViewModel = new ReplayItemViewModel(_files, _requests);
             await replayItemViewModel.InitialLoadReplays();
-
             this.ReplayListView.DataContext = replayItemViewModel;
+            await replayItemViewModel.LoadThumbnails();
         }
     }
 }

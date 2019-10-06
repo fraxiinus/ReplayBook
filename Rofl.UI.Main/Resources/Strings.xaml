@@ -4,7 +4,7 @@
                     xmlns:string="clr-namespace:System;assembly=mscorlib">
     
     <!--General UI Text-->
-    <string:String x:Key="ProgramName">Replay Manager</string:String>
+    <string:String x:Key="ProgramName">Replay Book</string:String>
     <string:String x:Key="SearchDefaultText">Search...</string:String>
 
     <string:String x:Key="CheckText">✔</string:String>

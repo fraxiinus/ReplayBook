@@ -26,7 +26,8 @@ namespace Rofl.UI.Main.Models
                                   {
                                       ChampionName = bplayer.SKIN,
                                       PlayerName = bplayer.NAME,
-                                      IsKnownPlayer = false
+                                      IsKnownPlayer = false,
+                                      ImageSource = @"D:\Sync\Pictures\comissions\CalamariPop\ThinkYuumi.png"
                                   }).ToArray();
 
             RedPreviewPlayers = (from rplayer in replayFile.RedPlayers
@@ -34,7 +35,8 @@ namespace Rofl.UI.Main.Models
                                  {
                                      ChampionName = rplayer.SKIN,
                                      PlayerName = rplayer.NAME,
-                                     IsKnownPlayer = false
+                                     IsKnownPlayer = false,
+                                     ImageSource = @"D:\Sync\Pictures\comissions\CalamariPop\ThinkYuumi.png"
                                  }).ToArray();
         }
 
