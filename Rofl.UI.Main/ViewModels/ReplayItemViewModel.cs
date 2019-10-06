@@ -50,14 +50,6 @@ namespace Rofl.UI.Main.ViewModels
 
                 PreviewReplays.Add(newItem);
             }
-            //var result = await _requests.GetDataDragonVersionAsync("9.17.287.2485");
-
-            //var response = await _requests.MakeRequestAsync(new ChampionRequest
-            //{
-            //    DataDragonVersion = result,
-            //    ChampionName = "Yuumi"
-            //});
-            // HOW THE FUCK DO I LOAD IMAGES
         }
 
         public async Task LoadThumbnails()
@@ -65,30 +57,37 @@ namespace Rofl.UI.Main.ViewModels
             foreach (var item in PreviewReplays)
             {
                 string dataVersion = await _requests.GetDataDragonVersionAsync(item.GameVersion);
+
+                // Image tasks
+                List<Task> imageTasks = new List<Task>();
+
                 foreach (var player in item.BluePreviewPlayers)
                 {
-                    player.ImageSource = await Task.Run(async () =>
+                    imageTasks.Add(Task.Run(async () =>
                     {
                         var response = await _requests.MakeRequestAsync(new ChampionRequest
                         {
                             DataDragonVersion = dataVersion,
                             ChampionName = player.ChampionName
                         });
-                        return response.ResponsePath;
-                    });
+                        player.ImageSource = response.ResponsePath;
+                    }));
                 }
+
                 foreach (var player in item.RedPreviewPlayers)
                 {
-                    player.ImageSource = await Task.Run(async () =>
+                    imageTasks.Add(Task.Run(async () =>
                     {
                         var response = await _requests.MakeRequestAsync(new ChampionRequest
                         {
                             DataDragonVersion = dataVersion,
                             ChampionName = player.ChampionName
                         });
-                        return response.ResponsePath;
-                    });
+                        player.ImageSource = response.ResponsePath;
+                    }));
                 }
+
+                await Task.WhenAll(imageTasks);
             }
         }
     }
