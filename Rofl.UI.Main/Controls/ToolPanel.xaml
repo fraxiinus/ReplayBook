@@ -10,10 +10,7 @@
     <StackPanel Orientation="Horizontal" 
                 Background="WhiteSmoke">
 
-        <Border BorderBrush="LightGray"
-                BorderThickness="2"
-                Background="White"
-                Margin="5">
+        <Border Style="{DynamicResource SearchBorderStyle}">
             
             <DockPanel>
 
@@ -25,7 +22,7 @@
                          FontSize="18"
                          Width="226"
                          BorderBrush="Transparent"
-                         Text="{StaticResource SearchDefaultText}"/>
+                         Style="{DynamicResource SearchBoxStyle}"/>
                 
             </DockPanel>
             
