@@ -61,6 +61,7 @@ namespace Rofl.UI.Main.ViewModels
                 // Image tasks
                 List<Task> imageTasks = new List<Task>();
 
+                // Create requests for player images
                 foreach (var player in item.BluePreviewPlayers)
                 {
                     imageTasks.Add(Task.Run(async () =>
@@ -87,6 +88,7 @@ namespace Rofl.UI.Main.ViewModels
                     }));
                 }
 
+                // Wait for all images to finish before doing the next replay
                 await Task.WhenAll(imageTasks);
             }
         }
