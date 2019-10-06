@@ -1,6 +1,9 @@
 ﻿using Rofl.Files;
+using Rofl.Files.Models;
 using Rofl.Reader;
 using Rofl.Reader.Models;
+using Rofl.Requests;
+using Rofl.Requests.Models;
 using Rofl.UI.Main.Models;
 using System;
 using System.Collections.Generic;
@@ -14,43 +17,79 @@ namespace Rofl.UI.Main.ViewModels
     public class ReplayItemViewModel
     {
 
-        private FolderWatcher _folderWatcher;
-        private ReplayReader _replayReader;
+        private FileManager _files;
+        private RequestManager _requests;
         private TaskScheduler _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-        public ObservableCollection<ReplayItemModel> Replays { get; private set; }
+        /// <summary>
+        /// Smaller, preview objects of replays
+        /// </summary>
+        public ObservableCollection<ReplayListItemModel> PreviewReplays { get; private set; }
 
-        public ReplayItemViewModel(FolderWatcher folderWatcher, ReplayReader replayReader)
+        /// <summary>
+        /// Full replay objects
+        /// </summary>
+        public List<FileResult> FileResults { get; private set; }
+
+        public ReplayItemViewModel(FileManager files, RequestManager requests)
         {
-            _folderWatcher = folderWatcher;
-            _replayReader = replayReader;
+            _files = files;
+            _requests = requests;
+
+            PreviewReplays = new ObservableCollection<ReplayListItemModel>();
+            FileResults = new List<FileResult>();
         }
 
-        public void LoadReplays()
+        public async Task InitialLoadReplays()
         {
-            // Kick off background task which loads files
-            Task<ReplayFile[]> loadReplayTask = Task.Run(async () =>
+            FileResults.AddRange(await _files.GetReplayFilesAsync());
+
+            foreach (var file in FileResults)
             {
-                var replayFiles = _folderWatcher.GetReplayFiles();
+                ReplayListItemModel newItem = new ReplayListItemModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
 
-                var readTasks = (from file in replayFiles
-                                 select _replayReader.ReadFile(file));
+                PreviewReplays.Add(newItem);
+            }
+            //var result = await _requests.GetDataDragonVersionAsync("9.17.287.2485");
 
-                await Task.Delay(5000);
+            //var response = await _requests.MakeRequestAsync(new ChampionRequest
+            //{
+            //    DataDragonVersion = result,
+            //    ChampionName = "Yuumi"
+            //});
+            // HOW THE FUCK DO I LOAD IMAGES
+        }
 
-                return await Task.WhenAll(readTasks);
-            });
-
-            Replays = new ObservableCollection<ReplayItemModel>();
-
-            // When the background task finishes, add them all
-            loadReplayTask.ContinueWith(x =>
+        public async Task LoadThumbnails()
+        {
+            foreach (var item in PreviewReplays)
             {
-                foreach (var file in x.Result)
+                string dataVersion = await _requests.GetDataDragonVersionAsync(item.GameVersion);
+                foreach (var player in item.BluePreviewPlayers)
                 {
-                    Replays.Add(new ReplayItemModel(file));
+                    player.ImageSource = await Task.Run(async () =>
+                    {
+                        var response = await _requests.MakeRequestAsync(new ChampionRequest
+                        {
+                            DataDragonVersion = dataVersion,
+                            ChampionName = player.ChampionName
+                        });
+                        return response.ResponsePath;
+                    });
                 }
-            }, _uiScheduler);
+                foreach (var player in item.RedPreviewPlayers)
+                {
+                    player.ImageSource = await Task.Run(async () =>
+                    {
+                        var response = await _requests.MakeRequestAsync(new ChampionRequest
+                        {
+                            DataDragonVersion = dataVersion,
+                            ChampionName = player.ChampionName
+                        });
+                        return response.ResponsePath;
+                    });
+                }
+            }
         }
     }
 }

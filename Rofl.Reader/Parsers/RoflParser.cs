@@ -1,5 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Rofl.Reader.Models;
+using Rofl.Reader.Models.Internal;
+using Rofl.Reader.Models.Internal.ROFL;
+using Rofl.Reader.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,10 +16,9 @@ namespace Rofl.Reader.Parsers
     /// <summary>
     /// Parses Official League of Legends Replays
     /// </summary>
-    public class RoflParser : IReplayParser
+    public class ROFLParser : IReplayParser
     {
         private readonly string exceptionOriginName = "RoflParser";
-        private readonly byte[] _magicNumbers = new byte[] { 0x52, 0x49, 0x4F, 0x54 };
 
         public async Task<ReplayHeader> ReadReplayAsync(FileStream fileStream)
         {
@@ -25,74 +28,103 @@ namespace Rofl.Reader.Parsers
             }
 
             // Read and check Magic Numbers
-            byte[] magicbuffer = new byte[4];
+            ReplayType type;
             try
             {
-                await fileStream.ReadAsync(magicbuffer, 0, 4);
-                if (!magicbuffer.SequenceEqual(_magicNumbers))
-                {
-                    throw new Exception($"{exceptionOriginName} - Selected file is not in valid ROFL format");
-                }
+                type = await ParserHelpers.GetReplayTypeAsync(fileStream);
             }
             catch (Exception ex)
             {
-                throw new IOException($"{exceptionOriginName} - Reading Magic Number: " + ex.Message);
+                throw new IOException($"{exceptionOriginName} - Reading Magic Number: " + ex.Message, ex);
             }
 
+            if(type != ReplayType.ROFL)
+            {
+                throw new Exception($"{exceptionOriginName} - Selected file is not in valid ROFL format");
+            }
 
             // Read and deserialize length fields
-            byte[] lengthFieldBuffer = new byte[26];
+            byte[] lengthFieldBuffer;
             try
             {
-                fileStream.Seek(262, SeekOrigin.Begin);
-                await fileStream.ReadAsync(lengthFieldBuffer, 0, 26);
+                lengthFieldBuffer = await ParserHelpers.ReadBytesAsync(fileStream, 26, 262, SeekOrigin.Begin);
             }
             catch (Exception ex)
             {
-                throw new IOException($"{exceptionOriginName} - Reading Length Header: " + ex.Message);
+                throw new IOException($"{exceptionOriginName} - Reading Length Header: " + ex.Message, ex);
             }
 
-            var replayLengthFields = ParseLengthFields(lengthFieldBuffer);
+            LengthFields lengthFields;
+            try
+            {
+                lengthFields = ParseLengthFields(lengthFieldBuffer);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{exceptionOriginName} - Parsing Length Header: " + ex.Message, ex);
+            }
 
 
             // Read and deserialize metadata
-            byte[] metadataBuffer = new byte[replayLengthFields.MetadataLength];
+            byte[] metadataBuffer;
             try
             {
-                fileStream.Seek(replayLengthFields.MetadataOffset, SeekOrigin.Begin);
-                await fileStream.ReadAsync(metadataBuffer, 0, (int)replayLengthFields.MetadataLength);
+                metadataBuffer = await ParserHelpers.ReadBytesAsync(fileStream, (int)lengthFields.MetadataLength, (int)lengthFields.MetadataOffset, SeekOrigin.Begin);
             }
             catch (Exception ex)
             {
-                throw new IOException($"{exceptionOriginName} - Reading JSON Metadata: " + ex.Message);
+                throw new IOException($"{exceptionOriginName} - Reading JSON Metadata: " + ex.Message, ex);
             }
 
-            var replayMatchMetadata = ParseMetadata(metadataBuffer);
-
+            MatchMetadata metadataFields;
+            try
+            {
+                metadataFields = ParseMetadata(metadataBuffer);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{exceptionOriginName} - Parsing Metadata Header: " + ex.Message, ex);
+            }
 
             // Read and deserialize payload fields
-            byte[] payloadFieldBuffer = new byte[replayLengthFields.PayloadHeaderLength];
+            byte[] payloadBuffer;
             try
             {
-                fileStream.Seek(replayLengthFields.PayloadHeaderOffset, SeekOrigin.Begin);
-                await fileStream.ReadAsync(payloadFieldBuffer, 0, (int)replayLengthFields.PayloadHeaderLength);
+                payloadBuffer = await ParserHelpers.ReadBytesAsync(fileStream, (int)lengthFields.PayloadHeaderLength, (int)lengthFields.PayloadHeaderOffset, SeekOrigin.Begin);
             }
             catch (Exception ex)
             {
-                throw new IOException($"{exceptionOriginName} - Reading Match Header: " + ex.Message);
+                throw new IOException($"{exceptionOriginName} - Reading Match Header: " + ex.Message, ex);
             }
 
-            var replayPayloadFields = ParseMatchHeader(payloadFieldBuffer);
-
-            return new ReplayHeader
+            PayloadFields payloadFields;
+            try
             {
-                LengthFields = replayLengthFields,
-                MatchMetadata = replayMatchMetadata,
-                PayloadFields = replayPayloadFields
+                payloadFields = ParsePayloadHeader(payloadBuffer);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{exceptionOriginName} - Parsing Payload Header: " + ex.Message, ex);
+            }
+            
+
+            // Combine objects to create header
+            ROFLHeader result = new ROFLHeader
+            {
+                LengthFields = lengthFields,
+                MatchMetadata = metadataFields,
+                PayloadFields = payloadFields
             };
+
+            // Create json of entire contents
+            string jsonString = JsonConvert.SerializeObject(result);
+
+            // throw it back on the object and return
+            result.RawJsonString = jsonString;
+            return result;
         }
 
-        private static PayloadFields ParseMatchHeader(byte[] bytedata)
+        private static PayloadFields ParsePayloadHeader(byte[] bytedata)
         {
             var result = new PayloadFields { };
 
@@ -125,24 +157,29 @@ namespace Rofl.Reader.Parsers
             var blueTeam = new List<Dictionary<string, string>>();
             var redTeam = new List<Dictionary<string, string>>();
 
-            // Sort blue and red teams
-            foreach (JObject player in JArray.Parse(((string)jsonobject["statsJson"]).Replace(@"\", "")))
+            // Read player stats
+            string playerJson = ((string)jsonobject["statsJson"]).Replace(@"\", "");
+            var players = JsonConvert.DeserializeObject<Player[]>(playerJson);
+
+            // Sort players into teams
+            var teams = (from player in players
+                         group player by player.TEAM into t
+                         orderby t.Key
+                         select t);
+
+            // Set teams by key
+            foreach (var team in teams)
             {
-                if(player["TEAM"].ToString() == "100")
+                if(team.Key == "100")
                 {
-                    blueTeam.Add(player.ToObject<Dictionary<string, string>>());
+                    result.BluePlayers = team.ToArray();
                 }
-                else if (player["TEAM"].ToString() == "200")
+                if (team.Key == "200")
                 {
-                    redTeam.Add(player.ToObject<Dictionary<string, string>>());
+                    result.RedPlayers = team.ToArray();
                 }
             }
-
-            result.BluePlayers = blueTeam.ToArray();
-            result.RedPlayers = redTeam.ToArray();
-
-            //result.Players = JArray.Parse(((string)jsonobject["statsJson"]).Replace(@"\", ""));
-
+            
             return result;
         }
 
