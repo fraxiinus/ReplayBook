@@ -2,7 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Rofl.UI.Main.Resources" xmlns:Controls="clr-namespace:Rofl.UI.Main.Controls">
 
-    <Style x:Key="PanelButton" TargetType="{x:Type Button}">
+    <Style x:Key="ToolButton" TargetType="{x:Type Button}">
+        <Setter Property="Margin" Value="0 5 5 5"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="ToolToggleButton" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Margin" Value="0 5 5 5"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="ToolDropDown" TargetType="{x:Type MenuItem}">
         <Setter Property="Margin" Value="0 5 5 5"/>
         <Setter Property="Width" Value="30"/>
         <Setter Property="Background" Value="Transparent"/>
