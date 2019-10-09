@@ -128,7 +128,7 @@
             <Button x:Name="PlayButton"
                     Margin="0 0 0 5"
                     ToolTip="{StaticResource PlayReplayToolTip}"
-                    Style="{StaticResource PanelButton}">
+                    Style="{StaticResource ToolButton}">
                 <Image Source="{StaticResource PlayCircleDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
             </Button>
@@ -136,7 +136,7 @@
             <Button x:Name="Morebutton"
                     Margin="0"
                     ToolTip="{StaticResource MoreToolTip}"
-                    Style="{StaticResource PanelButton}">
+                    Style="{StaticResource ToolButton}">
                 <Image Source="{StaticResource MoreVertDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
             </Button>

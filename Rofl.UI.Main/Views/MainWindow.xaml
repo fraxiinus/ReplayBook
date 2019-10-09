@@ -18,7 +18,8 @@
         
         <DockPanel DockPanel.Dock="Left">
 
-            <controls:ToolPanel DockPanel.Dock="Top"/>
+            <controls:ToolPanel x:Name="ToolPanel"
+                                DockPanel.Dock="Top"/>
 
             <ListView x:Name="ReplayListView"
                       Style="{StaticResource ReplayListStyle}"

@@ -20,6 +20,16 @@
     <string:String x:Key="ReplayUnsupportedToolTip">Unsupported</string:String>
     <string:String x:Key="ReplaySupportedToolTip">Replay enabled</string:String>
     
+    <!--sort menu text-->
+    <string:String x:Key="NameAsc">Name ascending</string:String>
+    <string:String x:Key="NameDesc">Name descending</string:String>
+    
+    <string:String x:Key="DateAsc">Date created ascending</string:String>
+    <string:String x:Key="DateDesc">Date created descending</string:String>
+
+    <string:String x:Key="LengthAsc">Length ascending</string:String>
+    <string:String x:Key="LengthDesc">Length descending</string:String>
+    
     <!--Replay Text-->
     <string:String x:Key="VictoryText">VICTORY</string:String>
     <string:String x:Key="DefeatText">DEFEAT</string:String>

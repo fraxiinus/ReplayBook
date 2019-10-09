@@ -51,14 +51,14 @@ namespace Rofl.UI.Main
             _requests = new RequestManager(_config, _log);
 
             _log.Error("lol", "lol");
+
+            this.DataContext = new MainWindowViewModel(_files, _requests);
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
         {
-            ReplayItemViewModel replayItemViewModel = new ReplayItemViewModel(_files, _requests);
-            await replayItemViewModel.InitialLoadReplays();
-            this.ReplayListView.DataContext = replayItemViewModel;
-            await replayItemViewModel.LoadThumbnails();
+            await (this.DataContext as MainWindowViewModel).LoadReplays();
+            await (this.DataContext as MainWindowViewModel).LoadPreviewPlayerThumbnails();
         }
     }
 }

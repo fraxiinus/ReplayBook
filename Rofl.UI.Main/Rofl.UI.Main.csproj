@@ -161,7 +161,8 @@
     </Compile>
     <Compile Include="Models\PlayerPreviewModel.cs" />
     <Compile Include="Models\ReplayListItemModel.cs" />
-    <Compile Include="ViewModels\ReplayItemViewModel.cs" />
+    <Compile Include="Models\SortToolModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

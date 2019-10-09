@@ -8,7 +8,8 @@
              d:DesignHeight="40" d:DesignWidth="370">
     
     <StackPanel Orientation="Horizontal" 
-                Background="WhiteSmoke">
+                Background="WhiteSmoke"
+                DataContext="{Binding Path=SortParameters}">
 
         <Border Style="{DynamicResource SearchBorderStyle}">
             
@@ -22,28 +23,54 @@
                          FontSize="18"
                          Width="226"
                          BorderBrush="Transparent"
+                         Text="{Binding Path=SearchTerm}"
                          Style="{DynamicResource SearchBoxStyle}"/>
                 
             </DockPanel>
             
         </Border>
 
-
-        <Button x:Name="SortButton"
+        <ToggleButton x:Name="SortButton"
                 ToolTip="{StaticResource SortToolTip}"
-                Style="{StaticResource PanelButton}">
+                Style="{StaticResource ToolToggleButton}"
+                ContextMenuService.Placement="Bottom"
+                Click="SortButton_Click">
             <Image Source="{StaticResource SortDrawingImage}"/>
-        </Button>
+            <ToggleButton.ContextMenu>
+                <ContextMenu x:Name="SortMenu">
+                    <MenuItem x:Name="NameAsc"
+                              Header="{StaticResource NameAsc}" 
+                              Click="MenuItem_Click"/>
+                    <MenuItem x:Name="NameDesc"
+                              Header="{StaticResource NameDesc}" 
+                              Click="MenuItem_Click"/>
+                    <Separator/>
+                    <MenuItem x:Name="DateAsc"
+                              Header="{StaticResource DateAsc}" 
+                              Click="MenuItem_Click"/>
+                    <MenuItem x:Name="DateDesc"
+                              Header="{StaticResource DateDesc}" 
+                              Click="MenuItem_Click"/>
+                    <Separator/>
+                    <MenuItem x:Name="LengthAsc"
+                              Header="{StaticResource LengthAsc}" 
+                              Click="MenuItem_Click"/>
+                    <MenuItem x:Name="LengthDesc"
+                              Header="{StaticResource LengthDesc}" 
+                              Click="MenuItem_Click"/>
+                </ContextMenu>
+            </ToggleButton.ContextMenu>
+        </ToggleButton>
 
         <Button x:Name="OpenFolderButton"
                 ToolTip="{StaticResource OpenToolTip}"
-                Style="{StaticResource PanelButton}">
+                Style="{StaticResource ToolButton}">
             <Image Source="{StaticResource FolderOpenDrawingImage}"/>
         </Button>
 
         <Button x:Name="SettingsButton"
                 ToolTip="{StaticResource SettingsToolTip}"
-                Style="{StaticResource PanelButton}">
+                Style="{StaticResource ToolButton}">
             <Image Source="{StaticResource SettingsDrawingImage}"/>
         </Button>
 

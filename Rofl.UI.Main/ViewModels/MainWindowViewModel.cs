@@ -1,7 +1,5 @@
 ﻿using Rofl.Files;
 using Rofl.Files.Models;
-using Rofl.Reader;
-using Rofl.Reader.Models;
 using Rofl.Requests;
 using Rofl.Requests.Models;
 using Rofl.UI.Main.Models;
@@ -11,15 +9,21 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace Rofl.UI.Main.ViewModels
 {
-    public class ReplayItemViewModel
+    public class MainWindowViewModel
     {
-
-        private FileManager _files;
-        private RequestManager _requests;
+        private FileManager _fileManager;
+        private RequestManager _requestManager;
         private TaskScheduler _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public SortToolModel SortParameters { get; private set; }
 
         /// <summary>
         /// Smaller, preview objects of replays
@@ -31,18 +35,24 @@ namespace Rofl.UI.Main.ViewModels
         /// </summary>
         public List<FileResult> FileResults { get; private set; }
 
-        public ReplayItemViewModel(FileManager files, RequestManager requests)
+        public MainWindowViewModel(FileManager files, RequestManager requests)
         {
-            _files = files;
-            _requests = requests;
+            _fileManager = files;
+            _requestManager = requests;
 
             PreviewReplays = new ObservableCollection<ReplayListItemModel>();
             FileResults = new List<FileResult>();
+
+            SortParameters = new SortToolModel
+            {
+                SearchTerm = String.Empty,
+                SortMethod = SortMethod.DateDesc
+            };
         }
 
-        public async Task InitialLoadReplays()
+        public async Task LoadReplays()
         {
-            FileResults.AddRange(await _files.GetReplayFilesAsync());
+            FileResults.AddRange(await _fileManager.GetReplayFilesAsync());
 
             foreach (var file in FileResults)
             {
@@ -52,11 +62,11 @@ namespace Rofl.UI.Main.ViewModels
             }
         }
 
-        public async Task LoadThumbnails()
+        public async Task LoadPreviewPlayerThumbnails()
         {
             foreach (var item in PreviewReplays)
             {
-                string dataVersion = await _requests.GetDataDragonVersionAsync(item.GameVersion);
+                string dataVersion = await _requestManager.GetDataDragonVersionAsync(item.GameVersion);
 
                 // Image tasks
                 List<Task> imageTasks = new List<Task>();
@@ -66,7 +76,7 @@ namespace Rofl.UI.Main.ViewModels
                 {
                     imageTasks.Add(Task.Run(async () =>
                     {
-                        var response = await _requests.MakeRequestAsync(new ChampionRequest
+                        var response = await _requestManager.MakeRequestAsync(new ChampionRequest
                         {
                             DataDragonVersion = dataVersion,
                             ChampionName = player.ChampionName
@@ -79,7 +89,7 @@ namespace Rofl.UI.Main.ViewModels
                 {
                     imageTasks.Add(Task.Run(async () =>
                     {
-                        var response = await _requests.MakeRequestAsync(new ChampionRequest
+                        var response = await _requestManager.MakeRequestAsync(new ChampionRequest
                         {
                             DataDragonVersion = dataVersion,
                             ChampionName = player.ChampionName
