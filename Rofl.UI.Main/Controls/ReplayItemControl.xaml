@@ -129,7 +129,7 @@
                     Margin="0 0 0 5"
                     ToolTip="{StaticResource PlayReplayToolTip}"
                     Style="{StaticResource ToolButton}">
-                <Image Source="{StaticResource PlayCircleDrawingImage}"
+                <Image Source="{StaticResource PlayDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
             </Button>
             
@@ -137,7 +137,7 @@
                     Margin="0"
                     ToolTip="{StaticResource MoreToolTip}"
                     Style="{StaticResource ToolButton}">
-                <Image Source="{StaticResource MoreVertDrawingImage}"
+                <Image Source="{StaticResource MoreDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
             </Button>
             
