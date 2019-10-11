@@ -15,8 +15,8 @@
                Source="{Binding Path=ImageSource, IsAsync=True}"/>
 
         <Rectangle x:Name="MarkerRectangle"
-                   Width="5"
-                   Height="5"
+                   Width="8"
+                   Height="8"
                    Margin="0 1 1 0"
                    HorizontalAlignment="Right"
                    VerticalAlignment="Top">
@@ -25,6 +25,8 @@
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="True">
                             <Setter Property="Fill" Value="Yellow"/>
+                            <Setter Property="Stroke" Value="Black"/>
+                            <Setter Property="StrokeThickness" Value="1"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="False">
                             <Setter Property="Fill" Value="Transparent"/>
