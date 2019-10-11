@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main"
         xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="{StaticResource ProgramName}" 
         Icon="{StaticResource ProgramIcon}"
@@ -13,7 +15,13 @@
         MinWidth="1000"
         Height="600" 
         Width="1000">
-
+    <Window.Resources>
+        <CollectionViewSource x:Key="PreviewReplaysView" 
+                              Source="{Binding Path=PreviewReplays}"
+                              Filter="PreviewReplaysView_Filter">
+        </CollectionViewSource>
+    </Window.Resources>
+    
     <DockPanel>
         
         <DockPanel DockPanel.Dock="Left">
@@ -23,7 +31,7 @@
 
             <ListView x:Name="ReplayListView"
                       Style="{StaticResource ReplayListStyle}"
-                      ItemsSource="{Binding Path=PreviewReplays}"
+                      ItemsSource="{Binding Source={StaticResource PreviewReplaysView}}"
                       ItemContainerStyle="{StaticResource ReplayListItemStyle}"
                       Loaded="ReplayListView_Loaded">
                 <ListView.ItemTemplate>

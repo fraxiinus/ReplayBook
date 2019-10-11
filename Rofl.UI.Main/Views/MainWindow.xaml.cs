@@ -4,6 +4,7 @@ using Rofl.Logger;
 using Rofl.Reader;
 using Rofl.Requests;
 using Rofl.UI.Main.Controls;
+using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -59,6 +60,11 @@ namespace Rofl.UI.Main
         {
             await (this.DataContext as MainWindowViewModel).LoadReplays();
             await (this.DataContext as MainWindowViewModel).LoadPreviewPlayerThumbnails();
+        }
+
+        private void PreviewReplaysView_Filter(object sender, FilterEventArgs e)
+        {
+            e.Accepted = (this.DataContext as MainWindowViewModel).FilterPreviewReplay(e.Item as ReplayListItemModel);
         }
     }
 }

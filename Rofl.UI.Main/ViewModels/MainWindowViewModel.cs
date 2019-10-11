@@ -6,11 +6,13 @@ using Rofl.UI.Main.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 
 namespace Rofl.UI.Main.ViewModels
 {
@@ -101,6 +103,71 @@ namespace Rofl.UI.Main.ViewModels
                 // Wait for all images to finish before doing the next replay
                 await Task.WhenAll(imageTasks);
             }
+        }
+
+        public void SortPreviewReplays(CollectionViewSource replayView)
+        {
+            SortMethod sort = SortParameters.SortMethod;
+
+            switch (sort)
+            {
+                case SortMethod.NameAsc:
+                    replayView.SortDescriptions.Clear();
+                    replayView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+                    break;
+
+                case SortMethod.NameDesc:
+                    replayView.SortDescriptions.Clear();
+                    replayView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Descending));
+                    break;
+
+                case SortMethod.DateAsc:
+                    replayView.SortDescriptions.Clear();
+                    replayView.SortDescriptions.Add(new SortDescription("CreationDate", ListSortDirection.Ascending));
+                    break;
+
+                case SortMethod.DateDesc:
+                    replayView.SortDescriptions.Clear();
+                    replayView.SortDescriptions.Add(new SortDescription("CreationDate", ListSortDirection.Descending));
+                    break;
+
+                case SortMethod.LengthAsc:
+                    replayView.SortDescriptions.Clear();
+                    replayView.SortDescriptions.Add(new SortDescription("GameDuration", ListSortDirection.Ascending));
+                    break;
+
+                case SortMethod.LengthDesc:
+                    replayView.SortDescriptions.Clear();
+                    replayView.SortDescriptions.Add(new SortDescription("GameDuration", ListSortDirection.Descending));
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        public bool FilterPreviewReplay(ReplayListItemModel replayItem)
+        {
+            string searchTerm = SortParameters.SearchTerm.ToUpper();
+
+            // Minimum requirement
+            if(searchTerm.Length < 3) { return true; }
+
+            if (replayItem.MapName.ToUpper().Contains(searchTerm)) { return true; }
+
+            foreach (var bluePlayer in replayItem.BluePreviewPlayers)
+            {
+                if (bluePlayer.ChampionName.ToUpper().Contains(searchTerm)) { return true; }
+                if (bluePlayer.PlayerName.ToUpper().Contains(searchTerm)) { return true; }
+            }
+
+            foreach (var redPlayer in replayItem.BluePreviewPlayers)
+            {
+                if (redPlayer.ChampionName.ToUpper().Contains(searchTerm)) { return true; }
+                if (redPlayer.PlayerName.ToUpper().Contains(searchTerm)) { return true; }
+            }
+
+            return false;
         }
     }
 }

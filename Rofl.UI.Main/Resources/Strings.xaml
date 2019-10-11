@@ -19,6 +19,7 @@
 
     <string:String x:Key="ReplayUnsupportedToolTip">Unsupported</string:String>
     <string:String x:Key="ReplaySupportedToolTip">Replay enabled</string:String>
+    <string:String x:Key="FileDateToolTip">File creation date</string:String>
     
     <!--sort menu text-->
     <string:String x:Key="NameAsc">Name ascending</string:String>

@@ -2,6 +2,7 @@
 using Rofl.UI.Main.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Rofl.UI.Main.Controls
 {
@@ -23,6 +25,8 @@ namespace Rofl.UI.Main.Controls
     /// </summary>
     public partial class ToolPanel : UserControl
     {
+        private DispatcherTimer _typingTimer;
+
         public ToolPanel()
         {
             InitializeComponent();
@@ -66,6 +70,41 @@ namespace Rofl.UI.Main.Controls
                     menuItem.BorderBrush = Brushes.Transparent;
                 }
             }
+
+            context.SortPreviewReplays(this.FindResource("PreviewReplaysView") as CollectionViewSource);
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+
+            if (_typingTimer == null)
+            {
+                _typingTimer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromMilliseconds(1000)
+                };
+
+                _typingTimer.Tick += new EventHandler(this.TypingTimer_Timeout);
+            }
+
+            _typingTimer.Stop();
+            _typingTimer.Tag = (sender as TextBox).Text;
+            _typingTimer.Start();
+        }
+
+        private void TypingTimer_Timeout(object sender, EventArgs e)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+            if (!(sender is DispatcherTimer timer)) { return; }
+
+            string searchText = timer.Tag.ToString();
+
+            context.SortParameters.SearchTerm = searchText;
+
+            (this.FindResource("PreviewReplaysView") as CollectionViewSource).View.Refresh();
+
+            timer.Stop();
         }
     }
 }
