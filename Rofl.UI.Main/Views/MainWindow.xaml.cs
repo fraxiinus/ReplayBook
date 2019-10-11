@@ -53,7 +53,7 @@ namespace Rofl.UI.Main
 
             _log.Error("lol", "lol");
 
-            this.DataContext = new MainWindowViewModel(_files, _requests);
+            this.DataContext = new MainWindowViewModel(_files, _requests, _config);
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)

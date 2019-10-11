@@ -1,4 +1,5 @@
-﻿using Rofl.Files;
+﻿using Microsoft.Extensions.Configuration;
+using Rofl.Files;
 using Rofl.Files.Models;
 using Rofl.Requests;
 using Rofl.Requests.Models;
@@ -37,10 +38,14 @@ namespace Rofl.UI.Main.ViewModels
         /// </summary>
         public List<FileResult> FileResults { get; private set; }
 
-        public MainWindowViewModel(FileManager files, RequestManager requests)
+        public List<string> KnownPlayers { get; private set; }
+
+        public MainWindowViewModel(FileManager files, RequestManager requests, IConfiguration config)
         {
             _fileManager = files;
             _requestManager = requests;
+
+            KnownPlayers = config.GetSection("user_settings:known_players").Get<List<string>>();
 
             PreviewReplays = new ObservableCollection<ReplayListItemModel>();
             FileResults = new List<FileResult>();
@@ -59,6 +64,16 @@ namespace Rofl.UI.Main.ViewModels
             foreach (var file in FileResults)
             {
                 ReplayListItemModel newItem = new ReplayListItemModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
+
+                foreach (var bluePlayer in newItem.BluePreviewPlayers)
+                {
+                    bluePlayer.IsKnownPlayer = KnownPlayers.Contains(bluePlayer.PlayerName, StringComparer.OrdinalIgnoreCase);
+                }
+
+                foreach (var redPlayer in newItem.RedPreviewPlayers)
+                {
+                    redPlayer.IsKnownPlayer = KnownPlayers.Contains(redPlayer.PlayerName, StringComparer.OrdinalIgnoreCase);
+                }
 
                 PreviewReplays.Add(newItem);
             }
