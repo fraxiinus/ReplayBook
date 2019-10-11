@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="75" d:DesignWidth="350">
+             d:DesignHeight="85" d:DesignWidth="350">
 
     <DockPanel Background="White"
                LastChildFill="False"
-               Height="75" Width="350">
+               Height="85" Width="350">
 
         <!--Left side file information-->
         <Border BorderThickness="3 0 0 0">
@@ -29,7 +29,7 @@
             <StackPanel DockPanel.Dock="Left"
                     Orientation="Vertical"
                     Width="105"
-                    Margin="5 5 5 0">
+                    Margin="5 2 5 0">
 
                 <TextBlock x:Name="FilenameText"
                        FontSize="12"
@@ -45,6 +45,11 @@
                        FontSize="12"
                        Text="{Binding Path=GameLengthString}"
                        ToolTip="{Binding Path=GameDuration}"/>
+
+                <TextBlock x:Name="CreationDateText"
+                           FontSize="12"
+                           Text="{Binding Path=CreationDate, StringFormat=yyyy-MM-dd}"
+                           ToolTip="{StaticResource FileDateToolTip}"/>
 
                 <!--Stack panel so tooltip only happens over checkmark-->
                 <StackPanel x:Name="PatchTextPanel"
@@ -91,7 +96,7 @@
                     <ItemsControl ItemsSource="{Binding Path=BluePreviewPlayers}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0 1 0 2"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 1 0 4"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
@@ -104,7 +109,7 @@
                     <ItemsControl ItemsSource="{Binding Path=RedPreviewPlayers}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0 2 0 1"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 4 0 1"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
