@@ -36,7 +36,7 @@
                       Loaded="ReplayListView_Loaded">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <controls:ReplayItemControl/>
+                        <controls:ReplayItemControl MouseDoubleClick="ReplayItemControl_MouseDoubleClick"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

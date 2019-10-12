@@ -10,7 +10,7 @@ namespace Rofl.UI.Main.Models
 
         public ReplayPreviewModel(ReplayFile replayFile, DateTimeOffset creationDate, bool newFile = false)
         {
-            if(replayFile == null) { throw new ArgumentNullException(nameof(replayFile)); }
+            if (replayFile == null) { throw new ArgumentNullException(nameof(replayFile)); }
 
             // Copy all the replay file fields
             Name = replayFile.Name;
@@ -25,22 +25,10 @@ namespace Rofl.UI.Main.Models
             IsNewFile = newFile;
 
             BluePreviewPlayers = (from bplayer in replayFile.BluePlayers
-                                  select new PlayerPreviewModel()
-                                  {
-                                      ChampionName = bplayer.SKIN,
-                                      PlayerName = bplayer.NAME,
-                                      IsKnownPlayer = false,
-                                      ImageSource = @"D:\Sync\Pictures\comissions\CalamariPop\ThinkYuumi.png"
-                                  }).ToArray();
+                                  select new PlayerPreviewModel(bplayer)).ToList();
 
             RedPreviewPlayers = (from rplayer in replayFile.RedPlayers
-                                 select new PlayerPreviewModel()
-                                 {
-                                     ChampionName = rplayer.SKIN,
-                                     PlayerName = rplayer.NAME,
-                                     IsKnownPlayer = false,
-                                     ImageSource = @"D:\Sync\Pictures\comissions\CalamariPop\ThinkYuumi.png"
-                                 }).ToArray();
+                                 select new PlayerPreviewModel(rplayer)).ToList();
         }
 
         public string Name { get; private set; }
@@ -49,7 +37,7 @@ namespace Rofl.UI.Main.Models
 
         public string GameVersion { get; private set; }
 
-        public ulong MatchId { get; private set; }
+        public string MatchId { get; private set; }
 
         public string MapName { get; private set; }
 
@@ -57,7 +45,7 @@ namespace Rofl.UI.Main.Models
 
         public DateTimeOffset CreationDate { get; set; }
 
-        public bool IsNewFile { get; set; }
+        public bool IsNewFile { get; private set; }
 
         public string GameLengthString
         {
@@ -66,8 +54,8 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        public IEnumerable<PlayerPreviewModel> BluePreviewPlayers { get; set; }
+        public IList<PlayerPreviewModel> BluePreviewPlayers { get; private set; }
 
-        public IEnumerable<PlayerPreviewModel> RedPreviewPlayers { get; set; }
+        public IList<PlayerPreviewModel> RedPreviewPlayers { get; private set; }
     }
 }

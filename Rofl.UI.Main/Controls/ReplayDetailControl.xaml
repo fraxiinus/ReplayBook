@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="Rofl.UI.Main.Controls.ReplayDetailControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="610" d:DesignWidth="560">
+
+    <StackPanel Orientation="Horizontal"
+                Background="Pink">
+        <TextBlock Text="{Binding Path=MatchId}"/>
+    </StackPanel>
+</UserControl>

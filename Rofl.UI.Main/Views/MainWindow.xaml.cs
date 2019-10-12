@@ -2,6 +2,7 @@
 using Rofl.Files;
 using Rofl.Logger;
 using Rofl.Reader;
+using Rofl.Reader.Models;
 using Rofl.Requests;
 using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.Models;
@@ -65,6 +66,16 @@ namespace Rofl.UI.Main
         private void PreviewReplaysView_Filter(object sender, FilterEventArgs e)
         {
             e.Accepted = (this.DataContext as MainWindowViewModel).FilterPreviewReplay(e.Item as ReplayPreviewModel);
+        }
+
+        private void ReplayItemControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ReplayPreviewModel previewModel = (sender as ReplayItemControl).DataContext as ReplayPreviewModel;
+
+            ReplayFile replayModel = (this.DataContext as MainWindowViewModel).FileResults[previewModel.MatchId].ReplayFile;
+
+            ReplayDetailControl detailControl = this.FindName("DetailView") as ReplayDetailControl;
+            detailControl.DataContext = replayModel;
         }
     }
 }

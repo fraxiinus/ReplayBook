@@ -36,7 +36,7 @@ namespace Rofl.UI.Main.ViewModels
         /// <summary>
         /// Full replay objects
         /// </summary>
-        public List<FileResult> FileResults { get; private set; }
+        public Dictionary<string, FileResult> FileResults { get; private set; }
 
         public List<string> KnownPlayers { get; private set; }
 
@@ -50,7 +50,7 @@ namespace Rofl.UI.Main.ViewModels
             KnownPlayers = config.GetSection("user_settings:known_players").Get<List<string>>();
 
             PreviewReplays = new ObservableCollection<ReplayPreviewModel>();
-            FileResults = new List<FileResult>();
+            FileResults = new Dictionary<string, FileResult>();
 
             SortParameters = new SortToolModel
             {
@@ -61,9 +61,9 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task LoadReplays()
         {
-            FileResults.AddRange(await _fileManager.GetReplayFilesAsync().ConfigureAwait(false));
+            var rawFileResults = await _fileManager.GetReplayFilesAsync().ConfigureAwait(false);
 
-            foreach (var file in FileResults)
+            foreach (var file in rawFileResults)
             {
                 ReplayPreviewModel newItem = new ReplayPreviewModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
 
@@ -78,6 +78,7 @@ namespace Rofl.UI.Main.ViewModels
                 }
 
                 PreviewReplays.Add(newItem);
+                FileResults.Add(file.ReplayFile.MatchId, file);
             }
         }
 
@@ -190,5 +191,7 @@ namespace Rofl.UI.Main.ViewModels
 
             return false;
         }
+
+
     }
 }
