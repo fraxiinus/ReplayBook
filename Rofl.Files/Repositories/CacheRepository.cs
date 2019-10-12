@@ -112,7 +112,7 @@ namespace Rofl.Files.Repositories
             // Deserialize cache file and return
             using (StreamReader file = File.OpenText(itemPath))
             {
-                var serializer = new JsonSerializer();
+                var serializer = JsonSerializer.Create();
                 FileResult item = serializer.Deserialize(file, typeof(FileResult)) as FileResult;
                 // if it's from cache, it isnt new
                 item.IsNewFile = false;
