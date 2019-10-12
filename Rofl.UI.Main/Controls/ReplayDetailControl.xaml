@@ -9,6 +9,6 @@
 
     <StackPanel Orientation="Horizontal"
                 Background="Pink">
-        <TextBlock Text="{Binding Path=MatchId}"/>
+        <TextBlock Text="{Binding Path=PreviewModel.MatchId}"/>
     </StackPanel>
 </UserControl>

@@ -181,6 +181,7 @@
       <DependentUpon>ToolPanelControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\PlayerDetailModel.cs" />
     <Compile Include="Models\PlayerPreviewModel.cs" />
     <Compile Include="Models\ReplayDetailModel.cs" />

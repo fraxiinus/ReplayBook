@@ -59,8 +59,9 @@ namespace Rofl.UI.Main
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
         {
-            await (this.DataContext as MainWindowViewModel).LoadReplays().ConfigureAwait(false);
-            await (this.DataContext as MainWindowViewModel).LoadPreviewPlayerThumbnails().ConfigureAwait(false);
+            // configure await it set to true, otherwise we get some errors...
+            await (DataContext as MainWindowViewModel).LoadReplays().ConfigureAwait(true);
+            await (DataContext as MainWindowViewModel).LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
 
         private void PreviewReplaysView_Filter(object sender, FilterEventArgs e)
@@ -74,8 +75,10 @@ namespace Rofl.UI.Main
 
             ReplayFile replayModel = (this.DataContext as MainWindowViewModel).FileResults[previewModel.MatchId].ReplayFile;
 
+            ReplayDetailModel replayDetailModel = new ReplayDetailModel(replayModel, previewModel);
+
             ReplayDetailControl detailControl = this.FindName("DetailView") as ReplayDetailControl;
-            detailControl.DataContext = replayModel;
+            detailControl.DataContext = replayDetailModel;
         }
     }
 }

@@ -77,7 +77,11 @@ namespace Rofl.UI.Main.ViewModels
                     redPlayer.IsKnownPlayer = KnownPlayers.Contains(redPlayer.PlayerName, StringComparer.OrdinalIgnoreCase);
                 }
 
-                PreviewReplays.Add(newItem);
+                App.Current.Dispatcher.Invoke((Action) delegate
+                {
+                    PreviewReplays.Add(newItem);
+                });
+                
                 FileResults.Add(file.ReplayFile.MatchId, file);
             }
         }
@@ -101,7 +105,11 @@ namespace Rofl.UI.Main.ViewModels
                             DataDragonVersion = dataVersion,
                             ChampionName = player.ChampionName
                         }).ConfigureAwait(false);
-                        player.ImageSource = response.ResponsePath;
+
+                        App.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            player.ImageSource = response.ResponsePath;
+                        });
                     }));
                 }
 
@@ -114,7 +122,11 @@ namespace Rofl.UI.Main.ViewModels
                             DataDragonVersion = dataVersion,
                             ChampionName = player.ChampionName
                         }).ConfigureAwait(false);
-                        player.ImageSource = response.ResponsePath;
+
+                        App.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            player.ImageSource = response.ResponsePath;
+                        });
                     }));
                 }
 
