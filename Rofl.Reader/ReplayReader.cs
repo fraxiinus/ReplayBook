@@ -77,7 +77,7 @@ namespace Rofl.Reader
                 Type = ReplayType.ROFL,
                 Name = Path.GetFileNameWithoutExtension(filePath),
                 Location = filePath,
-                MatchId = parseResult.PayloadFields.MatchId,
+                MatchId = parseResult.PayloadFields.MatchId.ToString(),
                 GameDuration = TimeSpan.FromMilliseconds(parseResult.MatchMetadata.GameDuration),
                 GameVersion = parseResult.MatchMetadata.GameVersion,
                 BluePlayers = parseResult.MatchMetadata.BluePlayers ?? new Player[0],
