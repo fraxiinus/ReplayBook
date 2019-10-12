@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,24 @@ namespace Rofl.UI.Main.Extensions
         public static bool Contains(this string source, string toCheck, StringComparison comp)
         {
             return source != null && toCheck != null && source.IndexOf(toCheck, comp) >= 0;
+        }
+
+        /// <summary>
+        /// 0 if null, -1 if invalid
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static int ToInt(this string source)
+        {
+            if(source == null) { return 0; }
+
+            int result = -1;
+            if (int.TryParse(source, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parseResult))
+            {
+                result = parseResult;
+            }
+
+            return result;
         }
     }
 }
