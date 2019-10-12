@@ -34,21 +34,21 @@
                 <TextBlock x:Name="FilenameText"
                        FontSize="12"
                        FontWeight="Bold"
-                       Text="{Binding Path=Name}"
+                       Text="{Binding Path=Name, FallbackValue=Filename}"
                        ToolTip="{Binding Path=Name}"/>
 
                 <TextBlock x:Name="MapNameText"
                        FontSize="12"
-                       Text="{Binding Path=MapName}"/>
+                       Text="{Binding Path=MapName, FallbackValue=Map name}"/>
 
                 <TextBlock x:Name="GameLengthText"
                        FontSize="12"
-                       Text="{Binding Path=GameLengthString}"
+                       Text="{Binding Path=GameLengthString, FallbackValue=Game duration}"
                        ToolTip="{Binding Path=GameDuration}"/>
 
                 <TextBlock x:Name="CreationDateText"
                            FontSize="12"
-                           Text="{Binding Path=CreationDate, StringFormat=yyyy-MM-dd}"
+                           Text="{Binding Path=CreationDate, StringFormat=yyyy-MM-dd, FallbackValue=Creation date}"
                            ToolTip="{StaticResource FileDateToolTip}"/>
 
                 <!--Stack panel so tooltip only happens over checkmark-->
@@ -58,7 +58,7 @@
                     <TextBlock x:Name="PatchNumberText"
                        FontSize="12"
                        Foreground="Red"
-                       Text="{Binding Path=GameVersion}"/>
+                       Text="{Binding Path=GameVersion, FallbackValue=Game version}"/>
 
                     <TextBlock x:Name="PatchCheckText"
                        FontSize="12"
