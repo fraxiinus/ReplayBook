@@ -26,7 +26,7 @@ namespace Rofl.UI.Main.Models
             {
                 imgSrc = value;
                 PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs("ImageSource"));
+                    this, new PropertyChangedEventArgs(nameof(ImageSource)));
             } 
         }
 

@@ -26,7 +26,7 @@
         
         <DockPanel DockPanel.Dock="Left">
 
-            <controls:ToolPanel x:Name="ToolPanel"
+            <controls:ToolPanelControl x:Name="ToolPanel"
                                 DockPanel.Dock="Top"/>
 
             <ListView x:Name="ReplayListView"
@@ -42,12 +42,9 @@
             </ListView>
 
         </DockPanel>
-        
-        <Frame DockPanel.Dock="Right"
-               Background="Aquamarine">
-            
-        </Frame>
-        
+
+        <controls:ReplayDetailControl x:Name="DetailView"/>
+
     </DockPanel>
     
 </Window>

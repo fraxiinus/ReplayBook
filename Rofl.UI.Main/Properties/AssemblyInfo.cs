@@ -7,11 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Rofl.UI.MainWindow")]
+[assembly: NeutralResourcesLanguage("en")]
+[assembly: AssemblyTitle("Rofl.UI.Main")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Rofl.UI.MainWindow")]
+[assembly: AssemblyProduct("Rofl.UI.Main")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

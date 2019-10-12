@@ -23,11 +23,11 @@ namespace Rofl.UI.Main.Controls
     /// <summary>
     /// Interaction logic for ToolPanel.xaml
     /// </summary>
-    public partial class ToolPanel : UserControl
+    public partial class ToolPanelControl : UserControl
     {
         private DispatcherTimer _typingTimer;
 
-        public ToolPanel()
+        public ToolPanelControl()
         {
             InitializeComponent();
         }

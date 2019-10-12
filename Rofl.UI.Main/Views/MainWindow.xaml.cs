@@ -58,13 +58,13 @@ namespace Rofl.UI.Main
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
         {
-            await (this.DataContext as MainWindowViewModel).LoadReplays();
-            await (this.DataContext as MainWindowViewModel).LoadPreviewPlayerThumbnails();
+            await (this.DataContext as MainWindowViewModel).LoadReplays().ConfigureAwait(false);
+            await (this.DataContext as MainWindowViewModel).LoadPreviewPlayerThumbnails().ConfigureAwait(false);
         }
 
         private void PreviewReplaysView_Filter(object sender, FilterEventArgs e)
         {
-            e.Accepted = (this.DataContext as MainWindowViewModel).FilterPreviewReplay(e.Item as ReplayListItemModel);
+            e.Accepted = (this.DataContext as MainWindowViewModel).FilterPreviewReplay(e.Item as ReplayPreviewModel);
         }
     }
 }

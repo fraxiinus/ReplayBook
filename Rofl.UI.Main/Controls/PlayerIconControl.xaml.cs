@@ -18,9 +18,9 @@ namespace Rofl.UI.Main.Controls
     /// <summary>
     /// Interaction logic for PlayerIcon.xaml
     /// </summary>
-    public partial class PlayerIcon : UserControl
+    public partial class PlayerIconControl : UserControl
     {
-        public PlayerIcon()
+        public PlayerIconControl()
         {
             InitializeComponent();
         }

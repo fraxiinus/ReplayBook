@@ -21,7 +21,7 @@ namespace Rofl.UI.Main.Models
             {
                 _searchTerm = value;
                 PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs("SearchTerm"));
+                    this, new PropertyChangedEventArgs(nameof(SearchTerm)));
             }
         }
 
@@ -33,7 +33,7 @@ namespace Rofl.UI.Main.Models
             {
                 _sortMethod = value;
                 PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs("SortMethod"));
+                    this, new PropertyChangedEventArgs(nameof(SortMethod)));
             }
         }
 

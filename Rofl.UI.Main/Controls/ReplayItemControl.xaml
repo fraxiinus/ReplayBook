@@ -101,7 +101,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:PlayerIcon Margin="0 0 2 0"/>
+                                <local:PlayerIconControl Margin="0 0 2 0"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -114,7 +114,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:PlayerIcon Margin="0 0 2 0"/>
+                                <local:PlayerIconControl Margin="0 0 2 0"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

@@ -1,14 +1,17 @@
 ﻿using Rofl.Reader.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Rofl.UI.Main.Models
 {
-    public class ReplayListItemModel
+    public class ReplayPreviewModel
     {
 
-        public ReplayListItemModel(ReplayFile replayFile, DateTimeOffset creationDate, bool newFile = false)
+        public ReplayPreviewModel(ReplayFile replayFile, DateTimeOffset creationDate, bool newFile = false)
         {
+            if(replayFile == null) { throw new ArgumentNullException(nameof(replayFile)); }
+
             // Copy all the replay file fields
             Name = replayFile.Name;
             GameDuration = replayFile.GameDuration;
@@ -63,8 +66,8 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        public PlayerPreviewModel[] BluePreviewPlayers { get; set; }
+        public IEnumerable<PlayerPreviewModel> BluePreviewPlayers { get; set; }
 
-        public PlayerPreviewModel[] RedPreviewPlayers { get; set; }
+        public IEnumerable<PlayerPreviewModel> RedPreviewPlayers { get; set; }
     }
 }

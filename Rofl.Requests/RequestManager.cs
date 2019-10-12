@@ -28,6 +28,8 @@ namespace Rofl.Requests
             _config = config;
             _log = log;
 
+            _myName = this.GetType().ToString();
+
             // TODO these should use log and config
             _downloadClient = new DownloadClient(_cachePath, _config, _log);
             _cacheClient = new CacheClient(_cachePath, _log);

@@ -3,6 +3,7 @@ using Rofl.Files;
 using Rofl.Files.Models;
 using Rofl.Requests;
 using Rofl.Requests.Models;
+using Rofl.UI.Main.Extensions;
 using Rofl.UI.Main.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,6 @@ namespace Rofl.UI.Main.ViewModels
     {
         private FileManager _fileManager;
         private RequestManager _requestManager;
-        private TaskScheduler _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
         /// <summary>
         /// 
@@ -31,7 +31,7 @@ namespace Rofl.UI.Main.ViewModels
         /// <summary>
         /// Smaller, preview objects of replays
         /// </summary>
-        public ObservableCollection<ReplayListItemModel> PreviewReplays { get; private set; }
+        public ObservableCollection<ReplayPreviewModel> PreviewReplays { get; private set; }
 
         /// <summary>
         /// Full replay objects
@@ -42,12 +42,14 @@ namespace Rofl.UI.Main.ViewModels
 
         public MainWindowViewModel(FileManager files, RequestManager requests, IConfiguration config)
         {
-            _fileManager = files;
-            _requestManager = requests;
+            if (config == null) { throw new ArgumentNullException(nameof(config)); }
+
+            _fileManager = files ?? throw new ArgumentNullException(nameof(files));
+            _requestManager = requests ?? throw new ArgumentNullException(nameof(requests));
 
             KnownPlayers = config.GetSection("user_settings:known_players").Get<List<string>>();
 
-            PreviewReplays = new ObservableCollection<ReplayListItemModel>();
+            PreviewReplays = new ObservableCollection<ReplayPreviewModel>();
             FileResults = new List<FileResult>();
 
             SortParameters = new SortToolModel
@@ -59,11 +61,11 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task LoadReplays()
         {
-            FileResults.AddRange(await _fileManager.GetReplayFilesAsync());
+            FileResults.AddRange(await _fileManager.GetReplayFilesAsync().ConfigureAwait(false));
 
             foreach (var file in FileResults)
             {
-                ReplayListItemModel newItem = new ReplayListItemModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
+                ReplayPreviewModel newItem = new ReplayPreviewModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
 
                 foreach (var bluePlayer in newItem.BluePreviewPlayers)
                 {
@@ -83,7 +85,7 @@ namespace Rofl.UI.Main.ViewModels
         {
             foreach (var item in PreviewReplays)
             {
-                string dataVersion = await _requestManager.GetDataDragonVersionAsync(item.GameVersion);
+                string dataVersion = await _requestManager.GetDataDragonVersionAsync(item.GameVersion).ConfigureAwait(false);
 
                 // Image tasks
                 List<Task> imageTasks = new List<Task>();
@@ -97,7 +99,7 @@ namespace Rofl.UI.Main.ViewModels
                         {
                             DataDragonVersion = dataVersion,
                             ChampionName = player.ChampionName
-                        });
+                        }).ConfigureAwait(false);
                         player.ImageSource = response.ResponsePath;
                     }));
                 }
@@ -110,18 +112,20 @@ namespace Rofl.UI.Main.ViewModels
                         {
                             DataDragonVersion = dataVersion,
                             ChampionName = player.ChampionName
-                        });
+                        }).ConfigureAwait(false);
                         player.ImageSource = response.ResponsePath;
                     }));
                 }
 
                 // Wait for all images to finish before doing the next replay
-                await Task.WhenAll(imageTasks);
+                await Task.WhenAll(imageTasks).ConfigureAwait(false);
             }
         }
 
         public void SortPreviewReplays(CollectionViewSource replayView)
         {
+            if(replayView == null) { throw new ArgumentNullException(nameof(replayView)); }
+
             SortMethod sort = SortParameters.SortMethod;
 
             switch (sort)
@@ -161,25 +165,27 @@ namespace Rofl.UI.Main.ViewModels
             }
         }
 
-        public bool FilterPreviewReplay(ReplayListItemModel replayItem)
+        public bool FilterPreviewReplay(ReplayPreviewModel replayItem)
         {
-            string searchTerm = SortParameters.SearchTerm.ToUpper();
+            if(replayItem == null) { throw new ArgumentNullException(nameof(replayItem)); }
+
+            string searchTerm = SortParameters.SearchTerm;
 
             // Minimum requirement
             if(searchTerm.Length < 3) { return true; }
 
-            if (replayItem.MapName.ToUpper().Contains(searchTerm)) { return true; }
+            if (replayItem.MapName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) { return true; }
 
             foreach (var bluePlayer in replayItem.BluePreviewPlayers)
             {
-                if (bluePlayer.ChampionName.ToUpper().Contains(searchTerm)) { return true; }
-                if (bluePlayer.PlayerName.ToUpper().Contains(searchTerm)) { return true; }
+                if (bluePlayer.ChampionName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) { return true; }
+                if (bluePlayer.PlayerName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) { return true; }
             }
 
             foreach (var redPlayer in replayItem.BluePreviewPlayers)
             {
-                if (redPlayer.ChampionName.ToUpper().Contains(searchTerm)) { return true; }
-                if (redPlayer.PlayerName.ToUpper().Contains(searchTerm)) { return true; }
+                if (redPlayer.ChampionName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) { return true; }
+                if (redPlayer.PlayerName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) { return true; }
             }
 
             return false;
