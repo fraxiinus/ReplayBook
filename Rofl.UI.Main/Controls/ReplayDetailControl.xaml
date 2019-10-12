@@ -7,8 +7,41 @@
              mc:Ignorable="d" 
              d:DesignHeight="610" d:DesignWidth="560">
 
-    <StackPanel Orientation="Horizontal"
-                Background="Pink">
-        <TextBlock Text="{Binding Path=PreviewModel.MatchId}"/>
+    <StackPanel Orientation="Vertical"
+                Background="White"
+                Margin="5">
+        <StackPanel Orientation="Vertical">
+            <TextBox FontSize="25"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     IsReadOnly="True"
+                     Text="{Binding Path=PreviewModel.Name, FallbackValue=Name, Mode=OneWay}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         Text="{Binding Path=PreviewModel.MatchId, FallbackValue=Match id, Mode=OneWay}"/>
+                
+                <TextBlock Text="-" Padding="5 0 5 0"/>
+                <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         Text="{Binding Path=PreviewModel.MapName, FallbackValue=Map name, Mode=OneWay}"/>
+                
+                <TextBlock Text="-" Padding="5 0 5 0"/>
+                <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=Game duration, Mode=OneWay}"/>
+                
+
+                <TextBlock Text="-" Padding="5 0 5 0"/>
+                <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=Game version, Mode=OneWay}"/>
+            </StackPanel>
+        </StackPanel>
     </StackPanel>
+    
 </UserControl>
