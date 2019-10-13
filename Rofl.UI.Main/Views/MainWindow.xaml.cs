@@ -69,7 +69,7 @@ namespace Rofl.UI.Main
             e.Accepted = (this.DataContext as MainWindowViewModel).FilterPreviewReplay(e.Item as ReplayPreviewModel);
         }
 
-        private void ReplayItemControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void ReplayItemControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ReplayPreviewModel previewModel = (sender as ReplayItemControl).DataContext as ReplayPreviewModel;
 
@@ -79,6 +79,8 @@ namespace Rofl.UI.Main
 
             ReplayDetailControl detailControl = this.FindName("DetailView") as ReplayDetailControl;
             detailControl.DataContext = replayDetailModel;
+
+            await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetailModel).ConfigureAwait(true);
         }
     }
 }

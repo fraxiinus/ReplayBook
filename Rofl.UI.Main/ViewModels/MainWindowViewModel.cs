@@ -88,32 +88,19 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task LoadPreviewPlayerThumbnails()
         {
-            foreach (var item in PreviewReplays)
+            foreach (var replay in PreviewReplays)
             {
-                string dataVersion = await _requestManager.GetDataDragonVersionAsync(item.GameVersion).ConfigureAwait(false);
+                string dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(false);
+
+                List<PlayerPreviewModel> allPlayers = new List<PlayerPreviewModel>();
+                allPlayers.AddRange(replay.BluePreviewPlayers);
+                allPlayers.AddRange(replay.RedPreviewPlayers);
 
                 // Image tasks
                 List<Task> imageTasks = new List<Task>();
 
                 // Create requests for player images
-                foreach (var player in item.BluePreviewPlayers)
-                {
-                    imageTasks.Add(Task.Run(async () =>
-                    {
-                        var response = await _requestManager.MakeRequestAsync(new ChampionRequest
-                        {
-                            DataDragonVersion = dataVersion,
-                            ChampionName = player.ChampionName
-                        }).ConfigureAwait(false);
-
-                        App.Current.Dispatcher.Invoke((Action)delegate
-                        {
-                            player.ImageSource = response.ResponsePath;
-                        });
-                    }));
-                }
-
-                foreach (var player in item.RedPreviewPlayers)
+                foreach (var player in allPlayers)
                 {
                     imageTasks.Add(Task.Run(async () =>
                     {
@@ -204,6 +191,36 @@ namespace Rofl.UI.Main.ViewModels
             return false;
         }
 
+        public async Task LoadItemThumbnails(ReplayDetailModel replay)
+        {
+            if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
+            string dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.PreviewModel.GameVersion).ConfigureAwait(false);
+
+            List<ItemModel> allItems = new List<ItemModel>();
+            List<Task> itemTasks = new List<Task>();
+
+            allItems.AddRange(replay.BluePlayers.SelectMany(x => x.Items));
+            allItems.AddRange(replay.RedPlayers.SelectMany(x => x.Items));
+
+            foreach (var item in allItems)
+            {
+                itemTasks.Add(Task.Run(async () =>
+                {
+                    var response = await _requestManager.MakeRequestAsync(new ItemRequest
+                    {
+                        DataDragonVersion = dataVersion,
+                        ItemID = item.ItemId
+                    }).ConfigureAwait(false);
+
+                    App.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        item.ImageSource = response.ResponsePath;
+                    });
+                }));
+            }
+
+            //await Task.WhenAll(itemTasks).ConfigureAwait(false);
+        }
     }
 }
