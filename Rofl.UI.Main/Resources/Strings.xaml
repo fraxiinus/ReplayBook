@@ -13,6 +13,8 @@
     <string:String x:Key="CrossText">❌</string:String>
     <string:String x:Key="BlueTeamText">Blue Team</string:String>
     <string:String x:Key="RedTeamText">Red Team</string:String>
+    <string:String x:Key="ScoreboardTabText">SCOREBOARD</string:String>
+    <string:String x:Key="StatsTabText">STATS</string:String>
 
     <!--ToolTip Text-->
     <string:String x:Key="SortToolTip">Sort</string:String>

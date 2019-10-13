@@ -96,23 +96,23 @@
             </ItemsControl>
         </StackPanel>
 
-        <TextBox Margin="15 0 0 0"
+        <TextBox Margin="35 0 0 0"
                  Background="Transparent"
                  FontSize="15"
                  VerticalAlignment="Center"
-                 TextAlignment="Right"
-                 Width="30"
+                 TextAlignment="Left"
+                 Width="40"
                  BorderThickness="0"
                  IsReadOnly="True"
                  ToolTip="{StaticResource CreepScoreToolTip}"
                  Text="{Binding Path=MinionsKilled, FallbackValue=CS, Mode=OneWay}"/>
 
-        <TextBox Margin="25 0 0 0"
+        <TextBox Margin="40 0 0 0"
                  Background="Transparent"
                  FontSize="15"
                  VerticalAlignment="Center"
-                 TextAlignment="Right"
-                 Width="50"
+                 TextAlignment="Left"
+                 Width="60"
                  BorderThickness="0"
                  IsReadOnly="True"
                  ToolTip="{StaticResource GoldEarnedToolTip}"
