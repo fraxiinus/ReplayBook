@@ -83,10 +83,10 @@
                     <Style TargetType="Border">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="True">
-                                <Setter Property="BorderBrush" Value="LightSkyBlue"/>
+                                <Setter Property="BorderBrush" Value="RoyalBlue"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
-                                <Setter Property="BorderBrush" Value="OrangeRed"/>
+                                <Setter Property="BorderBrush" Value="DeepPink"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -101,7 +101,9 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:PlayerIconControl Margin="0 0 2 0"/>
+                                <local:PlayerIconControl Margin="0 0 2 0"
+                                                         Width="30"
+                                                         ToolTip="{Binding Path=CombinedName}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -114,7 +116,9 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:PlayerIconControl Margin="0 0 2 0"/>
+                                <local:PlayerIconControl Margin="0 0 2 0"
+                                                         Width="30"
+                                                         ToolTip="{Binding Path=CombinedName}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

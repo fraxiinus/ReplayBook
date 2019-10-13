@@ -7,6 +7,76 @@
              mc:Ignorable="d"
              d:DesignHeight="100" d:DesignWidth="500">
 
-    <StackPanel Orientation="Horizontal">
+    <StackPanel Orientation="Horizontal"
+                Margin="0 2 0 2">
+
+        <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
+                                    Width="40"/>
+
+        <TextBlock Text="{Binding Path=Level}"
+                   FontSize="20"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Margin="2"
+                   Width="25"
+                   ToolTip="{StaticResource LevelToolTip}"/>
+
+        <StackPanel Orientation="Vertical"
+                    Margin="3 0 0 0">
+            <TextBox Background="Transparent"
+                     FontSize="14"
+                     FontWeight="Bold"
+                     BorderThickness="0"
+                     IsReadOnly="True"
+                     Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}"/>
+            
+            <TextBox Background="Transparent"
+                     FontSize="12"
+                     BorderThickness="0"
+                     IsReadOnly="True"
+                     Text="{Binding Path=PreviewModel.ChampionName, FallbackValue=ChampionName, Mode=OneWay}"
+                     Width="150"/>
+        </StackPanel>
+
+        <TextBlock Text="{Binding Path=ChampionsKilled}"
+                   FontSize="15"
+                   Margin="0"
+                   Padding="0"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Width="20"
+                   ToolTip="{StaticResource KillsToolTip}"/>
+
+        <TextBlock Text="/"
+                   Margin="0"
+                   Padding="0"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Width="20"/>
+        
+        <TextBlock Text="{Binding Path=Deaths}"
+                   FontSize="15"
+                   Margin="0"
+                   Padding="0"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Width="20"
+                   ToolTip="{StaticResource DeathsToolTip}"/>
+
+        <TextBlock Text="/"
+                   Margin="0"
+                   Padding="0"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Width="20"/>
+
+        <TextBlock Text="{Binding Path=Assists}"
+                   FontSize="15"
+                   Margin="0"
+                   Padding="0"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   Width="20"
+                   ToolTip="{StaticResource AssistsToolTip}"/>
     </StackPanel>
 </UserControl>

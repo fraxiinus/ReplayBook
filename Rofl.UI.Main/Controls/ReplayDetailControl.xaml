@@ -5,42 +5,104 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="610" d:DesignWidth="560">
+             d:DesignHeight="600" d:DesignWidth="560"
+             Height="600" Width="560"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Top">
 
     <StackPanel Orientation="Vertical"
                 Background="White"
-                Margin="5">
+                Margin="10">
         <StackPanel Orientation="Vertical">
-            <TextBox FontSize="25"
+            <Border BorderThickness="0 0 0 2"
+                    BorderBrush="Gray">
+                <TextBox FontSize="25"
                      Background="Transparent"
                      BorderThickness="0"
                      IsReadOnly="True"
-                     Text="{Binding Path=PreviewModel.Name, FallbackValue=Name, Mode=OneWay}"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         IsReadOnly="True"
-                         Text="{Binding Path=PreviewModel.MatchId, FallbackValue=Match id, Mode=OneWay}"/>
-                
-                <TextBlock Text="-" Padding="5 0 5 0"/>
-                <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         IsReadOnly="True"
-                         Text="{Binding Path=PreviewModel.MapName, FallbackValue=Map name, Mode=OneWay}"/>
-                
-                <TextBlock Text="-" Padding="5 0 5 0"/>
-                <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         IsReadOnly="True"
-                         Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=Game duration, Mode=OneWay}"/>
-                
+                     Text="{Binding Path=PreviewModel.Name, FallbackValue=FileName, Mode=OneWay}"/>
+            </Border>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 5 0 0">
+
+                <TextBlock FontSize="14"
+                           FontWeight="Bold">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Text" Value="VICTORY"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="True">
+                                    <Setter Property="TextBlock.Text" Value="{StaticResource BlueVictory}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="False">
+                                    <Setter Property="TextBlock.Text" Value="{StaticResource RedVictory}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
                 <TextBlock Text="-" Padding="5 0 5 0"/>
                 <TextBox Background="Transparent"
                          BorderThickness="0"
+                         FontSize="14"
                          IsReadOnly="True"
-                         Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=Game version, Mode=OneWay}"/>
+                         ToolTip="{StaticResource MapNameToolTip}"
+                         Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"/>
+
+                <TextBlock Text="-" Padding="5 0 5 0"/>
+                <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{Binding Path=PreviewModel.GameDuration}"
+                         Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"/>
+
+                <TextBlock Text="-" Padding="5 0 5 0"/>
+                <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource MatchIdToolTip}"
+                         Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
+
+                <TextBlock Text="-" Padding="5 0 5 0"/>
+                <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource GameVersionToolTip}"
+                         Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
             </StackPanel>
+
+            <ListView x:Name="BluePlayersListview"
+                      Margin="0 5 0 0"
+                      ItemsSource="{Binding Path=BluePlayers}"
+                      MinHeight="100" 
+                      Style="{StaticResource PlayerListStyle}"
+                      ItemContainerStyle="{StaticResource PlayerListItemStyle}"
+                      Background="AliceBlue">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <local:PlayerSummaryControl/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ListView x:Name="RedPlayersListview"
+                      Margin="0 5 0 0"
+                      ItemsSource="{Binding Path=RedPlayers}"
+                      MinHeight="100" 
+                      Style="{StaticResource PlayerListStyle}"
+                      ItemContainerStyle="{StaticResource PlayerListItemStyle}"
+                      Background="MistyRose">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <local:PlayerSummaryControl/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackPanel>
     </StackPanel>
     

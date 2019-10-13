@@ -20,6 +20,16 @@
     <string:String x:Key="ReplayUnsupportedToolTip">Unsupported</string:String>
     <string:String x:Key="ReplaySupportedToolTip">Replay enabled</string:String>
     <string:String x:Key="FileDateToolTip">File creation date</string:String>
+    <string:String x:Key="MatchIdToolTip">Match ID</string:String>
+    <string:String x:Key="MapNameToolTip">Map name</string:String>
+    <string:String x:Key="GameVersionToolTip">Game version</string:String>
+
+    <string:String x:Key="LevelToolTip">Level</string:String>
+    <string:String x:Key="KillsToolTip">Kills</string:String>
+    <string:String x:Key="DeathsToolTip">Deaths</string:String>
+    <string:String x:Key="AssistsToolTip">Assists</string:String>
+    <string:String x:Key="CreepScoreToolTip">Minion kills</string:String>
+    <string:String x:Key="GoldEarnedToolTip">Gold earned</string:String>
     
     <!--sort menu text-->
     <string:String x:Key="NameAsc">Name ascending</string:String>
@@ -32,7 +42,7 @@
     <string:String x:Key="LengthDesc">Length descending</string:String>
     
     <!--Replay Text-->
-    <string:String x:Key="VictoryText">VICTORY</string:String>
-    <string:String x:Key="DefeatText">DEFEAT</string:String>
+    <string:String x:Key="BlueVictory">BLUE VICTORY</string:String>
+    <string:String x:Key="RedVictory">RED VICTORY</string:String>
 
 </ResourceDictionary>

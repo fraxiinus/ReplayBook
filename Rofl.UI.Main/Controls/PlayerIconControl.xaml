@@ -7,11 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="30">
 
-    <Grid ToolTip="{Binding Path=CombinedName}">
+    <Grid>
         
         <Image x:Name="PlayerImage"
                RenderOptions.BitmapScalingMode="HighQuality"
-               Width="30"
                Source="{Binding Path=ImageSource, IsAsync=True}"/>
 
         <Rectangle x:Name="MarkerRectangle"
