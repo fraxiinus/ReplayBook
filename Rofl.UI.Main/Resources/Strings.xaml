@@ -15,6 +15,7 @@
     <string:String x:Key="RedTeamText">Red Team</string:String>
     <string:String x:Key="ScoreboardTabText">SCOREBOARD</string:String>
     <string:String x:Key="StatsTabText">STATS</string:String>
+    <string:String x:Key="BlankDetailMessageText">Select a replay on the left to begin</string:String>
 
     <!--ToolTip Text-->
     <string:String x:Key="SortToolTip">Sort</string:String>

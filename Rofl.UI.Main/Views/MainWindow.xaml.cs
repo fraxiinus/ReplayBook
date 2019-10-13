@@ -80,6 +80,10 @@ namespace Rofl.UI.Main
             ReplayDetailControl detailControl = this.FindName("DetailView") as ReplayDetailControl;
             detailControl.DataContext = replayDetailModel;
 
+            (detailControl.FindName("BlankContent") as StackPanel).Visibility = Visibility.Hidden;
+            (detailControl.FindName("ReplayContent") as StackPanel).Visibility = Visibility.Visible;
+
+
             await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetailModel).ConfigureAwait(true);
         }
     }

@@ -8,82 +8,97 @@
              d:DesignHeight="650" d:DesignWidth="760"
              Height="650" Width="760"
              HorizontalAlignment="Left"
-             VerticalAlignment="Top">
+             VerticalAlignment="Top"
+             Background="White">
 
-    <StackPanel Orientation="Vertical"
-                Background="White"
-                Margin="10">
-    
-        <StackPanel Orientation="Horizontal"
+    <Grid>
+        <!--Blank content to show when nothing is selected-->
+        <StackPanel x:Name="BlankContent"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            
+            <TextBlock Text="{StaticResource BlankDetailMessageText}"
+                       TextAlignment="Center"
+                       Foreground="Gray"/>
+        </StackPanel>
+        
+        <!--The actual replay content-->
+        <StackPanel x:Name="ReplayContent"
+                Orientation="Vertical"
+                Margin="10"
+                Visibility="Hidden">
+
+            <StackPanel Orientation="Horizontal"
                     Margin="0 0 0 5">
 
-            <StackPanel Orientation="Vertical">
-                <Border BorderThickness="0 0 0 2"
+                <StackPanel Orientation="Vertical">
+                    <Border BorderThickness="0 0 0 2"
                     BorderBrush="Gray">
-                    <TextBox FontSize="25"
+                        <TextBox FontSize="25"
                      Background="Transparent"
                      BorderThickness="0"
                      IsReadOnly="True"
                      Text="{Binding Path=PreviewModel.Name, FallbackValue=FileName, Mode=OneWay}"/>
-                </Border>
+                    </Border>
 
-                <StackPanel Orientation="Horizontal"
+                    <StackPanel Orientation="Horizontal"
                         Margin="0 5 0 0">
 
-                    <TextBlock FontSize="14"
+                        <TextBlock FontSize="14"
                            FontWeight="Bold">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Text" Value="VICTORY"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="True">
-                                        <Setter Property="TextBlock.Text" Value="{StaticResource BlueVictory}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="False">
-                                        <Setter Property="TextBlock.Text" Value="{StaticResource RedVictory}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Text" Value="VICTORY"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="True">
+                                            <Setter Property="TextBlock.Text" Value="{StaticResource BlueVictory}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="False">
+                                            <Setter Property="TextBlock.Text" Value="{StaticResource RedVictory}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
+                        <TextBlock Text="-" Padding="5 0 5 0"/>
+                        <TextBox Background="Transparent"
                          BorderThickness="0"
                          FontSize="14"
                          IsReadOnly="True"
                          ToolTip="{StaticResource MapNameToolTip}"
                          Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
+                        <TextBlock Text="-" Padding="5 0 5 0"/>
+                        <TextBox Background="Transparent"
                          BorderThickness="0"
                          FontSize="14"
                          IsReadOnly="True"
                          ToolTip="{Binding Path=PreviewModel.GameDuration}"
                          Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
+                        <TextBlock Text="-" Padding="5 0 5 0"/>
+                        <TextBox Background="Transparent"
                          BorderThickness="0"
                          FontSize="14"
                          IsReadOnly="True"
                          ToolTip="{StaticResource MatchIdToolTip}"
                          Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
+                        <TextBlock Text="-" Padding="5 0 5 0"/>
+                        <TextBox Background="Transparent"
                          BorderThickness="0"
                          FontSize="14"
                          IsReadOnly="True"
                          ToolTip="{StaticResource GameVersionToolTip}"
                          Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
 
-            <StackPanel Orientation="Vertical"
+                <StackPanel Orientation="Vertical"
                         Margin="20 0 0 0">
-                <Button x:Name="PlayButton"
+                    <Button x:Name="PlayButton"
                         Margin="0"
                         Width="90"
                         Height="35"
@@ -92,25 +107,25 @@
                         BorderBrush="LightGray"
                         BorderThickness="1 1 1 0.5"
                         Padding="5">
-                    <DockPanel Background="Transparent"
+                        <DockPanel Background="Transparent"
                                Width="90"
                                Height="25">
-                        <TextBlock Text="{StaticResource PlayButtonText}"
+                            <TextBlock Text="{StaticResource PlayButtonText}"
                                    FontSize="16"
                                    Margin="0"
                                    DockPanel.Dock="Left"
                                    VerticalAlignment="Center"
                                    TextAlignment="Left"/>
-                        <Image Source="{StaticResource PlayDrawingImage}"
+                            <Image Source="{StaticResource PlayDrawingImage}"
                                RenderOptions.BitmapScalingMode="HighQuality"
                                Height="20"
                                Margin="0 0 13 0"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center"
                                DockPanel.Dock="Right"/>
-                    </DockPanel>
-                </Button>
-                <Button x:Name="MoreButton"
+                        </DockPanel>
+                    </Button>
+                    <Button x:Name="MoreButton"
                         Margin="0 0 0 5"
                         Width="90"
                         Height="25"
@@ -119,43 +134,45 @@
                         Padding="0"
                         BorderBrush="LightGray"
                         BorderThickness="1 0.5 1 1">
-                    <DockPanel Background="Transparent"
+                        <DockPanel Background="Transparent"
                                Width="90"
                                Height="25">
-                        <TextBlock Text="{StaticResource MoreButtonText}"
+                            <TextBlock Text="{StaticResource MoreButtonText}"
                                    FontSize="14"
                                    Margin="5 0 0 0"
                                    DockPanel.Dock="Left"
                                    TextAlignment="Left"
                                    VerticalAlignment="Center"/>
-                        <Image Source="{StaticResource MoreDrawingImage}"
+                            <Image Source="{StaticResource MoreDrawingImage}"
                                RenderOptions.BitmapScalingMode="HighQuality"
                                Margin="0 0 10 0"
                                Height="15"
                                DockPanel.Dock="Right"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center"/>
-                    </DockPanel>
-                </Button>
+                        </DockPanel>
+                    </Button>
+                </StackPanel>
+
             </StackPanel>
 
-        </StackPanel>
-
-        <TabControl BorderThickness="0 1 0 0"
+            <TabControl BorderThickness="0 1 0 0"
                     BorderBrush="Black">
-            <TabItem Header="{StaticResource ScoreboardTabText}"
+                <TabItem Header="{StaticResource ScoreboardTabText}"
                      FontSize="12"
                      Style="{StaticResource TabHeaderStyle}">
-                <local:ScoreboardControl Margin="0 10 0 0"/>
-            </TabItem>
-            
-            <TabItem Header="{StaticResource StatsTabText}"
+                    <local:ScoreboardControl Margin="0 10 0 0"/>
+                </TabItem>
+
+                <TabItem Header="{StaticResource StatsTabText}"
                      FontFamily="12" 
                      Style="{StaticResource TabHeaderStyle}">
-            </TabItem>
-        </TabControl>
-        
+                </TabItem>
+            </TabControl>
 
-    </StackPanel>
+
+        </StackPanel>
+    </Grid>
+        
     
 </UserControl>
