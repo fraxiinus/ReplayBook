@@ -14,31 +14,34 @@ namespace Rofl.UI.Main.Models
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
             PreviewModel = previewModel ?? throw new ArgumentNullException(nameof(previewModel));
+            AllPlayers = new List<PlayerDetailModel>();
 
             BluePlayers = new List<PlayerDetailModel>();
             var combinedBluePlayers = replay.BluePlayers.Zip(previewModel.BluePreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var bPlayer in combinedBluePlayers)
             {
-                var newPlayer = new PlayerDetailModel(bPlayer.Player, bPlayer.Preview);
+                var newPlayer = new PlayerDetailModel(bPlayer.Player, bPlayer.Preview, true);
                 BlueKills += newPlayer.ChampionsKilled;
                 BlueDeaths += newPlayer.Deaths;
                 BlueAssists += newPlayer.Assists;
                 BlueGoldEarned += newPlayer.GoldEarned;
                 BlueMinionsKilled += newPlayer.MinionsKilled;
                 BluePlayers.Add(newPlayer);
+                AllPlayers.Add(newPlayer);
             }
 
             RedPlayers = new List<PlayerDetailModel>();
             var combinedRedPlayers = replay.RedPlayers.Zip(previewModel.RedPreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var rPlayer in combinedRedPlayers)
             {
-                var newPlayer = new PlayerDetailModel(rPlayer.Player, rPlayer.Preview);
+                var newPlayer = new PlayerDetailModel(rPlayer.Player, rPlayer.Preview, false);
                 RedKills += newPlayer.ChampionsKilled;
                 RedDeaths += newPlayer.Deaths;
                 RedAssists += newPlayer.Assists;
                 RedGoldEarned += newPlayer.GoldEarned;
                 RedMinionsKilled += newPlayer.MinionsKilled;
                 RedPlayers.Add(newPlayer);
+                AllPlayers.Add(newPlayer);
             }
         }
 
@@ -67,5 +70,7 @@ namespace Rofl.UI.Main.Models
         public IList<PlayerDetailModel> BluePlayers { get; private set; }
 
         public IList<PlayerDetailModel> RedPlayers { get; private set; }
+
+        public IList<PlayerDetailModel> AllPlayers { get; private set; }
     }
 }

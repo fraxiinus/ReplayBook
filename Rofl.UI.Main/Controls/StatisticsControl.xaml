@@ -1,0 +1,506 @@
+﻿<UserControl x:Class="Rofl.UI.Main.Controls.StatisticsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="White">
+    <Grid>
+        <DataGrid AutoGenerateColumns="False"
+                  ItemsSource="{Binding Path=AllPlayers}"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Hidden"
+                  ScrollViewer.CanContentScroll="True"
+                  IsReadOnly="True"
+                  CanUserSortColumns="False"
+                  CanUserResizeColumns="False"
+                  CanUserResizeRows="False"
+                  HeadersVisibility="Column"
+                  Background="Transparent"
+                  BorderBrush="Transparent"
+                  GridLinesVisibility="None"
+                  SelectionUnit="Cell"
+                  MaxWidth="550"
+                  Padding="50 0 0 0">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <TransformGroup>
+                                <RotateTransform Angle="90"/>
+                            </TransformGroup>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Width" Value="115"/>
+                    <Setter Property="Height" Value="25"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Margin" Value="0 0 0 0"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.LayoutTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="-90"/>
+                </TransformGroup>
+            </DataGrid.LayoutTransform>
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="LayoutTransform">
+                        <Setter.Value>
+                            <TransformGroup>
+                                <RotateTransform Angle="90"/>
+                            </TransformGroup>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Width" Value="60"/>
+                    <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                    <Setter Property="Margin" Value="0 0 4 0"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=IsBlueTeamMember}" Value="True">
+                            <Setter Property="Background" Value="AliceBlue"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=IsBlueTeamMember}" Value="False">
+                            <Setter Property="Background" Value="MistyRose"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <!--Reverse order, since we invert the table-->
+                <!--
+                <DataGridTextColumn Binding="{Binding Path=?, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource ?}"
+                                   ToolTip="{StaticResource ?}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                StringFormat={}{0:#,#}
+                -->
+
+                <DataGridTextColumn Binding="{Binding Path=SummonerSpell2Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource SummonerSpell2CastsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=SummonerSpell1Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource SummonerSpell1CastsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=Spell4Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource Spell4CastsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=Spell3Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource Spell3CastsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=Spell2Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource Spell2CastsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=Spell1Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource Spell1CastsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <!---->
+
+                <DataGridTextColumn Binding="{Binding Path=Ping, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource PingHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=MutedByPlayers, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource MutedByPlayersHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=PlayersMuted, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource PlayersMutedHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TimeSpentDisconnected, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TimeSpentDisconnectedHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <!---->
+                
+                <DataGridTextColumn Binding="{Binding Path=LastHitNexus, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource LastHitNexusHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=TotalTimeSpentDead, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalTimeSpentDeadHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=LongestTimeSpentAlive, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource LongestTimeSpentAliveHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=DragonsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource DragonsKilledHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=BaronsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource BaronsKilledHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=ObjectivesStolen, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource ObjectivesStolenHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=InhibitorsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource InhibitorsKilledHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TurretsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TurretsKilledHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TotalExperience, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalExperienceHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <!---->
+                
+                <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilledFromEnemyJungle, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource NeutralMinionsKilledFromEnemyJungleHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilledFromOwnJungle, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource NeutralMinionsKilledFromOwnJungleHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource NeutralMinionsKilledHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=MinionsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource MinionsKilledHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=ConsumablesPurchased, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource ConsumablesPurchasedHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=ItemsPurchased, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource ItemsPurchasedHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=GoldSpent, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource GoldSpentHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=GoldEarned, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource GoldEarnedHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <!---->
+                
+                <DataGridTextColumn Binding="{Binding Path=VisionWardsPurchased, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource VisionWardsPurchasedHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=WardsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource WardsKilledHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=WardsPlaced, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource WardsPlacedHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=VisionScore, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource VisionScoreHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <!---->
+                
+                <DataGridTextColumn Binding="{Binding Path=TotalDamageSelfMitigated, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalDamageSelfMitigatedHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TrueDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TrueDamageTakenHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=MagicDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource MagicDamageTakenHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=PhysicalDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource PhysicalDamageTakenHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TotalDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalDamageTakenHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TotalDamageShieldedToTeammates, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalDamageShieldedToTeammatesHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TotalUnitsHealed, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalUnitsHealedHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TotalHealingDoneToTeammates, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalHealingDoneToTeammatesHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TotalHealingDone, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalHealingDoneHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <!---->
+                
+                <DataGridTextColumn Binding="{Binding Path=TotalDamageToObjectives, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalDamageToObjectivesHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TotalDamageToTurrets, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalDamageToTurretsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=LargestCriticalStrike, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource LargestCriticalStrikeHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TrueDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TrueDamageDealtHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=MagicDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource MagicDamageDealtHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=PhysicalDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource PhysicalDamageDealtHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=TotalDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalDamageDealtHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TrueDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TrueDamageDealtToChampionsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=MagicDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource MagicDamageDealtToChampionsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=PhysicalDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource PhysicalDamageDealtToChampionsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=TotalDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalDamageDealtToChampionsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <!---->
+                
+                <DataGridTextColumn Binding="{Binding Path=TotalTimeCrowdControlDealt, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TotalTimeCrowdControlDealtHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=CrowdControlScore, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource CrowdControlScoreHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=UnrealKills, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource UnrealKillsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=PentaKills, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource PentaKillsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=QuadraKills, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource QuadraKillsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=TripleKills, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource TripleKillsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=DoubleKills, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource DoubleKillsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=BountyLevel, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource BountyLevelHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=LargestMultiKill, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource LargestMultiKillHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn  Binding="{Binding Path=KillingSprees, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource KillingSpreesHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=LargestKillingSpree, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource LargestKillingSpreeHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=Assists, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource AssistsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=Deaths, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource DeathsHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Binding="{Binding Path=ChampionsKilled, Mode=OneWay}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource ChampionsKilledHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn Header="" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Path=PreviewModel.ImageSource}"
+                                   ToolTip="{Binding Path=PreviewModel.CombinedName}"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Margin="5"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

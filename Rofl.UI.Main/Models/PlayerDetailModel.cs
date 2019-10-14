@@ -12,7 +12,7 @@ namespace Rofl.UI.Main.Models
 {
     public class PlayerDetailModel
     {
-        public PlayerDetailModel(Player player, PlayerPreviewModel previewModel)
+        public PlayerDetailModel(Player player, PlayerPreviewModel previewModel, bool isBlueTeamMember)
         {
             if (player == null) { throw new ArgumentNullException(nameof(player)); }
 
@@ -20,7 +20,8 @@ namespace Rofl.UI.Main.Models
 
             // Basic info
             Level = player.LEVEL.ToInt();
-            TotalExperience = player.LEVEL.ToInt();
+            IsBlueTeamMember = isBlueTeamMember;
+            TotalExperience = player.EXP.ToInt();
             GoldEarned = player.GOLD_EARNED.ToInt();
             GoldSpent = player.GOLD_SPENT.ToInt();
 
@@ -53,7 +54,6 @@ namespace Rofl.UI.Main.Models
             // Items
             ItemsPurchased = player.ITEMS_PURCHASED.ToInt();
             ConsumablesPurchased = player.CONSUMABLES_PURCHASED.ToInt();
-            SightWardsPurchased = player.SIGHT_WARDS_BOUGHT_IN_GAME.ToInt();
             VisionWardsPurchased = player.VISION_WARDS_BOUGHT_IN_GAME.ToInt();
             WardsPlaced = player.WARD_PLACED.ToInt();
             WardsKilled = player.WARD_KILLED.ToInt();
@@ -82,7 +82,8 @@ namespace Rofl.UI.Main.Models
             TrueDamageTaken = player.TRUE_DAMAGE_TAKEN.ToInt();
             TotalDamageSelfMitigated = player.TOTAL_DAMAGE_SELF_MITIGATED.ToInt();
             TotalDamageShieldedToTeammates = player.TOTAL_DAMAGE_SHIELDED_ON_TEAMMATES.ToInt();
-            TotalDamageToBuildings = player.TOTAL_DAMAGE_DEALT_TO_BUILDINGS.ToInt();
+            // Same as towers...
+            //TotalDamageToBuildings = player.TOTAL_DAMAGE_DEALT_TO_BUILDINGS.ToInt();
             TotalDamageToTurrets = player.TOTAL_DAMAGE_DEALT_TO_TURRETS.ToInt();
             TotalDamageToObjectives = player.TOTAL_DAMAGE_DEALT_TO_OBJECTIVES.ToInt();
             LargestCriticalStrike = player.LARGEST_CRITICAL_STRIKE.ToInt();
@@ -95,6 +96,7 @@ namespace Rofl.UI.Main.Models
             LongestTimeSpentAlive = player.LONGEST_TIME_SPENT_LIVING.ToInt();
             TotalTimeSpentDead = player.TOTAL_TIME_SPENT_DEAD.ToInt();
             TimeSpentDisconnected = player.TIME_SPENT_DISCONNECTED.ToInt();
+            CrowdControlScore = player.TIME_CCING_OTHERS.ToInt();
             PlayersMuted = player.PLAYERS_I_MUTED.ToInt();
             MutedByPlayers = player.PLAYERS_THAT_MUTED_ME.ToInt();
             Ping = player.PING.ToInt();
@@ -115,6 +117,8 @@ namespace Rofl.UI.Main.Models
         public PlayerPreviewModel PreviewModel { get; private set; }
 
         public int Level { get; private set; }
+
+        public bool IsBlueTeamMember { get; private set; }
 
         public int TotalExperience { get; private set; }
 
@@ -170,8 +174,6 @@ namespace Rofl.UI.Main.Models
 
         public int ConsumablesPurchased { get; private set; }
 
-        public int SightWardsPurchased { get; private set; }
-
         public int VisionWardsPurchased { get; private set; }
 
         public int WardsPlaced { get; private set; }
@@ -220,8 +222,6 @@ namespace Rofl.UI.Main.Models
 
         public int TotalDamageShieldedToTeammates { get; private set; }
 
-        public int TotalDamageToBuildings { get; private set; }
-
         public int TotalDamageToTurrets { get; private set; }
 
         public int TotalDamageToObjectives { get; private set; }
@@ -241,6 +241,8 @@ namespace Rofl.UI.Main.Models
         public int TotalTimeSpentDead { get; private set; }
 
         public int TimeSpentDisconnected { get; private set; }
+
+        public int CrowdControlScore { get; private set; }
 
         public int PlayersMuted { get; private set; }
 

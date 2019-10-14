@@ -17,6 +17,80 @@
     <string:String x:Key="StatsTabText">STATS</string:String>
     <string:String x:Key="BlankDetailMessageText">Select a replay on the left to begin</string:String>
 
+    <!--Stats Header Text-->
+    <string:String x:Key="ChampionsKilledHeaderText">Kills</string:String>
+    <string:String x:Key="DeathsHeaderText">Deaths</string:String>
+    <string:String x:Key="AssistsHeaderText">Assists</string:String>
+    <string:String x:Key="LargestKillingSpreeHeaderText">Largest Killing Spree</string:String>
+    <string:String x:Key="KillingSpreesHeaderText">Killing Sprees</string:String>
+    <string:String x:Key="LargestMultiKillHeaderText">Largest Multi Kill</string:String>
+    <string:String x:Key="BountyLevelHeaderText">Bounty Level</string:String>
+    <string:String x:Key="DoubleKillsHeaderText">Double Kills</string:String>
+    <string:String x:Key="TripleKillsHeaderText">Triple Kills</string:String>
+    <string:String x:Key="QuadraKillsHeaderText">Quadra Kills</string:String>
+    <string:String x:Key="PentaKillsHeaderText">Penta Kills</string:String>
+    <string:String x:Key="UnrealKillsHeaderText">Unreal Kills</string:String>
+    <string:String x:Key="CrowdControlScoreHeaderText">Crowd Control Score</string:String>
+    <string:String x:Key="TotalTimeCrowdControlDealtHeaderText">Crowd Control Time</string:String>
+
+    <string:String x:Key="TotalDamageDealtToChampionsHeaderText">Total Damage to Champions</string:String>
+    <string:String x:Key="PhysicalDamageDealtToChampionsHeaderText">Physical Damage to Champions</string:String>
+    <string:String x:Key="MagicDamageDealtToChampionsHeaderText">Magic Damage to Champions</string:String>
+    <string:String x:Key="TrueDamageDealtToChampionsHeaderText">True Damage to Champions</string:String>
+    <string:String x:Key="TotalDamageDealtHeaderText">Total Damage Dealt</string:String>
+    <string:String x:Key="PhysicalDamageDealtHeaderText">Physical Damage Dealt</string:String>
+    <string:String x:Key="MagicDamageDealtHeaderText">Magic Damage Dealt</string:String>
+    <string:String x:Key="TrueDamageDealtHeaderText">True Damage Dealt</string:String>
+    <string:String x:Key="LargestCriticalStrikeHeaderText">Largest Critical Strike</string:String>
+    <string:String x:Key="TotalDamageToTurretsHeaderText">Total Damage to Turrets</string:String>
+    <string:String x:Key="TotalDamageToObjectivesHeaderText">Total Damage to Objectives</string:String>
+
+    <string:String x:Key="TotalHealingDoneHeaderText">Total Healing Done</string:String>
+    <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Total Healing Done to Teammates</string:String>
+    <string:String x:Key="TotalUnitsHealedHeaderText">Total Units Healed</string:String>
+    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded To Teammates</string:String>
+    <string:String x:Key="TotalDamageTakenHeaderText">Total Damage Taken</string:String>
+    <string:String x:Key="PhysicalDamageTakenHeaderText">Physical Damage Taken</string:String>
+    <string:String x:Key="MagicDamageTakenHeaderText">Magic Damage Taken</string:String>
+    <string:String x:Key="TrueDamageTakenHeaderText">True Damage Taken</string:String>
+    <string:String x:Key="TotalDamageSelfMitigatedHeaderText">Total Damage Self Mitigated</string:String>
+
+    <string:String x:Key="VisionScoreHeaderText">Vision Score</string:String>
+    <string:String x:Key="WardsPlacedHeaderText">Wards Placed</string:String>
+    <string:String x:Key="WardsKilledHeaderText">Wards Destroyed</string:String>
+    <string:String x:Key="VisionWardsPurchasedHeaderText">Control Wards Purchased</string:String>
+
+    <string:String x:Key="GoldEarnedHeaderText">Gold Earned</string:String>
+    <string:String x:Key="GoldSpentHeaderText">Gold Spent</string:String>
+    <string:String x:Key="ItemsPurchasedHeaderText">Items Purchased</string:String>
+    <string:String x:Key="ConsumablesPurchasedHeaderText">Consumables Purchased</string:String>
+    <string:String x:Key="MinionsKilledHeaderText">Minions Killed</string:String>
+    <string:String x:Key="NeutralMinionsKilledHeaderText">Neutral Minions Killed</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Own Jungle Minion Kills</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Other Jungle Minion Kills</string:String>
+
+    <string:String x:Key="TotalExperienceHeaderText">Total Experience</string:String>
+    <string:String x:Key="TurretsKilledHeaderText">Turrets Killed</string:String>
+    <string:String x:Key="InhibitorsKilledHeaderText">Inhibitors Killed</string:String>
+    <string:String x:Key="ObjectivesStolenHeaderText">Objectives Stolen</string:String>
+    <string:String x:Key="BaronsKilledHeaderText">Barons Killed</string:String>
+    <string:String x:Key="DragonsKilledHeaderText">Dragons Killed</string:String>
+    <string:String x:Key="LongestTimeSpentAliveHeaderText">Longest Time Spent Alive</string:String>
+    <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
+    <string:String x:Key="LastHitNexusHeaderText">LastHitNexus</string:String>
+
+    <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>
+    <string:String x:Key="PlayersMutedHeaderText">Players Muted</string:String>
+    <string:String x:Key="MutedByPlayersHeaderText">Muted By Players</string:String>
+    <string:String x:Key="PingHeaderText">Ping</string:String>
+
+    <string:String x:Key="Spell1CastsHeaderText">Spell 1 Casts</string:String>
+    <string:String x:Key="Spell2CastsHeaderText">Spell 2 Casts</string:String>
+    <string:String x:Key="Spell3CastsHeaderText">Spell 3 Casts</string:String>
+    <string:String x:Key="Spell4CastsHeaderText">Spell 4 Casts</string:String>
+    <string:String x:Key="SummonerSpell1CastsHeaderText">Summoner Spell 1 Casts</string:String>
+    <string:String x:Key="SummonerSpell2CastsHeaderText">Summoner Spell 2 Casts</string:String>
+
     <!--ToolTip Text-->
     <string:String x:Key="SortToolTip">Sort</string:String>
     <string:String x:Key="OpenToolTip">Open</string:String>
