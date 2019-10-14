@@ -115,13 +115,20 @@
                         <TextBlock Text="{StaticResource Spell2CastsHeaderText}"/>
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                
+
                 <DataGridTextColumn Binding="{Binding Path=Spell1Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="{StaticResource Spell1CastsHeaderText}"/>
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
+                <DataGridTextColumn>
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource MiscGroupHeaderText}"
+                                   FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
                 <!---->
 
                 <DataGridTextColumn Binding="{Binding Path=Ping, Mode=OneWay, StringFormat={}{0:#,0}}">
@@ -147,7 +154,14 @@
                         <TextBlock Text="{StaticResource TimeSpentDisconnectedHeaderText}"/>
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                
+
+                <DataGridTextColumn>
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource ToxicityGroupHeaderText}"
+                                   FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
                 <!---->
                 
                 <DataGridTextColumn Binding="{Binding Path=LastHitNexus, Mode=OneWay, StringFormat={}{0:#,0}}">
@@ -204,6 +218,13 @@
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
+                <DataGridTextColumn>
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource ObjectivesGroupHeaderText}"
+                                   FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
                 <!---->
                 
                 <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilledFromEnemyJungle, Mode=OneWay, StringFormat={}{0:#,0}}">
@@ -254,6 +275,13 @@
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
+                <DataGridTextColumn>
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource IncomeGroupHeaderText}"
+                                   FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
                 <!---->
                 
                 <DataGridTextColumn Binding="{Binding Path=VisionWardsPurchased, Mode=OneWay, StringFormat={}{0:#,0}}">
@@ -279,7 +307,14 @@
                         <TextBlock Text="{StaticResource VisionScoreHeaderText}"/>
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                
+
+                <DataGridTextColumn>
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource VisionGroupHeaderText}"
+                                   FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
                 <!---->
                 
                 <DataGridTextColumn Binding="{Binding Path=TotalDamageSelfMitigated, Mode=OneWay, StringFormat={}{0:#,0}}">
@@ -336,6 +371,13 @@
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
+                <DataGridTextColumn>
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource DamageTakenAndHealedGroupHeaderText}"
+                                   FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                
                 <!---->
                 
                 <DataGridTextColumn Binding="{Binding Path=TotalDamageToObjectives, Mode=OneWay, StringFormat={}{0:#,0}}">
@@ -404,6 +446,12 @@
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
                 
+                <DataGridTextColumn>
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource DamageDealtGroupHeaderText}"
+                                   FontWeight="Bold"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
                 <!---->
                 
                 <DataGridTextColumn Binding="{Binding Path=TotalTimeCrowdControlDealt, Mode=OneWay}">
@@ -487,6 +535,13 @@
                 <DataGridTextColumn Binding="{Binding Path=ChampionsKilled, Mode=OneWay}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="{StaticResource ChampionsKilledHeaderText}"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn>
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{StaticResource CombatGroupHeaderText}"
+                                   FontWeight="Bold"/>
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 

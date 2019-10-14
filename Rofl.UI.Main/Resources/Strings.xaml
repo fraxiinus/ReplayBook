@@ -18,6 +18,7 @@
     <string:String x:Key="BlankDetailMessageText">Select a replay on the left to begin</string:String>
 
     <!--Stats Header Text-->
+    <string:String x:Key="CombatGroupHeaderText">Combat</string:String>
     <string:String x:Key="ChampionsKilledHeaderText">Kills</string:String>
     <string:String x:Key="DeathsHeaderText">Deaths</string:String>
     <string:String x:Key="AssistsHeaderText">Assists</string:String>
@@ -33,6 +34,7 @@
     <string:String x:Key="CrowdControlScoreHeaderText">Crowd Control Score</string:String>
     <string:String x:Key="TotalTimeCrowdControlDealtHeaderText">Crowd Control Time</string:String>
 
+    <string:String x:Key="DamageDealtGroupHeaderText">Damage Dealt</string:String>
     <string:String x:Key="TotalDamageDealtToChampionsHeaderText">Total Damage to Champions</string:String>
     <string:String x:Key="PhysicalDamageDealtToChampionsHeaderText">Physical Damage to Champions</string:String>
     <string:String x:Key="MagicDamageDealtToChampionsHeaderText">Magic Damage to Champions</string:String>
@@ -45,6 +47,7 @@
     <string:String x:Key="TotalDamageToTurretsHeaderText">Total Damage to Turrets</string:String>
     <string:String x:Key="TotalDamageToObjectivesHeaderText">Total Damage to Objectives</string:String>
 
+    <string:String x:Key="DamageTakenAndHealedGroupHeaderText">Damage Taken and Healed</string:String>
     <string:String x:Key="TotalHealingDoneHeaderText">Total Healing Done</string:String>
     <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Total Healing Done to Teammates</string:String>
     <string:String x:Key="TotalUnitsHealedHeaderText">Total Units Healed</string:String>
@@ -55,11 +58,13 @@
     <string:String x:Key="TrueDamageTakenHeaderText">True Damage Taken</string:String>
     <string:String x:Key="TotalDamageSelfMitigatedHeaderText">Total Damage Self Mitigated</string:String>
 
+    <string:String x:Key="VisionGroupHeaderText">Vision</string:String>
     <string:String x:Key="VisionScoreHeaderText">Vision Score</string:String>
     <string:String x:Key="WardsPlacedHeaderText">Wards Placed</string:String>
     <string:String x:Key="WardsKilledHeaderText">Wards Destroyed</string:String>
     <string:String x:Key="VisionWardsPurchasedHeaderText">Control Wards Purchased</string:String>
 
+    <string:String x:Key="IncomeGroupHeaderText">Income</string:String>
     <string:String x:Key="GoldEarnedHeaderText">Gold Earned</string:String>
     <string:String x:Key="GoldSpentHeaderText">Gold Spent</string:String>
     <string:String x:Key="ItemsPurchasedHeaderText">Items Purchased</string:String>
@@ -69,6 +74,7 @@
     <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Own Jungle Minion Kills</string:String>
     <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Other Jungle Minion Kills</string:String>
 
+    <string:String x:Key="ObjectivesGroupHeaderText">Objectives</string:String>
     <string:String x:Key="TotalExperienceHeaderText">Total Experience</string:String>
     <string:String x:Key="TurretsKilledHeaderText">Turrets Killed</string:String>
     <string:String x:Key="InhibitorsKilledHeaderText">Inhibitors Killed</string:String>
@@ -79,11 +85,13 @@
     <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
     <string:String x:Key="LastHitNexusHeaderText">LastHitNexus</string:String>
 
+    <string:String x:Key="ToxicityGroupHeaderText">Toxicity</string:String>
     <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>
     <string:String x:Key="PlayersMutedHeaderText">Players Muted</string:String>
     <string:String x:Key="MutedByPlayersHeaderText">Muted By Players</string:String>
     <string:String x:Key="PingHeaderText">Ping</string:String>
 
+    <string:String x:Key="MiscGroupHeaderText">Misc</string:String>
     <string:String x:Key="Spell1CastsHeaderText">Spell 1 Casts</string:String>
     <string:String x:Key="Spell2CastsHeaderText">Spell 2 Casts</string:String>
     <string:String x:Key="Spell3CastsHeaderText">Spell 3 Casts</string:String>
