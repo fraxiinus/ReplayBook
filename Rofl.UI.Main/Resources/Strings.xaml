@@ -16,6 +16,8 @@
     <string:String x:Key="ScoreboardTabText">SCOREBOARD</string:String>
     <string:String x:Key="StatsTabText">STATS</string:String>
     <string:String x:Key="BlankDetailMessageText">Select a replay on the left to begin</string:String>
+    <string:String x:Key="BlueVictory">BLUE VICTORY</string:String>
+    <string:String x:Key="RedVictory">RED VICTORY</string:String>
 
     <!--Stats Header Text-->
     <string:String x:Key="CombatGroupHeaderText">Combat</string:String>
@@ -51,7 +53,7 @@
     <string:String x:Key="TotalHealingDoneHeaderText">Total Healing Done</string:String>
     <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Total Healing Done to Teammates</string:String>
     <string:String x:Key="TotalUnitsHealedHeaderText">Total Units Healed</string:String>
-    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded To Teammates</string:String>
+    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded to Teammates</string:String>
     <string:String x:Key="TotalDamageTakenHeaderText">Total Damage Taken</string:String>
     <string:String x:Key="PhysicalDamageTakenHeaderText">Physical Damage Taken</string:String>
     <string:String x:Key="MagicDamageTakenHeaderText">Magic Damage Taken</string:String>
@@ -83,7 +85,7 @@
     <string:String x:Key="DragonsKilledHeaderText">Dragons Killed</string:String>
     <string:String x:Key="LongestTimeSpentAliveHeaderText">Longest Time Spent Alive</string:String>
     <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
-    <string:String x:Key="LastHitNexusHeaderText">LastHitNexus</string:String>
+    <string:String x:Key="LastHitNexusHeaderText">Last Hit Nexus</string:String>
 
     <string:String x:Key="ToxicityGroupHeaderText">Toxicity</string:String>
     <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>
@@ -129,9 +131,5 @@
 
     <string:String x:Key="LengthAsc">Length ascending</string:String>
     <string:String x:Key="LengthDesc">Length descending</string:String>
-    
-    <!--Replay Text-->
-    <string:String x:Key="BlueVictory">BLUE VICTORY</string:String>
-    <string:String x:Key="RedVictory">RED VICTORY</string:String>
 
 </ResourceDictionary>

@@ -165,9 +165,10 @@
                 </TabItem>
 
                 <TabItem Header="{StaticResource StatsTabText}"
-                     FontFamily="12" 
-                     Style="{StaticResource TabHeaderStyle}">
-                    <local:StatisticsControl Margin="0 10 0 0"/>
+                         FontSize="12"
+                         Style="{StaticResource TabHeaderStyle}">
+                    <local:StatisticsControl x:Name="StatsControl"
+                                             Margin="0 10 0 0"/>
                 </TabItem>
             </TabControl>
 
