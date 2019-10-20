@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="760"
-             Height="650" Width="760"
+             Height="610" Width="760"
              HorizontalAlignment="Left"
              VerticalAlignment="Top"
              Background="White">
@@ -26,132 +26,133 @@
         <!--The actual replay content-->
         <StackPanel x:Name="ReplayContent"
                 Orientation="Vertical"
-                Margin="10"
+                Margin="10 5 0 0"
                 Visibility="Hidden">
 
-            <StackPanel Orientation="Horizontal"
-                    Margin="0 0 0 5">
+            <!--The header information-->
+            <StackPanel Orientation="Vertical"
+                        Width="740"
+                        Margin="0 0 0 10">
+                
+                <Border BorderThickness="0 0 0 2"
+                            BorderBrush="Gray">
 
-                <StackPanel Orientation="Vertical">
-                    <Border BorderThickness="0 0 0 2"
-                    BorderBrush="Gray">
+                    <DockPanel>
+
                         <TextBox FontSize="25"
-                     Background="Transparent"
-                     BorderThickness="0"
-                     IsReadOnly="True"
-                     Text="{Binding Path=PreviewModel.Name, FallbackValue=FileName, Mode=OneWay}"/>
-                    </Border>
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     IsReadOnly="True"
+                                     Text="{Binding Path=PreviewModel.Name, FallbackValue=FileName, Mode=OneWay}"
+                                     DockPanel.Dock="Left"/>
 
-                    <StackPanel Orientation="Horizontal"
+                        <StackPanel Orientation="Horizontal"
+                                        Margin="20 0 0 0"
+                                        DockPanel.Dock="Right"
+                                        HorizontalAlignment="Right">
+
+                            <Button x:Name="PlayButton"
+                                        Margin="0"
+                                        Width="70"
+                                        Height="30"
+                                        ToolTip="{StaticResource PlayReplayToolTip}"
+                                        Background="Transparent"
+                                        BorderBrush="LightGray">
+                                <DockPanel Background="Transparent">
+                                    <TextBlock Text="{StaticResource PlayButtonText}"
+                                                   FontSize="20"
+                                                   Margin="0"
+                                                   DockPanel.Dock="Left"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"/>
+                                    <Image Source="{StaticResource PlayDrawingImage}"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                               Height="20"
+                                               Margin="5 0 0 0"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"
+                                               DockPanel.Dock="Right"/>
+                                </DockPanel>
+                            </Button>
+
+                            <Button x:Name="MoreButton"
+                                        Width="20"
+                                        Height="30"
+                                        ToolTip="{StaticResource MoreToolTip}"
+                                        Background="Transparent"
+                                        BorderBrush="LightGray">
+                                <Image Source="{StaticResource MoreDrawingImage}"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                               Height="15"
+                                               DockPanel.Dock="Right"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"/>
+                            </Button>
+                        </StackPanel>
+
+                    </DockPanel>
+
+                </Border>
+
+                <StackPanel Orientation="Horizontal"
                         Margin="0 5 0 0">
 
-                        <TextBlock FontSize="14"
+                    <TextBlock FontSize="14"
                            FontWeight="Bold">
-                            <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Text" Value="VICTORY"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="True">
-                                            <Setter Property="TextBlock.Text" Value="{StaticResource BlueVictory}"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="False">
-                                            <Setter Property="TextBlock.Text" Value="{StaticResource RedVictory}"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Text" Value="VICTORY"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="True">
+                                        <Setter Property="TextBlock.Text" Value="{StaticResource BlueVictory}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="False">
+                                        <Setter Property="TextBlock.Text" Value="{StaticResource RedVictory}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
-                        <TextBlock Text="-" Padding="5 0 5 0"/>
-                        <TextBox Background="Transparent"
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
                          BorderThickness="0"
                          FontSize="14"
                          IsReadOnly="True"
                          ToolTip="{StaticResource MapNameToolTip}"
                          Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"/>
 
-                        <TextBlock Text="-" Padding="5 0 5 0"/>
-                        <TextBox Background="Transparent"
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
                          BorderThickness="0"
                          FontSize="14"
                          IsReadOnly="True"
                          ToolTip="{Binding Path=PreviewModel.GameDuration}"
                          Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"/>
 
-                        <TextBlock Text="-" Padding="5 0 5 0"/>
-                        <TextBox Background="Transparent"
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
                          BorderThickness="0"
                          FontSize="14"
                          IsReadOnly="True"
                          ToolTip="{StaticResource MatchIdToolTip}"
                          Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
 
-                        <TextBlock Text="-" Padding="5 0 5 0"/>
-                        <TextBox Background="Transparent"
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
                          BorderThickness="0"
                          FontSize="14"
                          IsReadOnly="True"
                          ToolTip="{StaticResource GameVersionToolTip}"
                          Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
-                    </StackPanel>
-                </StackPanel>
 
-                <StackPanel Orientation="Vertical"
-                        Margin="20 0 0 0">
-                    <Button x:Name="PlayButton"
-                        Margin="0"
-                        Width="90"
-                        Height="35"
-                        ToolTip="{StaticResource PlayReplayToolTip}"
-                        Background="Transparent"
-                        BorderBrush="LightGray"
-                        BorderThickness="1 1 1 0.5"
-                        Padding="5">
-                        <DockPanel Background="Transparent"
-                               Width="90"
-                               Height="25">
-                            <TextBlock Text="{StaticResource PlayButtonText}"
-                                   FontSize="16"
-                                   Margin="0"
-                                   DockPanel.Dock="Left"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Left"/>
-                            <Image Source="{StaticResource PlayDrawingImage}"
-                               RenderOptions.BitmapScalingMode="HighQuality"
-                               Height="20"
-                               Margin="0 0 13 0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               DockPanel.Dock="Right"/>
-                        </DockPanel>
-                    </Button>
-                    <Button x:Name="MoreButton"
-                        Margin="0 0 0 5"
-                        Width="90"
-                        Height="25"
-                        ToolTip="{StaticResource MoreToolTip}"
-                        Background="Transparent"
-                        Padding="0"
-                        BorderBrush="LightGray"
-                        BorderThickness="1 0.5 1 1">
-                        <DockPanel Background="Transparent"
-                               Width="90"
-                               Height="25">
-                            <TextBlock Text="{StaticResource MoreButtonText}"
-                                   FontSize="14"
-                                   Margin="5 0 0 0"
-                                   DockPanel.Dock="Left"
-                                   TextAlignment="Left"
-                                   VerticalAlignment="Center"/>
-                            <Image Source="{StaticResource MoreDrawingImage}"
-                               RenderOptions.BitmapScalingMode="HighQuality"
-                               Margin="0 0 10 0"
-                               Height="15"
-                               DockPanel.Dock="Right"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"/>
-                        </DockPanel>
-                    </Button>
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource FileDateToolTip}"
+                         Text="{Binding Path=PreviewModel.CreationDate, StringFormat=yyyy-MM-dd  hh:mm tt, FallbackValue=GameVersion, Mode=OneWay}"/>
                 </StackPanel>
 
             </StackPanel>
@@ -168,7 +169,7 @@
                          FontSize="12"
                          Style="{StaticResource TabHeaderStyle}">
                     <local:StatisticsControl x:Name="StatsControl"
-                                             Margin="0 10 0 0"/>
+                                             Margin="0 5 0 0"/>
                 </TabItem>
             </TabControl>
 

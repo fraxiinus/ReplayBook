@@ -9,8 +9,8 @@
              Background="White">
 
     <ScrollViewer x:Name="StatsScrollViewer"
-                  Height="500">
-        
+                  Height="505">
+
         <DataGrid Style="{StaticResource StatsDataGridStyle}"
                   x:Name="StatsDataGrid"
                   Loaded="DataGrid_Loaded"
@@ -29,11 +29,7 @@
                   GridLinesVisibility="None"
                   SelectionUnit="Cell"
                   Width="1515">
-            
-            <DataGrid.InputBindings>
 
-            </DataGrid.InputBindings>
-            
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="{x:Type DataGridColumnHeader}">
                     <Setter Property="LayoutTransform">
@@ -43,7 +39,7 @@
                             </TransformGroup>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="Width" Value="160"/>
+                    <Setter Property="Width" Value="165"/>
                     <Setter Property="Height" Value="20"/>
                     <Setter Property="BorderBrush" Value="Transparent"/>
                     <Setter Property="Margin" Value="0"/>
@@ -64,7 +60,7 @@
                             </TransformGroup>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="Width" Value="55"/>
+                    <Setter Property="Width" Value="56"/>
                     <Setter Property="TextBlock.TextAlignment" Value="Center"/>
                     <Setter Property="Padding" Value="0"/>
                     <Setter Property="Margin" Value="0"/>

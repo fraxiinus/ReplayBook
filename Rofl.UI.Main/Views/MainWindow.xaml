@@ -11,10 +11,11 @@
         Title="{StaticResource ProgramName}" 
         Icon="{StaticResource ProgramIcon}"
         ResizeMode="CanResize"
-        MinHeight="675"
+        MinHeight="655"
         MinWidth="1150"
-        Height="675" 
+        Height="655" 
         Width="1150">
+    
     <Window.Resources>
         <CollectionViewSource x:Key="PreviewReplaysView" 
                               Source="{Binding Path=PreviewReplays}"
