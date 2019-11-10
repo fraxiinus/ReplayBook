@@ -16,6 +16,7 @@ namespace Rofl.Requests.Utilities
         {
             try
             {
+                if(version == null) { throw new ArgumentNullException(nameof(version)); }
                 return version.Substring
                 (
                     0,

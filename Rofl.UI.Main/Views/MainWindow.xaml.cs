@@ -4,6 +4,7 @@ using Rofl.Logger;
 using Rofl.Reader;
 using Rofl.Reader.Models;
 using Rofl.Requests;
+using Rofl.Settings;
 using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
@@ -29,32 +30,29 @@ namespace Rofl.UI.Main
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IConfiguration _config;
-
-        private FileManager _files;
-
-        private RequestManager _requests;
-
-        private Scribe _log;
+        private readonly FileManager _files;
+        private readonly RequestManager _requests;
+        private readonly SettingsManager _settingsManager;
+        private readonly Scribe _log;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            _config = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .Build();
+            //_config = new ConfigurationBuilder()
+            //    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            //    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            //    .Build();
+
+            _settingsManager = new SettingsManager(_log);
 
             _log = new Scribe();
-
-            _files = new FileManager(_config, _log);
-
-            _requests = new RequestManager(_config, _log);
+            _files = new FileManager(_settingsManager.Settings, _log);
+            _requests = new RequestManager(_settingsManager.Settings, _log);
 
             _log.Error("lol", "lol");
 
-            this.DataContext = new MainWindowViewModel(_files, _requests, _config);
+            this.DataContext = new MainWindowViewModel(_files, _requests, _settingsManager.Settings);
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)

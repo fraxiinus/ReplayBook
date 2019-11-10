@@ -9,7 +9,7 @@ namespace Rofl.UI.Main.Models
 {
     public enum SortMethod { NameAsc, NameDesc, DateAsc, DateDesc, LengthAsc, LengthDesc}
 
-    public class SortToolModel : INotifyPropertyChanged
+    public class SortPropertiesModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
