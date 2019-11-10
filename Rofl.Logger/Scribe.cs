@@ -1,6 +1,7 @@
 ﻿using Rofl.Logger.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 namespace Rofl.Logger
@@ -11,7 +12,7 @@ namespace Rofl.Logger
     /// </summary>
     public class Scribe
     {
-        private List<LogEntry> _entryList;
+        private readonly List<LogEntry> _entryList;
         private bool _errorFlag;
 
         public string OutputDirectory { get; set; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
@@ -36,7 +37,7 @@ namespace Rofl.Logger
         {
             if (!_errorFlag) { return; } // No errors occured, skip
 
-            string outputFileName = Path.Combine(OutputDirectory, $"Error_{ DateTime.Now.ToString("yyyyMMdd_HHmm")}.log");
+            string outputFileName = Path.Combine(OutputDirectory, $"Error_{ DateTime.Now.ToString("yyyyMMdd_HHmm", CultureInfo.InvariantCulture)}.log");
             string logOutput = "";
 
             foreach (LogEntry entry in _entryList)
@@ -62,7 +63,7 @@ namespace Rofl.Logger
             _entryList.Add(newEntry);
         }
 
-        public void Info(string className, string message,
+        public void Information(string className, string message,
             [System.Runtime.CompilerServices.CallerMemberName] string memberName = "")
         {
             LogEntry newEntry = new LogEntry()
