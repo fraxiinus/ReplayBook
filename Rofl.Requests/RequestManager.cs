@@ -8,6 +8,8 @@ using Rofl.Requests.Models;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Rofl.Logger;
+using Rofl.Settings;
+using Rofl.Settings.Models;
 
 namespace Rofl.Requests
 {
@@ -19,19 +21,19 @@ namespace Rofl.Requests
 
         private readonly string _myName;
 
-        private Scribe _log;
-        private IConfiguration _config;
-        private string _cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
+        private readonly Scribe _log;
+        private readonly ObservableSettings _settings;
+        private readonly string _cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
 
-        public RequestManager(IConfiguration config, Scribe log)
+        public RequestManager(ObservableSettings settings, Scribe log)
         {
-            _config = config;
+            _settings = settings;
             _log = log;
 
             _myName = this.GetType().ToString();
 
             // TODO these should use log and config
-            _downloadClient = new DownloadClient(_cachePath, _config, _log);
+            _downloadClient = new DownloadClient(_cachePath, _settings, _log);
             _cacheClient = new CacheClient(_cachePath, _log);
         }
 
@@ -50,7 +52,7 @@ namespace Rofl.Requests
             // Does not exist in cache, make download request
             try
             {
-                return await _downloadClient.DownloadIconImageAsync(request);
+                return await _downloadClient.DownloadIconImageAsync(request).ConfigureAwait(true);
             }
             catch (Exception ex)
             {
@@ -81,7 +83,7 @@ namespace Rofl.Requests
             // Get all data dragon versions
             try
             {
-                allVersions = await GetDataDragonVersionStringsAsync();
+                allVersions = await GetDataDragonVersionStringsAsync().ConfigureAwait(true);
 
             } catch (Exception ex)
             {
@@ -91,7 +93,7 @@ namespace Rofl.Requests
             }
 
             string versionQueryResult = (from version in allVersions
-                                         where version.StartsWith(versionRef)
+                                         where version.StartsWith(versionRef, StringComparison.OrdinalIgnoreCase)
                                          select version).FirstOrDefault();
 
             // TODO to add caching,if query doesn't have any results, call GetDataDragonVersions again
@@ -110,7 +112,7 @@ namespace Rofl.Requests
             // if the set method doesn't find any matches, make a new request
             using (WebClient wc = new WebClient())
             {
-                string result = await wc.DownloadStringTaskAsync(@"https://ddragon.leagueoflegends.com/api/versions.json");
+                string result = await wc.DownloadStringTaskAsync(@"https://ddragon.leagueoflegends.com/api/versions.json").ConfigureAwait(true);
                 return JArray.Parse(result).ToObject<string[]>();
             }
         }

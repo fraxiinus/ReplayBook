@@ -4,6 +4,8 @@ using Rofl.Files.Repositories;
 using Rofl.Logger;
 using Rofl.Reader;
 using Rofl.Reader.Models;
+using Rofl.Settings;
+using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,26 +17,19 @@ namespace Rofl.Files
 {
     public class FileManager
     {
-        private FolderRepository _fileSystem;
-        private CacheRepository _cache;
+        private readonly FolderRepository _fileSystem;
+        private readonly CacheRepository _cache;
+        private readonly Scribe _log;
+        private readonly ReplayReader _reader;
+        private readonly string _myName;
 
-        private IConfiguration _config;
-
-        private Scribe _log;
-
-        private ReplayReader _reader;
-
-        private string _myName;
-
-        public FileManager(IConfiguration config, Scribe log)
+        public FileManager(ObservableSettings settings, Scribe log)
         {
-            _config = config;
             _log = log;
             _myName = this.GetType().ToString();
 
-
-            _fileSystem = new FolderRepository(config, log);
-            _cache = new CacheRepository(config, log);
+            _fileSystem = new FolderRepository(settings, log);
+            _cache = new CacheRepository(log);
 
             _reader = new ReplayReader();
         }
@@ -62,16 +57,16 @@ namespace Rofl.Files
                 FileResult item = _cache.CheckCache(replayPath);
                 if (item != null)
                 {
-                    _log.Info(_myName, $"Database hit: {replayPath}");
+                    _log.Information(_myName, $"Database hit: {replayPath}");
                     totalReplays.Add(item);
                 }
                 else
                 {
-                    _log.Info(_myName, $"Database miss: {replayPath}");
+                    _log.Information(_myName, $"Database miss: {replayPath}");
                     // create new tasks to read replays
                     FileResult newResult = new FileResult
                     {
-                        ReplayFile = await _reader.ReadFile(replayPath),
+                        ReplayFile = await _reader.ReadFile(replayPath).ConfigureAwait(false),
                         FileInfo = fileInfo,
                         IsNewFile = true
                     };

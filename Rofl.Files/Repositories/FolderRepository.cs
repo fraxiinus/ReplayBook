@@ -3,6 +3,8 @@ using Rofl.Files.Models;
 using Rofl.Logger;
 using Rofl.Reader;
 using Rofl.Reader.Models;
+using Rofl.Settings;
+using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,19 +22,13 @@ namespace Rofl.Files.Repositories
     public class FolderRepository
     {
 
-        private IConfiguration _config;
+        private readonly ObservableSettings _settings;
+        private readonly Scribe _log;
 
-        private Scribe _log;
-
-        private List<string> _folderPaths;
-
-        public FolderRepository(IConfiguration config, Scribe log)
+        public FolderRepository(ObservableSettings settings, Scribe log)
         {
-            _config = config;
-
-            _log = log;
-
-            _folderPaths = _config.GetSection("folder:list").Get<List<string>>();
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+            _log = log ?? throw new ArgumentNullException(nameof(log));
         }
 
         /// <summary>
@@ -43,7 +39,7 @@ namespace Rofl.Files.Repositories
         {
             List<ReplayFileInfo> returnList = new List<ReplayFileInfo>();
 
-            foreach (string folder in _folderPaths)
+            foreach (string folder in _settings.SourceFolders)
             {
                 // Grab the contents of the folder
                 DirectoryInfo dirInfo = new DirectoryInfo(folder);
