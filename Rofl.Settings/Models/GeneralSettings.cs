@@ -11,10 +11,10 @@ namespace Rofl.Settings.Models
     {
         public GeneralSettings()
         {
-            KnownPlayers = new List<string>();
+            KnownPlayers = new List<PlayerMarker>();
         }
 
         [JsonProperty("known_players")]
-        public List<string> KnownPlayers { get; private set; }
+        public List<PlayerMarker> KnownPlayers { get; private set; }
     }
 }

@@ -3,9 +3,11 @@ using Rofl.Files;
 using Rofl.Files.Models;
 using Rofl.Requests;
 using Rofl.Requests.Models;
+using Rofl.Settings;
 using Rofl.Settings.Models;
 using Rofl.UI.Main.Extensions;
 using Rofl.UI.Main.Models;
+using Rofl.UI.Main.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,16 +41,19 @@ namespace Rofl.UI.Main.ViewModels
         /// </summary>
         public Dictionary<string, FileResult> FileResults { get; private set; }
 
-        public ObservableCollection<string> KnownPlayers { get; private set; }
+        public ObservableCollection<PlayerMarker> KnownPlayers { get; private set; }
 
-        public MainWindowViewModel(FileManager files, RequestManager requests, ObservableSettings settings)
+        public SettingsManager SettingsManager { get; private set; }
+
+        public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager)
         {
-            if (settings == null) { throw new ArgumentNullException(nameof(settings)); }
+            if (settingsManager == null) { throw new ArgumentNullException(nameof(settingsManager)); }
 
+            SettingsManager = settingsManager;
             _fileManager = files ?? throw new ArgumentNullException(nameof(files));
             _requestManager = requests ?? throw new ArgumentNullException(nameof(requests));
 
-            KnownPlayers = settings.KnownPlayers;
+            KnownPlayers = SettingsManager.Settings.KnownPlayers;
 
             PreviewReplays = new ObservableCollection<ReplayPreviewModel>();
             FileResults = new Dictionary<string, FileResult>();
@@ -70,12 +75,18 @@ namespace Rofl.UI.Main.ViewModels
 
                 foreach (var bluePlayer in newItem.BluePreviewPlayers)
                 {
-                    bluePlayer.IsKnownPlayer = KnownPlayers.Contains(bluePlayer.PlayerName, StringComparer.OrdinalIgnoreCase);
+                    bluePlayer.Marker = KnownPlayers.Where
+                        (
+                            x => x.Name.Equals(bluePlayer.PlayerName, StringComparison.OrdinalIgnoreCase)
+                        ).FirstOrDefault();
                 }
 
                 foreach (var redPlayer in newItem.RedPreviewPlayers)
                 {
-                    redPlayer.IsKnownPlayer = KnownPlayers.Contains(redPlayer.PlayerName, StringComparer.OrdinalIgnoreCase);
+                    redPlayer.Marker = KnownPlayers.Where
+                        (
+                            x => x.Name.Equals(redPlayer.PlayerName, StringComparison.OrdinalIgnoreCase)
+                        ).FirstOrDefault();
                 }
 
                 App.Current.Dispatcher.Invoke((Action) delegate
@@ -221,6 +232,25 @@ namespace Rofl.UI.Main.ViewModels
 
                 // Wait for all images to finish before doing the next replay
                 await Task.WhenAll(imageTasks).ConfigureAwait(false);
+            }
+        }
+
+        public async Task ShowSettingsDialog()
+        {
+            var settingsDialog = new SettingsWindow
+            {
+                Top = App.Current.MainWindow.Top + 50,
+                Left = App.Current.MainWindow.Left + 50,
+                DataContext = SettingsManager,
+            };
+
+            if (settingsDialog.ShowDialog().Equals(true))
+            {
+                // Window should be open, do something?
+                // THIS IS BROKEN
+                PreviewReplays.Clear();
+
+                await LoadReplays().ConfigureAwait(true);
             }
         }
     }

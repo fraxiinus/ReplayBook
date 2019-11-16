@@ -106,5 +106,12 @@ namespace Rofl.UI.Main.Controls
 
             timer.Stop();
         }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+
+            context.ShowSettingsDialog();
+        }
     }
 }

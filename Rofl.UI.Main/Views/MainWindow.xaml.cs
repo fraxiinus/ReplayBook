@@ -52,7 +52,7 @@ namespace Rofl.UI.Main
 
             _log.Error("lol", "lol");
 
-            this.DataContext = new MainWindowViewModel(_files, _requests, _settingsManager.Settings);
+            this.DataContext = new MainWindowViewModel(_files, _requests, _settingsManager);
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
@@ -84,5 +84,6 @@ namespace Rofl.UI.Main
 
             await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetailModel).ConfigureAwait(true);
         }
+
     }
 }

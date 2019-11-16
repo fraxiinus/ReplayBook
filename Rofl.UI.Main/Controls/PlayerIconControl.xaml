@@ -23,7 +23,7 @@
                 <Style TargetType="Rectangle">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="True">
-                            <Setter Property="Fill" Value="Yellow"/>
+                            <Setter Property="Fill" Value="{Binding Path=Marker.Color}"/>
                             <Setter Property="Stroke" Value="Black"/>
                             <Setter Property="StrokeThickness" Value="1"/>
                         </DataTrigger>

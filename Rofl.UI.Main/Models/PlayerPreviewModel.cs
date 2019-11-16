@@ -1,4 +1,5 @@
 ﻿using Rofl.Reader.Models;
+using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,7 +17,7 @@ namespace Rofl.UI.Main.Models
             
             ChampionName = player.SKIN;
             PlayerName = player.NAME;
-            isKnown = false;
+            marker = null;
             imgSrc = @"D:\Sync\Pictures\comissions\CalamariPop\ThinkYuumi.png";
 
         }
@@ -27,15 +28,23 @@ namespace Rofl.UI.Main.Models
 
         public string PlayerName { get; private set; }
 
-        private bool isKnown;
         public bool IsKnownPlayer 
         { 
-            get { return isKnown; }
+            get 
+            {
+                return marker != null;
+            }
+        }
+
+        private PlayerMarker marker;
+        public PlayerMarker Marker
+        { 
+            get { return marker; }
             set
             {
-                isKnown = value;
+                marker = value;
                 PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(IsKnownPlayer)));
+                    this, new PropertyChangedEventArgs(nameof(Marker)));
             }
         }
 

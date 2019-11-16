@@ -18,6 +18,25 @@
     <string:String x:Key="BlankDetailMessageText">Select a replay on the left to begin</string:String>
     <string:String x:Key="BlueVictory">BLUE VICTORY</string:String>
     <string:String x:Key="RedVictory">RED VICTORY</string:String>
+    <string:String x:Key="ErrorTitle">Error</string:String>
+
+    <!--Settings Window Text-->
+    <string:String x:Key="GeneralSettingsItemText">General</string:String>
+    <string:String x:Key="ReplaySettingsItemText">Replays</string:String>
+    <string:String x:Key="RequestSettingsItemText">Web Requests</string:String>
+
+    <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
+    <string:String x:Key="PlayerMarkerWindowText">Player Marker</string:String>
+    <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">Marker for player name "$" already exists</string:String>
+    <string:String x:Key="PlayerMarkerAlreadyExistsErrorTitle">Marker already exists</string:String>
+    <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Player name cannot be empty</string:String>
+    <string:String x:Key="PlayerMarkerColorIsEmptyErrorText">Please choose a color</string:String>
+    
+    <string:String x:Key="PlayerMarkerAddButtonText">Add</string:String>
+    <string:String x:Key="PlayerMarkerEditButtonText">Edit</string:String>
+    <string:String x:Key="PlayerMarkerRemoveButtonText">Remove</string:String>
+    <string:String x:Key="SaveButtonText">Save</string:String>
+    <string:String x:Key="CancelButtonText">Cancel</string:String>
 
     <!--Stats Header Text-->
     <string:String x:Key="CombatGroupHeaderText">Combat</string:String>

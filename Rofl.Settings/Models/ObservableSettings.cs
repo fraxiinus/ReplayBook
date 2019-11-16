@@ -16,7 +16,7 @@ namespace Rofl.Settings.Models
         {
             if (settings == null) { throw new ArgumentNullException(nameof(settings)); }
 
-            KnownPlayers = new ObservableCollection<string>(settings.GeneralSettings.KnownPlayers);
+            KnownPlayers = new ObservableCollection<PlayerMarker>(settings.GeneralSettings.KnownPlayers);
             SourceFolders = new ObservableCollection<string>(settings.ReplaySettings.SourceFolders);
 
             DataDragonBaseUrl = settings.RequestSettings.DataDragonBaseUrl;
@@ -27,7 +27,7 @@ namespace Rofl.Settings.Models
 
 
         // General Settings
-        public ObservableCollection<string> KnownPlayers { get; private set; }
+        public ObservableCollection<PlayerMarker> KnownPlayers { get; private set; }
 
 
         // Replay Settings
