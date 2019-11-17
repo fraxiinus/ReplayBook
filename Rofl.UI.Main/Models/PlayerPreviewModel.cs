@@ -45,6 +45,8 @@ namespace Rofl.UI.Main.Models
                 marker = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(Marker)));
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(IsKnownPlayer)));
             }
         }
 
