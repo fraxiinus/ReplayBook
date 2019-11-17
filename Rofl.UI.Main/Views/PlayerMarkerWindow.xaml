@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{StaticResource PlayerMarkerWindowText}" 
-        Height="165" Width="300"
+        Title="{StaticResource PlayerMarkerWindowText}"
+        SizeToContent="Height"
+        Width="300"
         ResizeMode="NoResize"
         Icon="{StaticResource SettingsDrawingImage}">
-    <DockPanel Margin="5">
+    <DockPanel Margin="10">
         <StackPanel Orientation="Vertical"
                     DockPanel.Dock="Top">
             <TextBlock Text="Player Name"/>
