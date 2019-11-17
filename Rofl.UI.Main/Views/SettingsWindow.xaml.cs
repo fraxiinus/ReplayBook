@@ -65,10 +65,11 @@ namespace Rofl.UI.Main.Views
             {
                 Top = this.Top + 50,
                 Left = this.Left + 50,
+                Owner = this,
                 DataContext = context.Settings.KnownPlayers
             };
 
-            addDialog.Show();
+            addDialog.ShowDialog();
 
         }
 
@@ -81,12 +82,14 @@ namespace Rofl.UI.Main.Views
             {
                 Top = this.Top + 50,
                 Left = this.Left + 50,
+                Owner = this,
                 DataContext = context.Settings.KnownPlayers
             };
-            editDialog.Show();
+
+            editDialog.ShowDialog();
 
         }
-
+        
         private void RemoveKnownPlayerButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
