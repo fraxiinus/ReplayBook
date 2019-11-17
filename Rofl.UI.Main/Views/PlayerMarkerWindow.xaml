@@ -14,9 +14,9 @@
     <DockPanel Margin="10">
         <StackPanel Orientation="Vertical"
                     DockPanel.Dock="Top">
-            <TextBlock Text="Player Name"/>
+            <TextBlock Text="{StaticResource PlayerMarkerNameLabelText}"/>
             <TextBox x:Name="NameTextBox" Margin="0 5 0 5" Padding="2"/>
-            <TextBlock Text="Marker Color"/>
+            <TextBlock Text="{StaticResource PlayerMarkerColorLabelText}"/>
             <xctk:ColorPicker x:Name="MarkerColorPicker" DisplayColorAndName="True" ColorMode="ColorCanvas" ShowTabHeaders="False"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" 

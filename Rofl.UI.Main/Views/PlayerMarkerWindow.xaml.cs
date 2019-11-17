@@ -31,7 +31,7 @@ namespace Rofl.UI.Main.Views
             _isEditMode = false;
             InitializeComponent();
 
-            this.Title = TryFindResource("PlayerMarkerAddButtonText") as String + " " + this.Title;
+            this.Title = TryFindResource("AddButtonText") as String + " " + this.Title;
 
         }
 
@@ -45,13 +45,13 @@ namespace Rofl.UI.Main.Views
                 _marker = marker;
                 _oldName = _marker.Name;
 
-                this.Title = TryFindResource("PlayerMarkerEditButtonText") as String + " " + this.Title;
+                this.Title = TryFindResource("EditButtonText") as String + " " + this.Title;
                 NameTextBox.Text = _marker.Name;
                 MarkerColorPicker.SelectedColor = ColorConverter.ConvertFromString(_marker.Color) as Color?;
             }
             else
             {
-                this.Title = TryFindResource("PlayerMarkerAddButtonText") as String + " " + this.Title;
+                this.Title = TryFindResource("AddButtonText") as String + " " + this.Title;
                 _isEditMode = false;
             }
         }

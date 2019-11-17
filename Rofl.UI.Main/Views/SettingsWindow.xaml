@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         mc:Ignorable="d"
         Title="Settings"
-        Height="450" Width="600"
+        Height="250" Width="575"
         ResizeMode="NoResize"
         Icon="{StaticResource SettingsDrawingImage}"
         Closing="Window_Closing">
@@ -46,6 +46,7 @@
                             <ListBox x:Name="KnownPlayersListBox"
                                      Width="300"
                                      Height="100"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      ItemsSource="{Binding Path=Settings.KnownPlayers}"
                                      SelectionChanged="KnownPlayersListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
@@ -66,17 +67,17 @@
                                         Width="70">
                                 <Button x:Name="AddKnownPlayerButton" 
                                         Margin="0 0 0 5"
-                                        Content="{StaticResource PlayerMarkerAddButtonText}"
+                                        Content="{StaticResource AddButtonText}"
                                         Click="AddKnownPlayerButton_Click"/>
                                 
                                 <Button x:Name="EditKnownPlayerButton" 
                                         Margin="0 0 0 5"
-                                        Content="{StaticResource PlayerMarkerEditButtonText}"
+                                        Content="{StaticResource EditButtonText}"
                                         Click="EditKnownPlayerButton_Click"
                                         IsEnabled="False"/>
                                 
                                 <Button x:Name="RemoveKnownPlayerButton" 
-                                        Content="{StaticResource PlayerMarkerRemoveButtonText}"
+                                        Content="{StaticResource RemoveButtonText}"
                                         Click="RemoveKnownPlayerButton_Click"
                                         IsEnabled="False"/>
                             </StackPanel>
@@ -87,12 +88,56 @@
                 </TabItem>
                 <TabItem x:Name="ReplaysTabItem" Visibility="Collapsed">
                     <StackPanel>
-                        <TextBlock Text="Tab 2"/>
+                        <TextBlock Text="{StaticResource SourceFoldersLabelText}" FontSize="14"/>
+
+                        <StackPanel Orientation="Horizontal">
+                            <ListBox x:Name="SourceFoldersListBox"
+                                     Width="300"
+                                     Height="100"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ItemsSource="{Binding Path=Settings.SourceFolders}"
+                                     SelectionChanged="SourceFoldersListBox_SelectionChanged">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis"
+                                                   ToolTip="{Binding}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <StackPanel Orientation="Vertical"
+                                        Margin="5 0 0 0"
+                                        Width="70">
+                                <Button x:Name="AddSourceFolderButton" 
+                                        Margin="0 0 0 5"
+                                        Content="{StaticResource AddButtonText}"
+                                        Click="AddSourceFolderButton_Click"/>
+
+                                <Button x:Name="EditSourceFolderButton" 
+                                        Margin="0 0 0 5"
+                                        Content="{StaticResource EditButtonText}"
+                                        Click="EditSourceFolderButton_Click"
+                                        IsEnabled="False"/>
+
+                                <Button x:Name="RemoveSourceFolderButton" 
+                                        Content="{StaticResource RemoveButtonText}"
+                                        Click="RemoveSourceFolderButton_Click"
+                                        IsEnabled="False"/>
+                            </StackPanel>
+
+                        </StackPanel>
                     </StackPanel>
                 </TabItem>
                 <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
-                    <StackPanel>
-                        <TextBlock Text="Tab 3"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" FontSize="14"/>
+                        <TextBox Text="{Binding Settings.DataDragonBaseUrl}" Padding="2" Margin=" 0 2 0 5"/>
+                        <TextBlock Text="{StaticResource DataDragonChampionUrlLabelText}" FontSize="14"/>
+                        <TextBox Text="{Binding Settings.ChampionRelativeUrl}" Padding="2" Margin=" 0 2 0 5"/>
+                        <TextBlock Text="{StaticResource DataDragonMapUrlLabelText}" FontSize="14"/>
+                        <TextBox Text="{Binding Settings.MapRelativeUrl}" Padding="2" Margin=" 0 2 0 5"/>
+                        <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}" FontSize="14"/>
+                        <TextBox Text="{Binding Settings.ItemRelativeUrl}" Padding="2" Margin=" 0 2 0 0"/>
                     </StackPanel>
                 </TabItem>
             </TabControl>

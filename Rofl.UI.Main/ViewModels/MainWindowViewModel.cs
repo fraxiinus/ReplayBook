@@ -265,7 +265,7 @@ namespace Rofl.UI.Main.ViewModels
             }
         }
 
-        public void ShowSettingsDialog()
+        public async Task ShowSettingsDialog()
         {
             var settingsDialog = new SettingsWindow
             {
@@ -278,6 +278,12 @@ namespace Rofl.UI.Main.ViewModels
             {
                 // Refresh markers
                 ReloadPlayerMarkers();
+
+                // Refresh all replays
+                FileResults.Clear();
+                PreviewReplays.Clear();
+                await LoadReplays().ConfigureAwait(true);
+                await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
             }
         }
     }
