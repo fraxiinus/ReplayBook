@@ -235,7 +235,37 @@ namespace Rofl.UI.Main.ViewModels
             }
         }
 
-        public async Task ShowSettingsDialog()
+        public void ReloadPlayerMarkers()
+        {
+            // Look through all replays to get all players
+            foreach (var replay in PreviewReplays)
+            {
+                IEnumerable<PlayerPreviewModel> allPlayers;
+                if(replay.BluePreviewPlayers != null)
+                {
+                    allPlayers = replay.BluePreviewPlayers.Union(replay.RedPreviewPlayers);
+                }
+                else
+                {
+                    allPlayers = replay.RedPreviewPlayers;
+                }
+
+                foreach (var player in allPlayers)
+                {
+                    var matchedMarker = KnownPlayers.Where
+                        (
+                            x => x.Name.Equals(player.PlayerName, StringComparison.OrdinalIgnoreCase)
+                        ).FirstOrDefault();
+
+                    if(matchedMarker != null)
+                    {
+                        player.Marker = matchedMarker;
+                    }
+                }
+            }
+        }
+
+        public void ShowSettingsDialog()
         {
             var settingsDialog = new SettingsWindow
             {
@@ -246,11 +276,8 @@ namespace Rofl.UI.Main.ViewModels
 
             if (settingsDialog.ShowDialog().Equals(true))
             {
-                // Window should be open, do something?
-                // THIS IS BROKEN
-                PreviewReplays.Clear();
-
-                await LoadReplays().ConfigureAwait(true);
+                // Refresh markers
+                ReloadPlayerMarkers();
             }
         }
     }
