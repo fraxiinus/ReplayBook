@@ -24,6 +24,7 @@
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
     <string:String x:Key="ReplaySettingsItemText">Replays</string:String>
     <string:String x:Key="RequestSettingsItemText">Web Requests</string:String>
+    <string:String x:Key="ExecutablesSettingsItemText">Executables</string:String>
 
     <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
     <string:String x:Key="PlayerMarkerWindowText">Player Marker</string:String>
@@ -34,6 +35,9 @@
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Player name cannot be empty</string:String>
     <string:String x:Key="PlayerMarkerColorIsEmptyErrorText">Please choose a color</string:String>
 
+    <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
+    <string:String x:Key="ExecutablesLabelText">Registered Executables</string:String>
+    
     <string:String x:Key="SourceFoldersLabelText">Replay Source Folders</string:String>
     <string:String x:Key="SourceFoldersWindowText">Select Replay Source Folder</string:String>
     <string:String x:Key="SourceFoldersAlreadyExistsErrorText">Selected folder is already added, please select another folder</string:String>

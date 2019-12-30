@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rofl.Requests\Rofl.Requests.csproj" />
+    <ProjectReference Include="..\Rofl.Logger\Rofl.Logger.csproj" />
   </ItemGroup>
 
 </Project>

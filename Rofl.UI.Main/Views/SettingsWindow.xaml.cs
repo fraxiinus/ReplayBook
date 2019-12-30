@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Rofl.Executables.Models;
 using Rofl.Settings;
 using Rofl.Settings.Models;
 using System;
@@ -49,11 +50,14 @@ namespace Rofl.UI.Main.Views
                 case "GeneralSettingsListItem":
                     SettingsTabControl.SelectedIndex = 0;
                     break;
-                case "ReplaySettingsListItem":
+                case "ExecutablesSettingsListItem":
                     SettingsTabControl.SelectedIndex = 1;
                     break;
-                case "RequestSettingsListItem":
+                case "ReplaySettingsListItem":
                     SettingsTabControl.SelectedIndex = 2;
+                    break;
+                case "RequestSettingsListItem":
+                    SettingsTabControl.SelectedIndex = 3;
                     break;
                 default:
                     break;
@@ -234,6 +238,52 @@ namespace Rofl.UI.Main.Views
 
             EditSourceFolderButton.IsEnabled = false;
             RemoveSourceFolderButton.IsEnabled = false;
+        }
+
+        private void ExecutableFoldersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((sender as ListBox).SelectedItem as string == null) { return; };
+
+            EditExecutableFolderButton.IsEnabled = true;
+            RemoveExecutableFolderButton.IsEnabled = true;
+        }
+
+        private void AddExecutableFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditExecutableFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveExecutableFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ExecutablesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((sender as ListBox).SelectedItem as LeagueExecutable == null) { return; };
+
+            EditExecutableButton.IsEnabled = true;
+            RemoveExecutableButton.IsEnabled = true;
+        }
+
+        private void AddExecutableButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditExecutableButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RemoveExecutableButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

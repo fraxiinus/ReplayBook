@@ -6,47 +6,22 @@ using System.IO;
 
 namespace Rofl.Executables.Utilities
 {
-    public class ReplayPlayer
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
+    public static class ReplayPlayer
     {
-        private ExeManager _exeManager;
-
-        private readonly string _exceptionOriginName = "Rofl.Player.ReplayPlayer";
-
-        private string BaseDir = "-GameBaseDir=";
-
-        // These launch arguments, including basedir, are taken from what the client does
-        public List<string> LaunchArguments { get; set; } = new List<string> { "-SkipRads", "-SkipBuild", "-EnableLNP", "-UseNewX3D=1", "-UseNewX3DFramebuffers=1" };
-
-        public ReplayPlayer(ExeManager exeManager)
-        {
-            _exeManager = exeManager;
-        }
-
-        public void Play(LeagueExecutable leagueExe, string replayPath)
+        public static void Play(LeagueExecutable leagueExe, string replayPath)
         {
             if (!File.Exists(replayPath))
             {
-                throw new FileNotFoundException($"{_exceptionOriginName} - replay does not exist");
+                throw new FileNotFoundException($"Replay does not exist");
             }
 
             // This will throw an exception if exe has issues
-            // Turning off unique name flag, otherwise will trigger exception
-            _exeManager.ValidateExecutable(leagueExe, false);
+            ExeTools.ValidateLeagueExecutable(leagueExe);
 
             // Create the launch arguments, each argument is put in quotes
             // <replay file path> GameBaseDir=... <other arguments>
-            string combinedArgs = "\"" + replayPath + "\" " + "\"" + BaseDir + leagueExe.StartFolder + "\"";
-            foreach (string arg in LaunchArguments)
-            {
-                combinedArgs += $" \"{arg}\"";
-            }
-
-            var launchArgs = combinedArgs;
-
-            if(leagueExe.UseOldLaunchArguments)
-            {
-                launchArgs = "\"" + replayPath + "\"";
-            }
+            string launchArgs = $"\"{replayPath}\"" + leagueExe.LaunchArguments;
 
             ProcessStartInfo processStartInfo = new ProcessStartInfo
             {

@@ -8,30 +8,20 @@ namespace Rofl.Executables.Models
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("target-path")]
+        [JsonProperty("targetPath")]
         public string TargetPath { get; set; }
 
-        [JsonProperty("start-folder")]
+        [JsonProperty("startFolder")]
         public string StartFolder { get; set; }
 
-        [JsonProperty("patch-version")]
-        public string PatchVersion { get; set; }
+        [JsonProperty("patchNumber")]
+        public string PatchNumber { get; set; }
 
-        [JsonProperty("allow-updates")]
-        public bool AllowUpdates { get; set; }
+        [JsonProperty("launchArgs")]
+        public string LaunchArguments { get; set; }
 
-        [JsonProperty("use-old-launch-args")]
-        public bool UseOldLaunchArguments { get; set; }
-
-        [JsonProperty("default")]
-        public bool IsDefault { get; set; }
-
-        [JsonProperty("date-modified")]
+        [JsonProperty("dateModified")]
         public DateTime ModifiedDate { get; set; }
 
-        public override string ToString()
-        {
-            return $"{Name}\tUpdates:{AllowUpdates}\n{TargetPath}";
-        }
     }
 }

@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Rofl.Executables\Rofl.Executables.csproj" />
     <ProjectReference Include="..\Rofl.Logger\Rofl.Logger.csproj" />
   </ItemGroup>
 
