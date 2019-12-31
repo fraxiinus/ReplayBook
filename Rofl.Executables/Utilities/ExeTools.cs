@@ -53,7 +53,7 @@ namespace Rofl.Executables.Utilities
         }
         */
 
-        private static bool CheckExecutableFile(string filePath)
+        public static bool CheckExecutableFile(string filePath)
         {
             if (String.IsNullOrEmpty(filePath) 
                 || !filePath.Contains("League of Legends.exe") 
@@ -142,6 +142,27 @@ namespace Rofl.Executables.Utilities
                 // _log.Warning(_myName, $"Invalid Executable: {filePath}");
                 throw new FileNotFoundException($"Invalid Executable: {filePath}");
             }
+        }
+
+        public static LeagueExecutable CreateNewLeagueExecutable(string path)
+        {
+            LeagueExecutable newExe = new LeagueExecutable()
+            {
+                TargetPath = path,
+                StartFolder = Path.GetDirectoryName(path),
+                PatchNumber = GetLeagueVersion(path),
+                ModifiedDate = GetLastModifiedDate(path)
+            };
+
+            newExe.Name = $"Patch {newExe.PatchNumber.VersionSubstring()}";
+            newExe.LaunchArguments = $"\"-GameBaseDir={newExe.StartFolder}\"" +
+                                        " \"-SkipRads\"" +
+                                        " \"-SkipBuild\"" +
+                                        " \"-EnableLNP\"" +
+                                        " \"-UseNewX3D=1\"" +
+                                        " \"-UseNewX3DFramebuffers=1\"";
+
+            return newExe;
         }
 
         /* private static string FindLeagueExecutablePathInRADS(string startDir)

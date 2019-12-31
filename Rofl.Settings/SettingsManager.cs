@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Rofl.Executables;
 using Rofl.Executables.Models;
 using Rofl.Logger;
 using Rofl.Settings.Models;
@@ -16,7 +17,7 @@ namespace Rofl.Settings
 
         public ObservableSettings Settings { get; private set; }
 
-        public ExecutableSettings ExecutableSettings { get; private set; }
+        public ExecutableManager Executables { get; private set; }
 
         private SettingsModel _rawSettings;
 
@@ -24,9 +25,9 @@ namespace Rofl.Settings
 
         private readonly string _myName;
 
-        public SettingsManager(ExecutableSettings exeSettings, Scribe log)
+        public SettingsManager(Scribe log)
         {
-            ExecutableSettings = exeSettings;
+            Executables = new ExecutableManager(log);
             _log = log;
             _myName = this.GetType().ToString();
             string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");

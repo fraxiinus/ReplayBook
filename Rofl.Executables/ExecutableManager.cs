@@ -79,21 +79,7 @@ namespace Rofl.Executables
 
                 foreach (string exePath in exeFiles)
                 {
-                    LeagueExecutable newExe = new LeagueExecutable()
-                    {
-                        TargetPath = exePath,
-                        StartFolder = Path.GetDirectoryName(exePath),
-                        PatchNumber = ExeTools.GetLeagueVersion(exePath),
-                        ModifiedDate = ExeTools.GetLastModifiedDate(exePath)
-                    };
-
-                    newExe.Name = $"Path {newExe.PatchNumber}";
-                    newExe.LaunchArguments =   $"\"-GameBaseDir={newExe.StartFolder}" +
-                                                "\"-SkipRads\"" +
-                                                "\"-SkipBuild\"" +
-                                                "\"-EnableLNP\"" +
-                                                "\"-UseNewX3D=1\"" +
-                                                "\"-UseNewX3DFramebuffers=1\"";
+                    LeagueExecutable newExe = ExeTools.CreateNewLeagueExecutable(exePath);
 
                     AddExecutable(newExe);
                 }
@@ -192,20 +178,22 @@ namespace Rofl.Executables
             }
 
             // Add character to the end of the name if already exists
-            while (!CheckExecutableName(newExecutable.Name))
+            string name = newExecutable.Name;
+            while (!CheckExecutableName(name))
             {
-                newExecutable.Name += "+";
+                name += "+";
             }
+            newExecutable.Name = name;
 
             // Will throw exception if executable is invalid
             ExeTools.ValidateLeagueExecutable(newExecutable);
 
-            if(Settings.Executables.Count < 1)
+            Settings.Executables.Add(newExecutable);
+
+            if (Settings.Executables.Count < 1)
             {
                 SetDefaultExectuable(newExecutable.Name);
             }
-
-            Settings.Executables.Add(newExecutable);
         }
 
         /// <summary>

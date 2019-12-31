@@ -33,7 +33,6 @@ namespace Rofl.UI.Main
     {
         private readonly FileManager _files;
         private readonly RequestManager _requests;
-        private readonly ExecutableManager _executableManager;
         private readonly SettingsManager _settingsManager;
         private readonly Scribe _log;
 
@@ -47,15 +46,14 @@ namespace Rofl.UI.Main
             //    .Build();
             _log = new Scribe();
 
-            _executableManager = new ExecutableManager(_log);
-            _settingsManager = new SettingsManager(_executableManager.Settings, _log);
+            _settingsManager = new SettingsManager(_log);
 
             _files = new FileManager(_settingsManager.Settings, _log);
             _requests = new RequestManager(_settingsManager.Settings, _log);
 
             _log.Error("lol", "ALPHA DEBUG");
 
-            this.DataContext = new MainWindowViewModel(_files, _requests, _executableManager, _settingsManager);
+            this.DataContext = new MainWindowViewModel(_files, _requests, _settingsManager);
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)

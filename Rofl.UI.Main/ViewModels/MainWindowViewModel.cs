@@ -44,14 +44,11 @@ namespace Rofl.UI.Main.ViewModels
 
         public ObservableCollection<PlayerMarker> KnownPlayers { get; private set; }
 
-        public ExecutableManager ExecutableManager { get; private set; }
-
         public SettingsManager SettingsManager { get; private set; }
 
-        public MainWindowViewModel(FileManager files, RequestManager requests, ExecutableManager executableManager, SettingsManager settingsManager)
+        public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager)
         {
             if (settingsManager == null) { throw new ArgumentNullException(nameof(settingsManager)); }
-            ExecutableManager = executableManager;
             SettingsManager = settingsManager;
             _fileManager = files ?? throw new ArgumentNullException(nameof(files));
             _requestManager = requests ?? throw new ArgumentNullException(nameof(requests));

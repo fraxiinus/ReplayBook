@@ -273,17 +273,44 @@ namespace Rofl.UI.Main.Views
 
         private void AddExecutableButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!(this.DataContext is SettingsManager context)) { return; }
 
+            var addDialog = new ExecutableDetailWindow
+            {
+                Top = this.Top + 50,
+                Left = this.Left + 50,
+                Owner = this,
+                DataContext = context.Executables
+            };
+
+            addDialog.ShowDialog();
         }
 
         private void EditExecutableButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(ExecutablesListBox.SelectedItem is LeagueExecutable selectedExecutable)) { return; };
 
+            var editDialog = new ExecutableDetailWindow(selectedExecutable)
+            {
+                Top = this.Top + 50,
+                Left = this.Left + 50,
+                Owner = this,
+                DataContext = context.Executables
+            };
+
+            editDialog.ShowDialog();
         }
 
         private void RemoveExecutableButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(ExecutablesListBox.SelectedItem is LeagueExecutable selectedExecutable)) { return; };
 
+            context.Executables.DeleteExecutable(selectedExecutable.Name);
+
+            EditExecutableButton.IsEnabled = false;
+            RemoveExecutableButton.IsEnabled = false;
         }
     }
 }

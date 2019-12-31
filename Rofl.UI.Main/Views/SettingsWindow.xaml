@@ -101,7 +101,7 @@
                                  Width="300"
                                  Height="100"
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ItemsSource="{Binding Path=ExecutableSettings.SourceFolders}"
+                                 ItemsSource="{Binding Path=Executables.Settings.SourceFolders}"
                                  SelectionChanged="ExecutableFoldersListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -146,17 +146,22 @@
                                  Width="300"
                                  Height="100"
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ItemsSource="{Binding Path=ExecutableSettings.Executables}"
+                                 ItemsSource="{Binding Path=Executables.Settings.Executables}"
+                                 HorizontalContentAlignment="Stretch"
                                  SelectionChanged="ExecutablesListBox_SelectionChanged">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <DockPanel>
-                                            <Rectangle Fill="{Binding Path=Color}" DockPanel.Dock="Left"
-                                                       Stroke="Black" StrokeThickness="1"
-                                                       Width="10" Height="10" 
-                                                       Margin="5 0 5 0"/>
-                                            <TextBlock Text="{Binding Path=Name}" DockPanel.Dock="Right"/>
-                                        </DockPanel>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Path=Name}" Grid.Column="0"/>
+                                            <TextBlock Text="{Binding Path=PatchNumber}" Grid.Column="1"/>
+                                        </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>

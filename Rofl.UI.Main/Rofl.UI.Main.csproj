@@ -146,6 +146,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\ExecutableDetailWindow.xaml.cs">
+      <DependentUpon>ExecutableDetailWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PlayerMarkerWindow.xaml.cs">
       <DependentUpon>PlayerMarkerWindow.xaml</DependentUpon>
     </Compile>
@@ -193,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExecutableDetailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
