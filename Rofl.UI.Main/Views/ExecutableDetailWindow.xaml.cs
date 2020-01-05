@@ -43,6 +43,13 @@ namespace Rofl.UI.Main.Views
             _isEditMode = true;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.MinWidth = this.ActualWidth;
+            this.MinHeight = this.ActualHeight;
+            this.MaxHeight = this.ActualHeight;
+        }
+
         private void LoadLeagueExecutable(LeagueExecutable executable)
         {
             if (executable == null) { throw new ArgumentNullException(nameof(executable)); }
@@ -144,5 +151,6 @@ namespace Rofl.UI.Main.Views
                 }
             }
         }
+
     }
 }

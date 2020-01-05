@@ -36,7 +36,9 @@
     <string:String x:Key="PlayerMarkerColorIsEmptyErrorText">Please choose a color</string:String>
 
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
+    <string:String x:Key="ExecutableFoldersSearchButtonText">Search folders for executables</string:String>
     <string:String x:Key="ExecutablesLabelText">Registered Executables</string:String>
+    <string:String x:Key="ExecutableSelectFolderDialogText">Select Executable Source Folder</string:String>
     <string:String x:Key="ExecutableDetailWindowText">Executable Details</string:String>
     <string:String x:Key="ExecutableSelectDialogText">Select League of Legends.exe</string:String>
     <string:String x:Key="ExecutableSelectInvalidErrorText">Selected executable is not valid, please select a valid executable</string:String>

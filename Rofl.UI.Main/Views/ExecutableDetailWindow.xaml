@@ -8,8 +8,9 @@
         Title="{StaticResource ExecutableDetailWindowText}"
         SizeToContent="Height"
         Width="400"
-        ResizeMode="NoResize"
-        Icon="{StaticResource SettingsDrawingImage}">
+        ResizeMode="CanResize"
+        Icon="{StaticResource SettingsDrawingImage}"
+        Loaded="Window_Loaded">
     <DockPanel Margin="10">
         <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
 
@@ -30,22 +31,40 @@
             <TextBlock Text="Executable Name"/>
             <TextBox x:Name="NameTextBox" Margin="0 5 0 5" Padding="2"/>
 
-            <TextBlock Text="Start Path"/>
-            <TextBox x:Name="StartPathTextBox" Margin="0 5 0 5" Padding="2" IsReadOnly="True"/>
-
-            <TextBlock Text="Patch Number"/>
-            <TextBox x:Name="PatchTextBox" Margin="0 5 0 5" Padding="2" IsReadOnly="True"/>
-
             <TextBlock Text="Launch Arguments"/>
             <TextBox x:Name="LaunchArgsTextBox" Margin="0 5 0 5" Padding="2"/>
 
-            <TextBlock Text="Modified Date"/>
-            <TextBox x:Name="ModifiedDateTextBox" Margin="0 5 0 5" Padding="2" IsReadOnly="True"/>
+            <GroupBox Header="Properties" Padding="5">
+                <StackPanel>
+                    <TextBlock Text="Start Path"/>
+                    <TextBox x:Name="StartPathTextBox" Margin="0 5 0 5" Padding="2" BorderThickness="0 0 0 1" IsReadOnly="True"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Patch Number"/>
+                        <TextBox x:Name="PatchTextBox" Margin="0 5 5 5" Padding="2" IsReadOnly="True" BorderThickness="0 0 0 1" Grid.Row="1"/>
+
+                        <TextBlock Text="Modified Date" Grid.Column="1"/>
+                        <TextBox x:Name="ModifiedDateTextBox" Margin="0 5 0 5" Padding="2" IsReadOnly="True" BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="1"/>
+
+                    </Grid>
+                    
+                </StackPanel>
+            </GroupBox>
+            
         </StackPanel>
         <StackPanel Orientation="Horizontal" 
                     Width="200"
                     HorizontalAlignment="Left"
-                    Margin="0 10 0 0"
+                    Margin="0 10 0 1"
                     DockPanel.Dock="Bottom">
             <Button x:Name="SaveButton" Content="{StaticResource SaveButtonText}"
                     Width="70"

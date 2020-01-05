@@ -14,11 +14,12 @@ namespace Rofl.Executables
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class ExecutableManager
     {
-        private readonly string _exeInfoFilePath;
 
         private readonly Scribe _log;
 
         private readonly string _myName;
+
+        private string _exeInfoFilePath;
 
         public ExecutableSettings Settings { get; private set; }
 
@@ -36,7 +37,7 @@ namespace Rofl.Executables
             }
 
             // Get the exeInfoFile or create new one
-            _exeInfoFilePath = Path.Combine(fileDir, "executableSettings.json");
+            _exeInfoFilePath = Path.Combine(fileDir, "executablesettings.json");
             if (!File.Exists(_exeInfoFilePath))
             {
                 // Exe file is missing, set up defaults
@@ -65,8 +66,25 @@ namespace Rofl.Executables
             Save();
         }
 
-        public void SearchFolderForExecutables(string startPath)
+        public void SearchAllFoldersForExecutablesAndAddThemAll()
         {
+            foreach (var path in Settings.SourceFolders)
+            {
+                var foundExes = SearchFolderForExecutables(path);
+                foreach (var exe in foundExes)
+                {
+                    if (GetExecutableByTarget(exe.TargetPath) == null)
+                    {
+                        AddExecutable(exe);
+                    }
+                }
+            }
+        }
+
+        public IList<LeagueExecutable> SearchFolderForExecutables(string startPath)
+        {
+            List<LeagueExecutable> foundExecutables = new List<LeagueExecutable>();
+
             if (!Directory.Exists(startPath))
             {
                 _log.Warning(_myName, $"Input path {startPath} does not exist");
@@ -81,7 +99,11 @@ namespace Rofl.Executables
                 {
                     LeagueExecutable newExe = ExeTools.CreateNewLeagueExecutable(exePath);
 
-                    AddExecutable(newExe);
+                    // Do we already have an exe with the same target?
+                    if (!foundExecutables.Exists(x => x.TargetPath.Equals(newExe.TargetPath, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        foundExecutables.Add(newExe);
+                    }
                 }
             }
             catch (Exception e)
@@ -89,6 +111,8 @@ namespace Rofl.Executables
                 _log.Error(_myName, e.ToString());
                 throw;
             }
+
+            return foundExecutables;
         }
 
         public IEnumerable<LeagueExecutable> GetExecutables()
@@ -112,6 +136,15 @@ namespace Rofl.Executables
 
             return Settings.Executables
                 .Where(x => x.Name.Equals(executableName, StringComparison.OrdinalIgnoreCase))
+                .FirstOrDefault();
+        }
+
+        public LeagueExecutable GetExecutableByTarget(string target)
+        {
+            if (string.IsNullOrEmpty(target)) { return null; }
+
+            return Settings.Executables
+                .Where(x => x.TargetPath.Equals(target, StringComparison.OrdinalIgnoreCase))
                 .FirstOrDefault();
         }
 
@@ -189,8 +222,8 @@ namespace Rofl.Executables
             ExeTools.ValidateLeagueExecutable(newExecutable);
 
             Settings.Executables.Add(newExecutable);
-
-            if (Settings.Executables.Count < 1)
+            
+            if (Settings.Executables.Count == 1)
             {
                 SetDefaultExectuable(newExecutable.Name);
             }
@@ -210,12 +243,14 @@ namespace Rofl.Executables
                 throw new ArgumentException($"Executable with name {name} does not exist");
             }
 
+            string defaultName = GetDefaultExecutable().Name;
+
             // Delete the executable
             _log.Information(_myName, $"Deleting executable {target.Name}");
             Settings.Executables.Remove(target);
 
             // Did we delete the default?
-            if (GetDefaultExecutable().Name.Equals(target.Name, StringComparison.OrdinalIgnoreCase))
+            if (defaultName.Equals(target.Name, StringComparison.OrdinalIgnoreCase))
             {
                 // If we did we need to reset the default
                 SetDefaultExectuable(null);
@@ -227,7 +262,7 @@ namespace Rofl.Executables
         /// </summary>
         public void Save()
         {
-            string outputFile = JsonConvert.SerializeObject(Settings);
+            string outputFile = JsonConvert.SerializeObject(Settings, Formatting.Indented);
 
             File.WriteAllText(_exeInfoFilePath, outputFile);
         }

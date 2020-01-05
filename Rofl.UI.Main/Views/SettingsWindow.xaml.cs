@@ -213,7 +213,7 @@ namespace Rofl.UI.Main.Views
 
                         if (msgBoxResult == MessageBoxResult.OK)
                         {
-                            AddSourceFolderButton_Click(null, null);
+                            EditSourceFolderButton_Click(null, null);
                         }
                         else
                         {
@@ -250,17 +250,123 @@ namespace Rofl.UI.Main.Views
 
         private void AddExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!(this.DataContext is SettingsManager context)) { return; }
 
+            using (var folderDialog = new CommonOpenFileDialog())
+            {
+                folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as String;
+                folderDialog.IsFolderPicker = true;
+                folderDialog.AddToMostRecentlyUsedList = false;
+                folderDialog.AllowNonFileSystemItems = false;
+                folderDialog.EnsureFileExists = true;
+                folderDialog.EnsurePathExists = true;
+                folderDialog.EnsureReadOnly = false;
+                folderDialog.EnsureValidNames = true;
+                folderDialog.Multiselect = false;
+                folderDialog.ShowPlacesList = true;
+
+                folderDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+                folderDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+
+                if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    var selectedFolder = folderDialog.FileName;
+
+                    if (context.Executables.Settings.SourceFolders.Contains(selectedFolder))
+                    {
+                        var msgBoxResult = MessageBox.Show
+                            (
+                                TryFindResource("SourceFoldersAlreadyExistsErrorText") as String,
+                                TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation
+                            );
+                        if (msgBoxResult == MessageBoxResult.OK)
+                        {
+                            AddExecutableFolderButton_Click(null, null);
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        context.Executables.Settings.SourceFolders.Add(selectedFolder);
+                    }
+                }
+            }
         }
 
         private void EditExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(ExecutableFoldersListBox.SelectedItem is String selectedFolder)) { return; }
 
+            using (var folderDialog = new CommonOpenFileDialog())
+            {
+                folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as String;
+                folderDialog.IsFolderPicker = true;
+                folderDialog.AddToMostRecentlyUsedList = false;
+                folderDialog.AllowNonFileSystemItems = false;
+                folderDialog.EnsureFileExists = true;
+                folderDialog.EnsurePathExists = true;
+                folderDialog.EnsureReadOnly = false;
+                folderDialog.EnsureValidNames = true;
+                folderDialog.Multiselect = false;
+                folderDialog.ShowPlacesList = true;
+
+                folderDialog.InitialDirectory = selectedFolder;
+                folderDialog.DefaultDirectory = selectedFolder;
+
+                if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    var newSelectedFolder = folderDialog.FileName;
+
+                    if (context.Executables.Settings.SourceFolders.Contains(newSelectedFolder))
+                    {
+                        var msgBoxResult = MessageBox.Show
+                            (
+                                TryFindResource("SourceFoldersAlreadyExistsErrorText") as String,
+                                TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation
+                            );
+
+                        if (msgBoxResult == MessageBoxResult.OK)
+                        {
+                            EditExecutableFolderButton_Click(null, null);
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        context.Executables.Settings.SourceFolders.Remove(selectedFolder);
+                        context.Executables.Settings.SourceFolders.Add(newSelectedFolder);
+                    }
+                }
+            }
         }
 
         private void RemoveExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(ExecutableFoldersListBox.SelectedItem is String selectedFolder)) { return; }
 
+            context.Executables.Settings.SourceFolders.Remove(selectedFolder);
+
+            EditExecutableFolderButton.IsEnabled = false;
+            RemoveExecutableFolderButton.IsEnabled = false;
+        }
+
+        private void SourceFoldersSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
+            context.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
         }
 
         private void ExecutablesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -312,5 +418,6 @@ namespace Rofl.UI.Main.Views
             EditExecutableButton.IsEnabled = false;
             RemoveExecutableButton.IsEnabled = false;
         }
+
     }
 }

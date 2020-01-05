@@ -53,6 +53,9 @@ namespace Rofl.Settings
                 var serializer = new JsonSerializer();
                 serializer.Serialize(file, Settings);
             }
+
+            // Save Executables
+            Executables.Save();
         }
 
         public ObservableSettings CreateDefaultConfigFile()
