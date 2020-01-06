@@ -10,6 +10,7 @@
         MinWidth="600"
         MinHeight="400"
         Icon="{StaticResource SettingsDrawingImage}"
+        Loaded="Window_Loaded"
         Closing="Window_Closing">
     <DockPanel Margin="5">
         <ListBox x:Name="SettingsMenuListBox"
@@ -114,6 +115,10 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
 
                             <ListBox x:Name="ExecutableFoldersListBox"
@@ -153,27 +158,20 @@
                                 Padding="20 0 20 0"
                                 Click="SourceFoldersSearchButton_Click"
                                 Grid.Row="1" Grid.Column="0"/>
-                        </Grid>
 
-                        <TextBlock Text="{StaticResource ExecutablesLabelText}" FontSize="14"/>
+                            <TextBlock Text="{StaticResource ExecutablesLabelText}"
+                                       FontSize="14"
+                                       Grid.Row="2" Grid.Column="0"/>
 
-                        <Grid HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            
                             <ListBox x:Name="ExecutablesListBox"
-                                 Height="100"
-                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ItemsSource="{Binding Path=Executables.Settings.Executables}"
-                                 HorizontalContentAlignment="Stretch"
-                                 SelectionChanged="ExecutablesListBox_SelectionChanged"
-                                 MouseDoubleClick="EditExecutableButton_Click"
-                                 Grid.Row="0" Grid.Column="0">
+                                Margin="0 0 0 10"
+                                Height="100"
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                ItemsSource="{Binding Path=Executables.Settings.Executables}"
+                                HorizontalContentAlignment="Stretch"
+                                SelectionChanged="ExecutablesListBox_SelectionChanged"
+                                MouseDoubleClick="EditExecutableButton_Click"
+                                Grid.Row="3" Grid.Column="0">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -192,26 +190,40 @@
                             </ListBox>
 
                             <StackPanel Orientation="Vertical"
-                                        Margin="5 0 0 0"
-                                        Grid.Row="0" Grid.Column="1">
+                                    Margin="5 0 0 0"
+                                    Grid.Row="3" Grid.Column="1">
                                 <Button x:Name="AddExecutableButton" 
-                                        Margin="0 0 0 5"
-                                        Padding="20 0 20 0"
-                                        Content="{StaticResource AddButtonText}"
-                                        Click="AddExecutableButton_Click"/>
+                                    Margin="0 0 0 5"
+                                    Padding="20 0 20 0"
+                                    Content="{StaticResource AddButtonText}"
+                                    Click="AddExecutableButton_Click"/>
 
                                 <Button x:Name="EditExecutableButton" 
-                                        Margin="0 0 0 5"
-                                        Content="{StaticResource EditButtonText}"
-                                        Click="EditExecutableButton_Click"
-                                        IsEnabled="False"/>
+                                    Margin="0 0 0 5"
+                                    Content="{StaticResource EditButtonText}"
+                                    Click="EditExecutableButton_Click"
+                                    IsEnabled="False"/>
 
                                 <Button x:Name="RemoveExecutableButton" 
-                                        Content="{StaticResource RemoveButtonText}"
-                                        Click="RemoveExecutableButton_Click"
-                                        IsEnabled="False"/>
+                                    Content="{StaticResource RemoveButtonText}"
+                                    Click="RemoveExecutableButton_Click"
+                                    IsEnabled="False"/>
                             </StackPanel>
 
+                            <TextBlock Text="{StaticResource ExecutableDefaultLabelText}"
+                                       FontSize="14"
+                                       Grid.Row="4" Grid.Column="0"/>
+
+                            <ComboBox x:Name="DefaultExecutableComboBox"
+                                      Grid.Row="5" Grid.Column="0"
+                                      SelectionChanged="DefaultExecutableComboBox_SelectionChanged"
+                                      ItemsSource="{Binding Path=Executables.Settings.Executables}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=Name}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </Grid>
 
                     </StackPanel>

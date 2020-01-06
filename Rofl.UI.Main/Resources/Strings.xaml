@@ -45,6 +45,7 @@
     <string:String x:Key="ExecutableSelectInvalidErrorTitle">Invalid Executable</string:String>
     <string:String x:Key="ExecutableSaveNullText">Required fields are not filled out</string:String>
     <string:String x:Key="ExecutableSaveNullTitle">Error while saving</string:String>
+    <string:String x:Key="ExecutableDefaultLabelText">Default Executable</string:String>
 
     <string:String x:Key="SourceFoldersLabelText">Replay Source Folders</string:String>
     <string:String x:Key="SourceFoldersWindowText">Select Replay Source Folder</string:String>
