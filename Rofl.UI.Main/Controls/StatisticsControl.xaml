@@ -578,10 +578,13 @@
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding Path=PreviewModel.ImageSource}"
+                            <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
+                                Width="50"
+                                ToolTipService.ToolTip="{Binding PreviewModel.CombinedName}"/>
+                            <!--<Image Source="{Binding Path=PreviewModel.ImageSource}"
                                 ToolTip="{Binding Path=PreviewModel.CombinedName}"
                                 RenderOptions.BitmapScalingMode="HighQuality"
-                                Margin="5"/>
+                                Margin="5"/>-->
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
