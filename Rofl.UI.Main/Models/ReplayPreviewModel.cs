@@ -47,6 +47,8 @@ namespace Rofl.UI.Main.Models
 
         public bool IsNewFile { get; private set; }
 
+        public bool IsSupported { get; set; }
+
         public string GameLengthString
         {
             get {

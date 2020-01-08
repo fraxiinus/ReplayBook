@@ -66,8 +66,9 @@ namespace Rofl.Executables
             Save();
         }
 
-        public void SearchAllFoldersForExecutablesAndAddThemAll()
+        public int SearchAllFoldersForExecutablesAndAddThemAll()
         {
+            int counter = 0;
             foreach (var path in Settings.SourceFolders)
             {
                 var foundExes = SearchFolderForExecutables(path);
@@ -76,9 +77,11 @@ namespace Rofl.Executables
                     if (GetExecutableByTarget(exe.TargetPath) == null)
                     {
                         AddExecutable(exe);
+                        counter++;
                     }
                 }
             }
+            return counter;
         }
 
         public IList<LeagueExecutable> SearchFolderForExecutables(string startPath)
@@ -146,6 +149,21 @@ namespace Rofl.Executables
             return Settings.Executables
                 .Where(x => x.TargetPath.Equals(target, StringComparison.OrdinalIgnoreCase))
                 .FirstOrDefault();
+        }
+
+        public IReadOnlyCollection<LeagueExecutable> GetExecutablesByPatch(string patchNumber)
+        {
+            var matching = Settings.Executables
+                .Where(x => x.PatchNumber.VersionSubstring()
+                    .Equals(patchNumber.VersionSubstring(), StringComparison.OrdinalIgnoreCase))
+                .ToArray();
+
+            return matching;
+        }
+
+        public bool DoesVersionExist(string patchNumber)
+        {
+            return GetExecutablesByPatch(patchNumber).Any();
         }
 
         public string GetDefaultExecutableName()

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Rofl.Executables;
+using Rofl.Executables.Models;
+using Rofl.Executables.Utilities;
 using Rofl.Files;
 using Rofl.Files.Models;
 using Rofl.Requests;
@@ -16,6 +18,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
@@ -72,6 +75,8 @@ namespace Rofl.UI.Main.ViewModels
             foreach (var file in rawFileResults)
             {
                 ReplayPreviewModel newItem = new ReplayPreviewModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
+
+                newItem.IsSupported = SettingsManager.Executables.DoesVersionExist(newItem.GameVersion);
 
                 foreach (var bluePlayer in newItem.BluePreviewPlayers)
                 {
@@ -285,6 +290,67 @@ namespace Rofl.UI.Main.ViewModels
                 await LoadReplays().ConfigureAwait(true);
                 await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
             }
+        }
+
+        public void PlayReplay(ReplayPreviewModel preview)
+        {
+            if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
+            var replay = FileResults[preview.MatchId];
+
+            var executables = SettingsManager.Executables.GetExecutablesByPatch(preview.GameVersion);
+
+            if (!executables.Any())
+            {
+                MessageBox.Show
+                (
+                    Application.Current.TryFindResource("ExecutableNotFoundErrorText") as String + " " + preview.GameVersion,
+                    Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as String,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+                return;
+            }
+
+            LeagueExecutable target;
+            if (executables.Count > 1)
+            {
+                // More than one?????
+                target = ShowChooseReplayDialog(executables);
+                if (target == null) return;
+            }
+            else
+            {
+                // Show confirmation dialog
+                var msgResult = MessageBox.Show
+                    (
+                        Application.Current.TryFindResource("ReplayPlayConfirmationText") as String,
+                        Application.Current.TryFindResource("ReplayPlayConfirmationText") as String,
+                        MessageBoxButton.OKCancel,
+                        MessageBoxImage.Question
+                    );
+
+                if (msgResult != MessageBoxResult.OK) return;
+
+                target = executables.First();
+            }
+
+            ReplayPlayer.Play(target, replay.FileInfo.Path);
+        }
+
+        public static LeagueExecutable ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
+        {
+            var selectWindow = new ExecutableSelectWindow
+            {
+                Top = App.Current.MainWindow.Top + 50,
+                Left = App.Current.MainWindow.Left + 50,
+                DataContext = executables,
+            };
+
+            if (selectWindow.ShowDialog().Equals(true))
+            {
+                return selectWindow.Selection;
+            }
+            return null;
         }
     }
 }

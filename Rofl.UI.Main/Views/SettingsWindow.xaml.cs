@@ -5,6 +5,7 @@ using Rofl.Settings;
 using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -373,7 +374,18 @@ namespace Rofl.UI.Main.Views
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
 
-            context.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
+            var addedCount = context.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
+
+            var labelText = TryFindResource("ExecutableFoldersSearchResultLabelText") as String;
+            labelText = labelText.Replace("$", addedCount.ToString(CultureInfo.InvariantCulture));
+
+            MessageBox.Show
+            (
+                labelText,
+                TryFindResource("ExecutableFoldersSearchResultTitleText") as String,
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+            );
         }
 
         private void ExecutablesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

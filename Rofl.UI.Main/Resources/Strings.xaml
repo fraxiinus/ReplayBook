@@ -37,6 +37,8 @@
 
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Search folders for executables</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultTitleText">Search results</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultLabelText">Registered $ new executable(s)</string:String>
     <string:String x:Key="ExecutablesLabelText">Registered Executables</string:String>
     <string:String x:Key="ExecutableSelectFolderDialogText">Select Executable Source Folder</string:String>
     <string:String x:Key="ExecutableDetailWindowText">Executable Details</string:String>
@@ -46,6 +48,10 @@
     <string:String x:Key="ExecutableSaveNullText">Required fields are not filled out</string:String>
     <string:String x:Key="ExecutableSaveNullTitle">Error while saving</string:String>
     <string:String x:Key="ExecutableDefaultLabelText">Default Executable</string:String>
+    <string:String x:Key="ExecutableSelectWindowTitleText">Select Executable</string:String>
+    <string:String x:Key="ExecutableNotFoundErrorTitle">No match</string:String>
+    <string:String x:Key="ExecutableNotFoundErrorText">No matching executable found for patch</string:String>
+    <string:String x:Key="ReplayPlayConfirmationText">Play replay?</string:String>
 
     <string:String x:Key="SourceFoldersLabelText">Replay Source Folders</string:String>
     <string:String x:Key="SourceFoldersWindowText">Select Replay Source Folder</string:String>
@@ -56,7 +62,8 @@
     <string:String x:Key="DataDragonChampionUrlLabelText">Champion Image Relative URL</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">Item Image Relative URL</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
-    
+
+    <string:String x:Key="OKButtonText">OK</string:String>
     <string:String x:Key="AddButtonText">Add</string:String>
     <string:String x:Key="EditButtonText">Edit</string:String>
     <string:String x:Key="RemoveButtonText">Remove</string:String>

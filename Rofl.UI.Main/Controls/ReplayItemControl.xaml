@@ -56,15 +56,37 @@
                         Orientation="Horizontal">
 
                     <TextBlock x:Name="PatchNumberText"
-                       FontSize="12"
-                       Foreground="Red"
-                       Text="{Binding Path=GameVersion, FallbackValue=Game version}"/>
+                        FontSize="12"
+                        Text="{Binding Path=GameVersion, FallbackValue=Game version}">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="Red"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSupported}" Value="True">
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
                     <TextBlock x:Name="PatchCheckText"
-                       FontSize="12"
-                       Foreground="Red"
-                       ToolTip="{StaticResource ReplayUnsupportedToolTip}"
-                       Text="{StaticResource CrossText}"/>
+                        FontSize="12">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Text" Value="{StaticResource CrossText}"/>
+                                <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
+                                <Setter Property="Foreground" Value="Red"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSupported}" Value="True">
+                                        <Setter Property="Text" Value="{StaticResource CheckText}"/>
+                                        <Setter Property="ToolTip" Value="{StaticResource ReplaySupportedToolTip}"/>
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
                 </StackPanel>
                 
@@ -137,7 +159,8 @@
             <Button x:Name="PlayButton"
                     Margin="0 0 0 5"
                     ToolTip="{StaticResource PlayReplayToolTip}"
-                    Style="{StaticResource ToolButton}">
+                    Style="{StaticResource ToolButton}"
+                    Click="PlayButton_Click">
                 <Image Source="{StaticResource PlayDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
             </Button>

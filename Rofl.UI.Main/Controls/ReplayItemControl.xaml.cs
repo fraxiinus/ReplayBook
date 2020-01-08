@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Rofl.UI.Main.Models;
+using Rofl.UI.Main.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,14 @@ namespace Rofl.UI.Main.Controls
         public ReplayItemControl()
         {
             InitializeComponent();
+        }
+
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Window.GetWindow(this).DataContext is MainWindowViewModel context)) { return; }
+            if (!(this.DataContext is ReplayPreviewModel replay)) { return; }
+
+            context.PlayReplay(replay);
         }
     }
 }

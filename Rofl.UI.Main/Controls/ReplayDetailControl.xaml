@@ -52,12 +52,13 @@
                                         HorizontalAlignment="Right">
 
                             <Button x:Name="PlayButton"
-                                        Margin="0"
-                                        Width="70"
-                                        Height="30"
-                                        ToolTip="{StaticResource PlayReplayToolTip}"
-                                        Background="Transparent"
-                                        BorderBrush="LightGray">
+                                    Margin="0"
+                                    Width="70"
+                                    Height="30"
+                                    ToolTip="{StaticResource PlayReplayToolTip}"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    Click="PlayButton_Click">
                                 <DockPanel Background="Transparent">
                                     <TextBlock Text="{StaticResource PlayButtonText}"
                                                    FontSize="20"
@@ -144,7 +145,35 @@
                          FontSize="14"
                          IsReadOnly="True"
                          ToolTip="{StaticResource GameVersionToolTip}"
-                         Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
+                         Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Foreground" Value="Red"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PreviewModel.IsSupported}" Value="True">
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <TextBlock x:Name="PatchCheckText"
+                        FontSize="14">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Text" Value="{StaticResource CrossText}"/>
+                                <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
+                                <Setter Property="Foreground" Value="Red"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PreviewModel.IsSupported}" Value="True">
+                                        <Setter Property="Text" Value="{StaticResource CheckText}"/>
+                                        <Setter Property="ToolTip" Value="{StaticResource ReplaySupportedToolTip}"/>
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
                     <TextBlock Text="-" Padding="5 0 5 0"/>
                     <TextBox Background="Transparent"

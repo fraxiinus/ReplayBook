@@ -21,7 +21,7 @@ namespace Rofl.Executables.Utilities
 
             // Create the launch arguments, each argument is put in quotes
             // <replay file path> GameBaseDir=... <other arguments>
-            string launchArgs = $"\"{replayPath}\"" + leagueExe.LaunchArguments;
+            string launchArgs = $"\"{replayPath}\" " + leagueExe.LaunchArguments;
 
             ProcessStartInfo processStartInfo = new ProcessStartInfo
             {
