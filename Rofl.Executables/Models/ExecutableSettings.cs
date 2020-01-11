@@ -13,27 +13,12 @@ using System.Globalization;
 namespace Rofl.Executables.Models
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
-    public class ExecutableSettings : INotifyPropertyChanged
+    public class ExecutableSettings
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public ExecutableSettings()
         {
             Executables = new ObservableCollection<LeagueExecutable>();
             SourceFolders = new ObservableCollection<string>();
-        }
-
-        private string _defaultExecutableName;
-        [JsonProperty("defaultExecutable")]
-        public string DefaultExecutableName 
-        {
-            get { return _defaultExecutableName; }
-            set 
-            {
-                _defaultExecutableName = value;
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(DefaultExecutableName)));
-            }
         }
 
         [JsonProperty("executables")]

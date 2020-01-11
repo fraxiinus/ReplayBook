@@ -209,21 +209,6 @@
                                     Click="RemoveExecutableButton_Click"
                                     IsEnabled="False"/>
                             </StackPanel>
-
-                            <TextBlock Text="{StaticResource ExecutableDefaultLabelText}"
-                                       FontSize="14"
-                                       Grid.Row="4" Grid.Column="0"/>
-
-                            <ComboBox x:Name="DefaultExecutableComboBox"
-                                      Grid.Row="5" Grid.Column="0"
-                                      SelectionChanged="DefaultExecutableComboBox_SelectionChanged"
-                                      ItemsSource="{Binding Path=Executables.Settings.Executables}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Path=Name}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
                         </Grid>
 
                     </StackPanel>

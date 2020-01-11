@@ -166,59 +166,6 @@ namespace Rofl.Executables
             return GetExecutablesByPatch(patchNumber).Any();
         }
 
-        public string GetDefaultExecutableName()
-        {
-            return Settings.DefaultExecutableName;
-        }
-
-        public LeagueExecutable GetDefaultExecutable()
-        {
-            return GetExecutable(Settings.DefaultExecutableName);
-        }
-
-        /// <summary>
-        /// Sets default executable. Throws <see cref="ArgumentException"/> if <paramref name="executableName"/> does not exist.
-        /// </summary>
-        /// <param name="executableName"></param>
-        public void SetDefaultExectuable(string executableName)
-        {
-            // Set default to nothing if null is given
-            if(executableName == null)
-            {
-                Settings.DefaultExecutableName = null;
-                return;
-            }
-
-            // Does an executable with that name exist?
-            if (GetExecutable(executableName) == null)
-            {
-                _log.Warning(_myName, $"Executable by name {executableName} does not exist");
-                throw new ArgumentException("No executable with matching name found", nameof(executableName));
-            }
-
-            var oldDefault = GetDefaultExecutable();
-
-            if (oldDefault == null)
-            {
-                // Old is null, so we always set it
-                _log.Information(_myName, $"Current default is null, setting to {executableName}");
-                Settings.DefaultExecutableName = executableName;
-            }
-            else
-            {
-                if (oldDefault.Name.Equals(executableName, StringComparison.OrdinalIgnoreCase))
-                {
-                    // Default is already set
-                    _log.Information(_myName, $"Default is already set to {executableName}");
-                    return;
-                }
-
-                // Replace old default
-                _log.Information(_myName, $"Changing default from {oldDefault.Name} to {executableName}");
-                Settings.DefaultExecutableName = executableName;
-            }
-        }
-
         public void AddExecutable(LeagueExecutable newExecutable)
         {
             // Validate file
@@ -240,11 +187,6 @@ namespace Rofl.Executables
             ExeTools.ValidateLeagueExecutable(newExecutable);
 
             Settings.Executables.Add(newExecutable);
-            
-            if (Settings.Executables.Count == 1)
-            {
-                SetDefaultExectuable(newExecutable.Name);
-            }
         }
 
         /// <summary>
@@ -261,18 +203,9 @@ namespace Rofl.Executables
                 throw new ArgumentException($"Executable with name {name} does not exist");
             }
 
-            string defaultName = GetDefaultExecutable().Name;
-
             // Delete the executable
             _log.Information(_myName, $"Deleting executable {target.Name}");
             Settings.Executables.Remove(target);
-
-            // Did we delete the default?
-            if (defaultName.Equals(target.Name, StringComparison.OrdinalIgnoreCase))
-            {
-                // If we did we need to reset the default
-                SetDefaultExectuable(null);
-            }
         }
 
         /// <summary>

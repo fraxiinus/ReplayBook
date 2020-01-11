@@ -37,8 +37,6 @@ namespace Rofl.UI.Main.Views
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
-
-            DefaultExecutableComboBox.SelectedItem = context.Executables.GetDefaultExecutable();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -436,14 +434,6 @@ namespace Rofl.UI.Main.Views
 
             EditExecutableButton.IsEnabled = false;
             RemoveExecutableButton.IsEnabled = false;
-        }
-
-        private void DefaultExecutableComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!(this.DataContext is SettingsManager context)) { return; }
-            if (!(DefaultExecutableComboBox.SelectedItem is LeagueExecutable selectedExecutable)) { return; }
-
-            context.Executables.SetDefaultExectuable(selectedExecutable.Name);
         }
 
     }
