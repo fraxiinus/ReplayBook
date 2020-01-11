@@ -38,24 +38,12 @@
 
                 <Border Style="{DynamicResource SearchBorderStyle}"
                         Grid.Column="0">
-
-                    <DockPanel>
-
-                        <Image DockPanel.Dock="Right" 
-                               Width="20"
-                               Margin="0 0 5 0"
-                               Source="{StaticResource SearchDrawingImage}"/>
-
-                        <TextBox x:Name="SearchBox"
+                    <TextBox x:Name="SearchBox"
                                  FontSize="18"
-                                 Width="226"
                                  BorderBrush="Transparent"
                                  Text="{Binding Path=SearchTerm}"
                                  Style="{DynamicResource SearchBoxStyle}"
                                  TextChanged="SearchBox_TextChanged"/>
-
-                    </DockPanel>
-
                 </Border>
 
                 <Button x:Name="SortButton"
