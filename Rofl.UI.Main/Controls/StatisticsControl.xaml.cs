@@ -24,12 +24,5 @@ namespace Rofl.UI.Main.Controls
         {
             InitializeComponent();
         }
-
-        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Because the datagrid is rotated 90 degrees, the first item is at the bottom
-            // Scroll back up to the top
-            StatsScrollViewer.ScrollToHome();
-        }
     }
 }

@@ -87,7 +87,7 @@ namespace Rofl.UI.Main
             detailControl.DataContext = replayDetailModel;
 
             (detailControl.FindName("BlankContent") as StackPanel).Visibility = Visibility.Hidden;
-            (detailControl.FindName("ReplayContent") as StackPanel).Visibility = Visibility.Visible;
+            (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
 
             await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetailModel).ConfigureAwait(true);

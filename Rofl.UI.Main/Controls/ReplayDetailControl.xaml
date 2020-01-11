@@ -7,7 +7,6 @@
              xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="760"
-             Height="610" Width="760"
              HorizontalAlignment="Left"
              VerticalAlignment="Top"
              Background="White">
@@ -28,15 +27,20 @@
         </StackPanel>
         
         <!--The actual replay content-->
-        <StackPanel x:Name="ReplayContent"
-                Orientation="Vertical"
+        <Grid x:Name="ReplayContent"
                 Margin="10 5 0 0"
                 Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
 
             <!--The header information-->
             <StackPanel Orientation="Vertical"
                         Width="740"
-                        Margin="0 0 0 10">
+                        Margin="10 0 0 10"
+                        Grid.Row="0">
                 
                 <Border BorderThickness="0 0 0 2"
                             BorderBrush="Gray">
@@ -216,8 +220,11 @@
 
             </StackPanel>
 
-            <TabControl BorderThickness="0 1 0 0"
-                    BorderBrush="Black">
+            <TabControl x:Name="DetailTabControl"
+                        BorderThickness="0 1 0 0"
+                        BorderBrush="Black"
+                        Grid.Row="1"
+                        SelectionChanged="TabControl_SelectionChanged">
                 <TabItem Header="{StaticResource ScoreboardTabText}"
                      FontSize="12"
                      Style="{StaticResource TabHeaderStyle}">
@@ -227,13 +234,17 @@
                 <TabItem Header="{StaticResource StatsTabText}"
                          FontSize="12"
                          Style="{StaticResource TabHeaderStyle}">
-                    <local:StatisticsControl x:Name="StatsControl"
-                                             Margin="0 5 0 0"/>
+                    <ScrollViewer x:Name="StatsScrollViewer"
+                                  Margin="0 5 0 0" 
+                                  VerticalScrollBarVisibility="Visible"
+                                  Loaded="StatsScrollViewer_Loaded">
+                        <local:StatisticsControl x:Name="StatsControl"/>
+                    </ScrollViewer>
                 </TabItem>
             </TabControl>
 
 
-        </StackPanel>
+        </Grid>
     </Grid>
         
     

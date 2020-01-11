@@ -34,5 +34,15 @@ namespace Rofl.UI.Main.Controls
 
             context.PlayReplay(replay.PreviewModel);
         }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(sender is TabControl tabControl)) { return; }
+        }
+
+        private void StatsScrollViewer_Loaded(object sender, RoutedEventArgs e)
+        {
+            StatsScrollViewer.ScrollToVerticalOffset(0);
+        }
     }
 }
