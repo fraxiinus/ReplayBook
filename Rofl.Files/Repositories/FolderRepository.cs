@@ -57,7 +57,8 @@ namespace Rofl.Files.Repositories
                     returnList.Add(new ReplayFileInfo()
                     {
                         Path = file.FullName,
-                        CreationTime = file.CreationTime
+                        CreationTime = file.CreationTime,
+                        FileSizeBytes = file.Length
                     });
                 }
             }

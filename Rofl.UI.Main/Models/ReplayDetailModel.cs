@@ -1,4 +1,5 @@
-﻿using Rofl.Reader.Models;
+﻿using Rofl.Files.Models;
+using Rofl.Reader.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,17 @@ namespace Rofl.UI.Main.Models
 {
     public class ReplayDetailModel
     {
-        public ReplayDetailModel(ReplayFile replay, ReplayPreviewModel previewModel)
+        public ReplayDetailModel(FileResult replay, ReplayPreviewModel previewModel)
         {
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
             PreviewModel = previewModel ?? throw new ArgumentNullException(nameof(previewModel));
+            FileInfo = replay.FileInfo ?? throw new ArgumentNullException(nameof(replay));
+
             AllPlayers = new List<PlayerDetailModel>();
 
             BluePlayers = new List<PlayerDetailModel>();
-            var combinedBluePlayers = replay.BluePlayers.Zip(previewModel.BluePreviewPlayers, (p, r) => new { Player = p, Preview = r });
+            var combinedBluePlayers = replay.ReplayFile.BluePlayers.Zip(previewModel.BluePreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var bPlayer in combinedBluePlayers)
             {
                 var newPlayer = new PlayerDetailModel(bPlayer.Player, bPlayer.Preview, true);
@@ -31,7 +34,7 @@ namespace Rofl.UI.Main.Models
             }
 
             RedPlayers = new List<PlayerDetailModel>();
-            var combinedRedPlayers = replay.RedPlayers.Zip(previewModel.RedPreviewPlayers, (p, r) => new { Player = p, Preview = r });
+            var combinedRedPlayers = replay.ReplayFile.RedPlayers.Zip(previewModel.RedPreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var rPlayer in combinedRedPlayers)
             {
                 var newPlayer = new PlayerDetailModel(rPlayer.Player, rPlayer.Preview, false);
@@ -46,6 +49,8 @@ namespace Rofl.UI.Main.Models
         }
 
         public ReplayPreviewModel PreviewModel { get; private set; }
+
+        public ReplayFileInfo FileInfo { get; private set; }
 
         public int BlueKills { get; private set; }
 

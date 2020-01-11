@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Rofl.Executables;
 using Rofl.Files;
+using Rofl.Files.Models;
 using Rofl.Logger;
 using Rofl.Reader;
 using Rofl.Reader.Models;
@@ -78,9 +79,9 @@ namespace Rofl.UI.Main
 
             ReplayPreviewModel previewModel = replayItem.DataContext as ReplayPreviewModel;
 
-            ReplayFile replayModel = context.FileResults[previewModel.MatchId].ReplayFile;
+            FileResult replayFile = context.FileResults[previewModel.MatchId];
 
-            ReplayDetailModel replayDetailModel = new ReplayDetailModel(replayModel, previewModel);
+            ReplayDetailModel replayDetailModel = new ReplayDetailModel(replayFile, previewModel);
 
             ReplayDetailControl detailControl = this.FindName("DetailView") as ReplayDetailControl;
             detailControl.DataContext = replayDetailModel;

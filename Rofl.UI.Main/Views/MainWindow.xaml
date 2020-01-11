@@ -26,13 +26,18 @@
     <DockPanel>
         
         <DockPanel DockPanel.Dock="Left">
-            <StackPanel x:Name="ToolPanel"
-                        DockPanel.Dock="Top"
-                        Orientation="Horizontal" 
-                        Background="WhiteSmoke"
-                        DataContext="{Binding Path=SortParameters}">
+            <Grid x:Name="ToolPanel"
+                  DockPanel.Dock="Top"
+                  Background="WhiteSmoke"
+                  DataContext="{Binding Path=SortParameters}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                <Border Style="{DynamicResource SearchBorderStyle}">
+                <Border Style="{DynamicResource SearchBorderStyle}"
+                        Grid.Column="0">
 
                     <DockPanel>
 
@@ -54,10 +59,11 @@
                 </Border>
 
                 <Button x:Name="SortButton"
-                              ToolTip="{StaticResource SortToolTip}"
-                              Style="{StaticResource ToolButton}"
-                              ContextMenuService.Placement="Bottom"
-                              Click="SortButton_Click">
+                        ToolTip="{StaticResource SortToolTip}"
+                        Style="{StaticResource ToolButton}"
+                        ContextMenuService.Placement="Bottom"
+                        Click="SortButton_Click"
+                        Grid.Column="1">
                     <Image Source="{StaticResource SortDrawingImage}"/>
                     <Button.ContextMenu>
                         <ContextMenu x:Name="SortMenu">
@@ -85,20 +91,21 @@
                     </Button.ContextMenu>
                 </Button>
 
-                <Button x:Name="OpenFolderButton"
+                <!--<Button x:Name="OpenFolderButton"
                         ToolTip="{StaticResource OpenToolTip}"
                         Style="{StaticResource ToolButton}">
                     <Image Source="{StaticResource FolderOpenDrawingImage}"/>
-                </Button>
+                </Button>-->
 
                 <Button x:Name="SettingsButton"
                         ToolTip="{StaticResource SettingsToolTip}"
                         Style="{StaticResource ToolButton}"
-                        Click="SettingsButton_Click">
+                        Click="SettingsButton_Click"
+                        Grid.Column="2">
                     <Image Source="{StaticResource SettingsDrawingImage}"/>
                 </Button>
 
-            </StackPanel>
+            </Grid>
 
             <ListView x:Name="ReplayListView"
                       Style="{StaticResource ReplayListStyle}"
