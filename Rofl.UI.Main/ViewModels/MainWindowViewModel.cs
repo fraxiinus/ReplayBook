@@ -206,7 +206,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task LoadPreviewPlayerThumbnails()
         {
-            foreach (var replay in PreviewReplays)
+            foreach (var replay in PreviewReplays.ToList())
             {
                 string dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(false);
 

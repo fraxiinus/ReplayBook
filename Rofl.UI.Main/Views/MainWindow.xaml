@@ -26,9 +26,79 @@
     <DockPanel>
         
         <DockPanel DockPanel.Dock="Left">
+            <StackPanel x:Name="ToolPanel"
+                        DockPanel.Dock="Top"
+                        Orientation="Horizontal" 
+                        Background="WhiteSmoke"
+                        DataContext="{Binding Path=SortParameters}">
 
-            <controls:ToolPanelControl x:Name="ToolPanel"
-                                DockPanel.Dock="Top"/>
+                <Border Style="{DynamicResource SearchBorderStyle}">
+
+                    <DockPanel>
+
+                        <Image DockPanel.Dock="Right" 
+                               Width="20"
+                               Margin="0 0 5 0"
+                               Source="{StaticResource SearchDrawingImage}"/>
+
+                        <TextBox x:Name="SearchBox"
+                                 FontSize="18"
+                                 Width="226"
+                                 BorderBrush="Transparent"
+                                 Text="{Binding Path=SearchTerm}"
+                                 Style="{DynamicResource SearchBoxStyle}"
+                                 TextChanged="SearchBox_TextChanged"/>
+
+                    </DockPanel>
+
+                </Border>
+
+                <Button x:Name="SortButton"
+                              ToolTip="{StaticResource SortToolTip}"
+                              Style="{StaticResource ToolButton}"
+                              ContextMenuService.Placement="Bottom"
+                              Click="SortButton_Click">
+                    <Image Source="{StaticResource SortDrawingImage}"/>
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="SortMenu">
+                            <MenuItem x:Name="NameAsc"
+                                      Header="{StaticResource NameAsc}" 
+                                      Click="MenuItem_Click"/>
+                            <MenuItem x:Name="NameDesc"
+                                      Header="{StaticResource NameDesc}" 
+                                      Click="MenuItem_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="DateAsc"
+                                      Header="{StaticResource DateAsc}" 
+                                      Click="MenuItem_Click"/>
+                            <MenuItem x:Name="DateDesc"
+                                      Header="{StaticResource DateDesc}" 
+                                      Click="MenuItem_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="LengthAsc"
+                                      Header="{StaticResource LengthAsc}" 
+                                      Click="MenuItem_Click"/>
+                            <MenuItem x:Name="LengthDesc"
+                                      Header="{StaticResource LengthDesc}" 
+                                      Click="MenuItem_Click"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+
+                <Button x:Name="OpenFolderButton"
+                        ToolTip="{StaticResource OpenToolTip}"
+                        Style="{StaticResource ToolButton}">
+                    <Image Source="{StaticResource FolderOpenDrawingImage}"/>
+                </Button>
+
+                <Button x:Name="SettingsButton"
+                        ToolTip="{StaticResource SettingsToolTip}"
+                        Style="{StaticResource ToolButton}"
+                        Click="SettingsButton_Click">
+                    <Image Source="{StaticResource SettingsDrawingImage}"/>
+                </Button>
+
+            </StackPanel>
 
             <ListView x:Name="ReplayListView"
                       Style="{StaticResource ReplayListStyle}"
