@@ -15,6 +15,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -335,6 +337,17 @@ namespace Rofl.UI.Main.ViewModels
             }
 
             ReplayPlayer.Play(target, replay.FileInfo.Path);
+        }
+
+        public void OpenReplayContainingFolder(string matchId)
+        {
+            if (matchId == null) { throw new ArgumentNullException(nameof(matchId)); }
+
+            FileResults.TryGetValue(matchId, out FileResult match);
+            if (match == null) { throw new ArgumentException($"Match ID {matchId} does not match any known replays"); }
+
+            string selectArg = $"/select, \"{match.FileInfo.Path}\"";
+            Process.Start("explorer.exe", selectArg);
         }
 
         public static LeagueExecutable ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)

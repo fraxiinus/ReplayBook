@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -33,6 +34,25 @@ namespace Rofl.UI.Main.Controls
             if (!(this.DataContext is ReplayPreviewModel replay)) { return; }
 
             context.PlayReplay(replay);
+        }
+
+        private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Window.GetWindow(this).DataContext is MainWindowViewModel context)) { return; }
+            if (!(this.DataContext is ReplayPreviewModel replay)) { return; }
+            context.OpenReplayContainingFolder(replay.MatchId);
+        }
+
+        private void Morebutton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is Button moreButton)) { return; }
+
+            // Get the button and menu
+            ContextMenu contextMenu = moreButton.ContextMenu;
+            // Set placement and open
+            contextMenu.PlacementTarget = moreButton;
+            contextMenu.Placement = PlacementMode.Bottom;
+            contextMenu.IsOpen = true;
         }
     }
 }

@@ -183,5 +183,8 @@
 
     <string:String x:Key="LengthAsc">Duration ascending</string:String>
     <string:String x:Key="LengthDesc">Duration descending</string:String>
+    
+    <!--Replay Menu Item Text-->
+    <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
 
 </ResourceDictionary>

@@ -168,9 +168,18 @@
             <Button x:Name="Morebutton"
                     Margin="0"
                     ToolTip="{StaticResource MoreToolTip}"
-                    Style="{StaticResource ToolButton}">
+                    Style="{StaticResource ToolButton}"
+                    Click="Morebutton_Click">
                 <Image Source="{StaticResource MoreDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                <Button.ContextMenu>
+                    <ContextMenu x:Name="ReplayConextMenu">
+                        <MenuItem x:Name="OpenContainingFolder"
+                                  Header="{StaticResource OpenContainingFolder}" 
+                                  Click="OpenContainingFolder_Click"/>
+                    </ContextMenu>
+                </Button.ContextMenu>
             </Button>
             
         </StackPanel>
