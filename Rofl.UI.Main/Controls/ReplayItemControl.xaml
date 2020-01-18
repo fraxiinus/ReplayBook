@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="75" d:DesignWidth="350">
+             d:DesignHeight="85" d:DesignWidth="350">
 
     <DockPanel Background="White"
                LastChildFill="False"
-               Height="75" Width="350">
+               Height="85" Width="350">
 
         <!--Left side file information-->
         <Border BorderThickness="3 0 0 0">
@@ -29,37 +29,64 @@
             <StackPanel DockPanel.Dock="Left"
                     Orientation="Vertical"
                     Width="105"
-                    Margin="5 5 5 0">
+                    Margin="5 2 5 0">
 
                 <TextBlock x:Name="FilenameText"
                        FontSize="12"
                        FontWeight="Bold"
-                       Text="{Binding Path=Name}"
+                       Text="{Binding Path=Name, FallbackValue=Filename}"
                        ToolTip="{Binding Path=Name}"/>
 
                 <TextBlock x:Name="MapNameText"
                        FontSize="12"
-                       Text="{Binding Path=MapName}"/>
+                       Text="{Binding Path=MapName, FallbackValue=Map name}"/>
 
                 <TextBlock x:Name="GameLengthText"
                        FontSize="12"
-                       Text="{Binding Path=GameLengthString}"
+                       Text="{Binding Path=GameLengthString, FallbackValue=Game duration}"
                        ToolTip="{Binding Path=GameDuration}"/>
+
+                <TextBlock x:Name="CreationDateText"
+                           FontSize="12"
+                           Text="{Binding Path=CreationDate, StringFormat=yyyy-MM-dd, FallbackValue=Creation date}"
+                           ToolTip="{StaticResource FileDateToolTip}"/>
 
                 <!--Stack panel so tooltip only happens over checkmark-->
                 <StackPanel x:Name="PatchTextPanel"
                         Orientation="Horizontal">
 
                     <TextBlock x:Name="PatchNumberText"
-                       FontSize="12"
-                       Foreground="Red"
-                       Text="{Binding Path=GameVersion}"/>
+                        FontSize="12"
+                        Text="{Binding Path=GameVersion, FallbackValue=Game version}">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="Red"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSupported}" Value="True">
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
                     <TextBlock x:Name="PatchCheckText"
-                       FontSize="12"
-                       Foreground="Red"
-                       ToolTip="{StaticResource ReplayUnsupportedToolTip}"
-                       Text="{StaticResource CrossText}"/>
+                        FontSize="12">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Text" Value="{StaticResource CrossText}"/>
+                                <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
+                                <Setter Property="Foreground" Value="Red"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSupported}" Value="True">
+                                        <Setter Property="Text" Value="{StaticResource CheckText}"/>
+                                        <Setter Property="ToolTip" Value="{StaticResource ReplaySupportedToolTip}"/>
+                                        <Setter Property="Foreground" Value="Green"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
                 </StackPanel>
                 
@@ -78,10 +105,10 @@
                     <Style TargetType="Border">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="True">
-                                <Setter Property="BorderBrush" Value="LightSkyBlue"/>
+                                <Setter Property="BorderBrush" Value="RoyalBlue"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
-                                <Setter Property="BorderBrush" Value="OrangeRed"/>
+                                <Setter Property="BorderBrush" Value="DeepPink"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -91,12 +118,14 @@
                     <ItemsControl ItemsSource="{Binding Path=BluePreviewPlayers}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0 1 0 2"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 1 0 4"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:PlayerIcon Margin="0 0 2 0"/>
+                                <local:PlayerIconControl Margin="0 0 2 0"
+                                                         Width="30"
+                                                         ToolTip="{Binding Path=CombinedName}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -104,12 +133,14 @@
                     <ItemsControl ItemsSource="{Binding Path=RedPreviewPlayers}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0 2 0 1"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 4 0 1"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:PlayerIcon Margin="0 0 2 0"/>
+                                <local:PlayerIconControl Margin="0 0 2 0"
+                                                         Width="30"
+                                                         ToolTip="{Binding Path=CombinedName}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -128,17 +159,27 @@
             <Button x:Name="PlayButton"
                     Margin="0 0 0 5"
                     ToolTip="{StaticResource PlayReplayToolTip}"
-                    Style="{StaticResource PanelButton}">
-                <Image Source="{StaticResource PlayCircleDrawingImage}"
+                    Style="{StaticResource ToolButton}"
+                    Click="PlayButton_Click">
+                <Image Source="{StaticResource PlayDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
             </Button>
             
             <Button x:Name="Morebutton"
                     Margin="0"
                     ToolTip="{StaticResource MoreToolTip}"
-                    Style="{StaticResource PanelButton}">
-                <Image Source="{StaticResource MoreVertDrawingImage}"
+                    Style="{StaticResource ToolButton}"
+                    Click="Morebutton_Click">
+                <Image Source="{StaticResource MoreDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                <Button.ContextMenu>
+                    <ContextMenu x:Name="ReplayConextMenu">
+                        <MenuItem x:Name="OpenContainingFolder"
+                                  Header="{StaticResource OpenContainingFolder}" 
+                                  Click="OpenContainingFolder_Click"/>
+                    </ContextMenu>
+                </Button.ContextMenu>
             </Button>
             
         </StackPanel>

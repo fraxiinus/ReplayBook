@@ -5,40 +5,113 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main"
         xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="{StaticResource ProgramName}" 
         Icon="{StaticResource ProgramIcon}"
         ResizeMode="CanResize"
-        MinHeight="600"
-        MinWidth="1000"
-        Height="600" 
-        Width="1000">
-
+        MinHeight="655"
+        MinWidth="1150"
+        Height="655" 
+        Width="1150">
+    
+    <Window.Resources>
+        <CollectionViewSource x:Key="PreviewReplaysView" 
+                              Source="{Binding Path=PreviewReplays}"
+                              Filter="PreviewReplaysView_Filter">
+        </CollectionViewSource>
+    </Window.Resources>
+    
     <DockPanel>
         
         <DockPanel DockPanel.Dock="Left">
+            <Grid x:Name="ToolPanel"
+                  DockPanel.Dock="Top"
+                  Background="WhiteSmoke"
+                  DataContext="{Binding Path=SortParameters}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <controls:ToolPanel DockPanel.Dock="Top"/>
+                <Border Style="{DynamicResource SearchBorderStyle}"
+                        Grid.Column="0">
+                    <TextBox x:Name="SearchBox"
+                                 FontSize="18"
+                                 BorderBrush="Transparent"
+                                 Text="{Binding Path=SearchTerm}"
+                                 Style="{DynamicResource SearchBoxStyle}"
+                                 TextChanged="SearchBox_TextChanged"/>
+                </Border>
+
+                <Button x:Name="SortButton"
+                        ToolTip="{StaticResource SortToolTip}"
+                        Style="{StaticResource ToolButton}"
+                        ContextMenuService.Placement="Bottom"
+                        Click="SortButton_Click"
+                        Grid.Column="1">
+                    <Image Source="{StaticResource SortDrawingImage}"/>
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="SortMenu">
+                            <MenuItem x:Name="NameAsc"
+                                      Header="{StaticResource NameAsc}" 
+                                      Click="MenuItem_Click"/>
+                            <MenuItem x:Name="NameDesc"
+                                      Header="{StaticResource NameDesc}" 
+                                      Click="MenuItem_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="DateAsc"
+                                      Header="{StaticResource DateAsc}" 
+                                      Click="MenuItem_Click"/>
+                            <MenuItem x:Name="DateDesc"
+                                      Header="{StaticResource DateDesc}" 
+                                      Click="MenuItem_Click"/>
+                            <Separator/>
+                            <MenuItem x:Name="LengthAsc"
+                                      Header="{StaticResource LengthAsc}" 
+                                      Click="MenuItem_Click"/>
+                            <MenuItem x:Name="LengthDesc"
+                                      Header="{StaticResource LengthDesc}" 
+                                      Click="MenuItem_Click"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+
+                <!--<Button x:Name="OpenFolderButton"
+                        ToolTip="{StaticResource OpenToolTip}"
+                        Style="{StaticResource ToolButton}">
+                    <Image Source="{StaticResource FolderOpenDrawingImage}"/>
+                </Button>-->
+
+                <Button x:Name="SettingsButton"
+                        ToolTip="{StaticResource SettingsToolTip}"
+                        Style="{StaticResource ToolButton}"
+                        Click="SettingsButton_Click"
+                        Grid.Column="2">
+                    <Image Source="{StaticResource SettingsDrawingImage}"/>
+                </Button>
+
+            </Grid>
 
             <ListView x:Name="ReplayListView"
                       Style="{StaticResource ReplayListStyle}"
-                      ItemsSource="{Binding Path=PreviewReplays}"
+                      ItemsSource="{Binding Source={StaticResource PreviewReplaysView}}"
                       ItemContainerStyle="{StaticResource ReplayListItemStyle}"
-                      Loaded="ReplayListView_Loaded">
+                      Loaded="ReplayListView_Loaded"
+                      MinWidth="350">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <controls:ReplayItemControl/>
+                        <controls:ReplayItemControl MouseDoubleClick="ReplayItemControl_MouseDoubleClick"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
         </DockPanel>
-        
-        <Frame DockPanel.Dock="Right"
-               Background="Aquamarine">
-            
-        </Frame>
-        
+
+        <controls:ReplayDetailControl x:Name="DetailView"/>
+
     </DockPanel>
     
 </Window>

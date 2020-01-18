@@ -3,98 +3,63 @@ using Microsoft.Win32;
 using System.Linq;
 using System.IO;
 using System.Diagnostics;
+using Rofl.Logger;
+using Rofl.Executables.Models;
 
 namespace Rofl.Executables.Utilities
 {
-    public class ExeTools
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
+    public static class ExeTools
     {
-        private readonly string _exceptionOriginName = "Rofl.Executables.Utilities.ExeTools";
-
-        /// <summary>
-        /// Tries to find league install from registry keys. 
-        /// </summary>
-        /// <param name="keyName"></param>
-        /// <returns></returns>
-        public string GetLeagueInstallPathFromRegistry()
-        {
-            string returnPath = null;
-
-            // Open the windows registry
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node"))
-            {
-                // Try one of Riot's keys
-                if (RegistryKeyExists(key, $@"Riot Games, Inc\League of Legends"))
-                {
-                    using (RegistryKey leagueKey = key.OpenSubKey($@"Riot Games, Inc\League of Legends"))
-                    {
-                        // Get the location key 
-                        returnPath = leagueKey.GetValue("Path").ToString();
-
-                        if (String.IsNullOrEmpty(returnPath) || !Directory.Exists(returnPath))
-                        {
-                            throw new DirectoryNotFoundException($"{_exceptionOriginName} - Path in registry does not exist");
-                        }
-                    }
-                }
-                // Try another name
-                else if (RegistryKeyExists(key, $@"Riot Games\League of Legends"))
-                {
-                    using (RegistryKey leagueKey = key.OpenSubKey($@"Riot Games\League of Legends"))
-                    {
-                        // Get the location key 
-                        returnPath = leagueKey.GetValue("Path").ToString();
-
-                        if (String.IsNullOrEmpty(returnPath) || !Directory.Exists(returnPath))
-                        {
-                            throw new DirectoryNotFoundException($"{_exceptionOriginName} - Path in registry does not exist");
-                        }
-                    }
-                }
-                else
-                {
-                    throw new Exception($"{_exceptionOriginName} - Could not find League of Legends registry keys");
-                }
-            }
-
-            return returnPath;
-        }
-
-        public string FindLeagueExecutablePath(string startDir)
+        /* public static string FindLeagueExecutable(string startDir)
         {
             if (string.IsNullOrEmpty(startDir))
             {
-                throw new ArgumentNullException($"{_exceptionOriginName} - Input path cannot be empty");
+                // _log.Warning(_myName, "Input path cannot be empty");
+                throw new ArgumentNullException(nameof(startDir));
             }
             if (!Directory.Exists(startDir))
             {
-                throw new DirectoryNotFoundException($"{_exceptionOriginName} - Input path does not exist");
+                // _log.Warning(_myName, $"Input path {startDir} does not exist");
+                throw new DirectoryNotFoundException($"Input path {startDir} does not exist");
             }
 
-            // Get names of folders in the directory
-            var dirs = Directory.GetDirectories(startDir).Select(x => Path.GetFileName(x)).ToArray();
-            if (dirs.Contains("Game"))
+            // If the Game directory exists, we don't have to traverse RADS
+            if(Directory.Exists(Path.Combine(startDir, "Game")))
             {
-                // Install is using new pather
-                var newPath = Path.Combine(startDir, "Game", "League of Legends.exe");
-                if (File.Exists(newPath) && ValidateLeagueExecutable(newPath))
+                // _log.Information(_myName, "Found Game folder");
+                string exePath = Path.Combine(startDir, "Game", "League of Legends.exe");
+                if (File.Exists(exePath) && CheckExecutableFile(exePath))
                 {
-                    return newPath;
+                    // _log.Information(_myName, $"Found executable: {exePath}");
+                    return exePath;
                 }
                 else
                 {
-                    throw new FileNotFoundException($"{_exceptionOriginName} - Could not find League of Legends.exe");
+                    // _log.Warning(_myName, "Could not find League of Legends.exe in Game folder");
+                    throw new FileNotFoundException($"Could not find League of Legends.exe in Game folder");
                 }
+            }
+            else if (Directory.Exists(Path.Combine(startDir, "RADS")))
+            {
+                // _log.Information(_myName, "Found RADS folder");
+                return FindLeagueExecutablePathInRADS(startDir);
             }
             else
             {
-                // Install is from RADS era
-                return FindLeagueExecutablePathInRADS(startDir);
+                // _log.Warning(_myName, "Folder does not match known pattern");
+                throw new ArgumentException($"Folder does not match known pattern");
             }
         }
+        */
 
-        public bool ValidateLeagueExecutable(string filePath)
+        public static bool CheckExecutableFile(string filePath)
         {
-            if (String.IsNullOrEmpty(filePath) || !filePath.Contains("League of Legends.exe") || !File.Exists(filePath) || !(FileVersionInfo.GetVersionInfo(filePath).FileDescription).Equals(@"League of Legends (TM) Client"))
+            if (String.IsNullOrEmpty(filePath) 
+                || !filePath.Contains("League of Legends.exe") 
+                || !File.Exists(filePath) 
+                || !(FileVersionInfo.GetVersionInfo(filePath).FileDescription)
+                        .Equals(@"League of Legends (TM) Client", StringComparison.OrdinalIgnoreCase))
             {
                 return false;
             }
@@ -102,57 +67,112 @@ namespace Rofl.Executables.Utilities
             return true;
         }
 
-        public string GetLeagueVersion(string filePath)
+        public static void ValidateLeagueExecutable(LeagueExecutable executable)
         {
-            if (ValidateLeagueExecutable(filePath))
+            // Name must not already exist
+            // Start folder must exist
+            // Target file must exist and be contained in start folder
+            // patch version must pass versionsubstring
+            // allowupdates...
+            // isdefault...
+            // ModifiedDate must not be null
+
+            // Check all properties if they are null
+            if (executable == null ||
+                String.IsNullOrEmpty(executable.Name) ||
+                String.IsNullOrEmpty(executable.TargetPath) ||
+                String.IsNullOrEmpty(executable.StartFolder) ||
+                String.IsNullOrEmpty(executable.PatchNumber) ||
+                executable.ModifiedDate == null)
+            {
+                throw new ArgumentNullException(nameof(executable));
+            }
+
+            // Check if start folder exists
+            if (!Directory.Exists(executable.StartFolder))
+            {
+                // _log.Warning(_myName, $"Start folder {executable.StartFolder} does not exist");
+                throw new DirectoryNotFoundException($"Start folder {executable.StartFolder} does not exist");
+            }
+
+            // Check if target path begins with stater path
+            if (!executable.TargetPath.StartsWith(executable.StartFolder, StringComparison.OrdinalIgnoreCase))
+            {
+                // _log.Warning(_myName, $"Target file {executable.TargetPath} cannot be found from start folder {executable.StartFolder}");
+                throw new FileNotFoundException($"Target file {executable.TargetPath} cannot be found from start folder {executable.StartFolder}");
+            }
+
+            // Check if target path exists
+            if (!File.Exists(executable.TargetPath))
+            {
+                // _log.Warning(_myName, $"Target file {executable.TargetPath} not found");
+                throw new FileNotFoundException($"Target file {executable.TargetPath} not found");
+            }
+
+            // Check if patch version is properly formatted
+            if (executable.PatchNumber.VersionSubstring() == null)
+            {
+                // _log.Warning(_myName, $"Version string {executable.PatchNumber} not proper format");
+                throw new ArgumentException($"Version string {executable.PatchNumber} not proper format");
+            }
+
+        }
+
+        public static string GetLeagueVersion(string filePath)
+        {
+            if (CheckExecutableFile(filePath))
             {
                 return FileVersionInfo.GetVersionInfo(filePath).FileVersion;
             }
             else
             {
-                throw new FileNotFoundException($"{_exceptionOriginName} - Invalid executable");
+                // _log.Warning(_myName, $"Invalid Executable: {filePath}");
+                throw new ArgumentException($"Invalid Executable: {filePath}");
             }
         }
 
-        public DateTime GetLastModifiedDate(string filePath)
+        public static DateTime GetLastModifiedDate(string filePath)
         {
-            if(ValidateLeagueExecutable(filePath))
+            if(CheckExecutableFile(filePath))
             {
                 return (new FileInfo(filePath)).LastWriteTime;
             }
             else
             {
-                throw new FileNotFoundException($"{_exceptionOriginName} - Invalid executable");
+                // _log.Warning(_myName, $"Invalid Executable: {filePath}");
+                throw new FileNotFoundException($"Invalid Executable: {filePath}");
             }
         }
 
-        private bool RegistryKeyExists(RegistryKey registry, string keyName)
+        public static LeagueExecutable CreateNewLeagueExecutable(string path)
         {
-            try
+            LeagueExecutable newExe = new LeagueExecutable()
             {
-                using(RegistryKey resultKey = registry.OpenSubKey(keyName))
-                {
-                    if(resultKey != null)
-                    {
-                        return true;
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+                TargetPath = path,
+                StartFolder = Path.GetDirectoryName(path),
+                PatchNumber = GetLeagueVersion(path),
+                ModifiedDate = GetLastModifiedDate(path)
+            };
 
-            return false;
+            newExe.Name = $"Patch {newExe.PatchNumber.VersionSubstring()}";
+            newExe.LaunchArguments = $"\"-GameBaseDir={newExe.StartFolder}\"" +
+                                        " \"-SkipRads\"" +
+                                        " \"-SkipBuild\"" +
+                                        " \"-EnableLNP\"" +
+                                        " \"-UseNewX3D=1\"" +
+                                        " \"-UseNewX3DFramebuffers=1\"";
+
+            return newExe;
         }
 
-        private string FindLeagueExecutablePathInRADS(string startDir)
+        /* private static string FindLeagueExecutablePathInRADS(string startDir)
         {
             // Browse to releases folder
             var browse = Path.Combine(startDir, "RADS", "solutions", "lol_game_client_sln", "releases");
             if (!Directory.Exists(browse))
             {
-                throw new DirectoryNotFoundException($"{_exceptionOriginName} - Critical League of Legends folders do not exist. Does the path " + browse + " exist?");
+                //_log.Warning(_myName, $"Expected RADS folders do not exist, check if {browse} exists");
+                throw new DirectoryNotFoundException($"Expected RADS folders do not exist, check if {browse} exists");
             }
 
             // Get most recent release by folder modification date
@@ -163,7 +183,7 @@ namespace Rofl.Executables.Utilities
             {
                 releaseFolder = String.Empty;
             }
-            else if (folders.Count() == 1) // Only one release, choose that one
+            else if (folders.Length == 1) // Only one release, choose that one
             {
                 releaseFolder = folders[0].FullName;
             }
@@ -174,20 +194,22 @@ namespace Rofl.Executables.Utilities
 
             if (String.IsNullOrEmpty(releaseFolder))
             {
-                throw new DirectoryNotFoundException($"{_exceptionOriginName} - No release folder found");
+                // _log.Warning(_myName, $"No release folder found in RADS");
+                throw new DirectoryNotFoundException($"No release folder found in RADS");
             }
 
             // Browse to executable
             browse = Path.Combine(browse, releaseFolder, "deploy", "League of Legends.exe");
 
-            if (ValidateLeagueExecutable(browse))
+            if (CheckExecutableFile(browse))
             {
                 return browse;
             }
             else
             {
-                throw new FileNotFoundException($"{_exceptionOriginName} - Could not find League of Legends.exe");
+                // _log.Warning(_myName, $"Could not find valid EXE in {browse}");
+                throw new FileNotFoundException($"Could not find valid EXE in {browse}");
             }
-        }
+        }*/
     }
 }

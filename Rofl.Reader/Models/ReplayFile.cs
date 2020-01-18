@@ -17,7 +17,7 @@ namespace Rofl.Reader.Models
 
         public string GameVersion { get; set; }
 
-        public ulong MatchId { get; set; }
+        public string MatchId { get; set; }
 
         public Player[] Players { get; set; }
 

@@ -1,0 +1,259 @@
+﻿<UserControl x:Class="Rofl.UI.Main.Controls.ReplayDetailControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="760"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Top"
+             Background="White">
+    <UserControl.Resources>
+        <converters:FormatKbSizeConverter x:Key="FormatKbSizeConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <!--Blank content to show when nothing is selected-->
+        <StackPanel x:Name="BlankContent"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            
+            <TextBlock Text="{StaticResource BlankDetailMessageText}"
+                       TextAlignment="Center"
+                       Foreground="Gray"/>
+        </StackPanel>
+        
+        <!--The actual replay content-->
+        <Grid x:Name="ReplayContent"
+                Margin="10 5 0 0"
+                Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+
+            <!--The header information-->
+            <StackPanel Orientation="Vertical"
+                        Width="740"
+                        Margin="10 0 0 10"
+                        Grid.Row="0">
+                
+                <Border BorderThickness="0 0 0 2"
+                            BorderBrush="Gray">
+
+                    <DockPanel>
+
+                        <TextBox FontSize="25"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     IsReadOnly="True"
+                                     Text="{Binding Path=PreviewModel.Name, FallbackValue=FileName, Mode=OneWay}"
+                                     DockPanel.Dock="Left"/>
+                        
+                        <!--<TextBox Background="Transparent"
+                                 BorderThickness="0"
+                                 FontSize="14"
+                                 IsReadOnly="True"
+                                 ToolTip="{StaticResource GameVersionToolTip}"
+                                 Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}">
+                            <TextBox.Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding PreviewModel.IsSupported}" Value="True">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                        <TextBlock x:Name="PatchCheckText"
+                                   FontSize="14">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Text" Value="{StaticResource CrossText}"/>
+                                    <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
+                                    <Setter Property="Foreground" Value="Red"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding PreviewModel.IsSupported}" Value="True">
+                                            <Setter Property="Text" Value="{StaticResource CheckText}"/>
+                                            <Setter Property="ToolTip" Value="{StaticResource ReplaySupportedToolTip}"/>
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>-->
+                        
+                        <StackPanel Orientation="Horizontal"
+                                        Margin="20 0 0 0"
+                                        DockPanel.Dock="Right"
+                                        HorizontalAlignment="Right">
+
+                            <Button x:Name="PlayButton"
+                                    Margin="0"
+                                    Width="70"
+                                    Height="30"
+                                    ToolTipService.ShowOnDisabled="True"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    Click="PlayButton_Click">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="True">
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="False">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                            <Trigger Property="IsEnabled" Value="True">
+                                                <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <DockPanel Background="Transparent">
+                                    <TextBlock Text="{StaticResource PlayButtonText}"
+                                                   FontSize="20"
+                                                   Margin="0"
+                                                   DockPanel.Dock="Left"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"/>
+                                    <Image Source="{StaticResource PlayDrawingImage}"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                               Height="20"
+                                               Margin="5 0 0 0"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"
+                                               DockPanel.Dock="Right"/>
+                                </DockPanel>
+                            </Button>
+
+                            <Button x:Name="MoreButton"
+                                    Width="20"
+                                    Height="30"
+                                    ToolTip="{StaticResource MoreToolTip}"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    Click="MoreButton_Click">
+                                <Image Source="{StaticResource MoreDrawingImage}"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                               Height="15"
+                                               DockPanel.Dock="Right"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"/>
+                                <Button.ContextMenu>
+                                    <ContextMenu x:Name="ReplayConextMenu">
+                                        <MenuItem x:Name="OpenContainingFolder"
+                                                  Header="{StaticResource OpenContainingFolder}" 
+                                                  Click="OpenContainingFolder_Click"/>
+                                    </ContextMenu>
+                                </Button.ContextMenu>
+                            </Button>
+                        </StackPanel>
+
+                    </DockPanel>
+
+                </Border>
+
+                <StackPanel Orientation="Horizontal"
+                        Margin="0 5 0 0">
+
+                    <TextBlock FontSize="14"
+                           FontWeight="Bold">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Text" Value="VICTORY"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="True">
+                                        <Setter Property="TextBlock.Text" Value="{StaticResource BlueVictory}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="False">
+                                        <Setter Property="TextBlock.Text" Value="{StaticResource RedVictory}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource MapNameToolTip}"
+                         Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"/>
+
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{Binding Path=PreviewModel.GameDuration}"
+                         Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"/>
+
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource MatchIdToolTip}"
+                         Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
+
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
+
+                    <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource FileSizeToolTip}"
+                         Text="{Binding Path=FileInfo.FileSizeBytes, FallbackValue=FileSize, Mode=OneWay, Converter={StaticResource FormatKbSizeConverter}}"/>
+
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource FileDateToolTip}"
+                         Text="{Binding Path=PreviewModel.CreationDate, StringFormat=yyyy-MM-dd  hh:mm tt, FallbackValue=GameVersion, Mode=OneWay}"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <TabControl x:Name="DetailTabControl"
+                        BorderThickness="0 1 0 0"
+                        BorderBrush="Black"
+                        Grid.Row="1"
+                        SelectionChanged="TabControl_SelectionChanged">
+                <TabItem Header="{StaticResource ScoreboardTabText}"
+                     FontSize="12"
+                     Style="{StaticResource TabHeaderStyle}">
+                    <local:ScoreboardControl Margin="0 10 0 0"/>
+                </TabItem>
+
+                <TabItem Header="{StaticResource StatsTabText}"
+                         FontSize="12"
+                         Style="{StaticResource TabHeaderStyle}">
+                    <ScrollViewer x:Name="StatsScrollViewer"
+                                  Margin="0 5 0 0" 
+                                  VerticalScrollBarVisibility="Visible"
+                                  Loaded="StatsScrollViewer_Loaded">
+                        <local:StatisticsControl x:Name="StatsControl"/>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+
+
+        </Grid>
+    </Grid>
+        
+    
+</UserControl>

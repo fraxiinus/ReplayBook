@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Rofl.UI.Main.Controls
 {
     /// <summary>
-    /// Interaction logic for ToolPanel.xaml
+    /// Interaction logic for PlayerIcon.xaml
     /// </summary>
-    public partial class ToolPanel : UserControl
+    public partial class PlayerIconControl : UserControl
     {
-        public ToolPanel()
+        public PlayerIconControl()
         {
             InitializeComponent();
         }

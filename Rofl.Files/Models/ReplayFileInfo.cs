@@ -9,5 +9,7 @@ namespace Rofl.Files.Models
         public string Path { get; set; }
 
         public DateTime CreationTime { get; set; }
+
+        public long FileSizeBytes { get; set; }
     }
 }

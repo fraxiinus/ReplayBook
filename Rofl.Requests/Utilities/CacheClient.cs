@@ -14,9 +14,9 @@ namespace Rofl.Requests.Utilities
     {
         private string _cachePath { get; set; }
 
-        private Scribe _log;
+        private readonly Scribe _log;
 
-        private string _myName;
+        private readonly string _myName;
 
         public CacheClient(string cachePath, Scribe log)
         {
@@ -63,7 +63,7 @@ namespace Rofl.Requests.Utilities
             // Does the file already exist in that location?
             if (!File.Exists(downloadLocation))
             {
-                _log.Info(_myName, $"Cache miss on {downloadLocation}");
+                _log.Information(_myName, $"Cache miss on {downloadLocation}");
                 response.IsFaulted = true;
                 response.Exception = new FileNotFoundException("Cache miss", downloadLocation);
                 return response;

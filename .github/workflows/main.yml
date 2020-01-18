@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: [windows-latest]
+    steps:
+    - name: Checkout files
+      uses: actions/checkout@v1
+    - name: Setup MSBuild.exe
+      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Build solution
+      run: msbuild ReplayBook.sln /t:Build /p:OutDir="bin/" -p:Configuration="Release" -p:Platform="Any CPU"
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: build_master
+        path: bin/

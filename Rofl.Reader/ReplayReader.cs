@@ -56,6 +56,11 @@ namespace Rofl.Reader
             result.MapName = detailsInferrer.GetMapName(result.MapId);
             result.IsBlueVictorious = detailsInferrer.InferBlueVictory(result.BluePlayers, result.RedPlayers);
 
+            foreach (var player in result.Players)
+            {
+                player.Id = $"{result.MatchId}_{player.PlayerID}";
+            }
+
             return result;
         }
 
@@ -77,7 +82,7 @@ namespace Rofl.Reader
                 Type = ReplayType.ROFL,
                 Name = Path.GetFileNameWithoutExtension(filePath),
                 Location = filePath,
-                MatchId = parseResult.PayloadFields.MatchId,
+                MatchId = parseResult.PayloadFields.MatchId.ToString(),
                 GameDuration = TimeSpan.FromMilliseconds(parseResult.MatchMetadata.GameDuration),
                 GameVersion = parseResult.MatchMetadata.GameVersion,
                 BluePlayers = parseResult.MatchMetadata.BluePlayers ?? new Player[0],
