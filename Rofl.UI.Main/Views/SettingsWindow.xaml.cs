@@ -65,6 +65,9 @@ namespace Rofl.UI.Main.Views
                 case "RequestSettingsListItem":
                     SettingsTabControl.SelectedIndex = 3;
                     break;
+                case "AboutSettingsListItem":
+                    SettingsTabControl.SelectedIndex = 4;
+                    break;
                 default:
                     break;
             }

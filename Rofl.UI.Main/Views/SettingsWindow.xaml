@@ -36,6 +36,10 @@
                 <TextBlock Text="{StaticResource RequestSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
+            <ListBoxItem x:Name="AboutSettingsListItem">
+                <TextBlock Text="{StaticResource AboutSettingsItemText}" FontSize="14"/>
+            </ListBoxItem>
+
         </ListBox>
         
         <Grid DockPanel.Dock="Right"
@@ -265,6 +269,7 @@
                         </Grid>
                     </StackPanel>
                 </TabItem>
+                
                 <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" FontSize="14"/>
@@ -277,6 +282,19 @@
                         <TextBox Text="{Binding Settings.ItemRelativeUrl}" Padding="2" Margin=" 0 2 0 0"/>
                     </StackPanel>
                 </TabItem>
+
+                <TabItem x:Name="AboutTabItem" Visibility="Collapsed">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <Image Source="/ReplayBook;component/Resources/cool_yuumi.png"
+                               Width="150"
+                               HorizontalAlignment="Center"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Text="ReplayBook" FontSize="28" HorizontalAlignment="Center"/>
+                        <TextBox Text="Etirps#1421" FontSize="14" HorizontalAlignment="Center" BorderBrush="Transparent" IsReadOnly="True"/>
+                        <TextBlock Text="Pre-release" FontSize="14" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem>
+
             </TabControl>
         </Grid>
     </DockPanel>

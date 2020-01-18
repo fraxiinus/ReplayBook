@@ -25,6 +25,7 @@
     <string:String x:Key="ReplaySettingsItemText">Replays</string:String>
     <string:String x:Key="RequestSettingsItemText">Web Requests</string:String>
     <string:String x:Key="ExecutablesSettingsItemText">Executables</string:String>
+    <string:String x:Key="AboutSettingsItemText">About</string:String>
 
     <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
     <string:String x:Key="PlayerMarkerWindowText">Player Marker</string:String>
