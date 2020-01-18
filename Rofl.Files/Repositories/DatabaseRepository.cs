@@ -26,7 +26,7 @@ namespace Rofl.Files.Repositories
             {
                 InitializeDatabase();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _log.Warning(_myName, "Database file is invalid, deleting and trying again");
                 File.Delete(_filePath);
@@ -36,6 +36,11 @@ namespace Rofl.Files.Repositories
 
         private void InitializeDatabase()
         {
+            if (!Directory.Exists(Path.GetDirectoryName(_filePath)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(_filePath));
+            }
+
             using (var db = new LiteDatabase(_filePath))
             {
                 var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
