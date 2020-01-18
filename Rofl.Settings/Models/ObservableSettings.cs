@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 
 namespace Rofl.Settings.Models
@@ -11,6 +12,17 @@ namespace Rofl.Settings.Models
     public class ObservableSettings : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public ObservableSettings()
+        {
+            KnownPlayers = new ObservableCollection<PlayerMarker>();
+            SourceFolders = new ObservableCollection<string>();
+
+            DataDragonBaseUrl = @"http://ddragon.leagueoflegends.com/cdn/";
+            ChampionRelativeUrl = @"/img/champion/";
+            MapRelativeUrl = @"/img/map/map";
+            ItemRelativeUrl = @"/img/item/";
+        }
 
         public ObservableSettings(SettingsModel settings)
         {

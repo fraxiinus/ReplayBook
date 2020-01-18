@@ -19,7 +19,7 @@ namespace Rofl.Settings
 
         public ExecutableManager Executables { get; private set; }
 
-        private SettingsModel _rawSettings;
+        // private SettingsModel _rawSettings;
 
         private readonly Scribe _log;
 
@@ -39,7 +39,7 @@ namespace Rofl.Settings
             else
             {
                 _log.Information(_myName, "No config file found, creating new defaults");
-                CreateDefaultConfigFile();
+                Settings = new ObservableSettings();
             }
         }
 
@@ -51,45 +51,27 @@ namespace Rofl.Settings
             using (StreamWriter file = File.CreateText(configPath))
             {
                 var serializer = new JsonSerializer();
-                serializer.Serialize(file, Settings);
+                serializer.Serialize(file, new SettingsModel(Settings));
             }
 
             // Save Executables
             Executables.Save();
         }
 
-        public ObservableSettings CreateDefaultConfigFile()
-        {
-            _rawSettings = new SettingsModel
-            {
-                GeneralSettings = new GeneralSettings(),
-                ReplaySettings = new ReplaySettings(),
-                RequestSettings = new RequestSettings
-                {
-                    DataDragonBaseUrl = @"http://ddragon.leagueoflegends.com/cdn/",
-                    ChampionRelativeUrl = @"/img/champion/",
-                    MapRelativeUrl = @"/img/map/map",
-                    ItemRelativeUrl = @"/img/item/"
-                }
-            };
-            Settings = new ObservableSettings(_rawSettings);
-
-            return Settings;
-        }
-
         public ObservableSettings LoadConfigFile(string configPath)
         {
+            SettingsModel rawSettings;
             using (StreamReader file = File.OpenText(configPath))
             {
                 var serializer = JsonSerializer.Create();
-                _rawSettings = serializer.Deserialize(file, typeof(SettingsModel)) as SettingsModel;
+                rawSettings = serializer.Deserialize(file, typeof(SettingsModel)) as SettingsModel;
             }
 
             // Validate that nothing is null
-            if (_rawSettings == null) { throw new Exception("Parsed config file is null"); }
+            if (rawSettings == null) { throw new Exception("Parsed config file is null"); }
 
             var nullSubObjectCount = typeof(SettingsModel).GetProperties()
-                .Select(prop => prop.GetValue(_rawSettings))
+                .Select(prop => prop.GetValue(rawSettings))
                 .Where(value => value == null)
                 .Count();
 
@@ -99,7 +81,7 @@ namespace Rofl.Settings
             }
 
             var nullGeneralSettingsCount = typeof(GeneralSettings).GetProperties()
-                .Select(prop => prop.GetValue(_rawSettings.GeneralSettings))
+                .Select(prop => prop.GetValue(rawSettings.GeneralSettings))
                 .Where(value => value == null)
                 .Count();
 
@@ -109,7 +91,7 @@ namespace Rofl.Settings
             }
 
             var nullReplaySettingsCount = typeof(ReplaySettings).GetProperties()
-                .Select(prop => prop.GetValue(_rawSettings.ReplaySettings))
+                .Select(prop => prop.GetValue(rawSettings.ReplaySettings))
                 .Where(value => value == null)
                 .Count();
 
@@ -119,7 +101,7 @@ namespace Rofl.Settings
             }
 
             var nullRequestSettingsCount = typeof(RequestSettings).GetProperties()
-                .Select(prop => prop.GetValue(_rawSettings.RequestSettings))
+                .Select(prop => prop.GetValue(rawSettings.RequestSettings))
                 .Where(value => value == null)
                 .Count();
 
@@ -128,7 +110,7 @@ namespace Rofl.Settings
                 throw new Exception("Parsed config file request settings contains null");
             }
 
-            Settings = new ObservableSettings(_rawSettings);
+            Settings = new ObservableSettings(rawSettings);
             return Settings;
         }
     }

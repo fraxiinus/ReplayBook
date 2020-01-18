@@ -99,7 +99,8 @@
                       Style="{StaticResource ReplayListStyle}"
                       ItemsSource="{Binding Source={StaticResource PreviewReplaysView}}"
                       ItemContainerStyle="{StaticResource ReplayListItemStyle}"
-                      Loaded="ReplayListView_Loaded">
+                      Loaded="ReplayListView_Loaded"
+                      MinWidth="350">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <controls:ReplayItemControl MouseDoubleClick="ReplayItemControl_MouseDoubleClick"/>
