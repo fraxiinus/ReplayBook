@@ -43,7 +43,7 @@ namespace Rofl.UI.Main.ViewModels
         public ObservableCollection<ReplayPreviewModel> PreviewReplays { get; private set; }
 
         /// <summary>
-        /// Full replay objects
+        /// Full replay objects with the filepath as the key
         /// </summary>
         public Dictionary<string, FileResult> FileResults { get; private set; }
 
@@ -101,7 +101,7 @@ namespace Rofl.UI.Main.ViewModels
                     PreviewReplays.Add(newItem);
                 });
                 
-                FileResults.Add(file.ReplayFile.MatchId, file);
+                FileResults.Add(file.FileInfo.Path, file);
             }
         }
 
@@ -297,7 +297,8 @@ namespace Rofl.UI.Main.ViewModels
         public void PlayReplay(ReplayPreviewModel preview)
         {
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
-            var replay = FileResults[preview.MatchId];
+            
+            var replay = FileResults[preview.Location];
 
             var executables = SettingsManager.Executables.GetExecutablesByPatch(preview.GameVersion);
 
@@ -339,12 +340,12 @@ namespace Rofl.UI.Main.ViewModels
             ReplayPlayer.Play(target, replay.FileInfo.Path);
         }
 
-        public void OpenReplayContainingFolder(string matchId)
+        public void OpenReplayContainingFolder(string location)
         {
-            if (matchId == null) { throw new ArgumentNullException(nameof(matchId)); }
+            if (String.IsNullOrEmpty(location)) { throw new ArgumentNullException(nameof(location)); }
 
-            FileResults.TryGetValue(matchId, out FileResult match);
-            if (match == null) { throw new ArgumentException($"Match ID {matchId} does not match any known replays"); }
+            FileResults.TryGetValue(location, out FileResult match);
+            if (match == null) { throw new ArgumentException($"{location} does not match any known replays"); }
 
             string selectArg = $"/select, \"{match.FileInfo.Path}\"";
             Process.Start("explorer.exe", selectArg);

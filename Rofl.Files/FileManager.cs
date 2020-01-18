@@ -18,7 +18,7 @@ namespace Rofl.Files
     public class FileManager
     {
         private readonly FolderRepository _fileSystem;
-        private readonly CacheRepository _cache;
+        private readonly DatabaseRepository _db;
         private readonly Scribe _log;
         private readonly ReplayReader _reader;
         private readonly string _myName;
@@ -29,7 +29,7 @@ namespace Rofl.Files
             _myName = this.GetType().ToString();
 
             _fileSystem = new FolderRepository(settings, log);
-            _cache = new CacheRepository(log);
+            _db = new DatabaseRepository(log);
 
             _reader = new ReplayReader();
         }
@@ -54,7 +54,7 @@ namespace Rofl.Files
                 // Ask database repository if file exists, using file path as the key
                 // If hit: Use database entry to create new ReplayFile
                 // If not hit:
-                FileResult item = _cache.CheckCache(replayPath);
+                FileResult item = _db.GetFileResult(replayPath);
                 if (item != null)
                 {
                     _log.Information(_myName, $"Database hit: {replayPath}");
@@ -71,7 +71,8 @@ namespace Rofl.Files
                         IsNewFile = true
                     };
                     // add to cache
-                    _cache.AddCache(newResult);
+
+                    _db.AddFileResult(newResult);
                     totalReplays.Add(newResult);
                 }
             }

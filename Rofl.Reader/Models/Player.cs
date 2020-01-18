@@ -1,9 +1,16 @@
-﻿namespace Rofl.Reader.Models
+﻿using Newtonsoft.Json;
+
+namespace Rofl.Reader.Models
 {
     public class Player
     {
+        [JsonProperty("DatabaseId")]
+        public string Id { get; set; }
+
         public string NAME { get; set; }
-        public string ID { get; set; }
+
+        [JsonProperty("ID")]
+        public string PlayerID { get; set; }
         public string SKIN { get; set; }
         public string TEAM { get; set; }
         public string WIN { get; set; }

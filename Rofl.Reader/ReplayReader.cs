@@ -56,6 +56,11 @@ namespace Rofl.Reader
             result.MapName = detailsInferrer.GetMapName(result.MapId);
             result.IsBlueVictorious = detailsInferrer.InferBlueVictory(result.BluePlayers, result.RedPlayers);
 
+            foreach (var player in result.Players)
+            {
+                player.Id = $"{result.MatchId}_{player.PlayerID}";
+            }
+
             return result;
         }
 

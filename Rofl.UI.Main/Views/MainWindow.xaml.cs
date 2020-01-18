@@ -55,9 +55,9 @@ namespace Rofl.UI.Main
             _files = new FileManager(_settingsManager.Settings, _log);
             _requests = new RequestManager(_settingsManager.Settings, _log);
 
-            _log.Error("lol", "ALPHA DEBUG");
-
             this.DataContext = new MainWindowViewModel(_files, _requests, _settingsManager);
+
+            _log.Error("PRERELEASE", "Log files are generated for each run while in prerelease");
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
@@ -79,7 +79,7 @@ namespace Rofl.UI.Main
 
             ReplayPreviewModel previewModel = replayItem.DataContext as ReplayPreviewModel;
 
-            FileResult replayFile = context.FileResults[previewModel.MatchId];
+            FileResult replayFile = context.FileResults[previewModel.Location];
 
             ReplayDetailModel replayDetailModel = new ReplayDetailModel(replayFile, previewModel);
 

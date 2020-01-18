@@ -19,6 +19,7 @@ namespace Rofl.UI.Main.Models
             MatchId = replayFile.MatchId;
             MapName = replayFile.MapName;
             IsBlueVictorious = replayFile.IsBlueVictorious;
+            Location = replayFile.Location;
 
             // Set new fields
             CreationDate = creationDate;
@@ -42,6 +43,8 @@ namespace Rofl.UI.Main.Models
         public string MapName { get; private set; }
 
         public bool IsBlueVictorious { get; private set; }
+
+        public string Location { get; private set; }
 
         public DateTimeOffset CreationDate { get; set; }
 
