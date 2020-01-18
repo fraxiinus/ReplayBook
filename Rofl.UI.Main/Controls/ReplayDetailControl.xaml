@@ -138,17 +138,25 @@
                             </Button>
 
                             <Button x:Name="MoreButton"
-                                        Width="20"
-                                        Height="30"
-                                        ToolTip="{StaticResource MoreToolTip}"
-                                        Background="Transparent"
-                                        BorderBrush="LightGray">
+                                    Width="20"
+                                    Height="30"
+                                    ToolTip="{StaticResource MoreToolTip}"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    Click="MoreButton_Click">
                                 <Image Source="{StaticResource MoreDrawingImage}"
                                                RenderOptions.BitmapScalingMode="HighQuality"
                                                Height="15"
                                                DockPanel.Dock="Right"
                                                HorizontalAlignment="Right"
                                                VerticalAlignment="Center"/>
+                                <Button.ContextMenu>
+                                    <ContextMenu x:Name="ReplayConextMenu">
+                                        <MenuItem x:Name="OpenContainingFolder"
+                                                  Header="{StaticResource OpenContainingFolder}" 
+                                                  Click="OpenContainingFolder_Click"/>
+                                    </ContextMenu>
+                                </Button.ContextMenu>
                             </Button>
                         </StackPanel>
 
