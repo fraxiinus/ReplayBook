@@ -14,11 +14,11 @@ jobs:
     - name: Setup MSBuild.exe
       uses: warrenbuckley/Setup-MSBuild@v1
     - name: Restore Nuget
-      run: msbuild ReplayBook.sln /t:restore
+      run: msbuild /t:restore
     - name: Build solution
-      run: msbuild ReplayBook.sln /t:Build /p:OutDir="bin/" -p:Configuration="Release" -p:Platform="Any CPU"
+      run: msbuild /t:Build -p:Configuration="Release" -p:Platform="Any CPU"
     - name: Upload Artifact
       uses: actions/upload-artifact@v1
       with:
         name: build_master
-        path: bin/
+        path: Rofl.UI.Main/bin/Release
