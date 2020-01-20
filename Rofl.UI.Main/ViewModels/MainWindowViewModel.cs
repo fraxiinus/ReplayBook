@@ -304,6 +304,7 @@ namespace Rofl.UI.Main.ViewModels
 
             if (!executables.Any())
             {
+                // No executable found that can be used to play
                 MessageBox.Show
                 (
                     Application.Current.TryFindResource("ExecutableNotFoundErrorText") as String + " " + preview.GameVersion,
@@ -323,6 +324,11 @@ namespace Rofl.UI.Main.ViewModels
             }
             else
             {
+                target = executables.First();
+            }
+            
+            if (SettingsManager.Settings.PlayConfirmation)
+            {
                 // Show confirmation dialog
                 var msgResult = MessageBox.Show
                     (
@@ -333,8 +339,6 @@ namespace Rofl.UI.Main.ViewModels
                     );
 
                 if (msgResult != MessageBoxResult.OK) return;
-
-                target = executables.First();
             }
 
             ReplayPlayer.Play(target, replay.FileInfo.Path);

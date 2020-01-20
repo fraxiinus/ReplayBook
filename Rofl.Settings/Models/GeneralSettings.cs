@@ -16,5 +16,12 @@ namespace Rofl.Settings.Models
 
         [JsonProperty("known_players")]
         public List<PlayerMarker> KnownPlayers { get; private set; }
+
+        [JsonProperty("play_confirm")]
+        public bool PlayConfirmation { get; set; }
+
+        [JsonProperty("match_history_url")]
+        public string MatchHistoryBaseUrl { get; set; }
+
     }
 }
