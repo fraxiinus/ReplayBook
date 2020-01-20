@@ -355,6 +355,14 @@ namespace Rofl.UI.Main.ViewModels
             Process.Start("explorer.exe", selectArg);
         }
 
+        public void ViewOnlineMatchHistory(string matchid)
+        {
+            if (String.IsNullOrEmpty(matchid)) { throw new ArgumentNullException(nameof(matchid)); }
+
+            string url = SettingsManager.Settings.MatchHistoryBaseUrl + matchid;
+            Process.Start(url);
+        }
+
         public static LeagueExecutable ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
         {
             var selectWindow = new ExecutableSelectWindow

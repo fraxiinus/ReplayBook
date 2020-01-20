@@ -155,6 +155,10 @@
                                         <MenuItem x:Name="OpenContainingFolder"
                                                   Header="{StaticResource OpenContainingFolder}" 
                                                   Click="OpenContainingFolder_Click"/>
+
+                                        <MenuItem x:Name="ViewOnlineMatchHistory"
+                                                  Header="{StaticResource ViewOnlinePage}"
+                                                  Click="ViewOnlineMatchHistory_Click"/>
                                     </ContextMenu>
                                 </Button.ContextMenu>
                             </Button>

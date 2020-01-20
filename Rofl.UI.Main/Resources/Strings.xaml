@@ -191,5 +191,6 @@
     
     <!--Replay Menu Item Text-->
     <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
+    <string:String x:Key="ViewOnlinePage">View Online...</string:String>
 
 </ResourceDictionary>
