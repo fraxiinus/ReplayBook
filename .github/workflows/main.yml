@@ -1,4 +1,4 @@
-name: ReplayBook-Build
+name: Build
 
 on:
   push:
