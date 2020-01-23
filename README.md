@@ -1,5 +1,5 @@
 # Replay Book
-
+![](https://github.com/leeanchu/ReplayBook/workflows/Build/badge.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/leeanchu/ROFL-Player/blob/master/LICENSE)
 [![Discord](https://img.shields.io/discord/606263917211156501?color=blue&label=chat&logo=discord&style=social)](https://discord.gg/c33Rc5J)
 
