@@ -11,16 +11,45 @@ jobs:
     steps:
     - name: Checkout files
       uses: actions/checkout@v1
+      
     - name: Setup MSBuild.exe
       uses: warrenbuckley/Setup-MSBuild@v1
+      
     - name: Setup Nuget
       uses: warrenbuckley/Setup-Nuget@v1
+      
     - name: Restore Nuget
       run: nuget restore ReplayBook.sln
+      
     - name: Build solution
       run: msbuild /t:Build -p:Configuration="Release" -p:Platform="Any CPU"
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v1
+    
+    - name: Package release
+      uses: montudor/action-zip@v0.1.0
       with:
-        name: build_master
-        path: Rofl.UI.Main/bin/Release
+        args: zip -qq -r ./ReplayBook.zip ./Rofl.UI.Main/bin/Release
+    
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Changes in this Release
+          - First Change
+          - Second Change
+        draft: true
+        prerelease: true
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./ReplayBook.zip
+        asset_name: ReplayBook.zip
+        asset_content_type: application/zip
