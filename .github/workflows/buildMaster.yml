@@ -1,4 +1,4 @@
-name: Build
+name: Build_Master
 
 on:
   push:

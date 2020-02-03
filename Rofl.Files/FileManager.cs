@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using LiteDB;
+using Microsoft.Extensions.Configuration;
 using Rofl.Files.Models;
 using Rofl.Files.Repositories;
 using Rofl.Logger;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace Rofl.Files
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class FileManager
     {
         private readonly FolderRepository _fileSystem;
@@ -32,6 +34,77 @@ namespace Rofl.Files
             _db = new DatabaseRepository(log);
 
             _reader = new ReplayReader();
+        }
+
+        /// <summary>
+        /// This function is responsible for finding and loading in new replays
+        /// </summary>
+        public async Task InitialLoadAsync()
+        {
+            _log.Information(_myName, "Starting initial load of replays");
+
+            List<ReplayFileInfo> newFiles = new List<ReplayFileInfo>();
+            
+            // Get all files from all defined replay folders
+            IReadOnlyCollection<ReplayFileInfo> allFiles = _fileSystem.GetAllReplayFileInfo();
+            
+            // Check if file exists in the database
+            foreach (var file in allFiles)
+            {
+                if (_db.GetFileResult(file.Path) == null)
+                {
+                    newFiles.Add(file);
+                }
+            }
+
+            _log.Information(_myName, $"Discovered {newFiles.Count} new files");
+
+            // Files not in the database are parsed and added
+            foreach (var file in newFiles)
+            {
+                var parseResult = await _reader.ReadFile(file.Path).ConfigureAwait(false);
+
+                FileResult newResult = new FileResult
+                {
+                    ReplayFile = parseResult,
+                    FileInfo = file,
+                    IsNewFile = true
+                };
+
+                _db.AddFileResult(newResult);
+            }
+
+            _log.Information(_myName, "Initial load of replays complete");
+        }
+
+        public IReadOnlyCollection<FileResult> GetReplays(SortPropertiesModel sort, int maxEntries, int skip)
+        {
+            if (sort == null) { throw new ArgumentNullException(nameof(sort)); }
+
+            Query query;
+            switch (sort.SortMethod)
+            {
+                default:
+                    query = Query.All("CreationTime", Query.Ascending);
+                    break;
+                case SortMethod.DateDesc:
+                    query = Query.All("CreationTime", Query.Descending);
+                    break;
+                case SortMethod.SizeAsc:
+                    query = Query.All("FileSizeBytes", Query.Ascending);
+                    break;
+                case SortMethod.SizeDesc:
+                    query = Query.All("FileSizeBytes", Query.Descending);
+                    break;
+                case SortMethod.NameAsc:
+                    query = Query.All("Name", Query.Ascending);
+                    break;
+                case SortMethod.NameDesc:
+                    query = Query.All("Name", Query.Descending);
+                    break;
+            }
+
+            return _db.QueryReplayFiles(query, maxEntries, skip);
         }
 
         /// <summary>

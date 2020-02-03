@@ -23,5 +23,8 @@ namespace Rofl.Settings.Models
         [JsonProperty("match_history_url")]
         public string MatchHistoryBaseUrl { get; set; }
 
+        [JsonProperty("items_per_page")]
+        public int ItemsPerPage { get; set; }
+
     }
 }

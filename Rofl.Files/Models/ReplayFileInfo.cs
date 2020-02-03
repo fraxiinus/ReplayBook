@@ -11,5 +11,7 @@ namespace Rofl.Files.Models
         public DateTime CreationTime { get; set; }
 
         public long FileSizeBytes { get; set; }
+
+        public string Name { get; set; }
     }
 }

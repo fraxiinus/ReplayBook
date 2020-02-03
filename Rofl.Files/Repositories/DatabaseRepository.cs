@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Rofl.Files.Repositories
 {
@@ -46,6 +47,10 @@ namespace Rofl.Files.Repositories
                 var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
                 var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
                 var players = db.GetCollection<Player>("players");
+
+                fileInfos.EnsureIndex(x => x.Name);
+                fileInfos.EnsureIndex(x => x.FileSizeBytes);
+                fileInfos.EnsureIndex(x => x.CreationTime);
 
                 replayFiles.EnsureIndex(x => x.Players, "$.Players[*].NAME");
                 replayFiles.EnsureIndex(x => x.Players, "$.Players[*].SKIN");
@@ -136,6 +141,45 @@ namespace Rofl.Files.Repositories
                 return null;
             }
         }
+
+        public IReadOnlyCollection<FileResult> QueryReplayFiles(Query query, int maxEntries, int skip)
+        {
+            using (var db = new LiteDatabase(_filePath))
+            {
+                var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
+                var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
+                var players = db.GetCollection<Player>("players");
+                List<FileResult> results = new List<FileResult>();
+
+                foreach (var file in fileInfos.Find(query, limit: maxEntries, skip: skip))
+                {
+                    results.Add(new FileResult
+                    {
+                        FileInfo = file,
+                        ReplayFile = replayFiles
+                            .Include(
+                                x => x.Players
+                            )
+                            .FindOne(
+                                x => x.Location.Equals(file.Path, StringComparison.OrdinalIgnoreCase)
+                            ),
+                        IsNewFile = false
+                    });
+                }
+
+                return results;
+            }
+        }
+
+        //public void SetReadFile(string path)
+        //{
+        //    using (var db = new LiteDatabase(_filePath))
+        //    {
+        //        var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
+
+        //        fileInfos.
+        //    }
+        //}
 
         private void TestDb()
         {

@@ -278,7 +278,30 @@
                                         Click="RemoveSourceFolderButton_Click"
                                         IsEnabled="False"/>
                             </StackPanel>
+                        </Grid>
 
+                        <TextBlock Text="{StaticResource ReplayItemsPerPage}" FontSize="14" Padding="0 10 0 5"/>
+                        <Grid VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Slider x:Name="ItemCountSlider"
+                                    Minimum="10" 
+                                    Maximum="200" 
+                                    TickFrequency="10" 
+                                    TickPlacement="BottomRight"
+                                    IsSnapToTickEnabled="True"
+                                    Value="{Binding Path=Settings.ItemsPerPage}"
+                                    Grid.Column="0"
+                                    Margin="0 0 10 0"/>
+                            
+                            <TextBox x:Name="ItemCountTextBox"
+                                     Width="50"
+                                     TextAlignment="Center"
+                                     VerticalAlignment="Top"
+                                     Text="{Binding ElementName=ItemCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                                     Grid.Column="1"/>
                         </Grid>
                     </StackPanel>
                 </TabItem>
@@ -303,8 +326,8 @@
                                HorizontalAlignment="Center"
                                RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock Text="ReplayBook" FontSize="28" HorizontalAlignment="Center"/>
-                        <TextBox Text="Etirps#1421" FontSize="14" HorizontalAlignment="Center" BorderBrush="Transparent" IsReadOnly="True"/>
-                        <TextBlock Text="Pre-release 1" FontSize="14" HorizontalAlignment="Center"/>
+                        <TextBox Text="{StaticResource DiscordInvite}" FontSize="14" HorizontalAlignment="Center" BorderBrush="Transparent" IsReadOnly="True"/>
+                        <TextBlock Text="{StaticResource Version}" FontSize="14" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </TabItem>
 

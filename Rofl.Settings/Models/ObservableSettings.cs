@@ -18,6 +18,7 @@ namespace Rofl.Settings.Models
             KnownPlayers = new ObservableCollection<PlayerMarker>();
             PlayConfirmation = true;
             MatchHistoryBaseUrl = @"https://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/";
+            ItemsPerPage = 50;
 
             SourceFolders = new ObservableCollection<string>();
 
@@ -34,6 +35,12 @@ namespace Rofl.Settings.Models
             KnownPlayers = new ObservableCollection<PlayerMarker>(settings.GeneralSettings.KnownPlayers);
             PlayConfirmation = settings.GeneralSettings.PlayConfirmation;
             MatchHistoryBaseUrl = settings.GeneralSettings.MatchHistoryBaseUrl;
+
+            ItemsPerPage = settings.GeneralSettings.ItemsPerPage;
+            if(ItemsPerPage < 10 || ItemsPerPage > 200)
+            {
+                ItemsPerPage = 50;
+            }
 
             SourceFolders = new ObservableCollection<string>(settings.ReplaySettings.SourceFolders);
 
@@ -78,6 +85,18 @@ namespace Rofl.Settings.Models
                 _matchHistoryBaseUrl = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(MatchHistoryBaseUrl)));
+            }
+        }
+
+        private int _itemsPerPage;
+        public int ItemsPerPage 
+        {
+            get { return _itemsPerPage; }
+            set
+            {
+                _itemsPerPage = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ItemsPerPage)));
             }
         }
 

@@ -168,6 +168,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\FormatKbSizeConverter.cs" />
+    <Compile Include="Models\StatusBarModel.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Views\ExecutableDetailWindow.xaml.cs">
       <DependentUpon>ExecutableDetailWindow.xaml</DependentUpon>
@@ -265,7 +266,6 @@
     <Compile Include="Models\PlayerPreviewModel.cs" />
     <Compile Include="Models\ReplayDetailModel.cs" />
     <Compile Include="Models\ReplayPreviewModel.cs" />
-    <Compile Include="Models\SortPropertiesModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
