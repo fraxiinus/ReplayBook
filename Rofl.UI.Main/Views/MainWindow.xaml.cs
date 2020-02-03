@@ -57,14 +57,20 @@ namespace Rofl.UI.Main
 
             this.DataContext = new MainWindowViewModel(_files, _requests, _settingsManager);
 
+            Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
+            {
+                _log.Error("RootHandler", e.Exception.ToString());
+                _log.WriteToFile();
+            };
+
             _log.Error("PRERELEASE", "Log files are generated for each run while in prerelease");
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
         {
-            // configure await it set to true, otherwise we get some errors...
-            await (DataContext as MainWindowViewModel).LoadReplays().ConfigureAwait(true);
-            await (DataContext as MainWindowViewModel).LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+
+            await context.ReloadReplayList().ConfigureAwait(true);
         }
 
         private void PreviewReplaysView_Filter(object sender, FilterEventArgs e)
@@ -111,7 +117,7 @@ namespace Rofl.UI.Main
             _typingTimer.Tag = (sender as TextBox).Text;
             _typingTimer.Start();
         }
-
+        
         private void SortButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
@@ -132,7 +138,12 @@ namespace Rofl.UI.Main
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Sort menu item click handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
             if (!(sender is MenuItem selectedItem)) { return; }
@@ -151,7 +162,9 @@ namespace Rofl.UI.Main
                 }
             }
 
-            context.SortPreviewReplays(this.FindResource("PreviewReplaysView") as CollectionViewSource);
+            await context.ReloadReplayList().ConfigureAwait(true);
+
+            // context.SortPreviewReplays(this.FindResource("PreviewReplaysView") as CollectionViewSource);
         }
 
         private async void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -161,7 +174,7 @@ namespace Rofl.UI.Main
             await context.ShowSettingsDialog().ConfigureAwait(true);
         }
 
-        private void TypingTimer_Timeout(object sender, EventArgs e)
+        private async void TypingTimer_Timeout(object sender, EventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
             if (!(sender is DispatcherTimer timer)) { return; }
@@ -169,10 +182,49 @@ namespace Rofl.UI.Main
             string searchText = timer.Tag.ToString();
 
             context.SortParameters.SearchTerm = searchText;
+            // await context.ReloadReplayList().ConfigureAwait(true);
 
-            (this.FindResource("PreviewReplaysView") as CollectionViewSource).View.Refresh();
+            // (this.FindResource("PreviewReplaysView") as CollectionViewSource).View.Refresh();
 
             timer.Stop();
+        }
+
+        /// <summary>
+        /// Display or hide LoadMoreButton if scrolled to the bottom
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ReplayListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+
+            if (Math.Abs(e.VerticalChange) > 0)
+            {
+                if (e.VerticalOffset + e.ViewportHeight == e.ExtentHeight)
+                {
+                    ReplayPageBar.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ReplayPageBar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private async void LoadMoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+
+            var lastItem = context.PreviewReplays.Last();
+
+            context.LoadReplays();
+            await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+        }
+
+        private async void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+            await context.ReloadReplayList().ConfigureAwait(true);
         }
     }
 }

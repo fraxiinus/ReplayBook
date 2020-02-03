@@ -16,6 +16,10 @@ namespace Rofl.Settings.Models
         public ObservableSettings()
         {
             KnownPlayers = new ObservableCollection<PlayerMarker>();
+            PlayConfirmation = true;
+            MatchHistoryBaseUrl = @"https://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/";
+            ItemsPerPage = 50;
+
             SourceFolders = new ObservableCollection<string>();
 
             DataDragonBaseUrl = @"http://ddragon.leagueoflegends.com/cdn/";
@@ -29,6 +33,15 @@ namespace Rofl.Settings.Models
             if (settings == null) { throw new ArgumentNullException(nameof(settings)); }
 
             KnownPlayers = new ObservableCollection<PlayerMarker>(settings.GeneralSettings.KnownPlayers);
+            PlayConfirmation = settings.GeneralSettings.PlayConfirmation;
+            MatchHistoryBaseUrl = settings.GeneralSettings.MatchHistoryBaseUrl;
+
+            ItemsPerPage = settings.GeneralSettings.ItemsPerPage;
+            if(ItemsPerPage < 10 || ItemsPerPage > 200)
+            {
+                ItemsPerPage = 50;
+            }
+
             SourceFolders = new ObservableCollection<string>(settings.ReplaySettings.SourceFolders);
 
             DataDragonBaseUrl = settings.RequestSettings.DataDragonBaseUrl;
@@ -45,6 +58,47 @@ namespace Rofl.Settings.Models
         // Replay Settings
         public ObservableCollection<string> SourceFolders { get; private set; }
 
+        private bool _playConfirmation;
+        public bool PlayConfirmation
+        {
+            get
+            {
+                return _playConfirmation;
+            }
+            set
+            {
+                _playConfirmation = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(PlayConfirmation)));
+            }
+        }
+
+        private string _matchHistoryBaseUrl;
+        public string MatchHistoryBaseUrl
+        {
+            get
+            {
+                return _matchHistoryBaseUrl;
+            }
+            set
+            {
+                _matchHistoryBaseUrl = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(MatchHistoryBaseUrl)));
+            }
+        }
+
+        private int _itemsPerPage;
+        public int ItemsPerPage 
+        {
+            get { return _itemsPerPage; }
+            set
+            {
+                _itemsPerPage = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ItemsPerPage)));
+            }
+        }
 
         // Request Settings
         private string _dataDragonBaseUrl;

@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Rofl.UI.Main.Models
+namespace Rofl.Files.Models
 {
-    public enum SortMethod { NameAsc, NameDesc, DateAsc, DateDesc, LengthAsc, LengthDesc}
+    public enum SortMethod { NameAsc, NameDesc, DateAsc, DateDesc, SizeAsc, SizeDesc }
 
     public class SortPropertiesModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string _searchTerm;
-        public string SearchTerm 
+        public string SearchTerm
         {
             get { return _searchTerm; }
             set

@@ -15,23 +15,24 @@
         MinWidth="1150"
         Height="655" 
         Width="1150">
-    
-    <Window.Resources>
-        <CollectionViewSource x:Key="PreviewReplaysView" 
-                              Source="{Binding Path=PreviewReplays}"
-                              Filter="PreviewReplaysView_Filter">
-        </CollectionViewSource>
-    </Window.Resources>
-    
+
     <DockPanel>
         
-        <DockPanel DockPanel.Dock="Left">
+        <Grid DockPanel.Dock="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            
             <Grid x:Name="ToolPanel"
-                  DockPanel.Dock="Top"
                   Background="WhiteSmoke"
-                  DataContext="{Binding Path=SortParameters}">
+                  DataContext="{Binding Path=SortParameters}"
+                  Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -46,12 +47,20 @@
                                  TextChanged="SearchBox_TextChanged"/>
                 </Border>
 
+                <Button x:Name="RefreshButton"
+                        ToolTip="{StaticResource SettingsToolTip}"
+                        Style="{StaticResource ToolButton}"
+                        Click="RefreshButton_Click"
+                        Grid.Column="1">
+                    <Image Source="{StaticResource RefreshDrawingImage}"/>
+                </Button>
+                
                 <Button x:Name="SortButton"
                         ToolTip="{StaticResource SortToolTip}"
                         Style="{StaticResource ToolButton}"
                         ContextMenuService.Placement="Bottom"
                         Click="SortButton_Click"
-                        Grid.Column="1">
+                        Grid.Column="2">
                     <Image Source="{StaticResource SortDrawingImage}"/>
                     <Button.ContextMenu>
                         <ContextMenu x:Name="SortMenu">
@@ -69,11 +78,11 @@
                                       Header="{StaticResource DateDesc}" 
                                       Click="MenuItem_Click"/>
                             <Separator/>
-                            <MenuItem x:Name="LengthAsc"
-                                      Header="{StaticResource LengthAsc}" 
+                            <MenuItem x:Name="SizeAsc"
+                                      Header="{StaticResource SizeAsc}" 
                                       Click="MenuItem_Click"/>
-                            <MenuItem x:Name="LengthDesc"
-                                      Header="{StaticResource LengthDesc}" 
+                            <MenuItem x:Name="SizeDesc"
+                                      Header="{StaticResource SizeDesc}" 
                                       Click="MenuItem_Click"/>
                         </ContextMenu>
                     </Button.ContextMenu>
@@ -89,18 +98,48 @@
                         ToolTip="{StaticResource SettingsToolTip}"
                         Style="{StaticResource ToolButton}"
                         Click="SettingsButton_Click"
-                        Grid.Column="2">
+                        Grid.Column="3">
                     <Image Source="{StaticResource SettingsDrawingImage}"/>
                 </Button>
 
             </Grid>
 
+            <Grid x:Name="ReplayStatusBar"
+                  Background="{Binding Path=StatusBarModel.Color}"
+                  HorizontalAlignment="Stretch"
+                  Grid.Row="1">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=StatusBarModel.Visible}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=StatusBarModel.Visible}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage}"
+                           TextAlignment="Center"
+                           FontSize="16"
+                           VerticalAlignment="Center" 
+                           Grid.Column="0"
+                           Padding="2"/>
+            </Grid>
+            
             <ListView x:Name="ReplayListView"
                       Style="{StaticResource ReplayListStyle}"
-                      ItemsSource="{Binding Source={StaticResource PreviewReplaysView}}"
+                      ItemsSource="{Binding Path=PreviewReplays}"
                       ItemContainerStyle="{StaticResource ReplayListItemStyle}"
                       Loaded="ReplayListView_Loaded"
-                      MinWidth="350">
+                      MinWidth="350"
+                      VerticalAlignment="Stretch"
+                      ScrollViewer.ScrollChanged="ReplayListView_ScrollChanged"
+                      Grid.Row="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <controls:ReplayItemControl MouseDoubleClick="ReplayItemControl_MouseDoubleClick"/>
@@ -108,7 +147,20 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-        </DockPanel>
+            <Grid x:Name="ReplayPageBar"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Bottom"
+                  Grid.Row="3"
+                  Visibility="Collapsed">
+                <Button x:Name="LoadMoreButton"
+                        Content="{StaticResource LoadMoreButtonText}"
+                        FontSize="14"
+                        Padding="2"
+                        Style="{StaticResource BaseButton}"
+                        Click="LoadMoreButton_Click"/>
+            </Grid>
+
+        </Grid>
 
         <controls:ReplayDetailControl x:Name="DetailView"/>
 

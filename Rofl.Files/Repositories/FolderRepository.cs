@@ -58,7 +58,8 @@ namespace Rofl.Files.Repositories
                     {
                         Path = file.FullName,
                         CreationTime = file.CreationTime,
-                        FileSizeBytes = file.Length
+                        FileSizeBytes = file.Length,
+                        Name = Path.GetFileNameWithoutExtension(file.FullName)
                     });
                 }
             }

@@ -24,6 +24,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Rofl.UI.Main.ViewModels
 {
@@ -51,10 +52,11 @@ namespace Rofl.UI.Main.ViewModels
 
         public SettingsManager SettingsManager { get; private set; }
 
+        public StatusBarModel StatusBarModel { get; private set; }
+
         public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager)
         {
-            if (settingsManager == null) { throw new ArgumentNullException(nameof(settingsManager)); }
-            SettingsManager = settingsManager;
+            SettingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
             _fileManager = files ?? throw new ArgumentNullException(nameof(files));
             _requestManager = requests ?? throw new ArgumentNullException(nameof(requests));
 
@@ -68,19 +70,23 @@ namespace Rofl.UI.Main.ViewModels
                 SearchTerm = String.Empty,
                 SortMethod = SortMethod.DateDesc
             };
+
+            StatusBarModel = new StatusBarModel();
         }
 
-        public async Task LoadReplays()
+        /// <summary>
+        /// Get replays from database and load to display
+        /// </summary>
+        public void LoadReplays()
         {
-            var rawFileResults = await _fileManager.GetReplayFilesAsync().ConfigureAwait(false);
+            var databaseResults = _fileManager.GetReplays(SortParameters, SettingsManager.Settings.ItemsPerPage, PreviewReplays.Count);
 
-            foreach (var file in rawFileResults)
+            foreach (var file in databaseResults)
             {
-                ReplayPreviewModel newItem = new ReplayPreviewModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
+                ReplayPreviewModel previewModel = new ReplayPreviewModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
+                previewModel.IsSupported = SettingsManager.Executables.DoesVersionExist(previewModel.GameVersion);
 
-                newItem.IsSupported = SettingsManager.Executables.DoesVersionExist(newItem.GameVersion);
-
-                foreach (var bluePlayer in newItem.BluePreviewPlayers)
+                foreach (var bluePlayer in previewModel.BluePreviewPlayers)
                 {
                     bluePlayer.Marker = KnownPlayers.Where
                         (
@@ -88,7 +94,7 @@ namespace Rofl.UI.Main.ViewModels
                         ).FirstOrDefault();
                 }
 
-                foreach (var redPlayer in newItem.RedPreviewPlayers)
+                foreach (var redPlayer in previewModel.RedPreviewPlayers)
                 {
                     redPlayer.Marker = KnownPlayers.Where
                         (
@@ -98,53 +104,10 @@ namespace Rofl.UI.Main.ViewModels
 
                 App.Current.Dispatcher.Invoke((Action) delegate
                 {
-                    PreviewReplays.Add(newItem);
+                    PreviewReplays.Add(previewModel);
                 });
-                
+
                 FileResults.Add(file.FileInfo.Path, file);
-            }
-        }
-
-        public void SortPreviewReplays(CollectionViewSource replayView)
-        {
-            if(replayView == null) { throw new ArgumentNullException(nameof(replayView)); }
-
-            SortMethod sort = SortParameters.SortMethod;
-
-            switch (sort)
-            {
-                case SortMethod.NameAsc:
-                    replayView.SortDescriptions.Clear();
-                    replayView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-                    break;
-
-                case SortMethod.NameDesc:
-                    replayView.SortDescriptions.Clear();
-                    replayView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Descending));
-                    break;
-
-                case SortMethod.DateAsc:
-                    replayView.SortDescriptions.Clear();
-                    replayView.SortDescriptions.Add(new SortDescription("CreationDate", ListSortDirection.Ascending));
-                    break;
-
-                case SortMethod.DateDesc:
-                    replayView.SortDescriptions.Clear();
-                    replayView.SortDescriptions.Add(new SortDescription("CreationDate", ListSortDirection.Descending));
-                    break;
-
-                case SortMethod.LengthAsc:
-                    replayView.SortDescriptions.Clear();
-                    replayView.SortDescriptions.Add(new SortDescription("GameDuration", ListSortDirection.Ascending));
-                    break;
-
-                case SortMethod.LengthDesc:
-                    replayView.SortDescriptions.Clear();
-                    replayView.SortDescriptions.Add(new SortDescription("GameDuration", ListSortDirection.Descending));
-                    break;
-
-                default:
-                    break;
             }
         }
 
@@ -287,11 +250,26 @@ namespace Rofl.UI.Main.ViewModels
                 ReloadPlayerMarkers();
 
                 // Refresh all replays
-                FileResults.Clear();
-                PreviewReplays.Clear();
-                await LoadReplays().ConfigureAwait(true);
-                await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+                await ReloadReplayList().ConfigureAwait(true);
             }
+        }
+
+        /// <summary>
+        /// The function to call to refresh the list
+        /// </summary>
+        /// <returns></returns>
+        public async Task ReloadReplayList()
+        {
+            FileResults.Clear();
+            PreviewReplays.Clear();
+
+            StatusBarModel.StatusMessage = "Loading replays...";
+            StatusBarModel.Color = Brushes.Orchid;
+            StatusBarModel.Visible = true;
+            await _fileManager.InitialLoadAsync().ConfigureAwait(true);
+            LoadReplays();
+            await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+            StatusBarModel.Visible = false;
         }
 
         public void PlayReplay(ReplayPreviewModel preview)
@@ -304,6 +282,7 @@ namespace Rofl.UI.Main.ViewModels
 
             if (!executables.Any())
             {
+                // No executable found that can be used to play
                 MessageBox.Show
                 (
                     Application.Current.TryFindResource("ExecutableNotFoundErrorText") as String + " " + preview.GameVersion,
@@ -323,6 +302,11 @@ namespace Rofl.UI.Main.ViewModels
             }
             else
             {
+                target = executables.First();
+            }
+            
+            if (SettingsManager.Settings.PlayConfirmation)
+            {
                 // Show confirmation dialog
                 var msgResult = MessageBox.Show
                     (
@@ -333,8 +317,6 @@ namespace Rofl.UI.Main.ViewModels
                     );
 
                 if (msgResult != MessageBoxResult.OK) return;
-
-                target = executables.First();
             }
 
             ReplayPlayer.Play(target, replay.FileInfo.Path);
@@ -349,6 +331,14 @@ namespace Rofl.UI.Main.ViewModels
 
             string selectArg = $"/select, \"{match.FileInfo.Path}\"";
             Process.Start("explorer.exe", selectArg);
+        }
+
+        public void ViewOnlineMatchHistory(string matchid)
+        {
+            if (String.IsNullOrEmpty(matchid)) { throw new ArgumentNullException(nameof(matchid)); }
+
+            string url = SettingsManager.Settings.MatchHistoryBaseUrl + matchid;
+            Process.Start(url);
         }
 
         public static LeagueExecutable ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)

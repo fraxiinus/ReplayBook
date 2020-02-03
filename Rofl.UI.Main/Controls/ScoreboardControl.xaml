@@ -11,14 +11,14 @@
                 Background="Transparent">
 
         <StackPanel Orientation="Horizontal">
-            <Image Source="/ReplayManager;component/Resources/scoreboardicon_champion.png"
+            <Image Source="/ReplayBook;component/Resources/scoreboardicon_champion.png"
                    Margin="0 0 5 0"/>
 
             <TextBlock Text="{StaticResource BlueTeamText}"
                        Width="80"
                        FontSize="15"/>
 
-            <Image Source="/ReplayManager;component/Resources/scoreboardicon_score.png"
+            <Image Source="/ReplayBook;component/Resources/scoreboardicon_score.png"
                    Margin="97 0 0 0"/>
 
             <TextBlock Text="{Binding Path=BlueKills}"
@@ -57,10 +57,10 @@
                        TextAlignment="Center"
                        Width="25"/>
 
-            <Image Source="/ReplayManager;component/Resources/scoreboardicon_items.png"
+            <Image Source="/ReplayBook;component/Resources/scoreboardicon_items.png"
                    Margin="119 0 0 0"/>
 
-            <Image Source="/ReplayManager;component/Resources/scoreboardicon_minion.png"
+            <Image Source="/ReplayBook;component/Resources/scoreboardicon_minion.png"
                    Margin="122 0 0 0"/>
 
             <TextBox Margin="0"
@@ -74,7 +74,7 @@
                      ToolTip="{StaticResource CreepScoreToolTip}"
                      Text="{Binding Path=BlueMinionsKilled, Mode=OneWay, StringFormat={}{0:#,#}}"/>
 
-            <Image Source="/ReplayManager;component/Resources/scoreboardicon_gold.png"
+            <Image Source="/ReplayBook;component/Resources/scoreboardicon_gold.png"
                    Margin="20 0 0 0"/>
 
             <TextBox Margin="0"
@@ -111,14 +111,14 @@
 
         <StackPanel Orientation="Horizontal"
                     Margin="0 10 0 0">
-            <Image Source="/ReplayManager;component/Resources/scoreboardicon_champion.png"
+            <Image Source="/ReplayBook;component/Resources/scoreboardicon_champion.png"
                    Margin="0 0 5 0"/>
 
             <TextBlock Text="{StaticResource RedTeamText}"
                        Width="80"
                        FontSize="15"/>
 
-            <Image Source="/ReplayManager;component/Resources/scoreboardicon_score.png"
+            <Image Source="/ReplayBook;component/Resources/scoreboardicon_score.png"
                    Margin="97 0 0 0"/>
 
             <TextBlock Text="{Binding Path=RedKills}"
@@ -157,10 +157,10 @@
                        TextAlignment="Center"
                        Width="25"/>
 
-            <Image Source="/ReplayManager;component/Resources/scoreboardicon_items.png"
+            <Image Source="/ReplayBook;component/Resources/scoreboardicon_items.png"
                    Margin="119 0 0 0"/>
 
-            <Image Source="/ReplayManager;component/Resources/scoreboardicon_minion.png"
+            <Image Source="/ReplayBook;component/Resources/scoreboardicon_minion.png"
                    Margin="122 0 0 0"/>
 
             <TextBox Margin="0"
@@ -174,7 +174,7 @@
                      ToolTip="{StaticResource CreepScoreToolTip}"
                      Text="{Binding Path=RedMinionsKilled, Mode=OneWay, StringFormat={}{0:#,#}}"/>
 
-            <Image Source="/ReplayManager;component/Resources/scoreboardicon_gold.png"
+            <Image Source="/ReplayBook;component/Resources/scoreboardicon_gold.png"
                    Margin="20 0 0 0"/>
 
             <TextBox Margin="0"

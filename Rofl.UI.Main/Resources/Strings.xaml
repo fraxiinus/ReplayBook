@@ -8,6 +8,7 @@
     <string:String x:Key="SearchDefaultText">Search...</string:String>
     <string:String x:Key="MoreButtonText">Options</string:String>
     <string:String x:Key="PlayButtonText">Play</string:String>
+    <string:String x:Key="LoadMoreButtonText">Load more...</string:String>
     
     <string:String x:Key="CheckText">✔</string:String>
     <string:String x:Key="CrossText">❌</string:String>
@@ -25,6 +26,7 @@
     <string:String x:Key="ReplaySettingsItemText">Replays</string:String>
     <string:String x:Key="RequestSettingsItemText">Web Requests</string:String>
     <string:String x:Key="ExecutablesSettingsItemText">Executables</string:String>
+    <string:String x:Key="AboutSettingsItemText">About</string:String>
 
     <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
     <string:String x:Key="PlayerMarkerWindowText">Player Marker</string:String>
@@ -35,6 +37,10 @@
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Player name cannot be empty</string:String>
     <string:String x:Key="PlayerMarkerColorIsEmptyErrorText">Please choose a color</string:String>
 
+    <string:String x:Key="PlayConfirmCheckboxText">Always ask for confirmation before playing replays</string:String>
+
+    <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
+    
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Search folders for executables</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultTitleText">Search results</string:String>
@@ -58,11 +64,20 @@
     <string:String x:Key="SourceFoldersAlreadyExistsErrorText">Selected folder is already added, please select another folder</string:String>
     <string:String x:Key="SourceFoldersAlreadyExistsErrorTitle">Folder already added</string:String>
 
+    <string:String x:Key="ReplayItemsPerPage">Results Per Page</string:String>
+
     <string:String x:Key="DataDragonBaseUrlLabelText">Data Dragon Base URL</string:String>
     <string:String x:Key="DataDragonChampionUrlLabelText">Champion Image Relative URL</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">Item Image Relative URL</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
 
+    <string:String x:Key="Version">Prerelease 2</string:String>
+    <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
+    <string:String x:Key="GitHubLink">https://github.com/leeanchu/ReplayBook</string:String>
+    <string:String x:Key="DiscordInvite">discord.gg/c33Rc5J</string:String>
+    <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
+    
+    <!--Generic button text-->
     <string:String x:Key="OKButtonText">OK</string:String>
     <string:String x:Key="AddButtonText">Add</string:String>
     <string:String x:Key="EditButtonText">Edit</string:String>
@@ -181,10 +196,11 @@
     <string:String x:Key="DateAsc">Date created ascending</string:String>
     <string:String x:Key="DateDesc">Date created descending</string:String>
 
-    <string:String x:Key="LengthAsc">Duration ascending</string:String>
-    <string:String x:Key="LengthDesc">Duration descending</string:String>
+    <string:String x:Key="SizeAsc">Size ascending</string:String>
+    <string:String x:Key="SizeDesc">Size descending</string:String>
     
     <!--Replay Menu Item Text-->
     <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
+    <string:String x:Key="ViewOnlinePage">View Online...</string:String>
 
 </ResourceDictionary>

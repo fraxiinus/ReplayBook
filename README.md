@@ -1,14 +1,17 @@
 # Replay Book
-![](https://github.com/leeanchu/ReplayBook/workflows/Build/badge.svg)
+
+![Screenshot](https://i.imgur.com/XI1AT4G.png "Preview Image")
+
+[![Build_Master](https://github.com/leeanchu/ReplayBook/workflows/Build_Master/badge.svg)](https://github.com/leeanchu/ReplayBook/actions?query=workflow%3ABuild_Master)
+[![Build_Dev](https://github.com/leeanchu/ReplayBook/workflows/Build_Dev/badge.svg)](https://github.com/leeanchu/ReplayBook/actions?query=workflow%3ABuild_Dev)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/leeanchu/ROFL-Player/blob/master/LICENSE)
 [![Discord](https://img.shields.io/discord/606263917211156501?color=blue&label=chat&logo=discord&style=social)](https://discord.gg/c33Rc5J)
 
-Replay Book is a work in progress replacement for ROFLPlayer
+Replay Book is a replay management tool that is currently in pre-release alpha.
 
-View work in progress screenshots in the Discord Server!
+**Join the Discord for progress updates and pre-release builds**
 
-Planned Features:
-* View all your replays in one screen
-* Automatically match game versions to replay version
-* Way more match statistics
-* Much more!
+### Current Features
+* Assign player markers to easily spot players in the replay list. You can assign a whole team a specific color to organize tournament replays.
+* View every single statistic that is readable from replay files. This includes some weird ones like spell cast counts and mute information.
+* Keep old League of Legends patches and Replay Book will automatically detect and match compatible replay files.

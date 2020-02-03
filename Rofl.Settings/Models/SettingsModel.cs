@@ -28,6 +28,9 @@ namespace Rofl.Settings.Models
 
             GeneralSettings = new GeneralSettings();
             GeneralSettings.KnownPlayers.AddRange(settings.KnownPlayers);
+            GeneralSettings.PlayConfirmation = settings.PlayConfirmation;
+            GeneralSettings.MatchHistoryBaseUrl = settings.MatchHistoryBaseUrl;
+            GeneralSettings.ItemsPerPage = settings.ItemsPerPage;
         }
 
         [JsonProperty("request_settings")]

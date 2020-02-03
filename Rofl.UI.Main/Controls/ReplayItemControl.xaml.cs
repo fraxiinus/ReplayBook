@@ -54,5 +54,12 @@ namespace Rofl.UI.Main.Controls
             contextMenu.Placement = PlacementMode.Bottom;
             contextMenu.IsOpen = true;
         }
+
+        private void ViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Window.GetWindow(this).DataContext is MainWindowViewModel context)) { return; }
+            if (!(this.DataContext is ReplayPreviewModel replay)) { return; }
+            context.ViewOnlineMatchHistory(replay.MatchId);
+        }
     }
 }

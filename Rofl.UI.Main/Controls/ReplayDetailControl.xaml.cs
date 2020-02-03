@@ -56,7 +56,7 @@ namespace Rofl.UI.Main.Controls
             ContextMenu contextMenu = moreButton.ContextMenu;
             // Set placement and open
             contextMenu.PlacementTarget = moreButton;
-            contextMenu.Placement = PlacementMode.Bottom;
+            contextMenu.Placement = PlacementMode.Left;
             contextMenu.IsOpen = true;
         }
 
@@ -66,6 +66,14 @@ namespace Rofl.UI.Main.Controls
             if (!(this.DataContext is ReplayDetailModel replay)) { return; }
 
             context.OpenReplayContainingFolder(replay.PreviewModel.Location);
+        }
+
+        private void ViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Window.GetWindow(this).DataContext is MainWindowViewModel context)) { return; }
+            if (!(this.DataContext is ReplayDetailModel replay)) { return; }
+
+            context.ViewOnlineMatchHistory(replay.PreviewModel.MatchId);
         }
     }
 }
