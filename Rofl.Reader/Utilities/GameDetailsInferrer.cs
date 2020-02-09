@@ -1,6 +1,7 @@
 ﻿using Rofl.Reader.Models;
 using System.Linq;
 using System;
+using System.Globalization;
 
 namespace Rofl.Reader.Utilities
 {
@@ -37,22 +38,22 @@ namespace Rofl.Reader.Utilities
         {
             // Check if any players have killed jungle creeps, Rules out HowlingAbyss
             var JungleCheck = (from player in players
-                               where int.Parse(player.NEUTRAL_MINIONS_KILLED) > 0
+                               where int.Parse(player.NEUTRAL_MINIONS_KILLED, CultureInfo.InvariantCulture) > 0
                                select player);
 
             // Check if any players have placed wards, Rules out TwistedTreeline and HowlingAbyss
             var WardCheck = (from player in players
-                             where int.Parse(player.WARD_PLACED) > 0
+                             where int.Parse(player.WARD_PLACED, CultureInfo.InvariantCulture) > 0
                              select player);
 
             // Double check between TwistedTreeline and SummonersRift
             var DragonCheck = (from player in players
-                               where int.Parse(player.DRAGON_KILLS) > 0
+                               where int.Parse(player.DRAGON_KILLS, CultureInfo.InvariantCulture) > 0
                                select player);
 
-            if (JungleCheck.Count() > 0)
+            if (JungleCheck.Any())
             {
-                if (WardCheck.Count() == 0 && DragonCheck.Count() == 0)
+                if (!WardCheck.Any() && !DragonCheck.Any())
                 {
                     return MapCode.TwistedTreeline;
                 }
