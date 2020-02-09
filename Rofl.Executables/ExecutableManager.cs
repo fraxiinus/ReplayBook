@@ -230,7 +230,7 @@ namespace Rofl.Executables
             return true;
         }
 
-        public static void UpdateExecutableVersion(LeagueExecutable executable)
+        public void UpdateExecutableVersion(LeagueExecutable executable)
         {
             if(executable == null) { throw new ArgumentNullException(nameof(executable)); }
 
@@ -238,6 +238,7 @@ namespace Rofl.Executables
 
             if (!executable.PatchNumber.Equals(currentVersion, StringComparison.OrdinalIgnoreCase))
             {
+                _log.Information(_myName, $"Updating executable {executable.Name} from {executable.PatchNumber} -> {currentVersion}");
                 executable.PatchNumber = currentVersion;
             }
         }
