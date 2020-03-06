@@ -76,7 +76,6 @@ namespace Rofl.UI.Main.Views
             {
                 _executable.Name = NameTextBox.Text;
                 _executable.TargetPath = TargetTextBox.Text;
-                _executable.LaunchArguments = LaunchArgsTextBox.Text;
                 _executable.Locale = (LeagueLocale) LocaleComboBox.SelectedIndex;
 
                 if (_isEditMode)
