@@ -78,12 +78,11 @@ namespace Rofl.UI.Main
             e.Accepted = (this.DataContext as MainWindowViewModel).FilterPreviewReplay(e.Item as ReplayPreviewModel);
         }
 
-        private async void ReplayItemControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void ReplayListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
-            if (!(sender is ReplayItemControl replayItem)) { return; }
-
-            ReplayPreviewModel previewModel = replayItem.DataContext as ReplayPreviewModel;
+            if (!(sender is ListView replayList)) { return; }
+            if (!(replayList.SelectedItem is ReplayPreviewModel previewModel)) { return; }
 
             FileResult replayFile = context.FileResults[previewModel.Location];
 
@@ -94,7 +93,6 @@ namespace Rofl.UI.Main
 
             (detailControl.FindName("BlankContent") as StackPanel).Visibility = Visibility.Hidden;
             (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
-
 
             await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetailModel).ConfigureAwait(true);
         }

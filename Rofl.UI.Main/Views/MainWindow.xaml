@@ -139,10 +139,11 @@
                       MinWidth="350"
                       VerticalAlignment="Stretch"
                       ScrollViewer.ScrollChanged="ReplayListView_ScrollChanged"
+                      SelectionChanged="ReplayListView_SelectionChanged"
                       Grid.Row="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <controls:ReplayItemControl MouseDoubleClick="ReplayItemControl_MouseDoubleClick"/>
+                        <controls:ReplayItemControl/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
