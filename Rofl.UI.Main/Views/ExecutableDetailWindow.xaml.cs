@@ -48,6 +48,10 @@ namespace Rofl.UI.Main.Views
             this.MinWidth = this.ActualWidth;
             this.MinHeight = this.ActualHeight;
             this.MaxHeight = this.ActualHeight;
+
+            var allLocales = Enum.GetNames(typeof(LeagueLocale)).Select(x => x + " (" + ExeTools.GetLocaleCode(x) + ")");
+
+            this.LocaleComboBox.ItemsSource = allLocales;
         }
 
         private void LoadLeagueExecutable(LeagueExecutable executable)
@@ -57,9 +61,10 @@ namespace Rofl.UI.Main.Views
             _executable = executable;
             TargetTextBox.Text = executable.TargetPath;
             NameTextBox.Text = executable.Name;
+            LocaleComboBox.SelectedIndex = (int) executable.Locale;
             StartPathTextBox.Text = executable.StartFolder;
             PatchTextBox.Text = executable.PatchNumber;
-            LaunchArgsTextBox.Text = executable.LaunchArguments;
+            LaunchArgsTextBox.Text = PrettifyLaunchArgs(executable.LaunchArguments);
             ModifiedDateTextBox.Text = executable.ModifiedDate.ToString("o", CultureInfo.InvariantCulture);
         }
 
@@ -72,6 +77,7 @@ namespace Rofl.UI.Main.Views
                 _executable.Name = NameTextBox.Text;
                 _executable.TargetPath = TargetTextBox.Text;
                 _executable.LaunchArguments = LaunchArgsTextBox.Text;
+                _executable.Locale = (LeagueLocale) LocaleComboBox.SelectedIndex;
 
                 if (_isEditMode)
                 {
@@ -152,5 +158,23 @@ namespace Rofl.UI.Main.Views
             }
         }
 
+        private void EditLaunchArgsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var editDialog = new ExecutableLaunchArgsWindow(_executable)
+            {
+                Top = this.Top + 50,
+                Left = this.Left + 50,
+                Owner = this
+            };
+
+            editDialog.ShowDialog();
+            LaunchArgsTextBox.Text = PrettifyLaunchArgs(_executable.LaunchArguments);
+        }
+
+        private string PrettifyLaunchArgs(string args)
+        {
+            var individual = args.Split('\"').Where(x => !String.IsNullOrWhiteSpace(x));
+            return String.Join("\n", individual);
+        }
     }
 }

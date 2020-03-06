@@ -173,6 +173,9 @@
     <Compile Include="Views\ExecutableDetailWindow.xaml.cs">
       <DependentUpon>ExecutableDetailWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ExecutableLaunchArgsWindow.xaml.cs">
+      <DependentUpon>ExecutableLaunchArgsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExecutableSelectWindow.xaml.cs">
       <DependentUpon>ExecutableSelectWindow.xaml</DependentUpon>
     </Compile>
@@ -223,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExecutableDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExecutableLaunchArgsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
