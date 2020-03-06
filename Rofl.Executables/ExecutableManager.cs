@@ -59,6 +59,12 @@ namespace Rofl.Executables
                     Settings = new ExecutableSettings();
                 }
             }
+
+            // Refresh all known executables versions
+            foreach (var executable in Settings.Executables)
+            {
+                UpdateExecutableVersion(executable);
+            }
         }
 
         ~ExecutableManager()
@@ -224,5 +230,17 @@ namespace Rofl.Executables
             return true;
         }
 
+        public void UpdateExecutableVersion(LeagueExecutable executable)
+        {
+            if(executable == null) { throw new ArgumentNullException(nameof(executable)); }
+
+            var currentVersion = ExeTools.GetLeagueVersion(executable.TargetPath);
+
+            if (!executable.PatchNumber.Equals(currentVersion, StringComparison.OrdinalIgnoreCase))
+            {
+                _log.Information(_myName, $"Updating executable {executable.Name} from {executable.PatchNumber} -> {currentVersion}");
+                executable.PatchNumber = currentVersion;
+            }
+        }
     }
 }

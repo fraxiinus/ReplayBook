@@ -58,6 +58,16 @@
     <string:String x:Key="ExecutableNotFoundErrorTitle">No match</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">No matching executable found for patch</string:String>
     <string:String x:Key="ReplayPlayConfirmationText">Play replay?</string:String>
+    
+    <!--Executable Detail-->
+    <string:String x:Key="ExecutableDetailTargetPath">Target Path</string:String>
+    <string:String x:Key="ExecutableDetailName">Executable Name</string:String>
+    <string:String x:Key="ExecutableDetailLocale">Locale</string:String>
+    <string:String x:Key="ExecutableDetailLaunchArgs">Other Launch Arguments</string:String>
+    <string:String x:Key="ExecutableDetailPropertyHeader">Properties</string:String>
+    <string:String x:Key="ExecutableDetailPropertyStartPath">Start Path</string:String>
+    <string:String x:Key="ExecutableDetailPropertyPatch">Patch Number</string:String>
+    <string:String x:Key="ExecutableDetailPropertyModified">Modified Date</string:String>
 
     <string:String x:Key="SourceFoldersLabelText">Replay Source Folders</string:String>
     <string:String x:Key="SourceFoldersWindowText">Select Replay Source Folder</string:String>
@@ -71,7 +81,9 @@
     <string:String x:Key="DataDragonItemUrlLabelText">Item Image Relative URL</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
 
-    <string:String x:Key="Version">Prerelease 2</string:String>
+    <string:String x:Key="Name">ReplayBook</string:String>
+    <string:String x:Key="Author">A. Lee (Etirps)</string:String>
+    <string:String x:Key="Version">Prerelease 3</string:String>
     <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
     <string:String x:Key="GitHubLink">https://github.com/leeanchu/ReplayBook</string:String>
     <string:String x:Key="DiscordInvite">discord.gg/c33Rc5J</string:String>

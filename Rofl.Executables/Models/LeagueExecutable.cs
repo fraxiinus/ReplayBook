@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Rofl.Executables.Utilities;
+using System;
 using System.ComponentModel;
-using Newtonsoft.Json;
 
 namespace Rofl.Executables.Models
 {
@@ -71,6 +73,20 @@ namespace Rofl.Executables.Models
                 _launchArgs = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(LaunchArguments)));
+            }
+        }
+
+        private LeagueLocale _locale;
+        [JsonProperty("locale")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public LeagueLocale Locale
+        {
+            get { return _locale; }
+            set
+            {
+                _locale = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(Locale)));
             }
         }
 

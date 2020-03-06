@@ -33,7 +33,7 @@ namespace Rofl.Files
             _fileSystem = new FolderRepository(settings, log);
             _db = new DatabaseRepository(log);
 
-            _reader = new ReplayReader();
+            _reader = new ReplayReader(log);
         }
 
         /// <summary>
@@ -111,48 +111,48 @@ namespace Rofl.Files
         /// Gets all <see cref="ReplayFile"/> objects paired with a flag indicating if it was a cache miss or not.
         /// </summary>
         /// <returns></returns>
-        public async Task<FileResult[]> GetReplayFilesAsync()
-        {
+        //public async Task<FileResult[]> GetReplayFilesAsync()
+        //{
 
-            // Get all replay file infos...
-            ReplayFileInfo[] allFiles = _fileSystem.GetAllReplayFileInfo();
+        //    // Get all replay file infos...
+        //    ReplayFileInfo[] allFiles = _fileSystem.GetAllReplayFileInfo();
 
-            List<FileResult> totalReplays = new List<FileResult>();
+        //    List<FileResult> totalReplays = new List<FileResult>();
 
-            foreach (var fileInfo in allFiles)
-            {
-                string replayName = Path.GetFileNameWithoutExtension(fileInfo.Path);
-                string replayPath = fileInfo.Path;
+        //    foreach (var fileInfo in allFiles)
+        //    {
+        //        string replayName = Path.GetFileNameWithoutExtension(fileInfo.Path);
+        //        string replayPath = fileInfo.Path;
 
-                // Ask database repository if file exists, using file path as the key
-                // If hit: Use database entry to create new ReplayFile
-                // If not hit:
-                FileResult item = _db.GetFileResult(replayPath);
-                if (item != null)
-                {
-                    _log.Information(_myName, $"Database hit: {replayPath}");
-                    totalReplays.Add(item);
-                }
-                else
-                {
-                    _log.Information(_myName, $"Database miss: {replayPath}");
-                    // create new tasks to read replays
-                    FileResult newResult = new FileResult
-                    {
-                        ReplayFile = await _reader.ReadFile(replayPath).ConfigureAwait(false),
-                        FileInfo = fileInfo,
-                        IsNewFile = true
-                    };
-                    // add to cache
+        //        // Ask database repository if file exists, using file path as the key
+        //        // If hit: Use database entry to create new ReplayFile
+        //        // If not hit:
+        //        FileResult item = _db.GetFileResult(replayPath);
+        //        if (item != null)
+        //        {
+        //            _log.Information(_myName, $"Database hit: {replayPath}");
+        //            totalReplays.Add(item);
+        //        }
+        //        else
+        //        {
+        //            _log.Information(_myName, $"Database miss: {replayPath}");
+        //            // create new tasks to read replays
+        //            FileResult newResult = new FileResult
+        //            {
+        //                ReplayFile = await _reader.ReadFile(replayPath).ConfigureAwait(false),
+        //                FileInfo = fileInfo,
+        //                IsNewFile = true
+        //            };
+        //            // add to cache
 
-                    _db.AddFileResult(newResult);
-                    totalReplays.Add(newResult);
-                }
-            }
+        //            _db.AddFileResult(newResult);
+        //            totalReplays.Add(newResult);
+        //        }
+        //    }
 
-            return (from result in totalReplays
-                    orderby result.FileInfo.CreationTime descending
-                    select result).ToArray();
-        }
+        //    return (from result in totalReplays
+        //            orderby result.FileInfo.CreationTime descending
+        //            select result).ToArray();
+        //}
     }
 }

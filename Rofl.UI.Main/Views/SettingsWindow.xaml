@@ -320,12 +320,14 @@
                 </TabItem>
 
                 <TabItem x:Name="AboutTabItem" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                        <Image Source="/ReplayBook;component/Resources/cool_yuumi.png"
-                               Width="150"
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center"
+                                Margin="0 0 0 50">
+                        <Image Source="/ReplayBook;component/Resources/iconBMP.png"
+                               Width="75"
                                HorizontalAlignment="Center"
                                RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock Text="ReplayBook" FontSize="28" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{StaticResource Name}" FontSize="28" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{StaticResource Author}" FontSize="16" HorizontalAlignment="Center"/>
                         <TextBox Text="{StaticResource DiscordInvite}" FontSize="14" HorizontalAlignment="Center" BorderBrush="Transparent" IsReadOnly="True"/>
                         <TextBlock Text="{StaticResource Version}" FontSize="14" HorizontalAlignment="Center"/>
                     </StackPanel>

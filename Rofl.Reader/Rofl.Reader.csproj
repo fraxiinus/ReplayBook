@@ -18,4 +18,8 @@
     <Folder Include="Models\Internal\LRF\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Rofl.Logger\Rofl.Logger.csproj" />
+  </ItemGroup>
+
 </Project>
