@@ -40,15 +40,14 @@
                 <Border Style="{DynamicResource SearchBorderStyle}"
                         Grid.Column="0">
                     <TextBox x:Name="SearchBox"
-                                 FontSize="18"
-                                 BorderBrush="Transparent"
-                                 Text="{Binding Path=SearchTerm}"
-                                 Style="{DynamicResource SearchBoxStyle}"
-                                 TextChanged="SearchBox_TextChanged"/>
+                             FontSize="18"
+                             BorderBrush="Transparent"
+                             Style="{DynamicResource SearchBoxStyle}"
+                             KeyUp="SearchBox_KeyUp"/>
                 </Border>
 
                 <Button x:Name="RefreshButton"
-                        ToolTip="{StaticResource SettingsToolTip}"
+                        ToolTip="{StaticResource RefreshToolTip}"
                         Style="{StaticResource ToolButton}"
                         Click="RefreshButton_Click"
                         Grid.Column="1">

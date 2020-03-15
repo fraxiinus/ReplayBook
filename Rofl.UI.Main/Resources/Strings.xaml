@@ -182,6 +182,7 @@
     <!--ToolTip Text-->
     <string:String x:Key="SortToolTip">Sort</string:String>
     <string:String x:Key="OpenToolTip">Open</string:String>
+    <string:String x:Key="RefreshToolTip">Refresh</string:String>
     <string:String x:Key="SettingsToolTip">Settings</string:String>
     <string:String x:Key="PlayReplayToolTip">Play Replay</string:String>
     <string:String x:Key="MoreToolTip">More...</string:String>

@@ -1,6 +1,6 @@
 # Replay Book
 
-![Screenshot](https://i.imgur.com/XI1AT4G.png "Preview Image")
+![Screenshot](https://i.imgur.com/SpH8SsI.png "Preview Image")
 
 [![Build_Master](https://github.com/leeanchu/ReplayBook/workflows/Build_Master/badge.svg)](https://github.com/leeanchu/ReplayBook/actions?query=workflow%3ABuild_Master)
 [![Build_Dev](https://github.com/leeanchu/ReplayBook/workflows/Build_Dev/badge.svg)](https://github.com/leeanchu/ReplayBook/actions?query=workflow%3ABuild_Dev)

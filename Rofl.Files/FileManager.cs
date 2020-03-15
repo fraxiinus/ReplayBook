@@ -64,11 +64,9 @@ namespace Rofl.Files
             {
                 var parseResult = await _reader.ReadFile(file.Path).ConfigureAwait(false);
 
-                FileResult newResult = new FileResult
+                FileResult newResult = new FileResult(file, parseResult)
                 {
-                    ReplayFile = parseResult,
-                    FileInfo = file,
-                    IsNewFile = true
+                    IsNewFile = false
                 };
 
                 _db.AddFileResult(newResult);
@@ -77,82 +75,20 @@ namespace Rofl.Files
             _log.Information(_myName, "Initial load of replays complete");
         }
 
-        public IReadOnlyCollection<FileResult> GetReplays(SortPropertiesModel sort, int maxEntries, int skip)
+        public IReadOnlyCollection<FileResult> GetReplays(QueryProperties sort, int maxEntries, int skip)
         {
             if (sort == null) { throw new ArgumentNullException(nameof(sort)); }
 
-            Query query;
-            switch (sort.SortMethod)
-            {
-                default:
-                    query = Query.All("CreationTime", Query.Ascending);
-                    break;
-                case SortMethod.DateDesc:
-                    query = Query.All("CreationTime", Query.Descending);
-                    break;
-                case SortMethod.SizeAsc:
-                    query = Query.All("FileSizeBytes", Query.Ascending);
-                    break;
-                case SortMethod.SizeDesc:
-                    query = Query.All("FileSizeBytes", Query.Descending);
-                    break;
-                case SortMethod.NameAsc:
-                    query = Query.All("Name", Query.Ascending);
-                    break;
-                case SortMethod.NameDesc:
-                    query = Query.All("Name", Query.Descending);
-                    break;
-            }
+            // var keywords = sort.SearchTerm.Split(' ').Where(x => !String.IsNullOrEmpty(x)).ToArray();
 
-            return _db.QueryReplayFiles(query, maxEntries, skip);
+            var keywords = sort.SearchTerm.Split('"')       // split the string by quotes
+                .Select((element, index) => // select the substring, and the index of the substring
+                    index % 2 == 0  // If the index is even (after a close quote)
+                    ? element.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries) // split by space
+                    : new string[] { element }) // return the string enclosed by quotes
+                .SelectMany(element => element).ToArray();
+
+            return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
         }
-
-        /// <summary>
-        /// Gets all <see cref="ReplayFile"/> objects paired with a flag indicating if it was a cache miss or not.
-        /// </summary>
-        /// <returns></returns>
-        //public async Task<FileResult[]> GetReplayFilesAsync()
-        //{
-
-        //    // Get all replay file infos...
-        //    ReplayFileInfo[] allFiles = _fileSystem.GetAllReplayFileInfo();
-
-        //    List<FileResult> totalReplays = new List<FileResult>();
-
-        //    foreach (var fileInfo in allFiles)
-        //    {
-        //        string replayName = Path.GetFileNameWithoutExtension(fileInfo.Path);
-        //        string replayPath = fileInfo.Path;
-
-        //        // Ask database repository if file exists, using file path as the key
-        //        // If hit: Use database entry to create new ReplayFile
-        //        // If not hit:
-        //        FileResult item = _db.GetFileResult(replayPath);
-        //        if (item != null)
-        //        {
-        //            _log.Information(_myName, $"Database hit: {replayPath}");
-        //            totalReplays.Add(item);
-        //        }
-        //        else
-        //        {
-        //            _log.Information(_myName, $"Database miss: {replayPath}");
-        //            // create new tasks to read replays
-        //            FileResult newResult = new FileResult
-        //            {
-        //                ReplayFile = await _reader.ReadFile(replayPath).ConfigureAwait(false),
-        //                FileInfo = fileInfo,
-        //                IsNewFile = true
-        //            };
-        //            // add to cache
-
-        //            _db.AddFileResult(newResult);
-        //            totalReplays.Add(newResult);
-        //        }
-        //    }
-
-        //    return (from result in totalReplays
-        //            orderby result.FileInfo.CreationTime descending
-        //            select result).ToArray();
-        //}
     }
 }

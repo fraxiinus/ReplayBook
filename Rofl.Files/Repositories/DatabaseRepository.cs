@@ -4,10 +4,9 @@ using Rofl.Logger;
 using Rofl.Reader.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rofl.Files.Repositories
 {
@@ -44,16 +43,15 @@ namespace Rofl.Files.Repositories
 
             using (var db = new LiteDatabase(_filePath))
             {
+                var fileResults = db.GetCollection<FileResult>("fileResults");
                 var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
                 var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
                 var players = db.GetCollection<Player>("players");
 
-                fileInfos.EnsureIndex(x => x.Name);
-                fileInfos.EnsureIndex(x => x.FileSizeBytes);
-                fileInfos.EnsureIndex(x => x.CreationTime);
-
-                replayFiles.EnsureIndex(x => x.Players, "$.Players[*].NAME");
-                replayFiles.EnsureIndex(x => x.Players, "$.Players[*].SKIN");
+                BsonMapper.Global.Entity<FileResult>()
+                    .Id(r => r.Id)
+                    .DbRef(r => r.FileInfo, "replayFileInfo")
+                    .DbRef(r => r.ReplayFile, "replayFiles");
 
                 BsonMapper.Global.Entity<ReplayFileInfo>()
                     .Id(r => r.Path);
@@ -64,10 +62,16 @@ namespace Rofl.Files.Repositories
                 BsonMapper.Global.Entity<ReplayFile>()
                     .Id(r => r.Location)
                     .DbRef(r => r.Players, "players");
+
+                fileResults.EnsureIndex(x => x.FileInfo.Name);
+                fileResults.EnsureIndex(x => x.FileInfo.FileSizeBytes);
+                fileResults.EnsureIndex(x => x.FileInfo.CreationTime);
+                fileResults.EnsureIndex(x => x.PlayerNames);
+                fileResults.EnsureIndex(x => x.ChampionNames);
             }
         }
 
-        public bool AddFileResult(FileResult result)
+        public void AddFileResult(FileResult result)
         {
             if (result == null) { throw new ArgumentNullException(nameof(result)); }
             if (result.ReplayFile == null) { throw new ArgumentNullException(nameof(result)); }
@@ -75,33 +79,36 @@ namespace Rofl.Files.Repositories
 
             using (var db = new LiteDatabase(_filePath))
             {
+                var fileResults = db.GetCollection<FileResult>("fileResults");
                 var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
                 var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
                 var players = db.GetCollection<Player>("players");
 
                 // If we already have the file, do nothing
-                if (fileInfos.Exists(
-                        x => x.Path.Equals(result.FileInfo.Path, StringComparison.OrdinalIgnoreCase))
-                    )
+                if (fileResults.FindById(_filePath) == null)
                 {
-                    return false;
+                    fileResults.Insert(result);
+                }
+
+                // Only add if it doesnt exist
+                if (fileInfos.FindById(result.FileInfo.Path) == null)
+                {
+                    fileInfos.Insert(result.FileInfo);
+                }
+
+                if (replayFiles.FindById(result.ReplayFile.Location) == null)
+                {
+                    replayFiles.Insert(result.ReplayFile);
                 }
 
                 foreach (var player in result.ReplayFile.Players)
                 {
                     // If the player already exists, do nothing
-                    if(!players.Exists(
-                            x => x.Id.Equals(player.Id, StringComparison.OrdinalIgnoreCase))
-                       )
+                    if (players.FindById(player.Id) == null)
                     {
                         players.Insert(player);
                     }
                 }
-
-                fileInfos.Insert(result.FileInfo);
-                replayFiles.Insert(result.ReplayFile);
-
-                return true;
             }
         }
 
@@ -111,113 +118,79 @@ namespace Rofl.Files.Repositories
 
             using (var db = new LiteDatabase(_filePath))
             {
-                var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
-                var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
-                var players = db.GetCollection<Player>("players");
+                var fileResults = db.GetCollection<FileResult>("fileResults");
 
-                if (fileInfos.Exists(
-                        x => x.Path.Equals(path, StringComparison.OrdinalIgnoreCase))
+                var result = fileResults
+                    .IncludeAll()
+                    .FindById(path);
+
+                return result;
+            }
+        }
+
+        public IReadOnlyCollection<FileResult> QueryReplayFiles(string[] keywords, SortMethod sort, int maxEntries, int skip)
+        {
+            if (keywords == null) { throw new ArgumentNullException(nameof(keywords)); }
+
+            Query sortQuery;
+            switch (sort)
+            {
+                default:
+                    sortQuery = Query.All("FileInfo.CreationTime", Query.Ascending);
+                    break;
+                case SortMethod.DateDesc:
+                    sortQuery = Query.All("FileInfo.CreationTime", Query.Descending);
+                    break;
+                case SortMethod.SizeAsc:
+                    sortQuery = Query.All("FileInfo.FileSizeBytes", Query.Ascending);
+                    break;
+                case SortMethod.SizeDesc:
+                    sortQuery = Query.All("FileInfo.FileSizeBytes", Query.Descending);
+                    break;
+                case SortMethod.NameAsc:
+                    sortQuery = Query.All("FileInfo.Name", Query.Ascending);
+                    break;
+                case SortMethod.NameDesc:
+                    sortQuery = Query.All("FileInfo.Name", Query.Descending);
+                    break;
+            }
+
+            List<Query> playerQueries = new List<Query>();
+            foreach (var word in keywords)
+            {
+                playerQueries.Add
+                (
+                    Query.Or
+                    (
+                        Query.Where("PlayerNames", players => players.AsString.Contains(word.ToUpper(CultureInfo.InvariantCulture))),
+                        Query.Where("ChampionNames", champions => champions.AsString.Contains(word.ToUpper(CultureInfo.InvariantCulture)))
                     )
-                {
-                    return new FileResult
-                    {
-                        FileInfo = fileInfos
-                            .FindOne(
-                                x => x.Path.Equals(path, StringComparison.OrdinalIgnoreCase)
-                            ),
-
-                        ReplayFile = replayFiles
-                            .Include(
-                                x => x.Players
-                            )
-                            .FindOne(
-                                x => x.Location.Equals(path, StringComparison.OrdinalIgnoreCase)
-                            ),
-
-                        IsNewFile = false
-                    };
-                }
-
-                return null;
+                );
             }
-        }
 
-        public IReadOnlyCollection<FileResult> QueryReplayFiles(Query query, int maxEntries, int skip)
-        {
-            using (var db = new LiteDatabase(_filePath))
+            Query endQuery;
+            if (playerQueries.Any())
             {
-                var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
-                var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
-                var players = db.GetCollection<Player>("players");
-                List<FileResult> results = new List<FileResult>();
-
-                foreach (var file in fileInfos.Find(query, limit: maxEntries, skip: skip))
+                if (playerQueries.Count == 1)
                 {
-                    results.Add(new FileResult
-                    {
-                        FileInfo = file,
-                        ReplayFile = replayFiles
-                            .Include(
-                                x => x.Players
-                            )
-                            .FindOne(
-                                x => x.Location.Equals(file.Path, StringComparison.OrdinalIgnoreCase)
-                            ),
-                        IsNewFile = false
-                    });
+                    endQuery = Query.And(sortQuery, playerQueries[0]);
                 }
-
-                return results;
+                else
+                {
+                    var combinedPlayerQuery = Query.And(playerQueries.ToArray());
+                    endQuery = Query.And(sortQuery, combinedPlayerQuery);
+                }
             }
-        }
-
-        //public void SetReadFile(string path)
-        //{
-        //    using (var db = new LiteDatabase(_filePath))
-        //    {
-        //        var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
-
-        //        fileInfos.
-        //    }
-        //}
-
-        private void TestDb()
-        {
-            var replayFileInfo = new ReplayFileInfo
+            else
             {
-                CreationTime = DateTime.Now,
-                Path = "D:\\Etirps\\Documents\\League of Legends\\Replays\\NA1-3260770635.rofl",
-                FileSizeBytes = 20522894
-            };
-
-            var replayFile = new ReplayFile
-            {
-                Location = replayFileInfo.Path,
-                Players = new Player[]
-                {
-                    new Player
-                    {
-                        Id = "3260770635_41257309"
-                    },
-                    new Player
-                    {
-                        Id = "3260770635_33251497"
-                    }
-                }
-            };
+                endQuery = sortQuery;
+            }
 
             using (var db = new LiteDatabase(_filePath))
             {
-                var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
-                var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
-                var players = db.GetCollection<Player>("players");
+                var fileResults = db.GetCollection<FileResult>("fileResults");
 
-                players.Insert(replayFile.Players[0]);
-                players.Insert(replayFile.Players[1]);
-
-                replayFiles.Insert(replayFile);
-
-                var test = replayFiles.Include(x => x.Players).FindAll().ToList();
+                return fileResults.IncludeAll().Find(endQuery, limit: maxEntries, skip: skip).ToList();
             }
         }
     }
