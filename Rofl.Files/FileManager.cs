@@ -66,7 +66,7 @@ namespace Rofl.Files
 
                 FileResult newResult = new FileResult(file, parseResult)
                 {
-                    IsNewFile = true
+                    IsNewFile = false
                 };
 
                 _db.AddFileResult(newResult);
