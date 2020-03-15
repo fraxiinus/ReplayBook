@@ -13,7 +13,6 @@ namespace Rofl.UI.Main.Models
         {
             this.ItemId = itemId;
             this.ItemName = "Item";
-            this.imgSrc = @"D:\Sync\Pictures\comissions\CalamariPop\ThinkYuumi.png";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

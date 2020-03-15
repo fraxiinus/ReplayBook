@@ -36,7 +36,7 @@ namespace Rofl.UI.Main.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        public SortPropertiesModel SortParameters { get; private set; }
+        public QueryProperties SortParameters { get; private set; }
 
         /// <summary>
         /// Smaller, preview objects of replays
@@ -65,7 +65,7 @@ namespace Rofl.UI.Main.ViewModels
             PreviewReplays = new ObservableCollection<ReplayPreviewModel>();
             FileResults = new Dictionary<string, FileResult>();
 
-            SortParameters = new SortPropertiesModel
+            SortParameters = new QueryProperties
             {
                 SearchTerm = String.Empty,
                 SortMethod = SortMethod.DateDesc
@@ -111,30 +111,14 @@ namespace Rofl.UI.Main.ViewModels
             }
         }
 
-        public bool FilterPreviewReplay(ReplayPreviewModel replayItem)
+        public void ClearReplays()
         {
-            if(replayItem == null) { throw new ArgumentNullException(nameof(replayItem)); }
-
-            string searchTerm = SortParameters.SearchTerm;
-
-            // Minimum requirement
-            if(searchTerm.Length < 3) { return true; }
-
-            if (replayItem.MapName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) { return true; }
-
-            foreach (var bluePlayer in replayItem.BluePreviewPlayers)
+            App.Current.Dispatcher.Invoke((Action)delegate
             {
-                if (bluePlayer.ChampionName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) { return true; }
-                if (bluePlayer.PlayerName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) { return true; }
-            }
+                PreviewReplays.Clear();
+            });
 
-            foreach (var redPlayer in replayItem.BluePreviewPlayers)
-            {
-                if (redPlayer.ChampionName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) { return true; }
-                if (redPlayer.PlayerName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) { return true; }
-            }
-
-            return false;
+            FileResults.Clear();
         }
 
         public async Task LoadItemThumbnails(ReplayDetailModel replay)
@@ -165,8 +149,6 @@ namespace Rofl.UI.Main.ViewModels
                     });
                 }));
             }
-
-            //await Task.WhenAll(itemTasks).ConfigureAwait(false);
         }
 
         public async Task LoadPreviewPlayerThumbnails()

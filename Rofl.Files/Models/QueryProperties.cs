@@ -9,7 +9,7 @@ namespace Rofl.Files.Models
 {
     public enum SortMethod { NameAsc, NameDesc, DateAsc, DateDesc, SizeAsc, SizeDesc }
 
-    public class SortPropertiesModel : INotifyPropertyChanged
+    public class QueryProperties : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
