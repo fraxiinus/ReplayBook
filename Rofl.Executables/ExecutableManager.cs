@@ -28,16 +28,8 @@ namespace Rofl.Executables
             _log = log;
             _myName = this.GetType().ToString();
 
-            // Get the exe directory or create it
-            string fileDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
-            if (!Directory.Exists(fileDir))
-            {
-                _log.Information(_myName, $"Executable directory does not exist, creating");
-                Directory.CreateDirectory(fileDir);
-            }
-
             // Get the exeInfoFile or create new one
-            _exeInfoFilePath = Path.Combine(fileDir, "executablesettings.json");
+            _exeInfoFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "executablesettings.json");
             if (!File.Exists(_exeInfoFilePath))
             {
                 // Exe file is missing, set up defaults
