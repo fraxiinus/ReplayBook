@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Rofl.Logger.Models
+﻿namespace Rofl.Logger.Models
 {
     public enum LogLevel
     {

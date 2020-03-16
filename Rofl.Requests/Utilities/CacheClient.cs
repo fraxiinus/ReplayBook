@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Linq;
 using Rofl.Requests.Models;
-using System.Drawing;
-using Microsoft.Extensions.Configuration;
 using Rofl.Logger;
 
 namespace Rofl.Requests.Utilities
 {
     public class CacheClient
     {
-        private string _cachePath { get; set; }
+        private string CachePath { get; set; }
 
         private readonly Scribe _log;
 
@@ -21,7 +16,7 @@ namespace Rofl.Requests.Utilities
         public CacheClient(string cachePath, Scribe log)
         {
             _log = log;
-            _cachePath = cachePath;
+            CachePath = cachePath;
             _myName = this.GetType().ToString();
         }
 
@@ -35,19 +30,19 @@ namespace Rofl.Requests.Utilities
                 case ChampionRequest c: // check if each unique string isnt null
                     if(String.IsNullOrEmpty(c.ChampionName)) { throw new ArgumentNullException(); }
 
-                    downloadLocation = Path.Combine(_cachePath, "champs", $"{c.ChampionName}.png");
+                    downloadLocation = Path.Combine(CachePath, "champs", $"{c.ChampionName}.png");
                     break;
 
                 case ItemRequest i:
                     if (String.IsNullOrEmpty(i.ItemID)) { throw new ArgumentNullException(); }
 
-                    downloadLocation = Path.Combine(_cachePath, "items", $"{i.ItemID}.png");
+                    downloadLocation = Path.Combine(CachePath, "items", $"{i.ItemID}.png");
                     break;
 
                 case MapRequest m:
                     if(String.IsNullOrEmpty(m.MapID)) { throw new ArgumentNullException(); }
 
-                    downloadLocation = Path.Combine(_cachePath, "maps", $"{m.MapID}.png");
+                    downloadLocation = Path.Combine(CachePath, "maps", $"{m.MapID}.png");
                     break;
 
                 default:

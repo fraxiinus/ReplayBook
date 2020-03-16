@@ -3,19 +3,9 @@ using Rofl.Executables;
 using Rofl.Executables.Models;
 using Rofl.Executables.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Rofl.UI.Main.Views
 {
@@ -25,7 +15,7 @@ namespace Rofl.UI.Main.Views
     public partial class ExecutableDetailWindow : Window
     {
         private LeagueExecutable _executable;
-        private bool _isEditMode;
+        private readonly bool _isEditMode;
 
         public ExecutableDetailWindow()
         {
@@ -56,9 +46,8 @@ namespace Rofl.UI.Main.Views
 
         private void LoadLeagueExecutable(LeagueExecutable executable)
         {
-            if (executable == null) { throw new ArgumentNullException(nameof(executable)); }
+            _executable = executable ?? throw new ArgumentNullException(nameof(executable));
 
-            _executable = executable;
             TargetTextBox.Text = executable.TargetPath;
             NameTextBox.Text = executable.Name;
             LocaleComboBox.SelectedIndex = (int) executable.Locale;

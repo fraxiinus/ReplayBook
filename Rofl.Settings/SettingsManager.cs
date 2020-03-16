@@ -1,11 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Rofl.Executables;
-using Rofl.Executables.Models;
 using Rofl.Logger;
 using Rofl.Settings.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 

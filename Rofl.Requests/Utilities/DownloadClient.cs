@@ -1,15 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Rofl.Requests.Models;
-using System.Drawing;
 using Rofl.Logger;
-using Microsoft.Extensions.Configuration;
 using System.Net.Http;
-using Rofl.Settings;
 using Rofl.Settings.Models;
 
 namespace Rofl.Requests.Utilities

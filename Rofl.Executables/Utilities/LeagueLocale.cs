@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Rofl.Executables.Utilities
+﻿namespace Rofl.Executables.Utilities
 {
     public enum LeagueLocale
     {

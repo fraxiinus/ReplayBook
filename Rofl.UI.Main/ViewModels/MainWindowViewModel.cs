@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Rofl.Executables;
-using Rofl.Executables.Models;
+﻿using Rofl.Executables.Models;
 using Rofl.Executables.Utilities;
 using Rofl.Files;
 using Rofl.Files.Models;
@@ -8,22 +6,15 @@ using Rofl.Requests;
 using Rofl.Requests.Models;
 using Rofl.Settings;
 using Rofl.Settings.Models;
-using Rofl.UI.Main.Extensions;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Media;
 
 namespace Rofl.UI.Main.ViewModels
