@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Linq;
 using Rofl.Requests.Models;
-using System.Drawing;
-using Microsoft.Extensions.Configuration;
 using Rofl.Logger;
 
 namespace Rofl.Requests.Utilities

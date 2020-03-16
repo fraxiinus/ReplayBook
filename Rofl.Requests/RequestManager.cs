@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 using Rofl.Requests.Utilities;
 using Rofl.Requests.Models;
 using System.IO;
-using Microsoft.Extensions.Configuration;
 using Rofl.Logger;
-using Rofl.Settings;
 using Rofl.Settings.Models;
 
 namespace Rofl.Requests

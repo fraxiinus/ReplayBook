@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Rofl.Reader.Models.Internal.ROFL
+﻿namespace Rofl.Reader.Models.Internal.ROFL
 {
     /// <summary>
     /// Low level model of metadata header in ROFL file

@@ -1,14 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Rofl.Files.Models;
 using Rofl.Logger;
-using Rofl.Settings;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Rofl.Files.Repositories
 {

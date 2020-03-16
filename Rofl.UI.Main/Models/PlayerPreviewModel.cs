@@ -1,11 +1,7 @@
 ﻿using Rofl.Reader.Models;
 using Rofl.Settings.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rofl.UI.Main.Models
 {

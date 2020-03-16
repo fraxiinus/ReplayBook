@@ -1,11 +1,7 @@
 ﻿using System;
-using Microsoft.Win32;
-using System.Linq;
 using System.IO;
 using System.Diagnostics;
-using Rofl.Logger;
 using Rofl.Executables.Models;
-using System.Collections.Generic;
 
 namespace Rofl.Executables.Utilities
 {

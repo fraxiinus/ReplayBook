@@ -22,10 +22,4 @@
     <ProjectReference Include="..\Rofl.Logger\Rofl.Logger.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="PresentationCore">
-      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
