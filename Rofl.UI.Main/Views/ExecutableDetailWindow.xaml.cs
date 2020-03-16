@@ -15,7 +15,7 @@ namespace Rofl.UI.Main.Views
     public partial class ExecutableDetailWindow : Window
     {
         private LeagueExecutable _executable;
-        private bool _isEditMode;
+        private readonly bool _isEditMode;
 
         public ExecutableDetailWindow()
         {
@@ -46,9 +46,8 @@ namespace Rofl.UI.Main.Views
 
         private void LoadLeagueExecutable(LeagueExecutable executable)
         {
-            if (executable == null) { throw new ArgumentNullException(nameof(executable)); }
+            _executable = executable ?? throw new ArgumentNullException(nameof(executable));
 
-            _executable = executable;
             TargetTextBox.Text = executable.TargetPath;
             NameTextBox.Text = executable.Name;
             LocaleComboBox.SelectedIndex = (int) executable.Locale;

@@ -6,6 +6,6 @@ namespace Rofl.Reader.Parsers
 {
     public interface IReplayParser
     {
-        Task<ReplayHeader> ReadReplayAsync(FileStream fileStream);
+        Task<IReplayHeader> ReadReplayAsync(FileStream fileStream);
     }
 }

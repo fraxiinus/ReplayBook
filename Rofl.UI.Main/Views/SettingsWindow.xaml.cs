@@ -25,7 +25,7 @@ namespace Rofl.UI.Main.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(this.DataContext is SettingsManager)) { return; }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

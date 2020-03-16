@@ -17,7 +17,7 @@ namespace Rofl.Executables
 
         private readonly string _myName;
 
-        private string _exeInfoFilePath;
+        private readonly string _exeInfoFilePath;
 
         public ExecutableSettings Settings { get; private set; }
 

@@ -13,9 +13,9 @@ namespace Rofl.UI.Main.Views
     public partial class PlayerMarkerWindow : Window
     {
 
-        private bool _isEditMode;
-        private PlayerMarker _marker;
-        private string _oldName;
+        private readonly bool _isEditMode;
+        private readonly PlayerMarker _marker;
+        private readonly string _oldName;
 
         public PlayerMarkerWindow()
         {

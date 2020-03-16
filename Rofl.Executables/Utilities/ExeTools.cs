@@ -122,7 +122,7 @@ namespace Rofl.Executables.Utilities
 
         public static string GetLocaleCode(LeagueLocale name)
         {
-            string code = String.Empty;
+            string code;
             switch (name)
             {
                 case LeagueLocale.Czech:

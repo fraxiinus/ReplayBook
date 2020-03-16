@@ -20,7 +20,7 @@ namespace Rofl.Reader.Parsers
     {
         private readonly string exceptionOriginName = "RoflParser";
 
-        public async Task<ReplayHeader> ReadReplayAsync(FileStream fileStream)
+        public async Task<IReplayHeader> ReadReplayAsync(FileStream fileStream)
         {
             if(!fileStream.CanRead)
             {

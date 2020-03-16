@@ -13,9 +13,8 @@ namespace Rofl.UI.Main.Views
 
         public ExecutableLaunchArgsWindow(LeagueExecutable executable)
         {
-            if (executable == null) { throw new ArgumentNullException(nameof(executable)); }
+            _executable = executable ?? throw new ArgumentNullException(nameof(executable));
 
-            _executable = executable;
             InitializeComponent();
 
             LaunchArgsBox.Text = _executable.LaunchArguments;

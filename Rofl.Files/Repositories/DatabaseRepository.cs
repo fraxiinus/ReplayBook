@@ -26,7 +26,7 @@ namespace Rofl.Files.Repositories
             {
                 InitializeDatabase();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 _log.Warning(_myName, "Database file is invalid, deleting and trying again");
                 File.Delete(_filePath);
@@ -44,9 +44,6 @@ namespace Rofl.Files.Repositories
             using (var db = new LiteDatabase(_filePath))
             {
                 var fileResults = db.GetCollection<FileResult>("fileResults");
-                var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
-                var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
-                var players = db.GetCollection<Player>("players");
 
                 BsonMapper.Global.Entity<FileResult>()
                     .Id(r => r.Id)

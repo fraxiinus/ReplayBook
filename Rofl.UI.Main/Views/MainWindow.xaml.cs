@@ -7,7 +7,6 @@ using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
 using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -25,7 +24,6 @@ namespace Rofl.UI.Main
         private readonly RequestManager _requests;
         private readonly SettingsManager _settingsManager;
         private readonly Scribe _log;
-        private DispatcherTimer _typingTimer;
 
         public MainWindow()
         {
@@ -136,7 +134,7 @@ namespace Rofl.UI.Main
         /// <param name="e"></param>
         private void ReplayListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+            if (!(this.DataContext is MainWindowViewModel)) { return; }
 
             if (Math.Abs(e.VerticalChange) > 0)
             {
@@ -154,8 +152,6 @@ namespace Rofl.UI.Main
         private async void LoadMoreButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
-
-            var lastItem = context.PreviewReplays.Last();
 
             context.LoadReplays();
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);

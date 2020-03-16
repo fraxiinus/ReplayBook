@@ -26,7 +26,7 @@ namespace Rofl.UI.Main.Controls
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(sender is TabControl tabControl)) { return; }
+            if (!(sender is TabControl)) { return; }
 
             StatsScrollViewer.ScrollToVerticalOffset(0);
         }
