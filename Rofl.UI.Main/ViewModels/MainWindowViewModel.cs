@@ -329,5 +329,21 @@ namespace Rofl.UI.Main.ViewModels
             }
             return null;
         }
+
+        public void ShowExportReplayDataWindow(ReplayPreviewModel preview)
+        {
+            if(preview == null) { throw new ArgumentNullException(nameof(preview)); }
+
+            var replay = FileResults[preview.Location];
+
+            var exportDialog = new ExportReplayDataWindow()
+            {
+                Top = App.Current.MainWindow.Top + 50,
+                Left = App.Current.MainWindow.Left + 50,
+                DataContext = replay.ReplayFile,
+            };
+
+            exportDialog.ShowDialog();
+        }
     }
 }

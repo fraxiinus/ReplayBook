@@ -214,5 +214,15 @@
     <!--Replay Menu Item Text-->
     <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
     <string:String x:Key="ViewOnlinePage">View Online...</string:String>
+    <string:String x:Key="ExportReplayData">Export Data...</string:String>
+
+    <!--Replay Data Export-->
+    <string:String x:Key="ErdTitleText">Export Replay Data</string:String>
+    <string:String x:Key="ErdLevel1TitleText">Replay properties</string:String>
+    <string:String x:Key="ErdLevel2TitleText">Players</string:String>
+    <string:String x:Key="ErdLevel3TitleText">Player properties</string:String>
+    <string:String x:Key="ErdSelectAllItems">Select all</string:String>
+    <string:String x:Key="ErdDeselectAllItems">Deselect all</string:String>
+    <string:String x:Key="ErdExportButtonText">Export...</string:String>
 
 </ResourceDictionary>

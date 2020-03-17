@@ -118,6 +118,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\FormatKbSizeConverter.cs" />
+    <Compile Include="Models\ExportSelectItemModel.cs" />
     <Compile Include="Models\StatusBarModel.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Views\ExecutableDetailWindow.xaml.cs">
@@ -131,6 +132,9 @@
     </Compile>
     <Compile Include="Views\PlayerMarkerWindow.xaml.cs">
       <DependentUpon>PlayerMarkerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExportReplayDataWindow.xaml.cs">
+      <DependentUpon>ExportReplayDataWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -229,6 +233,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\PlayerMarkerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExportReplayDataWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

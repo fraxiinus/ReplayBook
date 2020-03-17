@@ -165,16 +165,16 @@
                        RenderOptions.BitmapScalingMode="HighQuality"/>
             </Button>
             
-            <Button x:Name="Morebutton"
+            <Button x:Name="MoreButton"
                     Margin="0"
                     ToolTip="{StaticResource MoreToolTip}"
                     Style="{StaticResource ToolButton}"
-                    Click="Morebutton_Click">
+                    Click="MoreButton_Click">
                 <Image Source="{StaticResource MoreDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
 
                 <Button.ContextMenu>
-                    <ContextMenu x:Name="ReplayConextMenu">
+                    <ContextMenu x:Name="ReplayContextMenu">
                         <MenuItem x:Name="OpenContainingFolder"
                                   Header="{StaticResource OpenContainingFolder}" 
                                   Click="OpenContainingFolder_Click"/>
@@ -182,6 +182,10 @@
                         <MenuItem x:Name="ViewOnlineMatchHistory"
                                   Header="{StaticResource ViewOnlinePage}"
                                   Click="ViewOnlineMatchHistory_Click"/>
+
+                        <MenuItem x:Name="ExportReplayData"
+                                  Header="{StaticResource ExportReplayData}"
+                                  Click="ExportReplayData_OnClick"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
