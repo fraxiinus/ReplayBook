@@ -35,7 +35,8 @@
 
             <ListBox Grid.Row="1"
                      x:Name="LevelOneSelectBox"
-                     HorizontalContentAlignment="Stretch">
+                     HorizontalContentAlignment="Stretch"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ContextMenu>
                     <ContextMenu Name="LevelOneContextMenu">
                         <MenuItem Header="{StaticResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
@@ -69,7 +70,8 @@
             <ListBox Grid.Row="1"
                      x:Name="LevelTwoSelectBox"
                      IsEnabled="False"
-                     HorizontalContentAlignment="Stretch">
+                     HorizontalContentAlignment="Stretch"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ContextMenu>
                     <ContextMenu Name="LevelTwoContextMenu">
                         <MenuItem Header="{StaticResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
@@ -92,6 +94,7 @@
               Margin="2 5 5 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -100,10 +103,16 @@
                        Text="{StaticResource ErdLevel3TitleText}"
                        FontSize="14"/>
 
-            <ListBox Grid.Row="1"
+            <TextBox Grid.Row="1" Margin="2"
+                     x:Name="FilterTextBox"
+                     FontSize="14"
+                     TextChanged="FilterTextBox_OnTextChanged"/>
+
+            <ListBox Grid.Row="2"
                      x:Name="LevelThreeSelectBox"
                      IsEnabled="False"
-                     HorizontalContentAlignment="Stretch">
+                     HorizontalContentAlignment="Stretch"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ContextMenu>
                     <ContextMenu Name="LevelThreeContextMenu">
                         <MenuItem Header="{StaticResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
@@ -122,7 +131,13 @@
             </ListBox>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+        <CheckBox Grid.Row="1" Grid.Column="0"
+                  x:Name="CsvModeCheckbox"
+                  Margin="10" Content="{StaticResource ErdCsvModeText}"
+                  Checked="CsvModeCheckbox_CheckChanged"
+                  Unchecked="CsvModeCheckbox_CheckChanged"/>
+
+        <Grid Grid.Row="1" Grid.Column="2"
               Margin="0 5 5 5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

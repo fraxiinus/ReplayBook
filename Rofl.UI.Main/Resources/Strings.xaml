@@ -224,5 +224,10 @@
     <string:String x:Key="ErdSelectAllItems">Select all</string:String>
     <string:String x:Key="ErdDeselectAllItems">Deselect all</string:String>
     <string:String x:Key="ErdExportButtonText">Export...</string:String>
+    <string:String x:Key="ErdExportDialogTitle">Choose Export Location</string:String>
+    <string:String x:Key="ErdExportNullTitle">Nothing Selected</string:String>
+    <string:String x:Key="ErdExportNullTest">Nothing selected to export</string:String>
+    <string:String x:Key="ErdCsvModeText">CSV Mode</string:String>
+    <string:String x:Key="ErdFailedToSave">Failed to safe file</string:String>
 
 </ResourceDictionary>

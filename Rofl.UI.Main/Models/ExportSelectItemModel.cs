@@ -25,6 +25,19 @@ namespace Rofl.UI.Main.Models
             }
         }
 
+        private string _internalString;
+        public string InternalString
+        {
+            get => _internalString;
+
+            set
+            {
+                _internalString = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(Name)));
+            }
+        }
+
         private bool _checked;
         public bool Checked
         {
@@ -37,5 +50,7 @@ namespace Rofl.UI.Main.Models
                     this, new PropertyChangedEventArgs(nameof(Checked)));
             }
         }
+
+        
     }
 }
