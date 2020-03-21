@@ -103,7 +103,7 @@
                        Text="{StaticResource ErdLevel3TitleText}"
                        FontSize="14"/>
 
-            <TextBox Grid.Row="1" Margin="2"
+            <TextBox Grid.Row="1" Margin="0 3 0 3"
                      x:Name="FilterTextBox"
                      FontSize="14"
                      TextChanged="FilterTextBox_OnTextChanged"/>
