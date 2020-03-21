@@ -57,6 +57,8 @@
     <string:String x:Key="ExecutableNotFoundErrorTitle">No match</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">No matching executable found for patch</string:String>
     <string:String x:Key="ReplayPlayConfirmationText">Play replay?</string:String>
+
+    <string:String x:Key="WebRequestsUseMostRecentText">Always use most recent API version</string:String>
     
     <!--Executable Detail-->
     <string:String x:Key="ExecutableDetailTargetPath">Target Path</string:String>

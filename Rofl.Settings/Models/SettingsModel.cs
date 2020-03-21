@@ -19,7 +19,8 @@ namespace Rofl.Settings.Models
                 DataDragonBaseUrl = settings.DataDragonBaseUrl,
                 ChampionRelativeUrl = settings.ChampionRelativeUrl,
                 ItemRelativeUrl = settings.ItemRelativeUrl,
-                MapRelativeUrl = settings.MapRelativeUrl
+                MapRelativeUrl = settings.MapRelativeUrl,
+                UseMostRecent = settings.UseMostRecent
             };
             ReplaySettings = new ReplaySettings();
             ReplaySettings.SourceFolders.AddRange(settings.SourceFolders);

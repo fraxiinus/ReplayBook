@@ -68,33 +68,26 @@ namespace Rofl.Requests
         /// </summary>
         public async Task<string> GetDataDragonVersionAsync(string replayVersion)
         {
-            string versionRef = replayVersion.VersionSubstring();
-            if(string.IsNullOrEmpty(versionRef))
+            var allVersions = await GetDataDragonVersionStringsAsync().ConfigureAwait(true);
+
+            // Return most recent patch number
+            if (_settings.UseMostRecent)
             {
-                string errorMsg = $"{_myName} - Replay version: \"{replayVersion}\" is not valid";
+                return allVersions.FirstOrDefault();
+            }
+
+            var versionRef = replayVersion.VersionSubstring();
+            if (string.IsNullOrEmpty(versionRef))
+            {
+                var errorMsg = $"{_myName} - Replay version: \"{replayVersion}\" is not valid";
                 _log.Error(_myName, errorMsg);
                 throw new ArgumentException(errorMsg);
             }
 
-            string[] allVersions;
+            var versionQueryResult = (from version in allVersions
+                where version.StartsWith(versionRef, StringComparison.OrdinalIgnoreCase)
+                select version).FirstOrDefault();
 
-            // Get all data dragon versions
-            try
-            {
-                allVersions = await GetDataDragonVersionStringsAsync().ConfigureAwait(true);
-
-            } catch (Exception ex)
-            {
-                string errorMsg = $"{_myName} - Error requesting Data Dragon versions\n\n{ex.GetType().ToString()} - {ex.Message}";
-                _log.Error(_myName, errorMsg);
-                throw new Exception(errorMsg);
-            }
-
-            string versionQueryResult = (from version in allVersions
-                                         where version.StartsWith(versionRef, StringComparison.OrdinalIgnoreCase)
-                                         select version).FirstOrDefault();
-
-            // TODO to add caching,if query doesn't have any results, call GetDataDragonVersions again
             // If it still returns no results, return default (maybe error?)
             return string.IsNullOrEmpty(versionQueryResult) ? allVersions.First() : versionQueryResult;
         }

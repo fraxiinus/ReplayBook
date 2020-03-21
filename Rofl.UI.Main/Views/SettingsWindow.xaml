@@ -316,6 +316,9 @@
                         <TextBox Text="{Binding Settings.MapRelativeUrl}" Padding="2" Margin=" 0 2 0 5"/>
                         <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}" FontSize="14"/>
                         <TextBox Text="{Binding Settings.ItemRelativeUrl}" Padding="2" Margin=" 0 2 0 0"/>
+                        <CheckBox Content="{StaticResource WebRequestsUseMostRecentText}"
+                                  IsChecked="{Binding Settings.UseMostRecent}"
+                                  Margin="0 10 0 0"/>
                     </StackPanel>
                 </TabItem>
 

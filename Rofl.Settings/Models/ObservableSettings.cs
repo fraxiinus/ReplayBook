@@ -23,6 +23,7 @@ namespace Rofl.Settings.Models
             ChampionRelativeUrl = @"/img/champion/";
             MapRelativeUrl = @"/img/map/map";
             ItemRelativeUrl = @"/img/item/";
+            UseMostRecent = true;
         }
 
         public ObservableSettings(SettingsModel settings)
@@ -45,6 +46,7 @@ namespace Rofl.Settings.Models
             ChampionRelativeUrl = settings.RequestSettings.ChampionRelativeUrl;
             MapRelativeUrl = settings.RequestSettings.MapRelativeUrl;
             ItemRelativeUrl = settings.RequestSettings.ItemRelativeUrl;
+            UseMostRecent = settings.RequestSettings.UseMostRecent;
         }
 
 
@@ -58,10 +60,7 @@ namespace Rofl.Settings.Models
         private bool _playConfirmation;
         public bool PlayConfirmation
         {
-            get
-            {
-                return _playConfirmation;
-            }
+            get => _playConfirmation;
             set
             {
                 _playConfirmation = value;
@@ -73,10 +72,7 @@ namespace Rofl.Settings.Models
         private string _matchHistoryBaseUrl;
         public string MatchHistoryBaseUrl
         {
-            get
-            {
-                return _matchHistoryBaseUrl;
-            }
+            get => _matchHistoryBaseUrl;
             set
             {
                 _matchHistoryBaseUrl = value;
@@ -88,7 +84,7 @@ namespace Rofl.Settings.Models
         private int _itemsPerPage;
         public int ItemsPerPage 
         {
-            get { return _itemsPerPage; }
+            get => _itemsPerPage;
             set
             {
                 _itemsPerPage = value;
@@ -101,10 +97,7 @@ namespace Rofl.Settings.Models
         private string _dataDragonBaseUrl;
         public string DataDragonBaseUrl
         {
-            get
-            {
-                return _dataDragonBaseUrl;
-            }
+            get => _dataDragonBaseUrl;
             set
             {
                 _dataDragonBaseUrl = value;
@@ -117,10 +110,7 @@ namespace Rofl.Settings.Models
         private string _championRelativeUrl;
         public string ChampionRelativeUrl
         {
-            get
-            {
-                return _championRelativeUrl;
-            }
+            get => _championRelativeUrl;
             set
             {
                 _championRelativeUrl = value;
@@ -133,10 +123,7 @@ namespace Rofl.Settings.Models
         private string _mapRelativeUrl;
         public string MapRelativeUrl
         {
-            get
-            {
-                return _mapRelativeUrl;
-            }
+            get => _mapRelativeUrl;
             set
             {
                 _mapRelativeUrl = value;
@@ -149,15 +136,25 @@ namespace Rofl.Settings.Models
         private string _itemRelativeUrl;
         public string ItemRelativeUrl
         {
-            get
-            {
-                return _itemRelativeUrl;
-            }
+            get => _itemRelativeUrl;
             set
             {
                 _itemRelativeUrl = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(ItemRelativeUrl)));
+            }
+        }
+
+        private bool _useMostRecent;
+
+        public bool UseMostRecent
+        {
+            get => _useMostRecent;
+            set
+            {
+                _useMostRecent = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(UseMostRecent)));
             }
         }
     }
