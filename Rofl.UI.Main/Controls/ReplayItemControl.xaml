@@ -105,10 +105,10 @@
                     <Style TargetType="Border">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="True">
-                                <Setter Property="BorderBrush" Value="RoyalBlue"/>
+                                <Setter Property="BorderBrush" Value="#2747e8"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
-                                <Setter Property="BorderBrush" Value="DeepPink"/>
+                                <Setter Property="BorderBrush" Value="#cb2124"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

@@ -73,10 +73,10 @@
             <Style TargetType="DataGridRow">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Path=IsBlueTeamMember}" Value="True">
-                        <Setter Property="Background" Value="AliceBlue"></Setter>
+                        <Setter Property="Background" Value="#f5fafe"></Setter>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Path=IsBlueTeamMember}" Value="False">
-                        <Setter Property="Background" Value="MistyRose"></Setter>
+                        <Setter Property="Background" Value="#fff3f3"></Setter>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

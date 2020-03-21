@@ -122,12 +122,20 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ProgressBar IsIndeterminate="True"
+                             Grid.Row="0"
+                             Height="5"/>
                 <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage}"
                            TextAlignment="Center"
-                           FontSize="16"
+                           FontSize="14"
                            VerticalAlignment="Center" 
                            Grid.Column="0"
-                           Padding="2"/>
+                           Grid.Row="1"
+                           Padding="1"/>
             </Grid>
             
             <ListView x:Name="ReplayListView"

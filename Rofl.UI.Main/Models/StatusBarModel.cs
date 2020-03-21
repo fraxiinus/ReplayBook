@@ -10,7 +10,7 @@ namespace Rofl.UI.Main.Models
 
         public StatusBarModel()
         {
-            _statusMessage = String.Empty;
+            _statusMessage = string.Empty;
             _color = Brushes.Red;
             _visible = false;
         }
@@ -18,7 +18,7 @@ namespace Rofl.UI.Main.Models
         private string _statusMessage;
         public string StatusMessage 
         {
-            get { return _statusMessage; }
+            get => _statusMessage;
             set 
             { 
                 _statusMessage = value;
@@ -30,7 +30,7 @@ namespace Rofl.UI.Main.Models
         private Brush _color;
         public Brush Color
         {
-            get { return _color; }
+            get => _color;
             set
             {
                 _color = value;
@@ -42,7 +42,7 @@ namespace Rofl.UI.Main.Models
         private bool _visible;
         public bool Visible
         {
-            get { return _visible; }
+            get => _visible;
             set
             {
                 _visible = value;
