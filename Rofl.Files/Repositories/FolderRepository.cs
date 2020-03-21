@@ -42,8 +42,7 @@ namespace Rofl.Files.Repositories
                 foreach (var file in innerFiles)
                 {
                     // If the file is not supported, skip it
-                    if (!(file.Name.EndsWith(".rofl", StringComparison.OrdinalIgnoreCase) ||
-                          file.Name.EndsWith(".lrf", StringComparison.OrdinalIgnoreCase)))
+                    if (!(file.Name.EndsWith(".rofl", StringComparison.OrdinalIgnoreCase)))
                     {
                         continue;
                     }
