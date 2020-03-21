@@ -50,5 +50,17 @@ namespace Rofl.UI.Main.Models
                     this, new PropertyChangedEventArgs(nameof(Visible)));
             }
         }
+
+        private bool _showProgressBar;
+        public bool ShowProgressBar
+        {
+            get => _showProgressBar;
+            set
+            {
+                _showProgressBar = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ShowProgressBar)));
+            }
+        }
     }
 }

@@ -126,9 +126,22 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ProgressBar IsIndeterminate="True"
+                <ProgressBar IsIndeterminate="true"
                              Grid.Row="0"
-                             Height="5"/>
+                             Height="5">
+                    <ProgressBar.Style>
+                        <Style TargetType="ProgressBar">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=StatusBarModel.ShowProgressBar}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=StatusBarModel.ShowProgressBar}" Value="false">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ProgressBar.Style>
+                </ProgressBar>
                 <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage}"
                            TextAlignment="Center"
                            FontSize="14"

@@ -239,6 +239,7 @@ namespace Rofl.UI.Main.ViewModels
             StatusBarModel.StatusMessage = "Loading replays...";
             StatusBarModel.Color = Brushes.White;
             StatusBarModel.Visible = true;
+            StatusBarModel.ShowProgressBar = true;
             await _fileManager.InitialLoadAsync().ConfigureAwait(true);
             LoadReplays();
             await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
