@@ -80,18 +80,12 @@ namespace Rofl.UI.Main.ViewModels
 
                 foreach (var bluePlayer in previewModel.BluePreviewPlayers)
                 {
-                    bluePlayer.Marker = KnownPlayers.Where
-                        (
-                            x => x.Name.Equals(bluePlayer.PlayerName, StringComparison.OrdinalIgnoreCase)
-                        ).FirstOrDefault();
+                    bluePlayer.Marker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(bluePlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
                 }
 
                 foreach (var redPlayer in previewModel.RedPreviewPlayers)
                 {
-                    redPlayer.Marker = KnownPlayers.Where
-                        (
-                            x => x.Name.Equals(redPlayer.PlayerName, StringComparison.OrdinalIgnoreCase)
-                        ).FirstOrDefault();
+                    redPlayer.Marker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(redPlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
                 }
 
                 App.Current.Dispatcher.Invoke((Action) delegate
@@ -201,10 +195,7 @@ namespace Rofl.UI.Main.ViewModels
 
                 foreach (var player in allPlayers)
                 {
-                    var matchedMarker = KnownPlayers.Where
-                        (
-                            x => x.Name.Equals(player.PlayerName, StringComparison.OrdinalIgnoreCase)
-                        ).FirstOrDefault();
+                    var matchedMarker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(player.PlayerName, StringComparison.OrdinalIgnoreCase));
 
                     if(matchedMarker != null)
                     {
