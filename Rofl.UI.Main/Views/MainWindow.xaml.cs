@@ -7,6 +7,7 @@ using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -174,6 +175,11 @@ namespace Rofl.UI.Main
             context.ClearReplays();
             context.LoadReplays();
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+        }
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            _log.WriteToFile();
         }
     }
 }

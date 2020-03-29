@@ -11,6 +11,7 @@ using Rofl.UI.Main.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -144,37 +145,42 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task LoadPreviewPlayerThumbnails()
         {
-            foreach (var replay in PreviewReplays.ToList())
+            foreach (var replay in PreviewReplays)
             {
                 string dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(false);
 
-                List<PlayerPreviewModel> allPlayers = new List<PlayerPreviewModel>();
+                var allPlayers = new List<PlayerPreviewModel>();
                 allPlayers.AddRange(replay.BluePreviewPlayers);
                 allPlayers.AddRange(replay.RedPreviewPlayers);
 
-                // Image tasks
-                List<Task> imageTasks = new List<Task>();
-
-                // Create requests for player images
-                foreach (var player in allPlayers)
-                {
-                    imageTasks.Add(Task.Run(async () =>
+                var allRequests = new List<dynamic>(allPlayers.Select(x =>
+                    new
                     {
-                        var response = await _requestManager.MakeRequestAsync(new ChampionRequest
+                        Player = x,
+                        Request = new ChampionRequest()
                         {
-                            DataDragonVersion = dataVersion,
-                            ChampionName = player.ChampionName
-                        }).ConfigureAwait(false);
+                            ChampionName = x.ChampionName,
+                            DataDragonVersion = dataVersion
+                        }
+                    }));
 
-                        App.Current.Dispatcher.Invoke((Action)delegate
+                var allTasks = new List<Task>();
+
+                foreach (var request in allRequests)
+                {
+                    allTasks.Add(Task.Run(async () =>
+                    {
+                        var response = await _requestManager.MakeRequestAsync(request.Request as RequestBase)
+                            .ConfigureAwait(true);
+
+                        Application.Current.Dispatcher.Invoke((Action)delegate
                         {
-                            player.ImageSource = response.ResponsePath;
+                            request.Player.ImageSource = response.ResponsePath;
                         });
                     }));
                 }
 
-                // Wait for all images to finish before doing the next replay
-                await Task.WhenAll(imageTasks).ConfigureAwait(false);
+                await Task.WhenAll(allTasks).ConfigureAwait(true);
             }
         }
 
