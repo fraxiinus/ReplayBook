@@ -19,6 +19,8 @@
     <string:String x:Key="BlueVictory">BLUE VICTORY</string:String>
     <string:String x:Key="RedVictory">RED VICTORY</string:String>
     <string:String x:Key="ErrorTitle">Error</string:String>
+    <string:String x:Key="ConfirmTitle">Confirmation</string:String>
+    <string:String x:Key="ConfirmText">Are you sure?</string:String>
 
     <!--Settings Window Text-->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
@@ -81,6 +83,7 @@
     <string:String x:Key="DataDragonChampionUrlLabelText">Champion Image Relative URL</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">Item Image Relative URL</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
+    <string:String x:Key="WebCacheClearButtonText">Clear cached images</string:String>
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">A. Lee (Etirps)</string:String>
