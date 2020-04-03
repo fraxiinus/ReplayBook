@@ -122,7 +122,7 @@ namespace Rofl.Requests
             var allVersions = await _downloadClient.GetDataDragonVersionStringsAsync().ConfigureAwait(true);
 
             // Return most recent patch number
-            if (_settings.UseMostRecent)
+            if (_settings.UseMostRecent || string.IsNullOrEmpty(replayVersion))
             {
                 return allVersions.FirstOrDefault();
             }
