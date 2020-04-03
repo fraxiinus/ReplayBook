@@ -111,10 +111,10 @@ namespace Rofl.UI.Main.ViewModels
         {
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            string dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.PreviewModel.GameVersion).ConfigureAwait(false);
+            var dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.PreviewModel.GameVersion).ConfigureAwait(true);
 
-            List<ItemModel> allItems = new List<ItemModel>();
-            List<Task> itemTasks = new List<Task>();
+            var allItems = new List<ItemModel>();
+            var itemTasks = new List<Task>();
 
             allItems.AddRange(replay.BluePlayers.SelectMany(x => x.Items));
             allItems.AddRange(replay.RedPlayers.SelectMany(x => x.Items));
@@ -127,21 +127,30 @@ namespace Rofl.UI.Main.ViewModels
                     {
                         DataDragonVersion = dataVersion,
                         ItemID = item.ItemId
-                    }).ConfigureAwait(false);
+                    }).ConfigureAwait(true);
 
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    Application.Current.Dispatcher.Invoke((Action)delegate
                     {
                         item.ImageSource = response.ResponsePath;
                     });
                 }));
             }
+
+            await Task.WhenAll(itemTasks).ConfigureAwait(true);
         }
 
         public async Task LoadPreviewPlayerThumbnails()
         {
+            // Default set to most recent data version
+            var dataVersion = await _requestManager.GetDataDragonVersionAsync(null).ConfigureAwait(true);
+
             foreach (var replay in PreviewReplays)
             {
-                string dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(false);
+                // Get the correct data version for the replay version
+                if (!SettingsManager.Settings.UseMostRecent)
+                {
+                    dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(true);
+                }
 
                 var allPlayers = new List<PlayerPreviewModel>();
                 allPlayers.AddRange(replay.BluePreviewPlayers);
