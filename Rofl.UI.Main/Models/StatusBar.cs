@@ -4,11 +4,11 @@ using System.Windows.Media;
 
 namespace Rofl.UI.Main.Models
 {
-    public class StatusBarModel : INotifyPropertyChanged
+    public class StatusBar : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public StatusBarModel()
+        public StatusBar()
         {
             _statusMessage = string.Empty;
             _color = Brushes.Red;

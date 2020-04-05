@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rofl.UI.Main.Models
 {
-    public class ExportSelectItemModel : INotifyPropertyChanged
+    public class ExportSelectItem : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Rofl.UI.Main.Models
 {
-    public class PlayerDetailModel
+    public class PlayerDetail
     {
-        public PlayerDetailModel(Player player, PlayerPreviewModel previewModel, bool isBlueTeamMember)
+        public PlayerDetail(Player player, PlayerPreview previewModel, bool isBlueTeamMember)
         {
             if (player == null) { throw new ArgumentNullException(nameof(player)); }
 
@@ -97,19 +97,19 @@ namespace Rofl.UI.Main.Models
             Ping = player.PING.ToInt();
 
             // Create items
-            Items = new List<ItemModel>
+            Items = new List<Item>
             {
-                new ItemModel(player.ITEM0),
-                new ItemModel(player.ITEM1),
-                new ItemModel(player.ITEM2),
-                new ItemModel(player.ITEM3),
-                new ItemModel(player.ITEM4),
-                new ItemModel(player.ITEM5),
-                new ItemModel(player.ITEM6)
+                new Item(player.ITEM0),
+                new Item(player.ITEM1),
+                new Item(player.ITEM2),
+                new Item(player.ITEM3),
+                new Item(player.ITEM4),
+                new Item(player.ITEM5),
+                new Item(player.ITEM6)
             };
         }
 
-        public PlayerPreviewModel PreviewModel { get; private set; }
+        public PlayerPreview PreviewModel { get; private set; }
 
         public int Level { get; private set; }
 
@@ -245,7 +245,7 @@ namespace Rofl.UI.Main.Models
 
         public int Ping { get; private set; }
 
-        public IList<ItemModel> Items { get; private set; }
+        public IList<Item> Items { get; private set; }
 
     }
 }

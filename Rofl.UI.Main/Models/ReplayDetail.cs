@@ -5,22 +5,22 @@ using System.Linq;
 
 namespace Rofl.UI.Main.Models
 {
-    public class ReplayDetailModel
+    public class ReplayDetail
     {
-        public ReplayDetailModel(FileResult replay, ReplayPreviewModel previewModel)
+        public ReplayDetail(FileResult replay, ReplayPreview previewModel)
         {
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
             PreviewModel = previewModel ?? throw new ArgumentNullException(nameof(previewModel));
             FileInfo = replay.FileInfo ?? throw new ArgumentNullException(nameof(replay));
 
-            AllPlayers = new List<PlayerDetailModel>();
+            AllPlayers = new List<PlayerDetail>();
 
-            BluePlayers = new List<PlayerDetailModel>();
+            BluePlayers = new List<PlayerDetail>();
             var combinedBluePlayers = replay.ReplayFile.BluePlayers.Zip(previewModel.BluePreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var bPlayer in combinedBluePlayers)
             {
-                var newPlayer = new PlayerDetailModel(bPlayer.Player, bPlayer.Preview, true);
+                var newPlayer = new PlayerDetail(bPlayer.Player, bPlayer.Preview, true);
                 BlueKills += newPlayer.ChampionsKilled;
                 BlueDeaths += newPlayer.Deaths;
                 BlueAssists += newPlayer.Assists;
@@ -30,11 +30,11 @@ namespace Rofl.UI.Main.Models
                 AllPlayers.Add(newPlayer);
             }
 
-            RedPlayers = new List<PlayerDetailModel>();
+            RedPlayers = new List<PlayerDetail>();
             var combinedRedPlayers = replay.ReplayFile.RedPlayers.Zip(previewModel.RedPreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var rPlayer in combinedRedPlayers)
             {
-                var newPlayer = new PlayerDetailModel(rPlayer.Player, rPlayer.Preview, false);
+                var newPlayer = new PlayerDetail(rPlayer.Player, rPlayer.Preview, false);
                 RedKills += newPlayer.ChampionsKilled;
                 RedDeaths += newPlayer.Deaths;
                 RedAssists += newPlayer.Assists;
@@ -45,7 +45,7 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        public ReplayPreviewModel PreviewModel { get; private set; }
+        public ReplayPreview PreviewModel { get; private set; }
 
         public ReplayFileInfo FileInfo { get; private set; }
 
@@ -69,10 +69,10 @@ namespace Rofl.UI.Main.Models
 
         public int RedMinionsKilled { get; private set; }
 
-        public IList<PlayerDetailModel> BluePlayers { get; private set; }
+        public IList<PlayerDetail> BluePlayers { get; private set; }
 
-        public IList<PlayerDetailModel> RedPlayers { get; private set; }
+        public IList<PlayerDetail> RedPlayers { get; private set; }
 
-        public IList<PlayerDetailModel> AllPlayers { get; private set; }
+        public IList<PlayerDetail> AllPlayers { get; private set; }
     }
 }

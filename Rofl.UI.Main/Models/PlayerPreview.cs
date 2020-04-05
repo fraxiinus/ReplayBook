@@ -5,9 +5,9 @@ using System.ComponentModel;
 
 namespace Rofl.UI.Main.Models
 {
-    public class PlayerPreviewModel : INotifyPropertyChanged
+    public class PlayerPreview : INotifyPropertyChanged
     {
-        public PlayerPreviewModel(Player player)
+        public PlayerPreview(Player player)
         {
             if (player == null) { throw new ArgumentNullException(nameof(player)); }
             
