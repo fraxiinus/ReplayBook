@@ -17,6 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Rofl.Reader.Models;
 
 namespace Rofl.UI.Main.ViewModels
 {
@@ -33,7 +34,7 @@ namespace Rofl.UI.Main.ViewModels
         /// <summary>
         /// Smaller, preview objects of replays
         /// </summary>
-        public ObservableCollection<ReplayPreviewModel> PreviewReplays { get; private set; }
+        public ObservableCollection<ReplayPreview> PreviewReplays { get; private set; }
 
         /// <summary>
         /// Full replay objects with the filepath as the key
@@ -44,7 +45,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public SettingsManager SettingsManager { get; private set; }
 
-        public StatusBarModel StatusBarModel { get; private set; }
+        public StatusBar StatusBarModel { get; private set; }
 
         public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager)
         {
@@ -54,7 +55,7 @@ namespace Rofl.UI.Main.ViewModels
 
             KnownPlayers = SettingsManager.Settings.KnownPlayers;
 
-            PreviewReplays = new ObservableCollection<ReplayPreviewModel>();
+            PreviewReplays = new ObservableCollection<ReplayPreview>();
             FileResults = new Dictionary<string, FileResult>();
 
             SortParameters = new QueryProperties
@@ -63,7 +64,7 @@ namespace Rofl.UI.Main.ViewModels
                 SortMethod = SortMethod.DateDesc
             };
 
-            StatusBarModel = new StatusBarModel();
+            StatusBarModel = new StatusBar();
         }
 
         /// <summary>
@@ -75,7 +76,7 @@ namespace Rofl.UI.Main.ViewModels
 
             foreach (var file in databaseResults)
             {
-                ReplayPreviewModel previewModel = new ReplayPreviewModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
+                ReplayPreview previewModel = new ReplayPreview(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
                 previewModel.IsSupported = SettingsManager.Executables.DoesVersionExist(previewModel.GameVersion);
 
                 foreach (var bluePlayer in previewModel.BluePreviewPlayers)
@@ -107,13 +108,13 @@ namespace Rofl.UI.Main.ViewModels
             FileResults.Clear();
         }
 
-        public async Task LoadItemThumbnails(ReplayDetailModel replay)
+        public async Task LoadItemThumbnails(ReplayDetail replay)
         {
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
             var dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.PreviewModel.GameVersion).ConfigureAwait(true);
 
-            var allItems = new List<ItemModel>();
+            var allItems = new List<Item>();
             var itemTasks = new List<Task>();
 
             allItems.AddRange(replay.BluePlayers.SelectMany(x => x.Items));
@@ -152,7 +153,7 @@ namespace Rofl.UI.Main.ViewModels
                     dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(true);
                 }
 
-                var allPlayers = new List<PlayerPreviewModel>();
+                var allPlayers = new List<PlayerPreview>();
                 allPlayers.AddRange(replay.BluePreviewPlayers);
                 allPlayers.AddRange(replay.RedPreviewPlayers);
 
@@ -192,7 +193,7 @@ namespace Rofl.UI.Main.ViewModels
             // Look through all replays to get all players
             foreach (var replay in PreviewReplays)
             {
-                IEnumerable<PlayerPreviewModel> allPlayers;
+                IEnumerable<PlayerPreview> allPlayers;
                 if(replay.BluePreviewPlayers != null)
                 {
                     allPlayers = replay.BluePreviewPlayers.Union(replay.RedPreviewPlayers);
@@ -252,7 +253,7 @@ namespace Rofl.UI.Main.ViewModels
             StatusBarModel.Visible = false;
         }
 
-        public void PlayReplay(ReplayPreviewModel preview)
+        public void PlayReplay(ReplayPreview preview)
         {
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
             
@@ -337,17 +338,21 @@ namespace Rofl.UI.Main.ViewModels
             return null;
         }
 
-        public void ShowExportReplayDataWindow(ReplayPreviewModel preview)
+        public void ShowExportReplayDataWindow(ReplayPreview preview)
         {
             if(preview == null) { throw new ArgumentNullException(nameof(preview)); }
 
-            var replay = FileResults[preview.Location];
+            var exportContext = new ExportContext()
+            {
+                Replays = new ReplayFile[] { FileResults[preview.Location].ReplayFile },
+                Markers = KnownPlayers.ToList()
+            };
 
             var exportDialog = new ExportReplayDataWindow()
             {
                 Top = App.Current.MainWindow.Top + 50,
                 Left = App.Current.MainWindow.Left + 50,
-                DataContext = replay.ReplayFile,
+                DataContext = exportContext,
             };
 
             exportDialog.ShowDialog();

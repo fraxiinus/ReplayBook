@@ -164,7 +164,7 @@
                       Grid.Row="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <controls:ReplayItemControl/>
+                        <controls:ReplayItemControl MouseRightButtonUp="ReplayItemControl_OnMouseRightButtonUp"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

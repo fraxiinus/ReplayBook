@@ -44,7 +44,7 @@
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="models:ExportSelectItemModel">
+                    <DataTemplate DataType="models:ExportSelectItem">
                         <CheckBox Content="{Binding Path=Name}" 
                                   IsChecked="{Binding Path=Checked}" 
                                   ToolTip="{Binding Path=Name}"
@@ -79,7 +79,7 @@
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="models:ExportSelectItemModel">
+                    <DataTemplate DataType="models:ExportSelectItem">
                         <CheckBox Content="{Binding Path=Name}" 
                                   IsChecked="{Binding Path=Checked}" 
                                   ToolTip="{Binding Path=Name}"
@@ -120,7 +120,7 @@
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="models:ExportSelectItemModel">
+                    <DataTemplate DataType="models:ExportSelectItem">
                         <CheckBox Content="{Binding Path=Name}" 
                                   IsChecked="{Binding Path=Checked}"
                                   ToolTip="{Binding Path=Name}"

@@ -122,8 +122,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\FormatKbSizeConverter.cs" />
-    <Compile Include="Models\ExportSelectItemModel.cs" />
-    <Compile Include="Models\StatusBarModel.cs" />
+    <Compile Include="Models\ExportContext.cs" />
+    <Compile Include="Models\ExportSelectItem.cs" />
+    <Compile Include="Models\StatusBar.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Views\ExecutableDetailWindow.xaml.cs">
       <DependentUpon>ExecutableDetailWindow.xaml</DependentUpon>
@@ -226,11 +227,11 @@
       <DependentUpon>StatisticsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Models\ItemModel.cs" />
-    <Compile Include="Models\PlayerDetailModel.cs" />
-    <Compile Include="Models\PlayerPreviewModel.cs" />
-    <Compile Include="Models\ReplayDetailModel.cs" />
-    <Compile Include="Models\ReplayPreviewModel.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\PlayerDetail.cs" />
+    <Compile Include="Models\PlayerPreview.cs" />
+    <Compile Include="Models\ReplayDetail.cs" />
+    <Compile Include="Models\ReplayPreview.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

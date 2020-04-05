@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -59,19 +60,19 @@ namespace Rofl.UI.Main
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
             if (!(sender is ListView replayList)) { return; }
-            if (!(replayList.SelectedItem is ReplayPreviewModel previewModel)) { return; }
+            if (!(replayList.SelectedItem is ReplayPreview previewModel)) { return; }
 
             FileResult replayFile = context.FileResults[previewModel.Location];
 
-            ReplayDetailModel replayDetailModel = new ReplayDetailModel(replayFile, previewModel);
+            ReplayDetail replayDetail = new ReplayDetail(replayFile, previewModel);
 
             ReplayDetailControl detailControl = this.FindName("DetailView") as ReplayDetailControl;
-            detailControl.DataContext = replayDetailModel;
+            detailControl.DataContext = replayDetail;
 
             (detailControl.FindName("BlankContent") as StackPanel).Visibility = Visibility.Hidden;
             (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
-            await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetailModel).ConfigureAwait(true);
+            await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail).ConfigureAwait(true);
         }
 
         private void SortButton_Click(object sender, RoutedEventArgs e)
@@ -180,6 +181,15 @@ namespace Rofl.UI.Main
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             _log.WriteToFile();
+        }
+
+        private void ReplayItemControl_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+
+            // if(!(sender is ReplayItemControl replayItem)) { return; }
+
+            MessageBox.Show($"{ReplayListView.SelectedItems.Count}");
         }
     }
 }

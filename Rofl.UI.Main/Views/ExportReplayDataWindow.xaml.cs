@@ -21,32 +21,30 @@ namespace Rofl.UI.Main.Views
     {
         private readonly CollectionViewSource _levelThreeView;
 
-        private readonly ObservableCollection<ExportSelectItemModel> _levelOneItems;
-        private readonly ObservableCollection<ExportSelectItemModel> _levelTwoItems;
-        private readonly ObservableCollection<ExportSelectItemModel> _levelThreeItems;
+        private readonly ObservableCollection<ExportSelectItem> _levelOneItems;
+        private readonly ObservableCollection<ExportSelectItem> _levelTwoItems;
+        private readonly ObservableCollection<ExportSelectItem> _levelThreeItems;
         private bool _csvMode = false;
 
         public ExportReplayDataWindow()
         {
             InitializeComponent();
 
-            _levelOneItems = new ObservableCollection<ExportSelectItemModel>();
+            _levelOneItems = new ObservableCollection<ExportSelectItem>();
             this.LevelOneSelectBox.ItemsSource = _levelOneItems;
 
-            _levelTwoItems = new ObservableCollection<ExportSelectItemModel>();
+            _levelTwoItems = new ObservableCollection<ExportSelectItem>();
             this.LevelTwoSelectBox.ItemsSource = _levelTwoItems;
 
-            _levelThreeItems = new ObservableCollection<ExportSelectItemModel>();
+            _levelThreeItems = new ObservableCollection<ExportSelectItem>();
             _levelThreeView = new CollectionViewSource { Source = _levelThreeItems };
             this.LevelThreeSelectBox.ItemsSource = _levelThreeView.View;
         }
 
         private void ExportReplayDataWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is ReplayFile replay))
-            {
-                return;
-            }
+            if (!(this.DataContext is ExportContext context)) { return; }
+            if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return; }
 
             foreach (var property in replay.GetType().GetProperties())
             {
@@ -60,7 +58,7 @@ namespace Rofl.UI.Main.Views
                     continue;
                 }
 
-                _levelOneItems.Add(new ExportSelectItemModel()
+                _levelOneItems.Add(new ExportSelectItem()
                 {
                     Name = property.Name,
                     Checked = false
@@ -69,7 +67,7 @@ namespace Rofl.UI.Main.Views
 
             foreach (var player in replay.Players)
             {
-                _levelTwoItems.Add(new ExportSelectItemModel()
+                _levelTwoItems.Add(new ExportSelectItem()
                 {
                     Name = $"{player.SKIN} - {player.NAME}",
                     InternalString = player.NAME,
@@ -89,7 +87,7 @@ namespace Rofl.UI.Main.Views
                     continue;
                 }
 
-                _levelThreeItems.Add(new ExportSelectItemModel()
+                _levelThreeItems.Add(new ExportSelectItem()
                 {
                     Name = property.Name,
                     Checked = false
@@ -121,7 +119,7 @@ namespace Rofl.UI.Main.Views
         {
             if (!(sender is CheckBox checkBox)) { return; }
 
-            var test = checkBox.DataContext as ExportSelectItemModel;
+            var test = checkBox.DataContext as ExportSelectItem;
 
             this.LevelThreeSelectBox.IsEnabled = _levelTwoItems.Any(x => x.Checked);
         }
@@ -253,7 +251,7 @@ namespace Rofl.UI.Main.Views
             }
         }
 
-        private void SelectAll(ObservableCollection<ExportSelectItemModel> list)
+        private void SelectAll(ObservableCollection<ExportSelectItem> list)
         {
             if (list == null) { throw new ArgumentNullException(nameof(list)); }
 
@@ -263,7 +261,7 @@ namespace Rofl.UI.Main.Views
             }
         }
 
-        private void DeselectAll(ObservableCollection<ExportSelectItemModel> list)
+        private void DeselectAll(ObservableCollection<ExportSelectItem> list)
         {
             if (list == null) { throw new ArgumentNullException(nameof(list)); }
 
@@ -275,7 +273,8 @@ namespace Rofl.UI.Main.Views
 
         private Dictionary<string, object> ConstructJsonResults()
         {
-            if (!(this.DataContext is ReplayFile replay)) { return null; }
+            if (!(this.DataContext is ExportContext context)) { return null; }
+            if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return null; }
 
             // Include level one items
             var kvpResults = new Dictionary<string, object>();
@@ -288,7 +287,7 @@ namespace Rofl.UI.Main.Views
                     continue;
                 }
 
-                var value = replay.GetType().GetProperty(rootItem.Name)?.GetValue(replay);
+                var value = context.GetType().GetProperty(rootItem.Name)?.GetValue(context);
                 kvpResults.Add(rootItem.Name, value);
             }
 
@@ -326,7 +325,9 @@ namespace Rofl.UI.Main.Views
 
         private string ConstructCsvResults()
         {
-            if (!(this.DataContext is ReplayFile replay)) { return null; }
+            if (!(this.DataContext is ExportContext context)) { return null; }
+            if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return null; }
+
             var lines = new List<List<string>>();
 
             // Add selected properties as first line
@@ -423,7 +424,7 @@ namespace Rofl.UI.Main.Views
         {
             var filterText = this.FilterTextBox.Text;
 
-            if (!(e.Item is ExportSelectItemModel src))
+            if (!(e.Item is ExportSelectItem src))
                 e.Accepted = false;
             else if (src.Name != null && !src.Name.Contains(filterText.ToUpper(CultureInfo.InvariantCulture)))// here is FirstName a Property in my YourCollectionItem
                 e.Accepted = false;
