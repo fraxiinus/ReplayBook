@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Rofl.Requests.Models;
@@ -17,6 +19,8 @@ namespace Rofl.Requests.Utilities
         private readonly Scribe _log;
         private readonly string _myName;
         private readonly HttpClient _httpClient;
+
+        private const string UserAgent = @"ReplayBook/PR5 (+https://github.com/leeanchu/ReplayBook)";
 
         public DownloadClient(string downloadPath, ObservableSettings settings, Scribe log)
         {
@@ -104,7 +108,7 @@ namespace Rofl.Requests.Utilities
             HttpResponseMessage response;
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
-                request.Headers.UserAgent.ParseAdd("ReplayBook/DownloadClient");
+                request.Headers.UserAgent.ParseAdd(UserAgent);
                 request.Headers.Accept.ParseAdd("text/json");
 
                 try
@@ -131,6 +135,50 @@ namespace Rofl.Requests.Utilities
                 _log.Error(_myName, $"HTTP request failed {(int)response.StatusCode} {url}");
                 return null;
             }
+        }
+
+        // TODO this feature to be used in first time tutorial/configuration screen
+        public async Task<IEnumerable<string>> GetAllChampions()
+        {
+            var version = (await GetDataDragonVersionStringsAsync().ConfigureAwait(true)).FirstOrDefault();
+            var url = @"http://ddragon.leagueoflegends.com/cdn/" + version + @"/data/en_US/champion.json";
+
+            JObject responseObject;
+
+            // Make request to get all champions json
+            HttpResponseMessage response;
+            using (var request = new HttpRequestMessage(HttpMethod.Get, url))
+            {
+                request.Headers.UserAgent.ParseAdd(UserAgent);
+                request.Headers.Accept.ParseAdd("text/json");
+
+                try
+                {
+                    response = await _httpClient.SendAsync(request).ConfigureAwait(true);
+                }
+                catch (HttpRequestException)
+                {
+                    _log.Error(_myName, $"Unable to send HTTP request to {url}");
+                    return null;
+                }
+            }
+
+            // Load response into JObject
+            if (response.IsSuccessStatusCode)
+            {
+                _log.Information(_myName, $"Made successful HTTP request {url}");
+
+                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+
+                responseObject = JObject.Parse(json);
+            }
+            else
+            {
+                _log.Error(_myName, $"HTTP request failed {(int)response.StatusCode} {url}");
+                return null;
+            }
+
+            return (from JProperty champion in responseObject["data"] select champion.Name).ToList();
         }
 
         private string ConstructRequestUrl(RequestBase request)
@@ -220,7 +268,7 @@ namespace Rofl.Requests.Utilities
             HttpResponseMessage response;
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
-                request.Headers.UserAgent.ParseAdd("ReplayBook/DownloadClient");
+                request.Headers.UserAgent.ParseAdd(UserAgent);
                 request.Headers.Accept.ParseAdd("image/png");
 
                 try
