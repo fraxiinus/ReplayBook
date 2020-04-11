@@ -8,7 +8,6 @@ using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
