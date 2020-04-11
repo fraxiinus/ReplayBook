@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Rofl.Requests
         private readonly ObservableSettings _settings;
         private readonly string _cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
 
-        private readonly Dictionary<string, Task<ResponseBase>> _inProgressTasks;
+        private readonly ConcurrentDictionary<string, Task<ResponseBase>> _inProgressTasks;
         //private readonly List<string> _inProgressIndex;
 
         public RequestManager(ObservableSettings settings, Scribe log)
@@ -37,7 +38,7 @@ namespace Rofl.Requests
             _downloadClient = new DownloadClient(_cachePath, _settings, _log);
             _cacheClient = new CacheClient(_cachePath, _log);
 
-            _inProgressTasks = new Dictionary<string, Task<ResponseBase>>();
+            _inProgressTasks = new ConcurrentDictionary<string, Task<ResponseBase>>();
             //_inProgressIndex = new List<string>();
         }
 
@@ -59,7 +60,10 @@ namespace Rofl.Requests
                 if (responseTask.IsCompleted)
                 {
                     _log.Information(_myName, $"Task is completed, remove {requestId}");
-                    _inProgressTasks.Remove(requestId);
+                    if (!_inProgressTasks.TryRemove(requestId, out _))
+                    {
+                        _log.Warning(_myName, $"Failed to remove in progress task {requestId}");
+                    }
                 }
 
                 var result = await responseTask.ConfigureAwait(true);
@@ -82,7 +86,10 @@ namespace Rofl.Requests
             {
                 _log.Information(_myName, $"Downloading {requestId}");
                 var responseTask = _downloadClient.DownloadIconImageAsync(request);
-                _inProgressTasks.Add(requestId, responseTask);
+                if (!_inProgressTasks.TryAdd(requestId, responseTask))
+                {
+                    _log.Warning(_myName, $"Failed to add in progress task {requestId}");
+                }
 
                 var result = await responseTask.ConfigureAwait(true);
                 _log.Information(_myName, $"Completed download for {requestId}, returned {!result.IsFaulted}");
