@@ -150,6 +150,30 @@ namespace Rofl.Requests
             return string.IsNullOrEmpty(versionQueryResult) ? allVersions.First() : versionQueryResult;
         }
 
+        public async Task<IEnumerable<ChampionRequest>> GetAllChampionRequests()
+        {
+            var championNames = await _downloadClient.GetAllChampionNames().ConfigureAwait(true);
+            var latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
+
+            return championNames.Select(x => new ChampionRequest
+            {
+                ChampionName = x,
+                DataDragonVersion = latestVersion
+            });
+        }
+
+        public async Task<IEnumerable<ItemRequest>> GetAllItemRequests()
+        {
+            var itemNumbers = await _downloadClient.GetAllItemNumbers().ConfigureAwait(true);
+            var latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
+
+            return itemNumbers.Select(x => new ItemRequest
+            {
+                ItemID = x,
+                DataDragonVersion = latestVersion
+            });
+        }
+
         private string GetRequestIdentifier(RequestBase request)
         {
             string result = null;

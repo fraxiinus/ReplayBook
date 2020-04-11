@@ -35,7 +35,6 @@ namespace Rofl.UI.Main.Pages
             if (!(parentWindow is WelcomeSetupWindow parent)) throw new ArgumentException("Parent window is not WelcomeSetupWindow type");
 
             context.ApplyInitialSettings(parent.SetupSettings);
-            context.WriteSkipWelcome();
 
             parentWindow.Close();
         }

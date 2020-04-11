@@ -8,7 +8,8 @@
         Title="{StaticResource WswWindowTitleText}" 
         Height="470" Width="800"
         ResizeMode="NoResize"
-        Loaded="WelcomeSetupWindow_OnLoaded">
+        Loaded="WelcomeSetupWindow_OnLoaded"
+        Closing="WelcomeSetupWindow_OnClosing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

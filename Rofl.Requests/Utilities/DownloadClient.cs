@@ -22,6 +22,8 @@ namespace Rofl.Requests.Utilities
 
         private const string UserAgent = @"ReplayBook/PR5 (+https://github.com/leeanchu/ReplayBook)";
 
+        private string LatestDataDragonVersion = null;
+
         public DownloadClient(string downloadPath, ObservableSettings settings, Scribe log)
         {
             if (string.IsNullOrEmpty(downloadPath))
@@ -97,6 +99,18 @@ namespace Rofl.Requests.Utilities
             };
         }
 
+        public async Task<string> GetLatestDataDragonVersion()
+        {
+            if (string.IsNullOrEmpty(LatestDataDragonVersion))
+            {
+                var latest = (await GetDataDragonVersionStringsAsync().ConfigureAwait(true))
+                    .FirstOrDefault();
+                LatestDataDragonVersion = latest;
+            }
+
+            return LatestDataDragonVersion;
+        }
+
         /// <summary>
         /// Get an array of all appropriate DataDragon versions
         /// </summary>
@@ -137,11 +151,53 @@ namespace Rofl.Requests.Utilities
             }
         }
 
-        // TODO this feature to be used in first time tutorial/configuration screen
-        public async Task<IEnumerable<string>> GetAllChampions()
+        public async Task<IEnumerable<string>> GetAllChampionNames()
         {
-            var version = (await GetDataDragonVersionStringsAsync().ConfigureAwait(true)).FirstOrDefault();
+            var version = await GetLatestDataDragonVersion().ConfigureAwait(true);
             var url = @"http://ddragon.leagueoflegends.com/cdn/" + version + @"/data/en_US/champion.json";
+
+            JObject responseObject;
+
+            // Make request to get all champions json
+            HttpResponseMessage response;
+            using (var request = new HttpRequestMessage(HttpMethod.Get, url))
+            {
+                request.Headers.UserAgent.ParseAdd(UserAgent);
+                request.Headers.Accept.ParseAdd("text/json");
+
+                try
+                {
+                    response = await _httpClient.SendAsync(request).ConfigureAwait(true);
+                }
+                catch (HttpRequestException)
+                {
+                    _log.Error(_myName, $"Unable to send HTTP request to {url}");
+                    return null;
+                }
+            }
+
+            // Load response into JObject
+            if (response.IsSuccessStatusCode)
+            {
+                _log.Information(_myName, $"Made successful HTTP request {url}");
+
+                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+
+                responseObject = JObject.Parse(json);
+            }
+            else
+            {
+                _log.Error(_myName, $"HTTP request failed {(int)response.StatusCode} {url}");
+                return null;
+            }
+
+            return (from JProperty champion in responseObject["data"] select champion.Name).ToList();
+        }
+
+        public async Task<IEnumerable<string>> GetAllItemNumbers()
+        {
+            var version = await GetLatestDataDragonVersion().ConfigureAwait(true);
+            var url = @"http://ddragon.leagueoflegends.com/cdn/" + version + @"/data/en_US/item.json";
 
             JObject responseObject;
 

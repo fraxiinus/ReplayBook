@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Pages;
+using Rofl.UI.Main.ViewModels;
 
 namespace Rofl.UI.Main.Views
 {
@@ -49,6 +51,10 @@ namespace Rofl.UI.Main.Views
                 DataContext = this.DataContext
             });
             _welcomeSetupPages.Add(new WelcomeSetupReplays
+            {
+                DataContext = this.DataContext
+            });
+            _welcomeSetupPages.Add(new WelcomeSetupDownload
             {
                 DataContext = this.DataContext
             });
@@ -137,6 +143,8 @@ namespace Rofl.UI.Main.Views
         {
             switch (page)
             {
+                case WelcomeSetupDownload _:
+                    return (string) TryFindResource("WswDownloadFrameTitle");
                 case WelcomeSetupExecutables _:
                     return (string) TryFindResource("WswExecutablesFrameTitle");
                 case WelcomeSetupFinish _:
@@ -150,6 +158,13 @@ namespace Rofl.UI.Main.Views
                 default:
                     return "Title";
             }
+        }
+
+        private void WelcomeSetupWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) return;
+
+            context.WriteSkipWelcome();
         }
     }
 }

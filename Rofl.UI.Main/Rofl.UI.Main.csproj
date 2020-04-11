@@ -127,6 +127,9 @@
     <Compile Include="Models\StatusBar.cs" />
     <Compile Include="Models\WelcomeSetupSettings.cs" />
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="Pages\WelcomeSetupDownload.xaml.cs">
+      <DependentUpon>WelcomeSetupDownload.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\WelcomeSetupExecutables.xaml.cs">
       <DependentUpon>WelcomeSetupExecutables.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\StatisticsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\WelcomeSetupDownload.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

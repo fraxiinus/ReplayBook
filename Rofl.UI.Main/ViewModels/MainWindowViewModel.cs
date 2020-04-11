@@ -25,7 +25,8 @@ namespace Rofl.UI.Main.ViewModels
     public class MainWindowViewModel
     {
         private readonly FileManager _fileManager;
-        private readonly RequestManager _requestManager;
+        
+        public RequestManager RequestManager { get; private set; }
 
         /// <summary>
         /// 
@@ -52,7 +53,7 @@ namespace Rofl.UI.Main.ViewModels
         {
             SettingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
             _fileManager = files ?? throw new ArgumentNullException(nameof(files));
-            _requestManager = requests ?? throw new ArgumentNullException(nameof(requests));
+            RequestManager = requests ?? throw new ArgumentNullException(nameof(requests));
 
             KnownPlayers = SettingsManager.Settings.KnownPlayers;
 
@@ -113,7 +114,7 @@ namespace Rofl.UI.Main.ViewModels
         {
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            var dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.PreviewModel.GameVersion).ConfigureAwait(true);
+            var dataVersion = await RequestManager.GetDataDragonVersionAsync(replay.PreviewModel.GameVersion).ConfigureAwait(true);
 
             var allItems = new List<Item>();
             var itemTasks = new List<Task>();
@@ -125,7 +126,7 @@ namespace Rofl.UI.Main.ViewModels
             {
                 itemTasks.Add(Task.Run(async () =>
                 {
-                    var response = await _requestManager.MakeRequestAsync(new ItemRequest
+                    var response = await RequestManager.MakeRequestAsync(new ItemRequest
                     {
                         DataDragonVersion = dataVersion,
                         ItemID = item.ItemId
@@ -144,14 +145,14 @@ namespace Rofl.UI.Main.ViewModels
         public async Task LoadPreviewPlayerThumbnails()
         {
             // Default set to most recent data version
-            var dataVersion = await _requestManager.GetDataDragonVersionAsync(null).ConfigureAwait(true);
+            var dataVersion = await RequestManager.GetDataDragonVersionAsync(null).ConfigureAwait(true);
 
             foreach (var replay in PreviewReplays)
             {
                 // Get the correct data version for the replay version
                 if (!SettingsManager.Settings.UseMostRecent)
                 {
-                    dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(true);
+                    dataVersion = await RequestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(true);
                 }
 
                 var allPlayers = new List<PlayerPreview>();
@@ -175,7 +176,7 @@ namespace Rofl.UI.Main.ViewModels
                 {
                     allTasks.Add(Task.Run(async () =>
                     {
-                        var response = await _requestManager.MakeRequestAsync(request.Request as RequestBase)
+                        var response = await RequestManager.MakeRequestAsync(request.Request as RequestBase)
                             .ConfigureAwait(true);
 
                         Application.Current.Dispatcher.Invoke((Action)delegate
