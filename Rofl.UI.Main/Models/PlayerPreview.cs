@@ -14,8 +14,7 @@ namespace Rofl.UI.Main.Models
             ChampionName = player.SKIN;
             PlayerName = player.NAME;
             marker = null;
-            imgSrc = @"D:\Sync\Pictures\comissions\CalamariPop\ThinkYuumi.png";
-
+            imgSrc = null;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

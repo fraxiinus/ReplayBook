@@ -8,6 +8,7 @@ using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -44,9 +45,13 @@ namespace Rofl.UI.Main
             _files = new FileManager(_settingsManager.Settings, _log);
             _requests = new RequestManager(_settingsManager.Settings, _log);
 
-            this.DataContext = new MainWindowViewModel(_files, _requests, _settingsManager);
+            var context = new MainWindowViewModel(_files, _requests, _settingsManager);
+            this.DataContext = context;
 
             _log.Error("PRERELEASE", "Log files are generated for each run while in prerelease");
+
+            // Decide to show welcome window
+            context.ShowWelcomeWindow();
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)

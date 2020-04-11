@@ -319,6 +319,27 @@
                         <CheckBox Content="{StaticResource WebRequestsUseMostRecentText}"
                                   IsChecked="{Binding Settings.UseMostRecent}"
                                   Margin="0 10 0 0"/>
+
+                        <!--<GroupBox Header="Resulting URL"
+                                  Margin="0 10 0 0"
+                                  Padding="5">
+                            <StackPanel Orientation="Vertical">
+
+                                <TextBox Text="ResultUrl"
+                                         Margin="0 5 0 0"
+                                         IsReadOnly="True"
+                                         BorderThickness="0 0 0 1"/>
+
+                                <Border BorderThickness="1"
+                                        BorderBrush="#b4b4b4"
+                                        Margin="0 5 0 0"
+                                        Width="Auto">
+                                    <Image Name="UrlTestingImage" 
+                                           Width="50" 
+                                           Height="50"/>
+                                </Border>
+                            </StackPanel>
+                        </GroupBox>-->
                     </StackPanel>
                 </TabItem>
 

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -356,6 +357,67 @@ namespace Rofl.UI.Main.ViewModels
             };
 
             exportDialog.ShowDialog();
+        }
+
+        public void ShowWelcomeWindow()
+        {
+            if (File.Exists("cache/SKIPWELCOME"))
+            {
+                return;
+            }
+
+            var welcomeDialog = new WelcomeSetupWindow()
+            {
+                Top = App.Current.MainWindow.Top + 50,
+                Left = App.Current.MainWindow.Left + 50,
+                DataContext = this
+            };
+
+            welcomeDialog.ShowDialog();
+        }
+
+        public void WriteSkipWelcome()
+        {
+            if (File.Exists("cache/SKIPWELCOME"))
+            {
+                return;
+            }
+
+            File.WriteAllText("cache/SKIPWELCOME", (string) Application.Current.TryFindResource("EggEggEgg"));
+        }
+
+        public void DeleteSkipWelcome()
+        {
+            if (File.Exists("cache/SKIPWELCOME"))
+            {
+                File.Delete("cache/SKIPWELCOME");
+            }
+        }
+
+        public void ApplyInitialSettings(WelcomeSetupSettings initialSettings)
+        {
+            if (initialSettings == null) throw new ArgumentNullException(nameof(initialSettings));
+
+            if (!string.IsNullOrEmpty(initialSettings.ReplayPath))
+            {
+                // Only add the replay folder if it doesn't exist already. It really should be empty...
+                if (!SettingsManager.Settings.SourceFolders.Contains(initialSettings.ReplayPath))
+                {
+                    SettingsManager.Settings.SourceFolders.Add(initialSettings.ReplayPath);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(initialSettings.RiotGamesPath))
+            {
+                // Only add the executable folder if it doesn't exist already. It really should be empty...
+                if (!SettingsManager.Executables.Settings.SourceFolders.Contains(initialSettings.RiotGamesPath))
+                {
+                    SettingsManager.Executables.Settings.SourceFolders.Add(initialSettings.RiotGamesPath);
+                }
+            }
+
+            SettingsManager.Executables.Settings.DefaultLocale = initialSettings.RegionLocale;
+            SettingsManager.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
         }
     }
 }

@@ -1,0 +1,70 @@
+﻿<Page x:Class="Rofl.UI.Main.Pages.WelcomeSetupRegion"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="WelcomeSetupRegion"
+      Loaded="WelcomeSetupRegion_OnLoaded">
+
+    <Border Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{StaticResource WswRegionTitle}"
+                       FontSize="24"
+                       Margin="0 0 0 5"
+                       Grid.Row="0"/>
+
+            <TextBlock Text="{StaticResource WswRegionBody}"
+                       FontSize="16"
+                       TextWrapping="Wrap"
+                       Grid.Row="1"
+                       Margin="0 0 0 20"/>
+
+            <ComboBox x:Name="LocaleComboBox"
+                      Grid.Row="2"
+                      Width="150"
+                      HorizontalAlignment="Left"
+                      SelectionChanged="LocaleComboBox_OnSelectionChanged"
+                      Height="25"
+                      VerticalContentAlignment="Center"/>
+
+            <!--<Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{StaticResource WswNextHint}"
+                           VerticalAlignment="Bottom"
+                           FontStyle="Italic"
+                           Margin="0 0 5 0"/>
+
+                <Image Source="{StaticResource BackArrowDrawingImage}" 
+                       Width="10"
+                       Margin="0 0 0 1"
+                       VerticalAlignment="Bottom"
+                       HorizontalAlignment="Left"
+                       RenderTransformOrigin="0.5,0.5"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Grid.Column="1">
+                    <Image.RenderTransform>
+                        <ScaleTransform ScaleX="-1"/>
+                    </Image.RenderTransform>
+                </Image>
+
+            </Grid>-->
+        </Grid>
+    </Border>
+</Page>

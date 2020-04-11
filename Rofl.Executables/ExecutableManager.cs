@@ -98,6 +98,9 @@ namespace Rofl.Executables
                 {
                     LeagueExecutable newExe = ExeTools.CreateNewLeagueExecutable(exePath);
 
+                    // Set default locale
+                    newExe.Locale = Settings.DefaultLocale;
+
                     // Do we already have an exe with the same target?
                     if (!foundExecutables.Exists(x => x.TargetPath.Equals(newExe.TargetPath, StringComparison.OrdinalIgnoreCase)))
                     {

@@ -100,6 +100,7 @@
     <string:String x:Key="RemoveButtonText">Remove</string:String>
     <string:String x:Key="SaveButtonText">Save</string:String>
     <string:String x:Key="CancelButtonText">Cancel</string:String>
+    <string:String x:Key="BrowseButtonText">Browse...</string:String>
 
     <!--Stats Header Text-->
     <string:String x:Key="CombatGroupHeaderText">Combat</string:String>
@@ -234,5 +235,40 @@
     <string:String x:Key="ErdExportNullTest">Nothing selected to export</string:String>
     <string:String x:Key="ErdCsvModeText">CSV Mode</string:String>
     <string:String x:Key="ErdFailedToSave">Failed to safe file</string:String>
+
+    <!--Welcome Setup-->
+    <string:String x:Key="WswWindowTitleText">Welcome!</string:String>
+    <string:String x:Key="WswPreviousText">Previous</string:String>
+    <string:String x:Key="WswNextText">Next</string:String>
+
+    <!--Welcome Setup : Introduction-->
+    <string:String x:Key="WswIntroFrameTitle">Welcome to ReplayBook!</string:String>
+    <string:String x:Key="WswReplaysFrameTitle">Replay Setup</string:String>
+    <string:String x:Key="WswExecutablesFrameTitle">Executable Setup</string:String>
+    <string:String x:Key="WswRegionFrameTitle">Region Setup</string:String>
+    <string:String x:Key="WswFinishedFrameTitle">Complete!</string:String>
+    <string:String x:Key="WswSkipHint">You can skip this setup at any time by closing the window</string:String>
+    <string:String x:Key="WswNextHint">Looks good? Click the next button on the bottom to continue</string:String>
+
+    <string:String x:Key="WswIntroductionTitle">Thank you for downloading ReplayBook!</string:String>
+    <string:String x:Key="WswIntroductionBody">First lets do some initial setup. Click the next button below to continue.</string:String>
+
+    <string:String x:Key="WswRegionTitle">Select your League of Legends region</string:String>
+    <string:String x:Key="WswRegionBody">Choose a region with the drop down menu. The region must match the region of your installation of League of Legends.</string:String>
+
+    <string:String x:Key="WswExecutablesTitle">Select the Riot Games folder</string:String>
+    <string:String x:Key="WswExecutablesBody">ReplayBook needs to register League of Legends before it is able to play replays. You can do this later if you don't need this feature right away.</string:String>
+    <string:String x:Key="WswExecutablesHint">For example: 'C:\Riot Games'</string:String>
+    <string:String x:Key="WswExecutablesRegisterButton">Register</string:String>
+    <string:String x:Key="WswExecutablesRegisterList">Detected versions:</string:String>
+    <string:String x:Key="WswExecutablesRegisterListEmpty">Nothing found...</string:String>
+
+    <string:String x:Key="WswReplaysTitle">Select the replay folder</string:String>
+    <string:String x:Key="WswReplaysBody">ReplayBook won't be able to show any replays if it doesn't know where they are. Verify that this is where your replays are stored. You can add additional folders later.</string:String>
+    <string:String x:Key="WswReplaysHint">By default, replays are stored in "Documents\League of Legends\Replays"</string:String>
+
+    <string:String x:Key="WswFinishTitle">Setup complete!</string:String>
+    <string:String x:Key="WswFinishBody">Click "Finish" and ReplayBook will automatically start with your chosen settings.</string:String>
+    <string:String x:Key="WswFinishButton">Finish</string:String>
 
 </ResourceDictionary>
