@@ -18,5 +18,8 @@ namespace Rofl.Settings.Models
 
         [JsonProperty("item_relurl")]
         public string ItemRelativeUrl { get; set; }
+
+        [JsonProperty("use_most_recent")]
+        public bool UseMostRecent { get; set; }
     }
 }

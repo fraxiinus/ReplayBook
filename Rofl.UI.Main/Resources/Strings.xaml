@@ -19,6 +19,8 @@
     <string:String x:Key="BlueVictory">BLUE VICTORY</string:String>
     <string:String x:Key="RedVictory">RED VICTORY</string:String>
     <string:String x:Key="ErrorTitle">Error</string:String>
+    <string:String x:Key="ConfirmTitle">Confirmation</string:String>
+    <string:String x:Key="ConfirmText">Are you sure?</string:String>
 
     <!--Settings Window Text-->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
@@ -27,6 +29,7 @@
     <string:String x:Key="ExecutablesSettingsItemText">Executables</string:String>
     <string:String x:Key="AboutSettingsItemText">About</string:String>
 
+    <!--Settings : General-->
     <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
     <string:String x:Key="PlayerMarkerWindowText">Player Marker</string:String>
     <string:String x:Key="PlayerMarkerNameLabelText">Player Name</string:String>
@@ -35,9 +38,7 @@
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorTitle">Marker already exists</string:String>
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Player name cannot be empty</string:String>
     <string:String x:Key="PlayerMarkerColorIsEmptyErrorText">Please choose a color</string:String>
-
     <string:String x:Key="PlayConfirmCheckboxText">Always ask for confirmation before playing replays</string:String>
-
     <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
     
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
@@ -57,6 +58,8 @@
     <string:String x:Key="ExecutableNotFoundErrorTitle">No match</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">No matching executable found for patch</string:String>
     <string:String x:Key="ReplayPlayConfirmationText">Play replay?</string:String>
+
+    <string:String x:Key="WebRequestsUseMostRecentText">Always use most recent API version</string:String>
     
     <!--Executable Detail-->
     <string:String x:Key="ExecutableDetailTargetPath">Target Path</string:String>
@@ -79,10 +82,11 @@
     <string:String x:Key="DataDragonChampionUrlLabelText">Champion Image Relative URL</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">Item Image Relative URL</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
+    <string:String x:Key="WebCacheClearButtonText">Clear cached images</string:String>
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">A. Lee (Etirps)</string:String>
-    <string:String x:Key="Version">Prerelease 3</string:String>
+    <string:String x:Key="Version">Prerelease 5</string:String>
     <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
     <string:String x:Key="GitHubLink">https://github.com/leeanchu/ReplayBook</string:String>
     <string:String x:Key="DiscordInvite">discord.gg/c33Rc5J</string:String>
@@ -95,6 +99,7 @@
     <string:String x:Key="RemoveButtonText">Remove</string:String>
     <string:String x:Key="SaveButtonText">Save</string:String>
     <string:String x:Key="CancelButtonText">Cancel</string:String>
+    <string:String x:Key="BrowseButtonText">Browse...</string:String>
 
     <!--Stats Header Text-->
     <string:String x:Key="CombatGroupHeaderText">Combat</string:String>
@@ -214,5 +219,63 @@
     <!--Replay Menu Item Text-->
     <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
     <string:String x:Key="ViewOnlinePage">View Online...</string:String>
+    <string:String x:Key="ExportReplayData">Export Data...</string:String>
+
+    <!--Replay Data Export-->
+    <string:String x:Key="ErdTitleText">Export Replay Data</string:String>
+    <string:String x:Key="ErdLevel1TitleText">Replay properties</string:String>
+    <string:String x:Key="ErdLevel2TitleText">Players</string:String>
+    <string:String x:Key="ErdLevel3TitleText">Player properties</string:String>
+    <string:String x:Key="ErdSelectAllItems">Select all</string:String>
+    <string:String x:Key="ErdDeselectAllItems">Deselect all</string:String>
+    <string:String x:Key="ErdExportButtonText">Export...</string:String>
+    <string:String x:Key="ErdExportDialogTitle">Choose Export Location</string:String>
+    <string:String x:Key="ErdExportNullTitle">Nothing Selected</string:String>
+    <string:String x:Key="ErdExportNullTest">Nothing selected to export</string:String>
+    <string:String x:Key="ErdCsvModeText">CSV Mode</string:String>
+    <string:String x:Key="ErdFailedToSave">Failed to safe file</string:String>
+
+    <!--Welcome Setup-->
+    <string:String x:Key="WswWindowTitleText">Welcome!</string:String>
+    <string:String x:Key="WswPreviousText">Previous</string:String>
+    <string:String x:Key="WswNextText">Next</string:String>
+
+    <!--Welcome Setup : Introduction-->
+    <string:String x:Key="WswIntroFrameTitle">Welcome to ReplayBook!</string:String>
+    <string:String x:Key="WswReplaysFrameTitle">Replay Setup</string:String>
+    <string:String x:Key="WswExecutablesFrameTitle">Executable Setup</string:String>
+    <string:String x:Key="WswRegionFrameTitle">Region Setup</string:String>
+    <string:String x:Key="WswDownloadFrameTitle">Download Assets</string:String>
+    <string:String x:Key="WswFinishedFrameTitle">Complete!</string:String>
+    <string:String x:Key="WswSkipHint">You can skip this setup at any time by closing the window</string:String>
+    <string:String x:Key="WswNextHint">Looks good? Click the next button on the bottom to continue</string:String>
+
+    <string:String x:Key="WswIntroductionTitle">Thank you for downloading ReplayBook!</string:String>
+    <string:String x:Key="WswIntroductionBody">First lets do some initial setup. Click the next button below to continue.</string:String>
+
+    <string:String x:Key="WswRegionTitle">Select your League of Legends region</string:String>
+    <string:String x:Key="WswRegionBody">Choose a region with the drop down menu. The region must match the region of your installation of League of Legends.</string:String>
+
+    <string:String x:Key="WswExecutablesTitle">Select the Riot Games folder</string:String>
+    <string:String x:Key="WswExecutablesBody">ReplayBook needs to register League of Legends before it is able to play replays. You can do this later if you don't need this feature right away.</string:String>
+    <string:String x:Key="WswExecutablesHint">For example: 'C:\Riot Games'</string:String>
+    <string:String x:Key="WswExecutablesRegisterButton">Register</string:String>
+    <string:String x:Key="WswExecutablesRegisterList">Detected versions:</string:String>
+    <string:String x:Key="WswExecutablesRegisterListEmpty">Nothing found...</string:String>
+
+    <string:String x:Key="WswReplaysTitle">Select the replay folder</string:String>
+    <string:String x:Key="WswReplaysBody">ReplayBook won't be able to show any replays if it doesn't know where they are. Verify that this is where your replays are stored. You can add additional folders later.</string:String>
+    <string:String x:Key="WswReplaysHint">By default, replays are stored in "Documents\League of Legends\Replays"</string:String>
+
+    <string:String x:Key="WswDownloadTitle">Download image assets now?</string:String>
+    <string:String x:Key="WswDownloadBody">Downloading all assets now will make ReplayBook run faster. If you decide not to, ReplayBook will download assets on demand.</string:String>
+    <string:String x:Key="WswDownloadChampionsText">Download champion thumbnails</string:String>
+    <string:String x:Key="WswDownloadItemsText">Download item thumbnails</string:String>
+    <string:String x:Key="WswDownloadButton">Download</string:String>
+    <string:String x:Key="WswDownloadFinished">Download Finished</string:String>
+
+    <string:String x:Key="WswFinishTitle">Setup complete!</string:String>
+    <string:String x:Key="WswFinishBody">Click "Finish" and ReplayBook will automatically start with your chosen settings.</string:String>
+    <string:String x:Key="WswFinishButton">Finish</string:String>
 
 </ResourceDictionary>

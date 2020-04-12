@@ -7,9 +7,11 @@ using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -42,9 +44,13 @@ namespace Rofl.UI.Main
             _files = new FileManager(_settingsManager.Settings, _log);
             _requests = new RequestManager(_settingsManager.Settings, _log);
 
-            this.DataContext = new MainWindowViewModel(_files, _requests, _settingsManager);
+            var context = new MainWindowViewModel(_files, _requests, _settingsManager);
+            this.DataContext = context;
 
             _log.Error("PRERELEASE", "Log files are generated for each run while in prerelease");
+
+            // Decide to show welcome window
+            context.ShowWelcomeWindow();
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
@@ -58,19 +64,19 @@ namespace Rofl.UI.Main
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
             if (!(sender is ListView replayList)) { return; }
-            if (!(replayList.SelectedItem is ReplayPreviewModel previewModel)) { return; }
+            if (!(replayList.SelectedItem is ReplayPreview previewModel)) { return; }
 
             FileResult replayFile = context.FileResults[previewModel.Location];
 
-            ReplayDetailModel replayDetailModel = new ReplayDetailModel(replayFile, previewModel);
+            ReplayDetail replayDetail = new ReplayDetail(replayFile, previewModel);
 
             ReplayDetailControl detailControl = this.FindName("DetailView") as ReplayDetailControl;
-            detailControl.DataContext = replayDetailModel;
+            detailControl.DataContext = replayDetail;
 
             (detailControl.FindName("BlankContent") as StackPanel).Visibility = Visibility.Hidden;
             (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
-            await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetailModel).ConfigureAwait(true);
+            await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail).ConfigureAwait(true);
         }
 
         private void SortButton_Click(object sender, RoutedEventArgs e)
@@ -175,5 +181,44 @@ namespace Rofl.UI.Main
             context.LoadReplays();
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            _log.WriteToFile();
+        }
+
+        //private void ReplayItemControl_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (!(this.DataContext is MainWindowViewModel context)) { return; }
+
+        //    // if(!(sender is ReplayItemControl replayItem)) { return; }
+        //    // Get the button and menu
+        //    ReplayContextMenu
+        //    // ContextMenu contextMenu = ReplayContextMenu;
+        //    // Set placement and open
+        //    contextMenu.PlacementTarget = moreButton;
+        //    contextMenu.Placement = PlacementMode.Bottom;
+        //    contextMenu.IsOpen = true;
+
+        //    MessageBox.Show($"{ReplayListView.SelectedItems.Count}");
+        //}
+
+        //private void ReplayMenuOpenContainingFolder_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (!(this.DataContext is MainWindowViewModel context)) { return; }
+        //    if (!(sender is ReplayPreview replay)) { return; }
+
+        //    context.OpenReplayContainingFolder(replay.Location);
+        //}
+
+        //public void ReplayMenuViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+
+        //public void ReplayMenuExportReplayData_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
     }
 }

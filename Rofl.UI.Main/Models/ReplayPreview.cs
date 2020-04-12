@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace Rofl.UI.Main.Models
 {
-    public class ReplayPreviewModel
+    public class ReplayPreview
     {
 
-        public ReplayPreviewModel(ReplayFile replayFile, DateTimeOffset creationDate, bool newFile = false)
+        public ReplayPreview(ReplayFile replayFile, DateTimeOffset creationDate, bool newFile = false)
         {
             if (replayFile == null) { throw new ArgumentNullException(nameof(replayFile)); }
 
@@ -26,10 +26,10 @@ namespace Rofl.UI.Main.Models
             IsNewFile = newFile;
 
             BluePreviewPlayers = (from bplayer in replayFile.BluePlayers
-                                  select new PlayerPreviewModel(bplayer)).ToList();
+                                  select new PlayerPreview(bplayer)).ToList();
 
             RedPreviewPlayers = (from rplayer in replayFile.RedPlayers
-                                 select new PlayerPreviewModel(rplayer)).ToList();
+                                 select new PlayerPreview(rplayer)).ToList();
         }
 
         public string Name { get; private set; }
@@ -59,8 +59,8 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        public IList<PlayerPreviewModel> BluePreviewPlayers { get; private set; }
+        public IList<PlayerPreview> BluePreviewPlayers { get; private set; }
 
-        public IList<PlayerPreviewModel> RedPreviewPlayers { get; private set; }
+        public IList<PlayerPreview> RedPreviewPlayers { get; private set; }
     }
 }

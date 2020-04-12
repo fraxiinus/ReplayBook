@@ -12,17 +12,20 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Rofl.Reader.Models;
 
 namespace Rofl.UI.Main.ViewModels
 {
     public class MainWindowViewModel
     {
         private readonly FileManager _fileManager;
-        private readonly RequestManager _requestManager;
+        
+        public RequestManager RequestManager { get; private set; }
 
         /// <summary>
         /// 
@@ -32,7 +35,7 @@ namespace Rofl.UI.Main.ViewModels
         /// <summary>
         /// Smaller, preview objects of replays
         /// </summary>
-        public ObservableCollection<ReplayPreviewModel> PreviewReplays { get; private set; }
+        public ObservableCollection<ReplayPreview> PreviewReplays { get; private set; }
 
         /// <summary>
         /// Full replay objects with the filepath as the key
@@ -43,17 +46,17 @@ namespace Rofl.UI.Main.ViewModels
 
         public SettingsManager SettingsManager { get; private set; }
 
-        public StatusBarModel StatusBarModel { get; private set; }
+        public StatusBar StatusBarModel { get; private set; }
 
         public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager)
         {
             SettingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
             _fileManager = files ?? throw new ArgumentNullException(nameof(files));
-            _requestManager = requests ?? throw new ArgumentNullException(nameof(requests));
+            RequestManager = requests ?? throw new ArgumentNullException(nameof(requests));
 
             KnownPlayers = SettingsManager.Settings.KnownPlayers;
 
-            PreviewReplays = new ObservableCollection<ReplayPreviewModel>();
+            PreviewReplays = new ObservableCollection<ReplayPreview>();
             FileResults = new Dictionary<string, FileResult>();
 
             SortParameters = new QueryProperties
@@ -62,7 +65,7 @@ namespace Rofl.UI.Main.ViewModels
                 SortMethod = SortMethod.DateDesc
             };
 
-            StatusBarModel = new StatusBarModel();
+            StatusBarModel = new StatusBar();
         }
 
         /// <summary>
@@ -74,23 +77,17 @@ namespace Rofl.UI.Main.ViewModels
 
             foreach (var file in databaseResults)
             {
-                ReplayPreviewModel previewModel = new ReplayPreviewModel(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
+                ReplayPreview previewModel = new ReplayPreview(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
                 previewModel.IsSupported = SettingsManager.Executables.DoesVersionExist(previewModel.GameVersion);
 
                 foreach (var bluePlayer in previewModel.BluePreviewPlayers)
                 {
-                    bluePlayer.Marker = KnownPlayers.Where
-                        (
-                            x => x.Name.Equals(bluePlayer.PlayerName, StringComparison.OrdinalIgnoreCase)
-                        ).FirstOrDefault();
+                    bluePlayer.Marker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(bluePlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
                 }
 
                 foreach (var redPlayer in previewModel.RedPreviewPlayers)
                 {
-                    redPlayer.Marker = KnownPlayers.Where
-                        (
-                            x => x.Name.Equals(redPlayer.PlayerName, StringComparison.OrdinalIgnoreCase)
-                        ).FirstOrDefault();
+                    redPlayer.Marker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(redPlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
                 }
 
                 App.Current.Dispatcher.Invoke((Action) delegate
@@ -112,14 +109,14 @@ namespace Rofl.UI.Main.ViewModels
             FileResults.Clear();
         }
 
-        public async Task LoadItemThumbnails(ReplayDetailModel replay)
+        public async Task LoadItemThumbnails(ReplayDetail replay)
         {
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            string dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.PreviewModel.GameVersion).ConfigureAwait(false);
+            var dataVersion = await RequestManager.GetDataDragonVersionAsync(replay.PreviewModel.GameVersion).ConfigureAwait(true);
 
-            List<ItemModel> allItems = new List<ItemModel>();
-            List<Task> itemTasks = new List<Task>();
+            var allItems = new List<Item>();
+            var itemTasks = new List<Task>();
 
             allItems.AddRange(replay.BluePlayers.SelectMany(x => x.Items));
             allItems.AddRange(replay.RedPlayers.SelectMany(x => x.Items));
@@ -128,53 +125,67 @@ namespace Rofl.UI.Main.ViewModels
             {
                 itemTasks.Add(Task.Run(async () =>
                 {
-                    var response = await _requestManager.MakeRequestAsync(new ItemRequest
+                    var response = await RequestManager.MakeRequestAsync(new ItemRequest
                     {
                         DataDragonVersion = dataVersion,
                         ItemID = item.ItemId
-                    }).ConfigureAwait(false);
+                    }).ConfigureAwait(true);
 
-                    App.Current.Dispatcher.Invoke((Action)delegate
+                    Application.Current.Dispatcher.Invoke((Action)delegate
                     {
                         item.ImageSource = response.ResponsePath;
                     });
                 }));
             }
+
+            await Task.WhenAll(itemTasks).ConfigureAwait(true);
         }
 
         public async Task LoadPreviewPlayerThumbnails()
         {
-            foreach (var replay in PreviewReplays.ToList())
-            {
-                string dataVersion = await _requestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(false);
+            // Default set to most recent data version
+            var dataVersion = await RequestManager.GetDataDragonVersionAsync(null).ConfigureAwait(true);
 
-                List<PlayerPreviewModel> allPlayers = new List<PlayerPreviewModel>();
+            foreach (var replay in PreviewReplays)
+            {
+                // Get the correct data version for the replay version
+                if (!SettingsManager.Settings.UseMostRecent)
+                {
+                    dataVersion = await RequestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(true);
+                }
+
+                var allPlayers = new List<PlayerPreview>();
                 allPlayers.AddRange(replay.BluePreviewPlayers);
                 allPlayers.AddRange(replay.RedPreviewPlayers);
 
-                // Image tasks
-                List<Task> imageTasks = new List<Task>();
-
-                // Create requests for player images
-                foreach (var player in allPlayers)
-                {
-                    imageTasks.Add(Task.Run(async () =>
+                var allRequests = new List<dynamic>(allPlayers.Select(x =>
+                    new
                     {
-                        var response = await _requestManager.MakeRequestAsync(new ChampionRequest
+                        Player = x,
+                        Request = new ChampionRequest()
                         {
-                            DataDragonVersion = dataVersion,
-                            ChampionName = player.ChampionName
-                        }).ConfigureAwait(false);
+                            ChampionName = x.ChampionName,
+                            DataDragonVersion = dataVersion
+                        }
+                    }));
 
-                        App.Current.Dispatcher.Invoke((Action)delegate
+                var allTasks = new List<Task>();
+
+                foreach (var request in allRequests)
+                {
+                    allTasks.Add(Task.Run(async () =>
+                    {
+                        var response = await RequestManager.MakeRequestAsync(request.Request as RequestBase)
+                            .ConfigureAwait(true);
+
+                        Application.Current.Dispatcher.Invoke((Action)delegate
                         {
-                            player.ImageSource = response.ResponsePath;
+                            request.Player.ImageSource = response.ResponsePath;
                         });
                     }));
                 }
 
-                // Wait for all images to finish before doing the next replay
-                await Task.WhenAll(imageTasks).ConfigureAwait(false);
+                await Task.WhenAll(allTasks).ConfigureAwait(true);
             }
         }
 
@@ -183,7 +194,7 @@ namespace Rofl.UI.Main.ViewModels
             // Look through all replays to get all players
             foreach (var replay in PreviewReplays)
             {
-                IEnumerable<PlayerPreviewModel> allPlayers;
+                IEnumerable<PlayerPreview> allPlayers;
                 if(replay.BluePreviewPlayers != null)
                 {
                     allPlayers = replay.BluePreviewPlayers.Union(replay.RedPreviewPlayers);
@@ -195,10 +206,7 @@ namespace Rofl.UI.Main.ViewModels
 
                 foreach (var player in allPlayers)
                 {
-                    var matchedMarker = KnownPlayers.Where
-                        (
-                            x => x.Name.Equals(player.PlayerName, StringComparison.OrdinalIgnoreCase)
-                        ).FirstOrDefault();
+                    var matchedMarker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(player.PlayerName, StringComparison.OrdinalIgnoreCase));
 
                     if(matchedMarker != null)
                     {
@@ -237,15 +245,16 @@ namespace Rofl.UI.Main.ViewModels
             PreviewReplays.Clear();
 
             StatusBarModel.StatusMessage = "Loading replays...";
-            StatusBarModel.Color = Brushes.Orchid;
+            StatusBarModel.Color = Brushes.White;
             StatusBarModel.Visible = true;
+            StatusBarModel.ShowProgressBar = true;
             await _fileManager.InitialLoadAsync().ConfigureAwait(true);
             LoadReplays();
             await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
             StatusBarModel.Visible = false;
         }
 
-        public void PlayReplay(ReplayPreviewModel preview)
+        public void PlayReplay(ReplayPreview preview)
         {
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
             
@@ -328,6 +337,87 @@ namespace Rofl.UI.Main.ViewModels
                 return selectWindow.Selection;
             }
             return null;
+        }
+
+        public void ShowExportReplayDataWindow(ReplayPreview preview)
+        {
+            if(preview == null) { throw new ArgumentNullException(nameof(preview)); }
+
+            var exportContext = new ExportContext()
+            {
+                Replays = new ReplayFile[] { FileResults[preview.Location].ReplayFile },
+                Markers = KnownPlayers.ToList()
+            };
+
+            var exportDialog = new ExportReplayDataWindow()
+            {
+                Top = App.Current.MainWindow.Top + 50,
+                Left = App.Current.MainWindow.Left + 50,
+                DataContext = exportContext,
+            };
+
+            exportDialog.ShowDialog();
+        }
+
+        public void ShowWelcomeWindow()
+        {
+            if (File.Exists("cache/SKIPWELCOME"))
+            {
+                return;
+            }
+
+            var welcomeDialog = new WelcomeSetupWindow()
+            {
+                Top = App.Current.MainWindow.Top + 50,
+                Left = App.Current.MainWindow.Left + 50,
+                DataContext = this
+            };
+
+            welcomeDialog.ShowDialog();
+        }
+
+        public void WriteSkipWelcome()
+        {
+            if (File.Exists("cache/SKIPWELCOME"))
+            {
+                return;
+            }
+
+            File.WriteAllText("cache/SKIPWELCOME", (string) Application.Current.TryFindResource("EggEggEgg"));
+        }
+
+        public void DeleteSkipWelcome()
+        {
+            if (File.Exists("cache/SKIPWELCOME"))
+            {
+                File.Delete("cache/SKIPWELCOME");
+            }
+        }
+
+        public void ApplyInitialSettings(WelcomeSetupSettings initialSettings)
+        {
+            if (initialSettings == null) throw new ArgumentNullException(nameof(initialSettings));
+
+            if (!string.IsNullOrEmpty(initialSettings.ReplayPath))
+            {
+                // Only add the replay folder if it doesn't exist already. It really should be empty...
+                if (!SettingsManager.Settings.SourceFolders.Contains(initialSettings.ReplayPath))
+                {
+                    SettingsManager.Settings.SourceFolders.Add(initialSettings.ReplayPath);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(initialSettings.RiotGamesPath))
+            {
+                // Only add the executable folder if it doesn't exist already. It really should be empty...
+                if (!SettingsManager.Executables.Settings.SourceFolders.Contains(initialSettings.RiotGamesPath))
+                {
+                    SettingsManager.Executables.Settings.SourceFolders.Add(initialSettings.RiotGamesPath);
+                }
+            }
+
+            SettingsManager.Executables.Settings.DefaultLocale = initialSettings.RegionLocale;
+            SettingsManager.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
         }
     }
 }

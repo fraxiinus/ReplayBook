@@ -2,9 +2,9 @@
 
 namespace Rofl.UI.Main.Models
 {
-    public class ItemModel : INotifyPropertyChanged
+    public class Item : INotifyPropertyChanged
     {
-        public ItemModel(string itemId)
+        public Item(string itemId)
         {
             this.ItemId = itemId;
             this.ItemName = "Item";

@@ -87,16 +87,19 @@
                                 <Button x:Name="AddKnownPlayerButton" 
                                         Margin="0 0 0 5"
                                         Padding="20 0 20 0"
+                                        Height="25"
                                         Content="{StaticResource AddButtonText}"
                                         Click="AddKnownPlayerButton_Click"/>
                                 
                                 <Button x:Name="EditKnownPlayerButton" 
                                         Margin="0 0 0 5"
+                                        Height="25"
                                         Content="{StaticResource EditButtonText}"
                                         Click="EditKnownPlayerButton_Click"
                                         IsEnabled="False"/>
                                 
                                 <Button x:Name="RemoveKnownPlayerButton" 
+                                        Height="25"
                                         Content="{StaticResource RemoveButtonText}"
                                         Click="RemoveKnownPlayerButton_Click"
                                         IsEnabled="False"/>
@@ -115,6 +118,8 @@
                         <TextBox x:Name="MatchHistoryUrlTextBox" 
                                  Padding="2" 
                                  Margin=" 0 2 0 5"
+                                 Height="25"
+                                 VerticalContentAlignment="Center"
                                  Text="{Binding Path=Settings.MatchHistoryBaseUrl}"/>
 
                     </StackPanel>
@@ -153,17 +158,20 @@
                                 <Button x:Name="AddExecutableFolderButton" 
                                         Margin="0 0 0 5"
                                         Padding="20 0 20 0"
+                                        Height="25"
                                         Content="{StaticResource AddButtonText}"
                                         Click="AddExecutableFolderButton_Click"/>
 
                                 <Button x:Name="EditExecutableFolderButton" 
                                         Margin="0 0 0 5"
+                                        Height="25"
                                         Content="{StaticResource EditButtonText}"
                                         Click="EditExecutableFolderButton_Click"
                                         IsEnabled="False"/>
 
                                 <Button x:Name="RemoveExecutableFolderButton" 
                                         Content="{StaticResource RemoveButtonText}"
+                                        Height="25"
                                         Click="RemoveExecutableFolderButton_Click"
                                         IsEnabled="False"/>
                             </StackPanel>
@@ -173,6 +181,7 @@
                                 HorizontalAlignment="Left"
                                 Margin="0 10 0 10"
                                 Padding="20 0 20 0"
+                                Height="25"
                                 Click="SourceFoldersSearchButton_Click"
                                 Grid.Row="1" Grid.Column="0"/>
 
@@ -212,16 +221,19 @@
                                 <Button x:Name="AddExecutableButton" 
                                     Margin="0 0 0 5"
                                     Padding="20 0 20 0"
+                                    Height="25"
                                     Content="{StaticResource AddButtonText}"
                                     Click="AddExecutableButton_Click"/>
 
                                 <Button x:Name="EditExecutableButton" 
                                     Margin="0 0 0 5"
+                                    Height="25"
                                     Content="{StaticResource EditButtonText}"
                                     Click="EditExecutableButton_Click"
                                     IsEnabled="False"/>
 
                                 <Button x:Name="RemoveExecutableButton" 
+                                        Height="25"
                                     Content="{StaticResource RemoveButtonText}"
                                     Click="RemoveExecutableButton_Click"
                                     IsEnabled="False"/>
@@ -264,11 +276,13 @@
                                 <Button x:Name="AddSourceFolderButton" 
                                         Margin="0 0 0 5"
                                         Padding="20 0 20 0"
+                                        Height="25"
                                         Content="{StaticResource AddButtonText}"
                                         Click="AddSourceFolderButton_Click"/>
 
                                 <Button x:Name="EditSourceFolderButton" 
                                         Margin="0 0 0 5"
+                                        Height="25"
                                         Content="{StaticResource EditButtonText}"
                                         Click="EditSourceFolderButton_Click"
                                         IsEnabled="False"/>
@@ -276,6 +290,7 @@
                                 <Button x:Name="RemoveSourceFolderButton" 
                                         Content="{StaticResource RemoveButtonText}"
                                         Click="RemoveSourceFolderButton_Click"
+                                        Height="25"
                                         IsEnabled="False"/>
                             </StackPanel>
                         </Grid>
@@ -308,14 +323,58 @@
                 
                 <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" FontSize="14"/>
-                        <TextBox Text="{Binding Settings.DataDragonBaseUrl}" Padding="2" Margin=" 0 2 0 5"/>
-                        <TextBlock Text="{StaticResource DataDragonChampionUrlLabelText}" FontSize="14"/>
-                        <TextBox Text="{Binding Settings.ChampionRelativeUrl}" Padding="2" Margin=" 0 2 0 5"/>
-                        <TextBlock Text="{StaticResource DataDragonMapUrlLabelText}" FontSize="14"/>
-                        <TextBox Text="{Binding Settings.MapRelativeUrl}" Padding="2" Margin=" 0 2 0 5"/>
-                        <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}" FontSize="14"/>
-                        <TextBox Text="{Binding Settings.ItemRelativeUrl}" Padding="2" Margin=" 0 2 0 0"/>
+                        <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" 
+                                   FontSize="14"/>
+                        <TextBox Text="{Binding Settings.DataDragonBaseUrl}" 
+                                 Height="25"
+                                 VerticalContentAlignment="Center"
+                                 Padding="2" 
+                                 Margin=" 0 2 0 5"/>
+                        <TextBlock Text="{StaticResource DataDragonChampionUrlLabelText}" 
+                                   FontSize="14"/>
+                        <TextBox Text="{Binding Settings.ChampionRelativeUrl}" 
+                                 Height="25"
+                                 VerticalContentAlignment="Center"
+                                 Padding="2" 
+                                 Margin=" 0 2 0 5"/>
+                        <TextBlock Text="{StaticResource DataDragonMapUrlLabelText}" 
+                                   FontSize="14"/>
+                        <TextBox Text="{Binding Settings.MapRelativeUrl}" 
+                                 Padding="2" 
+                                 Height="25"
+                                 VerticalContentAlignment="Center"
+                                 Margin=" 0 2 0 5"/>
+                        <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}"
+                                   FontSize="14"/>
+                        <TextBox Text="{Binding Settings.ItemRelativeUrl}" 
+                                 Padding="2" 
+                                 Height="25"
+                                 VerticalContentAlignment="Center"
+                                 Margin=" 0 2 0 0"/>
+                        <CheckBox Content="{StaticResource WebRequestsUseMostRecentText}"
+                                  IsChecked="{Binding Settings.UseMostRecent}"
+                                  Margin="0 10 0 0"/>
+
+                        <!--<GroupBox Header="Resulting URL"
+                                  Margin="0 10 0 0"
+                                  Padding="5">
+                            <StackPanel Orientation="Vertical">
+
+                                <TextBox Text="ResultUrl"
+                                         Margin="0 5 0 0"
+                                         IsReadOnly="True"
+                                         BorderThickness="0 0 0 1"/>
+
+                                <Border BorderThickness="1"
+                                        BorderBrush="#b4b4b4"
+                                        Margin="0 5 0 0"
+                                        Width="Auto">
+                                    <Image Name="UrlTestingImage" 
+                                           Width="50" 
+                                           Height="50"/>
+                                </Border>
+                            </StackPanel>
+                        </GroupBox>-->
                     </StackPanel>
                 </TabItem>
 
@@ -328,7 +387,13 @@
                                RenderOptions.BitmapScalingMode="HighQuality"/>
                         <TextBlock Text="{StaticResource Name}" FontSize="28" HorizontalAlignment="Center"/>
                         <TextBlock Text="{StaticResource Author}" FontSize="16" HorizontalAlignment="Center"/>
-                        <TextBox Text="{StaticResource DiscordInvite}" FontSize="14" HorizontalAlignment="Center" BorderBrush="Transparent" IsReadOnly="True"/>
+                        <TextBox Text="{StaticResource DiscordInvite}" 
+                                 FontSize="14" 
+                                 HorizontalAlignment="Center" 
+                                 BorderBrush="Transparent" 
+                                 IsReadOnly="True"
+                                 VerticalContentAlignment="Center"
+                                 Height="25"/>
                         <TextBlock Text="{StaticResource Version}" FontSize="14" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </TabItem>

@@ -28,11 +28,6 @@ namespace Rofl.Logger
             }
         }
 
-        ~Scribe()
-        {
-            WriteToFile();
-        }
-
         public void WriteToFile()
         {
             if (!_errorFlag) { return; } // No errors occured, skip
@@ -40,9 +35,13 @@ namespace Rofl.Logger
             string outputFileName = Path.Combine(OutputDirectory, $"Error_{ DateTime.Now.ToString("yyyyMMdd_HHmm", CultureInfo.InvariantCulture)}.log");
             string logOutput = "";
 
-            foreach (LogEntry entry in _entryList)
+            lock (_entryList)
             {
-                logOutput += $"{entry.Timestamp} | {entry.Level} | {entry.ClassName}.{entry.MethodName} | {entry.Message}\n";
+                foreach (LogEntry entry in _entryList)
+                {
+                    if (entry == null) { continue; }
+                    logOutput += $"{entry.Timestamp} | {entry.Level} | {entry.ClassName}.{entry.MethodName} | {entry.Message}\n";
+                }
             }
 
             File.WriteAllText(outputFileName, logOutput);

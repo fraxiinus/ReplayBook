@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Net;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Rofl.Requests.Utilities;
@@ -23,6 +23,9 @@ namespace Rofl.Requests
         private readonly ObservableSettings _settings;
         private readonly string _cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
 
+        private readonly ConcurrentDictionary<string, Task<ResponseBase>> _inProgressTasks;
+        //private readonly List<string> _inProgressIndex;
+
         public RequestManager(ObservableSettings settings, Scribe log)
         {
             _settings = settings;
@@ -30,30 +33,69 @@ namespace Rofl.Requests
 
             _myName = this.GetType().ToString();
 
-            // TODO these should use log and config
             _downloadClient = new DownloadClient(_cachePath, _settings, _log);
             _cacheClient = new CacheClient(_cachePath, _log);
+
+            _inProgressTasks = new ConcurrentDictionary<string, Task<ResponseBase>>();
+            //_inProgressIndex = new List<string>();
         }
 
         public async Task<ResponseBase> MakeRequestAsync(RequestBase request)
         {
+            // This acts as the key to tell if a download is in progress
+            var requestId = GetRequestIdentifier(request);
 
-            // Check cache first, return response if found
-            ResponseBase cacheResponse = _cacheClient.CheckImageCache(request);
+            _log.Information(_myName, $"Making request to {requestId}");
+
+            // If a download is in progress, use the same task to get the result
+            if(_inProgressTasks.ContainsKey(requestId))
+            {
+                // I hope this doesn't download twice
+                var responseTask = _inProgressTasks[requestId];
+
+                _log.Information(_myName, $"Found existing task for {requestId}");
+
+                if (responseTask.IsCompleted)
+                {
+                    _log.Information(_myName, $"Task is completed, remove {requestId}");
+                    if (!_inProgressTasks.TryRemove(requestId, out _))
+                    {
+                        _log.Warning(_myName, $"Failed to remove in progress task {requestId}");
+                    }
+                }
+
+                var result = await responseTask.ConfigureAwait(true);
+                _log.Information(_myName, $"{requestId} task finished and returned {!result.IsFaulted}");
+                return result;
+            }
+
+            // A download is not in progress, is it cached?
+            var cacheResponse = _cacheClient.CheckImageCache(request);
 
             // Fault occurs if cache is unable to find the file, or if the file is corrupted
             if (!cacheResponse.IsFaulted)
             {
+                _log.Information(_myName, $"Found {requestId} in cache");
                 return cacheResponse;
             }
 
             // Does not exist in cache, make download request
             try
             {
-                return await _downloadClient.DownloadIconImageAsync(request).ConfigureAwait(true);
+                _log.Information(_myName, $"Downloading {requestId}");
+                var responseTask = _downloadClient.DownloadIconImageAsync(request);
+                if (!_inProgressTasks.TryAdd(requestId, responseTask))
+                {
+                    _log.Warning(_myName, $"Failed to add in progress task {requestId}");
+                }
+
+                var result = await responseTask.ConfigureAwait(true);
+                _log.Information(_myName, $"Completed download for {requestId}, returned {!result.IsFaulted}");
+                return result;
             }
             catch (Exception ex)
             {
+                _log.Error(_myName, $"Failed to download {requestId}. Ex: {ex}");
                 return new ResponseBase()
                 {
                     Exception = ex,
@@ -62,57 +104,93 @@ namespace Rofl.Requests
             }
         }
 
+        public async Task<IEnumerable<ResponseBase>> MakeRequestsAsync(IEnumerable<RequestBase> requests)
+        {
+            if(requests == null) { throw new ArgumentNullException(nameof(requests)); }
+
+            var results = new List<ResponseBase>();
+
+            foreach (var request in requests)
+            {
+                results.Add(await MakeRequestAsync(request).ConfigureAwait(true));
+            }
+
+            return results;
+        }
+
         /// <summary>
         /// Given replay version string, returns appropriate DataDragon version.
         /// Only compares first two numbers.
         /// </summary>
         public async Task<string> GetDataDragonVersionAsync(string replayVersion)
         {
-            string versionRef = replayVersion.VersionSubstring();
-            if(string.IsNullOrEmpty(versionRef))
+            var allVersions = await _downloadClient.GetDataDragonVersionStringsAsync().ConfigureAwait(true);
+
+            // Return most recent patch number
+            if (_settings.UseMostRecent || string.IsNullOrEmpty(replayVersion))
             {
-                string errorMsg = $"{_myName} - Replay version: \"{replayVersion}\" is not valid";
+                return allVersions.FirstOrDefault();
+            }
+
+            var versionRef = replayVersion.VersionSubstring();
+            if (string.IsNullOrEmpty(versionRef))
+            {
+                var errorMsg = $"{_myName} - Replay version: \"{replayVersion}\" is not valid";
                 _log.Error(_myName, errorMsg);
                 throw new ArgumentException(errorMsg);
             }
 
-            string[] allVersions;
+            var versionQueryResult = (from version in allVersions
+                where version.StartsWith(versionRef, StringComparison.OrdinalIgnoreCase)
+                select version).FirstOrDefault();
 
-            // Get all data dragon versions
-            try
-            {
-                allVersions = await GetDataDragonVersionStringsAsync().ConfigureAwait(true);
-
-            } catch (Exception ex)
-            {
-                string errorMsg = $"{_myName} - Error requesting Data Dragon versions\n\n{ex.GetType().ToString()} - {ex.Message}";
-                _log.Error(_myName, errorMsg);
-                throw new Exception(errorMsg);
-            }
-
-            string versionQueryResult = (from version in allVersions
-                                         where version.StartsWith(versionRef, StringComparison.OrdinalIgnoreCase)
-                                         select version).FirstOrDefault();
-
-            // TODO to add caching,if query doesn't have any results, call GetDataDragonVersions again
             // If it still returns no results, return default (maybe error?)
             return string.IsNullOrEmpty(versionQueryResult) ? allVersions.First() : versionQueryResult;
         }
 
-        /// <summary>
-        /// Get an array of all appropriate DataDragon versions
-        /// </summary>
-        /// <returns></returns>
-        private async Task<string[]> GetDataDragonVersionStringsAsync()
+        public async Task<IEnumerable<ChampionRequest>> GetAllChampionRequests()
         {
-            // TODO Maybe make this cache?
-            // So it saves the file somewhere, 
-            // if the set method doesn't find any matches, make a new request
-            using (WebClient wc = new WebClient())
+            var championNames = await _downloadClient.GetAllChampionNames().ConfigureAwait(true);
+            var latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
+
+            return championNames.Select(x => new ChampionRequest
             {
-                string result = await wc.DownloadStringTaskAsync(@"https://ddragon.leagueoflegends.com/api/versions.json").ConfigureAwait(true);
-                return JArray.Parse(result).ToObject<string[]>();
+                ChampionName = x,
+                DataDragonVersion = latestVersion
+            });
+        }
+
+        public async Task<IEnumerable<ItemRequest>> GetAllItemRequests()
+        {
+            var itemNumbers = await _downloadClient.GetAllItemNumbers().ConfigureAwait(true);
+            var latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
+
+            return itemNumbers.Select(x => new ItemRequest
+            {
+                ItemID = x,
+                DataDragonVersion = latestVersion
+            });
+        }
+
+        private string GetRequestIdentifier(RequestBase request)
+        {
+            string result = null;
+            switch (request)
+            {
+                case ChampionRequest championRequest:
+                    result = championRequest.ChampionName;
+                    break;
+                
+                case MapRequest mapRequest:
+                    result = mapRequest.MapID;
+                    break;
+
+                case ItemRequest itemRequest:
+                    result = itemRequest.ItemID;
+                    break;
             }
+
+            return result;
         }
     }
 }

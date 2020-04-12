@@ -14,7 +14,8 @@
         MinHeight="655"
         MinWidth="1150"
         Height="655" 
-        Width="1150">
+        Width="1150"
+        Closing="MainWindow_OnClosing">
 
     <DockPanel>
         
@@ -122,12 +123,33 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ProgressBar IsIndeterminate="true"
+                             Grid.Row="0"
+                             Height="5">
+                    <ProgressBar.Style>
+                        <Style TargetType="ProgressBar">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=StatusBarModel.ShowProgressBar}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=StatusBarModel.ShowProgressBar}" Value="false">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ProgressBar.Style>
+                </ProgressBar>
                 <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage}"
                            TextAlignment="Center"
-                           FontSize="16"
+                           FontSize="14"
                            VerticalAlignment="Center" 
                            Grid.Column="0"
-                           Padding="2"/>
+                           Grid.Row="1"
+                           Padding="1"/>
             </Grid>
             
             <ListView x:Name="ReplayListView"
@@ -142,7 +164,23 @@
                       Grid.Row="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <controls:ReplayItemControl/>
+                        <controls:ReplayItemControl/><!-- MouseRightButtonUp="ReplayItemControl_OnMouseRightButtonUp">
+                            <controls:ReplayItemControl.ContextMenu>
+                                <ContextMenu x:Name="ReplayContextMenu">
+                                        <MenuItem x:Name="OpenContainingFolder"
+                                                  Header="{StaticResource OpenContainingFolder}" 
+                                                  Click="ReplayMenuOpenContainingFolder_Click"/>
+
+                                        <MenuItem x:Name="ViewOnlineMatchHistory"
+                                                  Header="{StaticResource ViewOnlinePage}"
+                                                  Click="ReplayMenuViewOnlineMatchHistory_Click"/>
+
+                                        <MenuItem x:Name="ExportReplayData"
+                                                  Header="{StaticResource ExportReplayData}"
+                                                  Click="ReplayMenuExportReplayData_Click"/>
+                                    </ContextMenu>
+                            </controls:ReplayItemControl.ContextMenu>
+                        </controls:ReplayItemControl>-->
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

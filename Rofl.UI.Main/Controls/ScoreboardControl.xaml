@@ -97,7 +97,7 @@
                         <StackPanel Orientation="Vertical" 
                                     Margin="0 5 0 0"
                                     MinHeight="100"
-                                    Background="AliceBlue"/>
+                                    Background="#f5fafe"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -198,7 +198,7 @@
                         <StackPanel Orientation="Vertical" 
                                         Margin="0 5 0 0"
                                         MinHeight="100"
-                                        Background="MistyRose"/>
+                                        Background="#fff3f3"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

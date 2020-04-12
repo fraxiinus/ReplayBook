@@ -9,7 +9,21 @@
 
     <DockPanel Background="White"
                LastChildFill="False"
-               Height="85" Width="350">
+               Height="85" Width="350"
+               MouseRightButtonUp="UIElement_OnMouseRightButtonUp">
+        <DockPanel.ContextMenu>
+            <ContextMenu x:Name="DockPanelReplayContextMenu"
+                         Placement="Bottom">
+                <MenuItem Header="{StaticResource OpenContainingFolder}" 
+                          Click="OpenContainingFolder_Click"/>
+
+                <MenuItem Header="{StaticResource ViewOnlinePage}"
+                          Click="ViewOnlineMatchHistory_Click"/>
+
+                <MenuItem Header="{StaticResource ExportReplayData}"
+                          Click="ExportReplayData_OnClick"/>
+            </ContextMenu>
+        </DockPanel.ContextMenu>
 
         <!--Left side file information-->
         <Border BorderThickness="3 0 0 0">
@@ -105,10 +119,10 @@
                     <Style TargetType="Border">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="True">
-                                <Setter Property="BorderBrush" Value="RoyalBlue"/>
+                                <Setter Property="BorderBrush" Value="#2747e8"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
-                                <Setter Property="BorderBrush" Value="DeepPink"/>
+                                <Setter Property="BorderBrush" Value="#cb2124"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -165,16 +179,17 @@
                        RenderOptions.BitmapScalingMode="HighQuality"/>
             </Button>
             
-            <Button x:Name="Morebutton"
+            <Button x:Name="MoreButton"
                     Margin="0"
                     ToolTip="{StaticResource MoreToolTip}"
                     Style="{StaticResource ToolButton}"
-                    Click="Morebutton_Click">
+                    Click="MoreButton_Click">
                 <Image Source="{StaticResource MoreDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
 
                 <Button.ContextMenu>
-                    <ContextMenu x:Name="ReplayConextMenu">
+                    <ContextMenu x:Name="ReplayContextMenu"
+                                 Placement="Bottom">
                         <MenuItem x:Name="OpenContainingFolder"
                                   Header="{StaticResource OpenContainingFolder}" 
                                   Click="OpenContainingFolder_Click"/>
@@ -182,6 +197,10 @@
                         <MenuItem x:Name="ViewOnlineMatchHistory"
                                   Header="{StaticResource ViewOnlinePage}"
                                   Click="ViewOnlineMatchHistory_Click"/>
+
+                        <MenuItem x:Name="ExportReplayData"
+                                  Header="{StaticResource ExportReplayData}"
+                                  Click="ExportReplayData_OnClick"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

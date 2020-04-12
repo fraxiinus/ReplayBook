@@ -5,17 +5,16 @@ using System.ComponentModel;
 
 namespace Rofl.UI.Main.Models
 {
-    public class PlayerPreviewModel : INotifyPropertyChanged
+    public class PlayerPreview : INotifyPropertyChanged
     {
-        public PlayerPreviewModel(Player player)
+        public PlayerPreview(Player player)
         {
             if (player == null) { throw new ArgumentNullException(nameof(player)); }
             
             ChampionName = player.SKIN;
             PlayerName = player.NAME;
             marker = null;
-            imgSrc = @"D:\Sync\Pictures\comissions\CalamariPop\ThinkYuumi.png";
-
+            imgSrc = null;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

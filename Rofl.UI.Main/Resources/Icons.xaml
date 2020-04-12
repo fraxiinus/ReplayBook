@@ -58,4 +58,20 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="BackArrowDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V2048 H2048 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M2048,2048z M0,0z M2048,1088L250,1088 1037,1875 947,1965 6,1024 947,83 1037,173 250,960 2048,960 2048,1088z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="CircleFillDrawingImage">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V2048 H2048 V0 H0 Z">
+                <GeometryDrawing Brush="#FF000000" Geometry="F1 M2048,2048z M0,0z M32,1024Q32,887 67.5,760 103,633 167.5,523 232,413 322.5,322.5 413,232 523,167.5 633,103 760,67.5 887,32 1024,32 1161,32 1288,67.5 1415,103 1525,167.5 1635,232 1725.5,322.5 1816,413 1880.5,523 1945,633 1980.5,760 2016,887 2016,1024 2016,1161 1980.5,1288 1945,1415 1880.5,1525 1816,1635 1725.5,1725.5 1635,1816 1525,1880.5 1415,1945 1288,1980.5 1161,2016 1024,2016 887,2016 760,1980.5 633,1945 523,1880.5 413,1816 322.5,1725.5 232,1635 167.5,1525 103,1415 67.5,1288 32,1161 32,1024z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
 </ResourceDictionary>

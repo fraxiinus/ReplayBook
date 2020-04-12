@@ -19,7 +19,7 @@ namespace Rofl.UI.Main.Controls
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this).DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayDetailModel replay)) { return; }
+            if (!(this.DataContext is ReplayDetail replay)) { return; }
 
             context.PlayReplay(replay.PreviewModel);
         }
@@ -51,7 +51,7 @@ namespace Rofl.UI.Main.Controls
         private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this).DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayDetailModel replay)) { return; }
+            if (!(this.DataContext is ReplayDetail replay)) { return; }
 
             context.OpenReplayContainingFolder(replay.PreviewModel.Location);
         }
@@ -59,7 +59,7 @@ namespace Rofl.UI.Main.Controls
         private void ViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this).DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayDetailModel replay)) { return; }
+            if (!(this.DataContext is ReplayDetail replay)) { return; }
 
             context.ViewOnlineMatchHistory(replay.PreviewModel.MatchId);
         }
