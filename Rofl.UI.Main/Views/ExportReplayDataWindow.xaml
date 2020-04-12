@@ -106,6 +106,8 @@
             <TextBox Grid.Row="1" Margin="0 3 0 3"
                      x:Name="FilterTextBox"
                      FontSize="14"
+                     VerticalContentAlignment="Center"
+                     Height="25"
                      TextChanged="FilterTextBox_OnTextChanged"/>
 
             <ListBox Grid.Row="2"
@@ -149,14 +151,14 @@
                     x:Name="ExportButton"
                     Content="{StaticResource ErdExportButtonText}"
                     Click="ExportButton_OnClick"
-                    Width="70" Height="20"
-                    Margin="0 0 5 0"/>
+                    Width="70" Height="25"
+                    Margin="0 0 10 0"/>
 
             <Button Grid.Column="2" 
                     x:Name="CancelButton"
                     Content="{StaticResource CancelButtonText}"
                     Click="CancelButton_OnClick"
-                    Width="70" Height="20"/>
+                    Width="70" Height="25"/>
         </Grid>
     </Grid>
 </Window>

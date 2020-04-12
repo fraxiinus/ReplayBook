@@ -9,7 +9,21 @@
 
     <DockPanel Background="White"
                LastChildFill="False"
-               Height="85" Width="350">
+               Height="85" Width="350"
+               MouseRightButtonUp="UIElement_OnMouseRightButtonUp">
+        <DockPanel.ContextMenu>
+            <ContextMenu x:Name="DockPanelReplayContextMenu"
+                         Placement="Bottom">
+                <MenuItem Header="{StaticResource OpenContainingFolder}" 
+                          Click="OpenContainingFolder_Click"/>
+
+                <MenuItem Header="{StaticResource ViewOnlinePage}"
+                          Click="ViewOnlineMatchHistory_Click"/>
+
+                <MenuItem Header="{StaticResource ExportReplayData}"
+                          Click="ExportReplayData_OnClick"/>
+            </ContextMenu>
+        </DockPanel.ContextMenu>
 
         <!--Left side file information-->
         <Border BorderThickness="3 0 0 0">
@@ -174,7 +188,8 @@
                        RenderOptions.BitmapScalingMode="HighQuality"/>
 
                 <Button.ContextMenu>
-                    <ContextMenu x:Name="ReplayContextMenu">
+                    <ContextMenu x:Name="ReplayContextMenu"
+                                 Placement="Bottom">
                         <MenuItem x:Name="OpenContainingFolder"
                                   Header="{StaticResource OpenContainingFolder}" 
                                   Click="OpenContainingFolder_Click"/>

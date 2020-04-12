@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         mc:Ignorable="d"
         Title="{StaticResource ExecutableDetailLaunchArgs}" 
-        Height="200" Width="300"
-        MinHeight="200" MinWidth="300">
+        Height="250" Width="300"
+        MinHeight="250" MinWidth="300">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -22,23 +22,23 @@
                  Grid.Row="0"
                  Grid.ColumnSpan="2"
                  TextWrapping="Wrap"
-                 Margin="0 0 0 5"/>
+                 Margin="0 0 0 10"/>
 
         <StackPanel Orientation="Horizontal"
                     Grid.Row="1">
 
             <Button x:Name="SaveButton"
                 Content="{StaticResource SaveButtonText}"
-                Margin="0 0 2 0"
+                Margin="0 0 10 0"
                 Width="70"
-                Height="20"
+                Height="25"
                 Click="SaveButton_Click"/>
 
             <Button x:Name="CloseButton"
                 Content="{StaticResource CancelButtonText}"
-                Margin="2 0 0 0"
+                Margin="0 0 0 0"
                 Width="70"
-                Height="20"
+                Height="25"
                 Click="CloseButton_Click"/>
 
         </StackPanel>

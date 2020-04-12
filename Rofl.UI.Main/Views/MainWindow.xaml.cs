@@ -187,13 +187,38 @@ namespace Rofl.UI.Main
             _log.WriteToFile();
         }
 
-        private void ReplayItemControl_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+        //private void ReplayItemControl_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
-            // if(!(sender is ReplayItemControl replayItem)) { return; }
+        //    // if(!(sender is ReplayItemControl replayItem)) { return; }
+        //    // Get the button and menu
+        //    ReplayContextMenu
+        //    // ContextMenu contextMenu = ReplayContextMenu;
+        //    // Set placement and open
+        //    contextMenu.PlacementTarget = moreButton;
+        //    contextMenu.Placement = PlacementMode.Bottom;
+        //    contextMenu.IsOpen = true;
 
-            MessageBox.Show($"{ReplayListView.SelectedItems.Count}");
-        }
+        //    MessageBox.Show($"{ReplayListView.SelectedItems.Count}");
+        //}
+
+        //private void ReplayMenuOpenContainingFolder_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (!(this.DataContext is MainWindowViewModel context)) { return; }
+        //    if (!(sender is ReplayPreview replay)) { return; }
+
+        //    context.OpenReplayContainingFolder(replay.Location);
+        //}
+
+        //public void ReplayMenuViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+
+        //public void ReplayMenuExportReplayData_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //}
     }
 }

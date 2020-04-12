@@ -48,55 +48,20 @@
                     <DockPanel>
 
                         <TextBox FontSize="25"
-                                     Background="Transparent"
-                                     BorderThickness="0"
-                                     IsReadOnly="True"
-                                     Text="{Binding Path=PreviewModel.Name, FallbackValue=FileName, Mode=OneWay}"
-                                     DockPanel.Dock="Left"/>
-                        
-                        <!--<TextBox Background="Transparent"
+                                 Background="Transparent"
                                  BorderThickness="0"
-                                 FontSize="14"
                                  IsReadOnly="True"
-                                 ToolTip="{StaticResource GameVersionToolTip}"
-                                 Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}">
-                            <TextBox.Style>
-                                <Style TargetType="{x:Type TextBox}">
-                                    <Setter Property="Foreground" Value="Red"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding PreviewModel.IsSupported}" Value="True">
-                                            <Setter Property="Foreground" Value="Green"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBox.Style>
-                        </TextBox>
-                        <TextBlock x:Name="PatchCheckText"
-                                   FontSize="14">
-                            <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Text" Value="{StaticResource CrossText}"/>
-                                    <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
-                                    <Setter Property="Foreground" Value="Red"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding PreviewModel.IsSupported}" Value="True">
-                                            <Setter Property="Text" Value="{StaticResource CheckText}"/>
-                                            <Setter Property="ToolTip" Value="{StaticResource ReplaySupportedToolTip}"/>
-                                            <Setter Property="Foreground" Value="Green"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>-->
-                        
+                                 Text="{Binding Path=PreviewModel.Name, FallbackValue=FileName, Mode=OneWay}"
+                                 DockPanel.Dock="Left"/>
+
                         <StackPanel Orientation="Horizontal"
-                                        Margin="20 0 0 0"
-                                        DockPanel.Dock="Right"
-                                        HorizontalAlignment="Right">
+                                    Margin="20 0 0 0"
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right">
 
                             <Button x:Name="PlayButton"
                                     Margin="0"
-                                    Width="70"
+                                    Width="100"
                                     Height="30"
                                     ToolTipService.ShowOnDisabled="True"
                                     Background="Transparent"
@@ -137,7 +102,7 @@
                                 </DockPanel>
                             </Button>
 
-                            <Button x:Name="MoreButton"
+                            <!--<Button x:Name="MoreButton"
                                     Width="20"
                                     Height="30"
                                     ToolTip="{StaticResource MoreToolTip}"
@@ -161,7 +126,7 @@
                                                   Click="ViewOnlineMatchHistory_Click"/>
                                     </ContextMenu>
                                 </Button.ContextMenu>
-                            </Button>
+                            </Button>-->
                         </StackPanel>
 
                     </DockPanel>

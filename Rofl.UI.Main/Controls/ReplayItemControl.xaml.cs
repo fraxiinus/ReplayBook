@@ -3,6 +3,7 @@ using Rofl.UI.Main.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 
 namespace Rofl.UI.Main.Controls
 {
@@ -39,8 +40,13 @@ namespace Rofl.UI.Main.Controls
             ContextMenu contextMenu = moreButton.ContextMenu;
             // Set placement and open
             contextMenu.PlacementTarget = moreButton;
-            contextMenu.Placement = PlacementMode.Bottom;
             contextMenu.IsOpen = true;
+        }
+
+        private void UIElement_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            DockPanelReplayContextMenu.Placement = PlacementMode.MousePoint;
+            DockPanelReplayContextMenu.IsOpen = true;
         }
 
         private void ViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)

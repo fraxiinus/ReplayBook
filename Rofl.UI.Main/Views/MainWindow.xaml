@@ -164,7 +164,23 @@
                       Grid.Row="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <controls:ReplayItemControl MouseRightButtonUp="ReplayItemControl_OnMouseRightButtonUp"/>
+                        <controls:ReplayItemControl/><!-- MouseRightButtonUp="ReplayItemControl_OnMouseRightButtonUp">
+                            <controls:ReplayItemControl.ContextMenu>
+                                <ContextMenu x:Name="ReplayContextMenu">
+                                        <MenuItem x:Name="OpenContainingFolder"
+                                                  Header="{StaticResource OpenContainingFolder}" 
+                                                  Click="ReplayMenuOpenContainingFolder_Click"/>
+
+                                        <MenuItem x:Name="ViewOnlineMatchHistory"
+                                                  Header="{StaticResource ViewOnlinePage}"
+                                                  Click="ReplayMenuViewOnlineMatchHistory_Click"/>
+
+                                        <MenuItem x:Name="ExportReplayData"
+                                                  Header="{StaticResource ExportReplayData}"
+                                                  Click="ReplayMenuExportReplayData_Click"/>
+                                    </ContextMenu>
+                            </controls:ReplayItemControl.ContextMenu>
+                        </controls:ReplayItemControl>-->
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

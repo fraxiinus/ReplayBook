@@ -29,6 +29,7 @@
     <string:String x:Key="ExecutablesSettingsItemText">Executables</string:String>
     <string:String x:Key="AboutSettingsItemText">About</string:String>
 
+    <!--Settings : General-->
     <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
     <string:String x:Key="PlayerMarkerWindowText">Player Marker</string:String>
     <string:String x:Key="PlayerMarkerNameLabelText">Player Name</string:String>
@@ -37,9 +38,7 @@
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorTitle">Marker already exists</string:String>
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Player name cannot be empty</string:String>
     <string:String x:Key="PlayerMarkerColorIsEmptyErrorText">Please choose a color</string:String>
-
     <string:String x:Key="PlayConfirmCheckboxText">Always ask for confirmation before playing replays</string:String>
-
     <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
     
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
