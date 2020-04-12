@@ -44,7 +44,7 @@ namespace Rofl.UI.Main
             _files = new FileManager(_settingsManager.Settings, _log);
             _requests = new RequestManager(_settingsManager.Settings, _log);
 
-            var context = new MainWindowViewModel(_files, _requests, _settingsManager);
+            var context = new MainWindowViewModel(_files, _requests, _settingsManager, _log);
             this.DataContext = context;
 
             _log.Error("PRERELEASE", "Log files are generated for each run while in prerelease");
