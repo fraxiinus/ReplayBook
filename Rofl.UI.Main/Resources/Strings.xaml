@@ -86,7 +86,7 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">A. Lee (Etirps)</string:String>
-    <string:String x:Key="Version">Prerelease 3</string:String>
+    <string:String x:Key="Version">Prerelease 5</string:String>
     <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
     <string:String x:Key="GitHubLink">https://github.com/leeanchu/ReplayBook</string:String>
     <string:String x:Key="DiscordInvite">discord.gg/c33Rc5J</string:String>
