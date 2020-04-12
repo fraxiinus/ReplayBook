@@ -26,9 +26,9 @@ namespace Rofl.Files.Repositories
             {
                 InitializeDatabase();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _log.Warning(_myName, "Database file is invalid, deleting and trying again");
+                _log.Warning(_myName, $"Database file is invalid, deleting and trying again... exception:{ex}");
                 File.Delete(_filePath);
                 InitializeDatabase();
             }
