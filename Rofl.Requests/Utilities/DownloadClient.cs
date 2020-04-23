@@ -1,29 +1,29 @@
-﻿using System;
+﻿using Etirps.RiZhi;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Rofl.Requests.Models;
-using Rofl.Logger;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 using Rofl.Settings.Models;
 
 namespace Rofl.Requests.Utilities
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class DownloadClient
     {
         private readonly string _downloadRootFolder;
         private readonly ObservableSettings _settings;
-        private readonly Scribe _log;
-        private readonly string _myName;
+        private readonly RiZhi _log;
         private readonly HttpClient _httpClient;
 
-        private const string UserAgent = @"ReplayBook/PR5 (+https://github.com/leeanchu/ReplayBook)";
+        private const string UserAgent = @"ReplayBook/PR6 (+https://github.com/leeanchu/ReplayBook)";
 
         private string LatestDataDragonVersion = null;
 
-        public DownloadClient(string downloadPath, ObservableSettings settings, Scribe log)
+        public DownloadClient(string downloadPath, ObservableSettings settings, RiZhi log)
         {
             if (string.IsNullOrEmpty(downloadPath))
             {
@@ -33,7 +33,6 @@ namespace Rofl.Requests.Utilities
             _settings = settings;
             _log = log;
             _downloadRootFolder = downloadPath;
-            _myName = this.GetType().ToString();
             _httpClient = new HttpClient();
         }
 
@@ -110,6 +109,7 @@ namespace Rofl.Requests.Utilities
             return LatestDataDragonVersion;
         }
 
+
         /// <summary>
         /// Get an array of all appropriate DataDragon versions
         /// </summary>
@@ -130,14 +130,14 @@ namespace Rofl.Requests.Utilities
                 }
                 catch (HttpRequestException)
                 {
-                    _log.Error(_myName, $"Unable to send HTTP request to {url}");
+                    _log.Error($"Unable to send HTTP request to {url}");
                     return null;
                 }
             }
 
             if (response.IsSuccessStatusCode)
             {
-                _log.Information(_myName, $"Made successful HTTP request {url}");
+                _log.Information($"Made successful HTTP request {url}");
 
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
 
@@ -145,7 +145,7 @@ namespace Rofl.Requests.Utilities
             }
             else
             {
-                _log.Error(_myName, $"HTTP request failed {(int)response.StatusCode} {url}");
+                _log.Error($"HTTP request failed {(int)response.StatusCode} {url}");
                 return null;
             }
         }
@@ -170,7 +170,7 @@ namespace Rofl.Requests.Utilities
                 }
                 catch (HttpRequestException)
                 {
-                    _log.Error(_myName, $"Unable to send HTTP request to {url}");
+                    _log.Error($"Unable to send HTTP request to {url}");
                     return null;
                 }
             }
@@ -178,7 +178,7 @@ namespace Rofl.Requests.Utilities
             // Load response into JObject
             if (response.IsSuccessStatusCode)
             {
-                _log.Information(_myName, $"Made successful HTTP request {url}");
+                _log.Information($"Made successful HTTP request {url}");
 
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
 
@@ -186,7 +186,7 @@ namespace Rofl.Requests.Utilities
             }
             else
             {
-                _log.Error(_myName, $"HTTP request failed {(int)response.StatusCode} {url}");
+                _log.Error($"HTTP request failed {(int)response.StatusCode} {url}");
                 return null;
             }
 
@@ -213,7 +213,7 @@ namespace Rofl.Requests.Utilities
                 }
                 catch (HttpRequestException)
                 {
-                    _log.Error(_myName, $"Unable to send HTTP request to {url}");
+                    _log.Error($"Unable to send HTTP request to {url}");
                     return null;
                 }
             }
@@ -221,7 +221,7 @@ namespace Rofl.Requests.Utilities
             // Load response into JObject
             if (response.IsSuccessStatusCode)
             {
-                _log.Information(_myName, $"Made successful HTTP request {url}");
+                _log.Information($"Made successful HTTP request {url}");
 
                 var json = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
 
@@ -229,7 +229,7 @@ namespace Rofl.Requests.Utilities
             }
             else
             {
-                _log.Error(_myName, $"HTTP request failed {(int)response.StatusCode} {url}");
+                _log.Error($"HTTP request failed {(int)response.StatusCode} {url}");
                 return null;
             }
 
@@ -332,14 +332,14 @@ namespace Rofl.Requests.Utilities
                 }
                 catch (HttpRequestException)
                 {
-                    _log.Error(_myName, $"Unable to send HTTP request to {url}");
+                    _log.Error($"Unable to send HTTP request to {url}");
                     return null;
                 }
             }
 
             if (response.IsSuccessStatusCode)
             {
-                _log.Information(_myName, $"Made successful HTTP request {url}");
+                _log.Information($"Made successful HTTP request {url}");
                 using (var s = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
                 {
                     // Creates or overwrites the file
@@ -356,7 +356,7 @@ namespace Rofl.Requests.Utilities
             }
             else
             {
-                _log.Warning(_myName, $"HTTP request failed {(int) response.StatusCode} {url}");
+                _log.Warning($"HTTP request failed {(int) response.StatusCode} {url}");
                 return null;
             }
         }

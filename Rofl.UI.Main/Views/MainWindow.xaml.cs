@@ -1,6 +1,6 @@
-﻿using Rofl.Files;
+﻿using Etirps.RiZhi;
+using Rofl.Files;
 using Rofl.Files.Models;
-using Rofl.Logger;
 using Rofl.Requests;
 using Rofl.Settings;
 using Rofl.UI.Main.Controls;
@@ -8,6 +8,7 @@ using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
 using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -25,7 +26,7 @@ namespace Rofl.UI.Main
         private readonly FileManager _files;
         private readonly RequestManager _requests;
         private readonly SettingsManager _settingsManager;
-        private readonly Scribe _log;
+        private readonly RiZhi _log;
 
         public MainWindow()
         {
@@ -33,11 +34,14 @@ namespace Rofl.UI.Main
 
             Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
             {
-                _log.Error("RootHandler", e.Exception.ToString());
-                _log.WriteToFile();
+                _log.Error(e.Exception.ToString());
+                _log.WriteLog();
             };
 
-            _log = new Scribe();
+            _log = new RiZhi()
+            {
+                FilePrefix = "ReplayBookLog"
+            };
 
             _settingsManager = new SettingsManager(_log);
 
@@ -47,7 +51,8 @@ namespace Rofl.UI.Main
             var context = new MainWindowViewModel(_files, _requests, _settingsManager, _log);
             this.DataContext = context;
 
-            _log.Error("PRERELEASE", "Log files are generated for each run while in prerelease");
+            var version = Assembly.GetEntryAssembly().GetName().Version.ToString(2); 
+            _log.Error($"Log files are generated for each run while in prerelease. Prerelease version: {version}");
 
             // Decide to show welcome window
             context.ShowWelcomeWindow();
@@ -186,41 +191,7 @@ namespace Rofl.UI.Main
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            _log.WriteToFile();
+            _log.WriteLog();
         }
-
-        //private void ReplayItemControl_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (!(this.DataContext is MainWindowViewModel context)) { return; }
-
-        //    // if(!(sender is ReplayItemControl replayItem)) { return; }
-        //    // Get the button and menu
-        //    ReplayContextMenu
-        //    // ContextMenu contextMenu = ReplayContextMenu;
-        //    // Set placement and open
-        //    contextMenu.PlacementTarget = moreButton;
-        //    contextMenu.Placement = PlacementMode.Bottom;
-        //    contextMenu.IsOpen = true;
-
-        //    MessageBox.Show($"{ReplayListView.SelectedItems.Count}");
-        //}
-
-        //private void ReplayMenuOpenContainingFolder_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (!(this.DataContext is MainWindowViewModel context)) { return; }
-        //    if (!(sender is ReplayPreview replay)) { return; }
-
-        //    context.OpenReplayContainingFolder(replay.Location);
-        //}
-
-        //public void ReplayMenuViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-
-        //public void ReplayMenuExportReplayData_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
     }
 }

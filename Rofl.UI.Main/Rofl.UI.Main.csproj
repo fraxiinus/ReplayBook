@@ -20,6 +20,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -32,7 +33,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -59,6 +59,9 @@
     <ApplicationIcon>Resources\program_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Etirps.RiZhi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Etirps.RiZhi.1.0.0\lib\netstandard2.0\Etirps.RiZhi.dll</HintPath>
+    </Reference>
     <Reference Include="LiteDB, Version=4.1.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.4.1.4\lib\net40\LiteDB.dll</HintPath>
     </Reference>
@@ -341,10 +344,6 @@
     <ProjectReference Include="..\Rofl.Files\Rofl.Files.csproj">
       <Project>{0de2b53b-f1a7-4cb4-beb1-e95302d51597}</Project>
       <Name>Rofl.Files</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Rofl.Logger\Rofl.Logger.csproj">
-      <Project>{df505361-8e36-4187-9458-1663a7f5b3ea}</Project>
-      <Name>Rofl.Logger</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj">
       <Project>{b4369113-5a5c-4bf7-b0e5-577776d8fc35}</Project>

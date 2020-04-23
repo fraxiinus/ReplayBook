@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Etirps.RiZhi;
+using System;
 using System.IO;
 using Rofl.Requests.Models;
-using Rofl.Logger;
 
 namespace Rofl.Requests.Utilities
 {
@@ -9,15 +9,12 @@ namespace Rofl.Requests.Utilities
     {
         private string CachePath { get; set; }
 
-        private readonly Scribe _log;
+        private readonly RiZhi _log;
 
-        private readonly string _myName;
-
-        public CacheClient(string cachePath, Scribe log)
+        public CacheClient(string cachePath, RiZhi log)
         {
             _log = log;
             CachePath = cachePath;
-            _myName = this.GetType().ToString();
         }
 
         public ResponseBase CheckImageCache(RequestBase request)
@@ -58,7 +55,7 @@ namespace Rofl.Requests.Utilities
             // Does the file already exist in that location?
             if (!File.Exists(downloadLocation))
             {
-                _log.Information(_myName, $"Cache miss on {downloadLocation}");
+                _log.Information($"Cache miss on {downloadLocation}");
                 response.IsFaulted = true;
                 response.Exception = new FileNotFoundException("Cache miss", downloadLocation);
                 return response;
@@ -72,7 +69,7 @@ namespace Rofl.Requests.Utilities
             //catch (OutOfMemoryException ex)
             //{
             //    // If the file is not formatted as an image, return an exception
-            //    _log.Warning(_myName, $"Image is not a valid format {downloadLocation}");
+            //    _log.Warning($"Image is not a valid format {downloadLocation}");
             //    response.IsFaulted = true;
             //    response.Exception = new Exception("Image is not a valid format", ex);
             //    return response;

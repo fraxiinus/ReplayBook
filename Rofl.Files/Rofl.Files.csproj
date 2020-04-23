@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Etirps.RiZhi" Version="1.0.0" />
     <PackageReference Include="LiteDB" Version="4.1.4" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
@@ -15,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rofl.Logger\Rofl.Logger.csproj" />
     <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj" />
     <ProjectReference Include="..\Rofl.Settings\Rofl.Settings.csproj" />
   </ItemGroup>

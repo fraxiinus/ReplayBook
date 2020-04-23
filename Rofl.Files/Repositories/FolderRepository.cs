@@ -1,5 +1,5 @@
-﻿using Rofl.Files.Models;
-using Rofl.Logger;
+﻿using Etirps.RiZhi;
+using Rofl.Files.Models;
 using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
@@ -17,9 +17,9 @@ namespace Rofl.Files.Repositories
     {
 
         private readonly ObservableSettings _settings;
-        private readonly Scribe _log;
+        private readonly RiZhi _log;
 
-        public FolderRepository(ObservableSettings settings, Scribe log)
+        public FolderRepository(ObservableSettings settings, RiZhi log)
         {
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
             _log = log ?? throw new ArgumentNullException(nameof(log));

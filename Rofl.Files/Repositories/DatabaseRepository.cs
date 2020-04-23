@@ -1,6 +1,6 @@
-﻿using LiteDB;
+﻿using Etirps.RiZhi;
+using LiteDB;
 using Rofl.Files.Models;
-using Rofl.Logger;
 using Rofl.Reader.Models;
 using System;
 using System.Collections.Generic;
@@ -13,14 +13,12 @@ namespace Rofl.Files.Repositories
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class DatabaseRepository
     {
-        private readonly Scribe _log;
-        private readonly string _myName;
+        private readonly RiZhi _log;
         private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "replayCache.db");
 
-        public DatabaseRepository(Scribe log)
+        public DatabaseRepository(RiZhi log)
         {
             _log = log;
-            _myName = this.GetType().ToString();
 
             try
             {
@@ -28,7 +26,7 @@ namespace Rofl.Files.Repositories
             }
             catch (Exception ex)
             {
-                _log.Warning(_myName, $"Database file is invalid, deleting and trying again... exception:{ex}");
+                _log.Warning($"Database file is invalid, deleting and trying again... exception:{ex}");
                 File.Delete(_filePath);
                 InitializeDatabase();
             }

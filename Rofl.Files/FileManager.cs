@@ -1,6 +1,6 @@
-﻿using Rofl.Files.Models;
+﻿using Etirps.RiZhi;
+using Rofl.Files.Models;
 using Rofl.Files.Repositories;
-using Rofl.Logger;
 using Rofl.Reader;
 using Rofl.Settings.Models;
 using System;
@@ -16,14 +16,12 @@ namespace Rofl.Files
     {
         private readonly FolderRepository _fileSystem;
         private readonly DatabaseRepository _db;
-        private readonly Scribe _log;
+        private readonly RiZhi _log;
         private readonly ReplayReader _reader;
-        private readonly string _myName;
 
-        public FileManager(ObservableSettings settings, Scribe log)
+        public FileManager(ObservableSettings settings, RiZhi log)
         {
-            _log = log;
-            _myName = this.GetType().ToString();
+            _log = log ?? throw new ArgumentNullException(nameof(log));
 
             _fileSystem = new FolderRepository(settings, log);
             _db = new DatabaseRepository(log);
@@ -36,7 +34,7 @@ namespace Rofl.Files
         /// </summary>
         public async Task InitialLoadAsync()
         {
-            _log.Information(_myName, "Starting initial load of replays");
+            _log.Information("Starting initial load of replays");
 
             List<ReplayFileInfo> newFiles = new List<ReplayFileInfo>();
             
@@ -52,7 +50,7 @@ namespace Rofl.Files
                 }
             }
 
-            _log.Information(_myName, $"Discovered {newFiles.Count} new files");
+            _log.Information($"Discovered {newFiles.Count} new files");
 
             // Files not in the database are parsed and added
             foreach (var file in newFiles)
@@ -67,7 +65,7 @@ namespace Rofl.Files
                 _db.AddFileResult(newResult);
             }
 
-            _log.Information(_myName, "Initial load of replays complete");
+            _log.Information("Initial load of replays complete");
         }
 
         /// <summary>
@@ -76,7 +74,7 @@ namespace Rofl.Files
         /// <returns></returns>
         public void PruneDatabaseEntries()
         {
-            _log.Information(_myName, $"Pruning database...");
+            _log.Information($"Pruning database...");
 
             var entries = _db.GetReplayFiles();
 
@@ -85,12 +83,12 @@ namespace Rofl.Files
                 // Files does not exist! (Technically this is the same as id, but it's more clear)
                 if (!File.Exists(entry.FileInfo.Path))
                 {
-                    _log.Information(_myName, $"File {entry.Id} can no longer by found, deleting from database...");
+                    _log.Information($"File {entry.Id} can no longer by found, deleting from database...");
                     _db.RemoveFileResult(entry.Id);
                 }
             }
 
-            _log.Information(_myName, $"Pruning complete");
+            _log.Information($"Pruning complete");
         }
 
         public IReadOnlyCollection<FileResult> GetReplays(QueryProperties sort, int maxEntries, int skip)

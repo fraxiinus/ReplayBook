@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using Rofl.Executables.Utilities;
-using Rofl.Logger;
+﻿using Etirps.RiZhi;
+using Newtonsoft.Json;
 using Rofl.Executables.Models;
+using Rofl.Executables.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,25 +13,22 @@ namespace Rofl.Executables
     public class ExecutableManager
     {
 
-        private readonly Scribe _log;
-
-        private readonly string _myName;
+        private readonly RiZhi _log;
 
         private readonly string _exeInfoFilePath;
 
         public ExecutableSettings Settings { get; private set; }
 
-        public ExecutableManager(Scribe log)
+        public ExecutableManager(RiZhi log)
         {
-            _log = log;
-            _myName = this.GetType().ToString();
+            _log = log ?? throw new ArgumentNullException(nameof(log));
 
             // Get the exeInfoFile or create new one
             _exeInfoFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "executablesettings.json");
             if (!File.Exists(_exeInfoFilePath))
             {
                 // Exe file is missing, set up defaults
-                _log.Information(_myName, $"Executable file does not exist, creating");
+                _log.Information($"Executable file does not exist, creating");
                 Settings = new ExecutableSettings();
             }
             else
@@ -44,7 +41,7 @@ namespace Rofl.Executables
                 catch (Exception parseEx)
                 {
                     // Failed loading, create new one instead
-                    _log.Error(_myName, $"Error reading executable info file, creating new one. {parseEx.ToString()}");
+                    _log.Error($"Error reading executable info file, creating new one. {parseEx}");
 
                     Settings = new ExecutableSettings();
                 }
@@ -86,7 +83,7 @@ namespace Rofl.Executables
 
             if (!Directory.Exists(startPath))
             {
-                _log.Warning(_myName, $"Input path {startPath} does not exist");
+                _log.Warning($"Input path {startPath} does not exist");
                 throw new DirectoryNotFoundException($"Input path {startPath} does not exist");
             }
 
@@ -110,7 +107,7 @@ namespace Rofl.Executables
             }
             catch (Exception e)
             {
-                _log.Error(_myName, e.ToString());
+                _log.Error(e.ToString());
                 throw;
             }
 
@@ -170,7 +167,7 @@ namespace Rofl.Executables
             // Validate file
             if (newExecutable == null) 
             {
-                _log.Warning(_myName, $"Given Executable is null");
+                _log.Warning($"Given Executable is null");
                 throw new ArgumentNullException(nameof(newExecutable));
             }
 
@@ -198,12 +195,12 @@ namespace Rofl.Executables
             LeagueExecutable target = GetExecutable(name);
             if (target == null)
             {
-                _log.Warning(_myName, $"Executable with name {name} does not exist");
+                _log.Warning($"Executable with name {name} does not exist");
                 throw new ArgumentException($"Executable with name {name} does not exist");
             }
 
             // Delete the executable
-            _log.Information(_myName, $"Deleting executable {target.Name}");
+            _log.Information($"Deleting executable {target.Name}");
             Settings.Executables.Remove(target);
         }
 
@@ -231,7 +228,7 @@ namespace Rofl.Executables
 
             if (!executable.PatchNumber.Equals(currentVersion, StringComparison.OrdinalIgnoreCase))
             {
-                _log.Information(_myName, $"Updating executable {executable.Name} from {executable.PatchNumber} -> {currentVersion}");
+                _log.Information($"Updating executable {executable.Name} from {executable.PatchNumber} -> {currentVersion}");
                 executable.PatchNumber = currentVersion;
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Etirps.RiZhi;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using Rofl.Reader.Parsers;
@@ -6,21 +7,17 @@ using Rofl.Reader.Models;
 using Rofl.Reader.Utilities;
 using Rofl.Reader.Models.Internal.ROFL;
 using System.Linq;
-using Rofl.Logger;
 
 namespace Rofl.Reader
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class ReplayReader
     {
-        private readonly Scribe _log;
+        private readonly RiZhi _log;
 
-        private readonly string _myName;
-
-        public ReplayReader(Scribe log)
+        public ReplayReader(RiZhi log)
         {
             _log = log;
-            _myName = this.GetType().ToString();
         }
 
         public async Task<ReplayFile> ReadFile(string filePath)
@@ -28,12 +25,14 @@ namespace Rofl.Reader
             // Make sure file exists
             if (String.IsNullOrEmpty(filePath))
             {
-                throw new ArgumentNullException($"{_myName} - File reference is null");
+                _log.Error("File reference is null");
+                throw new ArgumentNullException($"File reference is null");
             }
 
             if (!File.Exists(filePath))
             {
-                throw new FileNotFoundException($"{_myName} - File path not found, does the file exist?");
+                _log.Error("File path not found, does the file exist?");
+                throw new FileNotFoundException($"File path not found, does the file exist?");
             }
 
             // Reads the first 4 bytes and tries to find out the replay type
@@ -55,7 +54,8 @@ namespace Rofl.Reader
                 //    file.Data = null;
                 //    break;
                 default:
-                    throw new NotSupportedException($"{_myName} - File is not an accepted format: (rofl, lrf)");
+                    _log.Error("File is not an accepted format: rofl");
+                    throw new NotSupportedException($"File is not an accepted format: rofl");
             }
 
             // Make some educated guesses
@@ -69,7 +69,7 @@ namespace Rofl.Reader
             }
             catch (ArgumentNullException ex)
             {
-                _log.Warning(_myName, "Could not infer map type\n" + ex.ToString());
+                _log.Warning("Could not infer map type\n" + ex.ToString());
                 result.MapId = MapCode.Unknown;
             }
             

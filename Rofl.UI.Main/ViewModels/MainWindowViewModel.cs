@@ -1,7 +1,9 @@
-﻿using Rofl.Executables.Models;
+﻿using Etirps.RiZhi;
+using Rofl.Executables.Models;
 using Rofl.Executables.Utilities;
 using Rofl.Files;
 using Rofl.Files.Models;
+using Rofl.Reader.Models;
 using Rofl.Requests;
 using Rofl.Requests.Models;
 using Rofl.Settings;
@@ -17,8 +19,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using Rofl.Logger;
-using Rofl.Reader.Models;
 
 namespace Rofl.UI.Main.ViewModels
 {
@@ -26,8 +26,8 @@ namespace Rofl.UI.Main.ViewModels
     public class MainWindowViewModel
     {
         private readonly FileManager _fileManager;
-        private readonly Scribe _log;
-        private readonly string _myName;
+        private readonly RiZhi _log;
+        // private readonly string _myName;
         
         public RequestManager RequestManager { get; private set; }
 
@@ -52,12 +52,12 @@ namespace Rofl.UI.Main.ViewModels
 
         public StatusBar StatusBarModel { get; private set; }
 
-        public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, Scribe log)
+        public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, RiZhi log)
         {
             SettingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
             _fileManager = files ?? throw new ArgumentNullException(nameof(files));
             _log = log ?? throw new ArgumentNullException(nameof(log));
-            _myName = this.GetType().ToString();
+
             RequestManager = requests ?? throw new ArgumentNullException(nameof(requests));
 
             KnownPlayers = SettingsManager.Settings.KnownPlayers;
@@ -79,10 +79,10 @@ namespace Rofl.UI.Main.ViewModels
         /// </summary>
         public void LoadReplays()
         {
-            _log.Information(_myName, "Loading replays from database...");
+            _log.Information("Loading replays from database...");
             var databaseResults = _fileManager.GetReplays(SortParameters, SettingsManager.Settings.ItemsPerPage, PreviewReplays.Count);
 
-            _log.Information(_myName, $"Retrieved {databaseResults.Count} replays");
+            _log.Information($"Retrieved {databaseResults.Count} replays");
             foreach (var file in databaseResults)
             {
                 ReplayPreview previewModel = new ReplayPreview(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
@@ -109,7 +109,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public void ClearReplays()
         {
-            _log.Information(_myName, "Clearing replay list...");
+            _log.Information("Clearing replay list...");
             App.Current.Dispatcher.Invoke((Action)delegate
             {
                 PreviewReplays.Clear();
@@ -120,7 +120,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task LoadItemThumbnails(ReplayDetail replay)
         {
-            _log.Information(_myName, "Loading/downloading thumbnails for items...");
+            _log.Information("Loading/downloading thumbnails for items...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
             var dataVersion = await RequestManager.GetDataDragonVersionAsync(replay.PreviewModel.GameVersion).ConfigureAwait(true);
@@ -131,7 +131,7 @@ namespace Rofl.UI.Main.ViewModels
             allItems.AddRange(replay.BluePlayers.SelectMany(x => x.Items));
             allItems.AddRange(replay.RedPlayers.SelectMany(x => x.Items));
 
-            _log.Information(_myName, $"Processing {allItems.Count} item thumbnail requests");
+            _log.Information($"Processing {allItems.Count} item thumbnail requests");
             foreach (var item in allItems)
             {
                 itemTasks.Add(Task.Run(async () =>
@@ -154,7 +154,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task LoadPreviewPlayerThumbnails()
         {
-            _log.Information(_myName, "Loading/downloading thumbnails for champions...");
+            _log.Information("Loading/downloading thumbnails for champions...");
             // Default set to most recent data version
             var dataVersion = await RequestManager.GetDataDragonVersionAsync(null).ConfigureAwait(true);
 
@@ -170,7 +170,7 @@ namespace Rofl.UI.Main.ViewModels
                 allPlayers.AddRange(replay.BluePreviewPlayers);
                 allPlayers.AddRange(replay.RedPreviewPlayers);
 
-                _log.Information(_myName, $"Processing {allPlayers.Count} champion thumbnail requests");
+                _log.Information($"Processing {allPlayers.Count} champion thumbnail requests");
                 var allRequests = new List<dynamic>(allPlayers.Select(x =>
                     new
                     {
@@ -204,7 +204,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public void ReloadPlayerMarkers()
         {
-            _log.Information(_myName, $"Refreshing player markers...");
+            _log.Information($"Refreshing player markers...");
             // Look through all replays to get all players
             foreach (var replay in PreviewReplays)
             {
@@ -255,7 +255,7 @@ namespace Rofl.UI.Main.ViewModels
         /// <returns></returns>
         public async Task ReloadReplayList()
         {
-            _log.Information(_myName, $"Refreshing replay list...");
+            _log.Information($"Refreshing replay list...");
 
             FileResults.Clear();
             PreviewReplays.Clear();
@@ -286,7 +286,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public void PlayReplay(ReplayPreview preview)
         {
-            _log.Information(_myName, $"Playing replay...");
+            _log.Information($"Playing replay...");
 
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
             
@@ -296,7 +296,7 @@ namespace Rofl.UI.Main.ViewModels
 
             if (!executables.Any())
             {
-                _log.Information(_myName, $"No executables found to play replay");
+                _log.Information($"No executables found to play replay");
 
                 // No executable found that can be used to play
                 MessageBox.Show
@@ -312,7 +312,7 @@ namespace Rofl.UI.Main.ViewModels
             LeagueExecutable target;
             if (executables.Count > 1)
             {
-                _log.Information(_myName, $"More than one possible executable, asking user...");
+                _log.Information($"More than one possible executable, asking user...");
                 // More than one?????
                 target = ShowChooseReplayDialog(executables);
                 if (target == null) return;
@@ -325,7 +325,7 @@ namespace Rofl.UI.Main.ViewModels
             
             if (SettingsManager.Settings.PlayConfirmation)
             {
-                _log.Information(_myName, $"Asking user for confirmation");
+                _log.Information($"Asking user for confirmation");
                 // Show confirmation dialog
                 var msgResult = MessageBox.Show
                     (
@@ -338,13 +338,13 @@ namespace Rofl.UI.Main.ViewModels
                 if (msgResult != MessageBoxResult.OK) return;
             }
 
-            _log.Information(_myName, $"Using {target.Name} to play replay {replay.FileInfo.Path}");
+            _log.Information($"Using {target.Name} to play replay {replay.FileInfo.Path}");
             ReplayPlayer.Play(target, replay.FileInfo.Path);
         }
 
         public void OpenReplayContainingFolder(string location)
         {
-            _log.Information(_myName, $"Opening replay file location {location}");
+            _log.Information($"Opening replay file location {location}");
 
             if (String.IsNullOrEmpty(location)) { throw new ArgumentNullException(nameof(location)); }
 
@@ -357,7 +357,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public void ViewOnlineMatchHistory(string matchid)
         {
-            _log.Information(_myName, $"Opening online match history for {matchid}");
+            _log.Information($"Opening online match history for {matchid}");
 
             if (String.IsNullOrEmpty(matchid)) { throw new ArgumentNullException(nameof(matchid)); }
 
@@ -383,7 +383,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public void ShowExportReplayDataWindow(ReplayPreview preview)
         {
-            _log.Information(_myName, $"Showing Export Dialog...");
+            _log.Information($"Showing Export Dialog...");
 
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
 
@@ -407,11 +407,11 @@ namespace Rofl.UI.Main.ViewModels
         {
             if (File.Exists("cache/SKIPWELCOME"))
             {
-                _log.Information(_myName, "Skipping welcome screen...");
+                _log.Information("Skipping welcome screen...");
                 return;
             }
 
-            _log.Information(_myName, "Showing welcome screen...");
+            _log.Information("Showing welcome screen...");
             var welcomeDialog = new WelcomeSetupWindow()
             {
                 Top = App.Current.MainWindow.Top + 50,
@@ -426,11 +426,11 @@ namespace Rofl.UI.Main.ViewModels
         {
             if (File.Exists("cache/SKIPWELCOME"))
             {
-                _log.Information(_myName, "Welcome skip already exists, why was this called?");
+                _log.Information("Welcome skip already exists, why was this called?");
                 return;
             }
 
-            _log.Information(_myName, "Writing Welcome skip...");
+            _log.Information("Writing Welcome skip...");
             File.WriteAllText("cache/SKIPWELCOME", (string) Application.Current.TryFindResource("EggEggEgg"));
         }
 
