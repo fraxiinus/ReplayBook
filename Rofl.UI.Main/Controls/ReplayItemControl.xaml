@@ -138,8 +138,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <local:PlayerIconControl Margin="0 0 2 0"
-                                                         Width="30"
-                                                         ToolTip="{Binding Path=CombinedName}"/>
+                                                         Width="30"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -153,8 +152,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <local:PlayerIconControl Margin="0 0 2 0"
-                                                         Width="30"
-                                                         ToolTip="{Binding Path=CombinedName}"/>
+                                                         Width="30"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
