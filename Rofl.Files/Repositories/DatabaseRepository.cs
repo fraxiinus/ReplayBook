@@ -82,7 +82,7 @@ namespace Rofl.Files.Repositories
                 var players = db.GetCollection<Player>("players");
 
                 // If we already have the file, do nothing
-                if (fileResults.FindById(_filePath) == null)
+                if (fileResults.FindById(result.Id) == null)
                 {
                     fileResults.Insert(result);
                 }
@@ -109,9 +109,30 @@ namespace Rofl.Files.Repositories
             }
         }
 
-        public FileResult GetFileResult(string path)
+        public void RemoveFileResult(string id)
         {
-            if (string.IsNullOrEmpty(path)) { throw new ArgumentNullException(path); }
+            if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException(id); }
+
+            using (var db = new LiteDatabase(_filePath))
+            {
+                var fileResults = db.GetCollection<FileResult>("fileResults");
+                var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
+                var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
+                var players = db.GetCollection<Player>("players");
+
+                fileResults.Delete(id);
+
+                fileInfos.Delete(id);
+
+                replayFiles.Delete(id);
+
+                // Rip player data is being orphaned...
+            }
+        }
+
+        public FileResult GetFileResult(string id)
+        {
+            if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException(id); }
 
             using (var db = new LiteDatabase(_filePath))
             {
@@ -119,9 +140,19 @@ namespace Rofl.Files.Repositories
 
                 var result = fileResults
                     .IncludeAll()
-                    .FindById(path);
+                    .FindById(id);
 
                 return result;
+            }
+        }
+
+        public IEnumerable<FileResult> GetReplayFiles()
+        {
+            using (var db = new LiteDatabase(_filePath))
+            {
+                var fileResults = db.GetCollection<FileResult>("fileResults");
+
+                return fileResults.FindAll();
             }
         }
 

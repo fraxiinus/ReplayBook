@@ -166,6 +166,8 @@ namespace Rofl.UI.Main
         private async void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
+
+            context.ValidateReplayStorage();
             await context.ReloadReplayList().ConfigureAwait(true);
         }
 

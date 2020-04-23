@@ -270,6 +270,20 @@ namespace Rofl.UI.Main.ViewModels
             StatusBarModel.Visible = false;
         }
 
+        /// <summary>
+        /// Function checks if replays in storage are valid. Removes any that are invalid.
+        /// </summary>
+        /// <returns></returns>
+        public void ValidateReplayStorage()
+        {
+            StatusBarModel.StatusMessage = "Pruning storage...";
+            StatusBarModel.Color = Brushes.White;
+            StatusBarModel.Visible = true;
+            StatusBarModel.ShowProgressBar = true;
+            _fileManager.PruneDatabaseEntries();
+            StatusBarModel.Visible = false;
+        }
+
         public void PlayReplay(ReplayPreview preview)
         {
             _log.Information(_myName, $"Playing replay...");

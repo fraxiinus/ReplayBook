@@ -5,6 +5,7 @@ using Rofl.Reader;
 using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -69,11 +70,32 @@ namespace Rofl.Files
             _log.Information(_myName, "Initial load of replays complete");
         }
 
+        /// <summary>
+        /// Checks all entries and deletes if they do not exist in the file system.
+        /// </summary>
+        /// <returns></returns>
+        public void PruneDatabaseEntries()
+        {
+            _log.Information(_myName, $"Pruning database...");
+
+            var entries = _db.GetReplayFiles();
+
+            foreach(var entry in entries)
+            {
+                // Files does not exist! (Technically this is the same as id, but it's more clear)
+                if (!File.Exists(entry.FileInfo.Path))
+                {
+                    _log.Information(_myName, $"File {entry.Id} can no longer by found, deleting from database...");
+                    _db.RemoveFileResult(entry.Id);
+                }
+            }
+
+            _log.Information(_myName, $"Pruning complete");
+        }
+
         public IReadOnlyCollection<FileResult> GetReplays(QueryProperties sort, int maxEntries, int skip)
         {
             if (sort == null) { throw new ArgumentNullException(nameof(sort)); }
-
-            // var keywords = sort.SearchTerm.Split(' ').Where(x => !String.IsNullOrEmpty(x)).ToArray();
 
             var keywords = sort.SearchTerm.Split('"')       // split the string by quotes
                 .Select((element, index) => // select the substring, and the index of the substring
