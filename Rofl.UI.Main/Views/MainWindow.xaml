@@ -15,6 +15,7 @@
         MinWidth="1150"
         Height="655" 
         Width="1150"
+        MaxWidth="1150"
         Closing="MainWindow_OnClosing">
 
     <DockPanel>
