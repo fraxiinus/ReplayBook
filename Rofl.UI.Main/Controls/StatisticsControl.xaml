@@ -30,7 +30,7 @@
                 BorderBrush="Transparent"
                 GridLinesVisibility="None"
                 SelectionUnit="Cell"
-                Width="1515">
+                Width="1460">
 
         <DataGrid.ColumnHeaderStyle>
             <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -82,17 +82,6 @@
             </Style>
         </DataGrid.RowStyle>
         <DataGrid.Columns>
-            <!--Reverse order, since we invert the table-->
-            <!--
-        <DataGridTextColumn Binding="{Binding Path=?, Mode=OneWay}">
-            <DataGridTextColumn.Header>
-                <TextBlock Text="{StaticResource ?}"
-                            ToolTip="{StaticResource ?}"/>
-            </DataGridTextColumn.Header>
-        </DataGridTextColumn>
-                
-        StringFormat={}{0:#,#}
-        -->
 
             <DataGridTextColumn Binding="{Binding Path=SummonerSpell2Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
@@ -570,20 +559,6 @@
                             FontWeight="Bold"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
-
-            <DataGridTemplateColumn>
-                <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate>
-                        <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
-                            Width="50"
-                            ToolTipService.ToolTip="{Binding PreviewModel.CombinedName}"/>
-                        <!--<Image Source="{Binding Path=PreviewModel.ImageSource}"
-                            ToolTip="{Binding Path=PreviewModel.CombinedName}"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            Margin="5"/>-->
-                    </DataTemplate>
-                </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
         </DataGrid.Columns>
     </DataGrid>
 
