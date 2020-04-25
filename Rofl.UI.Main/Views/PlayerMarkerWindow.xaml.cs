@@ -12,10 +12,9 @@ namespace Rofl.UI.Main.Views
     /// </summary>
     public partial class PlayerMarkerWindow : Window
     {
-
-        private readonly bool _isEditMode;
         private readonly PlayerMarker _marker;
         private readonly string _oldName;
+        private readonly bool _isEditMode;
 
         public PlayerMarkerWindow()
         {
@@ -23,7 +22,7 @@ namespace Rofl.UI.Main.Views
             InitializeComponent();
 
             this.Title = TryFindResource("AddButtonText") as String + " " + this.Title;
-
+            MarkerColorPicker.SelectedColor = Colors.Blue;
         }
 
         public PlayerMarkerWindow(PlayerMarker marker)
@@ -38,7 +37,8 @@ namespace Rofl.UI.Main.Views
 
                 this.Title = TryFindResource("EditButtonText") as String + " " + this.Title;
                 NameTextBox.Text = _marker.Name;
-                MarkerColorPicker.SelectedColor = ColorConverter.ConvertFromString(_marker.Color) as Color?;
+
+                MarkerColorPicker.SelectedColorAsHex = _marker.Color;
             }
             else
             {
@@ -52,7 +52,7 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is ObservableCollection<PlayerMarker> context)) { return; }
 
             string inputName = NameTextBox.Text;
-            string colorText = MarkerColorPicker.SelectedColorText;
+            string colorText = MarkerColorPicker.SelectedColorAsHex;
 
             // Validate if input information is OK
             if (String.IsNullOrWhiteSpace(inputName))

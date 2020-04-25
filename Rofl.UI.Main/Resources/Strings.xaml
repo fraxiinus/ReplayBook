@@ -100,6 +100,7 @@
     <string:String x:Key="SaveButtonText">Save</string:String>
     <string:String x:Key="CancelButtonText">Cancel</string:String>
     <string:String x:Key="BrowseButtonText">Browse...</string:String>
+    <string:String x:Key="SelectButtonText">Select</string:String>
 
     <!--Stats Header Text-->
     <string:String x:Key="CombatGroupHeaderText">Combat</string:String>
