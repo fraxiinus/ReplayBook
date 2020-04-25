@@ -55,7 +55,7 @@
                         Grid.Column="1">
                     <Image Source="{StaticResource RefreshDrawingImage}"/>
                 </Button>
-                
+
                 <Button x:Name="SortButton"
                         ToolTip="{StaticResource SortToolTip}"
                         Style="{StaticResource ToolButton}"
@@ -88,12 +88,6 @@
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
-
-                <!--<Button x:Name="OpenFolderButton"
-                        ToolTip="{StaticResource OpenToolTip}"
-                        Style="{StaticResource ToolButton}">
-                    <Image Source="{StaticResource FolderOpenDrawingImage}"/>
-                </Button>-->
 
                 <Button x:Name="SettingsButton"
                         ToolTip="{StaticResource SettingsToolTip}"
@@ -165,23 +159,7 @@
                       Grid.Row="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <controls:ReplayItemControl/><!-- MouseRightButtonUp="ReplayItemControl_OnMouseRightButtonUp">
-                            <controls:ReplayItemControl.ContextMenu>
-                                <ContextMenu x:Name="ReplayContextMenu">
-                                        <MenuItem x:Name="OpenContainingFolder"
-                                                  Header="{StaticResource OpenContainingFolder}" 
-                                                  Click="ReplayMenuOpenContainingFolder_Click"/>
-
-                                        <MenuItem x:Name="ViewOnlineMatchHistory"
-                                                  Header="{StaticResource ViewOnlinePage}"
-                                                  Click="ReplayMenuViewOnlineMatchHistory_Click"/>
-
-                                        <MenuItem x:Name="ExportReplayData"
-                                                  Header="{StaticResource ExportReplayData}"
-                                                  Click="ReplayMenuExportReplayData_Click"/>
-                                    </ContextMenu>
-                            </controls:ReplayItemControl.ContextMenu>
-                        </controls:ReplayItemControl>-->
+                        <controls:ReplayItemControl/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
