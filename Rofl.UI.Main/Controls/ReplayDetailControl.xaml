@@ -178,7 +178,14 @@
                          Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
 
                     <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource GameVersionToolTip}"
+                         Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
 
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
                     <TextBox Background="Transparent"
                          BorderThickness="0"
                          FontSize="14"

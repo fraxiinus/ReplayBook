@@ -59,5 +59,25 @@ namespace Rofl.Files.Repositories
 
             return returnList.ToArray();
         }
+
+        public ReplayFileInfo GetSingleReplayFileInfo(string path)
+        {
+            var file = new FileInfo(path);
+
+            // If the file is not supported, skip it
+            if (!(file.Name.EndsWith(".rofl", StringComparison.OrdinalIgnoreCase)))
+            {
+                _log.Warning($"File {path} is not supported, cannot get file info");
+                return null;
+            }
+
+            return new ReplayFileInfo()
+            {
+                Path = file.FullName,
+                CreationTime = file.CreationTime,
+                FileSizeBytes = file.Length,
+                Name = Path.GetFileNameWithoutExtension(file.FullName)
+            };
+        }
     }
 }

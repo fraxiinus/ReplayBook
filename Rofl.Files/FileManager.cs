@@ -68,6 +68,31 @@ namespace Rofl.Files
             _log.Information("Initial load of replays complete");
         }
 
+        public async Task<FileResult> GetSingleFile(string path)
+        {
+            if (!File.Exists(path)) return null;
+
+            FileResult returnValue = _db.GetFileResult(path);
+
+            // File exists in the database, return now
+            if (returnValue != null)
+            {
+                _log.Information($"File {path} already exists in database. Match ID: {returnValue.ReplayFile.MatchId}");
+                return returnValue;
+            }
+
+            var replayFileInfo = _fileSystem.GetSingleReplayFileInfo(path);
+            var parseResult = await _reader.ReadFile(path).ConfigureAwait(false);
+            var newResult = new FileResult(replayFileInfo, parseResult)
+            {
+                IsNewFile = false
+            };
+
+            _db.AddFileResult(newResult);
+
+            return newResult;
+        }
+
         /// <summary>
         /// Checks all entries and deletes if they do not exist in the file system.
         /// </summary>

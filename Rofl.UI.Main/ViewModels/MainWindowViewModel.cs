@@ -52,6 +52,8 @@ namespace Rofl.UI.Main.ViewModels
 
         public StatusBar StatusBarModel { get; private set; }
 
+        public string LatestDataDragonVersion { get; private set; }
+
         public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, RiZhi log)
         {
             SettingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
@@ -85,18 +87,7 @@ namespace Rofl.UI.Main.ViewModels
             _log.Information($"Retrieved {databaseResults.Count} replays");
             foreach (var file in databaseResults)
             {
-                ReplayPreview previewModel = new ReplayPreview(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
-                previewModel.IsSupported = SettingsManager.Executables.DoesVersionExist(previewModel.GameVersion);
-
-                foreach (var bluePlayer in previewModel.BluePreviewPlayers)
-                {
-                    bluePlayer.Marker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(bluePlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
-                }
-
-                foreach (var redPlayer in previewModel.RedPreviewPlayers)
-                {
-                    redPlayer.Marker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(redPlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
-                }
+                var previewModel = CreateReplayPreview(file);
 
                 App.Current.Dispatcher.Invoke((Action) delegate
                 {
@@ -105,6 +96,26 @@ namespace Rofl.UI.Main.ViewModels
 
                 FileResults.Add(file.FileInfo.Path, file);
             }
+        }
+
+        public ReplayPreview CreateReplayPreview(FileResult file)
+        {
+            if (file == null) throw new ArgumentNullException(nameof(file));
+
+            ReplayPreview previewModel = new ReplayPreview(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
+            previewModel.IsSupported = SettingsManager.Executables.DoesVersionExist(previewModel.GameVersion);
+
+            foreach (var bluePlayer in previewModel.BluePreviewPlayers)
+            {
+                bluePlayer.Marker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(bluePlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
+            }
+
+            foreach (var redPlayer in previewModel.RedPreviewPlayers)
+            {
+                redPlayer.Marker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(redPlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
+            }
+
+            return previewModel;
         }
 
         public void ClearReplays()
@@ -123,7 +134,12 @@ namespace Rofl.UI.Main.ViewModels
             _log.Information("Loading/downloading thumbnails for items...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            var dataVersion = await RequestManager.GetDataDragonVersionAsync(replay.PreviewModel.GameVersion).ConfigureAwait(true);
+            if (LatestDataDragonVersion == null)
+            {
+                LatestDataDragonVersion = await RequestManager.GetDataDragonVersionAsync(null).ConfigureAwait(true);
+            }
+
+            var dataVersion = LatestDataDragonVersion;
 
             var allItems = new List<Item>();
             var itemTasks = new List<Task>();
@@ -155,51 +171,63 @@ namespace Rofl.UI.Main.ViewModels
         public async Task LoadPreviewPlayerThumbnails()
         {
             _log.Information("Loading/downloading thumbnails for champions...");
-            // Default set to most recent data version
-            var dataVersion = await RequestManager.GetDataDragonVersionAsync(null).ConfigureAwait(true);
 
             foreach (var replay in PreviewReplays)
             {
-                // Get the correct data version for the replay version
-                if (!SettingsManager.Settings.UseMostRecent)
-                {
-                    dataVersion = await RequestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(true);
-                }
-
-                var allPlayers = new List<PlayerPreview>();
-                allPlayers.AddRange(replay.BluePreviewPlayers);
-                allPlayers.AddRange(replay.RedPreviewPlayers);
-
-                _log.Information($"Processing {allPlayers.Count} champion thumbnail requests");
-                var allRequests = new List<dynamic>(allPlayers.Select(x =>
-                    new
-                    {
-                        Player = x,
-                        Request = new ChampionRequest()
-                        {
-                            ChampionName = x.ChampionName,
-                            DataDragonVersion = dataVersion
-                        }
-                    }));
-
-                var allTasks = new List<Task>();
-
-                foreach (var request in allRequests)
-                {
-                    allTasks.Add(Task.Run(async () =>
-                    {
-                        var response = await RequestManager.MakeRequestAsync(request.Request as RequestBase)
-                            .ConfigureAwait(true);
-
-                        Application.Current.Dispatcher.Invoke((Action)delegate
-                        {
-                            request.Player.ImageSource = response.ResponsePath;
-                        });
-                    }));
-                }
-
-                await Task.WhenAll(allTasks).ConfigureAwait(true);
+                await LoadSinglePreviewPlayerThumbnails(replay).ConfigureAwait(true);
             }
+        }
+
+        public async Task LoadSinglePreviewPlayerThumbnails(ReplayPreview replay)
+        {
+            if (replay == null) throw new ArgumentNullException(nameof(replay));
+
+            if (LatestDataDragonVersion == null)
+            {
+                LatestDataDragonVersion = await RequestManager.GetDataDragonVersionAsync(null).ConfigureAwait(true);
+            }
+
+            var dataVersion = LatestDataDragonVersion;
+
+            // Get the correct data version for the replay version
+            if (!SettingsManager.Settings.UseMostRecent)
+            {
+                dataVersion = await RequestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(true);
+            }
+
+            var allPlayers = new List<PlayerPreview>();
+            allPlayers.AddRange(replay.BluePreviewPlayers);
+            allPlayers.AddRange(replay.RedPreviewPlayers);
+
+            _log.Information($"Processing {allPlayers.Count} champion thumbnail requests");
+            var allRequests = new List<dynamic>(allPlayers.Select(x =>
+                new
+                {
+                    Player = x,
+                    Request = new ChampionRequest()
+                    {
+                        ChampionName = x.ChampionName,
+                        DataDragonVersion = dataVersion
+                    }
+                }));
+
+            var allTasks = new List<Task>();
+
+            foreach (var request in allRequests)
+            {
+                allTasks.Add(Task.Run(async () =>
+                {
+                    var response = await RequestManager.MakeRequestAsync(request.Request as RequestBase)
+                        .ConfigureAwait(true);
+
+                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        request.Player.ImageSource = response.ResponsePath;
+                    });
+                }));
+            }
+
+            await Task.WhenAll(allTasks).ConfigureAwait(true);
         }
 
         public void ReloadPlayerMarkers()
