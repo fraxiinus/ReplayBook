@@ -10,85 +10,121 @@
     <StackPanel Orientation="Vertical"
                 Background="Transparent">
 
-        <StackPanel Orientation="Horizontal">
-            <Image Source="/ReplayBook;component/Resources/scoreboardicon_champion.png"
-                   Margin="0 0 5 0"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
 
-            <TextBlock Text="{StaticResource BlueTeamText}"
-                       Width="80"
-                       FontSize="15"/>
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                <Image Source="/ReplayBook;component/Resources/scoreboardicon_champion.png"
+                       Width="20"
+                       HorizontalAlignment="Left"
+                       Margin="0 0 0 0"/>
 
-            <Image Source="/ReplayBook;component/Resources/scoreboardicon_score.png"
-                   Margin="97 0 0 0"/>
+                <TextBlock Text="{StaticResource BlueTeamText}"
+                           Width="80"
+                           FontSize="15"/>
+            </StackPanel>
 
-            <TextBlock Text="{Binding Path=BlueKills}"
-                       FontSize="15"
-                       Margin="0"
-                       Padding="0"
-                       VerticalAlignment="Center"
-                       TextAlignment="Center"
-                       Width="25"/>
-            <TextBlock Text="/"
-                       Margin="0"
-                       Padding="0"
-                       VerticalAlignment="Center"
-                       TextAlignment="Center"
-                       Width="10"/>
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                <Image Source="/ReplayBook;component/Resources/scoreboardicon_score.png"
+                       Width="20"
+                       Margin="0 0 0 0"/>
 
-            <TextBlock Text="{Binding Path=BlueDeaths}"
-                       FontSize="15"
-                       Margin="0"
-                       Padding="0"
-                       VerticalAlignment="Center"
-                       TextAlignment="Center"
-                       Width="25"/>
-            <TextBlock Text="/"
-                       Margin="0"
-                       Padding="0"
-                       VerticalAlignment="Center"
-                       TextAlignment="Center"
-                       Width="10"/>
+                <TextBlock Text="{Binding Path=BlueKills}"
+                           FontSize="15"
+                           Margin="0"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Width="25"/>
 
-            <TextBlock Text="{Binding Path=BlueAssists}"
-                       FontSize="15"
-                       Margin="0"
-                       Padding="0"
-                       VerticalAlignment="Center"
-                       TextAlignment="Center"
-                       Width="25"/>
+                <TextBlock Text="/"
+                           Margin="0"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Width="10"/>
 
-            <Image Source="/ReplayBook;component/Resources/scoreboardicon_items.png"
-                   Margin="119 0 0 0"/>
+                <TextBlock Text="{Binding Path=BlueDeaths}"
+                           FontSize="15"
+                           Margin="0"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Width="25"/>
 
-            <Image Source="/ReplayBook;component/Resources/scoreboardicon_minion.png"
-                   Margin="122 0 0 0"/>
+                <TextBlock Text="/"
+                           Margin="0"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Width="10"/>
 
-            <TextBox Margin="0"
-                     Background="Transparent"
-                     FontSize="15"
-                     VerticalAlignment="Center"
-                     TextAlignment="Left"
-                     Width="40"
-                     BorderThickness="0"
-                     IsReadOnly="True"
-                     ToolTip="{StaticResource CreepScoreToolTip}"
-                     Text="{Binding Path=BlueMinionsKilled, Mode=OneWay, StringFormat={}{0:#,#}}"/>
+                <TextBlock Text="{Binding Path=BlueAssists}"
+                           FontSize="15"
+                           Margin="0"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Width="25"/>
+            </StackPanel>
 
-            <Image Source="/ReplayBook;component/Resources/scoreboardicon_gold.png"
-                   Margin="20 0 0 0"/>
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Image Source="/ReplayBook;component/Resources/scoreboardicon_items.png"
+                       Width="20"
+                       Margin="0 0 0 0"/>
+            </StackPanel>
 
-            <TextBox Margin="0"
-                     Background="Transparent"
-                     FontSize="15"
-                     VerticalAlignment="Center"
-                     TextAlignment="Left"
-                     Width="60"
-                     BorderThickness="0"
-                     IsReadOnly="True"
-                     ToolTip="{StaticResource GoldEarnedToolTip}"
-                     Text="{Binding Path=BlueGoldEarned, Mode=OneWay, StringFormat={}{0:#,#}}"/>
+            <StackPanel Grid.Column="3"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Image Source="/ReplayBook;component/Resources/scoreboardicon_minion.png"
+                       Width="20"
+                       Margin="0 0 0 0"/>
 
-        </StackPanel>
+                <TextBox Margin="0"
+                         Background="Transparent"
+                         FontSize="15"
+                         VerticalAlignment="Center"
+                         TextAlignment="Center"
+                         Width="40"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource CreepScoreToolTip}"
+                         Text="{Binding Path=BlueMinionsKilled, Mode=OneWay, StringFormat={}{0:#,#}}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="4"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Image Source="/ReplayBook;component/Resources/scoreboardicon_gold.png"
+                       Width="20"
+                       Margin="0 0 0 0"/>
+
+                <TextBox Margin="0"
+                         Background="Transparent"
+                         FontSize="15"
+                         VerticalAlignment="Center"
+                         TextAlignment="Center"
+                         Width="60"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource GoldEarnedToolTip}"
+                         Text="{Binding Path=BlueGoldEarned, Mode=OneWay, StringFormat={}{0:#,#}}"/>
+            </StackPanel>
+            
+        </Grid>
 
         <StackPanel>
             <ItemsControl ItemsSource="{Binding Path=BluePlayers}">
@@ -108,8 +144,123 @@
             </ItemsControl>
         </StackPanel>
 
+        <Grid Margin="0 10 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal"
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                <Image Source="/ReplayBook;component/Resources/scoreboardicon_champion.png"
+                       Width="20"
+                       HorizontalAlignment="Left"
+                       Margin="0 0 0 0"/>
+
+                <TextBlock Text="{StaticResource RedTeamText}"
+                           Width="80"
+                           FontSize="15"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+                <Image Source="/ReplayBook;component/Resources/scoreboardicon_score.png"
+                       Width="20"
+                       Margin="0 0 0 0"/>
+
+                <TextBlock Text="{Binding Path=RedKills}"
+                           FontSize="15"
+                           Margin="0"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Width="25"/>
+
+                <TextBlock Text="/"
+                           Margin="0"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Width="10"/>
+
+                <TextBlock Text="{Binding Path=RedDeaths}"
+                           FontSize="15"
+                           Margin="0"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Width="25"/>
+
+                <TextBlock Text="/"
+                           Margin="0"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Width="10"/>
+
+                <TextBlock Text="{Binding Path=RedAssists}"
+                           FontSize="15"
+                           Margin="0"
+                           Padding="0"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Width="25"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Image Source="/ReplayBook;component/Resources/scoreboardicon_items.png"
+                       Width="20"
+                       Margin="0 0 0 0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="3"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Image Source="/ReplayBook;component/Resources/scoreboardicon_minion.png"
+                       Width="20"
+                       Margin="0 0 0 0"/>
+
+                <TextBox Margin="0"
+                         Background="Transparent"
+                         FontSize="15"
+                         VerticalAlignment="Center"
+                         TextAlignment="Center"
+                         Width="40"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource CreepScoreToolTip}"
+                         Text="{Binding Path=RedMinionsKilled, Mode=OneWay, StringFormat={}{0:#,#}}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="4"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Image Source="/ReplayBook;component/Resources/scoreboardicon_gold.png"
+                       Width="20"
+                       Margin="0 0 0 0"/>
+
+                <TextBox Margin="0"
+                         Background="Transparent"
+                         FontSize="15"
+                         VerticalAlignment="Center"
+                         TextAlignment="Center"
+                         Width="60"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource GoldEarnedToolTip}"
+                         Text="{Binding Path=RedGoldEarned, Mode=OneWay, StringFormat={}{0:#,#}}"/>
+            </StackPanel>
+
+        </Grid>
+
+        <!--<StackPanel Orientation="Horizontal"
                     Margin="0 10 0 0">
             <Image Source="/ReplayBook;component/Resources/scoreboardicon_champion.png"
                    Margin="0 0 5 0"/>
@@ -188,7 +339,7 @@
                      ToolTip="{StaticResource GoldEarnedToolTip}"
                      Text="{Binding Path=RedGoldEarned, Mode=OneWay, StringFormat={}{0:#,#}}"/>
 
-        </StackPanel>
+        </StackPanel>-->
 
 
         <StackPanel>
