@@ -5,15 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Etirps.RiZhi" Version="1.0.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Rofl.Logger\Rofl.Logger.csproj" />
   </ItemGroup>
 
 </Project>

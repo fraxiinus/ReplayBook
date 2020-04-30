@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Etirps.RiZhi;
+using Newtonsoft.Json;
 using Rofl.Executables;
-using Rofl.Logger;
 using Rofl.Settings.Models;
 using System;
 using System.IO;
@@ -18,15 +18,12 @@ namespace Rofl.Settings
 
         // private SettingsModel _rawSettings;
 
-        private readonly Scribe _log;
+        private readonly RiZhi _log;
 
-        private readonly string _myName;
-
-        public SettingsManager(Scribe log)
+        public SettingsManager(RiZhi log)
         {
             Executables = new ExecutableManager(log);
             _log = log;
-            _myName = this.GetType().ToString();
             string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
 
             if (File.Exists(configPath))
@@ -35,7 +32,7 @@ namespace Rofl.Settings
             }
             else
             {
-                _log.Information(_myName, "No config file found, creating new defaults");
+                _log.Information("No config file found, creating new defaults");
                 Settings = new ObservableSettings();
             }
         }

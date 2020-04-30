@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows.Media;
 
 namespace Rofl.UI.Main.Extensions
 {
@@ -34,5 +35,7 @@ namespace Rofl.UI.Main.Extensions
 
             return result;
         }
+
+        public static string ToHexString(this Color c) => $"#{c.R:X2}{c.G:X2}{c.B:X2}";
     }
 }

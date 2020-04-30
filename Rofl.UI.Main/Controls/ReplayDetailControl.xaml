@@ -178,7 +178,14 @@
                          Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
 
                     <TextBlock Text="-" Padding="5 0 5 0"/>
+                    <TextBox Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="14"
+                         IsReadOnly="True"
+                         ToolTip="{StaticResource GameVersionToolTip}"
+                         Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
 
+                    <TextBlock Text="-" Padding="5 0 5 0"/>
                     <TextBox Background="Transparent"
                          BorderThickness="0"
                          FontSize="14"
@@ -211,12 +218,53 @@
                 <TabItem Header="{StaticResource StatsTabText}"
                          FontSize="12"
                          Style="{StaticResource TabHeaderStyle}">
-                    <ScrollViewer x:Name="StatsScrollViewer"
-                                  Margin="0 5 0 0" 
-                                  VerticalScrollBarVisibility="Visible"
-                                  Loaded="StatsScrollViewer_Loaded">
-                        <local:StatisticsControl x:Name="StatsControl"/>
-                    </ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <ListView ItemsSource="{Binding Path=AllPlayers}"
+                                  HorizontalAlignment="Right"
+                                  BorderBrush="Transparent"
+                                  Margin="0 0 19 0">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Focusable" Value="False"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListViewItem">
+                                                <ContentPresenter Margin="3 0 3 0"/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                            
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
+                                                             Width="50"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        
+                        <ScrollViewer x:Name="StatsScrollViewer"
+                                      Margin="0 5 0 0" 
+                                      VerticalScrollBarVisibility="Visible"
+                                      Loaded="StatsScrollViewer_Loaded"
+                                      Grid.Row="1">
+                            <local:StatisticsControl x:Name="StatsControl"/>
+                        </ScrollViewer>
+                    </Grid>
+                    
                 </TabItem>
             </TabControl>
 

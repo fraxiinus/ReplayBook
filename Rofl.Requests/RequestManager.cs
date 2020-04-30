@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Etirps.RiZhi;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,6 @@ using System.Threading.Tasks;
 using Rofl.Requests.Utilities;
 using Rofl.Requests.Models;
 using System.IO;
-using Rofl.Logger;
 using Rofl.Settings.Models;
 
 namespace Rofl.Requests
@@ -17,21 +17,17 @@ namespace Rofl.Requests
 
         private readonly CacheClient _cacheClient;
 
-        private readonly string _myName;
-
-        private readonly Scribe _log;
+        private readonly RiZhi _log;
         private readonly ObservableSettings _settings;
         private readonly string _cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
 
         private readonly ConcurrentDictionary<string, Task<ResponseBase>> _inProgressTasks;
         //private readonly List<string> _inProgressIndex;
 
-        public RequestManager(ObservableSettings settings, Scribe log)
+        public RequestManager(ObservableSettings settings, RiZhi log)
         {
             _settings = settings;
-            _log = log;
-
-            _myName = this.GetType().ToString();
+            _log = log ?? throw new ArgumentNullException(nameof(log));
 
             _downloadClient = new DownloadClient(_cachePath, _settings, _log);
             _cacheClient = new CacheClient(_cachePath, _log);
@@ -45,7 +41,7 @@ namespace Rofl.Requests
             // This acts as the key to tell if a download is in progress
             var requestId = GetRequestIdentifier(request);
 
-            _log.Information(_myName, $"Making request to {requestId}");
+            _log.Information($"Making request to {requestId}");
 
             // If a download is in progress, use the same task to get the result
             if(_inProgressTasks.ContainsKey(requestId))
@@ -53,19 +49,19 @@ namespace Rofl.Requests
                 // I hope this doesn't download twice
                 var responseTask = _inProgressTasks[requestId];
 
-                _log.Information(_myName, $"Found existing task for {requestId}");
+                _log.Information($"Found existing task for {requestId}");
 
                 if (responseTask.IsCompleted)
                 {
-                    _log.Information(_myName, $"Task is completed, remove {requestId}");
+                    _log.Information($"Task is completed, remove {requestId}");
                     if (!_inProgressTasks.TryRemove(requestId, out _))
                     {
-                        _log.Warning(_myName, $"Failed to remove in progress task {requestId}");
+                        _log.Warning($"Failed to remove in progress task {requestId}");
                     }
                 }
 
                 var result = await responseTask.ConfigureAwait(true);
-                _log.Information(_myName, $"{requestId} task finished and returned {!result.IsFaulted}");
+                _log.Information($"{requestId} task finished and returned {!result.IsFaulted}");
                 return result;
             }
 
@@ -75,27 +71,27 @@ namespace Rofl.Requests
             // Fault occurs if cache is unable to find the file, or if the file is corrupted
             if (!cacheResponse.IsFaulted)
             {
-                _log.Information(_myName, $"Found {requestId} in cache");
+                _log.Information($"Found {requestId} in cache");
                 return cacheResponse;
             }
 
             // Does not exist in cache, make download request
             try
             {
-                _log.Information(_myName, $"Downloading {requestId}");
+                _log.Information($"Downloading {requestId}");
                 var responseTask = _downloadClient.DownloadIconImageAsync(request);
                 if (!_inProgressTasks.TryAdd(requestId, responseTask))
                 {
-                    _log.Warning(_myName, $"Failed to add in progress task {requestId}");
+                    _log.Warning($"Failed to add in progress task {requestId}");
                 }
 
                 var result = await responseTask.ConfigureAwait(true);
-                _log.Information(_myName, $"Completed download for {requestId}, returned {!result.IsFaulted}");
+                _log.Information($"Completed download for {requestId}, returned {!result.IsFaulted}");
                 return result;
             }
             catch (Exception ex)
             {
-                _log.Error(_myName, $"Failed to download {requestId}. Ex: {ex}");
+                _log.Error($"Failed to download {requestId}. Ex: {ex}");
                 return new ResponseBase()
                 {
                     Exception = ex,
@@ -135,8 +131,8 @@ namespace Rofl.Requests
             var versionRef = replayVersion.VersionSubstring();
             if (string.IsNullOrEmpty(versionRef))
             {
-                var errorMsg = $"{_myName} - Replay version: \"{replayVersion}\" is not valid";
-                _log.Error(_myName, errorMsg);
+                var errorMsg = $"Replay version: \"{replayVersion}\" is not valid";
+                _log.Error(errorMsg);
                 throw new ArgumentException(errorMsg);
             }
 

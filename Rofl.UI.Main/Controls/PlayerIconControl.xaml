@@ -11,7 +11,8 @@
         
         <Image x:Name="PlayerImage"
                RenderOptions.BitmapScalingMode="HighQuality"
-               Source="{Binding Path=ImageSource, IsAsync=True}"/>
+               Source="{Binding Path=ImageSource, IsAsync=True}"
+               ToolTip="{Binding Path=CombinedName}"/>
 
         <Rectangle x:Name="MarkerRectangle"
                    Width="8"
