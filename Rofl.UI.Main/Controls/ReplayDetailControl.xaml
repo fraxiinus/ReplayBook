@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
              mc:Ignorable="d" 
+             x:Name="ReplayDetailControlElement"
              d:DesignHeight="650" d:DesignWidth="760"
              HorizontalAlignment="Left"
              VerticalAlignment="Top"
@@ -226,18 +227,21 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ListView ItemsSource="{Binding Path=AllPlayers}"
-                                  HorizontalAlignment="Right"
+                        <ListView x:Name="PlayerIconsListView"
+                                  ItemsSource="{Binding Path=AllPlayers}"
+                                  HorizontalAlignment="Stretch"
                                   BorderBrush="Transparent"
-                                  Margin="0 0 19 0">
+                                  Margin="162 0 10 0"
+                                  SizeChanged="PlayerIconsListView_SizeChanged">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Focusable" Value="False"/>
                                     <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="{Binding Path=StatsPlayerIconMargin, ElementName=ReplayDetailControlElement}"/>
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ListViewItem">
-                                                <ContentPresenter Margin="3 0 3 0"/>
+                                                <ContentPresenter/>
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -253,7 +257,8 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
-                                                             Width="50"/>
+                                                             Width="50"
+                                                             Margin="0"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
