@@ -10,6 +10,7 @@
         MinWidth="600"
         MinHeight="400"
         Icon="{StaticResource SettingsDrawingImage}"
+        SourceInitialized="SettingsWindow_OnSourceInitialized"
         Loaded="Window_Loaded"
         Closing="Window_Closing">
     <DockPanel Margin="5">
@@ -83,10 +84,10 @@
                             
                             <StackPanel Orientation="Vertical"
                                         Margin="5 0 0 0"
+                                        Width="75"
                                         Grid.Column="1" Grid.Row="0">
                                 <Button x:Name="AddKnownPlayerButton" 
                                         Margin="0 0 0 5"
-                                        Padding="20 0 20 0"
                                         Height="25"
                                         Content="{StaticResource AddButtonText}"
                                         Click="AddKnownPlayerButton_Click"/>
@@ -144,20 +145,20 @@
                             </Grid.RowDefinitions>
 
                             <ListBox x:Name="ExecutableFoldersListBox"
-                                 Height="100"
-                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ItemsSource="{Binding Path=Executables.Settings.SourceFolders}"
-                                 SelectionChanged="ExecutableFoldersListBox_SelectionChanged"
-                                 MouseDoubleClick="EditExecutableFolderButton_Click"
-                                 Grid.Row="0" Grid.Column="0">
+                                     Height="100"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ItemsSource="{Binding Path=Executables.Settings.SourceFolders}"
+                                     SelectionChanged="ExecutableFoldersListBox_SelectionChanged"
+                                     MouseDoubleClick="EditExecutableFolderButton_Click"
+                                     Grid.Row="0" Grid.Column="0">
                             </ListBox>
 
                             <StackPanel Orientation="Vertical"
                                         Margin="5 0 0 0"
+                                        Width="75"
                                         Grid.Row="0" Grid.Column="1">
                                 <Button x:Name="AddExecutableFolderButton" 
                                         Margin="0 0 0 5"
-                                        Padding="20 0 20 0"
                                         Height="25"
                                         Content="{StaticResource AddButtonText}"
                                         Click="AddExecutableFolderButton_Click"/>
@@ -177,27 +178,27 @@
                             </StackPanel>
                             
                             <Button x:Name="SourceFoldersSearchButton"
-                                Content="{StaticResource ExecutableFoldersSearchButtonText}" 
-                                HorizontalAlignment="Left"
-                                Margin="0 10 0 10"
-                                Padding="20 0 20 0"
-                                Height="25"
-                                Click="SourceFoldersSearchButton_Click"
-                                Grid.Row="1" Grid.Column="0"/>
+                                    Content="{StaticResource ExecutableFoldersSearchButtonText}" 
+                                    HorizontalAlignment="Left"
+                                    Margin="0 10 0 10"
+                                    Padding="20 0 20 0"
+                                    Height="25"
+                                    Click="SourceFoldersSearchButton_Click"
+                                    Grid.Row="1" Grid.Column="0"/>
 
                             <TextBlock Text="{StaticResource ExecutablesLabelText}"
                                        FontSize="14"
                                        Grid.Row="2" Grid.Column="0"/>
 
                             <ListBox x:Name="ExecutablesListBox"
-                                Margin="0 0 0 10"
-                                Height="100"
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                ItemsSource="{Binding Path=Executables.Settings.Executables}"
-                                HorizontalContentAlignment="Stretch"
-                                SelectionChanged="ExecutablesListBox_SelectionChanged"
-                                MouseDoubleClick="EditExecutableButton_Click"
-                                Grid.Row="3" Grid.Column="0">
+                                    Margin="0 0 0 10"
+                                    Height="100"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                    ItemsSource="{Binding Path=Executables.Settings.Executables}"
+                                    HorizontalContentAlignment="Stretch"
+                                    SelectionChanged="ExecutablesListBox_SelectionChanged"
+                                    MouseDoubleClick="EditExecutableButton_Click"
+                                    Grid.Row="3" Grid.Column="0">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -216,27 +217,27 @@
                             </ListBox>
 
                             <StackPanel Orientation="Vertical"
-                                    Margin="5 0 0 0"
-                                    Grid.Row="3" Grid.Column="1">
+                                        Margin="5 0 0 0"
+                                        Width="75"
+                                        Grid.Row="3" Grid.Column="1">
                                 <Button x:Name="AddExecutableButton" 
-                                    Margin="0 0 0 5"
-                                    Padding="20 0 20 0"
-                                    Height="25"
-                                    Content="{StaticResource AddButtonText}"
-                                    Click="AddExecutableButton_Click"/>
+                                        Margin="0 0 0 5"
+                                        Height="25"
+                                        Content="{StaticResource AddButtonText}"
+                                        Click="AddExecutableButton_Click"/>
 
                                 <Button x:Name="EditExecutableButton" 
-                                    Margin="0 0 0 5"
-                                    Height="25"
-                                    Content="{StaticResource EditButtonText}"
-                                    Click="EditExecutableButton_Click"
-                                    IsEnabled="False"/>
+                                        Margin="0 0 0 5"
+                                        Height="25"
+                                        Content="{StaticResource EditButtonText}"
+                                        Click="EditExecutableButton_Click"
+                                        IsEnabled="False"/>
 
                                 <Button x:Name="RemoveExecutableButton" 
                                         Height="25"
-                                    Content="{StaticResource RemoveButtonText}"
-                                    Click="RemoveExecutableButton_Click"
-                                    IsEnabled="False"/>
+                                        Content="{StaticResource RemoveButtonText}"
+                                        Click="RemoveExecutableButton_Click"
+                                        IsEnabled="False"/>
                             </StackPanel>
                         </Grid>
 
@@ -272,10 +273,10 @@
 
                             <StackPanel Orientation="Vertical"
                                         Margin="5 0 0 0"
+                                        Width="75"
                                         Grid.Row="0" Grid.Column="1">
                                 <Button x:Name="AddSourceFolderButton" 
                                         Margin="0 0 0 5"
-                                        Padding="20 0 20 0"
                                         Height="25"
                                         Content="{StaticResource AddButtonText}"
                                         Click="AddSourceFolderButton_Click"/>
@@ -355,26 +356,6 @@
                                   IsChecked="{Binding Settings.UseMostRecent}"
                                   Margin="0 10 0 0"/>
 
-                        <!--<GroupBox Header="Resulting URL"
-                                  Margin="0 10 0 0"
-                                  Padding="5">
-                            <StackPanel Orientation="Vertical">
-
-                                <TextBox Text="ResultUrl"
-                                         Margin="0 5 0 0"
-                                         IsReadOnly="True"
-                                         BorderThickness="0 0 0 1"/>
-
-                                <Border BorderThickness="1"
-                                        BorderBrush="#b4b4b4"
-                                        Margin="0 5 0 0"
-                                        Width="Auto">
-                                    <Image Name="UrlTestingImage" 
-                                           Width="50" 
-                                           Height="50"/>
-                                </Border>
-                            </StackPanel>
-                        </GroupBox>-->
                     </StackPanel>
                 </TabItem>
 
@@ -397,7 +378,6 @@
                         <TextBlock Text="{StaticResource Version}" FontSize="14" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </TabItem>
-
             </TabControl>
         </Grid>
     </DockPanel>

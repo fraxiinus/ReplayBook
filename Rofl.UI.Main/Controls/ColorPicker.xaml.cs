@@ -36,16 +36,13 @@ namespace Rofl.UI.Main.Controls
         public string SelectedColorAsHex 
         { 
             get => SelectedColor.ToHexString();
-            set
-            {
-                SelectedColor = (Color) ColorConverter.ConvertFromString(value);
-            }
+            set => SelectedColor = (Color) ColorConverter.ConvertFromString(value);
         }
 
-        public Brush SelectedColorAsBrush { get => (Brush) new SolidColorBrush(SelectedColor); }
+        public Brush SelectedColorAsBrush => new SolidColorBrush(SelectedColor);
 
         /// <summary>
-        /// The color that is currently displayed, initally and while selecting
+        /// The color that is currently displayed, initially and while selecting
         /// </summary>
         private Color _currentColor;
         public Color CurrentColor 
@@ -72,16 +69,10 @@ namespace Rofl.UI.Main.Controls
         public string CurrentColorAsHex
         {
             get => CurrentColor.ToHexString();
-            set
-            {
-                CurrentColor = (Color) ColorConverter.ConvertFromString(value);
-            }
+            set => CurrentColor = (Color) ColorConverter.ConvertFromString(value);
         }
 
-        public Brush CurrentColorAsBrush
-        {
-            get => (Brush) new SolidColorBrush(CurrentColor);
-        }
+        public Brush CurrentColorAsBrush => (Brush) new SolidColorBrush(CurrentColor);
 
         public int RedAttribute
         {

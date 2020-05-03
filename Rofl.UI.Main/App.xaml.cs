@@ -21,16 +21,18 @@ namespace Rofl.UI.Main
             }
         }
 
-        private void StartMainWindow()
+        private static void StartMainWindow()
         {
             var mainWindow = new MainWindow();
             mainWindow.Show();
         }
 
-        private void StartSingleReplayWindow(string path)
+        private static void StartSingleReplayWindow(string path)
         {
-            var singleWindow = new SingleReplayWindow();
-            singleWindow.ReplayFileLocation = path;
+            var singleWindow = new SingleReplayWindow
+            {
+                ReplayFileLocation = path
+            };
             singleWindow.Show();
         }
     }
