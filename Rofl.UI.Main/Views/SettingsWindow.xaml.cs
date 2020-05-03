@@ -6,6 +6,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 
 namespace Rofl.UI.Main.Views
 {
@@ -14,6 +15,7 @@ namespace Rofl.UI.Main.Views
     /// </summary>
     public partial class SettingsWindow : Window
     {
+
         public SettingsWindow()
         {
             InitializeComponent();
@@ -21,6 +23,20 @@ namespace Rofl.UI.Main.Views
             // This window should open as a dialog, so set owner
             this.Owner = App.Current.MainWindow;
             SettingsMenuListBox.SelectedIndex = 0;
+        }
+
+        private void SettingsWindow_OnSourceInitialized(object sender, EventArgs e)
+        {
+            // Change window style
+            var GWL_STYLE = -16;
+            // Maximize box flag
+            var WS_MAXIMIZEBOX = 0x10000;
+
+            var windowHandle = new WindowInteropHelper((Window)sender).Handle;
+            var value = NativeMethods.GetWindowLong(windowHandle, GWL_STYLE);
+
+            // Flip maximize box flag
+            _ = NativeMethods.SetWindowLong(windowHandle, GWL_STYLE, (int)(value & ~WS_MAXIMIZEBOX));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -427,6 +443,5 @@ namespace Rofl.UI.Main.Views
             EditExecutableButton.IsEnabled = false;
             RemoveExecutableButton.IsEnabled = false;
         }
-
     }
 }

@@ -18,7 +18,7 @@ namespace Rofl.UI.Main.Controls
 
         public double GetCombinedColumnWidth()
         {
-            var headerWidthSetter = StatsDataGrid.ColumnHeaderStyle.Setters.First(x => (x as Setter).Property.Name == "Width") as Setter;
+            if (!(StatsDataGrid.ColumnHeaderStyle.Setters.First(x => (x as Setter)?.Property.Name == "Width") is Setter headerWidthSetter)) return 0;
 
             var currentHeaderWidth = (double)headerWidthSetter.Value;
             var currentControlWidth = StatsDataGrid.ActualHeight;
@@ -30,11 +30,11 @@ namespace Rofl.UI.Main.Controls
         {
             if (!(sender is DataGrid dataGrid)) return;
 
-            var avaliableColumnSpace = GetCombinedColumnWidth();
+            var availableColumnSpace = GetCombinedColumnWidth();
             var rowCount = dataGrid.Items.Count;
 
             // Calculate how wide the columns should be, rounding down
-            var targetColumnWidth = (int) (avaliableColumnSpace / rowCount);
+            var targetColumnWidth = (int) (availableColumnSpace / rowCount);
 
             dataGrid.RowHeight = targetColumnWidth;
         }
