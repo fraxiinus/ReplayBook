@@ -58,9 +58,9 @@ namespace Rofl.Files.Repositories
                     .Id(r => r.Location)
                     .DbRef(r => r.Players, "players");
 
-                fileResults.EnsureIndex(x => x.FileInfo.Name);
-                fileResults.EnsureIndex(x => x.FileInfo.FileSizeBytes);
-                fileResults.EnsureIndex(x => x.FileInfo.CreationTime);
+                fileResults.EnsureIndex(x => x.FileName);
+                fileResults.EnsureIndex(x => x.FileSizeBytes);
+                fileResults.EnsureIndex(x => x.FileCreationTime);
                 fileResults.EnsureIndex(x => x.PlayerNames);
                 fileResults.EnsureIndex(x => x.ChampionNames);
             }
@@ -162,22 +162,22 @@ namespace Rofl.Files.Repositories
             switch (sort)
             {
                 default:
-                    sortQuery = Query.All("FileInfo.CreationTime", Query.Ascending);
+                    sortQuery = Query.All("FileCreationTime", Query.Ascending);
                     break;
                 case SortMethod.DateDesc:
-                    sortQuery = Query.All("FileInfo.CreationTime", Query.Descending);
+                    sortQuery = Query.All("FileCreationTime", Query.Descending);
                     break;
                 case SortMethod.SizeAsc:
-                    sortQuery = Query.All("FileInfo.FileSizeBytes", Query.Ascending);
+                    sortQuery = Query.All("FileSizeBytes", Query.Ascending);
                     break;
                 case SortMethod.SizeDesc:
-                    sortQuery = Query.All("FileInfo.FileSizeBytes", Query.Descending);
+                    sortQuery = Query.All("FileSizeBytes", Query.Descending);
                     break;
                 case SortMethod.NameAsc:
-                    sortQuery = Query.All("FileInfo.Name", Query.Ascending);
+                    sortQuery = Query.All("FileName", Query.Ascending);
                     break;
                 case SortMethod.NameDesc:
-                    sortQuery = Query.All("FileInfo.Name", Query.Descending);
+                    sortQuery = Query.All("FileName", Query.Descending);
                     break;
             }
 

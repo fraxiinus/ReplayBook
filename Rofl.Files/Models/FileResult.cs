@@ -16,8 +16,11 @@ namespace Rofl.Files.Models
             ReplayFile = replayFile ?? throw new ArgumentNullException(nameof(replayFile));
 
             Id = FileInfo.Path;
-            PlayerNames = String.Join("|", ReplayFile.Players.Select(x => x.NAME.ToUpper(CultureInfo.InvariantCulture)));
-            ChampionNames = String.Join("|", ReplayFile.Players.Select(x => x.SKIN.ToUpper(CultureInfo.InvariantCulture)));
+            FileName = FileInfo.Name;
+            FileSizeBytes = FileInfo.FileSizeBytes;
+            FileCreationTime = FileInfo.CreationTime;
+            PlayerNames = string.Join("|", ReplayFile.Players.Select(x => x.NAME.ToUpper(CultureInfo.InvariantCulture)));
+            ChampionNames = string.Join("|", ReplayFile.Players.Select(x => x.SKIN.ToUpper(CultureInfo.InvariantCulture)));
         }
         
         public ReplayFileInfo FileInfo { get; set; }
@@ -28,8 +31,12 @@ namespace Rofl.Files.Models
 
         public bool IsNewFile { get; set; }
 
+        // The following fields are used to allow for fast indexing
+        // Placing them on the root level object makes creating indexes very easy and clear.
+        public string FileName { get; set; }
+        public long FileSizeBytes { get; set; }
+        public DateTime FileCreationTime { get; set; }
         public string PlayerNames { get; set; }
-
         public string ChampionNames { get; set; }
     }
 }
