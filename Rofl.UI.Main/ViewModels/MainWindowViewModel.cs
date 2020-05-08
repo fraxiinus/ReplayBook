@@ -243,14 +243,27 @@ namespace Rofl.UI.Main.ViewModels
 
             foreach (var request in allRequests)
             {
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    request.Player.ImageSource = ResourceTools.GetImageSourceFromResource("DownloadDrawingImage");
+                });
+
                 allTasks.Add(Task.Run(async () =>
                 {
                     var response = await RequestManager.MakeRequestAsync(request.Request as RequestBase)
                         .ConfigureAwait(true);
 
+                    if (response.IsFaulted)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            request.Player.ImageSource = ResourceTools.GetImageSourceFromResource("ErrorDrawingImage");
+                        });
+                    }
+
                     Application.Current.Dispatcher.Invoke((Action)delegate
                     {
-                        request.Player.ImageSource = response.ResponsePath;
+                        request.Player.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
                     });
                 }));
             }
@@ -316,12 +329,13 @@ namespace Rofl.UI.Main.ViewModels
             FileResults.Clear();
             PreviewReplays.Clear();
 
-            StatusBarModel.StatusMessage = "Loading replays...";
+            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
             StatusBarModel.Color = Brushes.White;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
             await _fileManager.InitialLoadAsync().ConfigureAwait(true);
             LoadReplays();
+            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
             await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
             StatusBarModel.Visible = false;
         }

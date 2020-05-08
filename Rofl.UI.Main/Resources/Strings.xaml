@@ -8,6 +8,9 @@
     <string:String x:Key="MoreButtonText">Options</string:String>
     <string:String x:Key="PlayButtonText">Play</string:String>
     <string:String x:Key="LoadMoreButtonText">Load more...</string:String>
+
+    <string:String x:Key="LoadingMessageReplay">Loading replays...</string:String>
+    <string:String x:Key="LoadingMessageThumbnails">Loading thumbnails...</string:String>
     
     <string:String x:Key="CheckText">✔</string:String>
     <string:String x:Key="CrossText">❌</string:String>
