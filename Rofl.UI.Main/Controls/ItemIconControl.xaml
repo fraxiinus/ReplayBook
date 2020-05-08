@@ -6,9 +6,23 @@
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="30">
-    <Grid Background="LightGray">
-        <Image x:Name="ItemImage"
-               RenderOptions.BitmapScalingMode="HighQuality"
-               Source="{Binding Path=ImageSource, IsAsync=True}"/>
+    <Grid>
+        <Border BorderBrush="LightGray">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=ShowBorder}" Value="True">
+                            <Setter Property="BorderThickness" Value="2"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=ShowBorder}" Value="False">
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Image x:Name="ItemImage"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Source="{Binding Path=ImageSource, IsAsync=True}"/>
+        </Border>
     </Grid>
 </UserControl>
