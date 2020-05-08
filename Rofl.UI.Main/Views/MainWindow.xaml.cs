@@ -56,6 +56,7 @@ namespace Rofl.UI.Main
 
             // Decide to show welcome window
             context.ShowWelcomeWindow();
+            context.ShowMissingReplayFoldersMessageBox();
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)

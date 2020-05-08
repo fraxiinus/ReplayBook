@@ -26,6 +26,9 @@
     <string:String x:Key="ConfirmTitle">Confirmation</string:String>
     <string:String x:Key="ConfirmText">Are you sure?</string:String>
 
+    <string:String x:Key="MissingPathTitle">Replay folder not found</string:String>
+    <string:String x:Key="MissingPathText">The following path(s) could not be found are were removed:</string:String>
+
     <!--Settings Window Text-->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
     <string:String x:Key="ReplaySettingsItemText">Replays</string:String>

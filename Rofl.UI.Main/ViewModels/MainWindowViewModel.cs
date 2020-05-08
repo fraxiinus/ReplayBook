@@ -537,5 +537,22 @@ namespace Rofl.UI.Main.ViewModels
             SettingsManager.Executables.Settings.DefaultLocale = initialSettings.RegionLocale;
             SettingsManager.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
         }
+
+        public void ShowMissingReplayFoldersMessageBox()
+        {
+            var missingPaths = SettingsManager.RemoveInvalidReplayPaths();
+            if (missingPaths.Length > 0)
+            {
+                var msg = Application.Current.TryFindResource("MissingPathText") as string + "\n\n";
+                msg += string.Join(",\n", missingPaths);
+
+                MessageBox.Show(
+                    msg,
+                    Application.Current.TryFindResource("MissingPathTitle") as string,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+            }
+        }
     }
 }
