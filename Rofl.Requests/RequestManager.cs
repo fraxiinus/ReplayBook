@@ -23,7 +23,6 @@ namespace Rofl.Requests
         private readonly string _cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
 
         private readonly ConcurrentDictionary<string, Task<ResponseBase>> _inProgressTasks;
-        //private readonly List<string> _inProgressIndex;
 
         public RequestManager(ObservableSettings settings, RiZhi log)
         {

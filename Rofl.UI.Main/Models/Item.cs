@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Media;
 
 namespace Rofl.UI.Main.Models
 {
@@ -16,13 +17,25 @@ namespace Rofl.UI.Main.Models
 
         public string ItemName { get; set; }
 
-        private string imgSrc;
-        public string ImageSource
+        private bool _showBorder;
+        public bool ShowBorder
         {
-            get { return imgSrc; }
+            get => _showBorder;
             set
             {
-                imgSrc = value;
+                _showBorder = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ShowBorder)));
+            }
+        }
+
+        private ImageSource _imgSrc;
+        public ImageSource ImageSource
+        {
+            get => _imgSrc;
+            set
+            {
+                _imgSrc = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(ImageSource)));
             }

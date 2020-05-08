@@ -19,6 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Rofl.UI.Main.Utilities;
 
 namespace Rofl.UI.Main.ViewModels
 {
@@ -150,6 +151,22 @@ namespace Rofl.UI.Main.ViewModels
             _log.Information($"Processing {allItems.Count} item thumbnail requests");
             foreach (var item in allItems)
             {
+                // If an item does not exist, set it to nothing!
+                if (item.ItemId == "0")
+                {
+                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        item.ShowBorder = true;
+                    });
+                    continue;
+                }
+
+                // Set default item image, to be replaced
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    item.ImageSource = ResourceTools.GetImageSourceFromResource("DownloadDrawingImage");
+                });
+
                 itemTasks.Add(Task.Run(async () =>
                 {
                     var response = await RequestManager.MakeRequestAsync(new ItemRequest
@@ -158,10 +175,21 @@ namespace Rofl.UI.Main.ViewModels
                         ItemID = item.ItemId
                     }).ConfigureAwait(true);
 
-                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    if (response.IsFaulted)
                     {
-                        item.ImageSource = response.ResponsePath;
-                    });
+                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            item.ImageSource = ResourceTools.GetImageSourceFromResource("ErrorDrawingImage");
+                        });
+                    }
+                    else
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            item.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
+                        });
+                    }
+
                 }));
             }
 
