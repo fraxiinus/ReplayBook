@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
              mc:Ignorable="d" 
+             x:Name="ReplayDetailControlElement"
              d:DesignHeight="650" d:DesignWidth="760"
              HorizontalAlignment="Left"
              VerticalAlignment="Top"
@@ -15,6 +16,9 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <!--Blank content to show when nothing is selected-->
         <StackPanel x:Name="BlankContent"
                     Orientation="Vertical"
@@ -28,8 +32,8 @@
         
         <!--The actual replay content-->
         <Grid x:Name="ReplayContent"
-                Margin="10 5 0 0"
-                Visibility="Hidden">
+              Margin="10 5 0 0"
+              Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -38,8 +42,7 @@
 
             <!--The header information-->
             <StackPanel Orientation="Vertical"
-                        Width="740"
-                        Margin="10 0 0 10"
+                        Margin="10 0 10 10"
                         Grid.Row="0">
                 
                 <Border BorderThickness="0 0 0 2"
@@ -210,9 +213,9 @@
                         Grid.Row="1"
                         SelectionChanged="TabControl_SelectionChanged">
                 <TabItem Header="{StaticResource ScoreboardTabText}"
-                     FontSize="12"
-                     Style="{StaticResource TabHeaderStyle}">
-                    <local:ScoreboardControl Margin="0 10 0 0"/>
+                         FontSize="12"
+                         Style="{StaticResource TabHeaderStyle}">
+                    <local:ScoreboardControl Margin="0 10 5 0"/>
                 </TabItem>
 
                 <TabItem Header="{StaticResource StatsTabText}"
@@ -224,18 +227,21 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ListView ItemsSource="{Binding Path=AllPlayers}"
-                                  HorizontalAlignment="Right"
+                        <ListView x:Name="PlayerIconsListView"
+                                  ItemsSource="{Binding Path=AllPlayers}"
+                                  HorizontalAlignment="Stretch"
                                   BorderBrush="Transparent"
-                                  Margin="0 0 19 0">
+                                  Margin="162 0 10 0"
+                                  SizeChanged="PlayerIconsListView_SizeChanged">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Focusable" Value="False"/>
                                     <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="{Binding Path=StatsPlayerIconMargin, ElementName=ReplayDetailControlElement}"/>
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ListViewItem">
-                                                <ContentPresenter Margin="3 0 3 0"/>
+                                                <ContentPresenter/>
                                             </ControlTemplate>
                                         </Setter.Value>
                                     </Setter>
@@ -251,7 +257,8 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
-                                                             Width="50"/>
+                                                             Width="50"
+                                                             Margin="0"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>

@@ -19,6 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using Rofl.UI.Main.Utilities;
 
 namespace Rofl.UI.Main.ViewModels
 {
@@ -150,6 +151,22 @@ namespace Rofl.UI.Main.ViewModels
             _log.Information($"Processing {allItems.Count} item thumbnail requests");
             foreach (var item in allItems)
             {
+                // If an item does not exist, set it to nothing!
+                if (item.ItemId == "0")
+                {
+                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    {
+                        item.ShowBorder = true;
+                    });
+                    continue;
+                }
+
+                // Set default item image, to be replaced
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    item.ImageSource = ResourceTools.GetImageSourceFromResource("DownloadDrawingImage");
+                });
+
                 itemTasks.Add(Task.Run(async () =>
                 {
                     var response = await RequestManager.MakeRequestAsync(new ItemRequest
@@ -158,10 +175,21 @@ namespace Rofl.UI.Main.ViewModels
                         ItemID = item.ItemId
                     }).ConfigureAwait(true);
 
-                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    if (response.IsFaulted)
                     {
-                        item.ImageSource = response.ResponsePath;
-                    });
+                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            item.ImageSource = ResourceTools.GetImageSourceFromResource("ErrorDrawingImage");
+                        });
+                    }
+                    else
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            item.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
+                        });
+                    }
+
                 }));
             }
 
@@ -215,14 +243,27 @@ namespace Rofl.UI.Main.ViewModels
 
             foreach (var request in allRequests)
             {
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    request.Player.ImageSource = ResourceTools.GetImageSourceFromResource("DownloadDrawingImage");
+                });
+
                 allTasks.Add(Task.Run(async () =>
                 {
                     var response = await RequestManager.MakeRequestAsync(request.Request as RequestBase)
                         .ConfigureAwait(true);
 
+                    if (response.IsFaulted)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            request.Player.ImageSource = ResourceTools.GetImageSourceFromResource("ErrorDrawingImage");
+                        });
+                    }
+
                     Application.Current.Dispatcher.Invoke((Action)delegate
                     {
-                        request.Player.ImageSource = response.ResponsePath;
+                        request.Player.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
                     });
                 }));
             }
@@ -288,12 +329,13 @@ namespace Rofl.UI.Main.ViewModels
             FileResults.Clear();
             PreviewReplays.Clear();
 
-            StatusBarModel.StatusMessage = "Loading replays...";
+            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
             StatusBarModel.Color = Brushes.White;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
             await _fileManager.InitialLoadAsync().ConfigureAwait(true);
             LoadReplays();
+            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
             await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
             StatusBarModel.Visible = false;
         }
@@ -494,6 +536,23 @@ namespace Rofl.UI.Main.ViewModels
 
             SettingsManager.Executables.Settings.DefaultLocale = initialSettings.RegionLocale;
             SettingsManager.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
+        }
+
+        public void ShowMissingReplayFoldersMessageBox()
+        {
+            var missingPaths = SettingsManager.RemoveInvalidReplayPaths();
+            if (missingPaths.Length > 0)
+            {
+                var msg = Application.Current.TryFindResource("MissingPathText") as string + "\n\n";
+                msg += string.Join(",\n", missingPaths);
+
+                MessageBox.Show(
+                    msg,
+                    Application.Current.TryFindResource("MissingPathTitle") as string,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+            }
         }
     }
 }

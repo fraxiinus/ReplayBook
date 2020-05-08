@@ -11,6 +11,7 @@ using Rofl.Settings.Models;
 
 namespace Rofl.Requests
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class RequestManager
     {
         private readonly DownloadClient _downloadClient;
@@ -22,7 +23,6 @@ namespace Rofl.Requests
         private readonly string _cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
 
         private readonly ConcurrentDictionary<string, Task<ResponseBase>> _inProgressTasks;
-        //private readonly List<string> _inProgressIndex;
 
         public RequestManager(ObservableSettings settings, RiZhi log)
         {
@@ -33,7 +33,6 @@ namespace Rofl.Requests
             _cacheClient = new CacheClient(_cachePath, _log);
 
             _inProgressTasks = new ConcurrentDictionary<string, Task<ResponseBase>>();
-            //_inProgressIndex = new List<string>();
         }
 
         public async Task<ResponseBase> MakeRequestAsync(RequestBase request)
@@ -41,27 +40,33 @@ namespace Rofl.Requests
             // This acts as the key to tell if a download is in progress
             var requestId = GetRequestIdentifier(request);
 
-            _log.Information($"Making request to {requestId}");
+            if (requestId == "0")
+            {
+                _log.Warning($"Invalid requestId: {requestId}");
+                return new ResponseBase()
+                {
+                    Exception = new Exception($"requestId is not valid: {requestId}"),
+                    IsFaulted = true
+                };
+            }
 
             // If a download is in progress, use the same task to get the result
             if(_inProgressTasks.ContainsKey(requestId))
             {
-                // I hope this doesn't download twice
+                // Get the matching in progress task
                 var responseTask = _inProgressTasks[requestId];
 
-                _log.Information($"Found existing task for {requestId}");
-
+                // If the task is complete, remove it
                 if (responseTask.IsCompleted)
                 {
-                    _log.Information($"Task is completed, remove {requestId}");
                     if (!_inProgressTasks.TryRemove(requestId, out _))
                     {
                         _log.Warning($"Failed to remove in progress task {requestId}");
                     }
                 }
 
+                // Get the result of the task and return it
                 var result = await responseTask.ConfigureAwait(true);
-                _log.Information($"{requestId} task finished and returned {!result.IsFaulted}");
                 return result;
             }
 
@@ -71,14 +76,12 @@ namespace Rofl.Requests
             // Fault occurs if cache is unable to find the file, or if the file is corrupted
             if (!cacheResponse.IsFaulted)
             {
-                _log.Information($"Found {requestId} in cache");
                 return cacheResponse;
             }
 
             // Does not exist in cache, make download request
             try
             {
-                _log.Information($"Downloading {requestId}");
                 var responseTask = _downloadClient.DownloadIconImageAsync(request);
                 if (!_inProgressTasks.TryAdd(requestId, responseTask))
                 {
@@ -86,7 +89,6 @@ namespace Rofl.Requests
                 }
 
                 var result = await responseTask.ConfigureAwait(true);
-                _log.Information($"Completed download for {requestId}, returned {!result.IsFaulted}");
                 return result;
             }
             catch (Exception ex)

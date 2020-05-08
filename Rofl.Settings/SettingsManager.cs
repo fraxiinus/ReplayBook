@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Rofl.Executables;
 using Rofl.Settings.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -50,6 +51,26 @@ namespace Rofl.Settings
 
             // Save Executables
             Executables.Save();
+        }
+
+        public string[] RemoveInvalidReplayPaths()
+        {
+            var missingList = new List<string>();
+            foreach (var path in Settings.SourceFolders)
+            {
+                if (!Directory.Exists(path))
+                {
+                    _log.Warning($"Replay folder {path} no longer exists, deleting...");
+                    missingList.Add(path);
+                }
+            }
+
+            foreach (var path in missingList)
+            {
+                Settings.SourceFolders.Remove(path);
+            }
+
+            return missingList.ToArray();
         }
 
         public ObservableSettings LoadConfigFile(string configPath)

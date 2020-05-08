@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Rofl.UI.Main.Resources" xmlns:Controls="clr-namespace:Rofl.UI.Main.Controls">
+                    xmlns:local="clr-namespace:Rofl.UI.Main.Resources" 
+                    xmlns:Controls="clr-namespace:Rofl.UI.Main.Controls">
 
     <Style x:Key="ToolButton" TargetType="{x:Type Button}">
         <Setter Property="Margin" Value="0 5 5 5"/>

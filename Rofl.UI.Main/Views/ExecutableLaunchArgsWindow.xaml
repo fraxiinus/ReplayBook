@@ -25,6 +25,7 @@
                  Margin="0 0 0 10"/>
 
         <StackPanel Orientation="Horizontal"
+                    Grid.Column="0"
                     Grid.Row="1">
 
             <Button x:Name="SaveButton"

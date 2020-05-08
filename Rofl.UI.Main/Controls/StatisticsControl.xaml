@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              xmlns:b="clr-namespace:Rofl.UI.Main.Behaviors"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" 
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="800"
              Background="White">
@@ -15,22 +16,29 @@
     </i:Interaction.Behaviors>
 
     <DataGrid Style="{StaticResource StatsDataGridStyle}"
-                x:Name="StatsDataGrid"
-                AutoGenerateColumns="False"
-                ItemsSource="{Binding Path=AllPlayers}"
-                HorizontalScrollBarVisibility="Disabled"
-                VerticalScrollBarVisibility="Disabled"
-                ScrollViewer.CanContentScroll="False"
-                IsReadOnly="True"
-                CanUserSortColumns="False"
-                CanUserResizeColumns="False"
-                CanUserResizeRows="False"
-                HeadersVisibility="Column"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                GridLinesVisibility="None"
-                SelectionUnit="Cell"
-                Width="1460">
+              x:Name="StatsDataGrid"
+              AutoGenerateColumns="False"
+              ItemsSource="{Binding Path=AllPlayers}"
+              HorizontalScrollBarVisibility="Disabled"
+              VerticalScrollBarVisibility="Disabled"
+              ScrollViewer.CanContentScroll="False"
+              IsReadOnly="True"
+              CanUserSortColumns="False"
+              CanUserResizeColumns="False"
+              CanUserResizeRows="False"
+              HeadersVisibility="Column"
+              Background="Transparent"
+              BorderBrush="Transparent"
+              GridLinesVisibility="None"
+              SelectionUnit="Cell"
+              VerticalAlignment="Stretch"
+              VerticalContentAlignment="Stretch"
+              HorizontalContentAlignment="Stretch"
+              HorizontalAlignment="Stretch"
+              SizeChanged="StatsDataGrid_SizeChanged"
+              MinRowHeight="56"
+              RowHeight="56"
+              Width="1460">
 
         <DataGrid.ColumnHeaderStyle>
             <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -62,7 +70,6 @@
                         </TransformGroup>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Width" Value="56"/>
                 <Setter Property="TextBlock.TextAlignment" Value="Center"/>
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="Margin" Value="0"/>

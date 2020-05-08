@@ -7,80 +7,96 @@
              mc:Ignorable="d"
              d:DesignHeight="40" d:DesignWidth="500">
 
-    <StackPanel Orientation="Horizontal"
-                Margin="0 2 0 2">
+    <Grid Margin="0 2 0 2">
 
-        <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
-                                 Width="40"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="20*"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock Text="{Binding Path=Level}"
-                   FontSize="20"
-                   VerticalAlignment="Center"
-                   TextAlignment="Center"
-                   Margin="2"
-                   Width="25"
-                   ToolTip="{StaticResource LevelToolTip}"/>
-
-        <StackPanel Orientation="Vertical"
-                    Margin="3 0 0 0">
-            <TextBox Background="Transparent"
-                     FontSize="14"
-                     FontWeight="Bold"
-                     BorderThickness="0"
-                     IsReadOnly="True"
-                     Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}"/>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="0">
             
-            <TextBox Background="Transparent"
-                     FontSize="12"
-                     BorderThickness="0"
-                     IsReadOnly="True"
-                     Text="{Binding Path=PreviewModel.ChampionName, FallbackValue=ChampionName, Mode=OneWay}"
-                     Width="150"/>
+            <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
+                                     Width="40"/>
+
+            <TextBlock Text="{Binding Path=Level}"
+                       FontSize="20"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Margin="2"
+                       Width="25"
+                       ToolTip="{StaticResource LevelToolTip}"/>
+
+            <StackPanel Orientation="Vertical"
+                        Margin="3 0 0 0">
+                <TextBox Background="Transparent"
+                         FontSize="14"
+                         FontWeight="Bold"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}"/>
+
+                <TextBox Background="Transparent"
+                         FontSize="12"
+                         BorderThickness="0"
+                         IsReadOnly="True"
+                         Text="{Binding Path=PreviewModel.ChampionName, FallbackValue=ChampionName, Mode=OneWay}"
+                         Width="150"/>
+            </StackPanel>
         </StackPanel>
 
-        <TextBlock Text="{Binding Path=ChampionsKilled}"
-                   FontSize="15"
-                   Margin="0"
-                   Padding="0"
-                   VerticalAlignment="Center"
-                   TextAlignment="Center"
-                   Width="25"
-                   ToolTip="{StaticResource KillsToolTip}"/>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="1"
+                    Margin="20 0 0 0">
+            <TextBlock Text="{Binding Path=ChampionsKilled}"
+                       FontSize="15"
+                       Margin="0"
+                       Padding="0"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Width="25"
+                       ToolTip="{StaticResource KillsToolTip}"/>
 
-        <TextBlock Text="/"
-                   Margin="0"
-                   Padding="0"
-                   VerticalAlignment="Center"
-                   TextAlignment="Center"
-                   Width="10"/>
-        
-        <TextBlock Text="{Binding Path=Deaths}"
-                   FontSize="15"
-                   Margin="0"
-                   Padding="0"
-                   VerticalAlignment="Center"
-                   TextAlignment="Center"
-                   Width="25"
-                   ToolTip="{StaticResource DeathsToolTip}"/>
+            <TextBlock Text="/"
+                       Margin="0"
+                       Padding="0"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Width="10"/>
 
-        <TextBlock Text="/"
-                   Margin="0"
-                   Padding="0"
-                   VerticalAlignment="Center"
-                   TextAlignment="Center"
-                   Width="10"/>
+            <TextBlock Text="{Binding Path=Deaths}"
+                       FontSize="15"
+                       Margin="0"
+                       Padding="0"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Width="25"
+                       ToolTip="{StaticResource DeathsToolTip}"/>
 
-        <TextBlock Text="{Binding Path=Assists}"
-                   FontSize="15"
-                   Margin="0"
-                   Padding="0"
-                   VerticalAlignment="Center"
-                   TextAlignment="Center"
-                   Width="25"
-                   ToolTip="{StaticResource AssistsToolTip}"/>
+            <TextBlock Text="/"
+                       Margin="0"
+                       Padding="0"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Width="10"/>
+
+            <TextBlock Text="{Binding Path=Assists}"
+                       FontSize="15"
+                       Margin="0"
+                       Padding="0"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Width="25"
+                       ToolTip="{StaticResource AssistsToolTip}"/>
+        </StackPanel>
 
         <StackPanel VerticalAlignment="Center"
-                    Margin="15 0 0 0">
+                    HorizontalAlignment="Center"
+                    Grid.Column="2">
             <ItemsControl ItemsSource="{Binding Path=Items}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -96,26 +112,36 @@
             </ItemsControl>
         </StackPanel>
 
-        <TextBox Margin="35 0 0 0"
-                 Background="Transparent"
-                 FontSize="15"
-                 VerticalAlignment="Center"
-                 TextAlignment="Left"
-                 Width="40"
-                 BorderThickness="0"
-                 IsReadOnly="True"
-                 ToolTip="{StaticResource CreepScoreToolTip}"
-                 Text="{Binding Path=MinionsKilled, FallbackValue=CS, Mode=OneWay}"/>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="3"
+                    HorizontalAlignment="Center">
+            <TextBox Margin="20 0 0 0"
+                     Background="Transparent"
+                     FontSize="15"
+                     VerticalAlignment="Center"
+                     TextAlignment="Center"
+                     Width="40"
+                     BorderThickness="0"
+                     IsReadOnly="True"
+                     ToolTip="{StaticResource CreepScoreToolTip}"
+                     Text="{Binding Path=MinionsKilled, FallbackValue=CS, Mode=OneWay}"/>
+        </StackPanel>
 
-        <TextBox Margin="40 0 0 0"
-                 Background="Transparent"
-                 FontSize="15"
-                 VerticalAlignment="Center"
-                 TextAlignment="Left"
-                 Width="60"
-                 BorderThickness="0"
-                 IsReadOnly="True"
-                 ToolTip="{StaticResource GoldEarnedToolTip}"
-                 Text="{Binding Path=GoldEarned, FallbackValue=Gold, Mode=OneWay, StringFormat={}{0:#,#}}"/>
-    </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Grid.Column="4">
+            <TextBox Margin="0 0 0 0"
+                     Background="Transparent"
+                     FontSize="15"
+                     VerticalAlignment="Center"
+                     TextAlignment="Center"
+                     Width="60"
+                     BorderThickness="0"
+                     IsReadOnly="True"
+                     ToolTip="{StaticResource GoldEarnedToolTip}"
+                     Text="{Binding Path=GoldEarned, FallbackValue=Gold, Mode=OneWay, StringFormat={}{0:#,#}}"/>
+
+        </StackPanel>
+        
+    </Grid>
 </UserControl>

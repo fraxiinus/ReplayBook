@@ -2,6 +2,7 @@
 using Rofl.Settings.Models;
 using System;
 using System.ComponentModel;
+using System.Windows.Media;
 
 namespace Rofl.UI.Main.Models
 {
@@ -23,18 +24,12 @@ namespace Rofl.UI.Main.Models
 
         public string PlayerName { get; private set; }
 
-        public bool IsKnownPlayer 
-        { 
-            get 
-            {
-                return marker != null;
-            }
-        }
+        public bool IsKnownPlayer => marker != null;
 
         private PlayerMarker marker;
         public PlayerMarker Marker
         { 
-            get { return marker; }
+            get => marker;
             set
             {
                 marker = value;
@@ -45,10 +40,10 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        private string imgSrc;
-        public string ImageSource 
+        private ImageSource imgSrc;
+        public ImageSource ImageSource 
         {
-            get { return imgSrc; }
+            get => imgSrc;
             set 
             {
                 imgSrc = value;
@@ -57,12 +52,6 @@ namespace Rofl.UI.Main.Models
             } 
         }
 
-        public string CombinedName
-        {
-            get
-            {
-                return $"{PlayerName} - {ChampionName}";
-            }
-        }
+        public string CombinedName => $"{PlayerName} - {ChampionName}";
     }
 }

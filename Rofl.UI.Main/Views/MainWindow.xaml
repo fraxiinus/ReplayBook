@@ -15,12 +15,16 @@
         MinWidth="1150"
         Height="655" 
         Width="1150"
-        MaxWidth="1150"
         Closing="MainWindow_OnClosing">
 
-    <DockPanel>
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         
-        <Grid DockPanel.Dock="Left">
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -179,8 +183,11 @@
 
         </Grid>
 
-        <controls:ReplayDetailControl x:Name="DetailView"/>
+        <controls:ReplayDetailControl x:Name="DetailView"
+                                      Grid.Column="1"
+                                      HorizontalContentAlignment="Stretch"
+                                      HorizontalAlignment="Stretch"/>
 
-    </DockPanel>
+    </Grid>
     
 </Window>

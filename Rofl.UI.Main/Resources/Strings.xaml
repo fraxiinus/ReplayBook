@@ -8,6 +8,9 @@
     <string:String x:Key="MoreButtonText">Options</string:String>
     <string:String x:Key="PlayButtonText">Play</string:String>
     <string:String x:Key="LoadMoreButtonText">Load more...</string:String>
+
+    <string:String x:Key="LoadingMessageReplay">Loading replays...</string:String>
+    <string:String x:Key="LoadingMessageThumbnails">Loading thumbnails...</string:String>
     
     <string:String x:Key="CheckText">✔</string:String>
     <string:String x:Key="CrossText">❌</string:String>
@@ -22,6 +25,9 @@
     <string:String x:Key="ErrorTitle">Error</string:String>
     <string:String x:Key="ConfirmTitle">Confirmation</string:String>
     <string:String x:Key="ConfirmText">Are you sure?</string:String>
+
+    <string:String x:Key="MissingPathTitle">Replay folder not found</string:String>
+    <string:String x:Key="MissingPathText">The following path(s) could not be found are were removed:</string:String>
 
     <!--Settings Window Text-->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
@@ -87,7 +93,7 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">A. Lee (Etirps)</string:String>
-    <string:String x:Key="Version">Prerelease 5</string:String>
+    <string:String x:Key="Version">Pre-Release 7</string:String>
     <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
     <string:String x:Key="GitHubLink">https://github.com/leeanchu/ReplayBook</string:String>
     <string:String x:Key="DiscordInvite">discord.gg/c33Rc5J</string:String>
@@ -246,7 +252,7 @@
     <string:String x:Key="WswIntroFrameTitle">Welcome to ReplayBook!</string:String>
     <string:String x:Key="WswReplaysFrameTitle">Replay Setup</string:String>
     <string:String x:Key="WswExecutablesFrameTitle">Executable Setup</string:String>
-    <string:String x:Key="WswRegionFrameTitle">Region Setup</string:String>
+    <string:String x:Key="WswRegionFrameTitle">Language Setup</string:String>
     <string:String x:Key="WswDownloadFrameTitle">Download Assets</string:String>
     <string:String x:Key="WswFinishedFrameTitle">Complete!</string:String>
     <string:String x:Key="WswSkipHint">You can skip this setup at any time by closing the window</string:String>
@@ -255,8 +261,8 @@
     <string:String x:Key="WswIntroductionTitle">Thank you for downloading ReplayBook!</string:String>
     <string:String x:Key="WswIntroductionBody">First lets do some initial setup. Click the next button below to continue.</string:String>
 
-    <string:String x:Key="WswRegionTitle">Select your League of Legends region</string:String>
-    <string:String x:Key="WswRegionBody">Choose a region with the drop down menu. The region must match the region of your installation of League of Legends.</string:String>
+    <string:String x:Key="WswRegionTitle">Select your League of Legends language</string:String>
+    <string:String x:Key="WswRegionBody">Choose a language with the drop down menu. It must match the language of your installation of League of Legends.</string:String>
 
     <string:String x:Key="WswExecutablesTitle">Select the Riot Games folder</string:String>
     <string:String x:Key="WswExecutablesBody">ReplayBook needs to register League of Legends before it is able to play replays. You can do this later if you don't need this feature right away.</string:String>
