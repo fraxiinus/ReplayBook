@@ -23,8 +23,9 @@ namespace Rofl.Settings
 
         public SettingsManager(RiZhi log)
         {
+            _log = log ?? throw new ArgumentNullException(nameof(log));
             Executables = new ExecutableManager(log);
-            _log = log;
+
             string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
 
             if (File.Exists(configPath))
@@ -45,7 +46,10 @@ namespace Rofl.Settings
             // Write the file result
             using (StreamWriter file = File.CreateText(configPath))
             {
-                var serializer = new JsonSerializer();
+                var serializer = new JsonSerializer
+                {
+                    Formatting = Formatting.Indented
+                };
                 serializer.Serialize(file, new SettingsModel(Settings));
             }
 
