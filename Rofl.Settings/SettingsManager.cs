@@ -15,36 +15,38 @@ namespace Rofl.Settings
 
         public ObservableSettings Settings { get; private set; }
 
+        public Dictionary<string, object> TemporaryValues { get; private set; }
+
         public ExecutableManager Executables { get; private set; }
 
         // private SettingsModel _rawSettings;
 
         private readonly RiZhi _log;
+        private readonly string _configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
+        private readonly string _tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "stashedValues.json");
 
         public SettingsManager(RiZhi log)
         {
             _log = log ?? throw new ArgumentNullException(nameof(log));
             Executables = new ExecutableManager(log);
 
-            string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
-
-            if (File.Exists(configPath))
+            if (File.Exists(_configPath))
             {
-                LoadConfigFile(configPath);
+                LoadConfigFile();
             }
             else
             {
                 _log.Information("No config file found, creating new defaults");
                 Settings = new ObservableSettings();
             }
+
+            LoadTemporaryValues();
         }
 
         public void SaveConfigFile()
         {
-            string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
-
             // Write the file result
-            using (StreamWriter file = File.CreateText(configPath))
+            using (StreamWriter file = File.CreateText(_configPath))
             {
                 var serializer = new JsonSerializer
                 {
@@ -77,10 +79,10 @@ namespace Rofl.Settings
             return missingList.ToArray();
         }
 
-        public ObservableSettings LoadConfigFile(string configPath)
+        public ObservableSettings LoadConfigFile()
         {
             SettingsModel rawSettings;
-            using (StreamReader file = File.OpenText(configPath))
+            using (StreamReader file = File.OpenText(_configPath))
             {
                 var serializer = JsonSerializer.Create();
                 rawSettings = serializer.Deserialize(file, typeof(SettingsModel)) as SettingsModel;
@@ -131,6 +133,37 @@ namespace Rofl.Settings
 
             Settings = new ObservableSettings(rawSettings);
             return Settings;
+        }
+
+        public void LoadTemporaryValues()
+        {
+            if (!File.Exists(_tempPath))
+            {
+                TemporaryValues = new Dictionary<string, object>();
+                return;
+            }
+
+            Dictionary<string, object> values;
+            using (StreamReader file = File.OpenText(_tempPath))
+            {
+                var serializer = JsonSerializer.Create();
+                values = serializer.Deserialize(file, typeof(Dictionary<string, object>)) as Dictionary<string, object>;
+            }
+
+            TemporaryValues = values;
+        }
+
+        public void SaveTemporaryValues()
+        {
+            // Write the file result
+            using (StreamWriter file = File.CreateText(_tempPath))
+            {
+                var serializer = new JsonSerializer
+                {
+                    Formatting = Formatting.Indented
+                };
+                serializer.Serialize(file, TemporaryValues);
+            }
         }
     }
 }
