@@ -9,6 +9,7 @@
         SizeToContent="WidthAndHeight"
         MinHeight="400"
         MinWidth="300"
+        SourceInitialized="ExecutableSelectWindow_OnSourceInitialized"
         Loaded="Window_Loaded"
         Icon="{StaticResource SettingsDrawingImage}">
     <Grid Margin="5">
@@ -40,7 +41,7 @@
         </ListBox>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 5 0 0">
             <Button x:Name="OKButton" Content="{StaticResource OKButtonText}"
-                    Width="60" Margin="0 0 10 0"
+                    Width="60" Margin="0 0 5 0"
                     Height="25"
                     Click="OKButton_Click"/>
             <Button x:Name="CancelButton" Content="{StaticResource CancelButtonText}" 
