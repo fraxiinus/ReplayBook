@@ -15,6 +15,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Rofl.UI.Main.Utilities;
 
 namespace Rofl.UI.Main
 {
@@ -57,6 +58,27 @@ namespace Rofl.UI.Main
             // Decide to show welcome window
             context.ShowWelcomeWindow();
             context.ShowMissingReplayFoldersMessageBox();
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var values = _settingsManager.TemporaryValues;
+
+            if (values.TryGetDouble("WindowHeight", out double savedHeight) &&
+                values.TryGetDouble("WindowWidth", out double savedWidth) &&
+                values.TryGetDouble("WindowLeft", out double savedLeft) &&
+                values.TryGetDouble("WindowTop", out double savedTop) &&
+                values.TryGetBool("WindowMaximized", out bool savedMaximized))
+            {
+                this.Height = savedHeight;
+                this.Width = savedWidth;
+                this.Left = savedLeft;
+                this.Top = savedTop;
+                if (savedMaximized)
+                {
+                    this.WindowState = WindowState.Maximized;
+                }
+            }
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
@@ -192,7 +214,15 @@ namespace Rofl.UI.Main
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
+            _settingsManager.TemporaryValues["WindowHeight"] = this.Height;
+            _settingsManager.TemporaryValues["WindowWidth"] = this.Width;
+            _settingsManager.TemporaryValues["WindowLeft"] = this.Left;
+            _settingsManager.TemporaryValues["WindowTop"] = this.Top;
+            _settingsManager.TemporaryValues["WindowMaximized"] = (this.WindowState == WindowState.Maximized);
+
+            _settingsManager.SaveTemporaryValues();
             _log.WriteLog();
         }
+
     }
 }

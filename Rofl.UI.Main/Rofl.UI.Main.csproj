@@ -140,6 +140,7 @@
     <Compile Include="Pages\WelcomeSetupReplays.xaml.cs">
       <DependentUpon>WelcomeSetupReplays.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\DictionaryExtensions.cs" />
     <Compile Include="Utilities\ResourceTools.cs" />
     <Compile Include="Views\ExecutableDetailWindow.xaml.cs">
       <DependentUpon>ExecutableDetailWindow.xaml</DependentUpon>

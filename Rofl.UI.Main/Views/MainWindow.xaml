@@ -15,6 +15,7 @@
         MinWidth="1150"
         Height="655" 
         Width="1150"
+        Loaded="MainWindow_OnLoaded"
         Closing="MainWindow_OnClosing">
 
     <Grid>
