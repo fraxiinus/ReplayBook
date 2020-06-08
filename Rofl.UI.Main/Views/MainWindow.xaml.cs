@@ -39,10 +39,16 @@ namespace Rofl.UI.Main
                 _log.WriteLog();
             };
 
+            var assemblyName = Assembly.GetEntryAssembly()?.GetName();
+
             _log = new RiZhi()
             {
-                FilePrefix = "ReplayBookLog"
+                FilePrefix = "ReplayBookLog",
+                AssemblyName = assemblyName.Name,
+                AssemblyVersion = assemblyName.Version.ToString(2)
             };
+
+            _log.Error($"Log files are generated for each run while in prerelease");
 
             _settingsManager = new SettingsManager(_log);
 
@@ -51,9 +57,6 @@ namespace Rofl.UI.Main
 
             var context = new MainWindowViewModel(_files, _requests, _settingsManager, _log);
             this.DataContext = context;
-
-            var version = Assembly.GetEntryAssembly()?.GetName().Version.ToString(2); 
-            _log.Error($"Log files are generated for each run while in prerelease. Prerelease version: {version}");
 
             // Decide to show welcome window
             context.ShowWelcomeWindow();
