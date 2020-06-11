@@ -4,10 +4,30 @@
                     xmlns:Controls="clr-namespace:Rofl.UI.Main.Controls">
 
     <Style x:Key="ToolButton" TargetType="{x:Type Button}">
-        <Setter Property="Margin" Value="0 5 5 5"/>
+        <Setter Property="Margin" Value="0 5 0 5"/>
         <Setter Property="Width" Value="30"/>
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="True"
+                            Padding="3">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="BorderBrush" Value="#A5ACB5"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     
     <Style x:Key="BaseButton" TargetType="{x:Type Button}">
@@ -135,7 +155,7 @@
                                    VerticalAlignment="Center"
                                    Text="{StaticResource SearchDefaultText}"
                                    Margin="5,0,5,0"
-                                   Foreground="#FF808080"
+                                   Foreground="#FFA5ACB5"
                                    FontStyle="Italic"
                                    IsHitTestVisible="False"
                                    x:Name="UserMessage"
@@ -165,13 +185,13 @@
     </Style>
 
     <Style x:Key="SearchBorderStyle" TargetType="{x:Type Border}">
-        <Setter Property="BorderBrush" Value="LightGray" />
-        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="#A5ACB5" />
+        <Setter Property="BorderThickness" Value="1.5" />
         <Setter Property="Background" Value="White"/>
         <Setter Property="Margin" Value="5"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Border.BorderBrush" Value="LightBlue" />
+                <Setter Property="Border.BorderThickness" Value="1.5" />
             </Trigger>
         </Style.Triggers>
     </Style>
