@@ -136,6 +136,9 @@ namespace Rofl.UI.Main.Views
 
         private void ExportButton_OnClick(object sender, RoutedEventArgs e)
         {
+            if (!(this.DataContext is ExportContext context)) { return; }
+            if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return; }
+
             // none are checked, nothing to export
             if (_csvMode)
             {
@@ -157,7 +160,7 @@ namespace Rofl.UI.Main.Views
                 return;
             }
 
-            var results = _csvMode ? ConstructCsvResults() : JsonConvert.SerializeObject(ConstructJsonResults());
+            var results = _csvMode ? ConstructCsvResults() : JsonConvert.SerializeObject(ConstructJsonResults(), Formatting.Indented);
 
             using (var saveDialog = new CommonSaveFileDialog())
             {
@@ -171,6 +174,7 @@ namespace Rofl.UI.Main.Views
 
                 saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 saveDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                saveDialog.DefaultFileName = replay.MatchId + (_csvMode ? ".csv" : ".json");
 
                 saveDialog.Filters.Add(_csvMode
                     ? new CommonFileDialogFilter("CSV Files", "*.csv")
@@ -190,6 +194,13 @@ namespace Rofl.UI.Main.Views
                         MessageBoxButton.OK,
                         MessageBoxImage.Exclamation);
                 }
+
+                MessageBox.Show((TryFindResource("ErdSaveComplete") as string).Replace("@", saveDialog.FileName),
+                                TryFindResource("ErdSaveCompleteTitle") as string,
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
+
+                this.Close();
             }
         }
 
@@ -287,7 +298,7 @@ namespace Rofl.UI.Main.Views
                     continue;
                 }
 
-                var value = context.GetType().GetProperty(rootItem.Name)?.GetValue(context);
+                var value = replay.GetType().GetProperty(rootItem.Name)?.GetValue(replay);
                 kvpResults.Add(rootItem.Name, value);
             }
 

@@ -93,7 +93,7 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">A. Lee (Etirps)</string:String>
-    <string:String x:Key="Version">Pre-Release 7</string:String>
+    <string:String x:Key="Version">Pre-Release 8</string:String>
     <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
     <string:String x:Key="GitHubLink">https://github.com/leeanchu/ReplayBook</string:String>
     <string:String x:Key="DiscordInvite">discord.gg/c33Rc5J</string:String>
@@ -242,6 +242,8 @@
     <string:String x:Key="ErdExportNullTest">Nothing selected to export</string:String>
     <string:String x:Key="ErdCsvModeText">CSV Mode</string:String>
     <string:String x:Key="ErdFailedToSave">Failed to save file</string:String>
+    <string:String x:Key="ErdSaveCompleteTitle">File Saved!</string:String>
+    <string:String x:Key="ErdSaveComplete">File "@" saved successfully</string:String>
 
     <!--Welcome Setup-->
     <string:String x:Key="WswWindowTitleText">Welcome!</string:String>
