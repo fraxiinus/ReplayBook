@@ -47,12 +47,12 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <Border Style="{DynamicResource SearchBorderStyle}"
+                    <Border Style="{StaticResource SearchBorderStyle}"
                         Grid.Column="0">
                         <TextBox x:Name="SearchBox"
                              FontSize="18"
                              BorderBrush="Transparent"
-                             Style="{DynamicResource SearchBoxStyle}"
+                             Style="{StaticResource SearchBoxStyle}"
                              KeyUp="SearchBox_KeyUp"/>
                     </Border>
 
