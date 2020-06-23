@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="30">
     <Grid>
-        <Border BorderBrush="LightGray">
+        <Border BorderBrush="{StaticResource AccentColorLight2}">
             <Border.Style>
                 <Style TargetType="Border">
                     <Style.Triggers>

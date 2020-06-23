@@ -26,7 +26,8 @@
         </Grid.ColumnDefinitions>
 
         <Border BorderThickness="0 0 1 0"
-                BorderBrush="#D4D4D4"
+                BorderBrush="{StaticResource AccentColorLight3}"
+                Background="{StaticResource BackgroundColor}"
                 Padding="0 0 5 0">
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -37,7 +38,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid x:Name="ToolPanel"
-                  Background="White"
+                  Background="Transparent"
                   DataContext="{Binding Path=SortParameters}"
                   Grid.Row="0">
                     <Grid.ColumnDefinitions>
@@ -72,27 +73,33 @@
                         Grid.Column="2">
                         <Image Source="{StaticResource SortDrawingImage}"/>
                         <Button.ContextMenu>
-                            <ContextMenu x:Name="SortMenu">
+                            <ContextMenu x:Name="SortMenu" Style="{StaticResource ContextMenuStyle}">
                                 <MenuItem x:Name="NameAsc"
-                                      Header="{StaticResource NameAsc}" 
-                                      Click="MenuItem_Click"/>
+                                          Header="{StaticResource NameAsc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
                                 <MenuItem x:Name="NameDesc"
-                                      Header="{StaticResource NameDesc}" 
-                                      Click="MenuItem_Click"/>
-                                <Separator/>
+                                          Header="{StaticResource NameDesc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
+                                <Separator Style="{StaticResource MenuSeparatorStyle}"/>
                                 <MenuItem x:Name="DateAsc"
-                                      Header="{StaticResource DateAsc}" 
-                                      Click="MenuItem_Click"/>
+                                          Header="{StaticResource DateAsc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
                                 <MenuItem x:Name="DateDesc"
-                                      Header="{StaticResource DateDesc}" 
-                                      Click="MenuItem_Click"/>
-                                <Separator/>
+                                          Header="{StaticResource DateDesc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
+                                <Separator Style="{StaticResource MenuSeparatorStyle}"/>
                                 <MenuItem x:Name="SizeAsc"
-                                      Header="{StaticResource SizeAsc}" 
-                                      Click="MenuItem_Click"/>
+                                          Header="{StaticResource SizeAsc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
                                 <MenuItem x:Name="SizeDesc"
-                                      Header="{StaticResource SizeDesc}" 
-                                      Click="MenuItem_Click"/>
+                                          Header="{StaticResource SizeDesc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>

@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Rofl.UI.Main.Utilities;
+using Rofl.UI.Main.Extensions;
 
 namespace Rofl.UI.Main
 {
@@ -126,7 +127,7 @@ namespace Rofl.UI.Main
             if (this.FindName(name) is MenuItem selectItem)
             {
                 // Select our item
-                selectItem.BorderBrush = SystemColors.HighlightBrush;
+                selectItem.BorderBrush = ResourceTools.GetColorFromResource("AccentColorLight2");
             }
         }
 
