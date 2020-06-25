@@ -445,6 +445,51 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="SettingsListBoxStyle" TargetType="{x:Type ListBox}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <Border BorderThickness="1"
+                            BorderBrush="{StaticResource AccentColorLight2}"
+                            CornerRadius="0"
+                            Background="Transparent">
+                        <ScrollViewer Margin="0"
+                                      Focusable="false">
+                            <StackPanel Margin="0"
+                                        IsItemsHost="True" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SettingsListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border BorderThickness="1"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="0"
+                            Background="{TemplateBinding Background}"
+                            Padding="5 0 0 0">
+                        <ContentPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource AccentColorLight3}"/>
+                <Setter Property="Background" Value="{StaticResource AccentColorLight3}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style> 
     
     <!--<Style x:Key="StatsDataGridStyle" TargetType="{x:Type UserControl}">
         <Setter Property="Template">
