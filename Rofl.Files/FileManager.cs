@@ -106,9 +106,10 @@ namespace Rofl.Files
             foreach(var entry in entries)
             {
                 // Files does not exist! (Technically this is the same as id, but it's more clear)
-                if (!File.Exists(entry.FileInfo.Path))
+                // or File is not part of the current source folder collection 
+                if (!File.Exists(entry.FileInfo.Path) || !_fileSystem.IsPathInSourceFolders(entry.FileInfo.Path))
                 {
-                    _log.Information($"File {entry.Id} can no longer by found, deleting from database...");
+                    _log.Information($"File {entry.Id} is no longer valid, removing from database...");
                     _db.RemoveFileResult(entry.Id);
                 }
             }
