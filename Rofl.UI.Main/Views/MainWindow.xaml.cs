@@ -199,8 +199,10 @@ namespace Rofl.UI.Main
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
+            RefreshButton.IsEnabled = false;
             context.ValidateReplayStorage();
             await context.ReloadReplayList().ConfigureAwait(true);
+            RefreshButton.IsEnabled = true;
         }
 
         private async void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
