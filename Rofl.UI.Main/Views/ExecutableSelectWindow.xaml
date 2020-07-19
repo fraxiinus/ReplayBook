@@ -41,11 +41,11 @@
         </ListBox>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 5 0 0">
             <Button x:Name="OKButton" Content="{StaticResource OKButtonText}"
-                    Width="60" Margin="0 0 5 0"
+                    Width="75" Margin="0 0 5 0"
                     Height="25"
                     Click="OKButton_Click"/>
             <Button x:Name="CancelButton" Content="{StaticResource CancelButtonText}" 
-                    Width="60"
+                    Width="75"
                     Height="25"
                     Click="CancelButton_Click"/>
         </StackPanel>
