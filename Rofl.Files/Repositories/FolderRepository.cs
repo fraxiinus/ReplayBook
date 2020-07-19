@@ -38,7 +38,7 @@ namespace Rofl.Files.Repositories
             {
                 // Grab the contents of the folder
                 DirectoryInfo dirInfo = new DirectoryInfo(folder);
-                var innerFiles = dirInfo.EnumerateFiles();
+                var innerFiles = dirInfo.EnumerateFiles("*", SearchOption.AllDirectories);
 
                 foreach (var file in innerFiles)
                 {
