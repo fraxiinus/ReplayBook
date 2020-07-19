@@ -22,7 +22,8 @@
                  Grid.Row="0"
                  Grid.ColumnSpan="2"
                  TextWrapping="Wrap"
-                 Margin="0 0 0 10"/>
+                 Margin="0 0 0 10"
+                 Style="{StaticResource TextBoxBaseStyle}"/>
 
         <StackPanel Orientation="Horizontal"
                     Grid.Column="0"
@@ -30,15 +31,15 @@
 
             <Button x:Name="SaveButton"
                 Content="{StaticResource SaveButtonText}"
-                Margin="0 0 10 0"
-                Width="70"
+                Margin="0 0 5 0"
+                Width="75"
                 Height="25"
                 Click="SaveButton_Click"/>
 
             <Button x:Name="CloseButton"
                 Content="{StaticResource CancelButtonText}"
                 Margin="0 0 0 0"
-                Width="70"
+                Width="75"
                 Height="25"
                 Click="CloseButton_Click"/>
 

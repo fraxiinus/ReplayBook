@@ -6,6 +6,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
+using System.Windows.Interop;
 
 namespace Rofl.UI.Main.Views
 {
@@ -31,6 +32,21 @@ namespace Rofl.UI.Main.Views
 
             LoadLeagueExecutable(executable);
             _isEditMode = true;
+        }
+
+        // disable maximize button
+        private void Window_SourceInitialized(object sender, EventArgs e)
+        {
+            // Change window style
+            var GWL_STYLE = -16;
+            // Maximize box flag
+            var WS_MAXIMIZEBOX = 0x10000;
+
+            var windowHandle = new WindowInteropHelper((Window)sender).Handle;
+            var value = NativeMethods.GetWindowLong(windowHandle, GWL_STYLE);
+
+            // Flip maximize box flag
+            _ = NativeMethods.SetWindowLong(windowHandle, GWL_STYLE, (int)(value & ~WS_MAXIMIZEBOX));
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
