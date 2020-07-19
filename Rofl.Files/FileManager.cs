@@ -130,5 +130,34 @@ namespace Rofl.Files
 
             return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
         }
+
+        public string RenameFile(FileResult file, string newName)
+        {
+            if (file == null) throw new ArgumentNullException(nameof(file));
+            if (String.IsNullOrEmpty(newName)) throw new ArgumentNullException(nameof(newName));
+
+            var newPath = Path.Combine(Path.GetDirectoryName(file.Id), newName + ".rofl");
+
+            _log.Information($"Renaming {file.Id} -> {newPath}");
+            // Rename the file
+            File.Move(file.Id, newPath);
+
+            // delete the database entry
+            _db.RemoveFileResult(file.Id);
+
+            // Update new values
+            var fileInfo = file.FileInfo;
+            fileInfo.Name = newName;
+            fileInfo.Path = newPath;
+
+            var replayFile = file.ReplayFile;
+            replayFile.Name = newName;
+            replayFile.Location = newPath;
+
+            var newFileResult = new FileResult(fileInfo, replayFile);
+            _db.AddFileResult(newFileResult);
+
+            return newPath;
+        }
     }
 }

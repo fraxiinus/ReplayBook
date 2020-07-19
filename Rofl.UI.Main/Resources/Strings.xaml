@@ -229,6 +229,8 @@
     <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
     <string:String x:Key="ViewOnlinePage">View Online...</string:String>
     <string:String x:Key="ExportReplayData">Export Data...</string:String>
+    <string:String x:Key="RenameReplayFile">Rename</string:String>
+    <string:String x:Key="DeleteReplayFile">Delete</string:String>
 
     <!--Replay Data Export-->
     <string:String x:Key="ErdTitleText">Export Replay Data</string:String>
@@ -289,4 +291,8 @@
     <string:String x:Key="WswFinishBody">Click "Finish" and ReplayBook will automatically start with your chosen settings.</string:String>
     <string:String x:Key="WswFinishButton">Finish</string:String>
 
+    <!--Rename dialog-->
+    <string:String x:Key="RenameDialogTitle">Rename file...</string:String>
+    <string:String x:Key="RenameDialogInvalidCharacters">A file name can't contain any of the following characters:{n}{t}\/:*?&lt;&gt;|</string:String>
+    
 </ResourceDictionary>
