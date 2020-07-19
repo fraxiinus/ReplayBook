@@ -349,8 +349,10 @@
                             
                             <TextBox x:Name="ItemCountTextBox"
                                      Width="50"
+                                     Height="25"
                                      TextAlignment="Center"
                                      VerticalAlignment="Top"
+                                     VerticalContentAlignment="Center"
                                      Text="{Binding ElementName=ItemCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
                                      Grid.Column="1"
                                      Style="{StaticResource TextBoxBaseStyle}"/>
