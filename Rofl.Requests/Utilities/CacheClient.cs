@@ -55,28 +55,15 @@ namespace Rofl.Requests.Utilities
             // Does the file already exist in that location?
             if (!File.Exists(downloadLocation))
             {
-                _log.Information($"Cache miss on {downloadLocation}");
+                // _log.Information($"Cache miss on {downloadLocation}");
                 response.IsFaulted = true;
                 response.Exception = new FileNotFoundException("Cache miss", downloadLocation);
                 return response;
             }
 
-            //// Get the image
-            //try
-            //{
-            //    response.ResponseImage = GetImageFromFile(downloadLocation);
-            //}
-            //catch (OutOfMemoryException ex)
-            //{
-            //    // If the file is not formatted as an image, return an exception
-            //    _log.Warning($"Image is not a valid format {downloadLocation}");
-            //    response.IsFaulted = true;
-            //    response.Exception = new Exception("Image is not a valid format", ex);
-            //    return response;
-            //}
-            
             response.ResponsePath = downloadLocation;
             response.IsFaulted = false;
+            response.FromCache = true;
             return response;
         }
 

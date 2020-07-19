@@ -1,13 +1,13 @@
 ﻿using Etirps.RiZhi;
+using Newtonsoft.Json.Linq;
+using Rofl.Requests.Models;
+using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using Rofl.Requests.Models;
 using System.Net.Http;
-using Newtonsoft.Json.Linq;
-using Rofl.Settings.Models;
+using System.Threading.Tasks;
 
 namespace Rofl.Requests.Utilities
 {
@@ -19,7 +19,7 @@ namespace Rofl.Requests.Utilities
         private readonly RiZhi _log;
         private readonly HttpClient _httpClient;
 
-        private const string UserAgent = @"ReplayBook/PR6 (+https://github.com/leeanchu/ReplayBook)";
+        private const string UserAgent = @"ReplayBook/PR8 (+https://github.com/leeanchu/ReplayBook)";
 
         private string LatestDataDragonVersion = null;
 
@@ -65,24 +65,28 @@ namespace Rofl.Requests.Utilities
                     DataVersion = request.DataDragonVersion,
                     Request = request,
                     IsFaulted = false,
+                    FromCache = false,
                     RequestUrl = downloadUrl,
                     ResponseDate = DateTime.Now,
-                    ResponsePath = null
+                    ResponsePath = null,
+                    ResponseBytes = null
                 };
             }
 
-            var filePath = await DownloadImage(downloadUrl, downloadLocation).ConfigureAwait(false);
+            var bytes = await DownloadImage(downloadUrl, downloadLocation).ConfigureAwait(false);
             // failed to download an image!
-            if(filePath == null)
+            if(bytes == null)
             {
                 return new ResponseBase()
                 {
                     DataVersion = request.DataDragonVersion,
                     Request = request,
                     IsFaulted = true,
+                    FromCache = false,
                     RequestUrl = downloadUrl,
                     ResponseDate = DateTime.Now,
-                    ResponsePath = null
+                    ResponsePath = null,
+                    ResponseBytes = null
                 };
             }
 
@@ -91,9 +95,11 @@ namespace Rofl.Requests.Utilities
                 DataVersion = request.DataDragonVersion,
                 Request = request,
                 IsFaulted = false,
+                FromCache = false,
                 RequestUrl = downloadUrl,
                 ResponseDate = DateTime.Now,
-                ResponsePath = filePath
+                ResponsePath = downloadLocation,
+                ResponseBytes = bytes
             };
         }
 
@@ -318,7 +324,13 @@ namespace Rofl.Requests.Utilities
             return downloadPath;
         }
 
-        private async Task<string> DownloadImage(string url, string location)
+        /// <summary>
+        /// Downloads image from url and returns bitmap
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        private async Task<byte[]> DownloadImage(string url, string location)
         {
             HttpResponseMessage response;
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
@@ -339,20 +351,18 @@ namespace Rofl.Requests.Utilities
 
             if (response.IsSuccessStatusCode)
             {
-                _log.Information($"Made successful HTTP request {url}");
-                using (var s = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+                // _log.Information($"Made successful HTTP request {url}");
+                var contentBytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+
+                // Create file directory if it does not exist
+                if (!Directory.Exists(Path.GetDirectoryName(location)))
                 {
-                    // Creates or overwrites the file
-                    if (!Directory.Exists(Path.GetDirectoryName(location)))
-                    {
-                        Directory.CreateDirectory(Path.GetDirectoryName(location));
-                    }
-                    using (var file = File.Create(location))
-                    {
-                        await s.CopyToAsync(file).ConfigureAwait(true);
-                    }
+                    Directory.CreateDirectory(Path.GetDirectoryName(location));
                 }
-                return location;
+                // Write bytes to file
+                File.WriteAllBytes(location, contentBytes);
+
+                return contentBytes;
             }
             else
             {

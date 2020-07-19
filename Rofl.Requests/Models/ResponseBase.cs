@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace Rofl.Requests.Models
 {
@@ -13,9 +14,13 @@ namespace Rofl.Requests.Models
         public string DataVersion { get; set; }
 
         public bool IsFaulted { get; set; }
+        
+        public bool FromCache { get; set; }
 
         public Exception Exception { get; set; }
 
         public RequestBase Request { get; set; }
+        
+        public byte[] ResponseBytes { get; set; }
     }
 }

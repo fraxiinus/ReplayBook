@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Rofl.UI.Main.Utilities;
+using Rofl.UI.Main.Extensions;
 
 namespace Rofl.UI.Main.ViewModels
 {
@@ -53,7 +54,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public StatusBar StatusBarModel { get; private set; }
 
-        public string LatestDataDragonVersion { get; private set; }
+        // public string LatestDataDragonVersion { get; private set; }
 
         public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, RiZhi log)
         {
@@ -135,12 +136,7 @@ namespace Rofl.UI.Main.ViewModels
             _log.Information("Loading/downloading thumbnails for items...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            if (LatestDataDragonVersion == null)
-            {
-                LatestDataDragonVersion = await RequestManager.GetDataDragonVersionAsync(null).ConfigureAwait(true);
-            }
-
-            var dataVersion = LatestDataDragonVersion;
+            var dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
 
             var allItems = new List<Item>();
             var itemTasks = new List<Task>();
@@ -154,7 +150,7 @@ namespace Rofl.UI.Main.ViewModels
                 // If an item does not exist, set it to nothing!
                 if (item.ItemId == "0")
                 {
-                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    Application.Current.Dispatcher.Invoke((Action) delegate
                     {
                         item.ShowBorder = true;
                     });
@@ -162,7 +158,7 @@ namespace Rofl.UI.Main.ViewModels
                 }
 
                 // Set default item image, to be replaced
-                Application.Current.Dispatcher.Invoke((Action)delegate
+                Application.Current.Dispatcher.Invoke((Action) delegate
                 {
                     item.ImageSource = ResourceTools.GetImageSourceFromResource("DownloadDrawingImage");
                 });
@@ -177,6 +173,7 @@ namespace Rofl.UI.Main.ViewModels
 
                     if (response.IsFaulted)
                     {
+                        _log.Warning($"Failed to load image for {(response.Request as ItemRequest).ItemID}");
                         Application.Current.Dispatcher.Invoke((Action)delegate
                         {
                             item.ImageSource = ResourceTools.GetImageSourceFromResource("ErrorDrawingImage");
@@ -184,10 +181,20 @@ namespace Rofl.UI.Main.ViewModels
                     }
                     else
                     {
-                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        if (response.FromCache)
                         {
-                            item.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
-                        });
+                            Application.Current.Dispatcher.Invoke((Action)delegate
+                            {
+                                item.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
+                            });
+                        }
+                        else
+                        {
+                            Application.Current.Dispatcher.Invoke((Action)delegate
+                            {
+                                item.ImageSource = response.ResponseBytes.ToBitmapImage();
+                            });
+                        }
                     }
 
                 }));
@@ -210,18 +217,7 @@ namespace Rofl.UI.Main.ViewModels
         {
             if (replay == null) throw new ArgumentNullException(nameof(replay));
 
-            if (LatestDataDragonVersion == null)
-            {
-                LatestDataDragonVersion = await RequestManager.GetDataDragonVersionAsync(null).ConfigureAwait(true);
-            }
-
-            var dataVersion = LatestDataDragonVersion;
-
-            // Get the correct data version for the replay version
-            if (!SettingsManager.Settings.UseMostRecent)
-            {
-                dataVersion = await RequestManager.GetDataDragonVersionAsync(replay.GameVersion).ConfigureAwait(true);
-            }
+            var dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
 
             var allPlayers = new List<PlayerPreview>();
             allPlayers.AddRange(replay.BluePreviewPlayers);
@@ -255,16 +251,27 @@ namespace Rofl.UI.Main.ViewModels
 
                     if (response.IsFaulted)
                     {
+                        _log.Warning($"Failed to load image for {(response.Request as ChampionRequest).ChampionName}");
                         Application.Current.Dispatcher.Invoke((Action)delegate
                         {
                             request.Player.ImageSource = ResourceTools.GetImageSourceFromResource("ErrorDrawingImage");
                         });
                     }
 
-                    Application.Current.Dispatcher.Invoke((Action)delegate
+                    if (response.FromCache)
                     {
-                        request.Player.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
-                    });
+                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            request.Player.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
+                        });
+                    }
+                    else
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        {
+                            request.Player.ImageSource = response.ResponseBytes.ToBitmapImage();
+                        });
+                    }
                 }));
             }
 

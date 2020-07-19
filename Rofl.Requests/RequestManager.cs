@@ -20,9 +20,15 @@ namespace Rofl.Requests
 
         private readonly RiZhi _log;
         private readonly ObservableSettings _settings;
+
+        // The cache directory
         private readonly string _cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
 
+        // Used to keep track of current tasks
         private readonly ConcurrentDictionary<string, Task<ResponseBase>> _inProgressTasks;
+
+        // Prevent unnecessary calls for data dragon version
+        private string _latestDataDragonVersion = null;
 
         public RequestManager(ObservableSettings settings, RiZhi log)
         {
@@ -120,30 +126,20 @@ namespace Rofl.Requests
         /// Given replay version string, returns appropriate DataDragon version.
         /// Only compares first two numbers.
         /// </summary>
-        public async Task<string> GetDataDragonVersionAsync(string replayVersion)
+        public async Task<string> GetLatestDataDragonVersionAsync()
         {
+            // If we have a saved data dragon version, return that instead
+            if (!String.IsNullOrEmpty(_latestDataDragonVersion) && 
+                !String.IsNullOrEmpty(_latestDataDragonVersion.VersionSubstring()))
+            {
+                return _latestDataDragonVersion;
+            }
+
             var allVersions = await _downloadClient.GetDataDragonVersionStringsAsync().ConfigureAwait(true);
 
-            // Return most recent patch number
-            if (_settings.UseMostRecent || string.IsNullOrEmpty(replayVersion))
-            {
-                return allVersions.FirstOrDefault();
-            }
+            _latestDataDragonVersion = allVersions.FirstOrDefault();
 
-            var versionRef = replayVersion.VersionSubstring();
-            if (string.IsNullOrEmpty(versionRef))
-            {
-                var errorMsg = $"Replay version: \"{replayVersion}\" is not valid";
-                _log.Error(errorMsg);
-                throw new ArgumentException(errorMsg);
-            }
-
-            var versionQueryResult = (from version in allVersions
-                where version.StartsWith(versionRef, StringComparison.OrdinalIgnoreCase)
-                select version).FirstOrDefault();
-
-            // If it still returns no results, return default (maybe error?)
-            return string.IsNullOrEmpty(versionQueryResult) ? allVersions.First() : versionQueryResult;
+            return _latestDataDragonVersion;
         }
 
         public async Task<IEnumerable<ChampionRequest>> GetAllChampionRequests()
