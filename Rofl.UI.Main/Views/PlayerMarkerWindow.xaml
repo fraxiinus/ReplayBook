@@ -27,6 +27,7 @@
                      VerticalContentAlignment="Top"
                      Height="75"
                      Padding="2"
+                     TextWrapping="WrapWithOverflow"
                      Style="{StaticResource TextBoxBaseStyle}"/>
 
             <TextBlock Text="{StaticResource PlayerMarkerColorLabelText}"/>
