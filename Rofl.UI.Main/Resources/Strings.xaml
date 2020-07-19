@@ -40,6 +40,7 @@
     <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
     <string:String x:Key="PlayerMarkerWindowText">Player Marker</string:String>
     <string:String x:Key="PlayerMarkerNameLabelText">Player Name</string:String>
+    <string:String x:Key="PlayerMarkerNoteLabelText">Note</string:String>
     <string:String x:Key="PlayerMarkerColorLabelText">Marker Color</string:String>
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">Marker for player name "$" already exists</string:String>
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorTitle">Marker already exists</string:String>
