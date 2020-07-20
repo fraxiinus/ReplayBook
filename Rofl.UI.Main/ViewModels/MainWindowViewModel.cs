@@ -584,5 +584,19 @@ namespace Rofl.UI.Main.ViewModels
                 }
             }
         }
+
+        public async Task DeleteReplayFile(ReplayPreview preview)
+        {
+            if (preview == null) throw new ArgumentNullException(nameof(preview));
+
+            _fileManager.DeleteFile(FileResults[preview.Location]);
+
+            await ReloadReplayList().ConfigureAwait(false);
+        }
+
+        public void ClearDeletedReplays()
+        {
+            _fileManager.ClearDeletedFiles();
+        }
     }
 }

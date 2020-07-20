@@ -220,6 +220,10 @@ namespace Rofl.UI.Main
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+
+            context.ClearDeletedReplays();
+
             _settingsManager.TemporaryValues["WindowHeight"] = this.Height;
             _settingsManager.TemporaryValues["WindowWidth"] = this.Width;
             _settingsManager.TemporaryValues["WindowLeft"] = this.Left;
@@ -227,6 +231,7 @@ namespace Rofl.UI.Main
             _settingsManager.TemporaryValues["WindowMaximized"] = (this.WindowState == WindowState.Maximized);
 
             _settingsManager.SaveTemporaryValues();
+
             _log.WriteLog();
         }
 
