@@ -18,9 +18,19 @@
                      Margin="0 5 0 5" 
                      VerticalContentAlignment="Center"
                      Height="25"
-                     Padding="2"/>
-            <TextBlock Text="{StaticResource PlayerMarkerColorLabelText}"/>
+                     Padding="2"
+                     Style="{StaticResource TextBoxBaseStyle}"/>
 
+            <TextBlock Text="{StaticResource PlayerMarkerNoteLabelText}"/>
+            <TextBox x:Name="NoteTextBox"
+                     Margin="0 5 0 5" 
+                     VerticalContentAlignment="Top"
+                     Height="75"
+                     Padding="2"
+                     TextWrapping="WrapWithOverflow"
+                     Style="{StaticResource TextBoxBaseStyle}"/>
+
+            <TextBlock Text="{StaticResource PlayerMarkerColorLabelText}"/>
             <controls:ColorPicker x:Name="MarkerColorPicker"/>
             
         </StackPanel>
@@ -30,12 +40,12 @@
                     Margin="0 10 0 0"
                     DockPanel.Dock="Bottom">
             <Button x:Name="SaveButton" Content="{StaticResource SaveButtonText}"
-                    Width="70"
-                    Margin="0 0 10 0"
+                    Width="75"
+                    Margin="0 0 5 0"
                     Height="25"
                     Click="SaveButton_Click"/>
             <Button x:Name="CancelButton" Content="{StaticResource CancelButtonText}"
-                    Width="70"
+                    Width="75"
                     Height="25"
                     Click="CancelButton_Click"/>
         </StackPanel>

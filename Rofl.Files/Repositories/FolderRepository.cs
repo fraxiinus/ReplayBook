@@ -4,6 +4,7 @@ using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Rofl.Files.Repositories
 {
@@ -37,7 +38,7 @@ namespace Rofl.Files.Repositories
             {
                 // Grab the contents of the folder
                 DirectoryInfo dirInfo = new DirectoryInfo(folder);
-                var innerFiles = dirInfo.EnumerateFiles();
+                var innerFiles = dirInfo.EnumerateFiles("*", SearchOption.AllDirectories);
 
                 foreach (var file in innerFiles)
                 {
@@ -78,6 +79,11 @@ namespace Rofl.Files.Repositories
                 FileSizeBytes = file.Length,
                 Name = Path.GetFileNameWithoutExtension(file.FullName)
             };
+        }
+
+        public bool IsPathInSourceFolders(string path)
+        {
+            return _settings.SourceFolders.Any(x => path.StartsWith(x, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

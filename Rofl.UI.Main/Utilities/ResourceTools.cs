@@ -20,5 +20,10 @@ namespace Rofl.UI.Main.Utilities
         {
             return BitmapFrame.Create(new Uri(path));
         }
+
+        internal static SolidColorBrush GetColorFromResource(string key)
+        {
+            return Application.Current.TryFindResource(key) as SolidColorBrush;
+        }
     }
 }

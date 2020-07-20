@@ -63,5 +63,21 @@ namespace Rofl.UI.Main.Controls
 
             context.ShowExportReplayDataWindow(replay);
         }
+
+        private async void RenameReplayFile_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
+            if (!(this.DataContext is ReplayPreview replay)) { return; }
+
+            await context.ShowRenameDialog(replay).ConfigureAwait(false);
+        }
+
+        private async void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
+            if (!(this.DataContext is ReplayPreview replay)) { return; }
+
+            await context.DeleteReplayFile(replay).ConfigureAwait(false);
+        }
     }
 }

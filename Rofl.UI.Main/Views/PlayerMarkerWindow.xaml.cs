@@ -38,6 +38,8 @@ namespace Rofl.UI.Main.Views
                 this.Title = TryFindResource("EditButtonText") as String + " " + this.Title;
                 NameTextBox.Text = _marker.Name;
 
+                NoteTextBox.Text = _marker.Note;
+
                 MarkerColorPicker.SelectedColorAsHex = _marker.Color;
             }
             else
@@ -52,6 +54,7 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is ObservableCollection<PlayerMarker> context)) { return; }
 
             string inputName = NameTextBox.Text;
+            string noteText = NoteTextBox.Text;
             string colorText = MarkerColorPicker.SelectedColorAsHex;
 
             // Validate if input information is OK
@@ -104,7 +107,8 @@ namespace Rofl.UI.Main.Views
                 var newMarker = new PlayerMarker
                 {
                     Name = inputName,
-                    Color = colorText
+                    Color = colorText,
+                    Note = noteText
                 };
                 context.Add(newMarker);
                 this.Close();
@@ -134,6 +138,7 @@ namespace Rofl.UI.Main.Views
                 // New one, add it!!!!!
                 _marker.Name = inputName;
                 _marker.Color = colorText;
+                _marker.Note = noteText;
                 this.Close();
             }
         }

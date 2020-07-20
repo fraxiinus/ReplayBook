@@ -6,38 +6,46 @@
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         mc:Ignorable="d"
         Title="Settings"
-        SizeToContent="WidthAndHeight"
         MinWidth="600"
         MinHeight="400"
+        Width="600"
+        Height="400"
         Icon="{StaticResource SettingsDrawingImage}"
         SourceInitialized="SettingsWindow_OnSourceInitialized"
+        Background="{StaticResource BackgroundColor}"
         Loaded="Window_Loaded"
         Closing="Window_Closing">
     <DockPanel Margin="5">
+        
         <ListBox x:Name="SettingsMenuListBox"
                  DockPanel.Dock="Left"
                  Width="150"
-                 BorderThickness="1"
                  Margin="0 0 5 0"
-                 SelectionChanged="SettingsMenuListBox_SelectionChanged">
+                 SelectionChanged="SettingsMenuListBox_SelectionChanged"
+                 Style="{StaticResource SettingsListBoxStyle}">
             
-            <ListBoxItem x:Name="GeneralSettingsListItem">
+            <ListBoxItem x:Name="GeneralSettingsListItem"
+                         Style="{StaticResource SettingsListBoxItemStyle}">
                 <TextBlock Text="{StaticResource GeneralSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
             
-            <ListBoxItem x:Name="ExecutablesSettingsListItem">
+            <ListBoxItem x:Name="ExecutablesSettingsListItem"
+                         Style="{StaticResource SettingsListBoxItemStyle}">
                 <TextBlock Text="{StaticResource ExecutablesSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
-            <ListBoxItem x:Name="ReplaySettingsListItem">
+            <ListBoxItem x:Name="ReplaySettingsListItem"
+                         Style="{StaticResource SettingsListBoxItemStyle}">
                 <TextBlock Text="{StaticResource ReplaySettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
-            <ListBoxItem x:Name="RequestSettingsListItem">
+            <ListBoxItem x:Name="RequestSettingsListItem"
+                         Style="{StaticResource SettingsListBoxItemStyle}">
                 <TextBlock Text="{StaticResource RequestSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
-            <ListBoxItem x:Name="AboutSettingsListItem">
+            <ListBoxItem x:Name="AboutSettingsListItem"
+                         Style="{StaticResource SettingsListBoxItemStyle}">
                 <TextBlock Text="{StaticResource AboutSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
@@ -48,11 +56,15 @@
 
             <TabControl x:Name="SettingsTabControl"
                         HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch" Style="{DynamicResource SettingsTabControlStyle}">
+                        VerticalAlignment="Stretch" 
+                        Style="{StaticResource SettingsTabControlStyle}">
                 
                 <TabItem x:Name="GeneralTabItem" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{StaticResource PlayerMarkerLabelText}" FontSize="14"/>
+                        
+                        <TextBlock Text="{StaticResource PlayerMarkerLabelText}" 
+                                   FontSize="14"
+                                   Margin="0 0 0 3"/>
 
                         <Grid HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
@@ -68,7 +80,9 @@
                                      ItemsSource="{Binding Path=Settings.KnownPlayers}"
                                      SelectionChanged="KnownPlayersListBox_SelectionChanged"
                                      MouseDoubleClick="EditKnownPlayerButton_Click"
-                                     Grid.Column="0" Grid.Row="0">
+                                     Grid.Column="0" Grid.Row="0"
+                                     Style="{StaticResource SettingsListBoxStyle}"
+                                     ItemContainerStyle="{StaticResource SettingsListBoxItemStyle}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <DockPanel>
@@ -76,7 +90,17 @@
                                                        Stroke="Black" StrokeThickness="1"
                                                        Width="10" Height="10" 
                                                        Margin="5 0 5 0"/>
-                                            <TextBlock Text="{Binding Path=Name}" DockPanel.Dock="Right"/>
+                                            <TextBlock Text="{Binding Path=Name}" 
+                                                       DockPanel.Dock="Left"
+                                                       FontSize="14"/>
+                                            <TextBlock Text="{Binding Path=Note}"
+                                                       Margin="10 0 5 0"
+                                                       DockPanel.Dock="Right"
+                                                       FontSize="14"
+                                                       TextAlignment="Right"
+                                                       Foreground="{StaticResource AccentColorLight1}"
+                                                       TextWrapping="NoWrap"
+                                                       TextTrimming="CharacterEllipsis"/>
                                         </DockPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -114,21 +138,24 @@
 
                         <TextBlock Text="{StaticResource MatchHistoryUrlLabelText}" 
                                    FontSize="14" 
-                                   Margin="0 10 0 0"/>
+                                   Margin="0 10 0 3"/>
 
                         <TextBox x:Name="MatchHistoryUrlTextBox" 
                                  Padding="2" 
                                  Margin=" 0 2 0 5"
                                  Height="25"
                                  VerticalContentAlignment="Center"
-                                 Text="{Binding Path=Settings.MatchHistoryBaseUrl}"/>
+                                 Text="{Binding Path=Settings.MatchHistoryBaseUrl}" Style="{DynamicResource TextBoxBaseStyle}"/>
 
                     </StackPanel>
                 </TabItem>
 
                 <TabItem x:Name="ExecutableTabItem" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{StaticResource ExecutableFoldersLabelText}" FontSize="14"/>
+                        
+                        <TextBlock Text="{StaticResource ExecutableFoldersLabelText}" 
+                                   FontSize="14"
+                                   Margin="0 0 0 3"/>
 
                         <Grid HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
@@ -150,7 +177,10 @@
                                      ItemsSource="{Binding Path=Executables.Settings.SourceFolders}"
                                      SelectionChanged="ExecutableFoldersListBox_SelectionChanged"
                                      MouseDoubleClick="EditExecutableFolderButton_Click"
-                                     Grid.Row="0" Grid.Column="0">
+                                     Grid.Row="0" Grid.Column="0"
+                                     Style="{StaticResource SettingsListBoxStyle}"
+                                     ItemContainerStyle="{StaticResource SettingsListBoxItemStyle}"
+                                     FontSize="14">
                             </ListBox>
 
                             <StackPanel Orientation="Vertical"
@@ -188,17 +218,21 @@
 
                             <TextBlock Text="{StaticResource ExecutablesLabelText}"
                                        FontSize="14"
-                                       Grid.Row="2" Grid.Column="0"/>
+                                       Grid.Row="2" Grid.Column="0"
+                                       Margin="0 0 0 3"/>
 
                             <ListBox x:Name="ExecutablesListBox"
-                                    Margin="0 0 0 10"
-                                    Height="100"
-                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                    ItemsSource="{Binding Path=Executables.Settings.Executables}"
-                                    HorizontalContentAlignment="Stretch"
-                                    SelectionChanged="ExecutablesListBox_SelectionChanged"
-                                    MouseDoubleClick="EditExecutableButton_Click"
-                                    Grid.Row="3" Grid.Column="0">
+                                     Margin="0 0 0 10"
+                                     Height="100"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ItemsSource="{Binding Path=Executables.Settings.Executables}"
+                                     HorizontalContentAlignment="Stretch"
+                                     SelectionChanged="ExecutablesListBox_SelectionChanged"
+                                     MouseDoubleClick="EditExecutableButton_Click"
+                                     Grid.Row="3" Grid.Column="0"
+                                     Style="{StaticResource SettingsListBoxStyle}"
+                                     ItemContainerStyle="{StaticResource SettingsListBoxItemStyle}">
+
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -209,8 +243,13 @@
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{Binding Path=Name}" Grid.Column="0"/>
-                                            <TextBlock Text="{Binding Path=PatchNumber}" Grid.Column="1"/>
+                                            <TextBlock Text="{Binding Path=Name}"
+                                                       FontSize="14"
+                                                       Grid.Column="0"/>
+                                            <TextBlock Text="{Binding Path=PatchNumber}"
+                                                       FontSize="14"
+                                                       Grid.Column="1"
+                                                       Margin="0 0 5 0"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -246,7 +285,9 @@
                 
                 <TabItem x:Name="ReplaysTabItem" Visibility="Collapsed">
                     <StackPanel>
-                        <TextBlock Text="{StaticResource SourceFoldersLabelText}" FontSize="14"/>
+                        <TextBlock Text="{StaticResource SourceFoldersLabelText}" 
+                                   FontSize="14"
+                                   Margin="0 0 0 3"/>
 
                         <Grid HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
@@ -262,11 +303,15 @@
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      ItemsSource="{Binding Path=Settings.SourceFolders}"
                                      SelectionChanged="SourceFoldersListBox_SelectionChanged"
-                                     Grid.Row="0" Grid.Column="0">
+                                     Grid.Row="0" Grid.Column="0"
+                                     Style="{StaticResource SettingsListBoxStyle}"
+                                     ItemContainerStyle="{StaticResource SettingsListBoxItemStyle}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding}" TextTrimming="CharacterEllipsis"
-                                                   ToolTip="{Binding}"/>
+                                        <TextBlock Text="{Binding}" 
+                                                   TextTrimming="CharacterEllipsis"
+                                                   ToolTip="{Binding}"
+                                                   FontSize="14"/>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -314,10 +359,13 @@
                             
                             <TextBox x:Name="ItemCountTextBox"
                                      Width="50"
+                                     Height="25"
                                      TextAlignment="Center"
                                      VerticalAlignment="Top"
+                                     VerticalContentAlignment="Center"
                                      Text="{Binding ElementName=ItemCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
-                                     Grid.Column="1"/>
+                                     Grid.Column="1"
+                                     Style="{StaticResource TextBoxBaseStyle}"/>
                         </Grid>
                     </StackPanel>
                 </TabItem>
@@ -325,36 +373,43 @@
                 <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" 
-                                   FontSize="14"/>
+                                   FontSize="14"
+                                   Margin="0 0 0 3"/>
                         <TextBox Text="{Binding Settings.DataDragonBaseUrl}" 
                                  Height="25"
                                  VerticalContentAlignment="Center"
                                  Padding="2" 
-                                 Margin=" 0 2 0 5"/>
+                                 Margin=" 0 0 0 5"
+                                 Style="{StaticResource TextBoxBaseStyle}"/>
                         <TextBlock Text="{StaticResource DataDragonChampionUrlLabelText}" 
-                                   FontSize="14"/>
+                                   FontSize="14"
+                                   Margin="0 0 0 3"/>
                         <TextBox Text="{Binding Settings.ChampionRelativeUrl}" 
                                  Height="25"
                                  VerticalContentAlignment="Center"
                                  Padding="2" 
-                                 Margin=" 0 2 0 5"/>
+                                 Margin=" 0 0 0 5"
+                                 Style="{StaticResource TextBoxBaseStyle}"/>
                         <TextBlock Text="{StaticResource DataDragonMapUrlLabelText}" 
-                                   FontSize="14"/>
+                                   FontSize="14"
+                                   Margin="0 0 0 3"/>
                         <TextBox Text="{Binding Settings.MapRelativeUrl}" 
                                  Padding="2" 
                                  Height="25"
                                  VerticalContentAlignment="Center"
-                                 Margin=" 0 2 0 5"/>
+                                 Margin=" 0 0 0 5"
+                                 Style="{StaticResource TextBoxBaseStyle}"/>
                         <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}"
-                                   FontSize="14"/>
+                                   FontSize="14"
+                                   Margin="0 0 0 3"/>
                         <TextBox Text="{Binding Settings.ItemRelativeUrl}" 
                                  Padding="2" 
                                  Height="25"
                                  VerticalContentAlignment="Center"
-                                 Margin=" 0 2 0 0"/>
-                        <CheckBox Content="{StaticResource WebRequestsUseMostRecentText}"
-                                  IsChecked="{Binding Settings.UseMostRecent}"
-                                  Margin="0 10 0 0"/>
+                                 Margin=" 0 0 0 10"
+                                 Style="{StaticResource TextBoxBaseStyle}"/>
+                        <!--<CheckBox Content="{StaticResource WebRequestsUseMostRecentText}"
+                                  IsChecked="{Binding Settings.UseMostRecent}"/>-->
 
                     </StackPanel>
                 </TabItem>
@@ -374,7 +429,8 @@
                                  BorderBrush="Transparent" 
                                  IsReadOnly="True"
                                  VerticalContentAlignment="Center"
-                                 Height="25"/>
+                                 Height="25"
+                                 Style="{StaticResource TextBoxBaseStyle}"/>
                         <TextBlock Text="{StaticResource Version}" FontSize="14" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </TabItem>

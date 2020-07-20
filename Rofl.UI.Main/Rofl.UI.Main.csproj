@@ -59,8 +59,8 @@
     <ApplicationIcon>Resources\program_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Etirps.RiZhi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Etirps.RiZhi.1.0.0\lib\netstandard2.0\Etirps.RiZhi.dll</HintPath>
+    <Reference Include="Etirps.RiZhi, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Etirps.RiZhi.1.1.0\lib\netstandard2.0\Etirps.RiZhi.dll</HintPath>
     </Reference>
     <Reference Include="LiteDB, Version=4.1.4.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.4.1.4\lib\net40\LiteDB.dll</HintPath>
@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="Converters\BoolInvertConverter.cs" />
     <Compile Include="Converters\FormatKbSizeConverter.cs" />
+    <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Models\ExportContext.cs" />
     <Compile Include="Models\ExportSelectItem.cs" />
     <Compile Include="Models\StatusBar.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Pages\WelcomeSetupReplays.xaml.cs">
       <DependentUpon>WelcomeSetupReplays.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\DictionaryExtensions.cs" />
     <Compile Include="Utilities\ResourceTools.cs" />
     <Compile Include="Views\ExecutableDetailWindow.xaml.cs">
       <DependentUpon>ExecutableDetailWindow.xaml</DependentUpon>
@@ -155,6 +157,9 @@
     </Compile>
     <Compile Include="Views\ExportReplayDataWindow.xaml.cs">
       <DependentUpon>ExportReplayDataWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RenameFileDialog.xaml.cs">
+      <DependentUpon>RenameFileDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -218,6 +223,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\WelcomeSetupReplays.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -291,6 +300,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExportReplayDataWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RenameFileDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

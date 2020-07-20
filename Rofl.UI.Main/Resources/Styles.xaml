@@ -4,10 +4,30 @@
                     xmlns:Controls="clr-namespace:Rofl.UI.Main.Controls">
 
     <Style x:Key="ToolButton" TargetType="{x:Type Button}">
-        <Setter Property="Margin" Value="0 5 5 5"/>
+        <Setter Property="Margin" Value="0 5 0 5"/>
         <Setter Property="Width" Value="30"/>
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="True"
+                            Padding="3">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     
     <Style x:Key="BaseButton" TargetType="{x:Type Button}">
@@ -51,16 +71,16 @@
         </Setter>
     </Style>
     
-    <SolidColorBrush x:Key="ListBox.Static.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ListBox.Static.Border" Color="#FFABADB3"/>
-    <SolidColorBrush x:Key="ListBox.Disabled.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ListBox.Disabled.Border" Color="#FFD9D9D9"/>
+    <SolidColorBrush x:Key="ListBox.Static.Background" Color="Yellow"/>
+    <SolidColorBrush x:Key="ListBox.Static.Border" Color="Green"/>
+    <SolidColorBrush x:Key="ListBox.Disabled.Background" Color="Red"/>
+    <SolidColorBrush x:Key="ListBox.Disabled.Border" Color="Brown"/>
     
     <Style x:Key="ReplayListStyle" TargetType="{x:Type ListView}">
-        <Setter Property="Background" Value="{StaticResource ListBox.Static.Background}"/>
-        <Setter Property="BorderBrush" Value="{StaticResource ListBox.Static.Border}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
@@ -108,6 +128,25 @@
 
     <Style x:Key="ReplayListItemStyle" TargetType="{x:Type ListViewItem}">
         <Setter Property="Padding" Value="1 1 1 1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Border CornerRadius="0" BorderThickness="1" 
+                            BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="true" />
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+                <Setter Property="Background" Value="{StaticResource AccentColorLight3}"/>
+            </MultiTrigger>
+        </Style.Triggers>
     </Style>
     
     <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
@@ -115,9 +154,8 @@
     <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
     
     <Style x:Key="SearchBoxStyle" TargetType="{x:Type TextBox}">
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -130,12 +168,13 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Grid>
                         <TextBox Text="{Binding Text, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}" 
-                                 BorderThickness="0"/>
+                                 BorderThickness="0"
+                                  Background="#3BFFFFFF"/>
                         <TextBlock HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
                                    Text="{StaticResource SearchDefaultText}"
                                    Margin="5,0,5,0"
-                                   Foreground="#FF808080"
+                                   Foreground="#FFA5ACB5"
                                    FontStyle="Italic"
                                    IsHitTestVisible="False"
                                    x:Name="UserMessage"
@@ -159,19 +198,19 @@
                     <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
                     <Condition Property="IsSelectionActive" Value="false"/>
                 </MultiTrigger.Conditions>
-                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                <Setter Property="SelectionBrush" Value="{StaticResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
             </MultiTrigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="SearchBorderStyle" TargetType="{x:Type Border}">
-        <Setter Property="BorderBrush" Value="LightGray" />
-        <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="{StaticResource AccentColor}" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Margin" Value="5"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Border.BorderBrush" Value="LightBlue" />
+                <Setter Property="Border.BorderThickness" Value="1.5" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -182,11 +221,11 @@
                 <ControlTemplate TargetType="{x:Type TabItem}">
                     <Grid>
                         <Border Name="Border" Margin="0,0,0,0" Background="Transparent"
-                  BorderBrush="Black" BorderThickness="1,1,1,1">
+                                BorderBrush="{StaticResource AccentColor}" BorderThickness="1,1,1,1">
                             <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center"
-                              HorizontalAlignment="Center"
-                              ContentSource="Header" Margin="12,2,12,2"
-                              RecognizesAccessKey="True">
+                                              HorizontalAlignment="Center"
+                                              ContentSource="Header" Margin="12,2,12,2"
+                                              RecognizesAccessKey="True">
                                 <ContentPresenter.LayoutTransform>
                                     <RotateTransform Angle="0" />
                                 </ContentPresenter.LayoutTransform>
@@ -215,8 +254,8 @@
     </Style>
     
     <Style x:Key="StatsDataGridStyle" TargetType="{x:Type DataGrid}">
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Background" Value="{StaticResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="BorderBrush" Value="#FF688CAF"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
@@ -241,7 +280,7 @@
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <Button Command="{x:Static DataGrid.SelectAllCommand}" Focusable="false" Style="{DynamicResource {ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}}" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                        <Button Command="{x:Static DataGrid.SelectAllCommand}" Focusable="false" Style="{StaticResource {ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}}" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
                                         <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" Grid.Column="1" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
                                         <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" Grid.ColumnSpan="2" Grid.Row="1" />
                                         <ScrollBar x:Name="PART_VerticalScrollBar" Grid.Column="2" Maximum="{TemplateBinding ScrollableHeight}" Orientation="Vertical" Grid.Row="1" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}"/>
@@ -280,7 +319,7 @@
         <Setter Property="Background" Value="{StaticResource TabItem.Selected.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource TabItem.Selected.Border}"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabControl}">
@@ -329,13 +368,171 @@
                             <Setter Property="Margin" TargetName="headerPanel" Value="0,2,2,2"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Border BorderThickness="1" 
+                            x:Name="Border" 
+                            Margin="0"
+                            Padding="0"
+                            Background="{StaticResource BackgroundColor}"
+                            BorderBrush="{StaticResource AccentColor}" >
+                        <StackPanel x:Name="StackPanel"
+                                    ClipToBounds="True" 
+                                    Orientation="Vertical" 
+                                    IsItemsHost="True" 
+                                    Margin="0"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MenuSeparatorStyle" TargetType="Separator">
+        <Setter Property="Height"
+                Value="1" />
+        <Setter Property="Margin"
+                Value="5,4,5,4" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Separator}">
+                    <Border BorderThickness="1" BorderBrush="{StaticResource AccentColorLight3}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="MenuItemStyle" TargetType="MenuItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="MenuItem">
+                    <Border x:Name="Border" 
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter Margin="10,3,20,3"
+                                              ContentSource="Header"
+                                              RecognizesAccessKey="True"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource AccentColor}"/>
+                <Setter Property="Background" Value="{StaticResource AccentColorLight3}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SettingsListBoxStyle" TargetType="{x:Type ListBox}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <Border BorderThickness="1"
+                            BorderBrush="{StaticResource AccentColorLight2}"
+                            CornerRadius="0"
+                            Background="Transparent">
+                        <ScrollViewer Margin="0"
+                                      Focusable="false">
+                            <StackPanel Margin="0"
+                                        IsItemsHost="True" />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SettingsListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border BorderThickness="1"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="0"
+                            Background="{TemplateBinding Background}"
+                            Padding="5 0 0 0">
+                        <ContentPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource AccentColorLight3}"/>
+                <Setter Property="Background" Value="{StaticResource AccentColorLight3}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="TextBoxBaseStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource AccentColorLight2}"/>
+        <Setter Property="Foreground" Value="{StaticResource DarkTextColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" Value="{StaticResource AccentColorLight3}"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="BorderBrush" Value="{StaticResource AccentColor}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                    <Condition Property="IsSelectionActive" Value="false"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+
     <!--<Style x:Key="StatsDataGridStyle" TargetType="{x:Type UserControl}">
         <Setter Property="Template">
             <Setter.Value>

@@ -18,6 +18,7 @@ namespace Rofl.Files
         private readonly DatabaseRepository _db;
         private readonly RiZhi _log;
         private readonly ReplayReader _reader;
+        private List<string> _deletedFiles;
 
         public FileManager(ObservableSettings settings, RiZhi log)
         {
@@ -27,6 +28,8 @@ namespace Rofl.Files
             _db = new DatabaseRepository(log);
 
             _reader = new ReplayReader(log);
+
+            _deletedFiles = new List<string>();
         }
 
         /// <summary>
@@ -106,9 +109,10 @@ namespace Rofl.Files
             foreach(var entry in entries)
             {
                 // Files does not exist! (Technically this is the same as id, but it's more clear)
-                if (!File.Exists(entry.FileInfo.Path))
+                // or File is not part of the current source folder collection 
+                if (!File.Exists(entry.FileInfo.Path) || !_fileSystem.IsPathInSourceFolders(entry.FileInfo.Path))
                 {
-                    _log.Information($"File {entry.Id} can no longer by found, deleting from database...");
+                    _log.Information($"File {entry.Id} is no longer valid, removing from database...");
                     _db.RemoveFileResult(entry.Id);
                 }
             }
@@ -128,6 +132,74 @@ namespace Rofl.Files
                 .SelectMany(element => element).ToArray();
 
             return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
+        }
+
+        public string RenameFile(FileResult file, string newName)
+        {
+            if (file == null) throw new ArgumentNullException(nameof(file));
+            if (String.IsNullOrEmpty(newName)) throw new ArgumentNullException(nameof(newName));
+
+            var newPath = Path.Combine(Path.GetDirectoryName(file.Id), newName + ".rofl");
+
+            _log.Information($"Renaming {file.Id} -> {newPath}");
+            // Rename the file
+            File.Move(file.Id, newPath);
+
+            // delete the database entry
+            _db.RemoveFileResult(file.Id);
+
+            // Update new values
+            var fileInfo = file.FileInfo;
+            fileInfo.Name = newName;
+            fileInfo.Path = newPath;
+
+            var replayFile = file.ReplayFile;
+            replayFile.Name = newName;
+            replayFile.Location = newPath;
+
+            var newFileResult = new FileResult(fileInfo, replayFile);
+            _db.AddFileResult(newFileResult);
+
+            return newPath;
+        }
+
+        /// <summary>
+        /// Doesn't actually delete, but moves it to the cache folder, in case they didnt mean to delete it
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public string DeleteFile(FileResult file)
+        {
+            if (file == null) throw new ArgumentNullException(nameof(file));
+
+            _log.Information($"Moving {file.Id} to cache folder - to be deleted when ReplayBook closes");
+
+            var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "deletedReplays");
+            Directory.CreateDirectory(newPath);
+
+            newPath = Path.Combine(newPath, file.FileInfo.Name + ".rofl");
+
+            File.Move(file.Id, newPath);
+
+            _db.RemoveFileResult(file.Id);
+
+            _deletedFiles.Add(newPath);
+            return newPath;
+        }
+
+        public void ClearDeletedFiles()
+        {
+            foreach (var file in _deletedFiles)
+            {
+                _log.Information($"Deleting file {file}");
+
+                if (File.Exists(file))
+                {
+                    File.Delete(file);
+                }
+            }
+
+            _deletedFiles.Clear();
         }
     }
 }

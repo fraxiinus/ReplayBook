@@ -11,7 +11,7 @@ namespace Rofl.UI.Main.Models
         public PlayerPreview(Player player)
         {
             if (player == null) { throw new ArgumentNullException(nameof(player)); }
-            
+
             ChampionName = player.SKIN;
             PlayerName = player.NAME;
             marker = null;
@@ -28,7 +28,7 @@ namespace Rofl.UI.Main.Models
 
         private PlayerMarker marker;
         public PlayerMarker Marker
-        { 
+        {
             get => marker;
             set
             {
@@ -41,17 +41,34 @@ namespace Rofl.UI.Main.Models
         }
 
         private ImageSource imgSrc;
-        public ImageSource ImageSource 
+        public ImageSource ImageSource
         {
             get => imgSrc;
-            set 
+            set
             {
                 imgSrc = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(ImageSource)));
-            } 
+            }
         }
 
-        public string CombinedName => $"{PlayerName} - {ChampionName}";
+        public string CombinedName
+        {
+            get
+            {
+                if (Marker == null)
+                {
+                    return $"{PlayerName} - {ChampionName}";
+                }
+                else if (String.IsNullOrWhiteSpace(Marker.Note))
+                {
+                    return $"{PlayerName} - {ChampionName}";
+                }
+                else
+                {
+                    return $"{PlayerName} - {ChampionName}\n{Marker.Note}";
+                }
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@
         MinWidth="1150"
         Height="655" 
         Width="1150"
+        Loaded="MainWindow_OnLoaded"
         Closing="MainWindow_OnClosing">
 
     <Grid>
@@ -23,135 +24,145 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            
-            <Grid x:Name="ToolPanel"
-                  Background="WhiteSmoke"
+
+        <Border BorderThickness="0 0 1 0"
+                BorderBrush="{StaticResource AccentColorLight3}"
+                Background="{StaticResource BackgroundColor}"
+                Padding="0 0 5 0">
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="ToolPanel"
+                  Background="Transparent"
                   DataContext="{Binding Path=SortParameters}"
                   Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <Border Style="{DynamicResource SearchBorderStyle}"
+                    <Border Style="{StaticResource SearchBorderStyle}"
                         Grid.Column="0">
-                    <TextBox x:Name="SearchBox"
+                        <TextBox x:Name="SearchBox"
                              FontSize="18"
                              BorderBrush="Transparent"
-                             Style="{DynamicResource SearchBoxStyle}"
+                             Style="{StaticResource SearchBoxStyle}"
                              KeyUp="SearchBox_KeyUp"/>
-                </Border>
+                    </Border>
 
-                <Button x:Name="RefreshButton"
+                    <Button x:Name="RefreshButton"
                         ToolTip="{StaticResource RefreshToolTip}"
                         Style="{StaticResource ToolButton}"
                         Click="RefreshButton_Click"
                         Grid.Column="1">
-                    <Image Source="{StaticResource RefreshDrawingImage}"/>
-                </Button>
+                        <Image Source="{StaticResource RefreshDrawingImage}"/>
+                    </Button>
 
-                <Button x:Name="SortButton"
+                    <Button x:Name="SortButton"
                         ToolTip="{StaticResource SortToolTip}"
                         Style="{StaticResource ToolButton}"
                         ContextMenuService.Placement="Bottom"
                         Click="SortButton_Click"
                         Grid.Column="2">
-                    <Image Source="{StaticResource SortDrawingImage}"/>
-                    <Button.ContextMenu>
-                        <ContextMenu x:Name="SortMenu">
-                            <MenuItem x:Name="NameAsc"
-                                      Header="{StaticResource NameAsc}" 
-                                      Click="MenuItem_Click"/>
-                            <MenuItem x:Name="NameDesc"
-                                      Header="{StaticResource NameDesc}" 
-                                      Click="MenuItem_Click"/>
-                            <Separator/>
-                            <MenuItem x:Name="DateAsc"
-                                      Header="{StaticResource DateAsc}" 
-                                      Click="MenuItem_Click"/>
-                            <MenuItem x:Name="DateDesc"
-                                      Header="{StaticResource DateDesc}" 
-                                      Click="MenuItem_Click"/>
-                            <Separator/>
-                            <MenuItem x:Name="SizeAsc"
-                                      Header="{StaticResource SizeAsc}" 
-                                      Click="MenuItem_Click"/>
-                            <MenuItem x:Name="SizeDesc"
-                                      Header="{StaticResource SizeDesc}" 
-                                      Click="MenuItem_Click"/>
-                        </ContextMenu>
-                    </Button.ContextMenu>
-                </Button>
+                        <Image Source="{StaticResource SortDrawingImage}"/>
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="SortMenu" Style="{StaticResource ContextMenuStyle}">
+                                <MenuItem x:Name="NameAsc"
+                                          Header="{StaticResource NameAsc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
+                                <MenuItem x:Name="NameDesc"
+                                          Header="{StaticResource NameDesc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
+                                <Separator Style="{StaticResource MenuSeparatorStyle}"/>
+                                <MenuItem x:Name="DateAsc"
+                                          Header="{StaticResource DateAsc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
+                                <MenuItem x:Name="DateDesc"
+                                          Header="{StaticResource DateDesc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
+                                <Separator Style="{StaticResource MenuSeparatorStyle}"/>
+                                <MenuItem x:Name="SizeAsc"
+                                          Header="{StaticResource SizeAsc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
+                                <MenuItem x:Name="SizeDesc"
+                                          Header="{StaticResource SizeDesc}" 
+                                          Click="MenuItem_Click"
+                                          Style="{StaticResource MenuItemStyle}"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
 
-                <Button x:Name="SettingsButton"
+                    <Button x:Name="SettingsButton"
                         ToolTip="{StaticResource SettingsToolTip}"
                         Style="{StaticResource ToolButton}"
                         Click="SettingsButton_Click"
                         Grid.Column="3">
-                    <Image Source="{StaticResource SettingsDrawingImage}"/>
-                </Button>
+                        <Image Source="{StaticResource SettingsDrawingImage}"/>
+                    </Button>
 
-            </Grid>
+                </Grid>
 
-            <Grid x:Name="ReplayStatusBar"
+                <Grid x:Name="ReplayStatusBar"
                   Background="{Binding Path=StatusBarModel.Color}"
                   HorizontalAlignment="Stretch"
                   Grid.Row="1">
-                <Grid.Style>
-                    <Style TargetType="Grid">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=StatusBarModel.Visible}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=StatusBarModel.Visible}" Value="False">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <ProgressBar IsIndeterminate="true"
-                             Grid.Row="0"
-                             Height="5">
-                    <ProgressBar.Style>
-                        <Style TargetType="ProgressBar">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=StatusBarModel.ShowProgressBar}" Value="true">
+                                <DataTrigger Binding="{Binding Path=StatusBarModel.Visible}" Value="True">
                                     <Setter Property="Visibility" Value="Visible"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Path=StatusBarModel.ShowProgressBar}" Value="false">
+                                <DataTrigger Binding="{Binding Path=StatusBarModel.Visible}" Value="False">
                                     <Setter Property="Visibility" Value="Collapsed"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </ProgressBar.Style>
-                </ProgressBar>
-                <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage}"
+                    </Grid.Style>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ProgressBar IsIndeterminate="true"
+                             Grid.Row="0"
+                             Height="5">
+                        <ProgressBar.Style>
+                            <Style TargetType="ProgressBar">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=StatusBarModel.ShowProgressBar}" Value="true">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=StatusBarModel.ShowProgressBar}" Value="false">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ProgressBar.Style>
+                    </ProgressBar>
+                    <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage}"
                            TextAlignment="Center"
                            FontSize="14"
                            VerticalAlignment="Center" 
                            Grid.Column="0"
                            Grid.Row="1"
                            Padding="1"/>
-            </Grid>
-            
-            <ListView x:Name="ReplayListView"
+                </Grid>
+
+                <ListView x:Name="ReplayListView"
                       Style="{StaticResource ReplayListStyle}"
                       ItemsSource="{Binding Path=PreviewReplays}"
                       ItemContainerStyle="{StaticResource ReplayListItemStyle}"
@@ -161,33 +172,32 @@
                       ScrollViewer.ScrollChanged="ReplayListView_ScrollChanged"
                       SelectionChanged="ReplayListView_SelectionChanged"
                       Grid.Row="2">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <controls:ReplayItemControl/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <controls:ReplayItemControl/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-            <Grid x:Name="ReplayPageBar"
+                <Grid x:Name="ReplayPageBar"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Bottom"
                   Grid.Row="3"
                   Visibility="Collapsed">
-                <Button x:Name="LoadMoreButton"
+                    <Button x:Name="LoadMoreButton"
                         Content="{StaticResource LoadMoreButtonText}"
                         FontSize="14"
                         Padding="2"
                         Style="{StaticResource BaseButton}"
                         Click="LoadMoreButton_Click"/>
+                </Grid>
             </Grid>
-
-        </Grid>
-
+        </Border>
+        
         <controls:ReplayDetailControl x:Name="DetailView"
                                       Grid.Column="1"
                                       HorizontalContentAlignment="Stretch"
                                       HorizontalAlignment="Stretch"/>
-
     </Grid>
     
 </Window>

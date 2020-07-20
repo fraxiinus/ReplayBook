@@ -15,6 +15,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Rofl.UI.Main.Utilities;
+using Rofl.UI.Main.Extensions;
 
 namespace Rofl.UI.Main
 {
@@ -38,10 +40,16 @@ namespace Rofl.UI.Main
                 _log.WriteLog();
             };
 
+            var assemblyName = Assembly.GetEntryAssembly()?.GetName();
+
             _log = new RiZhi()
             {
-                FilePrefix = "ReplayBookLog"
+                FilePrefix = "ReplayBookLog",
+                AssemblyName = assemblyName.Name,
+                AssemblyVersion = assemblyName.Version.ToString(2)
             };
+
+            _log.Error($"Log files are generated for each run while in prerelease");
 
             _settingsManager = new SettingsManager(_log);
 
@@ -51,12 +59,30 @@ namespace Rofl.UI.Main
             var context = new MainWindowViewModel(_files, _requests, _settingsManager, _log);
             this.DataContext = context;
 
-            var version = Assembly.GetEntryAssembly()?.GetName().Version.ToString(2); 
-            _log.Error($"Log files are generated for each run while in prerelease. Prerelease version: {version}");
-
             // Decide to show welcome window
             context.ShowWelcomeWindow();
             context.ShowMissingReplayFoldersMessageBox();
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var values = _settingsManager.TemporaryValues;
+
+            if (values.TryGetDouble("WindowHeight", out double savedHeight) &&
+                values.TryGetDouble("WindowWidth", out double savedWidth) &&
+                values.TryGetDouble("WindowLeft", out double savedLeft) &&
+                values.TryGetDouble("WindowTop", out double savedTop) &&
+                values.TryGetBool("WindowMaximized", out bool savedMaximized))
+            {
+                this.Height = savedHeight;
+                this.Width = savedWidth;
+                this.Left = savedLeft;
+                this.Top = savedTop;
+                if (savedMaximized)
+                {
+                    this.WindowState = WindowState.Maximized;
+                }
+            }
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
@@ -101,7 +127,7 @@ namespace Rofl.UI.Main
             if (this.FindName(name) is MenuItem selectItem)
             {
                 // Select our item
-                selectItem.BorderBrush = SystemColors.HighlightBrush;
+                selectItem.BorderBrush = ResourceTools.GetColorFromResource("AccentColorLight2");
             }
         }
 
@@ -173,8 +199,10 @@ namespace Rofl.UI.Main
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
+            RefreshButton.IsEnabled = false;
             context.ValidateReplayStorage();
             await context.ReloadReplayList().ConfigureAwait(true);
+            RefreshButton.IsEnabled = true;
         }
 
         private async void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -192,7 +220,20 @@ namespace Rofl.UI.Main
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+
+            context.ClearDeletedReplays();
+
+            _settingsManager.TemporaryValues["WindowHeight"] = this.Height;
+            _settingsManager.TemporaryValues["WindowWidth"] = this.Width;
+            _settingsManager.TemporaryValues["WindowLeft"] = this.Left;
+            _settingsManager.TemporaryValues["WindowTop"] = this.Top;
+            _settingsManager.TemporaryValues["WindowMaximized"] = (this.WindowState == WindowState.Maximized);
+
+            _settingsManager.SaveTemporaryValues();
+
             _log.WriteLog();
         }
+
     }
 }

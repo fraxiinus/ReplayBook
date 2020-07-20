@@ -50,7 +50,14 @@ namespace Rofl.Executables
             // Refresh all known executables versions
             foreach (var executable in Settings.Executables)
             {
-                UpdateExecutableVersion(executable);
+                if (File.Exists(executable.TargetPath))
+                {
+                    UpdateExecutableVersion(executable);
+                }
+                else
+                {
+                    _log.Warning($"Target for executable '{executable.Name}' does not exist");
+                }
             }
         }
 
@@ -226,6 +233,7 @@ namespace Rofl.Executables
 
             var currentVersion = ExeTools.GetLeagueVersion(executable.TargetPath);
 
+            _log.Information($"Checking executable \'{executable.Name}\' for updates...");
             if (!executable.PatchNumber.Equals(currentVersion, StringComparison.OrdinalIgnoreCase))
             {
                 _log.Information($"Updating executable {executable.Name} from {executable.PatchNumber} -> {currentVersion}");

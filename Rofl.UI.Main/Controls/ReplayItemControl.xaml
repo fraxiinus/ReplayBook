@@ -7,21 +7,33 @@
              mc:Ignorable="d" 
              d:DesignHeight="85" d:DesignWidth="350">
 
-    <DockPanel Background="White"
+    <DockPanel Background="Transparent"
                LastChildFill="False"
                Height="85" Width="350"
                MouseRightButtonUp="UIElement_OnMouseRightButtonUp">
         <DockPanel.ContextMenu>
             <ContextMenu x:Name="DockPanelReplayContextMenu"
-                         Placement="Bottom">
+                         Placement="Bottom"
+                         Style="{StaticResource ContextMenuStyle}">
                 <MenuItem Header="{StaticResource OpenContainingFolder}" 
-                          Click="OpenContainingFolder_Click"/>
+                          Click="OpenContainingFolder_Click"
+                          Style="{StaticResource MenuItemStyle}"/>
 
                 <MenuItem Header="{StaticResource ViewOnlinePage}"
-                          Click="ViewOnlineMatchHistory_Click"/>
+                          Click="ViewOnlineMatchHistory_Click"
+                          Style="{StaticResource MenuItemStyle}"/>
 
                 <MenuItem Header="{StaticResource ExportReplayData}"
-                          Click="ExportReplayData_OnClick"/>
+                          Click="ExportReplayData_OnClick"
+                          Style="{StaticResource MenuItemStyle}"/>
+
+                <MenuItem Header="{StaticResource RenameReplayFile}"
+                          Click="RenameReplayFile_OnClick"
+                          Style="{StaticResource MenuItemStyle}"/>
+
+                <MenuItem Header="{StaticResource DeleteReplayFile}"
+                          Click="DeleteReplayFile_OnClick"
+                          Style="{StaticResource MenuItemStyle}"/>
             </ContextMenu>
         </DockPanel.ContextMenu>
 
@@ -187,18 +199,32 @@
 
                 <Button.ContextMenu>
                     <ContextMenu x:Name="ReplayContextMenu"
-                                 Placement="Bottom">
+                                 Placement="Bottom"
+                                 Style="{StaticResource ContextMenuStyle}">
                         <MenuItem x:Name="OpenContainingFolder"
                                   Header="{StaticResource OpenContainingFolder}" 
-                                  Click="OpenContainingFolder_Click"/>
+                                  Click="OpenContainingFolder_Click"
+                                  Style="{StaticResource MenuItemStyle}"/>
 
                         <MenuItem x:Name="ViewOnlineMatchHistory"
                                   Header="{StaticResource ViewOnlinePage}"
-                                  Click="ViewOnlineMatchHistory_Click"/>
+                                  Click="ViewOnlineMatchHistory_Click"
+                                  Style="{StaticResource MenuItemStyle}"/>
 
                         <MenuItem x:Name="ExportReplayData"
                                   Header="{StaticResource ExportReplayData}"
-                                  Click="ExportReplayData_OnClick"/>
+                                  Click="ExportReplayData_OnClick"
+                                  Style="{StaticResource MenuItemStyle}"/>
+
+                        <MenuItem x:Name="RenameReplayFile"
+                                  Header="{StaticResource RenameReplayFile}"
+                                  Click="RenameReplayFile_OnClick"
+                                  Style="{StaticResource MenuItemStyle}"/>
+
+                        <MenuItem x:Name="DeleteReplayFile"
+                                  Header="{StaticResource DeleteReplayFile}"
+                                  Click="DeleteReplayFile_OnClick"
+                                  Style="{StaticResource MenuItemStyle}"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

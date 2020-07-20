@@ -209,7 +209,7 @@
 
             <TabControl x:Name="DetailTabControl"
                         BorderThickness="0 1 0 0"
-                        BorderBrush="Black"
+                        BorderBrush="{StaticResource AccentColor}"
                         Grid.Row="1"
                         SelectionChanged="TabControl_SelectionChanged">
                 <TabItem Header="{StaticResource ScoreboardTabText}"

@@ -34,5 +34,17 @@ namespace Rofl.Settings.Models
             }
         }
 
+        private string _note;
+        [JsonProperty("note")]
+        public string Note 
+        { 
+            get { return _note; }
+            set
+            {
+                _note = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(Note)));
+            }
+        }
     }
 }

@@ -40,6 +40,7 @@
     <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
     <string:String x:Key="PlayerMarkerWindowText">Player Marker</string:String>
     <string:String x:Key="PlayerMarkerNameLabelText">Player Name</string:String>
+    <string:String x:Key="PlayerMarkerNoteLabelText">Note</string:String>
     <string:String x:Key="PlayerMarkerColorLabelText">Marker Color</string:String>
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">Marker for player name "$" already exists</string:String>
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorTitle">Marker already exists</string:String>
@@ -93,7 +94,7 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">A. Lee (Etirps)</string:String>
-    <string:String x:Key="Version">Pre-Release 7</string:String>
+    <string:String x:Key="Version">Pre-Release 8</string:String>
     <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
     <string:String x:Key="GitHubLink">https://github.com/leeanchu/ReplayBook</string:String>
     <string:String x:Key="DiscordInvite">discord.gg/c33Rc5J</string:String>
@@ -228,6 +229,8 @@
     <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
     <string:String x:Key="ViewOnlinePage">View Online...</string:String>
     <string:String x:Key="ExportReplayData">Export Data...</string:String>
+    <string:String x:Key="RenameReplayFile">Rename</string:String>
+    <string:String x:Key="DeleteReplayFile">Delete</string:String>
 
     <!--Replay Data Export-->
     <string:String x:Key="ErdTitleText">Export Replay Data</string:String>
@@ -242,6 +245,8 @@
     <string:String x:Key="ErdExportNullTest">Nothing selected to export</string:String>
     <string:String x:Key="ErdCsvModeText">CSV Mode</string:String>
     <string:String x:Key="ErdFailedToSave">Failed to save file</string:String>
+    <string:String x:Key="ErdSaveCompleteTitle">File Saved!</string:String>
+    <string:String x:Key="ErdSaveComplete">File "@" saved successfully</string:String>
 
     <!--Welcome Setup-->
     <string:String x:Key="WswWindowTitleText">Welcome!</string:String>
@@ -286,4 +291,8 @@
     <string:String x:Key="WswFinishBody">Click "Finish" and ReplayBook will automatically start with your chosen settings.</string:String>
     <string:String x:Key="WswFinishButton">Finish</string:String>
 
+    <!--Rename dialog-->
+    <string:String x:Key="RenameDialogTitle">Rename file...</string:String>
+    <string:String x:Key="RenameDialogInvalidCharacters">A file name can't contain any of the following characters:{n}{t}\/:*?&lt;&gt;|</string:String>
+    
 </ResourceDictionary>
