@@ -561,7 +561,7 @@ namespace Rofl.UI.Main.ViewModels
                 );
             }
         }
-
+      
         public async Task ShowRenameDialog(ReplayPreview preview)
         {
             if (preview == null) throw new ArgumentNullException(nameof(preview));

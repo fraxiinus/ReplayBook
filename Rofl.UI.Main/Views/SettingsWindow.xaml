@@ -232,6 +232,7 @@
                                      Grid.Row="3" Grid.Column="0"
                                      Style="{StaticResource SettingsListBoxStyle}"
                                      ItemContainerStyle="{StaticResource SettingsListBoxItemStyle}">
+
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>

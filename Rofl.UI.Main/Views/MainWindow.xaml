@@ -198,7 +198,6 @@
                                       Grid.Column="1"
                                       HorizontalContentAlignment="Stretch"
                                       HorizontalAlignment="Stretch"/>
-
     </Grid>
     
 </Window>
