@@ -12,7 +12,8 @@
         Icon="{StaticResource SettingsDrawingImage}"
         SourceInitialized="Window_SourceInitialized"
         Loaded="Window_Loaded">
-    <DockPanel Margin="10">
+    <DockPanel Margin="10"
+               LastChildFill="False">
         <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
 
             <TextBlock Text="{StaticResource ExecutableDetailTargetPath}"/>
