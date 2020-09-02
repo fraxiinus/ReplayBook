@@ -2,7 +2,7 @@
 
 ![Screenshot](https://i.imgur.com/wbnETCQ.png "Preview Image")
 
-[![Build_Master](https://github.com/leeanchu/ReplayBook/workflows/Build_Master/badge.svg)](https://github.com/leeanchu/ReplayBook/actions?query=workflow%3ABuild_Master)
+[![Build](https://github.com/leeanchu/ReplayBook/workflows/Build/badge.svg)](https://github.com/leeanchu/ReplayBook/actions?query=workflow%3ABuild)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/leeanchu/ROFL-Player/blob/master/LICENSE)
 [![Discord](https://img.shields.io/discord/606263917211156501?color=blue&label=chat&logo=discord&style=social)](https://discord.gg/c33Rc5J)
 
