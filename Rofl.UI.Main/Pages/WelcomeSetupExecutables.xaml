@@ -8,121 +8,185 @@
       xmlns:exemodels="clr-namespace:Rofl.Executables.Models;assembly=Rofl.Executables"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="WelcomeSetupExecutables"
-      Loaded="WelcomeSetupExecutables_OnLoaded">
+      Title="WelcomeSetupExecutables">
 
     <Border Padding="10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="{StaticResource WswExecutablesTitle}"
-                       FontSize="24"
-                       Margin="0 0 0 5"
-                       Grid.Row="0"/>
 
-            <TextBlock Text="{StaticResource WswExecutablesBody}"
-                       FontSize="16"
-                       TextWrapping="Wrap"
-                       Grid.Row="1"
-                       Margin="0 0 0 20"/>
-
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="BrowseExecutablesButton" 
-                        Content="{StaticResource BrowseButtonText}"
-                        Click="BrowseExecutablesButton_OnClick"
-                        Width="80"
-                        Height="25"
-                        HorizontalAlignment="Left"
-                        Grid.Column="0"
-                        Grid.Row="0"/>
-
-                <TextBlock x:Name="BrowseButtonHintText"
-                           Text="{StaticResource WswExecutablesHint}"
-                           FontStyle="Italic"
-                           VerticalAlignment="Center"
-                           Margin="10 0 0 0"
-                           Grid.Row="0"
-                           Grid.Column="1"/>
-            </Grid>
-
-            <Grid Margin="20 20 20 0"
-                  Grid.Row="3">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="{StaticResource WswExecutablesRegisterList}"
+                <TextBlock Text="{StaticResource WswExecutablesTitle}"
+                           FontSize="24"
                            Margin="0 0 0 5"
                            Grid.Row="0"/>
-                <ListBox Grid.Row="1"
-                         Name="ExecutablesPreviewListBox"
-                         Height="100"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="exemodels:LeagueExecutable">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Path=PatchNumber}"
-                                           Grid.Column="0"/>
-                                <TextBlock Text="{Binding Path=TargetPath}"
-                                           ToolTip="{Binding Path=TargetPath}"
-                                           HorizontalAlignment="Left"
-                                           TextTrimming="CharacterEllipsis"
-                                           Grid.Column="1"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <TextBlock x:Name="ExecutablesEmptyTextBlock"
-                           Text="{StaticResource WswExecutablesRegisterListEmpty}"
+
+                <TextBlock Text="{StaticResource WswExecutablesBody}"
+                           FontSize="16"
+                           TextWrapping="Wrap"
                            Grid.Row="1"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"/>
+                           Margin="0 0 0 20"/>
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BrowseExecutablesButton" 
+                            Content="{StaticResource BrowseButtonText}"
+                            Click="BrowseExecutablesButton_OnClick"
+                            Width="80"
+                            Height="25"
+                            HorizontalAlignment="Left"
+                            Grid.Column="0"
+                            Grid.Row="0"/>
+
+                    <TextBlock x:Name="BrowseButtonHintText"
+                               Text="{StaticResource WswExecutablesHint}"
+                               FontStyle="Italic"
+                               VerticalAlignment="Center"
+                               Margin="10 0 0 0"
+                               Grid.Row="0"
+                               Grid.Column="1"/>
+                </Grid>
+
+                <Grid Margin="20 20 20 0"
+                      Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{StaticResource WswExecutablesRegisterList}"
+                               Margin="0 0 0 5"
+                               Grid.Row="0"/>
+                    <ListBox Grid.Row="1"
+                             Name="ExecutablesPreviewListBox"
+                             Height="100"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="exemodels:LeagueExecutable">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Path=PatchNumber}"
+                                               Grid.Column="0"/>
+                                    <TextBlock Text="{Binding Path=TargetPath}"
+                                               ToolTip="{Binding Path=TargetPath}"
+                                               HorizontalAlignment="Left"
+                                               TextTrimming="CharacterEllipsis"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock x:Name="ExecutablesEmptyTextBlock"
+                               Text="{StaticResource WswExecutablesRegisterListEmpty}"
+                               Grid.Row="1"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Grid>
             </Grid>
 
-            <!--<Grid Grid.Row="4">
+            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
-                <TextBlock Text="{StaticResource WswNextHint}"
-                           VerticalAlignment="Bottom"
-                           FontStyle="Italic"
-                           Margin="0 0 5 0"/>
-
-                <Image Source="{StaticResource BackArrowDrawingImage}" 
-                       Width="10"
-                       Margin="0 0 0 1"
-                       VerticalAlignment="Bottom"
-                       HorizontalAlignment="Left"
-                       RenderTransformOrigin="0.5,0.5"
-                       RenderOptions.BitmapScalingMode="HighQuality"
-                       Grid.Column="1">
-                    <Image.RenderTransform>
-                        <ScaleTransform ScaleX="-1"/>
-                    </Image.RenderTransform>
-                </Image>
-
-            </Grid>-->
+                <Button x:Name="PreviousButton"
+                        Style="{StaticResource ToolButton}"
+                        Grid.Column="0"
+                        Width="75"
+                        Height="25"
+                        Margin="0 0 5 0"
+                        Padding="5"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        HorizontalContentAlignment="Stretch"
+                        Click="PreviousButton_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="{StaticResource BackArrowDrawingImage}"
+                               Width="12"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="{StaticResource WswPreviousText}"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="NextButton"
+                        Grid.Column="1"
+                        Style="{StaticResource ToolButton}"
+                        Width="75"
+                        Height="25"
+                        Margin="0 0 5 0"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        HorizontalContentAlignment="Stretch"
+                        Click="NextButton_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="{StaticResource WswNextText}"/>
+                        <Image Grid.Column="1"
+                               Source="{StaticResource BackArrowDrawingImage}" 
+                               Width="12"
+                               RenderTransformOrigin="0.5,0.5"
+                               RenderOptions.BitmapScalingMode="HighQuality">
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="-1"/>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+                </Button>
+                <Button x:Name="SkipButton"
+                        Grid.Column="2"
+                        Style="{StaticResource ToolButton}"
+                        Width="50"
+                        Height="25"
+                        Padding="5"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        HorizontalContentAlignment="Stretch"
+                        Click="SkipButton_Click">
+                    <Grid>
+                        <TextBlock VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="{StaticResource WswSkipText}"/>
+                    </Grid>
+                </Button>
+            </Grid>
         </Grid>
     </Border>
     

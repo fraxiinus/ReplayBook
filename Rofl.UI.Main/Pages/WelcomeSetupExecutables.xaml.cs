@@ -5,7 +5,8 @@ using Rofl.UI.Main.ViewModels;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Views;
-
+using Rofl.Executables.Models;
+using System.Collections.Generic;
 
 namespace Rofl.UI.Main.Pages
 {
@@ -14,25 +15,22 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class WelcomeSetupExecutables : Page
     {
-        private WelcomeSetupSettings _setupSettings;
+
+        private string _riotParentPath;
+        private IList<LeagueExecutable> _executables;
 
         public WelcomeSetupExecutables()
         {
             InitializeComponent();
-        }
 
-        private void WelcomeSetupExecutables_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            var parentWindow = Window.GetWindow(this);
-            if (!(parentWindow is WelcomeSetupWindow parent)) throw new ArgumentException("Parent window is not WelcomeSetupWindow type");
-
-            _setupSettings = parent.SetupSettings;
+            this.NextButton.IsEnabled = false;
         }
 
         private void BrowseExecutablesButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(sender is Button button)) return;
-            if (!(this.DataContext is MainWindowViewModel context)) return;
+            if (!(sender is Button)) return;
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(parent.DataContext is MainWindowViewModel context)) return;
 
             using (var folderDialog = new CommonOpenFileDialog())
             {
@@ -60,14 +58,38 @@ namespace Rofl.UI.Main.Pages
 
                 // Show results in preview box
                 ExecutablesEmptyTextBlock.Visibility = results.Count < 1 ? Visibility.Visible : Visibility.Collapsed;
-                
                 this.ExecutablesPreviewListBox.ItemsSource = results;
+                BrowseButtonHintText.Text = selectedFolder;
 
-                // Set path in parent
-                _setupSettings.RiotGamesPath = selectedFolder;
+                // Save settings
+                _riotParentPath = selectedFolder;
+                _executables = results;
 
-                BrowseButtonHintText.Text = _setupSettings.RiotGamesPath;
+                NextButton.IsEnabled = true;
             }
+        }
+
+        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+
+            parent.MoveToPreviousPage();
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+
+            parent.SetupSettings.RiotGamesPath = _riotParentPath;
+            parent.SetupSettings.Executables = _executables;
+
+            parent.MoveToNextPage();
+        }
+
+        private void SkipButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            parent.MoveToNextPage();
         }
     }
 }

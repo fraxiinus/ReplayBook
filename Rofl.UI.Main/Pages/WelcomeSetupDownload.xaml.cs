@@ -16,15 +16,31 @@ namespace Rofl.UI.Main.Pages
         public WelcomeSetupDownload()
         {
             InitializeComponent();
+
+            this.NextButton.IsEnabled = false;
         }
 
         private async void DownloadButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is MainWindowViewModel context)) return;
+            if (!(sender is Button)) return;
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(parent.DataContext is MainWindowViewModel context)) return;
 
+            // Clear the error text box
+            ErrorText.Text = String.Empty;
+
+            // What do we download?
             var downloadChamps = ChampionCheckBox.IsChecked ?? false;
             var downloadItems = ItemCheckBox.IsChecked ?? false;
 
+            // Nothing was selected, do nothing
+            if (downloadChamps == false && downloadItems == false)
+            {
+                ErrorText.Text = (string) TryFindResource("WswDownloadNoSelectionError");
+                return;
+            }
+
+            // Create all the requests we need
             var requests = new List<RequestBase>();
             if (downloadChamps)
             {
@@ -38,18 +54,20 @@ namespace Rofl.UI.Main.Pages
             }
 
             // No requests? nothing to do
-            if (requests.Count < 1) return;
+            if (requests.Count < 1)
+            {
+                ErrorText.Text = (string) TryFindResource("WswDownloadMissingError");
+                return;
+            }
 
             // Disable buttons while download happens
             DownloadButton.IsEnabled = false;
             ItemCheckBox.IsEnabled = false;
             ChampionCheckBox.IsEnabled = false;
 
-            // Disable parent next/back buttons
-            var parentWindow = Window.GetWindow(this);
-            if (!(parentWindow is WelcomeSetupWindow parent)) throw new ArgumentException("Parent window is not WelcomeSetupWindow type");
-            parent.NextButton.IsEnabled = false;
-            parent.PreviousButton.IsEnabled = false;
+            NextButton.IsEnabled = false;
+            PreviousButton.IsEnabled = false;
+            SkipButton.IsEnabled = false;
 
             // Make progress elements visible
             DownloadProgressGrid.Visibility = Visibility.Visible;
@@ -77,11 +95,31 @@ namespace Rofl.UI.Main.Pages
             {
                 DownloadProgressText.Text = (string) TryFindResource("WswDownloadFinished");
 
-                var parentWindow = Window.GetWindow(this);
-                if (!(parentWindow is WelcomeSetupWindow parent)) throw new ArgumentException("Parent window is not WelcomeSetupWindow type");
-                parent.NextButton.IsEnabled = true;
-                parent.PreviousButton.IsEnabled = true;
+                NextButton.IsEnabled = true;
+                PreviousButton.IsEnabled = true;
+                SkipButton.IsEnabled = true;
             }
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+
+            parent.MoveToNextPage();
+        }
+
+        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+
+            parent.MoveToPreviousPage();
+        }
+
+        private void SkipButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+
+            parent.MoveToNextPage();
         }
     }
 }

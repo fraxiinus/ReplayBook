@@ -26,35 +26,67 @@ namespace Rofl.UI.Main.Views
             SetupSettings = new WelcomeSetupSettings();
         }
 
+        public void MoveToNextPage()
+        {
+            var maxPage = _welcomeSetupPages.Count - 1;
+            if (_pageIndex == maxPage) return;
+
+            var newIndex = ++_pageIndex;
+
+            // Show next page
+            var selectedPage = _welcomeSetupPages[newIndex];
+            SetupFrame.Content = selectedPage;
+            PageNameTextBlock.Text = GetPageTitle(selectedPage);
+
+            // Change sizes of the navigation dots
+            ((Image)NavigationDotsPanel.Children[newIndex]).Width = 8;
+            ((Image)NavigationDotsPanel.Children[newIndex - 1]).Width = 5;
+        }
+
+        public void MoveToPreviousPage()
+        {
+            if (_pageIndex == 0) return;
+
+            var newIndex = --_pageIndex;
+
+            // Show previous page
+            var selectedPage = _welcomeSetupPages[newIndex];
+            SetupFrame.Content = selectedPage;
+            PageNameTextBlock.Text = GetPageTitle(selectedPage);
+
+            // Change sizes of the navigation dots
+            ((Image)NavigationDotsPanel.Children[newIndex]).Width = 8;
+            ((Image)NavigationDotsPanel.Children[newIndex + 1]).Width = 5;
+        }
+
         private void WelcomeSetupWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             _welcomeSetupPages.Add(new WelcomeSetupIntroduction
             {
-                DataContext = this.DataContext
+                DataContext = this
             });
             _welcomeSetupPages.Add(new WelcomeSetupRegion
             {
-                DataContext = this.DataContext
+                DataContext = this
             });
             _welcomeSetupPages.Add(new WelcomeSetupExecutables
             {
-                DataContext = this.DataContext
+                DataContext = this
             });
             _welcomeSetupPages.Add(new WelcomeSetupReplays
             {
-                DataContext = this.DataContext
+                DataContext = this
             });
             _welcomeSetupPages.Add(new WelcomeSetupDownload
             {
-                DataContext = this.DataContext
+                DataContext = this
             });
             _welcomeSetupPages.Add(new WelcomeSetupFinish
             {
-                DataContext = this.DataContext
+                DataContext = this
             });
 
-            _pageIndex = 0;
-            var firstPage = _welcomeSetupPages[_pageIndex];
+            var firstPage = _welcomeSetupPages[0];
             SetupFrame.Content = firstPage;
             PageNameTextBlock.Text = GetPageTitle(firstPage);
 
@@ -87,46 +119,6 @@ namespace Rofl.UI.Main.Views
 
                 markerPanel.Children.Add(newImage);
             }
-        }
-
-        private void PreviousButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (_pageIndex == 0) return;
-
-            var newIndex = --_pageIndex;
-
-            // Show previous page
-            var selectedPage = _welcomeSetupPages[newIndex];
-            SetupFrame.Content = selectedPage;
-            PageNameTextBlock.Text = GetPageTitle(selectedPage);
-
-            // Change sizes of the navigation dots
-            ((Image) NavigationDotsPanel.Children[newIndex]).Width = 8;
-            ((Image) NavigationDotsPanel.Children[newIndex + 1]).Width = 5;
-
-            // Disable button if at the end
-            PreviousButton.IsEnabled = newIndex != 0;
-            NextButton.IsEnabled = true;
-        }
-
-        private void NextButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var maxPage = _welcomeSetupPages.Count - 1;
-            if (_pageIndex == maxPage) return;
-
-            var newIndex = ++_pageIndex;
-
-            // Show next page
-            var selectedPage = _welcomeSetupPages[newIndex];
-            SetupFrame.Content = selectedPage;
-            PageNameTextBlock.Text = GetPageTitle(selectedPage);
-
-            // Change sizes of the navigation dots
-            ((Image) NavigationDotsPanel.Children[newIndex]).Width = 8;
-            ((Image) NavigationDotsPanel.Children[newIndex - 1]).Width = 5;
-
-            NextButton.IsEnabled = newIndex != maxPage;
-            PreviousButton.IsEnabled = true;
         }
 
         private string GetPageTitle(Page page)
