@@ -13,24 +13,20 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class WelcomeSetupReplays : Page
     {
-        private WelcomeSetupSettings _setupSettings;
+        private string _replayFolder;
 
         public WelcomeSetupReplays()
         {
             InitializeComponent();
-        }
 
-        private void WelcomeSetupReplays_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            var parentWindow = Window.GetWindow(this);
-            if (!(parentWindow is WelcomeSetupWindow parent)) throw new ArgumentException("Parent window is not WelcomeSetupWindow type");
-
-            _setupSettings = parent.SetupSettings;
+            this.NextButton.IsEnabled = false;
         }
 
         private void BrowseReplayFolderButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is MainWindowViewModel context)) return;
+            if (!(sender is Button)) return;
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(parent.DataContext is MainWindowViewModel context)) return;
 
             using (var folderDialog = new CommonOpenFileDialog())
             {
@@ -51,13 +47,35 @@ namespace Rofl.UI.Main.Pages
                 // Only continue if user presses "OK"
                 if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) return;
 
-                var selectedFolder = folderDialog.FileName;
+                _replayFolder = folderDialog.FileName;
 
-                // Set path in parent
-                _setupSettings.ReplayPath = selectedFolder;
-
-                BrowseReplayFolderBox.Text = _setupSettings.ReplayPath;
+                // display path
+                BrowseReplayFolderBox.Text = _replayFolder;
+                NextButton.IsEnabled = true;
             }
+        }
+
+        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+
+            parent.MoveToPreviousPage();
+        }
+
+        private void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+
+            parent.SetupSettings.ReplayPath = _replayFolder;
+
+            parent.MoveToNextPage();
+        }
+
+        private void SkipButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+
+            parent.MoveToNextPage();
         }
     }
 }

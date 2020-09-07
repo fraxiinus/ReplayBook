@@ -11,23 +11,110 @@
     <Border Padding="10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="{StaticResource WswIntroductionTitle}"
-                       FontSize="32"
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{StaticResource WswIntroductionTitle}"
+                       FontSize="24"
                        Margin="0 0 0 5"
                        Grid.Row="0"/>
 
-            <TextBlock Text="{StaticResource WswIntroductionBody}"
-                       FontSize="20"
+                <TextBlock Text="{StaticResource WswIntroductionBody}"
+                       FontSize="16"
                        TextWrapping="Wrap"
                        Grid.Row="1"
                        Margin="0 0 0 20"/>
 
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="PreviousButton"
+                        Style="{StaticResource ToolButton}"
+                        Grid.Column="0"
+                        Width="75"
+                        Height="25"
+                        Margin="0 0 5 0"
+                        Padding="5"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="{StaticResource BackArrowDrawingImage}"
+                               Width="12"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="{StaticResource WswPreviousText}"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="NextButton"
+                        Grid.Column="1"
+                        Style="{StaticResource ToolButton}"
+                        Width="75"
+                        Height="25"
+                        Margin="0 0 5 0"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        HorizontalContentAlignment="Stretch"
+                        Click="NextButton_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="{StaticResource WswNextText}"/>
+                        <Image Grid.Column="1"
+                               Source="{StaticResource BackArrowDrawingImage}" 
+                               Width="12"
+                               RenderTransformOrigin="0.5,0.5"
+                               RenderOptions.BitmapScalingMode="HighQuality">
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="-1"/>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+                </Button>
+                <Button x:Name="SkipButton"
+                        Grid.Column="2"
+                        Style="{StaticResource ToolButton}"
+                        Width="50"
+                        Height="25"
+                        Padding="5"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <TextBlock VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="{StaticResource WswSkipText}"/>
+                    </Grid>
+                </Button>
+            </Grid>
         </Grid>
     </Border>
 </Page>
