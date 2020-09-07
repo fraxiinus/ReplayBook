@@ -541,9 +541,12 @@ namespace Rofl.UI.Main.ViewModels
                 }
             }
 
-            foreach (var executable in initialSettings.Executables)
+            if (initialSettings.Executables != null)
             {
-                SettingsManager.Executables.AddExecutable(executable);
+                foreach (var executable in initialSettings.Executables)
+                {
+                    SettingsManager.Executables.AddExecutable(executable);
+                }
             }
 
             SettingsManager.Executables.Settings.DefaultLocale = initialSettings.DefaultRegionLocale;
