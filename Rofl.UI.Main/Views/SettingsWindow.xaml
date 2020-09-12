@@ -157,7 +157,6 @@
                                       Grid.Column="0"
                                       Margin="0 0 10 0"
                                       SelectedIndex="{Binding Path=Settings.FileAction}"
-                                      SelectionChanged="FileActionComboBox_SelectionChanged"
                                       VerticalContentAlignment="Center">
                                 <ComboBoxItem Content="{StaticResource FileActionOption1}"/>
                                 <ComboBoxItem Content="{StaticResource FileActionOption2}"/>
