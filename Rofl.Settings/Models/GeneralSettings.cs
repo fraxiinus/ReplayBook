@@ -13,6 +13,9 @@ namespace Rofl.Settings.Models
         [JsonProperty("known_players")]
         public List<PlayerMarker> KnownPlayers { get; private set; }
 
+        [JsonProperty("file_action")]
+        public int FileAction { get; set; }
+
         [JsonProperty("play_confirm")]
         public bool PlayConfirmation { get; set; }
 

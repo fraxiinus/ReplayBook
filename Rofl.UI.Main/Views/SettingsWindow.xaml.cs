@@ -443,5 +443,15 @@ namespace Rofl.UI.Main.Views
             EditExecutableButton.IsEnabled = false;
             RemoveExecutableButton.IsEnabled = false;
         }
+
+        private void FileActionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void SetFileAssocButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

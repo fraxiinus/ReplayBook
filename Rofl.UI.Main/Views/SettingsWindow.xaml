@@ -105,7 +105,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                            
+
                             <StackPanel Orientation="Vertical"
                                         Margin="5 0 0 0"
                                         Width="75"
@@ -115,14 +115,14 @@
                                         Height="25"
                                         Content="{StaticResource AddButtonText}"
                                         Click="AddKnownPlayerButton_Click"/>
-                                
+
                                 <Button x:Name="EditKnownPlayerButton" 
                                         Margin="0 0 0 5"
                                         Height="25"
                                         Content="{StaticResource EditButtonText}"
                                         Click="EditKnownPlayerButton_Click"
                                         IsEnabled="False"/>
-                                
+
                                 <Button x:Name="RemoveKnownPlayerButton" 
                                         Height="25"
                                         Content="{StaticResource RemoveButtonText}"
@@ -132,21 +132,52 @@
 
                         </Grid>
 
-                        <CheckBox Content="{StaticResource PlayConfirmCheckboxText}" 
-                                  Margin="0 10 0 0"
-                                  IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
-
                         <TextBlock Text="{StaticResource MatchHistoryUrlLabelText}" 
                                    FontSize="14" 
                                    Margin="0 10 0 3"/>
 
                         <TextBox x:Name="MatchHistoryUrlTextBox" 
                                  Padding="2" 
-                                 Margin=" 0 2 0 5"
+                                 Margin=" 0 2 0 0"
                                  Height="25"
                                  VerticalContentAlignment="Center"
                                  Text="{Binding Path=Settings.MatchHistoryBaseUrl}" Style="{DynamicResource TextBoxBaseStyle}"/>
+                        
+                        <TextBlock Text="{StaticResource FileAssociationLabelText}" 
+                                   FontSize="14" 
+                                   Margin="0 10 0 3"/>
 
+                        <Grid Margin=" 0 2 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Name="FileActionComboBox"
+                                      Height="25"
+                                      Grid.Column="0"
+                                      Margin="0 0 10 0"
+                                      SelectedIndex="{Binding Path=Settings.FileAction}"
+                                      SelectionChanged="FileActionComboBox_SelectionChanged"
+                                      VerticalContentAlignment="Center">
+                                <ComboBoxItem Content="{StaticResource FileActionOption1}"/>
+                                <ComboBoxItem Content="{StaticResource FileActionOption2}"/>
+                            </ComboBox>
+
+                            <Button x:Name="SetFileAssocButton"
+                                    Grid.Column="1"
+                                    Content="{StaticResource FileAssociationButtonText}"
+                                    Height="25"
+                                    Margin="10 0 0 0"
+                                    Click="SetFileAssocButton_Click"/>
+                        </Grid>
+                        
+                        <TextBlock Text="{StaticResource ReplayBehaviorLabelText}" 
+                                   FontSize="14" 
+                                   Margin="0 10 0 3"/>
+                        
+                        <CheckBox Content="{StaticResource PlayConfirmCheckboxText}" 
+                                  Margin="0 2 0 0"
+                                  IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
                     </StackPanel>
                 </TabItem>
 

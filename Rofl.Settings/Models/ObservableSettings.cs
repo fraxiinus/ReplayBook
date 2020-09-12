@@ -13,6 +13,7 @@ namespace Rofl.Settings.Models
         public ObservableSettings()
         {
             KnownPlayers = new ObservableCollection<PlayerMarker>();
+            FileAction = 0;
             PlayConfirmation = true;
             MatchHistoryBaseUrl = @"https://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/";
             ItemsPerPage = 50;
@@ -31,6 +32,7 @@ namespace Rofl.Settings.Models
             if (settings == null) { throw new ArgumentNullException(nameof(settings)); }
 
             KnownPlayers = new ObservableCollection<PlayerMarker>(settings.GeneralSettings.KnownPlayers);
+            FileAction = settings.GeneralSettings.FileAction;
             PlayConfirmation = settings.GeneralSettings.PlayConfirmation;
             MatchHistoryBaseUrl = settings.GeneralSettings.MatchHistoryBaseUrl;
 
@@ -56,6 +58,18 @@ namespace Rofl.Settings.Models
 
         // Replay Settings
         public ObservableCollection<string> SourceFolders { get; private set; }
+
+        private int _fileAction;
+        public int FileAction
+        {
+            get => _fileAction;
+            set
+            {
+                _fileAction = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(FileAction)));
+            }
+        }
 
         private bool _playConfirmation;
         public bool PlayConfirmation
