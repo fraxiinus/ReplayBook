@@ -38,7 +38,7 @@
               SizeChanged="StatsDataGrid_SizeChanged"
               MinRowHeight="56"
               RowHeight="56"
-              Width="1460">
+              Width="1580">
 
         <DataGrid.ColumnHeaderStyle>
             <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -126,6 +126,12 @@
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
+            <DataGridTextColumn Binding="{Binding Path=IndividualPosition, Mode=OneWay, StringFormat={}{0:#,0}}">
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{StaticResource IndividualPositionHeaderText}"/>
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+
             <DataGridTextColumn>
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource MiscGroupHeaderText}"
@@ -134,7 +140,61 @@
             </DataGridTextColumn>
 
             <!---->
+            
+            <DataGridTextColumn>
+                <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=WasEarlySurrenderAccomplice}" Value="True">
+                                <Setter Property="Text" Value="{StaticResource CheckText}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=WasEarlySurrenderAccomplice}" Value="False">
+                                <Setter Property="Text" Value="{StaticResource CrossText}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGridTextColumn.ElementStyle>
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{StaticResource WasEarlySurrenderAccompliceHeaderText}"/>
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
 
+            <DataGridTextColumn>
+                <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=WasAFKAfterFailedSurrender}" Value="True">
+                                <Setter Property="Text" Value="{StaticResource CheckText}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=WasAFKAfterFailedSurrender}" Value="False">
+                                <Setter Property="Text" Value="{StaticResource CrossText}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGridTextColumn.ElementStyle>
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{StaticResource WasAFKAfterFailedSurrenderHeaderText}"/>
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+            
+            <DataGridTextColumn>
+                <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=WasAFK}" Value="True">
+                                <Setter Property="Text" Value="{StaticResource CheckText}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=WasAFK}" Value="False">
+                                <Setter Property="Text" Value="{StaticResource CrossText}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGridTextColumn.ElementStyle>
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{StaticResource WasAFKHeaderText}"/>
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+            
             <DataGridTextColumn Binding="{Binding Path=Ping, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource PingHeaderText}"/>
@@ -153,12 +213,36 @@
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
+            <DataGridTextColumn>
+                <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=TeamEarlySurrendered}" Value="True">
+                                <Setter Property="Text" Value="{StaticResource CheckText}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=TeamEarlySurrendered}" Value="False">
+                                <Setter Property="Text" Value="{StaticResource CrossText}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGridTextColumn.ElementStyle>
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{StaticResource TeamEarlySurrenderedHeaderText}"/>
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+            
+            <DataGridTextColumn Binding="{Binding Path=TimeOfLastDisconnect, Mode=OneWay, StringFormat={}{0:#,0}}">
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{StaticResource TimeOfLastDisconnectHeaderText}"/>
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+
             <DataGridTextColumn Binding="{Binding Path=TimeSpentDisconnected, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource TimeSpentDisconnectedHeaderText}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
-
+            
             <DataGridTextColumn>
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource ToxicityGroupHeaderText}"
