@@ -9,6 +9,13 @@ namespace Rofl.UI.Main.Utilities
 {
     public static class DictionaryExtensions
     {
+        /// <summary>
+        /// Attempts to get boolean value from object dictionary
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="key"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
         public static bool TryGetBool(this Dictionary<string, object> values, string key, out bool result)
         {
             if (values == null)
@@ -48,6 +55,13 @@ namespace Rofl.UI.Main.Utilities
             }
         }
 
+        /// <summary>
+        /// Attempts to get string value from object dictionary
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="key"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
         public static bool TryGetString(this Dictionary<string, object> values, string key, out string result)
         {
             if (values == null)

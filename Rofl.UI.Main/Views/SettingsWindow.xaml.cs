@@ -2,6 +2,7 @@
 using Rofl.Executables.Models;
 using Rofl.Settings;
 using Rofl.Settings.Models;
+using Rofl.UI.Main.Utilities;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -442,6 +443,13 @@ namespace Rofl.UI.Main.Views
 
             EditExecutableButton.IsEnabled = false;
             RemoveExecutableButton.IsEnabled = false;
+        }
+
+        private void SetFileAssocButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
+            FileAssociations.SetRoflToSelf();
         }
     }
 }

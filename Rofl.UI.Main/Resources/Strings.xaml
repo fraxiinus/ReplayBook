@@ -48,9 +48,14 @@
     <string:String x:Key="PlayerMarkerColorIsEmptyErrorText">Please choose a color</string:String>
     <string:String x:Key="PlayConfirmCheckboxText">Always ask for confirmation before playing replays</string:String>
     <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
+    <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
+    <string:String x:Key="FileAssociationButtonText">Set .ROFL file association</string:String>
+    <string:String x:Key="FileActionOption1">Directly play replay file</string:String>
+    <string:String x:Key="FileActionOption2">Open file in ReplayBook</string:String>
+    <string:String x:Key="ReplayBehaviorLabelText">Play Button Behavior</string:String>
     
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
-    <string:String x:Key="ExecutableFoldersSearchButtonText">Search folders for executables</string:String>
+    <string:String x:Key="ExecutableFoldersSearchButtonText">Auto-Register Executables from Source Folders</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultTitleText">Search results</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultLabelText">Registered $ new executable(s)</string:String>
     <string:String x:Key="ExecutablesLabelText">Registered Executables</string:String>

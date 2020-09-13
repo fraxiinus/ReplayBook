@@ -14,5 +14,9 @@ namespace Rofl.UI.Main
 
         [DllImport("user32.dll")]
         internal static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        // Used by file association code to notify explorer that association has changed
+        [DllImport("shell32.dll")]
+        internal static extern void SHChangeNotify(int eventId, int flags, IntPtr item1, IntPtr item2);
     }
 }
