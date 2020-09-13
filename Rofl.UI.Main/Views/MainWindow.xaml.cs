@@ -30,31 +30,20 @@ namespace Rofl.UI.Main
         private readonly SettingsManager _settingsManager;
         private readonly RiZhi _log;
 
-        public MainWindow()
+        public MainWindow(RiZhi log, SettingsManager settingsManager, RequestManager requests, FileManager files)
         {
             InitializeComponent();
+
+            _log = log;
+            _settingsManager = settingsManager;
+            _requests = requests;
+            _files = files;
 
             Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
             {
                 _log.Error(e.Exception.ToString());
                 _log.WriteLog();
             };
-
-            var assemblyName = Assembly.GetEntryAssembly()?.GetName();
-
-            _log = new RiZhi()
-            {
-                FilePrefix = "ReplayBookLog",
-                AssemblyName = assemblyName.Name,
-                AssemblyVersion = assemblyName.Version.ToString(2)
-            };
-
-            _log.Error($"Log files are generated for each run while in prerelease");
-
-            _settingsManager = new SettingsManager(_log);
-
-            _files = new FileManager(_settingsManager.Settings, _log);
-            _requests = new RequestManager(_settingsManager.Settings, _log);
 
             var context = new MainWindowViewModel(_files, _requests, _settingsManager, _log);
             this.DataContext = context;
