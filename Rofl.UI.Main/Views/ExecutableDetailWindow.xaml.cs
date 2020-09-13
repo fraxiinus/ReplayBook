@@ -53,7 +53,7 @@ namespace Rofl.UI.Main.Views
         {
             this.MinWidth = this.ActualWidth;
             this.MinHeight = this.ActualHeight;
-            this.MaxHeight = this.ActualHeight;
+            //this.MaxHeight = this.ActualHeight;
 
             var allLocales = Enum.GetNames(typeof(LeagueLocale)).Select(x => x + " (" + ExeTools.GetLocaleCode(x) + ")");
 

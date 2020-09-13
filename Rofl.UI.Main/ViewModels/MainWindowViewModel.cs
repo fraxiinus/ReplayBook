@@ -478,8 +478,15 @@ namespace Rofl.UI.Main.ViewModels
                 }
             }
 
-            SettingsManager.Executables.Settings.DefaultLocale = initialSettings.RegionLocale;
-            SettingsManager.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
+            if (initialSettings.Executables != null)
+            {
+                foreach (var executable in initialSettings.Executables)
+                {
+                    SettingsManager.Executables.AddExecutable(executable);
+                }
+            }
+
+            SettingsManager.Executables.Settings.DefaultLocale = initialSettings.DefaultRegionLocale;
         }
 
         public void ShowMissingReplayFoldersMessageBox()

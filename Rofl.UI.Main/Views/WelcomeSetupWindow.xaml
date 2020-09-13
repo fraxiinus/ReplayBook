@@ -12,80 +12,32 @@
         Closing="WelcomeSetupWindow_OnClosing">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Frame x:Name="SetupFrame"
-               Grid.Row="0"
-               NavigationUIVisibility="Hidden"/>
+        <Grid Grid.Row="0"
+              HorizontalAlignment="Stretch"
+              Background="{StaticResource AccentColorDark1}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       x:Name="PageNameTextBlock"
+                       Text="PageName"
+                       Margin="10"
+                       TextAlignment="Left"
+                       FontSize="16"
+                       Foreground="{StaticResource LightTextColor}"/>
+            <Grid x:Name="NavigationDotsPanel"
+                  Grid.Column="1"
+                  Margin="0 0 10 0"/>
+        </Grid>
         <Border Grid.Row="1"
                 BorderBrush="Black"
                 BorderThickness="0 1 0 0"/>
-        <Grid Grid.Row="1"
-              Margin="10"
-              HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <TextBlock Grid.ColumnSpan="3"
-                       Grid.Row="0"
-                       x:Name="PageNameTextBlock"
-                       Text="PageName"
-                       Margin="0 0 0 5"
-                       TextAlignment="Center"
-                       FontSize="16"/>
-            <Border Grid.Row="1"
-                    Grid.ColumnSpan="3"
-                    Grid.Column="0"
-                    BorderThickness="0 1 0 0"
-                    BorderBrush="DarkGray"
-                    Margin="0 0 0 5"/>
-            <Button x:Name="PreviousButton"
-                    Grid.Column="0"
-                    Grid.Row="2"
-                    Width="50"
-                    Height="25"
-                    Background="Transparent"
-                    BorderThickness="1"
-                    HorizontalContentAlignment="Center"
-                    Click="PreviousButton_OnClick">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource BackArrowDrawingImage}" 
-                           Width="12"
-                           RenderOptions.BitmapScalingMode="HighQuality"/>
-                </StackPanel>
-            </Button>
-            <Grid x:Name="NavigationDotsPanel"
-                  Grid.Column="1"
-                  Grid.Row="2"
-                  Margin="10 0 10 0"/>
-            <Button x:Name="NextButton"
-                    Grid.Column="2"
-                    Grid.Row="2"
-                    Width="50"
-                    Height="25"
-                    Background="Transparent"
-                    BorderThickness="1"
-                    HorizontalContentAlignment="Center"
-                    Click="NextButton_OnClick">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource BackArrowDrawingImage}" 
-                           Width="12"
-                           RenderTransformOrigin="0.5,0.5"
-                           RenderOptions.BitmapScalingMode="HighQuality">
-                        <Image.RenderTransform>
-                            <ScaleTransform ScaleX="-1"/>
-                        </Image.RenderTransform>
-                    </Image>
-                </StackPanel>
-            </Button>
-        </Grid>
+        <Frame x:Name="SetupFrame"
+               Grid.Row="1"
+               NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

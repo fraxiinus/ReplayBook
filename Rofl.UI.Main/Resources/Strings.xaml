@@ -254,12 +254,15 @@
     <string:String x:Key="ErdSaveComplete">File "@" saved successfully</string:String>
 
     <!--Welcome Setup-->
-    <string:String x:Key="WswWindowTitleText">Welcome!</string:String>
-    <string:String x:Key="WswPreviousText">Previous</string:String>
+    <string:String x:Key="WswWindowTitleText">ReplayBook Setup</string:String>
+    <string:String x:Key="WswPreviousText">Back</string:String>
     <string:String x:Key="WswNextText">Next</string:String>
+    <string:String x:Key="WswSkipText">Skip</string:String>
+    <string:String x:Key="WswDownloadMissingError">Could not find anything to download - check your internet connection or skip this step</string:String>
+    <string:String x:Key="WswDownloadNoSelectionError">Please make a download selection</string:String>
 
     <!--Welcome Setup : Introduction-->
-    <string:String x:Key="WswIntroFrameTitle">Welcome to ReplayBook!</string:String>
+    <string:String x:Key="WswIntroFrameTitle">Welcome to ReplayBook</string:String>
     <string:String x:Key="WswReplaysFrameTitle">Replay Setup</string:String>
     <string:String x:Key="WswExecutablesFrameTitle">Executable Setup</string:String>
     <string:String x:Key="WswRegionFrameTitle">Language Setup</string:String>
@@ -269,13 +272,13 @@
     <string:String x:Key="WswNextHint">Looks good? Click the next button on the bottom to continue</string:String>
 
     <string:String x:Key="WswIntroductionTitle">Thank you for downloading ReplayBook!</string:String>
-    <string:String x:Key="WswIntroductionBody">First lets do some initial setup. Click the next button below to continue.</string:String>
+    <string:String x:Key="WswIntroductionBody">First, lets do some initial setup. Click the 'Next' button below to continue.</string:String>
 
-    <string:String x:Key="WswRegionTitle">Select your League of Legends language</string:String>
-    <string:String x:Key="WswRegionBody">Choose a language with the drop down menu. It must match the language of your installation of League of Legends.</string:String>
+    <string:String x:Key="WswRegionTitle">Set your default League of Legends language</string:String>
+    <string:String x:Key="WswRegionBody">Choose a language with the drop down menu. ReplayBook will register your executables using this language. You can manually edit an executable's language later.</string:String>
 
     <string:String x:Key="WswExecutablesTitle">Select the Riot Games folder</string:String>
-    <string:String x:Key="WswExecutablesBody">ReplayBook needs to register League of Legends before it is able to play replays. You can do this later if you don't need this feature right away.</string:String>
+    <string:String x:Key="WswExecutablesBody">ReplayBook needs to register League of Legends before it is able to play replays. We will search this folder for all versions of League of Legends that exist.</string:String>
     <string:String x:Key="WswExecutablesHint">For example: 'C:\Riot Games'</string:String>
     <string:String x:Key="WswExecutablesRegisterButton">Register</string:String>
     <string:String x:Key="WswExecutablesRegisterList">Detected versions:</string:String>
@@ -285,8 +288,8 @@
     <string:String x:Key="WswReplaysBody">ReplayBook won't be able to show any replays if it doesn't know where they are. Verify that this is where your replays are stored. You can add additional folders later.</string:String>
     <string:String x:Key="WswReplaysHint">By default, replays are stored in "Documents\League of Legends\Replays"</string:String>
 
-    <string:String x:Key="WswDownloadTitle">Download image assets now?</string:String>
-    <string:String x:Key="WswDownloadBody">Downloading all assets now will make ReplayBook run faster. If you decide not to, ReplayBook will download assets on demand.</string:String>
+    <string:String x:Key="WswDownloadTitle">Download icons now?</string:String>
+    <string:String x:Key="WswDownloadBody">Downloading icons will take a few minutes, but will make ReplayBook run faster. ReplayBook will download icons on demand if you skip this step.</string:String>
     <string:String x:Key="WswDownloadChampionsText">Download champion thumbnails</string:String>
     <string:String x:Key="WswDownloadItemsText">Download item thumbnails</string:String>
     <string:String x:Key="WswDownloadButton">Download</string:String>

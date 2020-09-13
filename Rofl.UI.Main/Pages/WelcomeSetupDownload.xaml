@@ -11,79 +11,184 @@
     <Border Padding="10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="{StaticResource WswDownloadTitle}"
-                       FontSize="24"
-                       Margin="0 0 0 5"
-                       Grid.Row="0"/>
 
-            <TextBlock Text="{StaticResource WswDownloadBody}"
-                       FontSize="16"
-                       TextWrapping="Wrap"
-                       Grid.Row="1"
-                       Margin="0 0 0 20"/>
-
-            <CheckBox x:Name="ChampionCheckBox"
-                      Grid.Row="2">
-                <CheckBox.Content>
-                    <Grid Margin="5 0 0 0">
-                        <TextBlock Text="{StaticResource WswDownloadChampionsText}"/>
-                    </Grid>
-                </CheckBox.Content>
-            </CheckBox>
-
-            <CheckBox x:Name="ItemCheckBox"
-                      Margin="0 10 0 0"
-                      Grid.Row="3">
-                <CheckBox.Content>
-                    <Grid Margin="5 0 0 0">
-                        <TextBlock Text="{StaticResource WswDownloadItemsText}"/>
-                    </Grid>
-                </CheckBox.Content>
-            </CheckBox>
-
-            <Button x:Name="DownloadButton"
-                    Content="{StaticResource WswDownloadButton}"
-                    Click="DownloadButton_OnClick"
-                    Width="75"
-                    Height="25"
-                    HorizontalAlignment="Left"
-                    Margin="0 15 0 0"
-                    Grid.Row="4"/>
-
-            <Grid x:Name="DownloadProgressGrid"
-                  Grid.Row="5"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Top"
-                  Margin="0 25 0 0"
-                  Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
-                <TextBlock x:Name="DownloadProgressText"
-                           TextAlignment="Left"
-                           Margin="25 0 0 5"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{StaticResource WswDownloadTitle}"
+                           FontSize="24"
+                           Margin="0 0 0 5"
                            Grid.Row="0"/>
 
-                <ProgressBar x:Name="DownloadProgressBar"
-                             Height="25"
-                             Margin="20 0 20 0"
-                             ValueChanged="DownloadProgressBar_OnValueChanged"
-                             Grid.Row="1"/>
+                <TextBlock Text="{StaticResource WswDownloadBody}"
+                           FontSize="16"
+                           TextWrapping="Wrap"
+                           Grid.Row="1"
+                           Margin="0 0 0 20"/>
+
+                <CheckBox x:Name="ChampionCheckBox"
+                          Grid.Row="2">
+                    <CheckBox.Content>
+                        <Grid Margin="5 0 0 0">
+                            <TextBlock Text="{StaticResource WswDownloadChampionsText}"/>
+                        </Grid>
+                    </CheckBox.Content>
+                </CheckBox>
+
+                <CheckBox x:Name="ItemCheckBox"
+                          Margin="0 10 0 0"
+                          Grid.Row="3">
+                    <CheckBox.Content>
+                        <Grid Margin="5 0 0 0">
+                            <TextBlock Text="{StaticResource WswDownloadItemsText}"/>
+                        </Grid>
+                    </CheckBox.Content>
+                </CheckBox>
+
+                <Grid Grid.Row="4"
+                      Margin="0 15 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="DownloadButton"
+                            Content="{StaticResource WswDownloadButton}"
+                            Click="DownloadButton_OnClick"
+                            Width="75"
+                            Height="25"
+                            HorizontalAlignment="Left"
+                            Grid.Column="0"/>
+
+                    <TextBlock x:Name="ErrorText"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="10 0 0 0"
+                               Foreground="DarkRed"
+                               Grid.Column="1"/>
+                </Grid>
+
+                <Grid x:Name="DownloadProgressGrid"
+                      Grid.Row="6"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Top"
+                      Margin="0 25 0 0"
+                      Visibility="Hidden">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="DownloadProgressText"
+                               TextAlignment="Left"
+                               Margin="25 0 0 5"
+                               Grid.Row="0"/>
+
+                    <ProgressBar x:Name="DownloadProgressBar"
+                                 Height="25"
+                                 Margin="20 0 20 0"
+                                 ValueChanged="DownloadProgressBar_OnValueChanged"
+                                 Grid.Row="1"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="PreviousButton"
+                        Style="{StaticResource ToolButton}"
+                        Grid.Column="0"
+                        Width="75"
+                        Height="25"
+                        Margin="0 0 5 0"
+                        Padding="5"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        HorizontalContentAlignment="Stretch"
+                        Click="PreviousButton_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Source="{StaticResource BackArrowDrawingImage}"
+                               Width="12"
+                               RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="{StaticResource WswPreviousText}"/>
+                    </Grid>
+                </Button>
+                <Button x:Name="NextButton"
+                        Grid.Column="1"
+                        Style="{StaticResource ToolButton}"
+                        Width="75"
+                        Height="25"
+                        Margin="0 0 5 0"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        HorizontalContentAlignment="Stretch"
+                        Click="NextButton_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="{StaticResource WswNextText}"/>
+                        <Image Grid.Column="1"
+                               Source="{StaticResource BackArrowDrawingImage}" 
+                               Width="12"
+                               RenderTransformOrigin="0.5,0.5"
+                               RenderOptions.BitmapScalingMode="HighQuality">
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="-1"/>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+                </Button>
+                <Button x:Name="SkipButton"
+                        Grid.Column="2"
+                        Style="{StaticResource ToolButton}"
+                        Width="50"
+                        Height="25"
+                        Padding="5"
+                        Background="Transparent"
+                        BorderThickness="1"
+                        HorizontalContentAlignment="Stretch"
+                        Click="SkipButton_Click">
+                    <Grid>
+                        <TextBlock VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="{StaticResource WswSkipText}"/>
+                    </Grid>
+                </Button>
             </Grid>
         </Grid>
     </Border>

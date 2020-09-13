@@ -21,7 +21,7 @@ namespace Rofl.UI.Main.Views
         {
             this.MinWidth = this.ActualWidth;
             this.MinHeight = this.ActualHeight;
-            this.MaxHeight = this.ActualHeight;
+            //this.MaxHeight = this.ActualHeight;
         }
 
         private void ExecutableSelectWindow_OnSourceInitialized(object sender, EventArgs e)
