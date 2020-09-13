@@ -3,6 +3,7 @@ using Rofl.Files;
 using Rofl.Requests;
 using Rofl.Settings;
 using Rofl.UI.Main.Models;
+using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -31,12 +32,19 @@ namespace Rofl.UI.Main.Views
         private readonly RequestManager _requests;
         private readonly SettingsManager _settingsManager;
         private readonly RiZhi _log;
+        private readonly ReplayPlayer _player;
 
         public string ReplayFileLocation { get; set; }
 
-        public SingleReplayWindow()
+        public SingleReplayWindow(RiZhi log, SettingsManager settingsManager, RequestManager requests, FileManager files, ReplayPlayer player)
         {
             InitializeComponent();
+
+            _log = log;
+            _settingsManager = settingsManager;
+            _requests = requests;
+            _files = files;
+            _player = player;
 
             Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
             {
@@ -44,17 +52,7 @@ namespace Rofl.UI.Main.Views
                 _log.WriteLog();
             };
 
-            _log = new RiZhi()
-            {
-                FilePrefix = "ReplayBookLog"
-            };
-
-            _settingsManager = new SettingsManager(_log);
-
-            _files = new FileManager(_settingsManager.Settings, _log);
-            _requests = new RequestManager(_settingsManager.Settings, _log);
-
-            var context = new MainWindowViewModel(_files, _requests, _settingsManager, _log);
+            var context = new MainWindowViewModel(_files, _requests, _settingsManager, _player, _log);
             this.DataContext = context;
 
             var version = Assembly.GetEntryAssembly().GetName().Version.ToString(2);

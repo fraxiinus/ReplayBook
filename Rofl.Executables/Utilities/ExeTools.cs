@@ -22,57 +22,6 @@ namespace Rofl.Executables.Utilities
             return true;
         }
 
-        public static void ValidateLeagueExecutable(LeagueExecutable executable)
-        {
-            // Name must not already exist
-            // Start folder must exist
-            // Target file must exist and be contained in start folder
-            // patch version must pass versionsubstring
-            // allowupdates...
-            // isdefault...
-            // ModifiedDate must not be null
-
-            // Check all properties if they are null
-            if (executable == null ||
-                String.IsNullOrEmpty(executable.Name) ||
-                String.IsNullOrEmpty(executable.TargetPath) ||
-                String.IsNullOrEmpty(executable.StartFolder) ||
-                String.IsNullOrEmpty(executable.PatchNumber) ||
-                executable.ModifiedDate == null)
-            {
-                throw new ArgumentNullException(nameof(executable));
-            }
-
-            // Check if start folder exists
-            if (!Directory.Exists(executable.StartFolder))
-            {
-                // _log.Warning(_myName, $"Start folder {executable.StartFolder} does not exist");
-                throw new DirectoryNotFoundException($"Start folder {executable.StartFolder} does not exist");
-            }
-
-            // Check if target path begins with stater path
-            if (!executable.TargetPath.StartsWith(executable.StartFolder, StringComparison.OrdinalIgnoreCase))
-            {
-                // _log.Warning(_myName, $"Target file {executable.TargetPath} cannot be found from start folder {executable.StartFolder}");
-                throw new FileNotFoundException($"Target file {executable.TargetPath} cannot be found from start folder {executable.StartFolder}");
-            }
-
-            // Check if target path exists
-            if (!File.Exists(executable.TargetPath))
-            {
-                // _log.Warning(_myName, $"Target file {executable.TargetPath} not found");
-                throw new FileNotFoundException($"Target file {executable.TargetPath} not found");
-            }
-
-            // Check if patch version is properly formatted
-            if (executable.PatchNumber.VersionSubstring() == null)
-            {
-                // _log.Warning(_myName, $"Version string {executable.PatchNumber} not proper format");
-                throw new ArgumentException($"Version string {executable.PatchNumber} not proper format");
-            }
-
-        }
-
         public static string GetLeagueVersion(string filePath)
         {
             if (CheckExecutableFile(filePath))

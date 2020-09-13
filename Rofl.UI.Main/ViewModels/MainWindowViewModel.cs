@@ -29,6 +29,7 @@ namespace Rofl.UI.Main.ViewModels
     {
         private readonly FileManager _fileManager;
         private readonly RiZhi _log;
+        private readonly ReplayPlayer _player;
         // private readonly string _myName;
         
         public RequestManager RequestManager { get; private set; }
@@ -56,11 +57,12 @@ namespace Rofl.UI.Main.ViewModels
 
         // public string LatestDataDragonVersion { get; private set; }
 
-        public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, RiZhi log)
+        public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, ReplayPlayer player, RiZhi log)
         {
             SettingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
             _fileManager = files ?? throw new ArgumentNullException(nameof(files));
             _log = log ?? throw new ArgumentNullException(nameof(log));
+            _player = player ?? throw new ArgumentNullException(nameof(player));
 
             RequestManager = requests ?? throw new ArgumentNullException(nameof(requests));
 
@@ -367,56 +369,7 @@ namespace Rofl.UI.Main.ViewModels
 
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
             
-            var replay = FileResults[preview.Location];
-
-            var executables = SettingsManager.Executables.GetExecutablesByPatch(preview.GameVersion);
-
-            if (!executables.Any())
-            {
-                _log.Information($"No executables found to play replay");
-
-                // No executable found that can be used to play
-                MessageBox.Show
-                (
-                    Application.Current.TryFindResource("ExecutableNotFoundErrorText") as String + " " + preview.GameVersion,
-                    Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as String,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-                return;
-            }
-
-            LeagueExecutable target;
-            if (executables.Count > 1)
-            {
-                _log.Information($"More than one possible executable, asking user...");
-                // More than one?????
-                target = ShowChooseReplayDialog(executables);
-                if (target == null) return;
-            }
-            else
-            {
-                target = executables.First();
-                
-            }
-            
-            if (SettingsManager.Settings.PlayConfirmation)
-            {
-                _log.Information($"Asking user for confirmation");
-                // Show confirmation dialog
-                var msgResult = MessageBox.Show
-                    (
-                        Application.Current.TryFindResource("ReplayPlayConfirmationText") as String,
-                        Application.Current.TryFindResource("ReplayPlayConfirmationText") as String,
-                        MessageBoxButton.OKCancel,
-                        MessageBoxImage.Question
-                    );
-
-                if (msgResult != MessageBoxResult.OK) return;
-            }
-
-            _log.Information($"Using {target.Name} to play replay {replay.FileInfo.Path}");
-            ReplayPlayer.Play(target, replay.FileInfo.Path);
+            _player.PlayReplay(preview.Location);
         }
 
         public void OpenReplayContainingFolder(string location)
@@ -440,22 +393,6 @@ namespace Rofl.UI.Main.ViewModels
 
             string url = SettingsManager.Settings.MatchHistoryBaseUrl + matchid;
             Process.Start(url);
-        }
-
-        public static LeagueExecutable ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
-        {
-            var selectWindow = new ExecutableSelectWindow
-            {
-                Top = App.Current.MainWindow.Top + 50,
-                Left = App.Current.MainWindow.Left + 50,
-                DataContext = executables,
-            };
-
-            if (selectWindow.ShowDialog().Equals(true))
-            {
-                return selectWindow.Selection;
-            }
-            return null;
         }
 
         public void ShowExportReplayDataWindow(ReplayPreview preview)

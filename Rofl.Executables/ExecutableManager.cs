@@ -187,7 +187,7 @@ namespace Rofl.Executables
             newExecutable.Name = name;
 
             // Will throw exception if executable is invalid
-            ExeTools.ValidateLeagueExecutable(newExecutable);
+            newExecutable.Validate();
 
             Settings.Executables.Add(newExecutable);
         }

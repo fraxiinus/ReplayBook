@@ -29,8 +29,9 @@ namespace Rofl.UI.Main
         private readonly RequestManager _requests;
         private readonly SettingsManager _settingsManager;
         private readonly RiZhi _log;
+        private readonly ReplayPlayer _player;
 
-        public MainWindow(RiZhi log, SettingsManager settingsManager, RequestManager requests, FileManager files)
+        public MainWindow(RiZhi log, SettingsManager settingsManager, RequestManager requests, FileManager files, ReplayPlayer player)
         {
             InitializeComponent();
 
@@ -38,6 +39,7 @@ namespace Rofl.UI.Main
             _settingsManager = settingsManager;
             _requests = requests;
             _files = files;
+            _player = player;
 
             Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
             {
@@ -45,7 +47,7 @@ namespace Rofl.UI.Main
                 _log.WriteLog();
             };
 
-            var context = new MainWindowViewModel(_files, _requests, _settingsManager, _log);
+            var context = new MainWindowViewModel(_files, _requests, _settingsManager, _player, _log);
             this.DataContext = context;
 
             // Decide to show welcome window

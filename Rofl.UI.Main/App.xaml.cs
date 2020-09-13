@@ -4,6 +4,7 @@ using Rofl.Executables.Utilities;
 using Rofl.Files;
 using Rofl.Requests;
 using Rofl.Settings;
+using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace Rofl.UI.Main
         private RequestManager _requests;
         private SettingsManager _settingsManager;
         private RiZhi _log;
+        private ReplayPlayer _player;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -34,7 +36,7 @@ namespace Rofl.UI.Main
                 // 0 = directly play, 1 = open in replaybook
                 if (_settingsManager.Settings.FileAction == 0)
                 {
-                    PlayReplay(selectedFile);
+                    _player.PlayReplay(selectedFile);
                     Application.Current.Shutdown();
                 }
                 else if (_settingsManager.Settings.FileAction == 1)
@@ -52,13 +54,13 @@ namespace Rofl.UI.Main
 
         private void StartMainWindow()
         {
-            var mainWindow = new MainWindow(_log, _settingsManager, _requests, _files);
+            var mainWindow = new MainWindow(_log, _settingsManager, _requests, _files, _player);
             mainWindow.Show();
         }
 
-        private static void StartSingleReplayWindow(string path)
+        private void StartSingleReplayWindow(string path)
         {
-            var singleWindow = new SingleReplayWindow
+            var singleWindow = new SingleReplayWindow(_log, _settingsManager, _requests, _files, _player)
             {
                 ReplayFileLocation = path
             };
@@ -82,74 +84,7 @@ namespace Rofl.UI.Main
             _settingsManager = new SettingsManager(_log);
             _files = new FileManager(_settingsManager.Settings, _log);
             _requests = new RequestManager(_settingsManager.Settings, _log);
-        }
-
-        private async Task PlayReplay(string path)
-        {
-            var replay =  await _files.GetSingleFile(path).ConfigureAwait(true);
-            var executables = _settingsManager.Executables.GetExecutablesByPatch(replay.ReplayFile.GameVersion);
-
-            if (!executables.Any())
-            {
-                _log.Information($"No executables found to play replay");
-
-                // No executable found that can be used to play
-                MessageBox.Show
-                (
-                    Application.Current.TryFindResource("ExecutableNotFoundErrorText") as string + " " + replay.ReplayFile.GameVersion,
-                    Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as string,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-                return;
-            }
-
-            LeagueExecutable target;
-            if (executables.Count > 1)
-            {
-                _log.Information($"More than one possible executable, asking user...");
-                // More than one?????
-                target = ShowChooseReplayDialog(executables);
-                if (target == null) return;
-            }
-            else
-            {
-                target = executables.First();
-            }
-
-            if (_settingsManager.Settings.PlayConfirmation)
-            {
-                _log.Information($"Asking user for confirmation");
-                // Show confirmation dialog
-                var msgResult = MessageBox.Show
-                    (
-                        Application.Current.TryFindResource("ReplayPlayConfirmationText") as string,
-                        Application.Current.TryFindResource("ReplayPlayConfirmationText") as string,
-                        MessageBoxButton.OKCancel,
-                        MessageBoxImage.Question
-                    );
-
-                if (msgResult != MessageBoxResult.OK) return;
-            }
-
-            _log.Information($"Using {target.Name} to play replay {replay.FileInfo.Path}");
-            ReplayPlayer.Play(target, replay.FileInfo.Path);
-        }
-
-        private static LeagueExecutable ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
-        {
-            var selectWindow = new ExecutableSelectWindow
-            {
-                Top = App.Current.MainWindow.Top + 50,
-                Left = App.Current.MainWindow.Left + 50,
-                DataContext = executables,
-            };
-
-            if (selectWindow.ShowDialog().Equals(true))
-            {
-                return selectWindow.Selection;
-            }
-            return null;
+            _player = new ReplayPlayer(_files, _settingsManager, _log);
         }
     }
 }
