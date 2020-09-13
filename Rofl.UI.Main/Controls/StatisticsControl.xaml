@@ -155,7 +155,9 @@
                     </Style>
                 </DataGridTextColumn.ElementStyle>
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource WasEarlySurrenderAccompliceHeaderText}"/>
+                    <TextBlock Text="{StaticResource WasEarlySurrenderAccompliceHeaderText}"
+                               TextTrimming="CharacterEllipsis"
+                               ToolTip="{StaticResource WasEarlySurrenderAccompliceHeaderText}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -173,7 +175,9 @@
                     </Style>
                 </DataGridTextColumn.ElementStyle>
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource WasAFKAfterFailedSurrenderHeaderText}"/>
+                    <TextBlock Text="{StaticResource WasAFKAfterFailedSurrenderHeaderText}"
+                               TextTrimming="CharacterEllipsis"
+                               ToolTip="{StaticResource WasAFKAfterFailedSurrenderHeaderText}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
             
