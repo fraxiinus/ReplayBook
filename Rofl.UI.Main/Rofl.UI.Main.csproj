@@ -90,6 +90,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Text.Json, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Json.4.7.1\lib\net461\System.Text.Json.dll</HintPath>
@@ -143,6 +144,7 @@
     </Compile>
     <Compile Include="Utilities\DictionaryExtensions.cs" />
     <Compile Include="Utilities\FileAssociations.cs" />
+    <Compile Include="Utilities\GithubConnection.cs" />
     <Compile Include="Utilities\ReplayPlayer.cs" />
     <Compile Include="Utilities\ResourceTools.cs" />
     <Compile Include="Views\ExecutableDetailWindow.xaml.cs">

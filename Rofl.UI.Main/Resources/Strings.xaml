@@ -56,6 +56,15 @@
     <string:String x:Key="FileActionOption1">Directly play replay file</string:String>
     <string:String x:Key="FileActionOption2">Open file in ReplayBook</string:String>
     <string:String x:Key="ReplayBehaviorLabelText">Play Button Behavior</string:String>
+    <string:String x:Key="UpdatesLabelText">Updates</string:String>
+    <string:String x:Key="CheckUpdatesButtonText">Check for Updates...</string:String>
+    <string:String x:Key="UpdateExceptionTitleText">Exception occured</string:String>
+    <string:String x:Key="UpdateHTTPExceptionBodyText">Failed to connect to GitHub. Check your connection and try again.</string:String>
+    <string:String x:Key="UpdateGitHubErrorBodyText">GitHub returned an error response. Manually check for updates by going to https://github.com/leeanchu/ReplayBook</string:String>
+    <string:String x:Key="UpdateMostRecentTitleText">Already updated</string:String>
+    <string:String x:Key="UpdateMostRecentBodyText">You are using the latest version of ReplayBook.</string:String>
+    <string:String x:Key="UpdateNewerTitleText">New version available</string:String>
+    <string:String x:Key="UpdateNewerBodyText">Newer version of ReplayBook is available. Press OK to be taken to the download page.</string:String>
     
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Auto-Register Executables from Source Folders</string:String>
