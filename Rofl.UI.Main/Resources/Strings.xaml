@@ -11,6 +11,9 @@
 
     <string:String x:Key="LoadingMessageReplay">Loading replays...</string:String>
     <string:String x:Key="LoadingMessageThumbnails">Loading thumbnails...</string:String>
+
+    <string:String x:Key="YesText">Yes</string:String>
+    <string:String x:Key="NoText">No</string:String>
     
     <string:String x:Key="CheckText">✔</string:String>
     <string:String x:Key="CrossText">❌</string:String>
@@ -190,9 +193,14 @@
 
     <string:String x:Key="ToxicityGroupHeaderText">Toxicity</string:String>
     <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>
+    <string:String x:Key="TimeOfLastDisconnectHeaderText">Time Of Last Disconnect</string:String>
     <string:String x:Key="PlayersMutedHeaderText">Players Muted</string:String>
     <string:String x:Key="MutedByPlayersHeaderText">Muted By Players</string:String>
     <string:String x:Key="PingHeaderText">Ping</string:String>
+    <string:String x:Key="TeamEarlySurrenderedHeaderText">Team Early Surrendered</string:String>
+    <string:String x:Key="WasAFKHeaderText">Was AFK</string:String>
+    <string:String x:Key="WasAFKAfterFailedSurrenderHeaderText">Was AFK After Failed Surrender</string:String>
+    <string:String x:Key="WasEarlySurrenderAccompliceHeaderText">Was Early Surrender Accomplice</string:String>    
 
     <string:String x:Key="MiscGroupHeaderText">Misc</string:String>
     <string:String x:Key="Spell1CastsHeaderText">Spell 1 Casts</string:String>
@@ -201,6 +209,9 @@
     <string:String x:Key="Spell4CastsHeaderText">Spell 4 Casts</string:String>
     <string:String x:Key="SummonerSpell1CastsHeaderText">Summoner Spell 1 Casts</string:String>
     <string:String x:Key="SummonerSpell2CastsHeaderText">Summoner Spell 2 Casts</string:String>
+    <string:String x:Key="IndividualPositionHeaderText">Individual Position</string:String>
+
+
 
     <!--ToolTip Text-->
     <string:String x:Key="SortToolTip">Sort</string:String>

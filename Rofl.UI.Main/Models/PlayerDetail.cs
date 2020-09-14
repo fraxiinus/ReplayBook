@@ -40,7 +40,7 @@ namespace Rofl.UI.Main.Models
             InhibitorsKilled = player.BARRACKS_KILLED.ToInt();
             TurretsKilled = player.TURRETS_KILLED.ToInt();
 
-            LastHitNexus = player.HQ_KILLED.ToInt() > 0;
+            LastHitNexus = Convert.ToBoolean(player.HQ_KILLED.ToInt());
 
             ObjectivesStolen = player.OBJECTIVES_STOLEN.ToInt();
             BaronsKilled = player.BARON_KILLS.ToInt();
@@ -95,6 +95,15 @@ namespace Rofl.UI.Main.Models
             PlayersMuted = player.PLAYERS_I_MUTED.ToInt();
             MutedByPlayers = player.PLAYERS_THAT_MUTED_ME.ToInt();
             Ping = player.PING.ToInt();
+            // Only capitalize first letter of position name JUNGLE -> Jungle
+#pragma warning disable CA1308 // Normalize strings to uppercase
+            IndividualPosition = player.INDIVIDUAL_POSITION[0] + player.INDIVIDUAL_POSITION.Substring(1).ToLowerInvariant();
+#pragma warning restore CA1308 // Normalize strings to uppercase
+            TeamEarlySurrendered = Convert.ToBoolean(player.TEAM_EARLY_SURRENDERED.ToInt());
+            TimeOfLastDisconnect = player.TIME_OF_FROM_LAST_DISCONNECT.ToInt();
+            WasAFK = Convert.ToBoolean(player.WAS_AFK.ToInt());
+            WasAFKAfterFailedSurrender = Convert.ToBoolean(player.WAS_AFK_AFTER_FAILED_SURRENDER.ToInt());
+            WasEarlySurrenderAccomplice = Convert.ToBoolean(player.WAS_EARLY_SURRENDER_ACCOMPLICE.ToInt());
 
             // Create items
             Items = new List<Item>
@@ -247,5 +256,12 @@ namespace Rofl.UI.Main.Models
 
         public IList<Item> Items { get; private set; }
 
+        public string IndividualPosition { get; private set; }
+
+        public bool TeamEarlySurrendered { get; private set; }
+        public int TimeOfLastDisconnect { get; private set; }
+        public bool WasAFK { get; private set; }
+        public bool WasAFKAfterFailedSurrender { get; private set; }
+        public bool WasEarlySurrenderAccomplice { get; private set; }
     }
 }
