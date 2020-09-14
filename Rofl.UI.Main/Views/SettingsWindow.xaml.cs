@@ -5,6 +5,9 @@ using Rofl.Settings.Models;
 using Rofl.UI.Main.Utilities;
 using System;
 using System.Globalization;
+using System.Net.Http;
+using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -16,7 +19,6 @@ namespace Rofl.UI.Main.Views
     /// </summary>
     public partial class SettingsWindow : Window
     {
-
         public SettingsWindow()
         {
             InitializeComponent();
@@ -450,6 +452,52 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is SettingsManager context)) { return; }
 
             FileAssociations.SetRoflToSelf();
+        }
+
+        private async Task UpdateCheckButton_Click(object sender, RoutedEventArgs e)
+        {
+            string latestVersion = null;
+            try
+            {
+                latestVersion = await GithubConnection.GetLatestVersion().ConfigureAwait(true);
+            }
+            catch (HttpRequestException ex)
+            {
+                // Http request failed, show error and stop
+                MessageBox.Show
+                (
+                    TryFindResource("UpdateHTTPExceptionBodyText") as String,
+                    TryFindResource("UpdateExceptionTitleText") as String,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+                return;
+            }
+            
+            if (String.IsNullOrEmpty(latestVersion))
+            {
+                // Either github returned nothing or got an http error code
+                MessageBox.Show
+                (
+                    TryFindResource("UpdateGitHubErrorBodyText") as String,
+                    TryFindResource("UpdateExceptionTitleText") as String,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+                return;
+            }
+
+            var assemblyName = Assembly.GetEntryAssembly()?.GetName();
+            var assemblyVersion = assemblyName.Version.ToString(2);
+
+            MessageBox.Show
+            (
+                $"{latestVersion} VS {assemblyVersion}",
+                TryFindResource("UpdateExceptionTitleText") as String,
+                MessageBoxButton.OK,
+                MessageBoxImage.Information
+            );
+            return;
         }
     }
 }
