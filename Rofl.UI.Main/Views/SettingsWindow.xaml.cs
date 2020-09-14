@@ -4,6 +4,7 @@ using Rofl.Settings;
 using Rofl.Settings.Models;
 using Rofl.UI.Main.Utilities;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Net.Http;
 using System.Reflection;
@@ -454,9 +455,9 @@ namespace Rofl.UI.Main.Views
             FileAssociations.SetRoflToSelf();
         }
 
-        private async Task UpdateCheckButton_Click(object sender, RoutedEventArgs e)
+        private async void UpdateCheckButton_Click(object sender, RoutedEventArgs e)
         {
-            string latestVersion = null;
+            string latestVersion;
             try
             {
                 latestVersion = await GithubConnection.GetLatestVersion().ConfigureAwait(true);
@@ -469,7 +470,7 @@ namespace Rofl.UI.Main.Views
                     TryFindResource("UpdateHTTPExceptionBodyText") as String,
                     TryFindResource("UpdateExceptionTitleText") as String,
                     MessageBoxButton.OK,
-                    MessageBoxImage.Information
+                    MessageBoxImage.Exclamation
                 );
                 return;
             }
@@ -482,21 +483,40 @@ namespace Rofl.UI.Main.Views
                     TryFindResource("UpdateGitHubErrorBodyText") as String,
                     TryFindResource("UpdateExceptionTitleText") as String,
                     MessageBoxButton.OK,
-                    MessageBoxImage.Information
+                    MessageBoxImage.Exclamation
                 );
                 return;
             }
 
             var assemblyName = Assembly.GetEntryAssembly()?.GetName();
-            var assemblyVersion = assemblyName.Version.ToString(2);
+            var assemblyVersion = assemblyName.Version.ToString(3);
 
-            MessageBox.Show
-            (
-                $"{latestVersion} VS {assemblyVersion}",
-                TryFindResource("UpdateExceptionTitleText") as String,
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
+            if (latestVersion.Equals(assemblyVersion, StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show
+                (
+                    TryFindResource("UpdateMostRecentBodyText") as String,
+                    TryFindResource("UpdateMostRecentTitleText") as String,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+            }
+            else
+            {
+                var response = MessageBox.Show
+                (
+                    TryFindResource("UpdateNewerBodyText") as String + $"\n{assemblyVersion} -> {latestVersion}",
+                    TryFindResource("UpdateNewerTitleText") as String,
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Information
+                );
+
+                if(response == MessageBoxResult.OK)
+                {
+                    Process.Start($"https://github.com/leeanchu/ReplayBook/releases");
+                }
+            }
+
             return;
         }
     }
