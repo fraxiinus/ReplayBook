@@ -164,6 +164,18 @@ namespace Rofl.UI.Main.Views
 
         private void EditLaunchArgsButton_Click(object sender, RoutedEventArgs e)
         {
+            if (_executable == null)
+            {
+                MessageBox.Show
+                    (
+                        TryFindResource("ExecutableSelectInvalidErrorText") as String,
+                        TryFindResource("ExecutableSelectInvalidErrorTitle") as String,
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Exclamation
+                    );
+                return;
+            }
+
             var editDialog = new ExecutableLaunchArgsWindow(_executable)
             {
                 Top = this.Top + 50,
