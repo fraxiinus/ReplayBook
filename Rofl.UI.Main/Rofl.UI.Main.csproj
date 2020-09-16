@@ -88,12 +88,6 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
-    <Reference Include="PropertyTools, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ea0c9f2b460934d0, processorArchitecture=MSIL">
-      <HintPath>..\packages\PropertyTools.3.0.0\lib\net45\PropertyTools.dll</HintPath>
-    </Reference>
-    <Reference Include="PropertyTools.Wpf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ea0c9f2b460934d0, processorArchitecture=MSIL">
-      <HintPath>..\packages\PropertyTools.Wpf.3.0.0\lib\net45\PropertyTools.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -122,7 +116,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\akr\CirclePanel.cs" />
+    <Compile Include="Controls\akr\ColorPicker.xaml.cs" />
+    <Compile Include="Controls\akr\ColorToSolidColorBrushConverter.cs" />
+    <Compile Include="Controls\akr\ColorUtilities.cs" />
+    <Compile Include="Controls\akr\HsvColor.cs" />
+    <Compile Include="Controls\ColorWrapper.xaml.cs">
+      <DependentUpon>ColorWrapper.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BoolInvertConverter.cs" />
+    <Compile Include="Converters\ColorBrushConverter.cs" />
     <Compile Include="Converters\FormatKbSizeConverter.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Models\ExportContext.cs" />
@@ -180,6 +183,14 @@
     <Compile Include="Views\WelcomeSetupWindow.xaml.cs">
       <DependentUpon>WelcomeSetupWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\akr\ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ColorWrapper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ItemIconControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

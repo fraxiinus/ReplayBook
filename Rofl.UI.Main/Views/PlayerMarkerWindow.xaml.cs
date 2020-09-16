@@ -41,7 +41,7 @@ namespace Rofl.UI.Main.Views
 
                 NoteTextBox.Text = _marker.Note;
 
-                MarkerColorPicker.SelectedColor = (Color)ColorConverter.ConvertFromString(_marker.Color);
+                MarkerColorPicker.SelectedColorHex = _marker.Color;
             }
             else
             {
@@ -56,7 +56,7 @@ namespace Rofl.UI.Main.Views
 
             string inputName = NameTextBox.Text;
             string noteText = NoteTextBox.Text;
-            string colorText = MarkerColorPicker.SelectedColor?.ToHexString();
+            string colorText = MarkerColorPicker.SelectedColorHex;
 
             // Validate if input information is OK
             if (String.IsNullOrWhiteSpace(inputName))
