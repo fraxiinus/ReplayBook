@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Rofl.UI.Main.Views" xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
+        xmlns:local="clr-namespace:Rofl.UI.Main.Views" 
+        xmlns:pt="http://propertytools.org/wpf"
         mc:Ignorable="d"
         Title="{StaticResource PlayerMarkerWindowText}"
         SizeToContent="Height"
@@ -31,7 +32,7 @@
                      Style="{StaticResource TextBoxBaseStyle}"/>
 
             <TextBlock Text="{StaticResource PlayerMarkerColorLabelText}"/>
-            <controls:ColorPicker x:Name="MarkerColorPicker"/>
+            <pt:ColorPicker x:Name="MarkerColorPicker"/>
             
         </StackPanel>
         <StackPanel Orientation="Horizontal" 
