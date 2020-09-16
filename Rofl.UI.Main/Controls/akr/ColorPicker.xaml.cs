@@ -64,9 +64,9 @@ namespace Rofl.UI.Main.Controls.akr
             var BSliderData = new SliderData { Canvas = BCanvas, SelectorBorder = BSelector, Type = ColorType.B };
             BCanvas.Tag = BSliderData;
             BSelector.RenderTransform = BSliderData.SelectorTransform;
-            var ASliderData = new SliderData { Canvas = ACanvas, SelectorBorder = ASelector, Type = ColorType.A };
-            ACanvas.Tag = ASliderData;
-            ASelector.RenderTransform = ASliderData.SelectorTransform;
+            //var ASliderData = new SliderData { Canvas = ACanvas, SelectorBorder = ASelector, Type = ColorType.A };
+            //ACanvas.Tag = ASliderData;
+            //ASelector.RenderTransform = ASliderData.SelectorTransform;
 
 
             DataContext = this;
@@ -74,7 +74,7 @@ namespace Rofl.UI.Main.Controls.akr
             RTextBox.DataContext = this;
             GTextBox.DataContext = this;
             BTextBox.DataContext = this;
-            ATextBox.DataContext = this;
+            //ATextBox.DataContext = this;
             ColorShadingRectangle.DataContext = CurrentViewColor;
         }
 
@@ -597,7 +597,7 @@ namespace Rofl.UI.Main.Controls.akr
             UpdateColorSliderSelectorPosition((SliderData)RCanvas.Tag);
             UpdateColorSliderSelectorPosition((SliderData)GCanvas.Tag);
             UpdateColorSliderSelectorPosition((SliderData)BCanvas.Tag);
-            UpdateColorSliderSelectorPosition((SliderData)ACanvas.Tag);
+            //UpdateColorSliderSelectorPosition((SliderData)ACanvas.Tag);
 
             stopPropertyChanged = false;
         }

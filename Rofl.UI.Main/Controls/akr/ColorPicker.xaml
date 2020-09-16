@@ -89,7 +89,7 @@
                     </Canvas>
                 </Border>
             </DockPanel>
-            <DockPanel Margin="5,5,0,0">
+            <!--<DockPanel Margin="5,5,0,0">
                 <TextBlock Text="A" DockPanel.Dock="Left" VerticalAlignment="Center" Width="10"/>
                 <TextBox Text="{Binding A}" Width="45" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0" Name="ATextBox"/>
                 <Border Height="17" BorderThickness="1" BorderBrush="Gray" Margin="5,0,5,0">
@@ -106,7 +106,7 @@
                         <Border BorderThickness="0" Background="White" CornerRadius="2" Width="4" Height="15" Name="ASelector"/>
                     </Canvas>
                 </Border>
-            </DockPanel>
+            </DockPanel>-->
         </StackPanel>
         <Viewbox Margin="0,10,0,0">
             <Grid Width="220" Height="220">
