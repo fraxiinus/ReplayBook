@@ -87,7 +87,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
@@ -104,6 +106,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -113,10 +116,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\ColorPicker.xaml.cs">
-      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    <Compile Include="Controls\akr\CirclePanel.cs" />
+    <Compile Include="Controls\akr\ColorPicker.xaml.cs" />
+    <Compile Include="Controls\akr\ColorToSolidColorBrushConverter.cs" />
+    <Compile Include="Controls\akr\ColorUtilities.cs" />
+    <Compile Include="Controls\akr\HsvColor.cs" />
+    <Compile Include="Controls\ColorWrapper.xaml.cs">
+      <DependentUpon>ColorWrapper.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BoolInvertConverter.cs" />
+    <Compile Include="Converters\ColorBrushConverter.cs" />
     <Compile Include="Converters\FormatKbSizeConverter.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Models\ExportContext.cs" />
@@ -174,7 +183,11 @@
     <Compile Include="Views\WelcomeSetupWindow.xaml.cs">
       <DependentUpon>WelcomeSetupWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\ColorPicker.xaml">
+    <Page Include="Controls\akr\ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ColorWrapper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -422,7 +435,6 @@
   <ItemGroup>
     <Resource Include="Resources\iconBMP.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>; Move all assemblies and related files to lib folder

@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Rofl.UI.Main.Controls.ColorWrapper"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Rofl.UI.Main.Controls" 
+             xmlns:akr="clr-namespace:Rofl.UI.Main.Controls.akr" 
+             xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="25" d:DesignWidth="280">
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <ToggleButton x:Name="ColorPickerButton"
+                          VerticalContentAlignment="Stretch"
+                          IsHitTestVisible="{Binding ElementName=ColorPickerPopup, Path=IsOpen, Mode=OneWay, Converter={converters:BoolInvertConverter}}"
+                          Height="25"
+                          Margin="0 0 0 0">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border x:Name="ButtonColorPreview"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Background="{Binding ElementName=ColorPickerContent, Path=SelectedColor, Mode=OneWay, Converter={converters:ColorBrushConverter}}"
+                            Width="19"
+                            Height="19"/>
+
+                    <TextBlock x:Name="ButtonColorName"
+                               Text="{Binding ElementName=ColorPickerContent, Path=SelectedColor, Mode=OneWay}"
+                               VerticalAlignment="Center"
+                               Margin="5 0 0 0"
+                               Grid.Column="1"/>
+                </Grid>
+            </ToggleButton>
+        </Grid>
+        <Popup x:Name="ColorPickerPopup"
+               IsOpen="{Binding IsChecked, ElementName=ColorPickerButton}"
+               Width="{Binding ActualWidth, ElementName=ColorPickerButton}"
+               StaysOpen="False">
+            <Border BorderThickness="1 0 1 1"
+                    BorderBrush="{StaticResource DarkTextColor}">
+                <akr:ColorPicker x:Name="ColorPickerContent"/>
+            </Border>
+        </Popup>
+    </StackPanel>
+</UserControl>

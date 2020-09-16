@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using Rofl.UI.Main.Extensions;
 
 namespace Rofl.UI.Main.Views
 {
@@ -22,7 +23,7 @@ namespace Rofl.UI.Main.Views
             InitializeComponent();
 
             this.Title = TryFindResource("AddButtonText") as String + " " + this.Title;
-            MarkerColorPicker.SelectedColor = Colors.Blue;
+            MarkerColorPicker.SelectedColor = Colors.White;
         }
 
         public PlayerMarkerWindow(PlayerMarker marker)
@@ -40,7 +41,7 @@ namespace Rofl.UI.Main.Views
 
                 NoteTextBox.Text = _marker.Note;
 
-                MarkerColorPicker.SelectedColorAsHex = _marker.Color;
+                MarkerColorPicker.SelectedColorHex = _marker.Color;
             }
             else
             {
@@ -55,7 +56,7 @@ namespace Rofl.UI.Main.Views
 
             string inputName = NameTextBox.Text;
             string noteText = NoteTextBox.Text;
-            string colorText = MarkerColorPicker.SelectedColorAsHex;
+            string colorText = MarkerColorPicker.SelectedColorHex;
 
             // Validate if input information is OK
             if (String.IsNullOrWhiteSpace(inputName))
