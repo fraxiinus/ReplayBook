@@ -69,11 +69,14 @@ namespace Rofl.Executables
         public int SearchAllFoldersForExecutablesAndAddThemAll()
         {
             int counter = 0;
+            // loop through all source folders
             foreach (var path in Settings.SourceFolders)
             {
+                // Look for executables
                 var foundExes = SearchFolderForExecutables(path);
                 foreach (var exe in foundExes)
                 {
+                    // Check if target executable already exists
                     if (GetExecutableByTarget(exe.TargetPath) == null)
                     {
                         AddExecutable(exe);
@@ -96,6 +99,7 @@ namespace Rofl.Executables
 
             try
             {
+                // Look for any and all league of legends executables
                 var exeFiles = Directory.EnumerateFiles(startPath, "League of Legends.exe", SearchOption.AllDirectories);
 
                 foreach (string exePath in exeFiles)
