@@ -31,12 +31,12 @@ namespace Rofl.UI.Main.Controls
             }
         }
 
-        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
             if (!(this.DataContext is ReplayDetail replay)) { return; }
 
-            context.PlayReplay(replay.PreviewModel);
+            await context.PlayReplay(replay.PreviewModel).ConfigureAwait(true);
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)

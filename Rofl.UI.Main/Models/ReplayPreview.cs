@@ -1,12 +1,14 @@
 ﻿using Rofl.Reader.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Rofl.UI.Main.Models
 {
-    public class ReplayPreview
+    public class ReplayPreview : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ReplayPreview(ReplayFile replayFile, DateTimeOffset creationDate, bool newFile = false)
         {
@@ -30,6 +32,8 @@ namespace Rofl.UI.Main.Models
 
             RedPreviewPlayers = (from rplayer in replayFile.RedPlayers
                                  select new PlayerPreview(rplayer)).ToList();
+
+            IsPlaying = false;
         }
 
         public string Name { get; private set; }
@@ -62,5 +66,17 @@ namespace Rofl.UI.Main.Models
         public IList<PlayerPreview> BluePreviewPlayers { get; private set; }
 
         public IList<PlayerPreview> RedPreviewPlayers { get; private set; }
+
+        private bool _isPlaying;
+        public bool IsPlaying
+        {
+            get => _isPlaying;
+            set
+            {
+                _isPlaying = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(IsPlaying)));
+            }
+        }
     }
 }

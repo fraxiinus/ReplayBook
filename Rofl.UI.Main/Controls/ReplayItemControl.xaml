@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="85" d:DesignWidth="350">
 
@@ -179,16 +180,47 @@
         <StackPanel DockPanel.Dock="Right"
                     Orientation="Vertical"
                     Margin="5 5 5 5">
-            
-            <Button x:Name="PlayButton"
-                    Margin="0 0 0 5"
-                    ToolTip="{StaticResource PlayReplayToolTip}"
-                    Style="{StaticResource ToolButton}"
-                    Click="PlayButton_Click">
-                <Image Source="{StaticResource PlayDrawingImage}"
-                       RenderOptions.BitmapScalingMode="HighQuality"/>
-            </Button>
-            
+
+            <Grid>
+                <Button x:Name="PlayButton"
+                        Margin="0 0 0 5"
+                        ToolTipService.ShowOnDisabled="True"
+                        Click="PlayButton_Click"
+                        IsEnabled="{Binding Path=IsPlaying, Converter={converters:BoolInvertConverter}}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource ToolButton}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
+                                    <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
+                                    <Setter Property="ToolTip" Value="{StaticResource AlreadyPlayingToolTip}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Image Source="{StaticResource PlayDrawingImage}"
+                           RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Button>
+                <Image Source="{StaticResource CircleFillDrawingImage}"
+                       Width="10"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+            </Grid>
+
             <Button x:Name="MoreButton"
                     Margin="0"
                     ToolTip="{StaticResource MoreToolTip}"

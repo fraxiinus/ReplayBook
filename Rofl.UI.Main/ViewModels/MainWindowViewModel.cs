@@ -363,13 +363,25 @@ namespace Rofl.UI.Main.ViewModels
             StatusBarModel.Visible = false;
         }
 
-        public void PlayReplay(ReplayPreview preview)
+        public async Task<Process> PlayReplay(ReplayPreview preview)
         {
             _log.Information($"Playing replay...");
 
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
             
-            _player.PlayReplay(preview.Location);
+            var process = await _player.PlayReplay(preview.Location).ConfigureAwait(true);
+            // if process is null, replay failed to play for whatever reason
+            if(process != null)
+            {
+                preview.IsPlaying = true;
+                // add event handler for when the replay stops
+                process.Exited += (object processSender, System.EventArgs processEventArgs) =>
+                {
+                    preview.IsPlaying = false;
+                };
+            }
+
+            return process;
         }
 
         public void OpenReplayContainingFolder(string location)
