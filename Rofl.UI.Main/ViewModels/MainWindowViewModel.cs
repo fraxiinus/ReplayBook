@@ -83,12 +83,13 @@ namespace Rofl.UI.Main.ViewModels
         /// <summary>
         /// Get replays from database and load to display
         /// </summary>
-        public void LoadReplays()
+        public int LoadReplays()
         {
             _log.Information("Loading replays from database...");
             var databaseResults = _fileManager.GetReplays(SortParameters, SettingsManager.Settings.ItemsPerPage, PreviewReplays.Count);
 
             _log.Information($"Retrieved {databaseResults.Count} replays");
+            
             foreach (var file in databaseResults)
             {
                 var previewModel = CreateReplayPreview(file);
@@ -100,6 +101,8 @@ namespace Rofl.UI.Main.ViewModels
 
                 FileResults.Add(file.FileInfo.Path, file);
             }
+
+            return databaseResults.Count;
         }
 
         public ReplayPreview CreateReplayPreview(FileResult file)

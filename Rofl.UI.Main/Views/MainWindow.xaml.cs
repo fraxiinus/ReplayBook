@@ -165,13 +165,15 @@ namespace Rofl.UI.Main
         {
             if (!(this.DataContext is MainWindowViewModel)) { return; }
 
+            // If we scrolled at all...
             if (Math.Abs(e.VerticalChange) > 0)
             {
+                // If we reached the end, show the button!!!
                 if (e.VerticalOffset + e.ViewportHeight == e.ExtentHeight)
                 {
                     ReplayPageBar.Visibility = Visibility.Visible;
                 }
-                else
+                else // Hide the button
                 {
                     ReplayPageBar.Visibility = Visibility.Collapsed;
                 }
@@ -182,7 +184,17 @@ namespace Rofl.UI.Main
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
-            context.LoadReplays();
+            if (context.LoadReplays() == 0)
+            {
+                MessageBox.Show(
+                    TryFindResource("NoReplaysFoundText") as string,
+                    TryFindResource("NoReplaysFoundTitle") as string,
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+                return;
+            }
+
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
 

@@ -29,6 +29,9 @@
     <string:String x:Key="ConfirmTitle">Confirmation</string:String>
     <string:String x:Key="ConfirmText">Are you sure?</string:String>
 
+    <string:String x:Key="NoReplaysFoundTitle">No more results</string:String>
+    <string:String x:Key="NoReplaysFoundText">There are no more replays to load</string:String>
+    
     <string:String x:Key="MissingPathTitle">Replay folder not found</string:String>
     <string:String x:Key="MissingPathText">The following path(s) could not be found are were removed:</string:String>
 

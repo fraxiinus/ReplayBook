@@ -38,9 +38,9 @@
                 </Grid.RowDefinitions>
 
                 <Grid x:Name="ToolPanel"
-                  Background="Transparent"
-                  DataContext="{Binding Path=SortParameters}"
-                  Grid.Row="0">
+                      Background="Transparent"
+                      DataContext="{Binding Path=SortParameters}"
+                      Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
@@ -49,28 +49,28 @@
                     </Grid.ColumnDefinitions>
 
                     <Border Style="{StaticResource SearchBorderStyle}"
-                        Grid.Column="0">
+                            Grid.Column="0">
                         <TextBox x:Name="SearchBox"
-                             FontSize="18"
-                             BorderBrush="Transparent"
-                             Style="{StaticResource SearchBoxStyle}"
-                             KeyUp="SearchBox_KeyUp"/>
+                                 FontSize="18"
+                                 BorderBrush="Transparent"
+                                 Style="{StaticResource SearchBoxStyle}"
+                                 KeyUp="SearchBox_KeyUp"/>
                     </Border>
 
                     <Button x:Name="RefreshButton"
-                        ToolTip="{StaticResource RefreshToolTip}"
-                        Style="{StaticResource ToolButton}"
-                        Click="RefreshButton_Click"
-                        Grid.Column="1">
+                            ToolTip="{StaticResource RefreshToolTip}"
+                            Style="{StaticResource ToolButton}"
+                            Click="RefreshButton_Click"
+                            Grid.Column="1">
                         <Image Source="{StaticResource RefreshDrawingImage}"/>
                     </Button>
 
                     <Button x:Name="SortButton"
-                        ToolTip="{StaticResource SortToolTip}"
-                        Style="{StaticResource ToolButton}"
-                        ContextMenuService.Placement="Bottom"
-                        Click="SortButton_Click"
-                        Grid.Column="2">
+                            ToolTip="{StaticResource SortToolTip}"
+                            Style="{StaticResource ToolButton}"
+                            ContextMenuService.Placement="Bottom"
+                            Click="SortButton_Click"
+                            Grid.Column="2">
                         <Image Source="{StaticResource SortDrawingImage}"/>
                         <Button.ContextMenu>
                             <ContextMenu x:Name="SortMenu" Style="{StaticResource ContextMenuStyle}">
@@ -105,19 +105,19 @@
                     </Button>
 
                     <Button x:Name="SettingsButton"
-                        ToolTip="{StaticResource SettingsToolTip}"
-                        Style="{StaticResource ToolButton}"
-                        Click="SettingsButton_Click"
-                        Grid.Column="3">
+                            ToolTip="{StaticResource SettingsToolTip}"
+                            Style="{StaticResource ToolButton}"
+                            Click="SettingsButton_Click"
+                            Grid.Column="3">
                         <Image Source="{StaticResource SettingsDrawingImage}"/>
                     </Button>
 
                 </Grid>
 
                 <Grid x:Name="ReplayStatusBar"
-                  Background="{Binding Path=StatusBarModel.Color}"
-                  HorizontalAlignment="Stretch"
-                  Grid.Row="1">
+                      Background="{Binding Path=StatusBarModel.Color}"
+                      HorizontalAlignment="Stretch"
+                      Grid.Row="1">
                     <Grid.Style>
                         <Style TargetType="Grid">
                             <Style.Triggers>
@@ -138,8 +138,8 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <ProgressBar IsIndeterminate="true"
-                             Grid.Row="0"
-                             Height="5">
+                                 Grid.Row="0"
+                                 Height="5">
                         <ProgressBar.Style>
                             <Style TargetType="ProgressBar">
                                 <Style.Triggers>
@@ -154,24 +154,24 @@
                         </ProgressBar.Style>
                     </ProgressBar>
                     <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage}"
-                           TextAlignment="Center"
-                           FontSize="14"
-                           VerticalAlignment="Center" 
-                           Grid.Column="0"
-                           Grid.Row="1"
-                           Padding="1"/>
+                               TextAlignment="Center"
+                               FontSize="14"
+                               VerticalAlignment="Center" 
+                               Grid.Column="0"
+                               Grid.Row="1"
+                               Padding="1"/>
                 </Grid>
 
                 <ListView x:Name="ReplayListView"
-                      Style="{StaticResource ReplayListStyle}"
-                      ItemsSource="{Binding Path=PreviewReplays}"
-                      ItemContainerStyle="{StaticResource ReplayListItemStyle}"
-                      Loaded="ReplayListView_Loaded"
-                      MinWidth="350"
-                      VerticalAlignment="Stretch"
-                      ScrollViewer.ScrollChanged="ReplayListView_ScrollChanged"
-                      SelectionChanged="ReplayListView_SelectionChanged"
-                      Grid.Row="2">
+                          Style="{StaticResource ReplayListStyle}"
+                          ItemsSource="{Binding Path=PreviewReplays}"
+                          ItemContainerStyle="{StaticResource ReplayListItemStyle}"
+                          Loaded="ReplayListView_Loaded"
+                          MinWidth="350"
+                          VerticalAlignment="Stretch"
+                          ScrollViewer.ScrollChanged="ReplayListView_ScrollChanged"
+                          SelectionChanged="ReplayListView_SelectionChanged"
+                          Grid.Row="2">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <controls:ReplayItemControl/>
@@ -180,16 +180,16 @@
                 </ListView>
 
                 <Grid x:Name="ReplayPageBar"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Bottom"
-                  Grid.Row="3"
-                  Visibility="Collapsed">
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Bottom"
+                      Grid.Row="3"
+                      Visibility="Collapsed">
                     <Button x:Name="LoadMoreButton"
-                        Content="{StaticResource LoadMoreButtonText}"
-                        FontSize="14"
-                        Padding="2"
-                        Style="{StaticResource BaseButton}"
-                        Click="LoadMoreButton_Click"/>
+                            Content="{StaticResource LoadMoreButtonText}"
+                            FontSize="14"
+                            Padding="2"
+                            Style="{StaticResource BaseButton}"
+                            Click="LoadMoreButton_Click"/>
                 </Grid>
             </Grid>
         </Border>
