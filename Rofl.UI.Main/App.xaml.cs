@@ -36,7 +36,7 @@ namespace Rofl.UI.Main
                 // 0 = directly play, 1 = open in replaybook
                 if (_settingsManager.Settings.FileAction == 0)
                 {
-                    _player.PlayReplay(selectedFile);
+                    _player.PlayReplay(selectedFile).RunSynchronously();
                     Application.Current.Shutdown();
                 }
                 else if (_settingsManager.Settings.FileAction == 1)
