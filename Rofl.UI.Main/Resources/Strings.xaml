@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:string="clr-namespace:System;assembly=mscorlib">
-    
+
+   
     <!--General UI Text-->
     <string:String x:Key="ProgramName">Replay Book</string:String>
     <string:String x:Key="SearchDefaultText">Search...</string:String>
@@ -119,6 +120,9 @@
     <string:String x:Key="GitHubLink">https://github.com/leeanchu/ReplayBook</string:String>
     <string:String x:Key="DiscordInvite">discord.gg/c33Rc5J</string:String>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
+    <string:String x:Key="AcknowledgementText">ReplayBook was only possible thanks to the following:</string:String>
+    <string:String x:Key="AcknowledgementButtonText">Open Source Projects</string:String>
+    <string:String x:Key="AcknowledgementWindowTitleText">Open Source Acknowledgements</string:String>
     
     <!--Generic button text-->
     <string:String x:Key="OKButtonText">OK</string:String>

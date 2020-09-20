@@ -519,5 +519,16 @@ namespace Rofl.UI.Main.Views
 
             return;
         }
+
+        private void AcknowledgementsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var ackDialog = new AcknowledgementsWindow
+            {
+                Top = App.Current.MainWindow.Top + 50,
+                Left = App.Current.MainWindow.Left + 50
+            };
+
+            ackDialog.ShowDialog();
+        }
     }
 }
