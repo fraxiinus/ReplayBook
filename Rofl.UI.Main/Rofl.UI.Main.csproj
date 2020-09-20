@@ -165,6 +165,9 @@
     <Compile Include="Utilities\GithubConnection.cs" />
     <Compile Include="Utilities\ReplayPlayer.cs" />
     <Compile Include="Utilities\ResourceTools.cs" />
+    <Compile Include="Views\AcknowledgementsWindow.xaml.cs">
+      <DependentUpon>AcknowledgementsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExecutableDetailWindow.xaml.cs">
       <DependentUpon>ExecutableDetailWindow.xaml</DependentUpon>
     </Compile>
@@ -260,11 +263,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Acknowledgements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Strings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AcknowledgementsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
