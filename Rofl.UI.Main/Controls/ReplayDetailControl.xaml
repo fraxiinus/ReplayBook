@@ -69,40 +69,69 @@
                                     ToolTipService.ShowOnDisabled="True"
                                     Background="Transparent"
                                     BorderBrush="LightGray"
-                                    Click="PlayButton_Click">
+                                    Click="PlayButton_Click"
+                                    HorizontalContentAlignment="Stretch">
                                 <Button.Style>
-                                    <Style TargetType="Button">
+                                    <Style TargetType="Button" BasedOn="{StaticResource BaseButton}">
                                         <Style.Triggers>
+                                            <!--Conditions to enable/disable button-->
                                             <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="True">
+                                                <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
                                                 <Setter Property="IsEnabled" Value="True"/>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="False">
+                                                <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
                                                 <Setter Property="IsEnabled" Value="False"/>
                                             </DataTrigger>
-                                            <Trigger Property="IsEnabled" Value="True">
+                                            <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="True">
+                                                <Setter Property="ToolTip" Value="{StaticResource AlreadyPlayingToolTip}"/>
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="False">
                                                 <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
-                                            </Trigger>
-                                            <Trigger Property="IsEnabled" Value="False">
-                                                <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
-                                            </Trigger>
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                            </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Button.Style>
-                                <DockPanel Background="Transparent">
+                                <Grid Background="Transparent" HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
                                     <TextBlock Text="{StaticResource PlayButtonText}"
-                                                   FontSize="20"
-                                                   Margin="0"
-                                                   DockPanel.Dock="Left"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Left"/>
-                                    <Image Source="{StaticResource PlayDrawingImage}"
-                                               RenderOptions.BitmapScalingMode="HighQuality"
-                                               Height="20"
-                                               Margin="5 0 0 0"
+                                               FontSize="20"
+                                               Margin="0"
+                                               VerticalAlignment="Stretch"
                                                HorizontalAlignment="Right"
-                                               VerticalAlignment="Center"
-                                               DockPanel.Dock="Right"/>
-                                </DockPanel>
+                                               Grid.Column="0"/>
+                                    <Image Source="{StaticResource PlayDrawingImage}"
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Height="20"
+                                           Margin="0 0 5 0"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           Grid.Column="1"/>
+                                    <Image Source="{StaticResource CircleFillDrawingImage}"
+                                           Width="10"
+                                           HorizontalAlignment="Stretch"
+                                           VerticalAlignment="Top"
+                                           Grid.Column="2">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="true">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false">
+                                                        <Setter Property="Visibility" Value="Hidden"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                </Grid>
                             </Button>
 
                             <!--<Button x:Name="MoreButton"

@@ -10,7 +10,7 @@ namespace Rofl.Executables.Utilities
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public static class LeagueExecutableExtensions
     {
-        public static void PlayReplay(this LeagueExecutable executable, string path)
+        public static Process PlayReplay(this LeagueExecutable executable, string path)
         {
             if (!File.Exists(path))
             {
@@ -34,9 +34,8 @@ namespace Rofl.Executables.Utilities
             };
 
             Process game = Process.Start(processStartInfo);
-            game.WaitForExit();
-
-            return;
+            game.EnableRaisingEvents = true;
+            return game;
         }
 
         public static void Validate(this LeagueExecutable executable)

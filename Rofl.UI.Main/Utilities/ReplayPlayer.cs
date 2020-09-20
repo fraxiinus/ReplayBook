@@ -6,6 +6,7 @@ using Rofl.Settings;
 using Rofl.UI.Main.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace Rofl.UI.Main.Utilities
             _log = log;
         }
 
-        public async Task PlayReplay(string path)
+        public async Task<Process> PlayReplay(string path)
         {
             var replay = await _files.GetSingleFile(path).ConfigureAwait(true);
             var executables = _settingsManager.Executables.GetExecutablesByPatch(replay.ReplayFile.GameVersion);
@@ -43,7 +44,7 @@ namespace Rofl.UI.Main.Utilities
                     MessageBoxButton.OK,
                     MessageBoxImage.Error
                 );
-                return;
+                return null;
             }
 
             LeagueExecutable target;
@@ -52,7 +53,7 @@ namespace Rofl.UI.Main.Utilities
                 _log.Information($"More than one possible executable, asking user...");
                 // More than one?????
                 target = ShowChooseReplayDialog(executables);
-                if (target == null) return;
+                if (target == null) return null;
             }
             else
             {
@@ -71,12 +72,13 @@ namespace Rofl.UI.Main.Utilities
                         MessageBoxImage.Question
                     );
 
-                if (msgResult != MessageBoxResult.OK) return;
+                if (msgResult != MessageBoxResult.OK) return null;
             }
 
             _log.Information($"Using {target.Name} to play replay {replay.FileInfo.Path}");
-            target.PlayReplay(replay.FileInfo.Path);
+            return target.PlayReplay(replay.FileInfo.Path);
         }
+
         private static LeagueExecutable ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
         {
             var selectWindow = new ExecutableSelectWindow

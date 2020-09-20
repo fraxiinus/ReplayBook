@@ -223,6 +223,7 @@
     <string:String x:Key="RefreshToolTip">Refresh</string:String>
     <string:String x:Key="SettingsToolTip">Settings</string:String>
     <string:String x:Key="PlayReplayToolTip">Play Replay</string:String>
+    <string:String x:Key="AlreadyPlayingToolTip">Already playing...</string:String>
     <string:String x:Key="MoreToolTip">More...</string:String>
 
     <string:String x:Key="ReplayUnsupportedToolTip">Unsupported</string:String>

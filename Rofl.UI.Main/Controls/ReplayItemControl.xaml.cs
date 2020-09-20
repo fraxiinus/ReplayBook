@@ -1,5 +1,7 @@
 ﻿using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -12,17 +14,18 @@ namespace Rofl.UI.Main.Controls
     /// </summary>
     public partial class ReplayItemControl : UserControl
     {
+
         public ReplayItemControl()
         {
             InitializeComponent();
         }
 
-        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
             if (!(this.DataContext is ReplayPreview replay)) { return; }
 
-            context.PlayReplay(replay);
+            await context.PlayReplay(replay).ConfigureAwait(true);
         }
 
         private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
