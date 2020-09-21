@@ -23,7 +23,7 @@ namespace Rofl.Settings
 
         private readonly RiZhi _log;
         private readonly string _configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
-        private readonly string _tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "stashedValues.json");
+        private readonly string _tempPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "stash.json");
 
         public SettingsManager(RiZhi log)
         {

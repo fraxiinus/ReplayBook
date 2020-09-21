@@ -434,13 +434,14 @@ namespace Rofl.UI.Main.ViewModels
 
         public void ShowWelcomeWindow()
         {
-            if (File.Exists("cache/SKIPWELCOME"))
+            var welcomeFileFlag = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache/SKIPWELCOME");
+            if (File.Exists(welcomeFileFlag))
             {
                 _log.Information("Skipping welcome screen...");
                 return;
             }
 
-            _log.Information("Showing welcome screen...");
+            _log.Information(welcomeFileFlag);
             var welcomeDialog = new WelcomeSetupWindow()
             {
                 Top = App.Current.MainWindow.Top + 50,
@@ -453,21 +454,25 @@ namespace Rofl.UI.Main.ViewModels
 
         public void WriteSkipWelcome()
         {
-            if (File.Exists("cache/SKIPWELCOME"))
+            var welcomeFileFlag = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache/SKIPWELCOME");
+
+            if (File.Exists(welcomeFileFlag))
             {
                 _log.Information("Welcome skip already exists, why was this called?");
                 return;
             }
 
             _log.Information("Writing Welcome skip...");
-            File.WriteAllText("cache/SKIPWELCOME", (string) Application.Current.TryFindResource("EggEggEgg"));
+            File.WriteAllText(welcomeFileFlag, (string) Application.Current.TryFindResource("EggEggEgg"));
         }
 
         public void DeleteSkipWelcome()
         {
-            if (File.Exists("cache/SKIPWELCOME"))
+            var welcomeFileFlag = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache/SKIPWELCOME");
+
+            if (File.Exists(welcomeFileFlag))
             {
-                File.Delete("cache/SKIPWELCOME");
+                File.Delete(welcomeFileFlag);
             }
         }
 
@@ -506,6 +511,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public void ShowMissingReplayFoldersMessageBox()
         {
+            // Check if replay paths are missing, if so remove them
             var missingPaths = SettingsManager.RemoveInvalidReplayPaths();
             if (missingPaths.Length > 0)
             {

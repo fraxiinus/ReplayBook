@@ -26,7 +26,7 @@ namespace Rofl.UI.Main
         private RiZhi _log;
         private ReplayPlayer _player;
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
             CreateCommonObjects();
 
@@ -36,7 +36,7 @@ namespace Rofl.UI.Main
                 // 0 = directly play, 1 = open in replaybook
                 if (_settingsManager.Settings.FileAction == 0)
                 {
-                    _player.PlayReplay(selectedFile).RunSynchronously();
+                    await _player.PlayReplay(selectedFile).ConfigureAwait(true);
                     Application.Current.Shutdown();
                 }
                 else if (_settingsManager.Settings.FileAction == 1)

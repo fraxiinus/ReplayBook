@@ -55,9 +55,6 @@ namespace Rofl.UI.Main.Views
             var context = new MainWindowViewModel(_files, _requests, _settingsManager, _player, _log);
             this.DataContext = context;
 
-            var version = Assembly.GetEntryAssembly().GetName().Version.ToString(2);
-            _log.Error($"Log files are generated for each run while in prerelease. Prerelease version: {version}");
-
             // Decide to show welcome window
             context.ShowWelcomeWindow();
         }
