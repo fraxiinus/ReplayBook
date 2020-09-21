@@ -237,7 +237,7 @@ namespace Rofl.Executables
 
             var currentVersion = ExeTools.GetLeagueVersion(executable.TargetPath);
 
-            _log.Information($"Checking executable \'{executable.Name}\' for updates...");
+            _log.Information($"Checking executable \'{executable.Name}\' for changes...");
             if (!executable.PatchNumber.Equals(currentVersion, StringComparison.OrdinalIgnoreCase))
             {
                 _log.Information($"Updating executable {executable.Name} from {executable.PatchNumber} -> {currentVersion}");
