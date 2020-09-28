@@ -13,7 +13,9 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -64,7 +66,12 @@
             </ListBox>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="0"
+        <GridSplitter Grid.Row="0" Grid.Column="1"
+                      Width="2"
+                      Background="Transparent"
+                      HorizontalAlignment="Stretch"/>
+
+        <Grid Grid.Column="2" Grid.Row="0"
               Margin="2 5 2 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -109,7 +116,12 @@
             </ListBox>
         </Grid>
 
-        <Grid Grid.Column="2" Grid.Row="0"
+        <GridSplitter Grid.Row="0" Grid.Column="3" 
+                      Width="2" 
+                      Background="Transparent"
+                      HorizontalAlignment="Stretch"/>
+        
+        <Grid Grid.Column="4" Grid.Row="0"
               Margin="2 5 5 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -167,7 +179,7 @@
                   Checked="CsvModeCheckbox_CheckChanged"
                   Unchecked="CsvModeCheckbox_CheckChanged"/>
 
-        <Grid Grid.Row="1" Grid.Column="2"
+        <Grid Grid.Row="1" Grid.Column="4"
               Margin="0 5 5 5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -179,14 +191,14 @@
                     x:Name="ExportButton"
                     Content="{StaticResource ErdExportButtonText}"
                     Click="ExportButton_OnClick"
-                    Width="70" Height="25"
-                    Margin="0 0 10 0"/>
+                    Width="75" Height="25"
+                    Margin="0 0 5 0"/>
 
             <Button Grid.Column="2" 
                     x:Name="CancelButton"
                     Content="{StaticResource CancelButtonText}"
                     Click="CancelButton_OnClick"
-                    Width="70" Height="25"/>
+                    Width="75" Height="25"/>
         </Grid>
     </Grid>
 </Window>
