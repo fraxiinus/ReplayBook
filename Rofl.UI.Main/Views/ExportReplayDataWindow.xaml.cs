@@ -94,7 +94,7 @@ namespace Rofl.UI.Main.Views
                     Name = property.Name,
                     InternalString = property.Name,
                     Checked = false,
-                    Value = ""
+                    Value = "N/A"
                 });
             }
         }
