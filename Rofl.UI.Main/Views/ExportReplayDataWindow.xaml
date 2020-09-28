@@ -12,16 +12,16 @@
         Loaded="ExportReplayDataWindow_OnLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="25"/>
             <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="25"/>
             <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="25"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" MinHeight="75"/>
             <RowDefinition Height="5"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" MinHeight="25"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -181,7 +181,6 @@
                       HorizontalAlignment="Stretch"/>
 
         <TextBox x:Name="PreviewStringTextBox"
-                 Text="123"
                  FontFamily="Consolas"
                  FontSize="14"
                  Grid.Row="2" Grid.ColumnSpan="5"
