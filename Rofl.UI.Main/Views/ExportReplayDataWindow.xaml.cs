@@ -123,6 +123,8 @@ namespace Rofl.UI.Main.Views
         {
             if (!(sender is CheckBox checkBox)) { return; }
 
+            this.LevelTwoSelectBox.SelectedItem = _levelTwoItems.First(x => x.Name.Equals((string)checkBox.Content, StringComparison.OrdinalIgnoreCase));
+
             this.LevelThreeSelectBox.IsEnabled = _levelTwoItems.Any(x => x.Checked);
         }
 
