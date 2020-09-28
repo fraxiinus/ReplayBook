@@ -7,18 +7,20 @@
         xmlns:models="clr-namespace:Rofl.UI.Main.Models"
         mc:Ignorable="d"
         Title="{StaticResource ErdTitleText}" 
-        Height="450" Width="800"
+        Height="650" Width="800"
         MinHeight="300" MinWidth="600"
         Loaded="ExportReplayDataWindow_OnLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -67,7 +69,7 @@
         </Grid>
 
         <GridSplitter Grid.Row="0" Grid.Column="1"
-                      Width="2"
+                      Width="5"
                       Background="Transparent"
                       HorizontalAlignment="Stretch"/>
 
@@ -117,7 +119,7 @@
         </Grid>
 
         <GridSplitter Grid.Row="0" Grid.Column="3" 
-                      Width="2" 
+                      Width="5" 
                       Background="Transparent"
                       HorizontalAlignment="Stretch"/>
         
@@ -173,13 +175,31 @@
             </ListBox>
         </Grid>
 
-        <CheckBox Grid.Row="1" Grid.Column="0"
+        <GridSplitter Grid.Row="1" Grid.ColumnSpan="5" 
+                      Height="5" 
+                      Background="Transparent"
+                      HorizontalAlignment="Stretch"/>
+
+        <TextBox x:Name="PreviewStringTextBox"
+                 Text="123"
+                 FontFamily="Consolas"
+                 FontSize="14"
+                 Grid.Row="2" Grid.ColumnSpan="5"
+                 Style="{StaticResource TextBoxBaseStyle}"
+                 VerticalScrollBarVisibility="Auto"
+                 Background="{StaticResource AccentColorLight1}"
+                 Foreground="{StaticResource LightTextColor}"
+                 SelectionBrush="{StaticResource AccentColorLight3}"
+                 IsReadOnly="True"
+                 Margin="5 0 5 5"/>
+
+        <CheckBox Grid.Row="3" Grid.Column="0"
                   x:Name="CsvModeCheckbox"
                   Margin="10" Content="{StaticResource ErdCsvModeText}"
                   Checked="CsvModeCheckbox_CheckChanged"
                   Unchecked="CsvModeCheckbox_CheckChanged"/>
 
-        <Grid Grid.Row="1" Grid.Column="4"
+        <Grid Grid.Row="3" Grid.Column="4"
               Margin="0 5 5 5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
+using Rofl.UI.Main.Utilities;
 
 namespace Rofl.UI.Main.Views
 {
@@ -25,6 +26,7 @@ namespace Rofl.UI.Main.Views
         private readonly ObservableCollection<ExportSelectItem> _levelTwoItems;
         private readonly ObservableCollection<ExportSelectItem> _levelThreeItems;
         private bool _csvMode = false;
+        private ReplayFile _replay;
 
         public ExportReplayDataWindow()
         {
@@ -50,9 +52,10 @@ namespace Rofl.UI.Main.Views
 
             // We only support one replay right now
             if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return; }
+            _replay = replay;
 
             // Load first level properties
-            foreach (var property in replay.GetType().GetProperties())
+            foreach (var property in _replay.GetType().GetProperties())
             {
 
                 // Ignore seperate team data
@@ -65,12 +68,12 @@ namespace Rofl.UI.Main.Views
                     Name = property.Name,
                     InternalString = property.Name,
                     Checked = false,
-                    Value = property.GetValue(replay).ToString()
+                    Value = property.GetValue(_replay).ToString()
                 });
             }
 
             // Load second level properties, champions and player names
-            foreach (var player in replay.Players)
+            foreach (var player in _replay.Players)
             {
                 _levelTwoItems.Add(new ExportSelectItem()
                 {
@@ -103,6 +106,9 @@ namespace Rofl.UI.Main.Views
         {
             if (!(sender is CheckBox checkBox)) { return; }
 
+            // Update preview box
+            Update_PreviewStringTextBox();
+
             if (!(checkBox.Content as String).Equals("Players", StringComparison.InvariantCulture)) return;
 
             // If we are disabling level 2, we have to disable level 3
@@ -123,6 +129,9 @@ namespace Rofl.UI.Main.Views
         {
             if (!(sender is CheckBox checkBox)) { return; }
 
+            // Update preview box
+            Update_PreviewStringTextBox();
+
             this.LevelTwoSelectBox.SelectedItem = _levelTwoItems.First(x => x.Name.Equals((string)checkBox.Content, StringComparison.OrdinalIgnoreCase));
 
             this.LevelThreeSelectBox.IsEnabled = _levelTwoItems.Any(x => x.Checked);
@@ -134,21 +143,32 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is ExportContext context)) { return; }
 
             // We only support one replay right now
-            if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return; }
+            // if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return; }
 
 
             var playerName = ((ExportSelectItem) this.LevelTwoSelectBox.SelectedItem).Name;
-            var player = replay.Players.First(x => x.NAME.Equals(playerName, StringComparison.OrdinalIgnoreCase));
+            var player = _replay.Players.First(x => x.NAME.Equals(playerName, StringComparison.OrdinalIgnoreCase));
 
             foreach (var property in _levelThreeItems)
             {
-                property.Value = player.GetType().GetProperty(property.Name).GetValue(player).ToString();
+                // Get value can be null
+                property.Value = player.GetType().GetProperty(property.Name).GetValue(player)?.ToString() ?? "N/A";
             }
         }
 
         private void LevelThree_CheckChanged(object sender, RoutedEventArgs e)
         {
             if (!(sender is CheckBox checkBox)) { return; }
+
+            // Update preview box
+            Update_PreviewStringTextBox();
+        }
+
+        private void Update_PreviewStringTextBox()
+        {
+            var result = ExportHelper.ConstructJsonString(_replay, _levelOneItems.ToList(), _levelTwoItems.ToList(), _levelThreeItems.ToList());
+
+            this.PreviewStringTextBox.Text = result;
         }
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
