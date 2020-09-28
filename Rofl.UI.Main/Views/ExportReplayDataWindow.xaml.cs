@@ -30,6 +30,8 @@ namespace Rofl.UI.Main.Views
         {
             InitializeComponent();
 
+            // Create the collections of select objects for each level
+            // Assign select boxes item source
             _levelOneItems = new ObservableCollection<ExportSelectItem>();
             this.LevelOneSelectBox.ItemsSource = _levelOneItems;
 
@@ -37,6 +39,7 @@ namespace Rofl.UI.Main.Views
             this.LevelTwoSelectBox.ItemsSource = _levelTwoItems;
 
             _levelThreeItems = new ObservableCollection<ExportSelectItem>();
+            // Create a view to allow searching
             _levelThreeView = new CollectionViewSource { Source = _levelThreeItems };
             this.LevelThreeSelectBox.ItemsSource = _levelThreeView.View;
         }
@@ -44,53 +47,54 @@ namespace Rofl.UI.Main.Views
         private void ExportReplayDataWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is ExportContext context)) { return; }
+
+            // We only support one replay right now
             if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return; }
 
+            // Load first level properties
             foreach (var property in replay.GetType().GetProperties())
             {
-                if (property.Name.Equals("BluePlayers", StringComparison.InvariantCulture))
-                {
-                    continue;
-                }
 
-                if (property.Name.Equals("RedPlayers", StringComparison.InvariantCulture))
-                {
-                    continue;
-                }
+                // Ignore seperate team data
+                if (property.Name.Equals("BluePlayers", StringComparison.InvariantCulture)) continue;
+                if (property.Name.Equals("RedPlayers", StringComparison.InvariantCulture)) continue;
 
+                // Load first level properties
                 _levelOneItems.Add(new ExportSelectItem()
                 {
                     Name = property.Name,
-                    Checked = false
+                    InternalString = property.Name,
+                    Checked = false,
+                    Value = property.GetValue(replay).ToString()
                 });
             }
 
+            // Load second level properties, champions and player names
             foreach (var player in replay.Players)
             {
                 _levelTwoItems.Add(new ExportSelectItem()
                 {
-                    Name = $"{player.SKIN} - {player.NAME}",
+                    Name = player.NAME,
                     InternalString = player.NAME,
-                    Checked = false
+                    Checked = false,
+                    Value = player.SKIN
                 });
             }
 
-            foreach (var property in typeof(Player).GetProperties())
+            // Load initial third level properties, player properties
+            // We need to assign the property values dynamically
+            var playerProps = typeof(Player).GetProperties().OrderBy(x => x.Name);
+            foreach (var property in playerProps)
             {
-                if (property.Name.Equals("Id", StringComparison.InvariantCulture))
-                {
-                    continue;
-                }
-
-                if (property.Name.Equals("PlayerID", StringComparison.InvariantCulture))
-                {
-                    continue;
-                }
+                if (property.Name.Equals("Id", StringComparison.InvariantCulture)) continue;
+                if (property.Name.Equals("PlayerID", StringComparison.InvariantCulture)) continue;
 
                 _levelThreeItems.Add(new ExportSelectItem()
                 {
                     Name = property.Name,
-                    Checked = false
+                    InternalString = property.Name,
+                    Checked = false,
+                    Value = ""
                 });
             }
         }
@@ -119,9 +123,25 @@ namespace Rofl.UI.Main.Views
         {
             if (!(sender is CheckBox checkBox)) { return; }
 
-            var test = checkBox.DataContext as ExportSelectItem;
-
             this.LevelThreeSelectBox.IsEnabled = _levelTwoItems.Any(x => x.Checked);
+        }
+
+        // Change the preview values for the third column when the player selection changed
+        private void LevelTwoSelectBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(this.DataContext is ExportContext context)) { return; }
+
+            // We only support one replay right now
+            if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return; }
+
+
+            var playerName = ((ExportSelectItem) this.LevelTwoSelectBox.SelectedItem).Name;
+            var player = replay.Players.First(x => x.NAME.Equals(playerName, StringComparison.OrdinalIgnoreCase));
+
+            foreach (var property in _levelThreeItems)
+            {
+                property.Value = player.GetType().GetProperty(property.Name).GetValue(player).ToString();
+            }
         }
 
         private void LevelThree_CheckChanged(object sender, RoutedEventArgs e)

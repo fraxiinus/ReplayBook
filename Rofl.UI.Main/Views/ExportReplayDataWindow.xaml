@@ -45,11 +45,20 @@
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="models:ExportSelectItem">
-                        <CheckBox Content="{Binding Path=Name}" 
-                                  IsChecked="{Binding Path=Checked}" 
-                                  ToolTip="{Binding Path=Name}"
-                                  Checked="LevelOne_CheckChanged" 
-                                  Unchecked="LevelOne_CheckChanged"/>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Content="{Binding Path=Name}" 
+                                      IsChecked="{Binding Path=Checked}" 
+                                      ToolTip="{Binding Path=Name}"
+                                      Checked="LevelOne_CheckChanged" 
+                                      Unchecked="LevelOne_CheckChanged"/>
+                            <TextBlock Text="{Binding Path=Value}"
+                                       FontSize="10"
+                                       VerticalAlignment="Stretch"
+                                       Padding="5 0 5 0"
+                                       Margin="5 0 0 0"
+                                       Foreground="{StaticResource LightTextColor}"
+                                       Background="{StaticResource AccentColorLight2}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -71,7 +80,8 @@
                      x:Name="LevelTwoSelectBox"
                      IsEnabled="False"
                      HorizontalContentAlignment="Stretch"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     SelectionChanged="LevelTwoSelectBox_SelectionChanged">
                 <ListBox.ContextMenu>
                     <ContextMenu Name="LevelTwoContextMenu">
                         <MenuItem Header="{StaticResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
@@ -80,11 +90,20 @@
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="models:ExportSelectItem">
-                        <CheckBox Content="{Binding Path=Name}" 
-                                  IsChecked="{Binding Path=Checked}" 
-                                  ToolTip="{Binding Path=Name}"
-                                  Checked="LevelTwo_CheckChanged" 
-                                  Unchecked="LevelTwo_CheckChanged"/>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Content="{Binding Path=Name}" 
+                                      IsChecked="{Binding Path=Checked}" 
+                                      ToolTip="{Binding Path=Name}"
+                                      Checked="LevelTwo_CheckChanged" 
+                                      Unchecked="LevelTwo_CheckChanged"/>
+                            <TextBlock Text="{Binding Path=Value}"
+                                       FontSize="10"
+                                       VerticalAlignment="Stretch"
+                                       Padding="5 0 5 0"
+                                       Margin="5 0 0 0"
+                                       Foreground="{StaticResource LightTextColor}"
+                                       Background="{StaticResource AccentColorLight2}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -123,11 +142,20 @@
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="models:ExportSelectItem">
-                        <CheckBox Content="{Binding Path=Name}" 
-                                  IsChecked="{Binding Path=Checked}"
-                                  ToolTip="{Binding Path=Name}"
-                                  Checked="LevelThree_CheckChanged" 
-                                  Unchecked="LevelThree_CheckChanged"/>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Content="{Binding Path=Name}"
+                                      IsChecked="{Binding Path=Checked}"
+                                      ToolTip="{Binding Path=Name}"
+                                      Checked="LevelThree_CheckChanged" 
+                                      Unchecked="LevelThree_CheckChanged"/>
+                            <TextBlock Text="{Binding Path=Value}"
+                                       FontSize="10"
+                                       VerticalAlignment="Stretch"
+                                       Padding="5 0 5 0"
+                                       Margin="5 0 0 0"
+                                       Foreground="{StaticResource LightTextColor}"
+                                       Background="{StaticResource AccentColorLight2}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

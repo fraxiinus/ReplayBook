@@ -46,6 +46,17 @@ namespace Rofl.UI.Main.Models
             }
         }
 
+        private string _value;
+        public string Value
+        {
+            get => _value;
+            set
+            {
+                _value = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(Value)));
+            }
+        }
         
     }
 }
