@@ -29,6 +29,51 @@ namespace Rofl.UI.Main.Utilities
             return result.ToString(Newtonsoft.Json.Formatting.Indented);
         }
 
+        public static string ConstructCsvString(ReplayFile replay, List<ExportSelectItem> LevelTwoItems, List<ExportSelectItem> LevelThreeItems)
+        {
+            if (replay == null) throw new ArgumentNullException(nameof(replay));
+            if (LevelTwoItems == null) throw new ArgumentNullException(nameof(LevelTwoItems));
+            if (LevelThreeItems == null) throw new ArgumentNullException(nameof(LevelThreeItems));
+
+            List<string> lines = new List<string>();
+            bool doneOnce = false;
+
+            // Add empty line for column index
+            lines.Add("Player");
+
+            // Create enough strings for all the players
+            foreach (var playerName in LevelTwoItems)
+            {
+                if (!playerName.Checked) continue;
+
+                // Get the player in question
+                var player = replay.Players.First(x => x.NAME.Equals(playerName.Name, StringComparison.OrdinalIgnoreCase));
+                var playerString = playerName.Name;
+
+                // Load property values for player
+                foreach (var prop in LevelThreeItems)
+                {
+                    if (!prop.Checked) continue;
+
+                    // Add property name
+                    if (!doneOnce)
+                    {
+                        lines[0] += "," + prop.Name;
+                    }
+
+                    // Add property value to player
+                    playerString += "," + player.GetType().GetProperty(prop.Name).GetValue(player)?.ToString(); ;
+                }
+
+                doneOnce = true; // do not add props to the index more than once
+                lines.Add(playerString);
+            }
+
+            return String.Join("\n", lines);
+        }
+
+        #region JSON Helper Fields
+
         private static void JsonSerializeLevelOne(JObject result, List<ExportSelectItem> selectItems)
         {
             foreach (var item in selectItems)
@@ -90,5 +135,8 @@ namespace Rofl.UI.Main.Utilities
 
             result["Players"] = populatedPlayers;
         }
+
+        #endregion
+
     }
 }
