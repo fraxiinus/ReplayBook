@@ -39,7 +39,7 @@ namespace Rofl.UI.Main.Utilities
             bool doneOnce = false;
 
             // Add empty line for column index
-            lines.Add("Player");
+            lines.Add("PLAYER");
 
             // Create enough strings for all the players
             foreach (var playerName in LevelTwoItems)

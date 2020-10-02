@@ -12,6 +12,7 @@ using System.Windows.Data;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using Rofl.UI.Main.Utilities;
+using System.Diagnostics;
 
 namespace Rofl.UI.Main.Views
 {
@@ -237,6 +238,9 @@ namespace Rofl.UI.Main.Views
                 {
                     var targetFile = saveDialog.FileName;
                     File.WriteAllText(targetFile, results);
+
+                    // Open the folder and select the file that was made
+                    Process.Start("explorer.exe", $"/select, \"{targetFile}\"");
                 }
                 catch (Exception ex)
                 {
@@ -245,11 +249,6 @@ namespace Rofl.UI.Main.Views
                         MessageBoxButton.OK,
                         MessageBoxImage.Exclamation);
                 }
-
-                MessageBox.Show((TryFindResource("ErdSaveComplete") as string).Replace("@", saveDialog.FileName),
-                                TryFindResource("ErdSaveCompleteTitle") as string,
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation);
 
                 this.Close();
             }
