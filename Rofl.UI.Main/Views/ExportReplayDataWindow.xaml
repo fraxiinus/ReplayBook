@@ -178,19 +178,30 @@
         <GridSplitter Grid.Row="1" Grid.ColumnSpan="5" 
                       Height="5" 
                       Background="Transparent"
-                      HorizontalAlignment="Stretch"/>
+                      HorizontalAlignment="Stretch">
+        </GridSplitter>
 
-        <TextBox x:Name="PreviewStringTextBox"
-                 FontFamily="Consolas"
-                 FontSize="14"
-                 Grid.Row="2" Grid.ColumnSpan="5"
-                 Style="{StaticResource TextBoxBaseStyle}"
-                 VerticalScrollBarVisibility="Auto"
-                 Background="{StaticResource AccentColorLight1}"
-                 Foreground="{StaticResource LightTextColor}"
-                 SelectionBrush="{StaticResource AccentColorLight3}"
-                 IsReadOnly="True"
-                 Margin="5 0 5 5"/>
+        <Grid Grid.Row="2" Grid.ColumnSpan="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       Text="{StaticResource ErdPreviewTitle}"
+                       FontSize="16"
+                       Margin="5 0 0 5"/>
+            <TextBox x:Name="PreviewStringTextBox"
+                     Grid.Row="1"
+                     FontFamily="Consolas"
+                     FontSize="14"
+                     Style="{StaticResource TextBoxBaseStyle}"
+                     VerticalScrollBarVisibility="Auto"
+                     Background="{StaticResource AccentColorLight1}"
+                     Foreground="{StaticResource LightTextColor}"
+                     SelectionBrush="{StaticResource AccentColorLight3}"
+                     IsReadOnly="True"
+                     Margin="5 0 5 5"/>
+        </Grid>
 
         <CheckBox Grid.Row="3" Grid.Column="0"
                   x:Name="CsvModeCheckbox"
