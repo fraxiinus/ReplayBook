@@ -11,6 +11,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
+using Rofl.UI.Main.Utilities;
+using System.Diagnostics;
 
 namespace Rofl.UI.Main.Views
 {
@@ -25,11 +27,14 @@ namespace Rofl.UI.Main.Views
         private readonly ObservableCollection<ExportSelectItem> _levelTwoItems;
         private readonly ObservableCollection<ExportSelectItem> _levelThreeItems;
         private bool _csvMode = false;
+        private ReplayFile _replay;
 
         public ExportReplayDataWindow()
         {
             InitializeComponent();
 
+            // Create the collections of select objects for each level
+            // Assign select boxes item source
             _levelOneItems = new ObservableCollection<ExportSelectItem>();
             this.LevelOneSelectBox.ItemsSource = _levelOneItems;
 
@@ -37,6 +42,7 @@ namespace Rofl.UI.Main.Views
             this.LevelTwoSelectBox.ItemsSource = _levelTwoItems;
 
             _levelThreeItems = new ObservableCollection<ExportSelectItem>();
+            // Create a view to allow searching
             _levelThreeView = new CollectionViewSource { Source = _levelThreeItems };
             this.LevelThreeSelectBox.ItemsSource = _levelThreeView.View;
         }
@@ -44,53 +50,55 @@ namespace Rofl.UI.Main.Views
         private void ExportReplayDataWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is ExportContext context)) { return; }
+
+            // We only support one replay right now
             if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return; }
+            _replay = replay;
 
-            foreach (var property in replay.GetType().GetProperties())
+            // Load first level properties
+            foreach (var property in _replay.GetType().GetProperties())
             {
-                if (property.Name.Equals("BluePlayers", StringComparison.InvariantCulture))
-                {
-                    continue;
-                }
 
-                if (property.Name.Equals("RedPlayers", StringComparison.InvariantCulture))
-                {
-                    continue;
-                }
+                // Ignore seperate team data
+                if (property.Name.Equals("BluePlayers", StringComparison.InvariantCulture)) continue;
+                if (property.Name.Equals("RedPlayers", StringComparison.InvariantCulture)) continue;
 
+                // Load first level properties
                 _levelOneItems.Add(new ExportSelectItem()
                 {
                     Name = property.Name,
-                    Checked = false
+                    InternalString = property.Name,
+                    Checked = false,
+                    Value = property.GetValue(_replay).ToString()
                 });
             }
 
-            foreach (var player in replay.Players)
+            // Load second level properties, champions and player names
+            foreach (var player in _replay.Players)
             {
                 _levelTwoItems.Add(new ExportSelectItem()
                 {
-                    Name = $"{player.SKIN} - {player.NAME}",
+                    Name = player.NAME,
                     InternalString = player.NAME,
-                    Checked = false
+                    Checked = false,
+                    Value = player.SKIN
                 });
             }
 
-            foreach (var property in typeof(Player).GetProperties())
+            // Load initial third level properties, player properties
+            // We need to assign the property values dynamically
+            var playerProps = typeof(Player).GetProperties().OrderBy(x => x.Name);
+            foreach (var property in playerProps)
             {
-                if (property.Name.Equals("Id", StringComparison.InvariantCulture))
-                {
-                    continue;
-                }
-
-                if (property.Name.Equals("PlayerID", StringComparison.InvariantCulture))
-                {
-                    continue;
-                }
+                if (property.Name.Equals("Id", StringComparison.InvariantCulture)) continue;
+                if (property.Name.Equals("PlayerID", StringComparison.InvariantCulture)) continue;
 
                 _levelThreeItems.Add(new ExportSelectItem()
                 {
                     Name = property.Name,
-                    Checked = false
+                    InternalString = property.Name,
+                    Checked = false,
+                    Value = "N/A"
                 });
             }
         }
@@ -98,6 +106,9 @@ namespace Rofl.UI.Main.Views
         private void LevelOne_CheckChanged(object sender, RoutedEventArgs e)
         {
             if (!(sender is CheckBox checkBox)) { return; }
+
+            // Update preview box
+            Update_PreviewStringTextBox();
 
             if (!(checkBox.Content as String).Equals("Players", StringComparison.InvariantCulture)) return;
 
@@ -119,14 +130,55 @@ namespace Rofl.UI.Main.Views
         {
             if (!(sender is CheckBox checkBox)) { return; }
 
-            var test = checkBox.DataContext as ExportSelectItem;
+            // Update preview box
+            Update_PreviewStringTextBox();
+
+            this.LevelTwoSelectBox.SelectedItem = _levelTwoItems.First(x => x.Name.Equals((string)checkBox.Content, StringComparison.OrdinalIgnoreCase));
 
             this.LevelThreeSelectBox.IsEnabled = _levelTwoItems.Any(x => x.Checked);
+        }
+
+        // Change the preview values for the third column when the player selection changed
+        private void LevelTwoSelectBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(this.DataContext is ExportContext context)) { return; }
+
+            // We only support one replay right now
+            // if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return; }
+
+
+            var playerName = ((ExportSelectItem) this.LevelTwoSelectBox.SelectedItem).Name;
+            var player = _replay.Players.First(x => x.NAME.Equals(playerName, StringComparison.OrdinalIgnoreCase));
+
+            foreach (var property in _levelThreeItems)
+            {
+                // Get value can be null
+                property.Value = player.GetType().GetProperty(property.Name).GetValue(player)?.ToString() ?? "N/A";
+            }
         }
 
         private void LevelThree_CheckChanged(object sender, RoutedEventArgs e)
         {
             if (!(sender is CheckBox checkBox)) { return; }
+
+            // Update preview box
+            Update_PreviewStringTextBox();
+        }
+
+        private string Update_PreviewStringTextBox()
+        {
+            string exportString;
+            if (_csvMode)
+            {
+                exportString = ExportHelper.ConstructCsvString(_replay, _levelTwoItems.ToList(), _levelThreeItems.ToList());
+            }
+            else
+            {
+                exportString = ExportHelper.ConstructJsonString(_replay, _levelOneItems.ToList(), _levelTwoItems.ToList(), _levelThreeItems.ToList());
+            }
+
+            this.PreviewStringTextBox.Text = exportString;
+            return exportString;
         }
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
@@ -160,7 +212,7 @@ namespace Rofl.UI.Main.Views
                 return;
             }
 
-            var results = _csvMode ? ConstructCsvResults() : JsonConvert.SerializeObject(ConstructJsonResults(), Formatting.Indented);
+            var results = Update_PreviewStringTextBox();
 
             using (var saveDialog = new CommonSaveFileDialog())
             {
@@ -186,6 +238,9 @@ namespace Rofl.UI.Main.Views
                 {
                     var targetFile = saveDialog.FileName;
                     File.WriteAllText(targetFile, results);
+
+                    // Open the folder and select the file that was made
+                    Process.Start("explorer.exe", $"/select, \"{targetFile}\"");
                 }
                 catch (Exception ex)
                 {
@@ -194,11 +249,6 @@ namespace Rofl.UI.Main.Views
                         MessageBoxButton.OK,
                         MessageBoxImage.Exclamation);
                 }
-
-                MessageBox.Show((TryFindResource("ErdSaveComplete") as string).Replace("@", saveDialog.FileName),
-                                TryFindResource("ErdSaveCompleteTitle") as string,
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation);
 
                 this.Close();
             }
@@ -282,104 +332,6 @@ namespace Rofl.UI.Main.Views
             }
         }
 
-        private Dictionary<string, object> ConstructJsonResults()
-        {
-            if (!(this.DataContext is ExportContext context)) { return null; }
-            if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return null; }
-
-            // Include level one items
-            var kvpResults = new Dictionary<string, object>();
-            foreach (var rootItem in _levelOneItems)
-            {
-                if (!rootItem.Checked) continue;
-                if (rootItem.Name.Equals("Players", StringComparison.InvariantCulture))
-                {
-                    kvpResults.Add(rootItem.Name, "Yes");
-                    continue;
-                }
-
-                var value = replay.GetType().GetProperty(rootItem.Name)?.GetValue(replay);
-                kvpResults.Add(rootItem.Name, value);
-            }
-
-            // Populate level two items
-            if (kvpResults.ContainsKey("Players") && LevelTwoSelectBox.IsEnabled)
-            {
-                var playerDict = new Dictionary<string, object>();
-                kvpResults["Players"] = playerDict;
-
-                foreach (var player in _levelTwoItems)
-                {
-                    if (player.Checked)
-                    {
-                        playerDict.Add
-                            (
-                                player.InternalString, "Yes"
-                            );
-                    }
-                }
-
-                // Populate level three items
-                if (playerDict.Count > 0 && LevelThreeSelectBox.IsEnabled)
-                {
-                    foreach (var playerName in _levelTwoItems.Where(x => x.Checked)
-                        .Select(x => x.InternalString))
-                    {
-                        playerDict[playerName] = GetPlayerProperties(replay.Players
-                            .FirstOrDefault(x => x.NAME.Equals(playerName, StringComparison.InvariantCulture)));
-                    }
-                }
-            }
-
-            return kvpResults;
-        }
-
-        private string ConstructCsvResults()
-        {
-            if (!(this.DataContext is ExportContext context)) { return null; }
-            if (!(context.Replays.FirstOrDefault() is ReplayFile replay)) { return null; }
-
-            var lines = new List<List<string>>();
-
-            // Add selected properties as first line
-            var selectedProps = _levelThreeItems.Where(x => x.Checked).Select(x => x.Name).ToList();
-            lines.Add(selectedProps);
-
-            foreach (var player in _levelTwoItems)
-            {
-                if (!player.Checked) continue;
-
-                var playerData = replay.Players.FirstOrDefault(x =>
-                    x.NAME.Equals(player.InternalString, StringComparison.InvariantCulture));
-
-                var values = selectedProps.Select(prop =>
-                    playerData?.GetType().GetProperty(prop)?.GetValue(playerData) as string).ToList();
-
-                lines.Add(values);
-            }
-
-            string result = string.Empty;
-            foreach (var line in lines)
-            {
-                result += string.Join(",", line) + "\n";
-            }
-
-            return result;
-        }
-
-        public IEnumerable<dynamic> GetPlayerProperties(Player player)
-        {
-            var selectedProperties = _levelThreeItems.Where(x => x.Checked).Select(x => x.Name);
-
-            var values = selectedProperties.Select(prop => new
-            {
-                Name = prop,
-                Value = player.GetType().GetProperty(prop)?.GetValue(player) as string
-            });
-
-            return values;
-        }
-
         private void CsvModeCheckbox_CheckChanged(object sender, RoutedEventArgs e)
         {
             if (!(sender is CheckBox checkBox)) { return; }
@@ -413,6 +365,9 @@ namespace Rofl.UI.Main.Views
 
                 LevelOneSelectBox.IsEnabled = true;
             }
+
+            // Update preview box
+            Update_PreviewStringTextBox();
         }
 
         private void FilterTextBox_OnTextChanged(object sender, TextChangedEventArgs e)

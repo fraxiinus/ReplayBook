@@ -7,17 +7,21 @@
         xmlns:models="clr-namespace:Rofl.UI.Main.Models"
         mc:Ignorable="d"
         Title="{StaticResource ErdTitleText}" 
-        Height="450" Width="800"
+        Height="650" Width="800"
         MinHeight="300" MinWidth="600"
         Loaded="ExportReplayDataWindow_OnLoaded">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="25"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*" MinWidth="25"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*" MinWidth="25"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" MinHeight="75"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*" MinHeight="25"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -45,17 +49,31 @@
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="models:ExportSelectItem">
-                        <CheckBox Content="{Binding Path=Name}" 
-                                  IsChecked="{Binding Path=Checked}" 
-                                  ToolTip="{Binding Path=Name}"
-                                  Checked="LevelOne_CheckChanged" 
-                                  Unchecked="LevelOne_CheckChanged"/>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Content="{Binding Path=Name}" 
+                                      IsChecked="{Binding Path=Checked}" 
+                                      ToolTip="{Binding Path=Name}"
+                                      Checked="LevelOne_CheckChanged" 
+                                      Unchecked="LevelOne_CheckChanged"/>
+                            <TextBlock Text="{Binding Path=Value}"
+                                       FontSize="10"
+                                       VerticalAlignment="Stretch"
+                                       Padding="5 0 5 0"
+                                       Margin="5 0 0 0"
+                                       Foreground="{StaticResource LightTextColor}"
+                                       Background="{StaticResource AccentColorLight2}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="0"
+        <GridSplitter Grid.Row="0" Grid.Column="1"
+                      Width="5"
+                      Background="Transparent"
+                      HorizontalAlignment="Stretch"/>
+
+        <Grid Grid.Column="2" Grid.Row="0"
               Margin="2 5 2 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -71,7 +89,8 @@
                      x:Name="LevelTwoSelectBox"
                      IsEnabled="False"
                      HorizontalContentAlignment="Stretch"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     SelectionChanged="LevelTwoSelectBox_SelectionChanged">
                 <ListBox.ContextMenu>
                     <ContextMenu Name="LevelTwoContextMenu">
                         <MenuItem Header="{StaticResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
@@ -80,17 +99,31 @@
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="models:ExportSelectItem">
-                        <CheckBox Content="{Binding Path=Name}" 
-                                  IsChecked="{Binding Path=Checked}" 
-                                  ToolTip="{Binding Path=Name}"
-                                  Checked="LevelTwo_CheckChanged" 
-                                  Unchecked="LevelTwo_CheckChanged"/>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Content="{Binding Path=Name}" 
+                                      IsChecked="{Binding Path=Checked}" 
+                                      ToolTip="{Binding Path=Name}"
+                                      Checked="LevelTwo_CheckChanged" 
+                                      Unchecked="LevelTwo_CheckChanged"/>
+                            <TextBlock Text="{Binding Path=Value}"
+                                       FontSize="10"
+                                       VerticalAlignment="Stretch"
+                                       Padding="5 0 5 0"
+                                       Margin="5 0 0 0"
+                                       Foreground="{StaticResource LightTextColor}"
+                                       Background="{StaticResource AccentColorLight2}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
 
-        <Grid Grid.Column="2" Grid.Row="0"
+        <GridSplitter Grid.Row="0" Grid.Column="3" 
+                      Width="5" 
+                      Background="Transparent"
+                      HorizontalAlignment="Stretch"/>
+        
+        <Grid Grid.Column="4" Grid.Row="0"
               Margin="2 5 5 5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -123,23 +156,60 @@
                 </ListBox.ContextMenu>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="models:ExportSelectItem">
-                        <CheckBox Content="{Binding Path=Name}" 
-                                  IsChecked="{Binding Path=Checked}"
-                                  ToolTip="{Binding Path=Name}"
-                                  Checked="LevelThree_CheckChanged" 
-                                  Unchecked="LevelThree_CheckChanged"/>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Content="{Binding Path=Name}"
+                                      IsChecked="{Binding Path=Checked}"
+                                      ToolTip="{Binding Path=Name}"
+                                      Checked="LevelThree_CheckChanged" 
+                                      Unchecked="LevelThree_CheckChanged"/>
+                            <TextBlock Text="{Binding Path=Value}"
+                                       FontSize="10"
+                                       VerticalAlignment="Stretch"
+                                       Padding="5 0 5 0"
+                                       Margin="5 0 0 0"
+                                       Foreground="{StaticResource LightTextColor}"
+                                       Background="{StaticResource AccentColorLight2}"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
 
-        <CheckBox Grid.Row="1" Grid.Column="0"
+        <GridSplitter Grid.Row="1" Grid.ColumnSpan="5" 
+                      Height="5" 
+                      Background="Transparent"
+                      HorizontalAlignment="Stretch">
+        </GridSplitter>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       Text="{StaticResource ErdPreviewTitle}"
+                       FontSize="16"
+                       Margin="5 0 0 5"/>
+            <TextBox x:Name="PreviewStringTextBox"
+                     Grid.Row="1"
+                     FontFamily="Consolas"
+                     FontSize="14"
+                     Style="{StaticResource TextBoxBaseStyle}"
+                     VerticalScrollBarVisibility="Auto"
+                     Background="{StaticResource AccentColorLight1}"
+                     Foreground="{StaticResource LightTextColor}"
+                     SelectionBrush="{StaticResource AccentColorLight3}"
+                     IsReadOnly="True"
+                     Margin="5 0 5 5"/>
+        </Grid>
+
+        <CheckBox Grid.Row="3" Grid.Column="0"
                   x:Name="CsvModeCheckbox"
                   Margin="10" Content="{StaticResource ErdCsvModeText}"
                   Checked="CsvModeCheckbox_CheckChanged"
                   Unchecked="CsvModeCheckbox_CheckChanged"/>
 
-        <Grid Grid.Row="1" Grid.Column="2"
+        <Grid Grid.Row="3" Grid.Column="4"
               Margin="0 5 5 5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -151,14 +221,14 @@
                     x:Name="ExportButton"
                     Content="{StaticResource ErdExportButtonText}"
                     Click="ExportButton_OnClick"
-                    Width="70" Height="25"
-                    Margin="0 0 10 0"/>
+                    Width="75" Height="25"
+                    Margin="0 0 5 0"/>
 
             <Button Grid.Column="2" 
                     x:Name="CancelButton"
                     Content="{StaticResource CancelButtonText}"
                     Click="CancelButton_OnClick"
-                    Width="70" Height="25"/>
+                    Width="75" Height="25"/>
         </Grid>
     </Grid>
 </Window>
