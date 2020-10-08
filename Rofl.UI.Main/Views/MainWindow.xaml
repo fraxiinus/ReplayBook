@@ -48,18 +48,20 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <Border Style="{StaticResource SearchBorderStyle}"
-                            Grid.Column="0">
+                    <Border Grid.Column="0"
+                            Margin="5"
+                            BorderBrush="{StaticResource AccentColor}"
+                            BorderThickness="1">
                         <TextBox x:Name="SearchBox"
                                  FontSize="18"
                                  BorderBrush="Transparent"
-                                 Style="{StaticResource SearchBoxStyle}"
                                  KeyUp="SearchBox_KeyUp"/>
                     </Border>
 
                     <Button x:Name="RefreshButton"
                             ToolTip="{StaticResource RefreshToolTip}"
-                            Style="{StaticResource ToolButton}"
+                            Width="30"
+                            Margin="0 5 0 5"
                             Click="RefreshButton_Click"
                             Grid.Column="1">
                         <Image Source="{StaticResource RefreshDrawingImage}"/>
@@ -67,46 +69,42 @@
 
                     <Button x:Name="SortButton"
                             ToolTip="{StaticResource SortToolTip}"
-                            Style="{StaticResource ToolButton}"
+                            Width="30"
+                            Margin="0 5 0 5"
                             ContextMenuService.Placement="Bottom"
                             Click="SortButton_Click"
                             Grid.Column="2">
                         <Image Source="{StaticResource SortDrawingImage}"/>
                         <Button.ContextMenu>
-                            <ContextMenu x:Name="SortMenu" Style="{StaticResource ContextMenuStyle}">
+                            <ContextMenu x:Name="SortMenu">
                                 <MenuItem x:Name="NameAsc"
                                           Header="{StaticResource NameAsc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
+                                          Click="MenuItem_Click"/>
                                 <MenuItem x:Name="NameDesc"
                                           Header="{StaticResource NameDesc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
-                                <Separator Style="{StaticResource MenuSeparatorStyle}"/>
+                                          Click="MenuItem_Click"/>
+                                <Separator/>
                                 <MenuItem x:Name="DateAsc"
                                           Header="{StaticResource DateAsc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
+                                          Click="MenuItem_Click"/>
                                 <MenuItem x:Name="DateDesc"
                                           Header="{StaticResource DateDesc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
-                                <Separator Style="{StaticResource MenuSeparatorStyle}"/>
+                                          Click="MenuItem_Click"/>
+                                <Separator/>
                                 <MenuItem x:Name="SizeAsc"
                                           Header="{StaticResource SizeAsc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
+                                          Click="MenuItem_Click"/>
                                 <MenuItem x:Name="SizeDesc"
                                           Header="{StaticResource SizeDesc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
+                                          Click="MenuItem_Click"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
 
                     <Button x:Name="SettingsButton"
                             ToolTip="{StaticResource SettingsToolTip}"
-                            Style="{StaticResource ToolButton}"
+                            Width="30"
+                            Margin="0 5 0 5"
                             Click="SettingsButton_Click"
                             Grid.Column="3">
                         <Image Source="{StaticResource SettingsDrawingImage}"/>
@@ -163,9 +161,7 @@
                 </Grid>
 
                 <ListView x:Name="ReplayListView"
-                          Style="{StaticResource ReplayListStyle}"
                           ItemsSource="{Binding Path=PreviewReplays}"
-                          ItemContainerStyle="{StaticResource ReplayListItemStyle}"
                           Loaded="ReplayListView_Loaded"
                           MinWidth="350"
                           VerticalAlignment="Stretch"
@@ -188,7 +184,6 @@
                             Content="{StaticResource LoadMoreButtonText}"
                             FontSize="14"
                             Padding="2"
-                            Style="{StaticResource BaseButton}"
                             Click="LoadMoreButton_Click"/>
                 </Grid>
             </Grid>

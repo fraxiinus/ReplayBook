@@ -72,7 +72,7 @@
                                     Click="PlayButton_Click"
                                     HorizontalContentAlignment="Stretch">
                                 <Button.Style>
-                                    <Style TargetType="Button" BasedOn="{StaticResource BaseButton}">
+                                    <Style TargetType="Button">
                                         <Style.Triggers>
                                             <!--Conditions to enable/disable button-->
                                             <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="True">
@@ -133,34 +133,7 @@
                                     </Image>
                                 </Grid>
                             </Button>
-
-                            <!--<Button x:Name="MoreButton"
-                                    Width="20"
-                                    Height="30"
-                                    ToolTip="{StaticResource MoreToolTip}"
-                                    Background="Transparent"
-                                    BorderBrush="LightGray"
-                                    Click="MoreButton_Click">
-                                <Image Source="{StaticResource MoreDrawingImage}"
-                                               RenderOptions.BitmapScalingMode="HighQuality"
-                                               Height="15"
-                                               DockPanel.Dock="Right"
-                                               HorizontalAlignment="Right"
-                                               VerticalAlignment="Center"/>
-                                <Button.ContextMenu>
-                                    <ContextMenu x:Name="ReplayConextMenu">
-                                        <MenuItem x:Name="OpenContainingFolder"
-                                                  Header="{StaticResource OpenContainingFolder}" 
-                                                  Click="OpenContainingFolder_Click"/>
-
-                                        <MenuItem x:Name="ViewOnlineMatchHistory"
-                                                  Header="{StaticResource ViewOnlinePage}"
-                                                  Click="ViewOnlineMatchHistory_Click"/>
-                                    </ContextMenu>
-                                </Button.ContextMenu>
-                            </Button>-->
                         </StackPanel>
-
                     </DockPanel>
 
                 </Border>
@@ -242,14 +215,12 @@
                         Grid.Row="1"
                         SelectionChanged="TabControl_SelectionChanged">
                 <TabItem Header="{StaticResource ScoreboardTabText}"
-                         FontSize="12"
-                         Style="{StaticResource TabHeaderStyle}">
+                         FontSize="12">
                     <local:ScoreboardControl Margin="0 10 5 0"/>
                 </TabItem>
 
                 <TabItem Header="{StaticResource StatsTabText}"
-                         FontSize="12"
-                         Style="{StaticResource TabHeaderStyle}">
+                         FontSize="12">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>

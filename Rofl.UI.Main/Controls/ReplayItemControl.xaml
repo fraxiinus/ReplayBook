@@ -14,27 +14,21 @@
                MouseRightButtonUp="UIElement_OnMouseRightButtonUp">
         <DockPanel.ContextMenu>
             <ContextMenu x:Name="DockPanelReplayContextMenu"
-                         Placement="Bottom"
-                         Style="{StaticResource ContextMenuStyle}">
+                         Placement="Bottom">
                 <MenuItem Header="{StaticResource OpenContainingFolder}" 
-                          Click="OpenContainingFolder_Click"
-                          Style="{StaticResource MenuItemStyle}"/>
+                          Click="OpenContainingFolder_Click"/>
 
                 <MenuItem Header="{StaticResource ViewOnlinePage}"
-                          Click="ViewOnlineMatchHistory_Click"
-                          Style="{StaticResource MenuItemStyle}"/>
+                          Click="ViewOnlineMatchHistory_Click"/>
 
                 <MenuItem Header="{StaticResource ExportReplayData}"
-                          Click="ExportReplayData_OnClick"
-                          Style="{StaticResource MenuItemStyle}"/>
+                          Click="ExportReplayData_OnClick"/>
 
                 <MenuItem Header="{StaticResource RenameReplayFile}"
-                          Click="RenameReplayFile_OnClick"
-                          Style="{StaticResource MenuItemStyle}"/>
+                          Click="RenameReplayFile_OnClick"/>
 
                 <MenuItem Header="{StaticResource DeleteReplayFile}"
-                          Click="DeleteReplayFile_OnClick"
-                          Style="{StaticResource MenuItemStyle}"/>
+                          Click="DeleteReplayFile_OnClick"/>
             </ContextMenu>
         </DockPanel.ContextMenu>
 
@@ -184,11 +178,12 @@
             <Grid>
                 <Button x:Name="PlayButton"
                         Margin="0 0 0 5"
+                        Width="30"
                         ToolTipService.ShowOnDisabled="True"
                         Click="PlayButton_Click"
                         IsEnabled="{Binding Path=IsPlaying, Converter={converters:BoolInvertConverter}}">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource ToolButton}">
+                        <Style TargetType="Button">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
                                     <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
@@ -223,40 +218,34 @@
 
             <Button x:Name="MoreButton"
                     Margin="0"
+                    Width="30"
                     ToolTip="{StaticResource MoreToolTip}"
-                    Style="{StaticResource ToolButton}"
                     Click="MoreButton_Click">
                 <Image Source="{StaticResource MoreDrawingImage}"
                        RenderOptions.BitmapScalingMode="HighQuality"/>
 
                 <Button.ContextMenu>
                     <ContextMenu x:Name="ReplayContextMenu"
-                                 Placement="Bottom"
-                                 Style="{StaticResource ContextMenuStyle}">
+                                 Placement="Bottom">
                         <MenuItem x:Name="OpenContainingFolder"
                                   Header="{StaticResource OpenContainingFolder}" 
-                                  Click="OpenContainingFolder_Click"
-                                  Style="{StaticResource MenuItemStyle}"/>
+                                  Click="OpenContainingFolder_Click"/>
 
                         <MenuItem x:Name="ViewOnlineMatchHistory"
                                   Header="{StaticResource ViewOnlinePage}"
-                                  Click="ViewOnlineMatchHistory_Click"
-                                  Style="{StaticResource MenuItemStyle}"/>
+                                  Click="ViewOnlineMatchHistory_Click"/>
 
                         <MenuItem x:Name="ExportReplayData"
                                   Header="{StaticResource ExportReplayData}"
-                                  Click="ExportReplayData_OnClick"
-                                  Style="{StaticResource MenuItemStyle}"/>
+                                  Click="ExportReplayData_OnClick"/>
 
                         <MenuItem x:Name="RenameReplayFile"
                                   Header="{StaticResource RenameReplayFile}"
-                                  Click="RenameReplayFile_OnClick"
-                                  Style="{StaticResource MenuItemStyle}"/>
+                                  Click="RenameReplayFile_OnClick"/>
 
                         <MenuItem x:Name="DeleteReplayFile"
                                   Header="{StaticResource DeleteReplayFile}"
-                                  Click="DeleteReplayFile_OnClick"
-                                  Style="{StaticResource MenuItemStyle}"/>
+                                  Click="DeleteReplayFile_OnClick"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

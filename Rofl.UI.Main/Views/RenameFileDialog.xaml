@@ -19,7 +19,6 @@
 
         <TextBox x:Name="NameTextBox"
                  Height="25"
-                 Style="{StaticResource TextBoxBaseStyle}"
                  VerticalContentAlignment="Center"
                  TextAlignment="Left"
                  TextChanged="NameTextBox_TextChanged"

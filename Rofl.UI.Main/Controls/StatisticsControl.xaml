@@ -15,8 +15,7 @@
         <b:BubbleScrollEvent />
     </i:Interaction.Behaviors>
 
-    <DataGrid Style="{StaticResource StatsDataGridStyle}"
-              x:Name="StatsDataGrid"
+    <DataGrid x:Name="StatsDataGrid"
               AutoGenerateColumns="False"
               ItemsSource="{Binding Path=AllPlayers}"
               HorizontalScrollBarVisibility="Disabled"
@@ -25,6 +24,7 @@
               IsReadOnly="True"
               CanUserSortColumns="False"
               CanUserResizeColumns="False"
+              CanUserReorderColumns="False"
               CanUserResizeRows="False"
               HeadersVisibility="Column"
               Background="Transparent"
@@ -36,6 +36,7 @@
               HorizontalContentAlignment="Stretch"
               HorizontalAlignment="Stretch"
               SizeChanged="StatsDataGrid_SizeChanged"
+              BorderThickness="0"
               MinRowHeight="56"
               RowHeight="56"
               Width="1580">

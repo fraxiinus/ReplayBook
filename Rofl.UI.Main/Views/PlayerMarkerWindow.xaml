@@ -18,8 +18,7 @@
                      Margin="0 5 0 5" 
                      VerticalContentAlignment="Center"
                      Height="25"
-                     Padding="2"
-                     Style="{StaticResource TextBoxBaseStyle}"/>
+                     Padding="2"/>
 
             <TextBlock Text="{StaticResource PlayerMarkerNoteLabelText}"/>
             <TextBox x:Name="NoteTextBox"
@@ -27,8 +26,7 @@
                      VerticalContentAlignment="Top"
                      Height="75"
                      Padding="2"
-                     TextWrapping="WrapWithOverflow"
-                     Style="{StaticResource TextBoxBaseStyle}"/>
+                     TextWrapping="WrapWithOverflow"/>
 
             <TextBlock Text="{StaticResource PlayerMarkerColorLabelText}"/>
             <controls:ColorWrapper x:Name="MarkerColorPicker"

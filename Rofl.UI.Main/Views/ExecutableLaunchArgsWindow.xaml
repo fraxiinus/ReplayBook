@@ -22,8 +22,7 @@
                  Grid.Row="0"
                  Grid.ColumnSpan="2"
                  TextWrapping="Wrap"
-                 Margin="0 0 0 10"
-                 Style="{StaticResource TextBoxBaseStyle}"/>
+                 Margin="0 0 0 10"/>
 
         <StackPanel Orientation="Horizontal"
                     Grid.Column="0"

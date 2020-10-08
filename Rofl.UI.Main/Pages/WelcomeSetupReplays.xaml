@@ -73,7 +73,6 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="PreviousButton"
-                        Style="{StaticResource ToolButton}"
                         Grid.Column="0"
                         Width="75"
                         Height="25"
@@ -101,7 +100,6 @@
                 </Button>
                 <Button x:Name="NextButton"
                         Grid.Column="1"
-                        Style="{StaticResource ToolButton}"
                         Width="75"
                         Height="25"
                         Margin="0 0 5 0"
@@ -132,7 +130,6 @@
                 </Button>
                 <Button x:Name="SkipButton"
                         Grid.Column="2"
-                        Style="{StaticResource ToolButton}"
                         Width="50"
                         Height="25"
                         Padding="5"

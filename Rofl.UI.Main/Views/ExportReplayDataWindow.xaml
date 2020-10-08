@@ -194,7 +194,6 @@
                      Grid.Row="1"
                      FontFamily="Consolas"
                      FontSize="14"
-                     Style="{StaticResource TextBoxBaseStyle}"
                      VerticalScrollBarVisibility="Auto"
                      Background="{StaticResource AccentColorLight1}"
                      Foreground="{StaticResource LightTextColor}"

@@ -32,15 +32,13 @@
         <Border DockPanel.Dock="Top" CornerRadius="5" Margin="0,7,2,0" Width="76" Height="24" BorderThickness="1" Background="{Binding SelectedColor, Converter={StaticResource ColorToSolidColorBrushConverter}}" HorizontalAlignment="Right"
                 BorderBrush="{StaticResource DarkTextColor}"/>
         <DockPanel DockPanel.Dock="Bottom" Margin="5,5,0,0">
-            <TextBox Text="#FFFF0000" Name="HexTextBox" Width="72" DockPanel.Dock="Right" LostFocus="HexTextBox_LostFocus" VerticalAlignment="Center"
-                     Style="{StaticResource TextBoxBaseStyle}"/>
+            <TextBox Text="#FFFF0000" Name="HexTextBox" Width="72" DockPanel.Dock="Right" LostFocus="HexTextBox_LostFocus" VerticalAlignment="Center"/>
             <TextBlock Text="Hexadecimal" VerticalAlignment="Center"/>
         </DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" Name="SliderStackPanel">
             <DockPanel Margin="5,5,0,0">
                 <TextBlock Text="R" DockPanel.Dock="Left" VerticalAlignment="Center" Width="10"/>
-                <TextBox Text="{Binding R}" Width="45" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0" Name="RTextBox"
-                         Style="{StaticResource TextBoxBaseStyle}"/>
+                <TextBox Text="{Binding R}" Width="45" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0" Name="RTextBox"/>
                 <Border Height="17" BorderThickness="1" BorderBrush="Gray" Margin="5,0,5,0">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0"
@@ -58,8 +56,7 @@
             </DockPanel>
             <DockPanel Margin="5,5,0,0">
                 <TextBlock Text="G" DockPanel.Dock="Left" VerticalAlignment="Center" Width="10"/>
-                <TextBox Text="{Binding G}" Width="45" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0" Name="GTextBox"
-                         Style="{StaticResource TextBoxBaseStyle}"/>
+                <TextBox Text="{Binding G}" Width="45" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0" Name="GTextBox"/>
                 <Border Height="17" BorderThickness="1" BorderBrush="Gray" Margin="5,0,5,0">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0"
@@ -77,8 +74,7 @@
             </DockPanel>
             <DockPanel Margin="5,5,0,0">
                 <TextBlock Text="B" DockPanel.Dock="Left" VerticalAlignment="Center" Width="10"/>
-                <TextBox Text="{Binding B}" Width="45" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0" Name="BTextBox"
-                         Style="{StaticResource TextBoxBaseStyle}"/>
+                <TextBox Text="{Binding B}" Width="45" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0" Name="BTextBox"/>
                 <Border Height="17" BorderThickness="1" BorderBrush="Gray" Margin="5,0,5,0">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0"
