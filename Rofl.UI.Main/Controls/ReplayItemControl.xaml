@@ -6,13 +6,12 @@
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="85" d:DesignWidth="350">
+             d:DesignHeight="100" d:DesignWidth="350">
 
-    <DockPanel Background="Transparent"
-               LastChildFill="False"
-               Height="85" Width="350"
-               MouseRightButtonUp="UIElement_OnMouseRightButtonUp">
-        <DockPanel.ContextMenu>
+    <Grid Background="Transparent"
+          Height="100" Width="350"
+          MouseRightButtonUp="UIElement_OnMouseRightButtonUp">
+        <Grid.ContextMenu>
             <ContextMenu x:Name="DockPanelReplayContextMenu"
                          Placement="Bottom">
                 <MenuItem Header="{StaticResource OpenContainingFolder}" 
@@ -30,97 +29,93 @@
                 <MenuItem Header="{StaticResource DeleteReplayFile}"
                           Click="DeleteReplayFile_OnClick"/>
             </ContextMenu>
-        </DockPanel.ContextMenu>
+        </Grid.ContextMenu>
 
-        <!--Left side file information-->
-        <Border BorderThickness="3 0 0 0">
-            <Border.Style>
-                <Style TargetType="Border">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=IsNewFile}" Value="True">
-                            <Setter Property="BorderBrush" Value="Blue"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=IsNewFile}" Value="False">
-                            <Setter Property="BorderBrush" Value="Transparent"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Style>
-            
-            <StackPanel DockPanel.Dock="Left"
-                    Orientation="Vertical"
-                    Width="105"
-                    Margin="5 2 5 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="105"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                <TextBlock x:Name="FilenameText"
-                       FontSize="12"
-                       FontWeight="Bold"
-                       Text="{Binding Path=Name, FallbackValue=Filename}"
-                       ToolTip="{Binding Path=Name}"/>
+        <TextBlock x:Name="FilenameText"
+                   FontSize="14"
+                   FontWeight="Bold"
+                   Margin="0 5 0 2"
+                   Text="{Binding Path=Name, FallbackValue=Filename}"
+                   ToolTip="{Binding Path=Name}"
+                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+        
+        <!--Left side stats-->
+        <StackPanel Orientation="Vertical"
+                    Margin="0 0 5 0"
+                    Grid.Column="0" Grid.Row="1">
 
-                <TextBlock x:Name="MapNameText"
+            <TextBlock x:Name="MapNameText"
                        FontSize="12"
                        Text="{Binding Path=MapName, FallbackValue=Map name}"/>
 
-                <TextBlock x:Name="GameLengthText"
+            <TextBlock x:Name="GameLengthText"
                        FontSize="12"
                        Text="{Binding Path=GameLengthString, FallbackValue=Game duration}"
                        ToolTip="{Binding Path=GameDuration}"/>
 
-                <TextBlock x:Name="CreationDateText"
-                           FontSize="12"
-                           Text="{Binding Path=CreationDate, StringFormat=yyyy-MM-dd, FallbackValue=Creation date}"
-                           ToolTip="{StaticResource FileDateToolTip}"/>
+            <TextBlock x:Name="CreationDateText"
+                       FontSize="12"
+                       Text="{Binding Path=CreationDate, StringFormat=yyyy-MM-dd, FallbackValue=Creation date}"
+                       ToolTip="{StaticResource FileDateToolTip}"/>
 
-                <!--Stack panel so tooltip only happens over checkmark-->
-                <StackPanel x:Name="PatchTextPanel"
+            <!--Stack panel so tooltip only happens over checkmark-->
+            <StackPanel x:Name="PatchTextPanel"
                         Orientation="Horizontal">
 
-                    <TextBlock x:Name="PatchNumberText"
+                <TextBlock x:Name="PatchNumberText"
                         FontSize="12"
                         Text="{Binding Path=GameVersion, FallbackValue=Game version}">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Foreground" Value="Red"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsSupported}" Value="True">
-                                        <Setter Property="Foreground" Value="Green"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="Red"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSupported}" Value="True">
+                                    <Setter Property="Foreground" Value="Green"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
-                    <TextBlock x:Name="PatchCheckText"
+                <TextBlock x:Name="PatchCheckText"
                         FontSize="12">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Text" Value="{StaticResource CrossText}"/>
-                                <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
-                                <Setter Property="Foreground" Value="Red"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsSupported}" Value="True">
-                                        <Setter Property="Text" Value="{StaticResource CheckText}"/>
-                                        <Setter Property="ToolTip" Value="{StaticResource ReplaySupportedToolTip}"/>
-                                        <Setter Property="Foreground" Value="Green"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Text" Value="{StaticResource CrossText}"/>
+                            <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSupported}" Value="True">
+                                    <Setter Property="Text" Value="{StaticResource CheckText}"/>
+                                    <Setter Property="ToolTip" Value="{StaticResource ReplaySupportedToolTip}"/>
+                                    <Setter Property="Foreground" Value="Green"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
 
-                </StackPanel>
-                
             </StackPanel>
-            
-        </Border>
+
+        </StackPanel>
+
         <!--Player icons-->
-        <StackPanel DockPanel.Dock="Left"
-                    Orientation="Vertical"
-                    VerticalAlignment="Center">
+        <StackPanel Orientation="Vertical"
+                    VerticalAlignment="Top"
+                    Grid.Column="1" Grid.Row="1">
 
             <!--Select which border to set to red vs blue to show which side won-->
-            <Border BorderThickness="3 0 0 0"
+            <Border BorderThickness="4 0 0 0"
                     Padding="2 0 0 0">
                 <Border.Style>
                     <Style TargetType="Border">
@@ -135,16 +130,16 @@
                     </Style>
                 </Border.Style>
 
-                <StackPanel>
+                <StackPanel Margin="2 0 0 0">
                     <ItemsControl ItemsSource="{Binding Path=BluePreviewPlayers}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0 1 0 4"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 2 0 2"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:PlayerIconControl Margin="0 0 2 0"
+                                <local:PlayerIconControl Margin="0 0 4 0"
                                                          Width="30"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -153,12 +148,12 @@
                     <ItemsControl ItemsSource="{Binding Path=RedPreviewPlayers}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" Margin="0 4 0 1"/>
+                                <StackPanel Orientation="Horizontal" Margin="0 2 0 1"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:PlayerIconControl Margin="0 0 2 0"
+                                <local:PlayerIconControl Margin="0 0 4 0"
                                                          Width="30"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -171,19 +166,19 @@
         </StackPanel>
 
         <!--Right side buttons-->
-        <StackPanel DockPanel.Dock="Right"
+        <StackPanel x:Name="ButtonPanel"
                     Orientation="Vertical"
-                    Margin="5 5 5 5">
-
+                    VerticalAlignment="Center"
+                    Grid.Column="2" Grid.Row="0" Grid.RowSpan="2">
             <Grid>
                 <Button x:Name="PlayButton"
                         Margin="0 0 0 5"
-                        Width="30"
+                        Width="37"
                         ToolTipService.ShowOnDisabled="True"
                         Click="PlayButton_Click"
                         IsEnabled="{Binding Path=IsPlaying, Converter={converters:BoolInvertConverter}}">
                     <Button.Style>
-                        <Style TargetType="Button">
+                        <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
                                     <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
@@ -199,6 +194,7 @@
                 </Button>
                 <Image Source="{StaticResource CircleFillDrawingImage}"
                        Width="10"
+                       Margin="0 2 2 0"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Top">
                     <Image.Style>
@@ -218,7 +214,7 @@
 
             <Button x:Name="MoreButton"
                     Margin="0"
-                    Width="30"
+                    Width="37"
                     ToolTip="{StaticResource MoreToolTip}"
                     Click="MoreButton_Click">
                 <Image Source="{StaticResource MoreDrawingImage}"
@@ -252,6 +248,6 @@
             
         </StackPanel>
         
-    </DockPanel>
+    </Grid>
     
 </UserControl>

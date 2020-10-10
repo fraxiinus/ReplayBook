@@ -16,7 +16,9 @@
         Height="655" 
         Width="1150"
         Loaded="MainWindow_OnLoaded"
-        Closing="MainWindow_OnClosing">
+        Closing="MainWindow_OnClosing"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True">
 
     <Grid>
 
@@ -26,9 +28,8 @@
         </Grid.ColumnDefinitions>
 
         <Border BorderThickness="0 0 1 0"
-                BorderBrush="{StaticResource AccentColorLight3}"
-                Background="{StaticResource BackgroundColor}"
-                Padding="0 0 5 0">
+                Padding="0 0 0 0"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -49,63 +50,64 @@
                     </Grid.ColumnDefinitions>
 
                     <Border Grid.Column="0"
-                            Margin="5"
-                            BorderBrush="{StaticResource AccentColor}"
+                            Margin="10 10 5 10"
                             BorderThickness="1">
-                        <TextBox x:Name="SearchBox"
-                                 FontSize="18"
-                                 BorderBrush="Transparent"
-                                 KeyUp="SearchBox_KeyUp"/>
+                        <ui:AutoSuggestBox x:Name="SearchBox"
+                                           PlaceholderText="Search"
+                                           FontSize="14"
+                                           QueryIcon="Find"
+                                           QuerySubmitted="SearchBox_QuerySubmitted"/>
                     </Border>
 
                     <Button x:Name="RefreshButton"
                             ToolTip="{StaticResource RefreshToolTip}"
-                            Width="30"
-                            Margin="0 5 0 5"
+                            Width="37"
                             Click="RefreshButton_Click"
+                            Background="Transparent"
                             Grid.Column="1">
                         <Image Source="{StaticResource RefreshDrawingImage}"/>
                     </Button>
 
                     <Button x:Name="SortButton"
                             ToolTip="{StaticResource SortToolTip}"
-                            Width="30"
-                            Margin="0 5 0 5"
+                            Width="37"
                             ContextMenuService.Placement="Bottom"
                             Click="SortButton_Click"
+                            Background="Transparent"
                             Grid.Column="2">
                         <Image Source="{StaticResource SortDrawingImage}"/>
                         <Button.ContextMenu>
                             <ContextMenu x:Name="SortMenu">
-                                <MenuItem x:Name="NameAsc"
-                                          Header="{StaticResource NameAsc}" 
-                                          Click="MenuItem_Click"/>
-                                <MenuItem x:Name="NameDesc"
-                                          Header="{StaticResource NameDesc}" 
-                                          Click="MenuItem_Click"/>
+                                <ui:RadioMenuItem x:Name="NameAsc"
+                                                  Header="{StaticResource NameAsc}" 
+                                                  Click="MenuItem_Click"/>
+                                <ui:RadioMenuItem x:Name="NameDesc"
+                                                  Header="{StaticResource NameDesc}" 
+                                                  Click="MenuItem_Click"/>
                                 <Separator/>
-                                <MenuItem x:Name="DateAsc"
-                                          Header="{StaticResource DateAsc}" 
-                                          Click="MenuItem_Click"/>
-                                <MenuItem x:Name="DateDesc"
-                                          Header="{StaticResource DateDesc}" 
-                                          Click="MenuItem_Click"/>
+                                <ui:RadioMenuItem x:Name="DateAsc"
+                                                  Header="{StaticResource DateAsc}" 
+                                                  Click="MenuItem_Click"/>
+                                <ui:RadioMenuItem x:Name="DateDesc"
+                                                  Header="{StaticResource DateDesc}" 
+                                                  Click="MenuItem_Click"/>
                                 <Separator/>
-                                <MenuItem x:Name="SizeAsc"
-                                          Header="{StaticResource SizeAsc}" 
-                                          Click="MenuItem_Click"/>
-                                <MenuItem x:Name="SizeDesc"
-                                          Header="{StaticResource SizeDesc}" 
-                                          Click="MenuItem_Click"/>
+                                <ui:RadioMenuItem x:Name="SizeAsc"
+                                                  Header="{StaticResource SizeAsc}" 
+                                                  Click="MenuItem_Click"/>
+                                <ui:RadioMenuItem x:Name="SizeDesc"
+                                                  Header="{StaticResource SizeDesc}" 
+                                                  Click="MenuItem_Click"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
 
                     <Button x:Name="SettingsButton"
                             ToolTip="{StaticResource SettingsToolTip}"
-                            Width="30"
+                            Width="37"
                             Margin="0 5 0 5"
                             Click="SettingsButton_Click"
+                            Background="Transparent"
                             Grid.Column="3">
                         <Image Source="{StaticResource SettingsDrawingImage}"/>
                     </Button>
@@ -113,7 +115,7 @@
                 </Grid>
 
                 <Grid x:Name="ReplayStatusBar"
-                      Background="{Binding Path=StatusBarModel.Color}"
+                      Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
                       HorizontalAlignment="Stretch"
                       Grid.Row="1">
                     <Grid.Style>
@@ -135,11 +137,11 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ProgressBar IsIndeterminate="true"
-                                 Grid.Row="0"
-                                 Height="5">
-                        <ProgressBar.Style>
-                            <Style TargetType="ProgressBar">
+                    <ui:ProgressBar IsIndeterminate="true"
+                                    Grid.Row="0"
+                                    Height="5">
+                        <ui:ProgressBar.Style>
+                            <Style TargetType="ui:ProgressBar">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=StatusBarModel.ShowProgressBar}" Value="true">
                                         <Setter Property="Visibility" Value="Visible"/>
@@ -149,15 +151,14 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </ProgressBar.Style>
-                    </ProgressBar>
-                    <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage}"
+                        </ui:ProgressBar.Style>
+                    </ui:ProgressBar>
+                    <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage, FallbackValue=Status}"
                                TextAlignment="Center"
-                               FontSize="14"
+                               FontSize="16"
                                VerticalAlignment="Center" 
-                               Grid.Column="0"
-                               Grid.Row="1"
-                               Padding="1"/>
+                               Grid.Column="0" Grid.Row="1"
+                               Margin="0 3 0 3"/>
                 </Grid>
 
                 <ListView x:Name="ReplayListView"

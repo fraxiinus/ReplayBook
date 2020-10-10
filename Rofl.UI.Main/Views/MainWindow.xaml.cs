@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Extensions;
+using ModernWpf.Controls;
 
 namespace Rofl.UI.Main
 {
@@ -86,7 +87,7 @@ namespace Rofl.UI.Main
         private async void ReplayListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
-            if (!(sender is ListView replayList)) { return; }
+            if (!(sender is System.Windows.Controls.ListView replayList)) { return; }
             if (!(replayList.SelectedItem is ReplayPreview previewModel)) { return; }
 
             FileResult replayFile = context.FileResults[previewModel.Location];
@@ -115,10 +116,10 @@ namespace Rofl.UI.Main
             contextMenu.IsOpen = true;
 
             var name = Enum.GetName(context.SortParameters.SortMethod.GetType(), context.SortParameters.SortMethod);
-            if (this.FindName(name) is MenuItem selectItem)
+            if (this.FindName(name) is RadioMenuItem selectItem)
             {
                 // Select our item
-                selectItem.BorderBrush = ResourceTools.GetColorFromResource("AccentColorLight2");
+                selectItem.IsChecked = true;
             }
         }
 
@@ -130,23 +131,14 @@ namespace Rofl.UI.Main
         private async void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
-            if (!(sender is MenuItem selectedItem)) { return; }
+            if (!(sender is RadioMenuItem selectedItem)) { return; }
 
             if (Enum.TryParse(selectedItem.Name, out SortMethod selectSort))
             {
                 context.SortParameters.SortMethod = selectSort;
             }
 
-            // Clear all selections
-            foreach (Object item in (this.FindName("SortMenu") as ContextMenu).Items)
-            {
-                if (item is MenuItem menuItem)
-                {
-                    menuItem.BorderBrush = Brushes.Transparent;
-                }
-            }
-
-            await context.ReloadReplayList().ConfigureAwait(true);
+            await context.ReloadReplayList().ConfigureAwait(false);
         }
 
         private async void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -212,9 +204,21 @@ namespace Rofl.UI.Main
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
             if (e.Key != System.Windows.Input.Key.Enter) { return; }
-            if (!(sender is TextBox searchBox)) { return; }
+            if (!(sender is AutoSuggestBox searchBox)) { return; }
 
             context.SortParameters.SearchTerm = searchBox.Text;
+
+            context.ClearReplays();
+            context.LoadReplays();
+            await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+        }
+
+        private async void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+            if (string.IsNullOrEmpty(args.QueryText)) { return; }
+
+            context.SortParameters.SearchTerm = args.QueryText;
 
             context.ClearReplays();
             context.LoadReplays();

@@ -342,7 +342,6 @@ namespace Rofl.UI.Main.ViewModels
             PreviewReplays.Clear();
             ValidateReplayStorage();
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
-            StatusBarModel.Color = Brushes.White;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
             await _fileManager.InitialLoadAsync().ConfigureAwait(true);
@@ -359,7 +358,6 @@ namespace Rofl.UI.Main.ViewModels
         public void ValidateReplayStorage()
         {
             StatusBarModel.StatusMessage = "Pruning storage...";
-            StatusBarModel.Color = Brushes.White;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
             _fileManager.PruneDatabaseEntries();

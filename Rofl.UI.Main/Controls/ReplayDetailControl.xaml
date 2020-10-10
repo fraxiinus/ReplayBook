@@ -9,8 +9,7 @@
              x:Name="ReplayDetailControlElement"
              d:DesignHeight="650" d:DesignWidth="760"
              HorizontalAlignment="Left"
-             VerticalAlignment="Top"
-             Background="White">
+             VerticalAlignment="Top">
     <UserControl.Resources>
         <converters:FormatKbSizeConverter x:Key="FormatKbSizeConverter"/>
     </UserControl.Resources>
