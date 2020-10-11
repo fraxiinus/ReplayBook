@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using ModernWpf.Controls;
 using Rofl.Executables.Models;
 using Rofl.Settings;
 using Rofl.Settings.Models;
@@ -31,6 +32,13 @@ namespace Rofl.UI.Main.Views
 
         private void SettingsWindow_OnSourceInitialized(object sender, EventArgs e)
         {
+            
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is SettingsManager)) { return; }
+
             // Change window style
             var GWL_STYLE = -16;
             // Maximize box flag
@@ -41,11 +49,6 @@ namespace Rofl.UI.Main.Views
 
             // Flip maximize box flag
             _ = NativeMethods.SetWindowLong(windowHandle, GWL_STYLE, (int)(value & ~WS_MAXIMIZEBOX));
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (!(this.DataContext is SettingsManager)) { return; }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -86,16 +89,13 @@ namespace Rofl.UI.Main.Views
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
 
-            var addDialog = new PlayerMarkerWindow
+            var addDialog = new PlayerMarkerDialog
             {
-                Top = this.Top + 50,
-                Left = this.Left + 50,
                 Owner = this,
                 DataContext = context.Settings.KnownPlayers
             };
 
-            addDialog.ShowDialog();
-
+            addDialog.ShowAsync(ContentDialogPlacement.Popup);
         }
 
         private void EditKnownPlayerButton_Click(object sender, RoutedEventArgs e)
@@ -103,16 +103,13 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is SettingsManager context)) { return; }
             if (!(KnownPlayersListBox.SelectedItem is PlayerMarker selectedPlayer)) { return; }
 
-            var editDialog = new PlayerMarkerWindow(selectedPlayer)
+            var editDialog = new PlayerMarkerDialog(selectedPlayer)
             {
-                Top = this.Top + 50,
-                Left = this.Left + 50,
                 Owner = this,
                 DataContext = context.Settings.KnownPlayers
             };
 
-            editDialog.ShowDialog();
-
+            editDialog.ShowAsync(ContentDialogPlacement.Popup);
         }
         
         private void RemoveKnownPlayerButton_Click(object sender, RoutedEventArgs e)
@@ -410,15 +407,13 @@ namespace Rofl.UI.Main.Views
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
 
-            var addDialog = new ExecutableDetailWindow
+            var addDialog = new ExecutableDetailDialog
             {
-                Top = this.Top + 50,
-                Left = this.Left + 50,
                 Owner = this,
                 DataContext = context.Executables
             };
 
-            addDialog.ShowDialog();
+            addDialog.ShowAsync(ContentDialogPlacement.Popup);
         }
 
         private void EditExecutableButton_Click(object sender, RoutedEventArgs e)
@@ -426,15 +421,13 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is SettingsManager context)) { return; }
             if (!(ExecutablesListBox.SelectedItem is LeagueExecutable selectedExecutable)) { return; };
 
-            var editDialog = new ExecutableDetailWindow(selectedExecutable)
+            var editDialog = new ExecutableDetailDialog(selectedExecutable)
             {
-                Top = this.Top + 50,
-                Left = this.Left + 50,
                 Owner = this,
                 DataContext = context.Executables
             };
 
-            editDialog.ShowDialog();
+            editDialog.ShowAsync(ContentDialogPlacement.Popup);
         }
 
         private void RemoveExecutableButton_Click(object sender, RoutedEventArgs e)

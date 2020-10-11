@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="{StaticResource ExecutableDetailWindowText}"
         SizeToContent="Height"
@@ -11,8 +12,9 @@
         ResizeMode="CanResize"
         Icon="{StaticResource SettingsDrawingImage}"
         SourceInitialized="Window_SourceInitialized"
-        Loaded="Window_Loaded">
-    <Grid Margin="7">
+        Loaded="Window_Loaded"
+        ui:WindowHelper.UseModernWindowStyle="True">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -33,7 +35,7 @@
                          VerticalContentAlignment="Center"
                          Height="25"/>
                 <Button x:Name="TargetButton" Padding="10 0 10 0" Content="Browse..." Grid.Row="0" Grid.Column="1"
-                        Height="25"
+                        Height="30"
                         Click="TargetButton_Click"/>
             </Grid>
 
@@ -55,7 +57,7 @@
                 <ComboBox x:Name="LocaleComboBox"
                           Grid.Column="1"
                           VerticalContentAlignment="Center"
-                          Height="25"
+                          Height="30"
                           Margin="0 5 0 5"/>
             </Grid>
 
@@ -71,10 +73,9 @@
                     Content="{StaticResource EditButtonText}"
                     Click="EditLaunchArgsButton_Click"
                     HorizontalAlignment="Left"
-                    Height="25" Width="60"
-                    Margin="0 0 0 5"/>
+                    Height="30" Width="60"/>
 
-            <GroupBox Header="{StaticResource ExecutableDetailPropertyHeader}" Padding="5">
+            <GroupBox Padding="5">
                 <StackPanel>
                     <TextBlock Text="{StaticResource ExecutableDetailPropertyStartPath}"/>
                     <TextBox x:Name="StartPathTextBox" Margin="0 5 0 5" Padding="2" BorderThickness="0 0 0 1" IsReadOnly="True"
@@ -113,11 +114,11 @@
                     Margin="0 10 0 1"
                     Grid.Row="1">
             <Button x:Name="SaveButton" Content="{StaticResource SaveButtonText}"
-                    Width="75" Height="25"
+                    Width="75" Height="30"
                     Margin="0 0 5 0"
                     Click="SaveButton_Click"/>
             <Button x:Name="CancelButton" Content="{StaticResource CancelButtonText}"
-                    Width="75" Height="25"
+                    Width="75" Height="30"
                     Margin="0 0 0 0"
                     Click="CancelButton_Click"/>
         </StackPanel>

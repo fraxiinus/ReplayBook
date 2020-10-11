@@ -32,6 +32,8 @@ namespace Rofl.UI.Main
         private readonly RiZhi _log;
         private readonly ReplayPlayer _player;
 
+        private ReplayPreview _lastSelection;
+
         public MainWindow(RiZhi log, SettingsManager settingsManager, RequestManager requests, FileManager files, ReplayPlayer player)
         {
             InitializeComponent();
@@ -41,6 +43,8 @@ namespace Rofl.UI.Main
             _requests = requests;
             _files = files;
             _player = player;
+
+            _lastSelection = null;
 
             Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
             {
@@ -89,6 +93,12 @@ namespace Rofl.UI.Main
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
             if (!(sender is System.Windows.Controls.ListView replayList)) { return; }
             if (!(replayList.SelectedItem is ReplayPreview previewModel)) { return; }
+
+            // Deselect the last selected item
+            if (_lastSelection != null && _lastSelection.IsSelected) _lastSelection.IsSelected = false;
+
+            previewModel.IsSelected = true;
+            _lastSelection = previewModel;
 
             FileResult replayFile = context.FileResults[previewModel.Location];
 

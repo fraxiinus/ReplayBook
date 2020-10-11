@@ -4,44 +4,52 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="{StaticResource ExecutableDetailLaunchArgs}" 
         Height="250" Width="300"
-        MinHeight="250" MinWidth="300">
-    <Grid Margin="5">
+        MinHeight="250" MinWidth="300"
+        ui:WindowHelper.UseModernWindowStyle="True">
+    
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <TextBox x:Name="LaunchArgsBox"
-                 Grid.Row="0"
-                 Grid.ColumnSpan="2"
+                 Grid.Row="0" Grid.ColumnSpan="3"
                  TextWrapping="Wrap"
                  Margin="0 0 0 10"/>
 
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="0"
-                    Grid.Row="1">
-
-            <Button x:Name="SaveButton"
+        <Button x:Name="SaveButton"
                 Content="{StaticResource SaveButtonText}"
-                Margin="0 0 5 0"
-                Width="75"
-                Height="25"
-                Click="SaveButton_Click"/>
+                Height="30"
+                Click="SaveButton_Click"
+                Grid.Row="1" Grid.Column="0">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                </Style>
+            </Button.Style>
+        </Button>
 
-            <Button x:Name="CloseButton"
+        <Button x:Name="CloseButton"
                 Content="{StaticResource CancelButtonText}"
                 Margin="0 0 0 0"
-                Width="75"
-                Height="25"
-                Click="CloseButton_Click"/>
-
-        </StackPanel>
+                Height="30"
+                Grid.Row="1" Grid.Column="2"
+                Click="CloseButton_Click">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>

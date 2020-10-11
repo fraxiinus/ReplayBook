@@ -1,0 +1,133 @@
+﻿<ui:ContentDialog x:Class="Rofl.UI.Main.Views.ExecutableDetailDialog"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+                  xmlns:ui="http://schemas.modernwpf.com/2019"
+                  mc:Ignorable="d"
+                  Title="{StaticResource ExecutableDetailWindowText}"
+                  Loaded="Window_Loaded"
+                  PrimaryButtonText="{StaticResource SaveButtonText}"
+                  CloseButtonText="{StaticResource CancelButtonText}"
+                  PrimaryButtonClick="SaveButton_Click"
+                  CloseButtonClick="CancelButton_Click"
+                  DefaultButton="Primary"
+                  Closing="ContentDialog_Closing">
+
+    <ui:SimpleStackPanel Orientation="Vertical"
+                         Spacing="12"
+                         Width="400">
+
+        <TextBlock Text="{StaticResource ExecutableDetailTargetPath}"
+                   FontSize="14"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="TargetTextBox" Padding="2" Margin="0 0 5 0" Grid.Row="0" Grid.Column="0"
+                     VerticalContentAlignment="Center"
+                     Height="25"/>
+            <Button x:Name="TargetButton"
+                    Grid.Row="0" Grid.Column="1"
+                    Height="30"
+                    Click="TargetButton_Click"
+                    ToolTip="{StaticResource BrowseButtonText}">
+                <Image Source="{StaticResource FolderHorizontalDrawingImage}"/>
+            </Button>
+        </Grid>
+
+        <TextBlock Text="{StaticResource ExecutableDetailName}"
+                   FontSize="14"/>
+        <TextBox x:Name="NameTextBox"
+                 Padding="2"
+                 VerticalContentAlignment="Center"
+                 Height="25"/>
+
+        <TextBlock Text="{StaticResource ExecutableDetailLocale}"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   FontSize="14"/>
+
+        <ComboBox x:Name="LocaleComboBox"
+                  Grid.Column="1"
+                  VerticalContentAlignment="Center"
+                  Height="30"
+                  Width="200"/>
+
+        <TextBlock Text="{StaticResource ExecutableDetailLaunchArgs}"
+                   FontSize="14"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="LaunchArgsTextBox" 
+                     Padding="2"
+                     TextWrapping="Wrap"
+                     Height="75"
+                     VerticalScrollBarVisibility="Auto"
+                     IsReadOnly="True"
+                     Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
+
+            <Button x:Name="EditLaunchArgsButton"
+                    Click="EditLaunchArgsButton_Click"
+                    HorizontalAlignment="Left"
+                    Height="30"
+                    Margin="5 0 0 0"
+                    Grid.Column="1" Grid.Row="0"
+                    ToolTip="{StaticResource EditButtonText}">
+                <Image Source="{StaticResource EditDrawingImage}"/>
+            </Button>
+        </Grid>
+
+        <TextBlock x:Name="ErrorMessageBlock"
+                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                   VerticalAlignment="Center"
+                   FontSize="14"
+                   Visibility="Collapsed"/>
+
+        <!--<GroupBox Header="{StaticResource ExecutableDetailPropertyHeader}" Padding="5">
+            <StackPanel>
+                <TextBlock Text="{StaticResource ExecutableDetailPropertyStartPath}"/>
+                <TextBox x:Name="StartPathTextBox" Padding="2" BorderThickness="0 0 0 1" IsReadOnly="True"
+                         VerticalContentAlignment="Center"
+                         Height="25"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="{StaticResource ExecutableDetailPropertyPatch}"/>
+                    <TextBox x:Name="PatchTextBox" Margin="0 0 5 0" Padding="2" IsReadOnly="True" BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="0"
+                             VerticalContentAlignment="Center"
+                             Height="25"/>
+
+                    <TextBlock Text="{StaticResource ExecutableDetailPropertyModified}" Grid.Column="1" Grid.Row="0"/>
+                    <TextBox x:Name="ModifiedDateTextBox" Padding="2" IsReadOnly="True" BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="1"
+                             VerticalContentAlignment="Center"
+                             Height="25"/>
+
+                </Grid>
+
+            </StackPanel>
+        </GroupBox>-->
+
+    </ui:SimpleStackPanel>
+</ui:ContentDialog>

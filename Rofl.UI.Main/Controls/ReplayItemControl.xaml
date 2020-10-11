@@ -10,7 +10,9 @@
 
     <Grid Background="Transparent"
           Height="100" Width="350"
-          MouseRightButtonUp="UIElement_OnMouseRightButtonUp">
+          MouseRightButtonUp="UIElement_OnMouseRightButtonUp"
+          MouseEnter="Grid_MouseEnter"
+          MouseLeave="Grid_MouseLeave">
         <Grid.ContextMenu>
             <ContextMenu x:Name="DockPanelReplayContextMenu"
                          Placement="Bottom">
@@ -170,6 +172,37 @@
                     Orientation="Vertical"
                     VerticalAlignment="Center"
                     Grid.Column="2" Grid.Row="0" Grid.RowSpan="2">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsHovered}" Value="true"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsHovered}" Value="false"/>
+                                <Condition Binding="{Binding Path=IsSelected}" Value="false"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsSelected}" Value="true"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
             <Grid>
                 <Button x:Name="PlayButton"
                         Margin="0 0 0 5"

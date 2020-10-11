@@ -82,5 +82,19 @@ namespace Rofl.UI.Main.Controls
 
             await context.DeleteReplayFile(replay).ConfigureAwait(false);
         }
+
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (!(this.DataContext is ReplayPreview replay)) { return; }
+
+            replay.IsHovered = true;
+        }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (!(this.DataContext is ReplayPreview replay)) { return; }
+
+            replay.IsHovered = false;
+        }
     }
 }

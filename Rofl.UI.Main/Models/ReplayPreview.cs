@@ -34,6 +34,7 @@ namespace Rofl.UI.Main.Models
                                  select new PlayerPreview(rplayer)).ToList();
 
             IsPlaying = false;
+            IsSelected = false;
         }
 
         public string Name { get; private set; }
@@ -76,6 +77,30 @@ namespace Rofl.UI.Main.Models
                 _isPlaying = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(IsPlaying)));
+            }
+        }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                _isSelected = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(IsSelected)));
+            }
+        }
+
+        private bool _isHovered;
+        public bool IsHovered
+        {
+            get => _isHovered;
+            set
+            {
+                _isHovered = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(IsHovered)));
             }
         }
     }

@@ -124,8 +124,8 @@
     <Compile Include="Views\AcknowledgementsWindow.xaml.cs">
       <DependentUpon>AcknowledgementsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExecutableDetailWindow.xaml.cs">
-      <DependentUpon>ExecutableDetailWindow.xaml</DependentUpon>
+    <Compile Include="Views\ExecutableDetailDialog.xaml.cs">
+      <DependentUpon>ExecutableDetailDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExecutableLaunchArgsWindow.xaml.cs">
       <DependentUpon>ExecutableLaunchArgsWindow.xaml</DependentUpon>
@@ -133,8 +133,11 @@
     <Compile Include="Views\ExecutableSelectWindow.xaml.cs">
       <DependentUpon>ExecutableSelectWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlayerMarkerWindow.xaml.cs">
-      <DependentUpon>PlayerMarkerWindow.xaml</DependentUpon>
+    <Compile Include="Views\GenericMessageDialog.xaml.cs">
+      <DependentUpon>GenericMessageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlayerMarkerDialog.xaml.cs">
+      <DependentUpon>PlayerMarkerDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExportReplayDataWindow.xaml.cs">
       <DependentUpon>ExportReplayDataWindow.xaml</DependentUpon>
@@ -235,7 +238,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ExecutableDetailWindow.xaml">
+    <Page Include="Views\ExecutableDetailDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -244,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExecutableSelectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GenericMessageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -288,7 +295,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\PlayerMarkerWindow.xaml">
+    <Page Include="Views\PlayerMarkerDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

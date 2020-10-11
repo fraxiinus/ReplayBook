@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls.akr"
              mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="236" Background="{StaticResource BackgroundColor}" d:DataContext="{x:Type local:ColorPicker}" Loaded="ColorPicker_Loaded">
+             d:DesignHeight="400" d:DesignWidth="236" Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}" d:DataContext="{x:Type local:ColorPicker}" Loaded="ColorPicker_Loaded">
     <UserControl.Resources>
-        <local:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
+        <local:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
         <DrawingBrush  x:Key="CheckerBrush" Viewport="0,0,10,10" ViewportUnits="Absolute" TileMode="Tile">
             <DrawingBrush.Drawing>
                 <DrawingGroup>
@@ -32,7 +32,7 @@
         <Border DockPanel.Dock="Top" CornerRadius="5" Margin="0,7,2,0" Width="76" Height="24" BorderThickness="1" Background="{Binding SelectedColor, Converter={StaticResource ColorToSolidColorBrushConverter}}" HorizontalAlignment="Right"
                 BorderBrush="{StaticResource DarkTextColor}"/>
         <DockPanel DockPanel.Dock="Bottom" Margin="5,5,0,0">
-            <TextBox Text="#FFFF0000" Name="HexTextBox" Width="72" DockPanel.Dock="Right" LostFocus="HexTextBox_LostFocus" VerticalAlignment="Center"/>
+            <TextBox Text="#FFFF0000" Name="HexTextBox" Width="100" DockPanel.Dock="Right" LostFocus="HexTextBox_LostFocus" VerticalAlignment="Center"/>
             <TextBlock Text="Hexadecimal" VerticalAlignment="Center"/>
         </DockPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" Name="SliderStackPanel">

@@ -4,24 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="Settings"
         MinWidth="600"
-        MinHeight="405"
+        MinHeight="550"
         Width="600"
-        Height="405"
+        Height="550"
         Icon="{StaticResource SettingsDrawingImage}"
         SourceInitialized="SettingsWindow_OnSourceInitialized"
-        Background="{StaticResource BackgroundColor}"
         Loaded="Window_Loaded"
-        Closing="Window_Closing">
-    <DockPanel Margin="5">
+        Closing="Window_Closing"
+        ui:WindowHelper.UseModernWindowStyle="True">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         
         <ListBox x:Name="SettingsMenuListBox"
-                 DockPanel.Dock="Left"
-                 Width="150"
-                 Margin="0 0 5 0"
-                 SelectionChanged="SettingsMenuListBox_SelectionChanged">
+                 Margin="0 0 15 0"
+                 SelectionChanged="SettingsMenuListBox_SelectionChanged"
+                 Grid.Column="0">
             
             <ListBoxItem x:Name="GeneralSettingsListItem">
                 <TextBlock Text="{StaticResource GeneralSettingsItemText}" FontSize="14"/>
@@ -45,17 +50,32 @@
 
         </ListBox>
         
-        <Grid DockPanel.Dock="Right">
+        <Grid Grid.Column="1">
 
             <TabControl x:Name="SettingsTabControl"
                         HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch">
+                        VerticalAlignment="Stretch"
+                        ui:ThemeManager.HasThemeResources="True">
                 
+                <!--We are using the themeing functionality to remove the tab strip-->
+                <TabControl.Resources>
+                    <ui:ResourceDictionaryEx>
+                        <ui:ResourceDictionaryEx.ThemeDictionaries>
+                            <ResourceDictionary x:Key="Light">
+                                <SolidColorBrush x:Key="TabViewBackground" Color="Transparent" />
+                            </ResourceDictionary>
+                            <ResourceDictionary x:Key="Dark">
+                                <SolidColorBrush x:Key="TabViewBackground" Color="Transparent" />
+                            </ResourceDictionary>
+                        </ui:ResourceDictionaryEx.ThemeDictionaries>
+                    </ui:ResourceDictionaryEx>
+                </TabControl.Resources>
+
                 <TabItem x:Name="GeneralTabItem" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical">
                         
                         <TextBlock Text="{StaticResource PlayerMarkerLabelText}" 
-                                   FontSize="14"
+                                   FontSize="16"
                                    Margin="0 0 0 3"/>
 
                         <Grid HorizontalAlignment="Stretch">
@@ -73,79 +93,109 @@
                                      SelectionChanged="KnownPlayersListBox_SelectionChanged"
                                      MouseDoubleClick="EditKnownPlayerButton_Click"
                                      Grid.Column="0" Grid.Row="0">
+
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                                        <Setter Property="Padding" Value="5"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <DockPanel>
+                                        <Grid Height="15">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
                                             <Rectangle Fill="{Binding Path=Color}" DockPanel.Dock="Left"
                                                        Stroke="Black" StrokeThickness="1"
-                                                       Width="10" Height="10" 
-                                                       Margin="5 0 5 0"/>
+                                                       Width="15" Height="15" 
+                                                       Margin="0 0 5 0"
+                                                       VerticalAlignment="Center"
+                                                       Grid.Column="0"/>
                                             <TextBlock Text="{Binding Path=Name}" 
                                                        DockPanel.Dock="Left"
-                                                       FontSize="14"/>
+                                                       VerticalAlignment="Center"
+                                                       FontSize="14"
+                                                       Grid.Column="1"/>
                                             <TextBlock Text="{Binding Path=Note}"
                                                        Margin="10 0 5 0"
                                                        DockPanel.Dock="Right"
                                                        FontSize="14"
                                                        TextAlignment="Right"
-                                                       Foreground="{StaticResource AccentColorLight1}"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="{DynamicResource SystemControlHighlightBaseLowBrush}"
                                                        TextWrapping="NoWrap"
-                                                       TextTrimming="CharacterEllipsis"/>
-                                        </DockPanel>
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Grid.Column="2"/>
+                                        </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
 
-                            <StackPanel Orientation="Vertical"
-                                        Margin="5 0 0 0"
-                                        Width="75"
-                                        Grid.Column="1" Grid.Row="0">
+                            <Grid Margin="10 0 10 0"
+                                  Width="100"
+                                  Grid.Column="1" Grid.Row="0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                
                                 <Button x:Name="AddKnownPlayerButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
                                         Content="{StaticResource AddButtonText}"
-                                        Click="AddKnownPlayerButton_Click"/>
+                                        Click="AddKnownPlayerButton_Click"
+                                        Width="100"
+                                        Grid.Row="0"/>
 
                                 <Button x:Name="EditKnownPlayerButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
                                         Content="{StaticResource EditButtonText}"
                                         Click="EditKnownPlayerButton_Click"
-                                        IsEnabled="False"/>
+                                        IsEnabled="False"
+                                        Width="100"
+                                        Grid.Row="1"/>
 
                                 <Button x:Name="RemoveKnownPlayerButton" 
-                                        Height="25"
                                         Content="{StaticResource RemoveButtonText}"
                                         Click="RemoveKnownPlayerButton_Click"
-                                        IsEnabled="False"/>
-                            </StackPanel>
+                                        IsEnabled="False"
+                                        Width="100"
+                                        Grid.Row="2"/>
+                            </Grid>
 
                         </Grid>
 
                         <TextBlock Text="{StaticResource MatchHistoryUrlLabelText}" 
-                                   FontSize="14" 
+                                   FontSize="16" 
                                    Margin="0 10 0 3"/>
 
                         <TextBox x:Name="MatchHistoryUrlTextBox" 
                                  Padding="2" 
-                                 Margin=" 0 2 0 0"
+                                 Margin=" 0 2 10 0"
                                  Height="25"
                                  VerticalContentAlignment="Center"
                                  Text="{Binding Path=Settings.MatchHistoryBaseUrl}"/>
                         
                         <TextBlock Text="{StaticResource FileAssociationLabelText}" 
-                                   FontSize="14" 
+                                   FontSize="16" 
                                    Margin="0 10 0 3"/>
 
                         <Grid Margin=" 0 2 0 0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <ComboBox Name="FileActionComboBox"
-                                      Height="25"
+                                      Height="30"
                                       Grid.Column="0"
-                                      Margin="0 0 10 0"
+                                      MinWidth="200"
                                       SelectedIndex="{Binding Path=Settings.FileAction}"
                                       VerticalContentAlignment="Center">
                                 <ComboBoxItem Content="{StaticResource FileActionOption1}"/>
@@ -153,15 +203,16 @@
                             </ComboBox>
 
                             <Button x:Name="SetFileAssocButton"
-                                    Grid.Column="1"
+                                    Grid.Column="2"
                                     Content="{StaticResource FileAssociationButtonText}"
-                                    Height="25"
-                                    Margin="10 0 0 0"
+                                    Height="30"
+                                    Padding="15 0 15 0"
+                                    HorizontalAlignment="Left"
                                     Click="SetFileAssocButton_Click"/>
                         </Grid>
                         
                         <TextBlock Text="{StaticResource ReplayBehaviorLabelText}" 
-                                   FontSize="14" 
+                                   FontSize="16" 
                                    Margin="0 10 0 3"/>
                         
                         <CheckBox Content="{StaticResource PlayConfirmCheckboxText}" 
@@ -169,13 +220,13 @@
                                   IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
                         
                         <TextBlock Text="{StaticResource UpdatesLabelText}" 
-                                   FontSize="14" 
+                                   FontSize="16" 
                                    Margin="0 10 0 3"/>
 
                         <Button x:Name="UpdateCheckButton"
                                 HorizontalAlignment="Left"
                                 Content="{StaticResource CheckUpdatesButtonText}"
-                                Height="25"
+                                Height="30"
                                 Width="150"
                                 Margin="0 2 0 0"
                                 Click="UpdateCheckButton_Click"/>
@@ -186,7 +237,7 @@
                     <StackPanel Orientation="Vertical">
                         
                         <TextBlock Text="{StaticResource ExecutableFoldersLabelText}" 
-                                   FontSize="14"
+                                   FontSize="16"
                                    Margin="0 0 0 3"/>
 
                         <Grid HorizontalAlignment="Stretch">
@@ -204,63 +255,82 @@
                             </Grid.RowDefinitions>
 
                             <ListBox x:Name="ExecutableFoldersListBox"
-                                     Height="100"
+                                     Height="120"
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      ItemsSource="{Binding Path=Executables.Settings.SourceFolders}"
                                      SelectionChanged="ExecutableFoldersListBox_SelectionChanged"
                                      MouseDoubleClick="EditExecutableFolderButton_Click"
                                      Grid.Row="0" Grid.Column="0"
                                      FontSize="14">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                                        <Setter Property="Padding" Value="5"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
                             </ListBox>
 
-                            <StackPanel Orientation="Vertical"
-                                        Margin="5 0 0 0"
-                                        Width="75"
-                                        Grid.Row="0" Grid.Column="1">
+                            <Grid Margin="10 0 10 0"
+                                  Width="100"
+                                  Grid.Column="1" Grid.Row="0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="38"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+                                
                                 <Button x:Name="AddExecutableFolderButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
+                                        Width="100"
                                         Content="{StaticResource AddButtonText}"
-                                        Click="AddExecutableFolderButton_Click"/>
+                                        Click="AddExecutableFolderButton_Click"
+                                        Grid.Row="0"/>
 
                                 <Button x:Name="EditExecutableFolderButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
+                                        Width="100"
                                         Content="{StaticResource EditButtonText}"
                                         Click="EditExecutableFolderButton_Click"
-                                        IsEnabled="False"/>
+                                        IsEnabled="False"
+                                        Grid.Row="1"/>
 
                                 <Button x:Name="RemoveExecutableFolderButton" 
                                         Content="{StaticResource RemoveButtonText}"
-                                        Height="25"
+                                        Width="100"
                                         Click="RemoveExecutableFolderButton_Click"
-                                        IsEnabled="False"/>
-                            </StackPanel>
+                                        IsEnabled="False"
+                                        Grid.Row="2"/>
+                            </Grid>
                             
                             <Button x:Name="SourceFoldersSearchButton"
                                     Content="{StaticResource ExecutableFoldersSearchButtonText}" 
                                     HorizontalAlignment="Left"
                                     Margin="0 10 0 10"
-                                    Padding="20 0 20 0"
-                                    Height="25"
+                                    Padding="10 0 10 0"
+                                    Height="30"
                                     Click="SourceFoldersSearchButton_Click"
                                     Grid.Row="1" Grid.Column="0"/>
 
                             <TextBlock Text="{StaticResource ExecutablesLabelText}"
-                                       FontSize="14"
+                                       FontSize="16"
                                        Grid.Row="2" Grid.Column="0"
                                        Margin="0 0 0 3"/>
 
                             <ListBox x:Name="ExecutablesListBox"
-                                     Margin="0 0 0 10"
-                                     Height="100"
+                                     Height="120"
                                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                      ItemsSource="{Binding Path=Executables.Settings.Executables}"
                                      HorizontalContentAlignment="Stretch"
                                      SelectionChanged="ExecutablesListBox_SelectionChanged"
                                      MouseDoubleClick="EditExecutableButton_Click"
                                      Grid.Row="3" Grid.Column="0">
-
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                                        <Setter Property="Padding" Value="5"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -273,39 +343,51 @@
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Text="{Binding Path=Name}"
                                                        FontSize="14"
+                                                       Width="150"
                                                        Grid.Column="0"/>
                                             <TextBlock Text="{Binding Path=PatchNumber}"
                                                        FontSize="14"
                                                        Grid.Column="1"
-                                                       Margin="0 0 5 0"/>
+                                                       Margin="5 0 5 0"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
 
-                            <StackPanel Orientation="Vertical"
-                                        Margin="5 0 0 0"
-                                        Width="75"
-                                        Grid.Row="3" Grid.Column="1">
+                            <Grid Margin="10 0 10 0"
+                                  Width="100"
+                                  Grid.Column="1" Grid.Row="3">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="38"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
+
                                 <Button x:Name="AddExecutableButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
                                         Content="{StaticResource AddButtonText}"
-                                        Click="AddExecutableButton_Click"/>
+                                        Click="AddExecutableButton_Click"
+                                        Width="100"
+                                        Grid.Row="0"/>
 
                                 <Button x:Name="EditExecutableButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
                                         Content="{StaticResource EditButtonText}"
                                         Click="EditExecutableButton_Click"
-                                        IsEnabled="False"/>
+                                        IsEnabled="False"
+                                        Width="100"
+                                        Grid.Row="1"/>
 
                                 <Button x:Name="RemoveExecutableButton" 
-                                        Height="25"
                                         Content="{StaticResource RemoveButtonText}"
                                         Click="RemoveExecutableButton_Click"
-                                        IsEnabled="False"/>
-                            </StackPanel>
+                                        IsEnabled="False"
+                                        Width="100"
+                                        Grid.Row="2"/>
+                            </Grid>
                         </Grid>
 
                     </StackPanel>
@@ -314,7 +396,7 @@
                 <TabItem x:Name="ReplaysTabItem" Visibility="Collapsed">
                     <StackPanel>
                         <TextBlock Text="{StaticResource SourceFoldersLabelText}" 
-                                   FontSize="14"
+                                   FontSize="16"
                                    Margin="0 0 0 3"/>
 
                         <Grid HorizontalAlignment="Stretch">
@@ -332,6 +414,11 @@
                                      ItemsSource="{Binding Path=Settings.SourceFolders}"
                                      SelectionChanged="SourceFoldersListBox_SelectionChanged"
                                      Grid.Row="0" Grid.Column="0">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                                        <Setter Property="Padding" Value="5"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding}" 
@@ -342,36 +429,47 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
 
-                            <StackPanel Orientation="Vertical"
-                                        Margin="5 0 0 0"
-                                        Width="75"
-                                        Grid.Row="0" Grid.Column="1">
+                            <Grid Margin="10 0 10 0"
+                                  Width="100"
+                                  Grid.Column="1" Grid.Row="0">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="30"/>
+                                </Grid.RowDefinitions>
                                 <Button x:Name="AddSourceFolderButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
                                         Content="{StaticResource AddButtonText}"
-                                        Click="AddSourceFolderButton_Click"/>
+                                        Click="AddSourceFolderButton_Click"
+                                        Grid.Row="0"
+                                        Width="100"/>
 
                                 <Button x:Name="EditSourceFolderButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
                                         Content="{StaticResource EditButtonText}"
                                         Click="EditSourceFolderButton_Click"
-                                        IsEnabled="False"/>
+                                        IsEnabled="False"
+                                        Grid.Row="1"
+                                        Width="100"/>
 
                                 <Button x:Name="RemoveSourceFolderButton" 
                                         Content="{StaticResource RemoveButtonText}"
                                         Click="RemoveSourceFolderButton_Click"
-                                        Height="25"
-                                        IsEnabled="False"/>
-                            </StackPanel>
+                                        IsEnabled="False"
+                                        Grid.Row="2"
+                                        Width="100"/>
+                            </Grid>
                         </Grid>
 
-                        <TextBlock Text="{StaticResource ReplayItemsPerPage}" FontSize="14" Padding="0 10 0 5"/>
+                        <TextBlock Text="{StaticResource ReplayItemsPerPage}" FontSize="16" Padding="0 10 0 5"/>
                         <Grid VerticalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="10"/>
                             </Grid.ColumnDefinitions>
                             <Slider x:Name="ItemCountSlider"
                                     Minimum="10" 
@@ -396,7 +494,8 @@
                 </TabItem>
                 
                 <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical"
+                                Margin="0 0 10 0">
                         <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" 
                                    FontSize="14"
                                    Margin="0 0 0 3"/>
@@ -450,15 +549,16 @@
                                  IsReadOnly="True"
                                  VerticalContentAlignment="Center"
                                  Height="25"/>
-                        <TextBlock Text="{StaticResource AcknowledgementText}" FontSize="12" HorizontalAlignment="Center" Margin="0 10 0 0"/>
+                        <TextBlock Text="{StaticResource AcknowledgementText}" FontSize="12" HorizontalAlignment="Center" Margin="0 10 0 5"/>
                         <Button x:Name="AcknowledgementsButton"
                                 Content="{StaticResource AcknowledgementButtonText}"
-                                Height="25"
+                                Height="30"
                                 Width="200"
-                                Click="AcknowledgementsButton_Click"/>
+                                Click="AcknowledgementsButton_Click"
+                                HorizontalAlignment="Center"/>
                     </StackPanel>
                 </TabItem>
             </TabControl>
         </Grid>
-    </DockPanel>
+    </Grid>
 </Window>
