@@ -72,11 +72,11 @@
                 </TabControl.Resources>
 
                 <TabItem x:Name="GeneralTabItem" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical">
+                    <ui:SimpleStackPanel Orientation="Vertical"
+                                         Spacing="12">
                         
                         <TextBlock Text="{StaticResource PlayerMarkerLabelText}" 
-                                   FontSize="16"
-                                   Margin="0 0 0 3"/>
+                                   FontSize="16"/>
 
                         <Grid HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
@@ -171,21 +171,19 @@
                         </Grid>
 
                         <TextBlock Text="{StaticResource MatchHistoryUrlLabelText}" 
-                                   FontSize="16" 
-                                   Margin="0 10 0 3"/>
+                                   FontSize="16"/>
 
                         <TextBox x:Name="MatchHistoryUrlTextBox" 
                                  Padding="2" 
-                                 Margin=" 0 2 10 0"
+                                 Margin=" 0 0 10 0"
                                  Height="25"
                                  VerticalContentAlignment="Center"
                                  Text="{Binding Path=Settings.MatchHistoryBaseUrl}"/>
                         
                         <TextBlock Text="{StaticResource FileAssociationLabelText}" 
-                                   FontSize="16" 
-                                   Margin="0 10 0 3"/>
+                                   FontSize="16"/>
 
-                        <Grid Margin=" 0 2 0 0">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="10"/>
@@ -212,33 +210,29 @@
                         </Grid>
                         
                         <TextBlock Text="{StaticResource ReplayBehaviorLabelText}" 
-                                   FontSize="16" 
-                                   Margin="0 10 0 3"/>
+                                   FontSize="16" />
                         
                         <CheckBox Content="{StaticResource PlayConfirmCheckboxText}" 
-                                  Margin="0 2 0 0"
                                   IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
                         
                         <TextBlock Text="{StaticResource UpdatesLabelText}" 
-                                   FontSize="16" 
-                                   Margin="0 10 0 3"/>
+                                   FontSize="16"/>
 
                         <Button x:Name="UpdateCheckButton"
                                 HorizontalAlignment="Left"
                                 Content="{StaticResource CheckUpdatesButtonText}"
                                 Height="30"
                                 Width="150"
-                                Margin="0 2 0 0"
                                 Click="UpdateCheckButton_Click"/>
-                    </StackPanel>
+                    </ui:SimpleStackPanel>
                 </TabItem>
 
                 <TabItem x:Name="ExecutableTabItem" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical">
+                    <ui:SimpleStackPanel Orientation="Vertical"
+                                         Spacing="12">
                         
                         <TextBlock Text="{StaticResource ExecutableFoldersLabelText}" 
-                                   FontSize="16"
-                                   Margin="0 0 0 3"/>
+                                   FontSize="16"/>
 
                         <Grid HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
@@ -246,10 +240,6 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
@@ -303,20 +293,28 @@
                                         IsEnabled="False"
                                         Grid.Row="2"/>
                             </Grid>
-                            
-                            <Button x:Name="SourceFoldersSearchButton"
-                                    Content="{StaticResource ExecutableFoldersSearchButtonText}" 
-                                    HorizontalAlignment="Left"
-                                    Margin="0 10 0 10"
-                                    Padding="10 0 10 0"
-                                    Height="30"
-                                    Click="SourceFoldersSearchButton_Click"
-                                    Grid.Row="1" Grid.Column="0"/>
+                        </Grid>
+                        
+                        <Button x:Name="SourceFoldersSearchButton"
+                                Content="{StaticResource ExecutableFoldersSearchButtonText}" 
+                                HorizontalAlignment="Left"
+                                Padding="10 0 10 0"
+                                Height="30"
+                                Click="SourceFoldersSearchButton_Click"/>
 
-                            <TextBlock Text="{StaticResource ExecutablesLabelText}"
-                                       FontSize="16"
-                                       Grid.Row="2" Grid.Column="0"
-                                       Margin="0 0 0 3"/>
+                        <TextBlock Text="{StaticResource ExecutablesLabelText}"
+                                    FontSize="16"
+                                    Grid.Row="2" Grid.Column="0"/>
+                        
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
                             <ListBox x:Name="ExecutablesListBox"
                                      Height="120"
@@ -325,7 +323,7 @@
                                      HorizontalContentAlignment="Stretch"
                                      SelectionChanged="ExecutablesListBox_SelectionChanged"
                                      MouseDoubleClick="EditExecutableButton_Click"
-                                     Grid.Row="3" Grid.Column="0">
+                                     Grid.Row="0" Grid.Column="0">
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
                                         <Setter Property="Padding" Value="5"/>
@@ -355,8 +353,8 @@
                             </ListBox>
 
                             <Grid Margin="10 0 10 0"
-                                  Width="100"
-                                  Grid.Column="1" Grid.Row="3">
+                                 Width="100"
+                                 Grid.Column="1" Grid.Row="0">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -388,16 +386,17 @@
                                         Width="100"
                                         Grid.Row="2"/>
                             </Grid>
-                        </Grid>
 
-                    </StackPanel>
+                        </Grid>
+                        
+                    </ui:SimpleStackPanel>
                 </TabItem>
                 
                 <TabItem x:Name="ReplaysTabItem" Visibility="Collapsed">
-                    <StackPanel>
+                    <ui:SimpleStackPanel Orientation="Vertical"
+                                         Spacing="12">
                         <TextBlock Text="{StaticResource SourceFoldersLabelText}" 
-                                   FontSize="16"
-                                   Margin="0 0 0 3"/>
+                                   FontSize="16"/>
 
                         <Grid HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
@@ -464,7 +463,7 @@
                             </Grid>
                         </Grid>
 
-                        <TextBlock Text="{StaticResource ReplayItemsPerPage}" FontSize="16" Padding="0 10 0 5"/>
+                        <TextBlock Text="{StaticResource ReplayItemsPerPage}" FontSize="16"/>
                         <Grid VerticalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -490,46 +489,39 @@
                                      Text="{Binding ElementName=ItemCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
                                      Grid.Column="1"/>
                         </Grid>
-                    </StackPanel>
+                    </ui:SimpleStackPanel>
                 </TabItem>
                 
                 <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical"
-                                Margin="0 0 10 0">
+                    <ui:SimpleStackPanel Orientation="Vertical"
+                                         Spacing="12"
+                                         Margin="0 0 10 0">
                         <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" 
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
+                                   FontSize="16"/>
                         <TextBox Text="{Binding Settings.DataDragonBaseUrl}" 
                                  Height="25"
                                  VerticalContentAlignment="Center"
-                                 Padding="2" 
-                                 Margin=" 0 0 0 5"/>
+                                 Padding="2"/>
                         <TextBlock Text="{StaticResource DataDragonChampionUrlLabelText}" 
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
+                                   FontSize="16"/>
                         <TextBox Text="{Binding Settings.ChampionRelativeUrl}" 
                                  Height="25"
                                  VerticalContentAlignment="Center"
-                                 Padding="2" 
-                                 Margin=" 0 0 0 5"/>
+                                 Padding="2"/>
                         <TextBlock Text="{StaticResource DataDragonMapUrlLabelText}" 
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
+                                   FontSize="16"/>
                         <TextBox Text="{Binding Settings.MapRelativeUrl}" 
                                  Padding="2" 
                                  Height="25"
-                                 VerticalContentAlignment="Center"
-                                 Margin=" 0 0 0 5"/>
+                                 VerticalContentAlignment="Center"/>
                         <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}"
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
+                                   FontSize="16"/>
                         <TextBox Text="{Binding Settings.ItemRelativeUrl}" 
                                  Padding="2" 
                                  Height="25"
-                                 VerticalContentAlignment="Center"
-                                 Margin=" 0 0 0 10"/>
+                                 VerticalContentAlignment="Center"/>
 
-                    </StackPanel>
+                    </ui:SimpleStackPanel>
                 </TabItem>
 
                 <TabItem x:Name="AboutTabItem" Visibility="Collapsed">
