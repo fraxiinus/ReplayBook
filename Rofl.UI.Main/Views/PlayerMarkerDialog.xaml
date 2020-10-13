@@ -16,7 +16,8 @@
                   Closing="ContentDialog_Closing">
 
     <ui:SimpleStackPanel Orientation="Vertical"
-                         Spacing="12">
+                         Spacing="12"
+                         Width="300">
         <TextBlock Text="{StaticResource PlayerMarkerNameLabelText}"
                    FontSize="14"/>
         <TextBox x:Name="NameTextBox"
@@ -41,6 +42,7 @@
         <TextBlock x:Name="ErrorMessageBlock"
                    Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
                    Visibility="Collapsed"
+                   TextWrapping="Wrap"
                    FontSize="14"/>
 
     </ui:SimpleStackPanel>

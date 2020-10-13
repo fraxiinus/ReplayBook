@@ -98,7 +98,10 @@ namespace Rofl.UI.Main.Views
                 if (existingItem != null)
                 {
                     _blockClose = true;
-                    ErrorMessageBlock.Text = TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String;
+
+                    var errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String)
+                        .Replace("$", inputName);
+                    ErrorMessageBlock.Text = errorText;
                     ErrorMessageBlock.Visibility = Visibility.Visible;
 
                     return;
