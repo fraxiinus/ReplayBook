@@ -94,16 +94,11 @@ namespace Rofl.UI.Main.Views
                 
                 this.Hide();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show
-                    (
-                        (TryFindResource("ExecutableSaveNullText") as String) +
-                        $"\n{ex.ToString()}",
-                        TryFindResource("ExecutableSaveNullTitle") as String,
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Exclamation
-                    );
+                ErrorMessageBlock.Text = TryFindResource("ExecutableSaveNullText") as String;
+                ErrorMessageBlock.Visibility = Visibility.Visible;
+                _blockClose = true;
             }
         }
 
@@ -115,6 +110,9 @@ namespace Rofl.UI.Main.Views
 
         private void TargetButton_Click(object sender, RoutedEventArgs e)
         {
+            ErrorMessageBlock.Visibility = Visibility.Hidden;
+            _blockClose = false;
+
             var initialDirectory = TargetTextBox.Text;
             if (String.IsNullOrEmpty(initialDirectory))
             {
@@ -152,22 +150,9 @@ namespace Rofl.UI.Main.Views
                     }
                     else
                     {
-                        var msgBoxResult = MessageBox.Show
-                            (
-                                TryFindResource("ExecutableSelectInvalidErrorText") as String,
-                                TryFindResource("ExecutableSelectInvalidErrorTitle") as String,
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation
-                            );
-
-                        if(msgBoxResult == MessageBoxResult.OK)
-                        {
-                            TargetButton_Click(null, null);
-                        }
-                        else
-                        {
-                            return;
-                        }
+                        ErrorMessageBlock.Text = TryFindResource("ExecutableSelectInvalidErrorText") as String;
+                        ErrorMessageBlock.Visibility = Visibility.Visible;
+                        _blockClose = true;
                     }
                 }
             }

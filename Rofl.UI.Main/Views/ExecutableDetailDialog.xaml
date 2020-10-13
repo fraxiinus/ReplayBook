@@ -109,39 +109,7 @@
                    Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
                    VerticalAlignment="Center"
                    FontSize="14"
+                   TextWrapping="Wrap"
                    Visibility="Collapsed"/>
-
-        <!--<GroupBox Header="{StaticResource ExecutableDetailPropertyHeader}" Padding="5">
-            <StackPanel>
-                <TextBlock Text="{StaticResource ExecutableDetailPropertyStartPath}"/>
-                <TextBox x:Name="StartPathTextBox" Padding="2" BorderThickness="0 0 0 1" IsReadOnly="True"
-                         VerticalContentAlignment="Center"
-                         Height="25"/>
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Text="{StaticResource ExecutableDetailPropertyPatch}"/>
-                    <TextBox x:Name="PatchTextBox" Margin="0 0 5 0" Padding="2" IsReadOnly="True" BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="0"
-                             VerticalContentAlignment="Center"
-                             Height="25"/>
-
-                    <TextBlock Text="{StaticResource ExecutableDetailPropertyModified}" Grid.Column="1" Grid.Row="0"/>
-                    <TextBox x:Name="ModifiedDateTextBox" Padding="2" IsReadOnly="True" BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="1"
-                             VerticalContentAlignment="Center"
-                             Height="25"/>
-
-                </Grid>
-
-            </StackPanel>
-        </GroupBox>-->
-
     </ui:SimpleStackPanel>
 </ui:ContentDialog>
