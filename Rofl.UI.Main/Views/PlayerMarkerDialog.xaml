@@ -35,7 +35,8 @@
         <TextBlock Text="{StaticResource PlayerMarkerColorLabelText}"
                    FontSize="14"/>
         <controls:ColorWrapper x:Name="MarkerColorPicker"
-                               HorizontalAlignment="Center"/>
+                               HorizontalAlignment="Center"
+                               Margin="0 0 0 5"/>
 
         <TextBlock x:Name="ErrorMessageBlock"
                    Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"

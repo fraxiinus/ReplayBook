@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:string="clr-namespace:System;assembly=mscorlib">
+                    xmlns:string="clr-namespace:System;assembly=mscorlib" xmlns:system="clr-namespace:System;assembly=System">
 
    
     <!--General UI Text-->
@@ -71,7 +71,7 @@
     <string:String x:Key="UpdateNewerBodyText">Newer version of ReplayBook is available. Press OK to be taken to the download page.</string:String>
     
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
-    <string:String x:Key="ExecutableFoldersSearchButtonText">Auto-Register Executables from Source Folders</string:String>
+    <string:String x:Key="ExecutableFoldersSearchButtonText">Scan Folders for Executables</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultTitleText">Search results</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultLabelText">Registered $ new executable(s)</string:String>
     <string:String x:Key="ExecutablesLabelText">Registered Executables</string:String>
@@ -118,9 +118,10 @@
     <string:String x:Key="Version">Pre-Release 9</string:String>
     <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
     <string:String x:Key="GitHubLink">https://github.com/leeanchu/ReplayBook</string:String>
-    <string:String x:Key="DiscordInvite">discord.gg/c33Rc5J</string:String>
+    <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
+    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
-    <string:String x:Key="AcknowledgementText">ReplayBook was only possible thanks to the following:</string:String>
+    <string:String x:Key="AcknowledgementText">ReplayBook is only possible thanks to the following:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Open Source Projects</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Open Source Acknowledgements</string:String>
     
