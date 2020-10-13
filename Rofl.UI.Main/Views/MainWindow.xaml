@@ -65,7 +65,7 @@
                             Click="RefreshButton_Click"
                             Background="Transparent"
                             Grid.Column="1">
-                        <Image Source="{StaticResource RefreshDrawingImage}"/>
+                        <ui:PathIcon Data="{StaticResource RefreshPathIcon}"/>
                     </Button>
 
                     <Button x:Name="SortButton"
@@ -75,7 +75,7 @@
                             Click="SortButton_Click"
                             Background="Transparent"
                             Grid.Column="2">
-                        <Image Source="{StaticResource SortDrawingImage}"/>
+                        <ui:PathIcon Data="{StaticResource SortPathIcon}"/>
                         <Button.ContextMenu>
                             <ContextMenu x:Name="SortMenu">
                                 <ui:RadioMenuItem x:Name="NameAsc"
@@ -109,7 +109,7 @@
                             Click="SettingsButton_Click"
                             Background="Transparent"
                             Grid.Column="3">
-                        <Image Source="{StaticResource SettingsDrawingImage}"/>
+                        <ui:PathIcon Data="{StaticResource SettingsPathIcon}"/>
                     </Button>
 
                 </Grid>
