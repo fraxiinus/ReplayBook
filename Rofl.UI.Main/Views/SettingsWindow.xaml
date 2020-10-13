@@ -521,36 +521,45 @@
                 </TabItem>
 
                 <TabItem x:Name="AboutTabItem" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center"
-                                Margin="0 0 0 0">
-                        <Image Source="/ReplayBook;component/Resources/iconBMP.png"
-                               Width="75"
-                               HorizontalAlignment="Center"
-                               RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock Text="{StaticResource Name}" FontSize="28" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{StaticResource Version}" FontSize="16" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{StaticResource Author}" FontSize="14" HorizontalAlignment="Center"/>
-                        <ui:HyperlinkButton HorizontalAlignment="Center"
-                                            NavigateUri="{StaticResource DiscordInviteLink}">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Width="30"
-                                       Source="{StaticResource DiscordDrawingImage}"
-                                       Margin="0 0 5 0"/>
-                                <TextBlock Text="{StaticResource DiscordInviteButton}"
-                                           VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </ui:HyperlinkButton>
-                        <TextBlock Text="{StaticResource AcknowledgementText}" 
-                                   FontSize="14" 
-                                   HorizontalAlignment="Center" 
-                                   Margin="0 10 0 5"/>
-                        <Button x:Name="AcknowledgementsButton"
-                                Content="{StaticResource AcknowledgementButtonText}"
-                                Height="30"
-                                Width="200"
-                                Click="AcknowledgementsButton_Click"
-                                HorizontalAlignment="Center"/>
-                    </StackPanel>
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center"
+                                    Margin="0 0 0 0">
+                            <Image Source="/ReplayBook;component/Resources/iconBMP.png"
+                                   Width="75"
+                                   HorizontalAlignment="Center"
+                                   RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock Text="{StaticResource Name}" FontSize="28" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{StaticResource Version}" FontSize="16" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{StaticResource Author}" FontSize="14" HorizontalAlignment="Center"/>
+                            <ui:HyperlinkButton HorizontalAlignment="Center"
+                                                NavigateUri="{StaticResource DiscordInviteLink}">
+                                <StackPanel Orientation="Vertical">
+
+                                    <TextBlock Text="{StaticResource DiscordInviteButton}"
+                                               VerticalAlignment="Center"/>
+                                    <Grid>
+                                        <ui:PathIcon Data="{StaticResource DiscordPart1}"
+                                                     Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}"
+                                                     Width="30"/>
+                                        <ui:PathIcon Data="{StaticResource DiscordPart2}"
+                                                     Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}"
+                                                     Width="30"/>
+                                    </Grid>
+
+                                </StackPanel>
+                            </ui:HyperlinkButton>
+                            <TextBlock Text="{StaticResource AcknowledgementText}" 
+                                       FontSize="14" 
+                                       HorizontalAlignment="Center" 
+                                       Margin="0 10 0 5"/>
+                            <Button x:Name="AcknowledgementsButton"
+                                    Content="{StaticResource AcknowledgementButtonText}"
+                                    Height="30"
+                                    Width="200"
+                                    Click="AcknowledgementsButton_Click"
+                                    HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </TabItem>
             </TabControl>
         </Grid>
