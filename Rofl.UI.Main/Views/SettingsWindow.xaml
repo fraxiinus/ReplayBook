@@ -125,7 +125,7 @@
                                                            FontSize="14"
                                                            TextAlignment="Right"
                                                            VerticalAlignment="Center"
-                                                           Foreground="{DynamicResource SystemControlHighlightBaseLowBrush}"
+                                                           Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
                                                            TextWrapping="NoWrap"
                                                            TextTrimming="CharacterEllipsis"
                                                            Grid.Column="2"/>
@@ -261,7 +261,7 @@
                                 </Grid.RowDefinitions>
 
                                 <ListBox x:Name="ExecutableFoldersListBox"
-                                         Height="120"
+                                         Height="150"
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          ItemsSource="{Binding Path=Executables.Settings.SourceFolders}"
                                          SelectionChanged="ExecutableFoldersListBox_SelectionChanged"
@@ -353,7 +353,7 @@
                                                            Grid.Column="1"
                                                            VerticalAlignment="Center"
                                                            TextAlignment="Right"
-                                                           Foreground="{DynamicResource SystemControlHighlightBaseLowBrush}"
+                                                           Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
                                                            Margin="5 0 5 0"/>
                                             </Grid>
                                         </DataTemplate>
@@ -411,7 +411,7 @@
                                 </Grid.RowDefinitions>
 
                                 <ListBox x:Name="SourceFoldersListBox"
-                                         Height="100"
+                                         Height="150"
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          ItemsSource="{Binding Path=Settings.SourceFolders}"
                                          SelectionChanged="SourceFoldersListBox_SelectionChanged"
