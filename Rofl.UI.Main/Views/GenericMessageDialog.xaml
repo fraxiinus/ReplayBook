@@ -8,11 +8,11 @@
                   mc:Ignorable="d"
                   Title="GenericMessageDialog"
                   PrimaryButtonText="{StaticResource OKButtonText}"
-                  PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
                   DefaultButton="Primary">
     <Grid>
         <TextBlock x:Name="MessageTextBlock"
-                   Text="{Binding Path=Message, FallbackValue=Placeholder}"
+                   Text="Placeholder"
+                   TextWrapping="Wrap"
                    FontSize="14"/>
     </Grid>
 </ui:ContentDialog>

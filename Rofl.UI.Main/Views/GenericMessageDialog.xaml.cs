@@ -19,30 +19,16 @@ namespace Rofl.UI.Main.Views
     /// <summary>
     /// Interaction logic for GenericMessageDialog.xaml
     /// </summary>
-    public partial class GenericMessageDialog : ContentDialog, INotifyPropertyChanged
+    public partial class GenericMessageDialog : ContentDialog
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private string _message;
-        public string Message
-        {
-            get => _message;
-            set
-            {
-                _message = value;
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(Message)));
-            }
-        }
-
         public GenericMessageDialog()
         {
             InitializeComponent();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ModernWpf.Controls.ContentDialog sender, ModernWpf.Controls.ContentDialogButtonClickEventArgs args)
+        public void SetMessage(string message)
         {
-            this.Hide();
+            MessageTextBlock.Text = message;
         }
     }
 }

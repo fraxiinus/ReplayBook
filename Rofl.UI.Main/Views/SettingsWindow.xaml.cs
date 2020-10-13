@@ -174,7 +174,7 @@ namespace Rofl.UI.Main.Views
             RemoveSourceFolderButton.IsEnabled = true;
         }
 
-        private void AddSourceFolderButton_Click(object sender, RoutedEventArgs e)
+        private async void AddSourceFolderButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
 
@@ -200,15 +200,19 @@ namespace Rofl.UI.Main.Views
 
                     if (context.Settings.SourceFolders.Contains(selectedFolder))
                     {
-                        var msgBoxResult = MessageBox.Show
-                            (
-                                TryFindResource("SourceFoldersAlreadyExistsErrorText") as String,
-                                TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation
-                            );
+                        // Create Dialog with error message
+                        var msgDialog = new GenericMessageDialog()
+                        {
+                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
+                            Owner = this
+                        };
+                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as String);
 
-                        if(msgBoxResult == MessageBoxResult.OK)
+                        // Show dialog
+                        var msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+
+                        // Repeat action
+                        if (msgDialogResult == ContentDialogResult.Primary)
                         {
                             AddSourceFolderButton_Click(null, null);
                         }
@@ -226,7 +230,7 @@ namespace Rofl.UI.Main.Views
 
         }
 
-        private void EditSourceFolderButton_Click(object sender, RoutedEventArgs e)
+        private async void EditSourceFolderButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
             if (!(SourceFoldersListBox.SelectedItem is String selectedFolder)) { return; }
@@ -253,15 +257,19 @@ namespace Rofl.UI.Main.Views
 
                     if (context.Settings.SourceFolders.Contains(newSelectedFolder))
                     {
-                        var msgBoxResult = MessageBox.Show
-                            (
-                                TryFindResource("SourceFoldersAlreadyExistsErrorText") as String,
-                                TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation
-                            );
+                        // Create Dialog with error message
+                        var msgDialog = new GenericMessageDialog()
+                        {
+                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
+                            Owner = this
+                        };
+                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as String);
 
-                        if (msgBoxResult == MessageBoxResult.OK)
+                        // Show dialog
+                        var msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+
+                        // Repeat action
+                        if (msgDialogResult == ContentDialogResult.Primary)
                         {
                             EditSourceFolderButton_Click(null, null);
                         }
@@ -329,7 +337,7 @@ namespace Rofl.UI.Main.Views
             RemoveExecutableFolderButton.IsEnabled = true;
         }
 
-        private void AddExecutableFolderButton_Click(object sender, RoutedEventArgs e)
+        private async void AddExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
 
@@ -355,14 +363,19 @@ namespace Rofl.UI.Main.Views
 
                     if (context.Executables.Settings.SourceFolders.Contains(selectedFolder))
                     {
-                        var msgBoxResult = MessageBox.Show
-                            (
-                                TryFindResource("SourceFoldersAlreadyExistsErrorText") as String,
-                                TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation
-                            );
-                        if (msgBoxResult == MessageBoxResult.OK)
+                        // Create Dialog with error message
+                        var msgDialog = new GenericMessageDialog()
+                        {
+                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
+                            Owner = this
+                        };
+                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as String);
+
+                        // Show dialog
+                        var msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+
+                        // Repeat action
+                        if (msgDialogResult == ContentDialogResult.Primary)
                         {
                             AddExecutableFolderButton_Click(null, null);
                         }
@@ -379,7 +392,7 @@ namespace Rofl.UI.Main.Views
             }
         }
 
-        private void EditExecutableFolderButton_Click(object sender, RoutedEventArgs e)
+        private async void EditExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
             if (!(ExecutableFoldersListBox.SelectedItem is String selectedFolder)) { return; }
@@ -406,15 +419,19 @@ namespace Rofl.UI.Main.Views
 
                     if (context.Executables.Settings.SourceFolders.Contains(newSelectedFolder))
                     {
-                        var msgBoxResult = MessageBox.Show
-                            (
-                                TryFindResource("SourceFoldersAlreadyExistsErrorText") as String,
-                                TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation
-                            );
+                        // Create Dialog with error message
+                        var msgDialog = new GenericMessageDialog()
+                        {
+                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
+                            Owner = this
+                        };
+                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as String);
 
-                        if (msgBoxResult == MessageBoxResult.OK)
+                        // Show dialog
+                        var msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+
+                        // Repeat action
+                        if (msgDialogResult == ContentDialogResult.Primary)
                         {
                             EditExecutableFolderButton_Click(null, null);
                         }
@@ -483,13 +500,16 @@ namespace Rofl.UI.Main.Views
             var labelText = TryFindResource("ExecutableFoldersSearchResultLabelText") as String;
             labelText = labelText.Replace("$", addedCount.ToString(CultureInfo.InvariantCulture));
 
-            MessageBox.Show
-            (
-                labelText,
-                TryFindResource("ExecutableFoldersSearchResultTitleText") as String,
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
-            );
+            // Create Dialog with message
+            var msgDialog = new GenericMessageDialog()
+            {
+                Title = TryFindResource("ExecutableFoldersSearchResultTitleText") as String,
+                Owner = this
+            };
+            msgDialog.SetMessage(labelText);
+
+            // Show dialog
+            msgDialog.ShowAsync(ContentDialogPlacement.Popup);
         }
 
         private void ExecutablesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -586,26 +606,33 @@ namespace Rofl.UI.Main.Views
             catch (HttpRequestException ex)
             {
                 // Http request failed, show error and stop
-                MessageBox.Show
-                (
-                    TryFindResource("UpdateHTTPExceptionBodyText") as String,
-                    TryFindResource("UpdateExceptionTitleText") as String,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Exclamation
-                );
+                // Create Dialog with error message
+                var msgDialog = new GenericMessageDialog()
+                {
+                    Title = TryFindResource("UpdateExceptionTitleText") as String,
+                    Owner = this
+                };
+                msgDialog.SetMessage(TryFindResource("UpdateHTTPExceptionBodyText") as String);
+
+                // Show dialog
+                await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
                 return;
             }
             
             if (String.IsNullOrEmpty(latestVersion))
             {
                 // Either github returned nothing or got an http error code
-                MessageBox.Show
-                (
-                    TryFindResource("UpdateGitHubErrorBodyText") as String,
-                    TryFindResource("UpdateExceptionTitleText") as String,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Exclamation
-                );
+                // Http request failed, show error and stop
+                // Create Dialog with error message
+                var msgDialog = new GenericMessageDialog()
+                {
+                    Title = TryFindResource("UpdateExceptionTitleText") as String,
+                    Owner = this
+                };
+                msgDialog.SetMessage(TryFindResource("UpdateGitHubErrorBodyText") as String);
+
+                // Show dialog
+                await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
                 return;
             }
 
@@ -614,25 +641,25 @@ namespace Rofl.UI.Main.Views
 
             if (latestVersion.Equals(assemblyVersion, StringComparison.OrdinalIgnoreCase))
             {
-                MessageBox.Show
-                (
-                    TryFindResource("UpdateMostRecentBodyText") as String,
-                    TryFindResource("UpdateMostRecentTitleText") as String,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                var msgDialog = new GenericMessageDialog()
+                {
+                    Title = TryFindResource("UpdateMostRecentTitleText") as String,
+                    Owner = this
+                };
+                msgDialog.SetMessage(TryFindResource("UpdateMostRecentBodyText") as String);
+                await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
             }
             else
             {
-                var response = MessageBox.Show
-                (
-                    TryFindResource("UpdateNewerBodyText") as String + $"\n{assemblyVersion} -> {latestVersion}",
-                    TryFindResource("UpdateNewerTitleText") as String,
-                    MessageBoxButton.OKCancel,
-                    MessageBoxImage.Information
-                );
+                var msgDialog = new GenericMessageDialog()
+                {
+                    Title = TryFindResource("UpdateNewerTitleText") as String,
+                    Owner = this
+                };
+                msgDialog.SetMessage(TryFindResource("UpdateNewerBodyText") as String + $"\n{assemblyVersion} -> {latestVersion}");
+                var response = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
-                if(response == MessageBoxResult.OK)
+                if(response == ContentDialogResult.Primary)
                 {
                     Process.Start($"https://github.com/leeanchu/ReplayBook/releases");
                 }
