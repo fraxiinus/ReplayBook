@@ -85,7 +85,7 @@
     <string:String x:Key="ExecutableSelectFolderDialogText">Select Executable Source Folder</string:String>
     <string:String x:Key="ExecutableDetailWindowText">Executable</string:String>
     <string:String x:Key="ExecutableSelectDialogText">Select League of Legends.exe</string:String>
-    <string:String x:Key="ExecutableSelectInvalidErrorText">Selected executable is not valid, please select a valid executable</string:String>
+    <string:String x:Key="ExecutableSelectInvalidErrorText">Select a valid executable</string:String>
     <string:String x:Key="ExecutableSelectInvalidErrorTitle">Invalid Executable</string:String>
     <string:String x:Key="ExecutableSaveNullText">Required fields are not filled out</string:String>
     <string:String x:Key="ExecutableSaveNullTitle">Error while saving</string:String>

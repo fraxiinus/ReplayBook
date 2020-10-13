@@ -3,6 +3,7 @@ using ModernWpf.Controls;
 using Rofl.Executables;
 using Rofl.Executables.Models;
 using Rofl.Executables.Utilities;
+using Rofl.UI.Main.Utilities;
 using System;
 using System.Globalization;
 using System.IO;
@@ -65,15 +66,17 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is ExecutableManager context)) { return; }
 
             // Reset error
-            ErrorMessageBlock.Visibility = Visibility.Collapsed;
             _blockClose = false;
 
             if (_executable == null)
             {
-                // show fly out over save button
-                ErrorMessageBlock.Text = TryFindResource("ExecutableSelectInvalidErrorText") as String;
-                ErrorMessageBlock.Visibility = Visibility.Visible;
                 _blockClose = true;
+
+                // show fly out
+                var flyout = new FlyoutHelper(false);
+                flyout.TextBlock.Text = TryFindResource("ExecutableSelectInvalidErrorText") as String;
+                flyout.Flyout.ShowAt(TargetTextBox);
+                
                 return;
             }
 
@@ -96,9 +99,12 @@ namespace Rofl.UI.Main.Views
             }
             catch (Exception)
             {
-                ErrorMessageBlock.Text = TryFindResource("ExecutableSaveNullText") as String;
-                ErrorMessageBlock.Visibility = Visibility.Visible;
                 _blockClose = true;
+
+                // show fly out
+                var flyout = new FlyoutHelper(false);
+                flyout.TextBlock.Text = TryFindResource("ExecutableSaveNullText") as String;
+                flyout.Flyout.ShowAt(TargetTextBox);
             }
         }
 
@@ -110,7 +116,6 @@ namespace Rofl.UI.Main.Views
 
         private void TargetButton_Click(object sender, RoutedEventArgs e)
         {
-            ErrorMessageBlock.Visibility = Visibility.Hidden;
             _blockClose = false;
 
             var initialDirectory = TargetTextBox.Text;
@@ -150,9 +155,12 @@ namespace Rofl.UI.Main.Views
                     }
                     else
                     {
-                        ErrorMessageBlock.Text = TryFindResource("ExecutableSelectInvalidErrorText") as String;
-                        ErrorMessageBlock.Visibility = Visibility.Visible;
                         _blockClose = true;
+
+                        // show fly out
+                        var flyout = new FlyoutHelper(false);
+                        flyout.TextBlock.Text = TryFindResource("ExecutableSelectInvalidErrorText") as String;
+                        flyout.Flyout.ShowAt(TargetButton);
                     }
                 }
             }
@@ -160,11 +168,13 @@ namespace Rofl.UI.Main.Views
 
         private void EditLaunchArgsButton_Click(object sender, RoutedEventArgs e)
         {
-            ErrorMessageBlock.Visibility = Visibility.Collapsed;
             if (_executable == null)
             {
-                ErrorMessageBlock.Text = TryFindResource("ExecutableSelectInvalidErrorText") as String;
-                ErrorMessageBlock.Visibility = Visibility.Visible;
+                // show fly out
+                var flyout = new FlyoutHelper(false);
+                flyout.TextBlock.Text = TryFindResource("ExecutableSelectInvalidErrorText") as String;
+                flyout.Flyout.ShowAt(EditLaunchArgsButton);
+
                 return;
             }
 

@@ -15,101 +15,102 @@
                   DefaultButton="Primary"
                   Closing="ContentDialog_Closing">
 
-    <ui:SimpleStackPanel Orientation="Vertical"
-                         Spacing="12"
-                         Width="400">
+    <ScrollViewer>
+        <ui:SimpleStackPanel Orientation="Vertical"
+                             Spacing="12"
+                             Width="350">
 
-        <TextBlock Text="{StaticResource ExecutableDetailTargetPath}"
+            <TextBlock Text="{StaticResource ExecutableDetailTargetPath}"
                    FontSize="14"/>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBox x:Name="TargetTextBox" Padding="2" Margin="0 0 5 0" Grid.Row="0" Grid.Column="0"
-                     VerticalContentAlignment="Center"
-                     Height="25"/>
-            <Button x:Name="TargetButton"
-                    Grid.Row="0" Grid.Column="1"
-                    Height="30"
-                    Click="TargetButton_Click"
-                    ToolTip="{StaticResource BrowseButtonText}">
-                <Image Source="{StaticResource FolderHorizontalDrawingImage}"/>
-            </Button>
-        </Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="TargetTextBox" 
+                         Padding="2 2 30 2"
+                         Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                         VerticalContentAlignment="Center"
+                         Height="25"
+                         ui:TextBoxHelper.IsDeleteButtonVisible = "False"/>
+                <Button x:Name="TargetButton"
+                        Grid.Row="0" Grid.Column="1"
+                        Height="30"
+                        Click="TargetButton_Click"
+                        Background="Transparent"
+                        ToolTip="{StaticResource BrowseButtonText}">
+                    <Image Source="{StaticResource FolderHorizontalDrawingImage}"/>
+                </Button>
+            </Grid>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-            <TextBlock Text="{StaticResource ExecutableDetailName}"
-                       FontSize="14"
-                       Grid.Row="0" Grid.Column="0"
-                       Margin="0 0 0 12"/>
-            <TextBox x:Name="NameTextBox"
-                     Padding="2"
-                     VerticalContentAlignment="Center"
-                     Grid.Row="1" Grid.Column="0"
-                     Margin="0 0 5 0"/>
+                <TextBlock Text="{StaticResource ExecutableDetailName}"
+                           FontSize="14"
+                           Grid.Row="0" Grid.Column="0"
+                           Margin="0 0 0 12"/>
+                <TextBox x:Name="NameTextBox"
+                         Padding="2"
+                         VerticalContentAlignment="Center"
+                         Grid.Row="1" Grid.Column="0"
+                         Margin="0 0 5 0"/>
 
-            <TextBlock Text="{StaticResource ExecutableDetailLocale}"
-                       VerticalAlignment="Center"
-                       FontSize="14"
-                       Grid.Row="0" Grid.Column="1"
-                       Margin="0 0 0 12"/>
+                <TextBlock Text="{StaticResource ExecutableDetailLocale}"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           Grid.Row="0" Grid.Column="1"
+                           Margin="0 0 0 12"/>
 
-            <ComboBox x:Name="LocaleComboBox"
-                      VerticalContentAlignment="Center"
-                      Width="200"
-                      Grid.Row="1" Grid.Column="1"/>
-        </Grid>
+                <ComboBox x:Name="LocaleComboBox"
+                          VerticalContentAlignment="Center"
+                          Grid.Row="1" Grid.Column="1"
+                          HorizontalAlignment="Stretch"/>
+            </Grid>
 
-        <TextBlock Text="{StaticResource ExecutableDetailLaunchArgs}"
-                   FontSize="14"/>
+            <TextBlock Text="{StaticResource ExecutableDetailLaunchArgs}"
+                       FontSize="14"/>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="LaunchArgsTextBox" 
-                     Padding="2"
-                     TextWrapping="Wrap"
-                     Height="75"
-                     VerticalScrollBarVisibility="Auto"
-                     IsReadOnly="True"
-                     Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
+                <TextBox x:Name="LaunchArgsTextBox" 
+                         Padding="2"
+                         TextWrapping="Wrap"
+                         Height="75"
+                         VerticalScrollBarVisibility="Auto"
+                         IsReadOnly="True"
+                         Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
 
-            <Button x:Name="EditLaunchArgsButton"
-                    Click="EditLaunchArgsButton_Click"
-                    HorizontalAlignment="Left"
-                    Height="30"
-                    Margin="5 0 0 0"
-                    Grid.Column="1" Grid.Row="0"
-                    ToolTip="{StaticResource EditButtonText}">
-                <Image Source="{StaticResource EditDrawingImage}"/>
-            </Button>
-        </Grid>
-
-        <TextBlock x:Name="ErrorMessageBlock"
-                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
-                   VerticalAlignment="Center"
-                   FontSize="14"
-                   TextWrapping="Wrap"
-                   Visibility="Collapsed"/>
-    </ui:SimpleStackPanel>
+                <Button x:Name="EditLaunchArgsButton"
+                        Click="EditLaunchArgsButton_Click"
+                        HorizontalAlignment="Left"
+                        Height="30"
+                        Margin="5 0 0 0"
+                        Grid.Column="1" Grid.Row="0"
+                        Background="Transparent"
+                        ToolTip="{StaticResource EditButtonText}">
+                    <Image Source="{StaticResource EditDrawingImage}"/>
+                </Button>
+            </Grid>
+        </ui:SimpleStackPanel>
+    </ScrollViewer>
+    
 </ui:ContentDialog>
