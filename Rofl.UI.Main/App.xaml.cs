@@ -1,4 +1,5 @@
 ﻿using Etirps.RiZhi;
+using ModernWpf;
 using Rofl.Executables.Models;
 using Rofl.Executables.Utilities;
 using Rofl.Files;
@@ -29,6 +30,9 @@ namespace Rofl.UI.Main
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
             CreateCommonObjects();
+
+            // Apply appearence theme
+            ApplyThemeSetting();
 
             if (e.Args.Length == 1)
             {
@@ -85,6 +89,31 @@ namespace Rofl.UI.Main
             _files = new FileManager(_settingsManager.Settings, _log);
             _requests = new RequestManager(_settingsManager.Settings, _log);
             _player = new ReplayPlayer(_files, _settingsManager, _log);
+        }
+
+        private void ApplyThemeSetting()
+        {
+            switch (_settingsManager.Settings.ThemeMode)
+            {
+                case 0: // system default
+                    DispatcherHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.ApplicationTheme = null;
+                    });
+                    break;
+                case 1: // dark
+                    DispatcherHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+                    });
+                    break;
+                case 2: // light
+                    DispatcherHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+                    });
+                    break;
+            }
         }
     }
 }

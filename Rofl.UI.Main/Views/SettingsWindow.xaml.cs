@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using ModernWpf;
 using ModernWpf.Controls;
 using Rofl.Executables.Models;
 using Rofl.Settings;
@@ -68,17 +69,20 @@ namespace Rofl.UI.Main.Views
                 case "GeneralSettingsListItem":
                     SettingsTabControl.SelectedIndex = 0;
                     break;
-                case "ExecutablesSettingsListItem":
+                case "AppearanceSettingsListItem":
                     SettingsTabControl.SelectedIndex = 1;
                     break;
-                case "ReplaySettingsListItem":
+                case "ExecutablesSettingsListItem":
                     SettingsTabControl.SelectedIndex = 2;
                     break;
-                case "RequestSettingsListItem":
+                case "ReplaySettingsListItem":
                     SettingsTabControl.SelectedIndex = 3;
                     break;
-                case "AboutSettingsListItem":
+                case "RequestSettingsListItem":
                     SettingsTabControl.SelectedIndex = 4;
+                    break;
+                case "AboutSettingsListItem":
+                    SettingsTabControl.SelectedIndex = 5;
                     break;
                 default:
                     break;
@@ -646,6 +650,31 @@ namespace Rofl.UI.Main.Views
             };
 
             ackDialog.ShowDialog();
+        }
+
+        private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (ThemeComboBox.SelectedIndex)
+            {
+                case 0: // system default
+                    DispatcherHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.ApplicationTheme = null;
+                    });
+                    break;
+                case 1: // dark
+                    DispatcherHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+                    });
+                    break;
+                case 2: // light
+                    DispatcherHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+                    });
+                    break;
+            }
         }
     }
 }

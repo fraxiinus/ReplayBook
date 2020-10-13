@@ -38,6 +38,7 @@
 
     <!--Settings Window Text-->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
+    <string:String x:Key="AppearanceSettingsItemText">Appearance</string:String>
     <string:String x:Key="ReplaySettingsItemText">Replays</string:String>
     <string:String x:Key="RequestSettingsItemText">Web Requests</string:String>
     <string:String x:Key="ExecutablesSettingsItemText">Executables</string:String>
@@ -69,7 +70,13 @@
     <string:String x:Key="UpdateMostRecentBodyText">You are using the latest version of ReplayBook.</string:String>
     <string:String x:Key="UpdateNewerTitleText">New version available</string:String>
     <string:String x:Key="UpdateNewerBodyText">Newer version of ReplayBook is available. Press OK to be taken to the download page.</string:String>
-    
+
+    <!--Settings : Appearance-->
+    <string:String x:Key="AppearanceThemeModeTitle">Theme</string:String>
+    <string:String x:Key="AppearanceThemeMode0">Use system setting</string:String>
+    <string:String x:Key="AppearanceThemeMode1">Dark</string:String>
+    <string:String x:Key="AppearanceThemeMode2">Light</string:String>
+
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Scan Folders for Executables</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultTitleText">Search results</string:String>

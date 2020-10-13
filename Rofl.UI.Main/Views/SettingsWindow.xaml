@@ -30,7 +30,11 @@
             <ListBoxItem x:Name="GeneralSettingsListItem">
                 <TextBlock Text="{StaticResource GeneralSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
-            
+
+            <ListBoxItem x:Name="AppearanceSettingsListItem">
+                <TextBlock Text="{StaticResource AppearanceSettingsItemText}" FontSize="14"/>
+            </ListBoxItem>
+
             <ListBoxItem x:Name="ExecutablesSettingsListItem">
                 <TextBlock Text="{StaticResource ExecutablesSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
@@ -177,7 +181,6 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <ComboBox Name="FileActionComboBox"
-                                          Height="30"
                                           Grid.Column="0"
                                           MinWidth="200"
                                           SelectedIndex="{Binding Path=Settings.FileAction}"
@@ -187,9 +190,9 @@
                                 </ComboBox>
 
                                 <Button x:Name="SetFileAssocButton"
+                                        Height="30"
                                         Grid.Column="2"
                                         Content="{StaticResource FileAssociationButtonText}"
-                                        Height="30"
                                         Padding="15 0 15 0"
                                         HorizontalAlignment="Left"
                                         Click="SetFileAssocButton_Click"/>
@@ -214,6 +217,30 @@
                     </ScrollViewer>
                 </TabItem>
 
+                <TabItem x:Name="AppearanceTabItem" Visibility="Collapsed">
+                    <ScrollViewer>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                             Spacing="12"
+                                             Margin="15 0 20 12">
+                            
+                            <TextBlock Text="{StaticResource AppearanceThemeModeTitle}"
+                                       FontSize="16"/>
+                            
+                            <ComboBox x:Name="ThemeComboBox"
+                                      Width="200"
+                                      SelectedIndex="{Binding Path=Settings.ThemeMode}"
+                                      HorizontalAlignment="Left"
+                                      VerticalContentAlignment="Center"
+                                      SelectionChanged="ThemeComboBox_SelectionChanged">
+                                <ComboBoxItem Content="{StaticResource AppearanceThemeMode0}"/>
+                                <ComboBoxItem Content="{StaticResource AppearanceThemeMode1}"/>
+                                <ComboBoxItem Content="{StaticResource AppearanceThemeMode2}"/>
+                            </ComboBox>
+
+                        </ui:SimpleStackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                
                 <TabItem x:Name="ExecutableTabItem" Visibility="Collapsed">
                     <ScrollViewer>
                         <ui:SimpleStackPanel Orientation="Vertical"

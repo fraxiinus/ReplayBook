@@ -31,6 +31,9 @@ namespace Rofl.Settings.Models
             GeneralSettings.PlayConfirmation = settings.PlayConfirmation;
             GeneralSettings.MatchHistoryBaseUrl = settings.MatchHistoryBaseUrl;
             GeneralSettings.ItemsPerPage = settings.ItemsPerPage;
+
+            AppearanceSettings = new AppearanceSettings();
+            AppearanceSettings.ThemeMode = settings.ThemeMode;
         }
 
         [JsonProperty("request_settings")]
@@ -41,5 +44,8 @@ namespace Rofl.Settings.Models
 
         [JsonProperty("general_settings")]
         public GeneralSettings GeneralSettings { get; set; }
+
+        [JsonProperty("appearance_settings")]
+        public AppearanceSettings AppearanceSettings { get; set; }
     }
 }

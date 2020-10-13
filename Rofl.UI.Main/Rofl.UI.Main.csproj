@@ -116,6 +116,7 @@
       <DependentUpon>WelcomeSetupReplays.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\DictionaryExtensions.cs" />
+    <Compile Include="Utilities\DispatcherHelper.cs" />
     <Compile Include="Utilities\ExportHelper.cs" />
     <Compile Include="Utilities\FileAssociations.cs" />
     <Compile Include="Utilities\GithubConnection.cs" />

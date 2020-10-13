@@ -25,6 +25,9 @@ namespace Rofl.Settings.Models
             MapRelativeUrl = @"/img/map/map";
             ItemRelativeUrl = @"/img/item/";
             UseMostRecent = true;
+
+            // Appearance
+            ThemeMode = 0;
         }
 
         public ObservableSettings(SettingsModel settings)
@@ -49,6 +52,9 @@ namespace Rofl.Settings.Models
             MapRelativeUrl = settings.RequestSettings.MapRelativeUrl;
             ItemRelativeUrl = settings.RequestSettings.ItemRelativeUrl;
             UseMostRecent = settings.RequestSettings.UseMostRecent;
+
+            // Appearence
+            ThemeMode = settings.AppearanceSettings.ThemeMode;
         }
 
 
@@ -169,6 +175,18 @@ namespace Rofl.Settings.Models
                 _useMostRecent = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(UseMostRecent)));
+            }
+        }
+
+        private int _themeMode;
+        public int ThemeMode
+        {
+            get => _themeMode;
+            set
+            {
+                _themeMode = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ThemeMode)));
             }
         }
     }
