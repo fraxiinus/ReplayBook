@@ -96,22 +96,13 @@ namespace Rofl.UI.Main
             switch (_settingsManager.Settings.ThemeMode)
             {
                 case 0: // system default
-                    DispatcherHelper.RunOnMainThread(() =>
-                    {
-                        ThemeManager.Current.ApplicationTheme = null;
-                    });
+                    ThemeManager.Current.ApplicationTheme = null;
                     break;
-                case 1: // dark
-                    DispatcherHelper.RunOnMainThread(() =>
-                    {
-                        ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
-                    });
+                case 1: // 
+                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
                     break;
                 case 2: // light
-                    DispatcherHelper.RunOnMainThread(() =>
-                    {
-                        ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
-                    });
+                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
                     break;
             }
         }
