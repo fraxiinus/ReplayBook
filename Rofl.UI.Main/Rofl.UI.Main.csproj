@@ -119,6 +119,7 @@
     <Compile Include="Utilities\DispatcherHelper.cs" />
     <Compile Include="Utilities\ExportHelper.cs" />
     <Compile Include="Utilities\FileAssociations.cs" />
+    <Compile Include="Utilities\FlyoutHelper.cs" />
     <Compile Include="Utilities\GithubConnection.cs" />
     <Compile Include="Utilities\ReplayPlayer.cs" />
     <Compile Include="Utilities\ResourceTools.cs" />

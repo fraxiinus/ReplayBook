@@ -121,41 +121,22 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is SettingsManager context)) { return; }
             if (!(KnownPlayersListBox.SelectedItem is PlayerMarker selectedPlayer)) { return; }
 
-            // Create button that does the actual delete
-            var confirmButton = new Button
-            {
-                Content = TryFindResource("YesText") as String
-            };
+            // Create confirmation flyout
+            var confirmFlyout = new FlyoutHelper();
+            confirmFlyout.Button.Content = TryFindResource("YesText") as String;
+            confirmFlyout.TextBlock.Text = TryFindResource("ConfirmText") as String;
 
-            // Add items to a panel
-            var contentPanel = new SimpleStackPanel
-            {
-                Spacing = 12
-            };
-            contentPanel.Children.Add(new TextBlock
-            {
-                Text = TryFindResource("ConfirmText") as String
-            });
-            contentPanel.Children.Add(confirmButton);
-
-            // Add the grid into a flyout
-            var confirmFlyout = new Flyout
-            {
-                Content = contentPanel
-            };
-
-            // Assign button behavior
-            confirmButton.Click += (object eSender, RoutedEventArgs eConfirm) =>
+            confirmFlyout.Button.Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 context.Settings.KnownPlayers.Remove(selectedPlayer);
 
                 EditKnownPlayerButton.IsEnabled = false;
                 RemoveKnownPlayerButton.IsEnabled = false;
-                confirmFlyout.Hide();
+                confirmFlyout.Flyout.Hide();
             };
 
             // Show the flyout
-            confirmFlyout.ShowAt(RemoveKnownPlayerButton);
+            confirmFlyout.Flyout.ShowAt(RemoveKnownPlayerButton);
         }
 
         private void KnownPlayersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -292,41 +273,22 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is SettingsManager context)) { return; }
             if (!(SourceFoldersListBox.SelectedItem is String selectedFolder)) { return; }
 
-            // Create button that does the actual delete
-            var confirmButton = new Button
-            {
-                Content = TryFindResource("YesText") as String
-            };
+            // Create confirmation flyout
+            var confirmFlyout = new FlyoutHelper();
+            confirmFlyout.Button.Content = TryFindResource("YesText") as String;
+            confirmFlyout.TextBlock.Text = TryFindResource("ConfirmText") as String;
 
-            // Add items to a panel
-            var contentPanel = new SimpleStackPanel
-            {
-                Spacing = 12
-            };
-            contentPanel.Children.Add(new TextBlock
-            {
-                Text = TryFindResource("ConfirmText") as String
-            });
-            contentPanel.Children.Add(confirmButton);
-
-            // Add the grid into a flyout
-            var confirmFlyout = new Flyout
-            {
-                Content = contentPanel
-            };
-
-            // Assign button behavior
-            confirmButton.Click += (object eSender, RoutedEventArgs eConfirm) =>
+            confirmFlyout.Button.Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 context.Settings.SourceFolders.Remove(selectedFolder);
 
                 EditSourceFolderButton.IsEnabled = false;
                 RemoveSourceFolderButton.IsEnabled = false;
-                confirmFlyout.Hide();
+                confirmFlyout.Flyout.Hide();
             };
 
             // Show the flyout
-            confirmFlyout.ShowAt(RemoveSourceFolderButton);
+            confirmFlyout.Flyout.ShowAt(RemoveSourceFolderButton);
         }
 
         private void ExecutableFoldersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -453,42 +415,23 @@ namespace Rofl.UI.Main.Views
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
             if (!(ExecutableFoldersListBox.SelectedItem is String selectedFolder)) { return; }
+            
+            // Create confirmation flyout
+            var confirmFlyout = new FlyoutHelper();
+            confirmFlyout.Button.Content = TryFindResource("YesText") as String;
+            confirmFlyout.TextBlock.Text = TryFindResource("ConfirmText") as String;
 
-            // Create button that does the actual delete
-            var confirmButton = new Button
-            {
-                Content = TryFindResource("YesText") as String
-            };
-
-            // Add items to a panel
-            var contentPanel = new SimpleStackPanel
-            {
-                Spacing = 12
-            };
-            contentPanel.Children.Add(new TextBlock
-            {
-                Text = TryFindResource("ConfirmText") as String
-            });
-            contentPanel.Children.Add(confirmButton);
-
-            // Add the grid into a flyout
-            var confirmFlyout = new Flyout
-            {
-                Content = contentPanel
-            };
-
-            // Assign button behavior
-            confirmButton.Click += (object eSender, RoutedEventArgs eConfirm) =>
+            confirmFlyout.Button.Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 context.Executables.Settings.SourceFolders.Remove(selectedFolder);
 
                 EditExecutableFolderButton.IsEnabled = false;
                 RemoveExecutableFolderButton.IsEnabled = false;
-                confirmFlyout.Hide();
+                confirmFlyout.Flyout.Hide();
             };
 
             // Show the flyout
-            confirmFlyout.ShowAt(RemoveExecutableFolderButton);
+            confirmFlyout.Flyout.ShowAt(RemoveExecutableFolderButton);
         }
 
         private void SourceFoldersSearchButton_Click(object sender, RoutedEventArgs e)
@@ -552,41 +495,22 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is SettingsManager context)) { return; }
             if (!(ExecutablesListBox.SelectedItem is LeagueExecutable selectedExecutable)) { return; };
 
-            // Create button that does the actual delete
-            var confirmButton = new Button
-            {
-                Content = TryFindResource("YesText") as String
-            };
+            // Create confirmation flyout
+            var confirmFlyout = new FlyoutHelper();
+            confirmFlyout.Button.Content = TryFindResource("YesText") as String;
+            confirmFlyout.TextBlock.Text = TryFindResource("ConfirmText") as String;
 
-            // Add items to a panel
-            var contentPanel = new SimpleStackPanel
-            {
-                Spacing = 12
-            };
-            contentPanel.Children.Add(new TextBlock
-            {
-                Text = TryFindResource("ConfirmText") as String
-            });
-            contentPanel.Children.Add(confirmButton);
-
-            // Add the grid into a flyout
-            var confirmFlyout = new Flyout
-            {
-                Content = contentPanel
-            };
-
-            // Assign button behavior
-            confirmButton.Click += (object eSender, RoutedEventArgs eConfirm) =>
+            confirmFlyout.Button.Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 context.Executables.DeleteExecutable(selectedExecutable.Name);
 
                 EditExecutableButton.IsEnabled = false;
                 RemoveExecutableButton.IsEnabled = false;
-                confirmFlyout.Hide();
+                confirmFlyout.Flyout.Hide();
             };
 
             // Show the flyout
-            confirmFlyout.ShowAt(RemoveExecutableButton);
+            confirmFlyout.Flyout.ShowAt(RemoveExecutableButton);
         }
 
         private void SetFileAssocButton_Click(object sender, RoutedEventArgs e)
