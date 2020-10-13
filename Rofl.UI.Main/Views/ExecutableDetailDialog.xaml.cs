@@ -25,6 +25,8 @@ namespace Rofl.UI.Main.Views
         {
             InitializeComponent();
             _isEditMode = false;
+
+            this.Title = TryFindResource("AddButtonText") as String + " " + this.Title;
         }
 
         public ExecutableDetailDialog(LeagueExecutable executable)
@@ -35,6 +37,7 @@ namespace Rofl.UI.Main.Views
 
             LoadLeagueExecutable(executable);
             _isEditMode = true;
+            this.Title = TryFindResource("EditButtonText") as String + " " + this.Title;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

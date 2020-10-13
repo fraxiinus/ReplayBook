@@ -76,7 +76,7 @@
     <string:String x:Key="ExecutableFoldersSearchResultLabelText">Registered $ new executable(s)</string:String>
     <string:String x:Key="ExecutablesLabelText">Registered Executables</string:String>
     <string:String x:Key="ExecutableSelectFolderDialogText">Select Executable Source Folder</string:String>
-    <string:String x:Key="ExecutableDetailWindowText">Executable Details</string:String>
+    <string:String x:Key="ExecutableDetailWindowText">Executable</string:String>
     <string:String x:Key="ExecutableSelectDialogText">Select League of Legends.exe</string:String>
     <string:String x:Key="ExecutableSelectInvalidErrorText">Selected executable is not valid, please select a valid executable</string:String>
     <string:String x:Key="ExecutableSelectInvalidErrorTitle">Invalid Executable</string:String>

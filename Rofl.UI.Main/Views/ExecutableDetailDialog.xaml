@@ -41,23 +41,37 @@
             </Button>
         </Grid>
 
-        <TextBlock Text="{StaticResource ExecutableDetailName}"
-                   FontSize="14"/>
-        <TextBox x:Name="NameTextBox"
-                 Padding="2"
-                 VerticalContentAlignment="Center"
-                 Height="25"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <TextBlock Text="{StaticResource ExecutableDetailLocale}"
-                   Grid.Column="0"
-                   VerticalAlignment="Center"
-                   FontSize="14"/>
+            <TextBlock Text="{StaticResource ExecutableDetailName}"
+                       FontSize="14"
+                       Grid.Row="0" Grid.Column="0"
+                       Margin="0 0 0 12"/>
+            <TextBox x:Name="NameTextBox"
+                     Padding="2"
+                     VerticalContentAlignment="Center"
+                     Grid.Row="1" Grid.Column="0"
+                     Margin="0 0 5 0"/>
 
-        <ComboBox x:Name="LocaleComboBox"
-                  Grid.Column="1"
-                  VerticalContentAlignment="Center"
-                  Height="30"
-                  Width="200"/>
+            <TextBlock Text="{StaticResource ExecutableDetailLocale}"
+                       VerticalAlignment="Center"
+                       FontSize="14"
+                       Grid.Row="0" Grid.Column="1"
+                       Margin="0 0 0 12"/>
+
+            <ComboBox x:Name="LocaleComboBox"
+                      VerticalContentAlignment="Center"
+                      Width="200"
+                      Grid.Row="1" Grid.Column="1"/>
+        </Grid>
 
         <TextBlock Text="{StaticResource ExecutableDetailLaunchArgs}"
                    FontSize="14"/>
