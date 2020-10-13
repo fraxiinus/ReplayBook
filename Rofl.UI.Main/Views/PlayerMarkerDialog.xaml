@@ -38,12 +38,5 @@
         <controls:ColorWrapper x:Name="MarkerColorPicker"
                                HorizontalAlignment="Center"
                                Margin="0 0 0 5"/>
-
-        <TextBlock x:Name="ErrorMessageBlock"
-                   Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
-                   Visibility="Collapsed"
-                   TextWrapping="Wrap"
-                   FontSize="14"/>
-
     </ui:SimpleStackPanel>
 </ui:ContentDialog>

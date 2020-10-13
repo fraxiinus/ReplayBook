@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using Rofl.UI.Main.Extensions;
 using ModernWpf.Controls;
+using Rofl.UI.Main.Utilities;
 
 namespace Rofl.UI.Main.Views
 {
@@ -61,27 +62,18 @@ namespace Rofl.UI.Main.Views
             string noteText = NoteTextBox.Text;
             string colorText = MarkerColorPicker.SelectedColorHex;
 
-            // Hide error
+            // Hide error, reset the block
             _blockClose = false;
-            ErrorMessageBlock.Visibility = Visibility.Collapsed;
 
             // Validate if input information is OK
             if (String.IsNullOrWhiteSpace(inputName))
             {
                 // Show error
                 _blockClose = true;
-                ErrorMessageBlock.Text = TryFindResource("PlayerMarkerNameIsEmptyErrorText") as String;
-                ErrorMessageBlock.Visibility = Visibility.Visible;
 
-                return;
-            }
-
-            if (String.IsNullOrWhiteSpace(colorText))
-            {
-                // Show error
-                _blockClose = true;
-                ErrorMessageBlock.Text = TryFindResource("PlayerMarkerColorIsEmptyErrorText") as String;
-                ErrorMessageBlock.Visibility = Visibility.Visible;
+                var flyout = new FlyoutHelper(false);
+                flyout.TextBlock.Text = TryFindResource("PlayerMarkerNameIsEmptyErrorText") as String;
+                flyout.Flyout.ShowAt(NameTextBox);
 
                 return;
             }
@@ -94,15 +86,17 @@ namespace Rofl.UI.Main.Views
                         x => x.Name.Equals(inputName, StringComparison.OrdinalIgnoreCase)
                     ).FirstOrDefault();
 
-                // Name does not exist
+                // Name already exists
                 if (existingItem != null)
                 {
                     _blockClose = true;
 
                     var errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String)
                         .Replace("$", inputName);
-                    ErrorMessageBlock.Text = errorText;
-                    ErrorMessageBlock.Visibility = Visibility.Visible;
+
+                    var flyout = new FlyoutHelper(false);
+                    flyout.TextBlock.Text = errorText;
+                    flyout.Flyout.ShowAt(NameTextBox);
 
                     return;
                 }
@@ -126,12 +120,17 @@ namespace Rofl.UI.Main.Views
                              !x.Name.Equals(_oldName, StringComparison.OrdinalIgnoreCase)
                     ).FirstOrDefault();
 
-                // Name does not exist
+                // Name already exists
                 if (existingItem != null)
                 {
                     _blockClose = true;
-                    ErrorMessageBlock.Text = TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String;
-                    ErrorMessageBlock.Visibility = Visibility.Visible;
+
+                    var errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String)
+                        .Replace("$", inputName);
+
+                    var flyout = new FlyoutHelper(false);
+                    flyout.TextBlock.Text = errorText;
+                    flyout.Flyout.ShowAt(NameTextBox);
 
                     return;
                 }
