@@ -388,6 +388,7 @@
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          ItemsSource="{Binding Path=Settings.SourceFolders}"
                                          SelectionChanged="SourceFoldersListBox_SelectionChanged"
+                                         MouseDoubleClick="EditSourceFolderButton_Click"
                                          Grid.Row="0" Grid.Column="0">
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
