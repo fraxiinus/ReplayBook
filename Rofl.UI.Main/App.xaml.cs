@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Rofl.UI.Main
 {
@@ -93,6 +94,7 @@ namespace Rofl.UI.Main
 
         private void ApplyThemeSetting()
         {
+            // Set theme mode
             switch (_settingsManager.Settings.ThemeMode)
             {
                 case 0: // system default
@@ -104,6 +106,16 @@ namespace Rofl.UI.Main
                 case 2: // light
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
                     break;
+            }
+
+            // Set accent color
+            if (_settingsManager.Settings.AccentColor == null)
+            {
+                ThemeManager.Current.AccentColor = null;
+            }
+            else
+            {
+                ThemeManager.Current.AccentColor = (Color)ColorConverter.ConvertFromString(_settingsManager.Settings.AccentColor);
             }
         }
     }

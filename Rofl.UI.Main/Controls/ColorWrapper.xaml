@@ -13,7 +13,6 @@
             <ToggleButton x:Name="ColorPickerButton"
                           VerticalContentAlignment="Stretch"
                           IsHitTestVisible="{Binding ElementName=ColorPickerPopup, Path=IsOpen, Mode=OneWay, Converter={converters:BoolInvertConverter}}"
-                          Height="25"
                           Margin="0 0 0 0">
 
                 <Grid Width="200">
@@ -25,7 +24,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Border x:Name="ButtonColorPreview"
-                            BorderBrush="Black"
+                            BorderBrush="{DynamicResource SystemControlPageTextBaseHighBrush}"
                             BorderThickness="1"
                             Background="{Binding ElementName=ColorPickerContent, Path=SelectedColor, Mode=OneWay, Converter={converters:ColorBrushConverter}}"
                             Width="18" Height="12"

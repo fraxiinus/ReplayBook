@@ -28,6 +28,7 @@ namespace Rofl.Settings.Models
 
             // Appearance
             ThemeMode = 0;
+            AccentColor = null;
         }
 
         public ObservableSettings(SettingsModel settings)
@@ -55,6 +56,7 @@ namespace Rofl.Settings.Models
 
             // Appearence
             ThemeMode = settings.AppearanceSettings.ThemeMode;
+            AccentColor = settings.AppearanceSettings.AccentColor;
         }
 
 
@@ -187,6 +189,18 @@ namespace Rofl.Settings.Models
                 _themeMode = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(ThemeMode)));
+            }
+        }
+
+        private string _accentColor;
+        public string AccentColor
+        {
+            get => _accentColor;
+            set
+            {
+                _accentColor = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(AccentColor)));
             }
         }
     }

@@ -34,6 +34,7 @@ namespace Rofl.Settings.Models
 
             AppearanceSettings = new AppearanceSettings();
             AppearanceSettings.ThemeMode = settings.ThemeMode;
+            AppearanceSettings.AccentColor = settings.AccentColor;
         }
 
         [JsonProperty("request_settings")]

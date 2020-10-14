@@ -28,7 +28,15 @@ namespace Rofl.UI.Main.Views
 
             // This window should open as a dialog, so set owner
             this.Owner = App.Current.MainWindow;
+            
+            // Display the first settings page
             SettingsMenuListBox.SelectedIndex = 0;
+
+            // Set accent color button
+            AccentColorButton.SelectedColor = ThemeManager.Current.ActualAccentColor;
+
+            // Set event for when color picker closes
+            AccentColorButton.ColorPickerPopup.Closed += AccentColorPickerPopup_Closed;
         }
 
         private void SettingsWindow_OnSourceInitialized(object sender, EventArgs e)
@@ -38,7 +46,13 @@ namespace Rofl.UI.Main.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager)) { return; }
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
+            // Set color picker note
+            if(context.Settings.AccentColor != null)
+            {
+                AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as String;
+            }
 
             // Change window style
             var GWL_STYLE = -16;
@@ -618,5 +632,36 @@ namespace Rofl.UI.Main.Views
                     break;
             }
         }
-    }
+
+        private void AccentColorResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
+            // Setting accent color as null resets the color
+            ThemeManager.Current.AccentColor = null;
+            
+            // Save the null here
+            context.Settings.AccentColor = null;
+
+            // Update the button
+            AccentColorButton.SelectedColor = ThemeManager.Current.ActualAccentColor;
+
+            // Update the note
+            AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeDefaultAccentNote") as String;
+        }
+
+        private void AccentColorPickerPopup_Closed(object sender, EventArgs e)
+        {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
+            // Set accent color to picker color
+            ThemeManager.Current.AccentColor = AccentColorButton.SelectedColor;
+
+            // Update the settings value
+            context.Settings.AccentColor = AccentColorButton.SelectedColorHex;
+
+            // Update the note
+            AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as String;
+        }
+}
 }

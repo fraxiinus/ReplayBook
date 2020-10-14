@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
         mc:Ignorable="d"
         Title="Settings"
         MinWidth="600"
@@ -236,6 +237,23 @@
                                 <ComboBoxItem Content="{StaticResource AppearanceThemeMode1}"/>
                                 <ComboBoxItem Content="{StaticResource AppearanceThemeMode2}"/>
                             </ComboBox>
+
+                            <TextBlock Text="{StaticResource AppearanceThemeAccentTitle}"
+                                       FontSize="16"/>
+
+                            <ui:SimpleStackPanel Orientation="Horizontal"
+                                                 Spacing="12">
+                                <controls:ColorWrapper x:Name="AccentColorButton"
+                                                       Width="200"
+                                                       HorizontalAlignment="Left"/>
+                                <Button x:Name="AccentColorResetButton"
+                                        Content="{StaticResource AppearanceThemeResetColorText}"
+                                        Click="AccentColorResetButton_Click"/>
+                            </ui:SimpleStackPanel>
+
+                            <TextBlock x:Name="AccentColorNoteTextBlock"
+                                       Text="{StaticResource AppearanceThemeDefaultAccentNote}"
+                                       Foreground="{DynamicResource SystemControlHighlightBaseMediumHighBrush}"/>
 
                         </ui:SimpleStackPanel>
                     </ScrollViewer>

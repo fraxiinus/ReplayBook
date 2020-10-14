@@ -76,6 +76,10 @@
     <string:String x:Key="AppearanceThemeMode0">Use system setting</string:String>
     <string:String x:Key="AppearanceThemeMode1">Dark</string:String>
     <string:String x:Key="AppearanceThemeMode2">Light</string:String>
+    <string:String x:Key="AppearanceThemeAccentTitle">Accent Color</string:String>
+    <string:String x:Key="AppearanceThemeResetColorText">Reset</string:String>
+    <string:String x:Key="AppearanceThemeDefaultAccentNote">Using system defined accent color</string:String>
+    <string:String x:Key="AppearanceThemeCustomAccentNote">Using custom accent color</string:String>
 
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Scan Folders for Executables</string:String>

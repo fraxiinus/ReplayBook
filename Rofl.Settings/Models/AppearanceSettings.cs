@@ -14,5 +14,9 @@ namespace Rofl.Settings.Models
         // 0 = Use Default, 1 = Dark, 2 = Light
         [JsonProperty("theme_mode")]
         public int ThemeMode { get; set; }
+
+        // Null = using Windows, Hex otherwise
+        [JsonProperty("accent_color")]
+        public string AccentColor { get; set; }
     }
 }

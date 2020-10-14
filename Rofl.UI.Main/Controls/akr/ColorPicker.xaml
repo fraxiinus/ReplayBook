@@ -30,7 +30,7 @@
     </UserControl.Resources>
     <DockPanel Margin="8">
         <Border DockPanel.Dock="Top" CornerRadius="5" Margin="0,7,2,0" Width="76" Height="24" BorderThickness="1" Background="{Binding SelectedColor, Converter={StaticResource ColorToSolidColorBrushConverter}}" HorizontalAlignment="Right"
-                BorderBrush="{StaticResource DarkTextColor}"/>
+                BorderBrush="{DynamicResource SystemControlPageTextBaseHighBrush}"/>
         <DockPanel DockPanel.Dock="Bottom" Margin="5,5,0,0">
             <TextBox Text="#FFFF0000" Name="HexTextBox" Width="100" DockPanel.Dock="Right" LostFocus="HexTextBox_LostFocus" VerticalAlignment="Center"/>
             <TextBlock Text="Hexadecimal" VerticalAlignment="Center"/>
