@@ -42,10 +42,7 @@
                IsOpen="{Binding IsChecked, ElementName=ColorPickerButton}"
                Width="{Binding ActualWidth, ElementName=ColorPickerButton}"
                StaysOpen="False">
-            <Border BorderThickness="1 0 1 1"
-                    BorderBrush="{StaticResource DarkTextColor}">
-                <akr:ColorPicker x:Name="ColorPickerContent"/>
-            </Border>
+            <akr:ColorPicker x:Name="ColorPickerContent"/>
         </Popup>
     </StackPanel>
 </UserControl>
