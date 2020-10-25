@@ -243,9 +243,10 @@
     <string:String x:Key="SettingsToolTip">Settings</string:String>
     <string:String x:Key="PlayReplayToolTip">Play Replay</string:String>
     <string:String x:Key="AlreadyPlayingToolTip">Already playing...</string:String>
+    <string:String x:Key="CannotPlayToolTip">Cannot play this replay</string:String>
     <string:String x:Key="MoreToolTip">More...</string:String>
 
-    <string:String x:Key="ReplayUnsupportedToolTip">Unsupported</string:String>
+    <string:String x:Key="ReplayUnsupportedToolTip">This replay is from an unsupported version</string:String>
     <string:String x:Key="ReplaySupportedToolTip">Replay enabled</string:String>
     <string:String x:Key="FileDateToolTip">File creation date</string:String>
     <string:String x:Key="MatchIdToolTip">Match ID</string:String>

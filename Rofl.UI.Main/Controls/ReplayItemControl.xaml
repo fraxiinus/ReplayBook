@@ -208,8 +208,7 @@
                         Margin="0 0 0 5"
                         Width="37"
                         ToolTipService.ShowOnDisabled="True"
-                        Click="PlayButton_Click"
-                        IsEnabled="{Binding Path=IsPlaying, Converter={converters:BoolInvertConverter}}">
+                        Click="PlayButton_Click">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
                             <Style.Triggers>
@@ -218,7 +217,20 @@
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
                                     <Setter Property="ToolTip" Value="{StaticResource AlreadyPlayingToolTip}"/>
+                                    <Setter Property="IsEnabled" Value="false"/>
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsSupported}" Value="false">
+                                    <Setter Property="IsEnabled" Value="false"/>
+                                    <Setter Property="ToolTip" Value="{StaticResource CannotPlayToolTip}"/>
+                                </DataTrigger>
+                                
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=IsPlaying}" Value="false"/>
+                                        <Condition Binding="{Binding Path=IsSupported}" Value="true"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="true"/>
+                                </MultiDataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
