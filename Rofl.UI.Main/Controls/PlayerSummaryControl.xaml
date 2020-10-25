@@ -22,7 +22,7 @@
                              Grid.Column="0">
             
             <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
-                                     Width="40"/>
+                                     Width="40" Height="40"/>
 
             <TextBlock Text="{Binding Path=Level}"
                        FontSize="20"

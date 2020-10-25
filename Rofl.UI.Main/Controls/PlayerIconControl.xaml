@@ -8,33 +8,43 @@
              d:DesignHeight="30" d:DesignWidth="30">
 
     <Grid>
-        
-        <Image x:Name="PlayerImage"
-               RenderOptions.BitmapScalingMode="HighQuality"
-               Source="{Binding Path=ImageSource, IsAsync=True}"
-               ToolTip="{Binding Path=CombinedName}"/>
 
-        <Rectangle x:Name="MarkerRectangle"
-                   Width="8"
-                   Height="8"
-                   Margin="0 1 1 0"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Top">
-            <Rectangle.Style>
-                <Style TargetType="Rectangle">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="True">
-                            <Setter Property="Fill" Value="{Binding Path=Marker.Color}"/>
-                            <Setter Property="Stroke" Value="Black"/>
-                            <Setter Property="StrokeThickness" Value="1"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="False">
-                            <Setter Property="Fill" Value="Transparent"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Rectangle.Style>
-        </Rectangle>
+        <Border ToolTip="{Binding Path=CombinedName}"
+                CornerRadius="5">
+            <Border.Background>
+                <ImageBrush Stretch="Fill"
+                            x:Name="PlayerImage"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            ImageSource="{Binding Path=ImageSource, IsAsync=True}">
+                    <ImageBrush.RelativeTransform>
+                        <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.2" ScaleY="1.2"/>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
+            </Border.Background>
+
+            <Rectangle x:Name="MarkerRectangle"
+                       Width="8"
+                       Height="8"
+                       Margin="0 1 1 0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top">
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="True">
+                                <Setter Property="Fill" Value="{Binding Path=Marker.Color}"/>
+                                <Setter Property="Stroke" Value="Black"/>
+                                <Setter Property="StrokeThickness" Value="1"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="False">
+                                <Setter Property="Fill" Value="Transparent"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+        </Border>
+        
     </Grid>
     
 </UserControl>

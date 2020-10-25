@@ -142,7 +142,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <local:PlayerIconControl Margin="0 0 4 0"
-                                                         Width="30"/>
+                                                         Width="30" Height="30"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -156,7 +156,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <local:PlayerIconControl Margin="0 0 4 0"
-                                                         Width="30"/>
+                                                         Width="30" Height="30"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
