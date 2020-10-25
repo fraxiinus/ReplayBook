@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
              mc:Ignorable="d" 
              x:Name="ReplayDetailControlElement"
@@ -31,7 +32,6 @@
         
         <!--The actual replay content-->
         <Grid x:Name="ReplayContent"
-              Margin="10 5 0 0"
               Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -41,11 +41,11 @@
 
             <!--The header information-->
             <StackPanel Orientation="Vertical"
-                        Margin="10 0 10 10"
+                        Margin="0 0 0 0"
+                        Background="{DynamicResource TabViewBackground}"
                         Grid.Row="0">
                 
-                <Border BorderThickness="0 0 0 2"
-                            BorderBrush="Gray">
+                <Border BorderThickness="0 0 0 2">
 
                     <DockPanel>
 
@@ -138,10 +138,13 @@
                 </Border>
 
                 <StackPanel Orientation="Horizontal"
-                        Margin="0 5 0 0">
+                            VerticalAlignment="Center"
+                            Margin="10 0 0 0">
 
                     <TextBlock FontSize="14"
-                           FontWeight="Bold">
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="Text" Value="VICTORY"/>
@@ -157,65 +160,59 @@
                         </TextBlock.Style>
                     </TextBlock>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{StaticResource MapNameToolTip}"
-                         Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"/>
+                    <!--<TextBlock Text="-" Padding="5 0 5 0"/>-->
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{StaticResource MapNameToolTip}"
+                               Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{Binding Path=PreviewModel.GameDuration}"
-                         Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"/>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{Binding Path=PreviewModel.GameDuration}"
+                               Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{StaticResource MatchIdToolTip}"
-                         Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{StaticResource MatchIdToolTip}"
+                               Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{StaticResource GameVersionToolTip}"
-                         Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{StaticResource GameVersionToolTip}"
+                               Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{StaticResource FileSizeToolTip}"
-                         Text="{Binding Path=FileInfo.FileSizeBytes, FallbackValue=FileSize, Mode=OneWay, Converter={StaticResource FormatKbSizeConverter}}"/>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{StaticResource FileSizeToolTip}"
+                               Text="{Binding Path=FileInfo.FileSizeBytes, FallbackValue=FileSize, Mode=OneWay, Converter={StaticResource FormatKbSizeConverter}}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{StaticResource FileDateToolTip}"
-                         Text="{Binding Path=PreviewModel.CreationDate, StringFormat=yyyy-MM-dd  hh:mm tt, FallbackValue=GameVersion, Mode=OneWay}"/>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{StaticResource FileDateToolTip}"
+                               Text="{Binding Path=PreviewModel.CreationDate, StringFormat=yyyy-MM-dd  hh:mm tt, FallbackValue=GameVersion, Mode=OneWay}"/>
                 </StackPanel>
 
             </StackPanel>
 
             <TabControl x:Name="DetailTabControl"
                         BorderThickness="0 1 0 0"
-                        BorderBrush="{StaticResource AccentColor}"
                         Grid.Row="1"
                         SelectionChanged="TabControl_SelectionChanged">
                 <TabItem Header="{StaticResource ScoreboardTabText}"
                          FontSize="12">
-                    <local:ScoreboardControl Margin="0 10 5 0"/>
+                    <local:ScoreboardControl Margin="10 10 5 0"/>
                 </TabItem>
 
                 <TabItem Header="{StaticResource StatsTabText}"
