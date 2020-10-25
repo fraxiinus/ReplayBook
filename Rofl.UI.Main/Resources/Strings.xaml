@@ -15,6 +15,8 @@
 
     <string:String x:Key="YesText">Yes</string:String>
     <string:String x:Key="NoText">No</string:String>
+
+    <string:String x:Key="CopyText">Copy</string:String>
     
     <string:String x:Key="CheckText">✔</string:String>
     <string:String x:Key="CrossText">❌</string:String>

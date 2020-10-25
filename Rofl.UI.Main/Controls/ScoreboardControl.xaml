@@ -132,8 +132,7 @@
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" 
                                     Margin="0 5 0 0"
-                                    MinHeight="100"
-                                    Background="#f5fafe"/>
+                                    MinHeight="100"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -266,8 +265,7 @@
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" 
                                         Margin="0 5 0 0"
-                                        MinHeight="100"
-                                        Background="#fff3f3"/>
+                                        MinHeight="100"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>

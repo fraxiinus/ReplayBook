@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d"
              d:DesignHeight="40" d:DesignWidth="500">
 
@@ -17,8 +18,8 @@
             <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="0">
+        <ui:SimpleStackPanel Orientation="Horizontal"
+                             Grid.Column="0">
             
             <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
                                      Width="40"/>
@@ -31,27 +32,36 @@
                        Width="25"
                        ToolTip="{StaticResource LevelToolTip}"/>
 
-            <StackPanel Orientation="Vertical"
-                        Margin="3 0 0 0">
-                <TextBox Background="Transparent"
-                         FontSize="14"
-                         FontWeight="Bold"
-                         BorderThickness="0"
-                         IsReadOnly="True"
-                         Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}"/>
+            <ui:SimpleStackPanel Orientation="Vertical"
+                                 Margin="3 0 0 0">
+                
+                <TextBlock FontSize="14"
+                           FontWeight="Bold"
+                           Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}">
+                    <TextBlock.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="{StaticResource CopyText}"
+                                      Click="CopyTextBlock_Click">
+                                <MenuItem.Icon>
+                                    <ui:PathIcon Data="{StaticResource CopyIcon}"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </TextBlock.ContextMenu>
+                </TextBlock>
 
-                <TextBox Background="Transparent"
-                         FontSize="12"
-                         BorderThickness="0"
-                         IsReadOnly="True"
-                         Text="{Binding Path=PreviewModel.ChampionName, FallbackValue=ChampionName, Mode=OneWay}"
-                         Width="150"/>
-            </StackPanel>
-        </StackPanel>
+                <TextBlock FontSize="12"
+                           Text="{Binding Path=PreviewModel.ChampionName, FallbackValue=ChampionName, Mode=OneWay}"
+                           Width="150">
+                </TextBlock>
+                
+            </ui:SimpleStackPanel>
+        </ui:SimpleStackPanel>
 
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="1"
-                    Margin="20 0 0 0">
+        <ui:SimpleStackPanel Orientation="Horizontal"
+                             Grid.Column="1"
+                             Margin="20 0 0 0">
+            
             <TextBlock Text="{Binding Path=ChampionsKilled}"
                        FontSize="15"
                        Margin="0"
@@ -92,11 +102,11 @@
                        TextAlignment="Center"
                        Width="25"
                        ToolTip="{StaticResource AssistsToolTip}"/>
-        </StackPanel>
+        </ui:SimpleStackPanel>
 
-        <StackPanel VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Grid.Column="2">
+        <ui:SimpleStackPanel VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Grid.Column="2">
             <ItemsControl ItemsSource="{Binding Path=Items}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -110,38 +120,56 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </StackPanel>
+        </ui:SimpleStackPanel>
 
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="3"
-                    HorizontalAlignment="Center">
-            <TextBox Margin="20 0 0 0"
-                     Background="Transparent"
-                     FontSize="15"
-                     VerticalAlignment="Center"
-                     TextAlignment="Center"
-                     Width="40"
-                     BorderThickness="0"
-                     IsReadOnly="True"
-                     ToolTip="{StaticResource CreepScoreToolTip}"
-                     Text="{Binding Path=MinionsKilled, FallbackValue=CS, Mode=OneWay}"/>
-        </StackPanel>
+        <ui:SimpleStackPanel Orientation="Horizontal"
+                             Grid.Column="3"
+                             HorizontalAlignment="Center">
+            <TextBlock Margin="20 0 0 0"
+                       Background="Transparent"
+                       FontSize="15"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Width="40"
+                       ToolTip="{StaticResource CreepScoreToolTip}"
+                       Text="{Binding Path=MinionsKilled, FallbackValue=CS, Mode=OneWay}">
+                <TextBlock.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{StaticResource CopyText}"
+                                      Click="CopyTextBlock_Click">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource CopyIcon}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </TextBlock.ContextMenu>
+            </TextBlock>
+        </ui:SimpleStackPanel>
 
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Right"
-                    Grid.Column="4">
-            <TextBox Margin="0 0 0 0"
-                     Background="Transparent"
-                     FontSize="15"
-                     VerticalAlignment="Center"
-                     TextAlignment="Center"
-                     Width="60"
-                     BorderThickness="0"
-                     IsReadOnly="True"
-                     ToolTip="{StaticResource GoldEarnedToolTip}"
-                     Text="{Binding Path=GoldEarned, FallbackValue=Gold, Mode=OneWay, StringFormat={}{0:#,#}}"/>
+        <ui:SimpleStackPanel Orientation="Horizontal"
+                             HorizontalAlignment="Right"
+                             Grid.Column="4">
+            <TextBlock Margin="0 0 0 0"
+                       Background="Transparent"
+                       FontSize="15"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Width="60"
+                       ToolTip="{StaticResource GoldEarnedToolTip}"
+                       Text="{Binding Path=GoldEarned, FallbackValue=Gold, Mode=OneWay, StringFormat={}{0:#,#}}">
+                <TextBlock.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{StaticResource CopyText}"
+                                  Click="CopyTextBlock_Click">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource CopyIcon}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </TextBlock.ContextMenu>
+            </TextBlock>
 
-        </StackPanel>
+        </ui:SimpleStackPanel>
         
     </Grid>
 </UserControl>
