@@ -6,8 +6,15 @@
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="30">
-    <Grid>
-        <Border BorderBrush="{StaticResource AccentColorLight2}">
+    <Grid Height="30">
+        <Border BorderBrush="{DynamicResource TextControlBorderBrush}"
+                CornerRadius="5">
+            <Border.Background>
+                <ImageBrush Stretch="Fill"
+                            x:Name="ItemImage"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            ImageSource="{Binding Path=ImageSource, IsAsync=True}"/>
+            </Border.Background>
             <Border.Style>
                 <Style TargetType="Border">
                     <Style.Triggers>
@@ -20,9 +27,6 @@
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <Image x:Name="ItemImage"
-                   RenderOptions.BitmapScalingMode="HighQuality"
-                   Source="{Binding Path=ImageSource, IsAsync=True}"/>
         </Border>
     </Grid>
 </UserControl>
