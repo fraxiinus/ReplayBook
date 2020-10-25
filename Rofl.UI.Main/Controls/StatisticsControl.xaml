@@ -8,8 +8,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:sys="clr-namespace:System;assembly=mscorlib" 
              mc:Ignorable="d" 
-             d:DesignHeight="650" d:DesignWidth="800"
-             Background="White">
+             d:DesignHeight="650" d:DesignWidth="800">
 
     <i:Interaction.Behaviors>
         <b:BubbleScrollEvent />
@@ -39,10 +38,10 @@
               BorderThickness="0"
               MinRowHeight="56"
               RowHeight="56"
-              Width="1580">
+              Width="2530">
 
         <DataGrid.ColumnHeaderStyle>
-            <Style TargetType="{x:Type DataGridColumnHeader}">
+            <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource DefaultDataGridColumnHeaderStyle}">
                 <Setter Property="LayoutTransform">
                     <Setter.Value>
                         <TransformGroup>
@@ -51,7 +50,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Width" Value="165"/>
-                <Setter Property="Height" Value="20"/>
+                <Setter Property="Height" Value="15"/>
                 <Setter Property="BorderBrush" Value="Transparent"/>
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -63,7 +62,7 @@
             </TransformGroup>
         </DataGrid.LayoutTransform>
         <DataGrid.CellStyle>
-            <Style TargetType="{x:Type DataGridCell}">
+            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource DefaultDataGridCellStyle}">
                 <Setter Property="LayoutTransform">
                     <Setter.Value>
                         <TransformGroup>
@@ -78,14 +77,14 @@
             </Style>
         </DataGrid.CellStyle>
         <DataGrid.RowStyle>
-            <Style TargetType="DataGridRow">
+            <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=IsBlueTeamMember}" Value="True">
+                    <!--<DataTrigger Binding="{Binding Path=IsBlueTeamMember}" Value="True">
                         <Setter Property="Background" Value="#f5fafe"></Setter>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Path=IsBlueTeamMember}" Value="False">
                         <Setter Property="Background" Value="#fff3f3"></Setter>
-                    </DataTrigger>
+                    </DataTrigger>-->
                 </Style.Triggers>
             </Style>
         </DataGrid.RowStyle>
@@ -136,7 +135,8 @@
             <DataGridTextColumn>
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource MiscGroupHeaderText}"
-                            FontWeight="Bold"/>
+                               FontWeight="Bold"
+                               FontSize="14"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -251,7 +251,8 @@
             <DataGridTextColumn>
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource ToxicityGroupHeaderText}"
-                            FontWeight="Bold"/>
+                               FontWeight="Bold"
+                               FontSize="14"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -326,7 +327,8 @@
             <DataGridTextColumn>
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource ObjectivesGroupHeaderText}"
-                            FontWeight="Bold"/>
+                               FontWeight="Bold"
+                               FontSize="14"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -383,7 +385,8 @@
             <DataGridTextColumn>
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource IncomeGroupHeaderText}"
-                            FontWeight="Bold"/>
+                               FontWeight="Bold"
+                               FontSize="14"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -416,7 +419,8 @@
             <DataGridTextColumn>
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource VisionGroupHeaderText}"
-                            FontWeight="Bold"/>
+                               FontWeight="Bold"
+                               FontSize="14"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -455,8 +459,8 @@
             <DataGridTextColumn Binding="{Binding Path=TotalDamageShieldedToTeammates, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource TotalDamageShieldedToTeammatesHeaderText}"
-                            TextTrimming="CharacterEllipsis"
-                            ToolTip="{StaticResource TotalDamageShieldedToTeammatesHeaderText}"/>
+                               TextTrimming="CharacterEllipsis"
+                               ToolTip="{StaticResource TotalDamageShieldedToTeammatesHeaderText}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -469,8 +473,8 @@
             <DataGridTextColumn Binding="{Binding Path=TotalHealingDoneToTeammates, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource TotalHealingDoneToTeammatesHeaderText}"
-                            TextTrimming="CharacterEllipsis"
-                            ToolTip="{StaticResource TotalHealingDoneToTeammatesHeaderText}"/>
+                               TextTrimming="CharacterEllipsis"
+                               ToolTip="{StaticResource TotalHealingDoneToTeammatesHeaderText}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -483,7 +487,8 @@
             <DataGridTextColumn>
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource DamageTakenAndHealedGroupHeaderText}"
-                            FontWeight="Bold"/>
+                               FontWeight="Bold"
+                               FontSize="14"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -546,8 +551,8 @@
             <DataGridTextColumn Binding="{Binding Path=PhysicalDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource PhysicalDamageDealtToChampionsHeaderText}"
-                            TextTrimming="CharacterEllipsis"
-                            ToolTip="{StaticResource PhysicalDamageDealtToChampionsHeaderText}"/>
+                               TextTrimming="CharacterEllipsis"
+                               ToolTip="{StaticResource PhysicalDamageDealtToChampionsHeaderText}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -560,7 +565,8 @@
             <DataGridTextColumn>
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource DamageDealtGroupHeaderText}"
-                            FontWeight="Bold"/>
+                               FontWeight="Bold"
+                               FontSize="14"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
             <!---->
@@ -652,7 +658,8 @@
             <DataGridTextColumn>
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource CombatGroupHeaderText}"
-                            FontWeight="Bold"/>
+                               FontWeight="Bold"
+                               FontSize="14"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
         </DataGrid.Columns>

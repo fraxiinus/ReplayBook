@@ -10,7 +10,8 @@
              x:Name="ReplayDetailControlElement"
              d:DesignHeight="650" d:DesignWidth="760"
              HorizontalAlignment="Left"
-             VerticalAlignment="Top">
+             VerticalAlignment="Top"
+             DataContextChanged="ReplayDetailControlElement_DataContextChanged">
     <UserControl.Resources>
         <converters:FormatKbSizeConverter x:Key="FormatKbSizeConverter"/>
     </UserControl.Resources>
@@ -223,17 +224,25 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ListView x:Name="PlayerIconsListView"
+                        <Grid x:Name="PlayerIconsGrid"
+                              Grid.Row="0"
+                              Margin="165 0 8 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                        <!--<ListView x:Name="PlayerIconsListView"
                                   ItemsSource="{Binding Path=AllPlayers}"
                                   HorizontalAlignment="Stretch"
                                   BorderBrush="Transparent"
                                   Margin="162 0 10 0"
-                                  SizeChanged="PlayerIconsListView_SizeChanged">
+                                  SizeChanged="PlayerIconsListView_SizeChanged"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="Focusable" Value="False"/>
                                     <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="Margin" Value="{Binding Path=StatsPlayerIconMargin, ElementName=ReplayDetailControlElement}"/>
+                                    --><!--<Setter Property="Margin" Value="{Binding Path=StatsPlayerIconMargin, ElementName=ReplayDetailControlElement}"/>--><!--
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="ListViewItem">
@@ -253,11 +262,11 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
-                                                             Width="50"
+                                                             Height="50" Width="50"
                                                              Margin="0"/>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
-                        </ListView>
+                        </ListView>-->
                         
                         <ScrollViewer x:Name="StatsScrollViewer"
                                       Margin="0 5 0 0" 

@@ -31,6 +31,40 @@ namespace Rofl.UI.Main.Controls
             }
         }
 
+        private void ReplayDetailControlElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(this.DataContext is ReplayDetail replay)) { return; }
+
+            PlayerIconsGrid.Children.Clear();
+            PlayerIconsGrid.ColumnDefinitions.Clear();
+
+            if (DetailTabControl.SelectedIndex == 1)
+            {
+                int counter = 0;
+                foreach (var player in replay.AllPlayers)
+                {
+                    // Add a column
+                    var newColumn = new ColumnDefinition
+                    {
+                        Width = GridLength.Auto
+                    };
+                    PlayerIconsGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+                    var newImage = new PlayerIconControl
+                    {
+                        DataContext = player.PreviewModel,
+                        Width = 50,
+                        Height = 50
+                    };
+                    Grid.SetRow(newImage, 0);
+                    Grid.SetColumn(newImage, counter);
+                    PlayerIconsGrid.Children.Add(newImage);
+
+                    counter++;
+                }
+            }
+        }
+
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
@@ -41,9 +75,36 @@ namespace Rofl.UI.Main.Controls
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(sender is TabControl)) { return; }
+            if (!(sender is TabControl context)) { return; }
+            if (!(this.DataContext is ReplayDetail replay)) { return; }
 
             StatsScrollViewer.ScrollToVerticalOffset(0);
+
+            if (context.SelectedIndex == 1 && PlayerIconsGrid.ColumnDefinitions.Count < 1)
+            {
+                int counter = 0;
+                foreach (var player in replay.AllPlayers)
+                {
+                    // Add a column
+                    var newColumn = new ColumnDefinition
+                    {
+                        Width = GridLength.Auto
+                    };
+                    PlayerIconsGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+                    var newImage = new PlayerIconControl
+                    {
+                        DataContext = player.PreviewModel,
+                        Width = 50,
+                        Height = 50
+                    };
+                    Grid.SetRow(newImage, 0);
+                    Grid.SetColumn(newImage, counter);
+                    PlayerIconsGrid.Children.Add(newImage);
+
+                    counter++;
+                }
+            }
         }
 
         private void StatsScrollViewer_Loaded(object sender, RoutedEventArgs e)
@@ -77,19 +138,6 @@ namespace Rofl.UI.Main.Controls
             if (!(this.DataContext is ReplayDetail replay)) { return; }
 
             context.ViewOnlineMatchHistory(replay.PreviewModel.MatchId);
-        }
-
-        private void PlayerIconsListView_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (!(sender is ListView iconList)) return;
-
-            var currentStatsControlWidth = StatsControl.GetCombinedColumnWidth();
-            var iconCount = iconList.Items.Count;
-
-            // Calculate margin needed on both sides, round down
-            var marginSize = (int) ((currentStatsControlWidth - (50d * iconCount)) / (2 * iconCount));
-
-            StatsPlayerIconMargin = new Thickness(marginSize, 0, marginSize, 0);
         }
     }
 }
