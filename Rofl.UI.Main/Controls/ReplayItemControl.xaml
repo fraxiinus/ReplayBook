@@ -79,10 +79,10 @@
                         Text="{Binding Path=GameVersion, FallbackValue=Game version}">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
-                            <Setter Property="Foreground" Value="Red"/>
+                            <Setter Property="Foreground" Value="{DynamicResource SystemControlErrorTextForegroundBrush}"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsSupported}" Value="True">
-                                    <Setter Property="Foreground" Value="Green"/>
+                                    <Setter Property="Foreground" Value="#00c514"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -95,12 +95,12 @@
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Text" Value="{StaticResource CrossText}"/>
                             <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
-                            <Setter Property="Foreground" Value="Red"/>
+                            <Setter Property="Foreground" Value="{DynamicResource SystemControlErrorTextForegroundBrush}"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsSupported}" Value="True">
                                     <Setter Property="Text" Value="{StaticResource CheckText}"/>
                                     <Setter Property="ToolTip" Value="{StaticResource ReplaySupportedToolTip}"/>
-                                    <Setter Property="Foreground" Value="Green"/>
+                                    <Setter Property="Foreground" Value="#00c514"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
