@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="350">
@@ -17,19 +18,39 @@
             <ContextMenu x:Name="DockPanelReplayContextMenu"
                          Placement="Bottom">
                 <MenuItem Header="{StaticResource OpenContainingFolder}" 
-                          Click="OpenContainingFolder_Click"/>
+                          Click="OpenContainingFolder_Click">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
 
                 <MenuItem Header="{StaticResource ViewOnlinePage}"
-                          Click="ViewOnlineMatchHistory_Click"/>
+                          Click="ViewOnlineMatchHistory_Click">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource GlobePathIcon}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
 
                 <MenuItem Header="{StaticResource ExportReplayData}"
-                          Click="ExportReplayData_OnClick"/>
+                          Click="ExportReplayData_OnClick">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource ExportPathIcon}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
 
                 <MenuItem Header="{StaticResource RenameReplayFile}"
-                          Click="RenameReplayFile_OnClick"/>
+                          Click="RenameReplayFile_OnClick">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource RenamePathIcon}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
 
                 <MenuItem Header="{StaticResource DeleteReplayFile}"
-                          Click="DeleteReplayFile_OnClick"/>
+                          Click="DeleteReplayFile_OnClick">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </ContextMenu>
         </Grid.ContextMenu>
 
@@ -270,23 +291,43 @@
                                  Placement="Bottom">
                         <MenuItem x:Name="OpenContainingFolder"
                                   Header="{StaticResource OpenContainingFolder}" 
-                                  Click="OpenContainingFolder_Click"/>
+                                  Click="OpenContainingFolder_Click">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
 
                         <MenuItem x:Name="ViewOnlineMatchHistory"
                                   Header="{StaticResource ViewOnlinePage}"
-                                  Click="ViewOnlineMatchHistory_Click"/>
+                                  Click="ViewOnlineMatchHistory_Click">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource GlobePathIcon}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
 
                         <MenuItem x:Name="ExportReplayData"
                                   Header="{StaticResource ExportReplayData}"
-                                  Click="ExportReplayData_OnClick"/>
+                                  Click="ExportReplayData_OnClick">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource ExportPathIcon}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
 
                         <MenuItem x:Name="RenameReplayFile"
                                   Header="{StaticResource RenameReplayFile}"
-                                  Click="RenameReplayFile_OnClick"/>
+                                  Click="RenameReplayFile_OnClick">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource RenamePathIcon}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
 
                         <MenuItem x:Name="DeleteReplayFile"
                                   Header="{StaticResource DeleteReplayFile}"
-                                  Click="DeleteReplayFile_OnClick"/>
+                                  Click="DeleteReplayFile_OnClick">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>

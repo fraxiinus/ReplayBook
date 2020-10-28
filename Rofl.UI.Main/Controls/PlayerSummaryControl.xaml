@@ -43,7 +43,7 @@
                             <MenuItem Header="{StaticResource CopyText}"
                                       Click="CopyTextBlock_Click">
                                 <MenuItem.Icon>
-                                    <ui:PathIcon Data="{StaticResource CopyIcon}"/>
+                                    <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
                                 </MenuItem.Icon>
                             </MenuItem>
                         </ContextMenu>
@@ -138,7 +138,7 @@
                         <MenuItem Header="{StaticResource CopyText}"
                                       Click="CopyTextBlock_Click">
                             <MenuItem.Icon>
-                                <ui:PathIcon Data="{StaticResource CopyIcon}"/>
+                                <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
                             </MenuItem.Icon>
                         </MenuItem>
                     </ContextMenu>
@@ -162,7 +162,7 @@
                         <MenuItem Header="{StaticResource CopyText}"
                                   Click="CopyTextBlock_Click">
                             <MenuItem.Icon>
-                                <ui:PathIcon Data="{StaticResource CopyIcon}"/>
+                                <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
                             </MenuItem.Icon>
                         </MenuItem>
                     </ContextMenu>
