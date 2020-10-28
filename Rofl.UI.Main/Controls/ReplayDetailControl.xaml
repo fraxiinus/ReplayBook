@@ -28,7 +28,7 @@
             
             <TextBlock Text="{StaticResource BlankDetailMessageText}"
                        TextAlignment="Center"
-                       Foreground="Gray"/>
+                       Foreground="{DynamicResource SystemControlPageTextBaseMediumBrush}"/>
         </StackPanel>
         
         <!--The actual replay content-->
@@ -63,16 +63,15 @@
                                     HorizontalAlignment="Right">
 
                             <Button x:Name="PlayButton"
-                                    Margin="0"
+                                    Margin="0 0 10 0"
                                     Width="100"
                                     Height="30"
                                     ToolTipService.ShowOnDisabled="True"
-                                    Background="Transparent"
-                                    BorderBrush="LightGray"
                                     Click="PlayButton_Click"
                                     HorizontalContentAlignment="Stretch">
                                 <Button.Style>
-                                    <Style TargetType="Button">
+                                    <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                                        <Setter Property="Padding" Value="0"/>
                                         <Style.Triggers>
                                             <!--Conditions to enable/disable button-->
                                             <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="True">
@@ -142,28 +141,9 @@
                             VerticalAlignment="Center"
                             Margin="10 0 0 0">
 
-                    <TextBlock FontSize="14"
-                               FontWeight="Bold"
-                               VerticalAlignment="Center"
-                               Margin="0 0 15 0">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Text" Value="VICTORY"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="True">
-                                        <Setter Property="TextBlock.Text" Value="{StaticResource BlueVictory}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="False">
-                                        <Setter Property="TextBlock.Text" Value="{StaticResource RedVictory}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-
-                    <!--<TextBlock Text="-" Padding="5 0 5 0"/>-->
                     <TextBlock Background="Transparent"
                                FontSize="14"
+                               FontWeight="Bold"
                                VerticalAlignment="Center"
                                Margin="0 0 15 0"
                                ToolTip="{StaticResource MapNameToolTip}"
@@ -226,48 +206,12 @@
 
                         <Grid x:Name="PlayerIconsGrid"
                               Grid.Row="0"
-                              Margin="165 0 8 0">
+                              Margin="165 10 8 0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                         </Grid>
-                        <!--<ListView x:Name="PlayerIconsListView"
-                                  ItemsSource="{Binding Path=AllPlayers}"
-                                  HorizontalAlignment="Stretch"
-                                  BorderBrush="Transparent"
-                                  Margin="162 0 10 0"
-                                  SizeChanged="PlayerIconsListView_SizeChanged"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="Focusable" Value="False"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    --><!--<Setter Property="Margin" Value="{Binding Path=StatsPlayerIconMargin, ElementName=ReplayDetailControlElement}"/>--><!--
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="ListViewItem">
-                                                <ContentPresenter/>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                            
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
-                                                             Height="50" Width="50"
-                                                             Margin="0"/>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>-->
-                        
+
                         <ScrollViewer x:Name="StatsScrollViewer"
                                       Margin="0 5 0 0" 
                                       VerticalScrollBarVisibility="Visible"
