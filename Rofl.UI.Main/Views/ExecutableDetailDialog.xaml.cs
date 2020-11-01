@@ -73,9 +73,9 @@ namespace Rofl.UI.Main.Views
                 _blockClose = true;
 
                 // show fly out
-                var flyout = new FlyoutHelper(false);
-                flyout.TextBlock.Text = TryFindResource("ExecutableSelectInvalidErrorText") as String;
-                flyout.Flyout.ShowAt(TargetTextBox);
+                var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as String);
+                flyout.ShowAt(TargetTextBox);
                 
                 return;
             }
@@ -102,9 +102,9 @@ namespace Rofl.UI.Main.Views
                 _blockClose = true;
 
                 // show fly out
-                var flyout = new FlyoutHelper(false);
-                flyout.TextBlock.Text = TryFindResource("ExecutableSaveNullText") as String;
-                flyout.Flyout.ShowAt(TargetTextBox);
+                var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                flyout.SetFlyoutLabelText(TryFindResource("ExecutableSaveNullText") as String);
+                flyout.ShowAt(TargetTextBox);
             }
         }
 
@@ -158,9 +158,9 @@ namespace Rofl.UI.Main.Views
                         _blockClose = true;
 
                         // show fly out
-                        var flyout = new FlyoutHelper(false);
-                        flyout.TextBlock.Text = TryFindResource("ExecutableSelectInvalidErrorText") as String;
-                        flyout.Flyout.ShowAt(TargetButton);
+                        var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                        flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as String);
+                        flyout.ShowAt(TargetButton);
                     }
                 }
             }
@@ -171,9 +171,9 @@ namespace Rofl.UI.Main.Views
             if (_executable == null)
             {
                 // show fly out
-                var flyout = new FlyoutHelper(false);
-                flyout.TextBlock.Text = TryFindResource("ExecutableSelectInvalidErrorText") as String;
-                flyout.Flyout.ShowAt(EditLaunchArgsButton);
+                var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as String);
+                flyout.ShowAt(EditLaunchArgsButton);
 
                 return;
             }

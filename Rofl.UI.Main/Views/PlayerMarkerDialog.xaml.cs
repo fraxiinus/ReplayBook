@@ -71,9 +71,9 @@ namespace Rofl.UI.Main.Views
                 // Show error
                 _blockClose = true;
 
-                var flyout = new FlyoutHelper(false);
-                flyout.TextBlock.Text = TryFindResource("PlayerMarkerNameIsEmptyErrorText") as String;
-                flyout.Flyout.ShowAt(NameTextBox);
+                var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                flyout.SetFlyoutLabelText(TryFindResource("PlayerMarkerNameIsEmptyErrorText") as String);
+                flyout.ShowAt(NameTextBox);
 
                 return;
             }
@@ -94,9 +94,9 @@ namespace Rofl.UI.Main.Views
                     var errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String)
                         .Replace("$", inputName);
 
-                    var flyout = new FlyoutHelper(false);
-                    flyout.TextBlock.Text = errorText;
-                    flyout.Flyout.ShowAt(NameTextBox);
+                    var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                    flyout.SetFlyoutLabelText(errorText);
+                    flyout.ShowAt(NameTextBox);
 
                     return;
                 }
@@ -128,9 +128,9 @@ namespace Rofl.UI.Main.Views
                     var errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String)
                         .Replace("$", inputName);
 
-                    var flyout = new FlyoutHelper(false);
-                    flyout.TextBlock.Text = errorText;
-                    flyout.Flyout.ShowAt(NameTextBox);
+                    var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                    flyout.SetFlyoutLabelText(errorText);
+                    flyout.ShowAt(NameTextBox);
 
                     return;
                 }

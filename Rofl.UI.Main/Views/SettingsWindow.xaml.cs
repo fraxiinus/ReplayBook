@@ -136,21 +136,21 @@ namespace Rofl.UI.Main.Views
             if (!(KnownPlayersListBox.SelectedItem is PlayerMarker selectedPlayer)) { return; }
 
             // Create confirmation flyout
-            var confirmFlyout = new FlyoutHelper();
-            confirmFlyout.Button.Content = TryFindResource("YesText") as String;
-            confirmFlyout.TextBlock.Text = TryFindResource("ConfirmText") as String;
+            var confirmFlyout = FlyoutHelper.CreateFlyout();
+            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as String);
+            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as String);
 
-            confirmFlyout.Button.Click += (object eSender, RoutedEventArgs eConfirm) =>
+            confirmFlyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 context.Settings.KnownPlayers.Remove(selectedPlayer);
 
                 EditKnownPlayerButton.IsEnabled = false;
                 RemoveKnownPlayerButton.IsEnabled = false;
-                confirmFlyout.Flyout.Hide();
+                confirmFlyout.Hide();
             };
 
             // Show the flyout
-            confirmFlyout.Flyout.ShowAt(RemoveKnownPlayerButton);
+            confirmFlyout.ShowAt(RemoveKnownPlayerButton);
         }
 
         private void KnownPlayersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -288,21 +288,21 @@ namespace Rofl.UI.Main.Views
             if (!(SourceFoldersListBox.SelectedItem is String selectedFolder)) { return; }
 
             // Create confirmation flyout
-            var confirmFlyout = new FlyoutHelper();
-            confirmFlyout.Button.Content = TryFindResource("YesText") as String;
-            confirmFlyout.TextBlock.Text = TryFindResource("ConfirmText") as String;
+            var confirmFlyout = FlyoutHelper.CreateFlyout();
+            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as String);
+            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as String);
 
-            confirmFlyout.Button.Click += (object eSender, RoutedEventArgs eConfirm) =>
+            confirmFlyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 context.Settings.SourceFolders.Remove(selectedFolder);
 
                 EditSourceFolderButton.IsEnabled = false;
                 RemoveSourceFolderButton.IsEnabled = false;
-                confirmFlyout.Flyout.Hide();
+                confirmFlyout.Hide();
             };
 
             // Show the flyout
-            confirmFlyout.Flyout.ShowAt(RemoveSourceFolderButton);
+            confirmFlyout.ShowAt(RemoveSourceFolderButton);
         }
 
         private void ExecutableFoldersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -429,23 +429,23 @@ namespace Rofl.UI.Main.Views
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
             if (!(ExecutableFoldersListBox.SelectedItem is String selectedFolder)) { return; }
-            
-            // Create confirmation flyout
-            var confirmFlyout = new FlyoutHelper();
-            confirmFlyout.Button.Content = TryFindResource("YesText") as String;
-            confirmFlyout.TextBlock.Text = TryFindResource("ConfirmText") as String;
 
-            confirmFlyout.Button.Click += (object eSender, RoutedEventArgs eConfirm) =>
+            // Create confirmation flyout
+            var confirmFlyout = FlyoutHelper.CreateFlyout();
+            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as String);
+            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as String);
+
+            confirmFlyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 context.Executables.Settings.SourceFolders.Remove(selectedFolder);
 
                 EditExecutableFolderButton.IsEnabled = false;
                 RemoveExecutableFolderButton.IsEnabled = false;
-                confirmFlyout.Flyout.Hide();
+                confirmFlyout.Hide();
             };
 
             // Show the flyout
-            confirmFlyout.Flyout.ShowAt(RemoveExecutableFolderButton);
+            confirmFlyout.ShowAt(RemoveExecutableFolderButton);
         }
 
         private void SourceFoldersSearchButton_Click(object sender, RoutedEventArgs e)
@@ -510,21 +510,21 @@ namespace Rofl.UI.Main.Views
             if (!(ExecutablesListBox.SelectedItem is LeagueExecutable selectedExecutable)) { return; };
 
             // Create confirmation flyout
-            var confirmFlyout = new FlyoutHelper();
-            confirmFlyout.Button.Content = TryFindResource("YesText") as String;
-            confirmFlyout.TextBlock.Text = TryFindResource("ConfirmText") as String;
+            var confirmFlyout = FlyoutHelper.CreateFlyout();
+            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as String);
+            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as String);
 
-            confirmFlyout.Button.Click += (object eSender, RoutedEventArgs eConfirm) =>
+            confirmFlyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 context.Executables.DeleteExecutable(selectedExecutable.Name);
 
                 EditExecutableButton.IsEnabled = false;
                 RemoveExecutableButton.IsEnabled = false;
-                confirmFlyout.Flyout.Hide();
+                confirmFlyout.Hide();
             };
 
             // Show the flyout
-            confirmFlyout.Flyout.ShowAt(RemoveExecutableButton);
+            confirmFlyout.ShowAt(RemoveExecutableButton);
         }
 
         private void SetFileAssocButton_Click(object sender, RoutedEventArgs e)
