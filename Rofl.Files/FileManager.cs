@@ -143,7 +143,14 @@ namespace Rofl.Files
 
             _log.Information($"Renaming {file.Id} -> {newPath}");
             // Rename the file
-            File.Move(file.Id, newPath);
+            try
+            {
+                File.Move(file.Id, newPath);
+            }
+            catch (IOException e)
+            {
+                return e.Message;
+            }            
 
             // delete the database entry
             _db.RemoveFileResult(file.Id);
@@ -160,7 +167,8 @@ namespace Rofl.Files
             var newFileResult = new FileResult(fileInfo, replayFile);
             _db.AddFileResult(newFileResult);
 
-            return newPath;
+            // Return value is an error message, no message means no error
+            return null;
         }
 
         /// <summary>

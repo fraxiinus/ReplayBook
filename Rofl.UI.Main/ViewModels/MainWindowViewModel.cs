@@ -548,6 +548,22 @@ namespace Rofl.UI.Main.ViewModels
             }
         }
 
+        public async Task<string> RenameFile(ReplayPreview preview, string newText)
+        {
+            if (preview == null) throw new ArgumentNullException(nameof(preview));
+
+            var replay = FileResults[preview.Location];
+
+            var error = _fileManager.RenameFile(replay, newText);
+
+            if (error == null)
+            {
+                await ReloadReplayList().ConfigureAwait(false);
+            }
+
+            return error;
+        }
+
         public async Task DeleteReplayFile(ReplayPreview preview)
         {
             if (preview == null) throw new ArgumentNullException(nameof(preview));

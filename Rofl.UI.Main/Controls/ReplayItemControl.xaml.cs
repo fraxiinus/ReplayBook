@@ -1,11 +1,14 @@
 ﻿using Rofl.UI.Main.Models;
+using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Rofl.UI.Main.Controls
 {
@@ -67,12 +70,54 @@ namespace Rofl.UI.Main.Controls
             context.ShowExportReplayDataWindow(replay);
         }
 
-        private async void RenameReplayFile_OnClick(object sender, RoutedEventArgs e)
+        private void RenameReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
             if (!(this.DataContext is ReplayPreview replay)) { return; }
 
-            await context.ShowRenameDialog(replay).ConfigureAwait(false);
+            var flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: true);
+            flyout.GetFlyoutLabel().Visibility = Visibility.Collapsed;
+            flyout.SetFlyoutButtonText(TryFindResource("RenameReplayFile") as String);
+
+            // Create textbox to add as flyout custom element
+            var fileNameBox = new TextBox
+            {
+                Text = replay.Name,
+                Width = 200
+            };
+            Grid.SetColumn(fileNameBox, 0);
+            Grid.SetRow(fileNameBox, 1);
+            (flyout.Content as Grid).Children.Add(fileNameBox);
+
+            // Handle save button
+            flyout.GetFlyoutButton().IsDefault = true;
+            flyout.GetFlyoutButton().Click += async (object eSender, RoutedEventArgs eConfirm) =>
+            {
+                var error = await context.RenameFile(replay, fileNameBox.Text).ConfigureAwait(false);
+                
+                if (error != null)
+                {
+                    flyout.SetFlyoutLabelText(error);
+                    flyout.GetFlyoutLabel().Visibility = Visibility.Visible;
+                    flyout.GetFlyoutLabel().Foreground = TryFindResource("SystemControlErrorTextForegroundBrush") as Brush;
+                    fileNameBox.Margin = new Thickness(0, 12, 0, 0);
+                }
+                else
+                {
+                    this.Dispatcher.Invoke(() =>
+                    {
+                        flyout.Hide();
+                    });
+                }
+            };
+
+            flyout.ShowAt(FilenameText);
+            fileNameBox.Focus();
+        }
+
+        private void FileNameBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private async void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
