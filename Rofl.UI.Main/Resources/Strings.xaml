@@ -254,7 +254,7 @@
     <string:String x:Key="FileDateToolTip">File creation date</string:String>
     <string:String x:Key="MatchIdToolTip">Match ID</string:String>
     <string:String x:Key="FileSizeToolTip">File size</string:String>
-    <string:String x:Key="MapNameToolTip">Map name (best guess)</string:String>
+    <string:String x:Key="MapNameToolTip">Map (best guess)</string:String>
     <string:String x:Key="GameVersionToolTip">Game version</string:String>
 
     <string:String x:Key="LevelToolTip">Level</string:String>
@@ -345,6 +345,7 @@
     <string:String x:Key="WswFinishButton">Finish</string:String>
 
     <!--Rename dialog-->
+    <string:String x:Key="RenameFlyoutEmptyError">Enter valid file name</string:String>
     <string:String x:Key="RenameDialogTitle">Rename file...</string:String>
     <string:String x:Key="RenameDialogInvalidCharacters">A file name can't contain any of the following characters:{n}{t}\/:*?&lt;&gt;|</string:String>
     

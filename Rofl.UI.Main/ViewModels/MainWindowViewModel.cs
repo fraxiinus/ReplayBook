@@ -525,42 +525,55 @@ namespace Rofl.UI.Main.ViewModels
             }
         }
       
-        public async Task ShowRenameDialog(ReplayPreview preview)
-        {
-            if (preview == null) throw new ArgumentNullException(nameof(preview));
+        //public async Task ShowRenameDialog(ReplayPreview preview)
+        //{
+        //    if (preview == null) throw new ArgumentNullException(nameof(preview));
 
-            var replay = FileResults[preview.Location];
+        //    var replay = FileResults[preview.Location];
 
-            var renameDialog = new RenameFileDialog
-            {
-                FileName = Path.GetFileNameWithoutExtension(replay.Id),
-                Top = App.Current.MainWindow.Top + 50,
-                Left = App.Current.MainWindow.Left + 50
-            };
+        //    var renameDialog = new RenameFileDialog
+        //    {
+        //        FileName = Path.GetFileNameWithoutExtension(replay.Id),
+        //        Top = App.Current.MainWindow.Top + 50,
+        //        Left = App.Current.MainWindow.Left + 50
+        //    };
 
-            if (renameDialog.ShowDialog().Equals(true))
-            {
-                // Okay
-                if(_fileManager.RenameFile(replay, renameDialog.FileName) != null)
-                {
-                    await ReloadReplayList().ConfigureAwait(false);
-                }
-            }
-        }
+        //    if (renameDialog.ShowDialog().Equals(true))
+        //    {
+        //        // Okay
+        //        if(_fileManager.RenameFile(replay, renameDialog.FileName) != null)
+        //        {
+        //            await ReloadReplayList().ConfigureAwait(false);
+        //        }
+        //    }
+        //}
 
+        /// <summary>
+        /// Renames a given replay and refreshes the list
+        /// </summary>
+        /// <param name="preview"></param>
+        /// <param name="newText"></param>
+        /// <returns></returns>
         public async Task<string> RenameFile(ReplayPreview preview, string newText)
         {
             if (preview == null) throw new ArgumentNullException(nameof(preview));
 
+            // Get the full replay object, it contains more information
             var replay = FileResults[preview.Location];
 
+            // Ask the file manager to rename the replay
             var error = _fileManager.RenameFile(replay, newText);
 
+            // If the request returned nothing, it worked
             if (error == null)
             {
                 await ReloadReplayList().ConfigureAwait(false);
+            } // User entered nothing, change message
+            else if (error == "{EMPTY ERROR}")
+            {
+                error = Application.Current.TryFindResource("RenameFlyoutEmptyError") as string;
             }
-
+            // Return error 
             return error;
         }
 

@@ -5,6 +5,7 @@ using Rofl.Reader;
 using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -134,12 +135,12 @@ namespace Rofl.Files
             return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
         }
 
-        public string RenameFile(FileResult file, string newName)
+        public string RenameFile(FileResult file, string fileName)
         {
             if (file == null) throw new ArgumentNullException(nameof(file));
-            if (String.IsNullOrEmpty(newName)) throw new ArgumentNullException(nameof(newName));
+            if (String.IsNullOrEmpty(fileName)) return "{EMPTY ERROR}";
 
-            var newPath = Path.Combine(Path.GetDirectoryName(file.Id), newName + ".rofl");
+            var newPath = Path.Combine(Path.GetDirectoryName(file.Id), fileName + ".rofl");
 
             _log.Information($"Renaming {file.Id} -> {newPath}");
             // Rename the file
@@ -147,21 +148,21 @@ namespace Rofl.Files
             {
                 File.Move(file.Id, newPath);
             }
-            catch (IOException e)
+            catch (Exception e)
             {
-                return e.Message;
-            }            
+                return e.Message.Trim();
+            }
 
             // delete the database entry
             _db.RemoveFileResult(file.Id);
 
             // Update new values
             var fileInfo = file.FileInfo;
-            fileInfo.Name = newName;
+            fileInfo.Name = fileName;
             fileInfo.Path = newPath;
 
             var replayFile = file.ReplayFile;
-            replayFile.Name = newName;
+            replayFile.Name = fileName;
             replayFile.Location = newPath;
 
             var newFileResult = new FileResult(fileInfo, replayFile);

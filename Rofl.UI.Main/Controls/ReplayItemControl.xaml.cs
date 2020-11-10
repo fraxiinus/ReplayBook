@@ -83,7 +83,7 @@ namespace Rofl.UI.Main.Controls
             var fileNameBox = new TextBox
             {
                 Text = replay.Name,
-                Width = 200
+                MinWidth = 200
             };
             Grid.SetColumn(fileNameBox, 0);
             Grid.SetRow(fileNameBox, 1);
@@ -97,10 +97,10 @@ namespace Rofl.UI.Main.Controls
                 
                 if (error != null)
                 {
-                    flyout.SetFlyoutLabelText(error);
+                    flyout.SetFlyoutLabelText(error.Replace('\n', ' '));
                     flyout.GetFlyoutLabel().Visibility = Visibility.Visible;
                     flyout.GetFlyoutLabel().Foreground = TryFindResource("SystemControlErrorTextForegroundBrush") as Brush;
-                    fileNameBox.Margin = new Thickness(0, 12, 0, 0);
+                    fileNameBox.Margin = new Thickness(0, 0, 0, 0);
                 }
                 else
                 {

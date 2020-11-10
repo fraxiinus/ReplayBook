@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace Rofl.UI.Main.Utilities
 
             var rowOne = new RowDefinition
             {
-                Height = new GridLength(1, GridUnitType.Star)
+                Height = new GridLength(1, GridUnitType.Auto)
             };
             var rowTwo = new RowDefinition
             {
@@ -51,7 +52,9 @@ namespace Rofl.UI.Main.Utilities
             var label = new TextBlock
             {
                 Name = "LabelTextBlock",
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Padding = new Thickness(0, 0, 0, 0),
+                Margin = new Thickness(0, 0, 0, 12)
             };
             Grid.SetRow(label, 0);
             Grid.SetColumn(label, 0);
