@@ -252,5 +252,9 @@ namespace Rofl.UI.Main
             _log.WriteLog();
         }
 
+        public void SelectReplayItem(ReplayPreview replay)
+        {
+            ReplayListView.SelectedItem = replay;
+        }
     }
 }

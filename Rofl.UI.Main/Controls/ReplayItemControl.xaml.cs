@@ -40,7 +40,12 @@ namespace Rofl.UI.Main.Controls
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!(Window.GetWindow(this) is MainWindow mainWindow)) { return; }
+            if (!(this.DataContext is ReplayPreview replay)) { return; }
             if (!(sender is Button moreButton)) { return; }
+
+            // Select the item
+            mainWindow.SelectReplayItem(replay);
 
             // Get the button and menu
             ContextMenu contextMenu = moreButton.ContextMenu;
