@@ -52,15 +52,18 @@ namespace Rofl.UI.Main.Utilities
             var label = new TextBlock
             {
                 Name = "LabelTextBlock",
-                VerticalAlignment = VerticalAlignment.Bottom,
-                Padding = new Thickness(0, 0, 0, 0),
-                Margin = new Thickness(0, 0, 0, 12)
+                VerticalAlignment = VerticalAlignment.Center,
+                Padding = new Thickness(0, 0, 0, 0)
             };
             Grid.SetRow(label, 0);
             Grid.SetColumn(label, 0);
 
             // if there is a custom item at (0, 1) span label across two columns
-            if (includeCustom) Grid.SetColumnSpan(label, 2);
+            if (includeCustom)
+            {
+                label.Margin = new Thickness(0, 0, 0, 12);
+                Grid.SetColumnSpan(label, 2);
+            }
 
             var button = new Button
             {

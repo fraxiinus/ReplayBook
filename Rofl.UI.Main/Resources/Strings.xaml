@@ -349,4 +349,7 @@
     <string:String x:Key="RenameDialogTitle">Rename file...</string:String>
     <string:String x:Key="RenameDialogInvalidCharacters">A file name can't contain any of the following characters:{n}{t}\/:*?&lt;&gt;|</string:String>
     
+    <!--Delete dialog-->
+    <string:String x:Key="DeleteFlyoutLabel">Are you sure?</string:String>
+    
 </ResourceDictionary>

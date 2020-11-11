@@ -128,12 +128,33 @@ namespace Rofl.UI.Main.Controls
             throw new NotImplementedException();
         }
 
-        private async void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
+        private void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
             if (!(this.DataContext is ReplayPreview replay)) { return; }
 
-            await context.DeleteReplayFile(replay).ConfigureAwait(false);
+            // create the flyout
+            var flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: false);
+
+            // set the flyout texts
+            flyout.SetFlyoutButtonText(TryFindResource("DeleteReplayFile") as String);
+            flyout.SetFlyoutLabelText(TryFindResource("DeleteFlyoutLabel") as String);
+            
+            // set button click function
+            flyout.GetFlyoutButton().Click += async (object eSender, RoutedEventArgs eConfirm) =>
+            {
+                await context.DeleteReplayFile(replay).ConfigureAwait(false);
+
+                // Hide the flyout
+                this.Dispatcher.Invoke(() =>
+                {
+                    flyout.Hide();
+                });
+            };
+
+            // Show the flyout and focus it
+            flyout.ShowAt(FilenameText);
+            flyout.GetFlyoutButton().Focus();
         }
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
