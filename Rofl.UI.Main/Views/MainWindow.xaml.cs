@@ -188,15 +188,16 @@ namespace Rofl.UI.Main
 
             if (context.LoadReplays() == 0)
             {
-                MessageBox.Show(
-                    TryFindResource("NoReplaysFoundText") as string,
-                    TryFindResource("NoReplaysFoundTitle") as string,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                // Create and show flyout above the button
+                var flyout = FlyoutHelper.CreateFlyout(includeButton: false, includeCustom: false);
+                flyout.SetFlyoutLabelText(TryFindResource("NoReplaysFoundTitle") as string);
+
+                flyout.ShowAt(LoadMoreButton);
+
                 return;
             }
 
+            ReplayPageBar.Visibility = Visibility.Collapsed;
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
 

@@ -183,8 +183,9 @@
                     <Button x:Name="LoadMoreButton"
                             Content="{StaticResource LoadMoreButtonText}"
                             FontSize="14"
-                            Padding="2"
-                            Click="LoadMoreButton_Click"/>
+                            Margin="5"
+                            Click="LoadMoreButton_Click"
+                            HorizontalAlignment="Stretch"/>
                 </Grid>
             </Grid>
         </Border>
