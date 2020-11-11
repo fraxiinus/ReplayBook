@@ -95,13 +95,14 @@ namespace Rofl.UI.Main.Controls
             (flyout.Content as Grid).Children.Add(fileNameBox);
 
             // Handle save button
-            flyout.GetFlyoutButton().IsDefault = true;
             flyout.GetFlyoutButton().Click += async (object eSender, RoutedEventArgs eConfirm) =>
             {
+                // Rename the file and see if an error was returned
                 var error = await context.RenameFile(replay, fileNameBox.Text).ConfigureAwait(false);
                 
                 if (error != null)
                 {
+                    // Display the error using the label
                     flyout.SetFlyoutLabelText(error.Replace('\n', ' '));
                     flyout.GetFlyoutLabel().Visibility = Visibility.Visible;
                     flyout.GetFlyoutLabel().Foreground = TryFindResource("SystemControlErrorTextForegroundBrush") as Brush;
@@ -109,6 +110,7 @@ namespace Rofl.UI.Main.Controls
                 }
                 else
                 {
+                    // Hide the flyout
                     this.Dispatcher.Invoke(() =>
                     {
                         flyout.Hide();
@@ -116,6 +118,7 @@ namespace Rofl.UI.Main.Controls
                 }
             };
 
+            // Show the flyout and focus it
             flyout.ShowAt(FilenameText);
             fileNameBox.Focus();
         }
