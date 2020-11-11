@@ -58,20 +58,25 @@ namespace Rofl.UI.Main.Utilities
             };
             Grid.SetRow(label, 0);
             Grid.SetColumn(label, 0);
+
+            // if there is a custom item at (0, 1) span label across two columns
             if (includeCustom) Grid.SetColumnSpan(label, 2);
 
             var button = new Button
             {
                 Name = "PrimaryButton",
-                Margin = new Thickness(12, 0, 0, 0)
+                Margin = new Thickness(12, 0, 0, 0),
+                IsDefault = true // default makes the button accented + enter key
             };
             Grid.SetColumn(button, 1);
             if (includeCustom) Grid.SetRow(button, 1);
             else Grid.SetRow(button, 0);
 
+            // Include the controls to the flyout grid
             contentPanel.Children.Add(label);
             if (includeButton) contentPanel.Children.Add(button);
 
+            // Apply the template so that the visual tree is built
             contentPanel.ApplyTemplate();
 
             return new Flyout
