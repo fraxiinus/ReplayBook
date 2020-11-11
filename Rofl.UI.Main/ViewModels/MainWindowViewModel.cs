@@ -507,6 +507,9 @@ namespace Rofl.UI.Main.ViewModels
             SettingsManager.Executables.Settings.DefaultLocale = initialSettings.DefaultRegionLocale;
         }
 
+        /// <summary>
+        /// Function is called at the start of the program, checking for invalid replay paths
+        /// </summary>
         public void ShowMissingReplayFoldersMessageBox()
         {
             // Check if replay paths are missing, if so remove them
