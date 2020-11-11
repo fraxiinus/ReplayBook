@@ -182,6 +182,11 @@ namespace Rofl.UI.Main
             }
         }
 
+        /// <summary>
+        /// Handler for LoadMoreButton
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void LoadMoreButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
@@ -197,6 +202,7 @@ namespace Rofl.UI.Main
                 return;
             }
 
+            // Hide the button bar once we've loaded more
             ReplayPageBar.Visibility = Visibility.Collapsed;
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
