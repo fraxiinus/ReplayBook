@@ -1,4 +1,5 @@
 ﻿using Etirps.RiZhi;
+using ModernWpf.Controls;
 using Rofl.Executables.Models;
 using Rofl.Executables.Utilities;
 using Rofl.Files;
@@ -52,7 +53,7 @@ namespace Rofl.UI.Main.Utilities
             {
                 _log.Information($"More than one possible executable, asking user...");
                 // More than one?????
-                target = ShowChooseReplayDialog(executables);
+                target = await ShowChooseReplayDialog(executables).ConfigureAwait(true);
                 if (target == null) return null;
             }
             else
@@ -79,20 +80,17 @@ namespace Rofl.UI.Main.Utilities
             return target.PlayReplay(replay.FileInfo.Path);
         }
 
-        private static LeagueExecutable ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
+        private static async Task<LeagueExecutable> ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
         {
-            var selectWindow = new ExecutableSelectWindow
+            var dialog = new ExecutableSelectDialog
             {
-                Top = App.Current.MainWindow.Top + 50,
-                Left = App.Current.MainWindow.Left + 50,
-                DataContext = executables,
+                Owner = Application.Current.MainWindow,
+                DataContext = executables
             };
 
-            if (selectWindow.ShowDialog().Equals(true))
-            {
-                return selectWindow.Selection;
-            }
-            return null;
+            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+
+            return dialog.Selection;
         }
     }
 }

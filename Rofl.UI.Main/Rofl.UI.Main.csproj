@@ -131,8 +131,8 @@
     <Compile Include="Views\ExecutableLaunchArgsWindow.xaml.cs">
       <DependentUpon>ExecutableLaunchArgsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExecutableSelectWindow.xaml.cs">
-      <DependentUpon>ExecutableSelectWindow.xaml</DependentUpon>
+    <Compile Include="Views\ExecutableSelectDialog.xaml.cs">
+      <DependentUpon>ExecutableSelectDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GenericMessageDialog.xaml.cs">
       <DependentUpon>GenericMessageDialog.xaml</DependentUpon>
@@ -244,7 +244,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ExecutableSelectWindow.xaml">
+    <Page Include="Views\ExecutableSelectDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
