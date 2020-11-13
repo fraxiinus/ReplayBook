@@ -64,16 +64,32 @@ namespace Rofl.UI.Main.Utilities
             if (_settingsManager.Settings.PlayConfirmation)
             {
                 _log.Information($"Asking user for confirmation");
-                // Show confirmation dialog
-                var msgResult = MessageBox.Show
-                    (
-                        Application.Current.TryFindResource("ReplayPlayConfirmationText") as string,
-                        Application.Current.TryFindResource("ReplayPlayConfirmationText") as string,
-                        MessageBoxButton.OKCancel,
-                        MessageBoxImage.Question
-                    );
+                // Creating content dialog
+                var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: true);
+                dialog.DefaultButton = ContentDialogButton.Primary;
 
-                if (msgResult != MessageBoxResult.OK) return null;
+                dialog.PrimaryButtonText = Application.Current.TryFindResource("YesText") as string;
+                dialog.SecondaryButtonText = Application.Current.TryFindResource("NoText") as string;
+                dialog.Title = Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string;
+                dialog.SetLabelText(Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string);
+
+                // Handle both primary and secondary button clicks
+                dialog.PrimaryButtonClick += (ContentDialog sender, ContentDialogButtonClickEventArgs args) =>
+                {
+                    dialog.Hide();
+                };
+
+                dialog.CloseButtonClick += (ContentDialog sender, ContentDialogButtonClickEventArgs args) =>
+                {
+                    dialog.Hide();
+                };
+
+                // Only continue if the user pressed the yes button
+                var dialogResult = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                if (dialogResult != ContentDialogResult.Primary)
+                {
+                    return null;
+                }
             }
 
             _log.Information($"Using {target.Name} to play replay {replay.FileInfo.Path}");

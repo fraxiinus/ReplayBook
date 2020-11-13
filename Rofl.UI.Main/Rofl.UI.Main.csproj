@@ -115,6 +115,7 @@
     <Compile Include="Pages\WelcomeSetupReplays.xaml.cs">
       <DependentUpon>WelcomeSetupReplays.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\ContentDialogHelper.cs" />
     <Compile Include="Utilities\DictionaryExtensions.cs" />
     <Compile Include="Utilities\ExportHelper.cs" />
     <Compile Include="Utilities\FileAssociations.cs" />

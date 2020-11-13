@@ -100,7 +100,8 @@
     <string:String x:Key="ExecutableSelectWindowTitleText">Select Executable</string:String>
     <string:String x:Key="ExecutableNotFoundErrorTitle">No match</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">No matching executable found for patch</string:String>
-    <string:String x:Key="ReplayPlayConfirmationText">Play replay?</string:String>
+    <string:String x:Key="ReplayPlayConfirmTitle">Play replay?</string:String>
+    <string:String x:Key="ReplayPlayConfirmOptOut">You can turn off this confirmation in the settings window</string:String>
 
     <string:String x:Key="WebRequestsUseMostRecentText">Always use most recent API version</string:String>
     
