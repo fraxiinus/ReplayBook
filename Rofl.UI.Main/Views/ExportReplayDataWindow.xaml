@@ -77,7 +77,6 @@
         </Grid>
 
         <GridSplitter Grid.Row="0" Grid.Column="1"
-                      Width="5"
                       Background="Transparent"
                       HorizontalAlignment="Stretch"/>
 
@@ -140,8 +139,7 @@
             </ListBox>
         </Grid>
 
-        <GridSplitter Grid.Row="0" Grid.Column="3" 
-                      Width="5" 
+        <GridSplitter Grid.Row="0" Grid.Column="3"
                       Background="Transparent"
                       HorizontalAlignment="Stretch"/>
         
@@ -216,8 +214,7 @@
             </ListBox>
         </Grid>
 
-        <GridSplitter Grid.Row="1" Grid.ColumnSpan="5" 
-                      Height="5" 
+        <GridSplitter Grid.Row="1" Grid.ColumnSpan="5"
                       Background="Transparent"
                       HorizontalAlignment="Stretch">
         </GridSplitter>
