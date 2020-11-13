@@ -527,29 +527,6 @@ namespace Rofl.UI.Main.ViewModels
                 );
             }
         }
-      
-        //public async Task ShowRenameDialog(ReplayPreview preview)
-        //{
-        //    if (preview == null) throw new ArgumentNullException(nameof(preview));
-
-        //    var replay = FileResults[preview.Location];
-
-        //    var renameDialog = new RenameFileDialog
-        //    {
-        //        FileName = Path.GetFileNameWithoutExtension(replay.Id),
-        //        Top = App.Current.MainWindow.Top + 50,
-        //        Left = App.Current.MainWindow.Left + 50
-        //    };
-
-        //    if (renameDialog.ShowDialog().Equals(true))
-        //    {
-        //        // Okay
-        //        if(_fileManager.RenameFile(replay, renameDialog.FileName) != null)
-        //        {
-        //            await ReloadReplayList().ConfigureAwait(false);
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// Renames a given replay and refreshes the list
