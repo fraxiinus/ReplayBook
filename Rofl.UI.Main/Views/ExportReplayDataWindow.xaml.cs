@@ -397,5 +397,20 @@ namespace Rofl.UI.Main.Views
             else if (src.Name != null && !src.Name.Contains(filterText.ToUpper(CultureInfo.InvariantCulture)))// here is FirstName a Property in my YourCollectionItem
                 e.Accepted = false;
         }
+
+        private void PreviewBlock_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var currentHeight = MainGrid.RowDefinitions[2].Height;
+            var minHeight = MainGrid.RowDefinitions[2].MinHeight;
+
+            if (currentHeight.Value == minHeight)
+            {
+                MainGrid.RowDefinitions[2].Height = new GridLength(200);
+            }
+            else
+            {
+                MainGrid.RowDefinitions[2].Height = new GridLength(minHeight);
+            }
+        }
     }
 }

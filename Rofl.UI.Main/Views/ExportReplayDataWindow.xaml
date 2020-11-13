@@ -13,7 +13,8 @@
         Loaded="ExportReplayDataWindow_OnLoaded"
         ui:WindowHelper.UseModernWindowStyle="True">
     
-    <Grid Margin="12">
+    <Grid Margin="12"
+          x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" MinWidth="25"/>
             <ColumnDefinition Width="12"/>
@@ -227,6 +228,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
                        Text="{StaticResource ErdPreviewTitle}"
+                       MouseLeftButtonUp="PreviewBlock_MouseLeftButtonUp"
                        FontSize="16"
                        Margin="0 0 0 12"/>
             <TextBox x:Name="PreviewStringTextBox"
