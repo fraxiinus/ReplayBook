@@ -5,37 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         xmlns:models="clr-namespace:Rofl.UI.Main.Models"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="{StaticResource ErdTitleText}" 
         Height="650" Width="800"
         MinHeight="300" MinWidth="600"
-        Loaded="ExportReplayDataWindow_OnLoaded">
-    <Grid>
+        Loaded="ExportReplayDataWindow_OnLoaded"
+        ui:WindowHelper.UseModernWindowStyle="True">
+    
+    <Grid Margin="12">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" MinWidth="25"/>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="12"/>
             <ColumnDefinition Width="*" MinWidth="25"/>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="12"/>
             <ColumnDefinition Width="*" MinWidth="25"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" MinHeight="75"/>
-            <RowDefinition Height="5"/>
-            <RowDefinition Height="*" MinHeight="25"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="*" MinHeight="45"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0"
-              Margin="5 5 2 5">
+        <Grid Grid.Column="0" Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0"
-                       Margin="0 0 0 2"
+                       Margin="0 0 0 12"
                        Text="{StaticResource ErdLevel1TitleText}"
-                       FontSize="14"/>
+                       FontSize="16"/>
 
             <ListBox Grid.Row="1"
                      x:Name="LevelOneSelectBox"
@@ -47,19 +49,25 @@
                         <MenuItem Header="{StaticResource ErdDeselectAllItems}" Click="DeselectAllMenuItem_OnClick"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                        <Setter Property="Height" Value="38"/>
+                        <Setter Property="Padding" Value="8"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="models:ExportSelectItem">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal"
+                                    ToolTip="{Binding Path=Value}">
                             <CheckBox Content="{Binding Path=Name}" 
-                                      IsChecked="{Binding Path=Checked}" 
-                                      ToolTip="{Binding Path=Name}"
+                                      IsChecked="{Binding Path=Checked}"
                                       Checked="LevelOne_CheckChanged" 
+                                      Width="150"
                                       Unchecked="LevelOne_CheckChanged"/>
                             <TextBlock Text="{Binding Path=Value}"
-                                       FontSize="10"
-                                       VerticalAlignment="Stretch"
-                                       Padding="5 0 5 0"
-                                       Margin="5 0 0 0"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Padding="5 3 5 3"
                                        Foreground="{StaticResource LightTextColor}"
                                        Background="{StaticResource AccentColorLight2}"/>
                         </StackPanel>
@@ -73,17 +81,16 @@
                       Background="Transparent"
                       HorizontalAlignment="Stretch"/>
 
-        <Grid Grid.Column="2" Grid.Row="0"
-              Margin="2 5 2 5">
+        <Grid Grid.Column="2" Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0"
-                       Margin="0 0 0 2"
+                       Margin="0 0 0 12"
                        Text="{StaticResource ErdLevel2TitleText}"
-                       FontSize="14"/>
+                       FontSize="16"/>
 
             <ListBox Grid.Row="1"
                      x:Name="LevelTwoSelectBox"
@@ -97,22 +104,37 @@
                         <MenuItem Header="{StaticResource ErdDeselectAllItems}" Click="DeselectAllMenuItem_OnClick"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                        <Setter Property="Height" Value="38"/>
+                        <Setter Property="Padding" Value="8"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="models:ExportSelectItem">
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox Content="{Binding Path=Name}" 
-                                      IsChecked="{Binding Path=Checked}" 
-                                      ToolTip="{Binding Path=Name}"
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox IsChecked="{Binding Path=Checked}"
                                       Checked="LevelTwo_CheckChanged" 
-                                      Unchecked="LevelTwo_CheckChanged"/>
+                                      Unchecked="LevelTwo_CheckChanged"
+                                      Grid.Column="0">
+                                <TextBlock Text="{Binding Path=Name}"
+                                           TextTrimming="CharacterEllipsis"/>
+                            </CheckBox>
                             <TextBlock Text="{Binding Path=Value}"
-                                       FontSize="10"
-                                       VerticalAlignment="Stretch"
-                                       Padding="5 0 5 0"
-                                       Margin="5 0 0 0"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Padding="5 3 5 3"
+                                       Margin="12 0 12 0"
                                        Foreground="{StaticResource LightTextColor}"
-                                       Background="{StaticResource AccentColorLight2}"/>
-                        </StackPanel>
+                                       Background="{StaticResource AccentColorLight2}"
+                                       Grid.Column="1"/>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -123,8 +145,7 @@
                       Background="Transparent"
                       HorizontalAlignment="Stretch"/>
         
-        <Grid Grid.Column="4" Grid.Row="0"
-              Margin="2 5 5 5">
+        <Grid Grid.Column="4" Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -132,11 +153,12 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0"
-                       Margin="0 0 0 2"
+                       Margin="0 0 0 12"
                        Text="{StaticResource ErdLevel3TitleText}"
-                       FontSize="14"/>
+                       FontSize="16"/>
 
-            <TextBox Grid.Row="1" Margin="0 3 0 3"
+            <TextBox Grid.Row="1" Margin="0 0 0 8"
+                     ui:ControlHelper.PlaceholderText="{StaticResource SearchDefaultText}" 
                      x:Name="FilterTextBox"
                      FontSize="14"
                      VerticalContentAlignment="Center"
@@ -154,22 +176,41 @@
                         <MenuItem Header="{StaticResource ErdDeselectAllItems}" Click="DeselectAllMenuItem_OnClick"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                        <Setter Property="Height" Value="38"/>
+                        <Setter Property="Padding" Value="8"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate DataType="models:ExportSelectItem">
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox Content="{Binding Path=Name}"
-                                      IsChecked="{Binding Path=Checked}"
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <CheckBox IsChecked="{Binding Path=Checked}"
                                       ToolTip="{Binding Path=Name}"
                                       Checked="LevelThree_CheckChanged" 
-                                      Unchecked="LevelThree_CheckChanged"/>
+                                      Unchecked="LevelThree_CheckChanged"
+                                      HorizontalAlignment="Stretch"
+                                      Grid.Column="0">
+                                <TextBlock Text="{Binding Path=Name}"
+                                           TextTrimming="CharacterEllipsis"
+                                           MinWidth="50"/>
+                            </CheckBox>
                             <TextBlock Text="{Binding Path=Value}"
-                                       FontSize="10"
-                                       VerticalAlignment="Stretch"
-                                       Padding="5 0 5 0"
-                                       Margin="5 0 0 0"
+                                       ToolTip="{Binding Path=Value}"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"
+                                       Padding="5 3 5 3"
+                                       Margin="12 0 12 0"
                                        Foreground="{StaticResource LightTextColor}"
-                                       Background="{StaticResource AccentColorLight2}"/>
-                        </StackPanel>
+                                       Background="{StaticResource AccentColorLight2}"
+                                       Grid.Column="1"/>
+                        </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -181,7 +222,8 @@
                       HorizontalAlignment="Stretch">
         </GridSplitter>
 
-        <Grid Grid.Row="2" Grid.ColumnSpan="5">
+        <Grid Grid.Row="2" Grid.ColumnSpan="5"
+              Margin="0 0 0 12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -189,27 +231,26 @@
             <TextBlock Grid.Row="0"
                        Text="{StaticResource ErdPreviewTitle}"
                        FontSize="16"
-                       Margin="5 0 0 5"/>
+                       Margin="0 0 0 12"/>
             <TextBox x:Name="PreviewStringTextBox"
                      Grid.Row="1"
                      FontFamily="Consolas"
                      FontSize="14"
                      VerticalScrollBarVisibility="Auto"
-                     Background="{StaticResource AccentColorLight1}"
-                     Foreground="{StaticResource LightTextColor}"
-                     SelectionBrush="{StaticResource AccentColorLight3}"
-                     IsReadOnly="True"
-                     Margin="5 0 5 5"/>
+                     Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
+                     Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                     SelectionBrush="{DynamicResource SystemControlForegroundAccentBrush}"
+                     IsReadOnly="True"/>
         </Grid>
 
         <CheckBox Grid.Row="3" Grid.Column="0"
                   x:Name="CsvModeCheckbox"
-                  Margin="10" Content="{StaticResource ErdCsvModeText}"
+                  Content="{StaticResource ErdCsvModeText}"
                   Checked="CsvModeCheckbox_CheckChanged"
                   Unchecked="CsvModeCheckbox_CheckChanged"/>
 
-        <Grid Grid.Row="3" Grid.Column="4"
-              Margin="0 5 5 5">
+        <Grid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3"
+              VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -220,14 +261,17 @@
                     x:Name="ExportButton"
                     Content="{StaticResource ErdExportButtonText}"
                     Click="ExportButton_OnClick"
-                    Width="75" Height="25"
+                    IsDefault="True"
+                    Style="{StaticResource AccentButtonStyle}"
+                    Width="100" Height="30"
                     Margin="0 0 5 0"/>
 
             <Button Grid.Column="2" 
                     x:Name="CancelButton"
                     Content="{StaticResource CancelButtonText}"
                     Click="CancelButton_OnClick"
-                    Width="75" Height="25"/>
+                    IsCancel="True"
+                    Width="100" Height="30"/>
         </Grid>
     </Grid>
 </Window>

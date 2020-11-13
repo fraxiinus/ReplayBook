@@ -133,7 +133,9 @@ namespace Rofl.UI.Main.Views
             // Update preview box
             Update_PreviewStringTextBox();
 
-            this.LevelTwoSelectBox.SelectedItem = _levelTwoItems.First(x => x.Name.Equals((string)checkBox.Content, StringComparison.OrdinalIgnoreCase));
+            var selectedName = (checkBox.Content as TextBlock).Text;
+
+            this.LevelTwoSelectBox.SelectedItem = _levelTwoItems.First(x => x.Name.Equals(selectedName, StringComparison.OrdinalIgnoreCase));
 
             this.LevelThreeSelectBox.IsEnabled = _levelTwoItems.Any(x => x.Checked);
         }
