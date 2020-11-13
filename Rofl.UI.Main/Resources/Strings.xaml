@@ -66,7 +66,7 @@
     <string:String x:Key="ReplayBehaviorLabelText">Play Button Behavior</string:String>
     <string:String x:Key="UpdatesLabelText">Updates</string:String>
     <string:String x:Key="CheckUpdatesButtonText">Check for Updates...</string:String>
-    <string:String x:Key="UpdateExceptionTitleText">Exception occured</string:String>
+    <string:String x:Key="UpdateExceptionTitleText">Unable to check for updates</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">Failed to connect to GitHub. Check your connection and try again.</string:String>
     <string:String x:Key="UpdateGitHubErrorBodyText">GitHub returned an error response. Manually check for updates by going to https://github.com/leeanchu/ReplayBook</string:String>
     <string:String x:Key="UpdateMostRecentTitleText">Already updated</string:String>
