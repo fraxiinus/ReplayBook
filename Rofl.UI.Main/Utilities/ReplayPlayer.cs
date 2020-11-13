@@ -73,17 +73,6 @@ namespace Rofl.UI.Main.Utilities
                 dialog.Title = Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string;
                 dialog.SetLabelText(Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string);
 
-                // Handle both primary and secondary button clicks
-                dialog.PrimaryButtonClick += (ContentDialog sender, ContentDialogButtonClickEventArgs args) =>
-                {
-                    dialog.Hide();
-                };
-
-                dialog.CloseButtonClick += (ContentDialog sender, ContentDialogButtonClickEventArgs args) =>
-                {
-                    dialog.Hide();
-                };
-
                 // Only continue if the user pressed the yes button
                 var dialogResult = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
                 if (dialogResult != ContentDialogResult.Primary)
