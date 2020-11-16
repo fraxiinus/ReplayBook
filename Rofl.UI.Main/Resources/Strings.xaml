@@ -302,8 +302,11 @@
     <!--Welcome Setup-->
     <string:String x:Key="WswWindowTitleText">ReplayBook Setup</string:String>
     <string:String x:Key="WswPreviousText">Back</string:String>
+    <string:String x:Key="WswPreviousDisabled">Cannot go to previous page</string:String>
     <string:String x:Key="WswNextText">Next</string:String>
+    <string:String x:Key="WswNextDisabled">Cannot go to next page</string:String>
     <string:String x:Key="WswSkipText">Skip</string:String>
+    <string:String x:Key="WswSkipDisabled">Cannot skip page</string:String>
     <string:String x:Key="WswDownloadMissingError">Could not find anything to download - check your internet connection or skip this step</string:String>
     <string:String x:Key="WswDownloadNoSelectionError">Please make a download selection</string:String>
 

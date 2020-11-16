@@ -1,5 +1,7 @@
 ﻿using Rofl.UI.Main.Views;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Rofl.UI.Main.Pages
 {
@@ -12,6 +14,7 @@ namespace Rofl.UI.Main.Pages
         {
             InitializeComponent();
 
+            // Disable buttons
             PreviousButton.IsEnabled = false;
             SkipButton.IsEnabled = false;
         }

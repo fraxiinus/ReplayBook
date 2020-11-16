@@ -92,6 +92,7 @@
     <Compile Include="Converters\ColorBrushConverter.cs" />
     <Compile Include="Converters\FormatKbSizeConverter.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
+    <Compile Include="Extensions\StaticResourceExtension.cs" />
     <Compile Include="Models\ExportContext.cs" />
     <Compile Include="Models\ExportSelectItem.cs" />
     <Compile Include="Models\StatusBar.cs" />
