@@ -25,10 +25,12 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="{StaticResource WswIntroductionTitle}"
                            FontSize="24"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            Margin="0 0 0 5"
                            Grid.Row="0"/>
 
                 <TextBlock Text="{StaticResource WswIntroductionBody}"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            FontSize="16"
                            TextWrapping="Wrap"
                            Grid.Row="1"
@@ -40,8 +42,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="PreviousButton"
                         Grid.Column="0"
@@ -157,7 +159,7 @@
                     </Grid>
                 </Button>
                 <Button x:Name="SkipButton"
-                        Grid.Column="2"
+                        Grid.Column="3"
                         Width="100"
                         Content="{StaticResource WswSkipText}"
                         HorizontalContentAlignment="Center"

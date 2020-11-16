@@ -29,7 +29,7 @@
                        Text="PageName"
                        Margin="10"
                        TextAlignment="Left"
-                       FontSize="24"
+                       FontSize="18"
                        Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
             <Grid x:Name="NavigationDotsPanel"
                   Grid.Column="1"
