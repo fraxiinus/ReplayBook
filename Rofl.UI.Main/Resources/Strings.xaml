@@ -68,7 +68,7 @@
     <string:String x:Key="CheckUpdatesButtonText">Check for Updates...</string:String>
     <string:String x:Key="UpdateExceptionTitleText">Unable to check for updates</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">Failed to connect to GitHub. Check your connection and try again.</string:String>
-    <string:String x:Key="UpdateGitHubErrorBodyText">GitHub returned an error response. Manually check for updates by going to https://github.com/leeanchu/ReplayBook</string:String>
+    <string:String x:Key="UpdateGitHubErrorBodyText">GitHub returned an error response. Manually check for updates by going to https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="UpdateMostRecentTitleText">Already updated</string:String>
     <string:String x:Key="UpdateMostRecentBodyText">You are using the latest version of ReplayBook.</string:String>
     <string:String x:Key="UpdateNewerTitleText">New version available</string:String>
@@ -132,7 +132,7 @@
     <string:String x:Key="Author">A. Lee (Etirps)</string:String>
     <string:String x:Key="Version">Pre-Release 9</string:String>
     <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
-    <string:String x:Key="GitHubLink">https://github.com/leeanchu/ReplayBook</string:String>
+    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
     <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>

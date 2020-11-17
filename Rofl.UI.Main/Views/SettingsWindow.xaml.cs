@@ -599,7 +599,7 @@ namespace Rofl.UI.Main.Views
 
                 if(response == ContentDialogResult.Primary)
                 {
-                    Process.Start($"https://github.com/leeanchu/ReplayBook/releases");
+                    Process.Start($"https://github.com/fraxiinus/ReplayBook/releases");
                 }
             }
 
