@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace Rofl.UI.Main.Utilities
 {
@@ -64,17 +66,9 @@ namespace Rofl.UI.Main.Utilities
             if (_settingsManager.Settings.PlayConfirmation)
             {
                 _log.Information($"Asking user for confirmation");
-                // Creating content dialog
-                var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: true);
-                dialog.DefaultButton = ContentDialogButton.Primary;
-
-                dialog.PrimaryButtonText = Application.Current.TryFindResource("YesText") as string;
-                dialog.SecondaryButtonText = Application.Current.TryFindResource("NoText") as string;
-                dialog.Title = Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string;
-                dialog.SetLabelText(Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string);
-
+                
                 // Only continue if the user pressed the yes button
-                var dialogResult = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                var dialogResult = await ShowConfirmationDialog().ConfigureAwait(true);
                 if (dialogResult != ContentDialogResult.Primary)
                 {
                     return null;
@@ -87,6 +81,13 @@ namespace Rofl.UI.Main.Utilities
 
         private static async Task<LeagueExecutable> ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
         {
+            if (Application.Current.MainWindow is DialogHostWindow)
+            {
+                Application.Current.MainWindow.Width = 350;
+                Application.Current.MainWindow.Height = 288;
+                WindowHelper.MoveWindowToCenter(350, 288);
+            }
+
             var dialog = new ExecutableSelectDialog
             {
                 Owner = Application.Current.MainWindow,
@@ -96,6 +97,27 @@ namespace Rofl.UI.Main.Utilities
             await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
             return dialog.Selection;
+        }
+
+        private static async Task<ContentDialogResult> ShowConfirmationDialog()
+        {
+            if (Application.Current.MainWindow is DialogHostWindow)
+            {
+                Application.Current.MainWindow.Width = 350;
+                Application.Current.MainWindow.Height = 184;
+                WindowHelper.MoveWindowToCenter(350, 184);
+            }
+
+            // Creating content dialog
+            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: true);
+            dialog.DefaultButton = ContentDialogButton.Primary;
+
+            dialog.PrimaryButtonText = Application.Current.TryFindResource("YesText") as string;
+            dialog.SecondaryButtonText = Application.Current.TryFindResource("NoText") as string;
+            dialog.Title = Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string;
+            dialog.SetLabelText(Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string);
+
+            return await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
     }
 }

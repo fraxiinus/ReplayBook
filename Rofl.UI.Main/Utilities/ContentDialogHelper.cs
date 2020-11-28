@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Rofl.UI.Main.Utilities
 {
@@ -87,5 +88,17 @@ namespace Rofl.UI.Main.Utilities
 
             (LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock).Text = text;
         }
+
+        //public static (double Width, double Height) GetContentWidthAndHeight(this ContentDialog dialog)
+        //{
+        //    if (dialog == null) throw new ArgumentNullException(nameof(dialog));
+
+        //    var container = UIHelper.FindVisualChildren<ScrollViewer>(dialog)
+        //        .First(x => x.Name.Equals("ContentScrollViewer", StringComparison.OrdinalIgnoreCase));
+
+        //    var grid = (Grid) container.Content;
+
+        //    return (grid.ActualWidth, grid.ActualHeight);
+        //}
     }
 }

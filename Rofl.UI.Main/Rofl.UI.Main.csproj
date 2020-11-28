@@ -64,6 +64,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -124,8 +125,12 @@
     <Compile Include="Utilities\GithubConnection.cs" />
     <Compile Include="Utilities\ReplayPlayer.cs" />
     <Compile Include="Utilities\ResourceTools.cs" />
+    <Compile Include="Utilities\WindowHelper.cs" />
     <Compile Include="Views\AcknowledgementsWindow.xaml.cs">
       <DependentUpon>AcknowledgementsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogHostWindow.xaml.cs">
+      <DependentUpon>DialogHostWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExecutableDetailDialog.xaml.cs">
       <DependentUpon>ExecutableDetailDialog.xaml</DependentUpon>
@@ -235,6 +240,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AcknowledgementsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DialogHostWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

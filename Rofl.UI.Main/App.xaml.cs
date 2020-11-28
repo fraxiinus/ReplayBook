@@ -41,6 +41,7 @@ namespace Rofl.UI.Main
                 // 0 = directly play, 1 = open in replaybook
                 if (_settingsManager.Settings.FileAction == 0)
                 {
+                    StartDialogHost();
                     await _player.PlayReplay(selectedFile).ConfigureAwait(true);
                     Application.Current.Shutdown();
                 }
@@ -55,6 +56,14 @@ namespace Rofl.UI.Main
             {
                 StartMainWindow();
             }
+        }
+
+        private void StartDialogHost()
+        {
+            // Start a blank/invisible window that will host dialogs, otherwise dialogs are invisible
+
+            var host = new DialogHostWindow();
+            host.Show();
         }
 
         private void StartMainWindow()
