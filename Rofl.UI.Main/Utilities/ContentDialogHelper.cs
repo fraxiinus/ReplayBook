@@ -89,16 +89,14 @@ namespace Rofl.UI.Main.Utilities
             (LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock).Text = text;
         }
 
-        //public static (double Width, double Height) GetContentWidthAndHeight(this ContentDialog dialog)
-        //{
-        //    if (dialog == null) throw new ArgumentNullException(nameof(dialog));
+        public static void SetBackgroundSmokeColor(this ContentDialog dialog, Brush color)
+        {
+            if (dialog == null) throw new ArgumentNullException(nameof(dialog));
 
-        //    var container = UIHelper.FindVisualChildren<ScrollViewer>(dialog)
-        //        .First(x => x.Name.Equals("ContentScrollViewer", StringComparison.OrdinalIgnoreCase));
+            var root = WindowHelper.FindVisualChildren<Grid>(dialog)
+                .First(x => x.Name.Equals("LayoutRoot", StringComparison.OrdinalIgnoreCase));
 
-        //    var grid = (Grid) container.Content;
-
-        //    return (grid.ActualWidth, grid.ActualHeight);
-        //}
+            root.Background = color;
+        }
     }
 }

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Rofl.UI.Main.Utilities
@@ -81,18 +82,21 @@ namespace Rofl.UI.Main.Utilities
 
         private static async Task<LeagueExecutable> ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
         {
-            if (Application.Current.MainWindow is DialogHostWindow)
-            {
-                Application.Current.MainWindow.Width = 350;
-                Application.Current.MainWindow.Height = 288;
-                WindowHelper.MoveWindowToCenter(350, 288);
-            }
-
             var dialog = new ExecutableSelectDialog
             {
                 Owner = Application.Current.MainWindow,
                 DataContext = executables
             };
+
+            // Make background overlay transparent when in the dialog host window,
+            // making the dialog appear seamlessly
+            if (Application.Current.MainWindow is DialogHostWindow)
+            {
+                // allows us to look at the visual tree before showing the dialog
+                dialog.ApplyTemplate();
+
+                dialog.SetBackgroundSmokeColor(Brushes.Transparent);
+            }
 
             await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
@@ -101,13 +105,6 @@ namespace Rofl.UI.Main.Utilities
 
         private static async Task<ContentDialogResult> ShowConfirmationDialog()
         {
-            if (Application.Current.MainWindow is DialogHostWindow)
-            {
-                Application.Current.MainWindow.Width = 350;
-                Application.Current.MainWindow.Height = 184;
-                WindowHelper.MoveWindowToCenter(350, 184);
-            }
-
             // Creating content dialog
             var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: true);
             dialog.DefaultButton = ContentDialogButton.Primary;
@@ -116,6 +113,13 @@ namespace Rofl.UI.Main.Utilities
             dialog.SecondaryButtonText = Application.Current.TryFindResource("NoText") as string;
             dialog.Title = Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string;
             dialog.SetLabelText(Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string);
+
+            // Make background overlay transparent when in the dialog host window,
+            // making the dialog appear seamlessly
+            if (Application.Current.MainWindow is DialogHostWindow)
+            {
+                dialog.SetBackgroundSmokeColor(Brushes.Transparent);
+            }
 
             return await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
