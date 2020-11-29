@@ -156,7 +156,7 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsSupported}" Value="True">
                                     <Setter Property="Text" Value="{StaticResource ReplaySupported}"/>
-                                    <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundChromeWhiteBrush}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding IsSupported}" Value="False">
                                     <Setter Property="Text" Value="{StaticResource ReplayUnsupported}"/>
