@@ -31,12 +31,6 @@ namespace Rofl.UI.Main.Controls
             await context.PlayReplay(replay).ConfigureAwait(true);
         }
 
-        private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
-            context.OpenReplayContainingFolder(replay.Location);
-        }
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
@@ -58,6 +52,13 @@ namespace Rofl.UI.Main.Controls
         {
             DockPanelReplayContextMenu.Placement = PlacementMode.MousePoint;
             DockPanelReplayContextMenu.IsOpen = true;
+        }
+
+        private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
+            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            context.OpenReplayContainingFolder(replay.Location);
         }
 
         private void ViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
