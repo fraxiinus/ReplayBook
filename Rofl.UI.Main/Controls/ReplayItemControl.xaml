@@ -138,7 +138,8 @@
                     CornerRadius="3"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Background="{DynamicResource TabViewBackground}">
+                    Background="{DynamicResource TabViewBackground}"
+                    ToolTip="{Binding GameVersion}">
                 <TextBlock VerticalAlignment="Center"
                            FontSize="12">
                     <TextBlock.Style>
