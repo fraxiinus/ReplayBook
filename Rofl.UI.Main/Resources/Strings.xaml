@@ -127,11 +127,18 @@
 
     <string:String x:Key="ReplayItemsPerPage">Results Per Page</string:String>
 
+    <string:String x:Key="RequestsCacheLabel">Downloaded Images Cache</string:String>
+    <string:String x:Key="RequestsCacheItemsSize">Items cache size:</string:String>
+    <string:String x:Key="RequestsCacheChampsSize">Champions cache size:</string:String>
+    <string:String x:Key="RequestsCacheClearItemsButton">Delete Items</string:String>
+    <string:String x:Key="RequestsCacheClearChampsButton">Delete Champions</string:String>
+    <string:String x:Key="RequestsCacheCloseToDeleteTitle">Close Replay Book</string:String>
+    <string:String x:Key="RequestsCacheCloseToDelete">Cache will be deleted when Replay Book is closed</string:String>
     <string:String x:Key="DataDragonBaseUrlLabelText">Data Dragon Base URL</string:String>
     <string:String x:Key="DataDragonChampionUrlLabelText">Champion Image Relative URL</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">Item Image Relative URL</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
-    <string:String x:Key="WebCacheClearButtonText">Clear cached images</string:String>
+    <!--<string:String x:Key="WebCacheClearButtonText">Clear cached images</string:String>-->
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxinus (Etirps)</string:String>

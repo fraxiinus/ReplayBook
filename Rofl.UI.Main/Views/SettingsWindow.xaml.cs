@@ -4,10 +4,13 @@ using ModernWpf.Controls;
 using Rofl.Executables.Models;
 using Rofl.Settings;
 using Rofl.Settings.Models;
+using Rofl.UI.Main.Converters;
 using Rofl.UI.Main.Utilities;
+using Rofl.UI.Main.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -74,7 +77,7 @@ namespace Rofl.UI.Main.Views
             this.DialogResult = true;
         }
 
-        private void SettingsMenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void SettingsMenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedItem = ((sender as ListBox).SelectedItem as ListBoxItem);
 
@@ -94,6 +97,7 @@ namespace Rofl.UI.Main.Views
                     break;
                 case "RequestSettingsListItem":
                     SettingsTabControl.SelectedIndex = 4;
+                    await LoadCacheSizes().ConfigureAwait(true);
                     break;
                 case "AboutSettingsListItem":
                     SettingsTabControl.SelectedIndex = 5;
@@ -663,5 +667,52 @@ namespace Rofl.UI.Main.Views
             // Update the note
             AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as String;
         }
-}
+
+        private async Task LoadCacheSizes()
+        {
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+
+            var results = await viewModel.CalculateCacheSizes().ConfigureAwait(true);
+
+            var readableSizeConverter = new FormatKbSizeConverter();
+            RequestsCacheItemSize.Text = (string) readableSizeConverter.Convert(results.ItemsTotalSize, null, null, CultureInfo.InvariantCulture);
+            RequestsCacheChampsSize.Text = (string)readableSizeConverter.Convert(results.ChampsTotalSize, null, null, CultureInfo.InvariantCulture);
+        }
+
+        private async void DeleteItemsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+
+            // Set the delete flag, to be deleted by the main view model on close
+            viewModel.ClearItemsCacheOnClose = true;
+
+            // inform the user that the delete will happen when the window is closed
+            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            dialog.DefaultButton = ContentDialogButton.Primary;
+
+            dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
+            dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
+            dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
+
+            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+        }
+
+        private async void DeleteChampsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+
+            // Set the delete flag, to be deleted by the main view model on close
+            viewModel.ClearChampsCacheOnClose = true;
+
+            // inform the user that the delete will happen when the window is closed
+            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            dialog.DefaultButton = ContentDialogButton.Primary;
+
+            dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
+            dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
+            dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
+
+            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+        }
+    }
 }

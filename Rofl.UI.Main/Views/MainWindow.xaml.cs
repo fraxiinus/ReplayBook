@@ -255,13 +255,20 @@ namespace Rofl.UI.Main
             _settingsManager.TemporaryValues["WindowMaximized"] = (this.WindowState == WindowState.Maximized);
 
             _settingsManager.SaveTemporaryValues();
+        }
+        
+        private async void Window_Closed(object sender, EventArgs e)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
-            _log.WriteLog();
+            await context.ClearImageCache().ConfigureAwait(true);
         }
 
         public void SelectReplayItem(ReplayPreview replay)
         {
             ReplayListView.SelectedItem = replay;
         }
+
+        
     }
 }

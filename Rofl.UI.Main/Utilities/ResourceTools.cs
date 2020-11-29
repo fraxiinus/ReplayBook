@@ -18,7 +18,7 @@ namespace Rofl.UI.Main.Utilities
 
         internal static ImageSource GetImageSourceFromPath(string path)
         {
-            return BitmapFrame.Create(new Uri(path));
+            return BitmapFrame.Create(new Uri(path), BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
         }
 
         internal static SolidColorBrush GetColorFromResource(string key)

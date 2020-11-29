@@ -509,6 +509,39 @@
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Spacing="12"
                                              Margin="15 0 20 12">
+                            <TextBlock Text="{StaticResource RequestsCacheLabel}" 
+                                       FontSize="16"/>
+                            <Grid MinWidth="400"
+                                  HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Text="{StaticResource RequestsCacheItemsSize}"
+                                           Grid.Column="0" Grid.Row="0"/>
+                                <TextBlock Text="{StaticResource RequestsCacheChampsSize}"
+                                           Grid.Column="0" Grid.Row="1"/>
+
+                                <TextBlock x:Name="RequestsCacheItemSize"
+                                           Grid.Column="1" Grid.Row="0"/>
+                                <TextBlock x:Name="RequestsCacheChampsSize"
+                                           Grid.Column="1" Grid.Row="1"/>
+                            </Grid>
+                            <ui:SimpleStackPanel Orientation="Horizontal"
+                                                 Spacing="12">
+                                <Button x:Name="DeleteItemsButton"
+                                        Content="{StaticResource RequestsCacheClearItemsButton}"
+                                        Click="DeleteItemsButton_Click"/>
+                                <Button x:Name="DeleteChampsButton"
+                                        Content="{StaticResource RequestsCacheClearChampsButton}"
+                                        Click="DeleteChampsButton_Click"/>
+                            </ui:SimpleStackPanel>
+                            
                             <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" 
                                        FontSize="16"/>
                             <TextBox Text="{Binding Settings.DataDragonBaseUrl}" 

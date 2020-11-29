@@ -126,5 +126,10 @@ namespace Rofl.UI.Main
                 ThemeManager.Current.AccentColor = (Color)ColorConverter.ConvertFromString(_settingsManager.Settings.AccentColor);
             }
         }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            _log.WriteLog();
+        }
     }
 }

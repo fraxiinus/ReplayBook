@@ -55,6 +55,10 @@ namespace Rofl.UI.Main.ViewModels
 
         public StatusBar StatusBarModel { get; private set; }
 
+        // Flags used to clear cache when closing
+        public bool ClearItemsCacheOnClose { get; set; }
+        public bool ClearChampsCacheOnClose { get; set; }
+
         // public string LatestDataDragonVersion { get; private set; }
 
         public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, ReplayPlayer player, RiZhi log)
@@ -78,6 +82,10 @@ namespace Rofl.UI.Main.ViewModels
             };
 
             StatusBarModel = new StatusBar();
+
+            // By default we do not want to delete our cache
+            ClearItemsCacheOnClose = false;
+            ClearChampsCacheOnClose = false;
         }
 
         /// <summary>
@@ -570,5 +578,23 @@ namespace Rofl.UI.Main.ViewModels
         {
             _fileManager.ClearDeletedFiles();
         }
+
+        public async Task<(long ItemsTotalSize, long ChampsTotalSize)> CalculateCacheSizes()
+        {
+            var itemsInfo = new DirectoryInfo(RequestManager.GetItemCachePath());
+            long itemsTotal = await Task.Run(() => itemsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
+
+            var champsInfo = new DirectoryInfo(RequestManager.GetChampionCachePath());
+            long champsTotal = await Task.Run(() => champsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
+
+            return (itemsTotal, champsTotal);
+        }
+
+        public async Task ClearImageCache()
+        {
+            if (ClearItemsCacheOnClose) await RequestManager.ClearItemCache().ConfigureAwait(true);
+            if (ClearChampsCacheOnClose) await RequestManager.ClearChampionCache().ConfigureAwait(true);
+        }
     }
 }
+

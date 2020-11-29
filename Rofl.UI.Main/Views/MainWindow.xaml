@@ -18,6 +18,7 @@
         Width="1150"
         Loaded="MainWindow_OnLoaded"
         Closing="MainWindow_OnClosing"
+        Closed="Window_Closed"
         ui:WindowHelper.UseModernWindowStyle="True">
 
     <Grid>

@@ -2,6 +2,8 @@
 using System;
 using System.IO;
 using Rofl.Requests.Models;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Rofl.Requests.Utilities
 {
@@ -67,20 +69,32 @@ namespace Rofl.Requests.Utilities
             return response;
         }
 
-        /// <summary>
-        /// Given champion name, checks if image exists in cache. If exists, return file path, otherwise return null/empty
-        /// </summary>
-        /// <param name="champName"></param>
-        /// <returns></returns>
-        //private Image GetImageFromFile(string filePath)
-        //{
-        //    if(string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
-        //    {
-        //        return null;
-        //    }
+        public async Task ClearImageCache(string path)
+        {
+            var dirInfo = new DirectoryInfo(path);
+            await Task.Run(() =>
+            {
+                foreach (var image in dirInfo.EnumerateFiles("*.png"))
+                {
+                    _log.Debug("Deleting cache image: " + image.FullName);
 
-        //    // This may throw out of memory exception if the format is wrong
-        //    return Image.FromFile(filePath);
+                    File.Delete(image.FullName);
+                }
+            }).ConfigureAwait(true);
+        }
+
+        //public async Task ClearChampsImageCache()
+        //{
+        //    var dirInfo = new DirectoryInfo(Path.Combine(CachePath, "champs"));
+        //    await Task.Run(() =>
+        //    {
+        //        foreach (var image in dirInfo.EnumerateFiles("*.png"))
+        //        {
+        //            _log.Debug("Deleting cache image" + image.FullName);
+
+        //            File.Delete(image.FullName);
+        //        }
+        //    }).ConfigureAwait(true);
         //}
     }
 }
