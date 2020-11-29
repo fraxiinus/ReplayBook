@@ -41,13 +41,8 @@ namespace Rofl.UI.Main.Utilities
                 _log.Information($"No executables found to play replay");
 
                 // No executable found that can be used to play
-                MessageBox.Show
-                (
-                    Application.Current.TryFindResource("ExecutableNotFoundErrorText") as string + " " + replay.ReplayFile.GameVersion,
-                    Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as string,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
+                await ShowErrorDialog(replay.ReplayFile.GameVersion).ConfigureAwait(true);
+
                 return null;
             }
 
@@ -122,6 +117,26 @@ namespace Rofl.UI.Main.Utilities
             }
 
             return await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+        }
+
+        private static async Task ShowErrorDialog(string version)
+        {
+            // Creating content dialog
+            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            dialog.DefaultButton = ContentDialogButton.Primary;
+
+            dialog.PrimaryButtonText = Application.Current.TryFindResource("OKButtonText") as string;
+            dialog.Title = Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as string;
+            dialog.SetLabelText(Application.Current.TryFindResource("ExecutableNotFoundErrorText") as string + " " + version);
+
+            // Make background overlay transparent when in the dialog host window,
+            // making the dialog appear seamlessly
+            if (Application.Current.MainWindow is DialogHostWindow)
+            {
+                dialog.SetBackgroundSmokeColor(Brushes.Transparent);
+            }
+
+            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
     }
 }
