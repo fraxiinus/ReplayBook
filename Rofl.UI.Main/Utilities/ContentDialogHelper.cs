@@ -89,6 +89,11 @@ namespace Rofl.UI.Main.Utilities
             (LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock).Text = text;
         }
 
+        /// <summary>
+        /// Set the overlay smoke color and appears behind the dialog.
+        /// </summary>
+        /// <param name="dialog"></param>
+        /// <param name="color"></param>
         public static void SetBackgroundSmokeColor(this ContentDialog dialog, Brush color)
         {
             if (dialog == null) throw new ArgumentNullException(nameof(dialog));

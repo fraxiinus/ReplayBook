@@ -61,7 +61,6 @@ namespace Rofl.UI.Main
         private void StartDialogHost()
         {
             // Start a blank/invisible window that will host dialogs, otherwise dialogs are invisible
-
             var host = new DialogHostWindow();
             host.Show();
         }

@@ -11,6 +11,7 @@ namespace Rofl.UI.Main.Utilities
 {
     public static class WindowHelper
     {
+        // By Bryce Kahle
         // From https://stackoverflow.com/a/978352
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
