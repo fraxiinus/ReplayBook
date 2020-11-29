@@ -41,7 +41,7 @@ namespace Rofl.UI.Main.Utilities
                 _log.Information($"No executables found to play replay");
 
                 // No executable found that can be used to play
-                await ShowErrorDialog(replay.ReplayFile.GameVersion).ConfigureAwait(true);
+                await ShowUnsupportedDialog(replay.ReplayFile.GameVersion).ConfigureAwait(true);
 
                 return null;
             }
@@ -72,7 +72,19 @@ namespace Rofl.UI.Main.Utilities
             }
 
             _log.Information($"Using {target.Name} to play replay {replay.FileInfo.Path}");
-            return target.PlayReplay(replay.FileInfo.Path);
+
+            Process gameHandle = null;
+            try
+            {
+                gameHandle = target.PlayReplay(replay.FileInfo.Path);
+            }
+            catch (Exception ex)
+            {
+                await ShowExceptionDialog(ex).ConfigureAwait(true);
+                _log.Error(ex.ToString());
+            }
+
+            return gameHandle;
         }
 
         private static async Task<LeagueExecutable> ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
@@ -119,7 +131,7 @@ namespace Rofl.UI.Main.Utilities
             return await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
-        private static async Task ShowErrorDialog(string version)
+        private static async Task ShowUnsupportedDialog(string version)
         {
             // Creating content dialog
             var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
@@ -128,6 +140,31 @@ namespace Rofl.UI.Main.Utilities
             dialog.PrimaryButtonText = Application.Current.TryFindResource("OKButtonText") as string;
             dialog.Title = Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as string;
             dialog.SetLabelText(Application.Current.TryFindResource("ExecutableNotFoundErrorText") as string + " " + version);
+
+            // Make background overlay transparent when in the dialog host window,
+            // making the dialog appear seamlessly
+            if (Application.Current.MainWindow is DialogHostWindow)
+            {
+                dialog.SetBackgroundSmokeColor(Brushes.Transparent);
+            }
+
+            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+        }
+
+        private static async Task ShowExceptionDialog(Exception ex)
+        {
+            // Creating content dialog
+            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            dialog.DefaultButton = ContentDialogButton.Primary;
+
+            dialog.PrimaryButtonText = Application.Current.TryFindResource("OKButtonText") as string;
+            dialog.Title = Application.Current.TryFindResource("ReplayPlayExceptionTitle") as string;
+            dialog.SetLabelText(ex.ToString());
+
+            // Make dialog as long as the exception
+            var label = dialog.GetContentDialogLabel();
+            label.MaxWidth = 350;
+            label.TextWrapping = TextWrapping.Wrap;
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly

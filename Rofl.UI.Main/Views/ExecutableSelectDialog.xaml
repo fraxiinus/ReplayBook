@@ -15,8 +15,8 @@
     <Grid>
         <ListBox x:Name="ExecutablesListBox"
                  HorizontalContentAlignment="Stretch"
-                 Height="150"
-                 Width="300"
+                 Height="150" Width="300"
+                 SelectedIndex="0"
                  ItemsSource="{Binding}"
                  MouseDoubleClick="ExecutablesListBox_MouseDoubleClick">
             <ListBox.ItemContainerStyle>
