@@ -27,8 +27,8 @@
     <string:String x:Key="BlankDetailMessageText">Select a replay on the left to begin</string:String>
     <string:String x:Key="FailedToLoadReplayText">Failed to load replay</string:String>
     <string:String x:Key="Victory">VICTORY</string:String>
-    <string:String x:Key="BlueVictory">BLUE VICTORY</string:String>
-    <string:String x:Key="RedVictory">RED VICTORY</string:String>
+    <string:String x:Key="BlueVictory">Blue Victory</string:String>
+    <string:String x:Key="RedVictory">Red Victory</string:String>
     <string:String x:Key="ErrorTitle">Error</string:String>
     <string:String x:Key="ConfirmTitle">Confirmation</string:String>
     <string:String x:Key="ConfirmText">Are you sure?</string:String>
