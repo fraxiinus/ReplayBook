@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
 namespace Rofl.Settings.Models
 {
+    public enum MarkerStyle { Border = 0, Square = 1 }
+
     public class GeneralSettings
     {
         public GeneralSettings()
@@ -12,6 +15,10 @@ namespace Rofl.Settings.Models
 
         [JsonProperty("known_players")]
         public List<PlayerMarker> KnownPlayers { get; private set; }
+
+        [JsonProperty("marker_style")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public MarkerStyle PlayerMarkerStyle { get; set; }
 
         [JsonProperty("file_action")]
         public int FileAction { get; set; }

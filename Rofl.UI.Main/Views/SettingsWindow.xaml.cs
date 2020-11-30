@@ -57,7 +57,7 @@ namespace Rofl.UI.Main.Views
                 AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as String;
             }
 
-            // Change window style
+            //// Change window style (i dont think this works anymore...2020-11-30)
             var GWL_STYLE = -16;
             // Maximize box flag
             var WS_MAXIMIZEBOX = 0x10000;
@@ -67,6 +67,11 @@ namespace Rofl.UI.Main.Views
 
             // Flip maximize box flag
             _ = NativeMethods.SetWindowLong(windowHandle, GWL_STYLE, (int)(value & ~WS_MAXIMIZEBOX));
+            //
+
+            // Set player marker style radio
+            PlayerMarkerStyleOption1.IsChecked = (context.Settings.PlayerMarkerStyle == MarkerStyle.Border);
+            PlayerMarkerStyleOption2.IsChecked = (context.Settings.PlayerMarkerStyle == MarkerStyle.Square);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -713,6 +718,20 @@ namespace Rofl.UI.Main.Views
             dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
 
             await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+        }
+
+        private void PlayerMarkerStyleOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
+            if (PlayerMarkerStyleOptions.SelectedIndex == 0)
+            {
+                context.Settings.PlayerMarkerStyle = MarkerStyle.Border;
+            }
+            else if (PlayerMarkerStyleOptions.SelectedIndex == 1)
+            {
+                context.Settings.PlayerMarkerStyle = MarkerStyle.Square;
+            }
         }
     }
 }

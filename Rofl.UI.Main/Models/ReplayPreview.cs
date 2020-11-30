@@ -10,7 +10,10 @@ namespace Rofl.UI.Main.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ReplayPreview(ReplayFile replayFile, DateTimeOffset creationDate, bool newFile = false)
+        public ReplayPreview(ReplayFile replayFile, 
+                             DateTimeOffset creationDate,
+                             Settings.Models.MarkerStyle markerStyle,
+                             bool newFile = false)
         {
             if (replayFile == null) { throw new ArgumentNullException(nameof(replayFile)); }
 
@@ -28,10 +31,10 @@ namespace Rofl.UI.Main.Models
             IsNewFile = newFile;
 
             BluePreviewPlayers = (from bplayer in replayFile.BluePlayers
-                                  select new PlayerPreview(bplayer)).ToList();
+                                  select new PlayerPreview(bplayer, markerStyle)).ToList();
 
             RedPreviewPlayers = (from rplayer in replayFile.RedPlayers
-                                 select new PlayerPreview(rplayer)).ToList();
+                                 select new PlayerPreview(rplayer, markerStyle)).ToList();
 
             IsPlaying = false;
             IsSelected = false;

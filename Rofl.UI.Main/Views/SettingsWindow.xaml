@@ -159,6 +159,21 @@
                                 </ui:CommandBar>
                             </Grid>
 
+                            <ui:RadioButtons x:Name="PlayerMarkerStyleOptions"
+                                             MaxColumns="2"
+                                             Header="{StaticResource PlayerMarkerStyleLabel}"
+                                             SelectionChanged="PlayerMarkerStyleOptions_SelectionChanged">
+                                <ui:RadioButtons.Style>
+                                    <Style TargetType="ui:RadioButtons">
+                                        <Setter Property="FontSize" Value="16"/>
+                                    </Style>
+                                </ui:RadioButtons.Style>
+                                <RadioButton Content="{StaticResource PlayerMarkerStyleOption1}"
+                                             x:Name="PlayerMarkerStyleOption1"/>
+                                <RadioButton Content="{StaticResource PlayerMarkerStyleOption2}"
+                                             x:Name="PlayerMarkerStyleOption2"/>
+                            </ui:RadioButtons>
+                            
                             <TextBlock Text="{StaticResource MatchHistoryUrlLabelText}" 
                                        FontSize="16"/>
 

@@ -54,6 +54,9 @@
 
     <!--Settings : General-->
     <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
+    <string:String x:Key="PlayerMarkerStyleLabel">Player Marker Style</string:String>
+    <string:String x:Key="PlayerMarkerStyleOption1">Border around</string:String>
+    <string:String x:Key="PlayerMarkerStyleOption2">Square inside</string:String>
     <string:String x:Key="PlayerMarkerWindowText">Player Marker</string:String>
     <string:String x:Key="PlayerMarkerNameLabelText">Player Name</string:String>
     <string:String x:Key="PlayerMarkerNoteLabelText">Note</string:String>

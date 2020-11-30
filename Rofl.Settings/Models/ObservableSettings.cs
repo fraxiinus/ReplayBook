@@ -4,15 +4,19 @@ using System.ComponentModel;
 
 namespace Rofl.Settings.Models
 {
+    
+
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "<Pending>")]
 
     public class ObservableSettings : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // Create using default settings
         public ObservableSettings()
         {
             KnownPlayers = new ObservableCollection<PlayerMarker>();
+            PlayerMarkerStyle = MarkerStyle.Border;
             FileAction = 0;
             PlayConfirmation = true;
             MatchHistoryBaseUrl = @"https://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/";
@@ -31,11 +35,13 @@ namespace Rofl.Settings.Models
             AccentColor = null;
         }
 
+        // Create using existing settings
         public ObservableSettings(SettingsModel settings)
         {
             if (settings == null) { throw new ArgumentNullException(nameof(settings)); }
 
             KnownPlayers = new ObservableCollection<PlayerMarker>(settings.GeneralSettings.KnownPlayers);
+            PlayerMarkerStyle = settings.GeneralSettings.PlayerMarkerStyle;
             FileAction = settings.GeneralSettings.FileAction;
             PlayConfirmation = settings.GeneralSettings.PlayConfirmation;
             MatchHistoryBaseUrl = settings.GeneralSettings.MatchHistoryBaseUrl;
@@ -62,6 +68,18 @@ namespace Rofl.Settings.Models
 
         // General Settings
         public ObservableCollection<PlayerMarker> KnownPlayers { get; private set; }
+
+        private MarkerStyle _playerMarkerStyle;
+        public MarkerStyle PlayerMarkerStyle
+        {
+            get => _playerMarkerStyle;
+            set
+            {
+                _playerMarkerStyle = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(PlayerMarkerStyle)));
+            }
+        }
 
 
         // Replay Settings

@@ -117,7 +117,7 @@ namespace Rofl.UI.Main.ViewModels
         {
             if (file == null) throw new ArgumentNullException(nameof(file));
 
-            ReplayPreview previewModel = new ReplayPreview(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
+            ReplayPreview previewModel = new ReplayPreview(file.ReplayFile, file.FileInfo.CreationTime, SettingsManager.Settings.PlayerMarkerStyle, file.IsNewFile);
             previewModel.IsSupported = SettingsManager.Executables.DoesVersionExist(previewModel.GameVersion);
 
             foreach (var bluePlayer in previewModel.BluePreviewPlayers)

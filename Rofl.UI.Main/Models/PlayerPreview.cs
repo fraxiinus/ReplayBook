@@ -8,12 +8,13 @@ namespace Rofl.UI.Main.Models
 {
     public class PlayerPreview : INotifyPropertyChanged
     {
-        public PlayerPreview(Player player)
+        public PlayerPreview(Player player, MarkerStyle markerStyle)
         {
             if (player == null) { throw new ArgumentNullException(nameof(player)); }
 
             ChampionName = player.SKIN;
             PlayerName = player.NAME;
+            PlayerMarkerStyle = markerStyle;
             marker = null;
             imgSrc = null;
         }
@@ -23,6 +24,8 @@ namespace Rofl.UI.Main.Models
         public string ChampionName { get; private set; }
 
         public string PlayerName { get; private set; }
+
+        public MarkerStyle PlayerMarkerStyle { get; private set; }
 
         public bool IsKnownPlayer => marker != null;
 

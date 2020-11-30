@@ -3,6 +3,7 @@ using System;
 
 namespace Rofl.Settings.Models
 {
+    
     public class SettingsModel
     {
         public SettingsModel()
@@ -27,6 +28,7 @@ namespace Rofl.Settings.Models
 
             GeneralSettings = new GeneralSettings();
             GeneralSettings.KnownPlayers.AddRange(settings.KnownPlayers);
+            GeneralSettings.PlayerMarkerStyle = settings.PlayerMarkerStyle;
             GeneralSettings.FileAction = settings.FileAction;
             GeneralSettings.PlayConfirmation = settings.PlayConfirmation;
             GeneralSettings.MatchHistoryBaseUrl = settings.MatchHistoryBaseUrl;
