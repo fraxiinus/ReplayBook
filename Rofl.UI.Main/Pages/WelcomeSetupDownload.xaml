@@ -77,7 +77,7 @@
                                FontSize="12"
                                VerticalAlignment="Center"
                                Margin="10 0 0 0"
-                               Foreground="DarkRed"
+                               Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
                                Grid.Column="1"/>
                 </Grid>
 

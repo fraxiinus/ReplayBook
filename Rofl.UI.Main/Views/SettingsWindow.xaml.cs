@@ -2,12 +2,14 @@
 using ModernWpf;
 using ModernWpf.Controls;
 using Rofl.Executables.Models;
+using Rofl.Requests.Models;
 using Rofl.Settings;
 using Rofl.Settings.Models;
 using Rofl.UI.Main.Converters;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -731,6 +733,86 @@ namespace Rofl.UI.Main.Views
             else if (PlayerMarkerStyleOptions.SelectedIndex == 1)
             {
                 context.Settings.PlayerMarkerStyle = MarkerStyle.Square;
+            }
+        }
+
+        private async void DownloadImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel context)) return;
+
+            // Clear the error text box
+            DownloadImageErrorText.Text = String.Empty;
+
+            // What do we download?
+            var downloadChamps = ChampionCheckBox.IsChecked ?? false;
+            var downloadItems = ItemCheckBox.IsChecked ?? false;
+
+            // Nothing was selected, do nothing
+            if (downloadChamps == false && downloadItems == false)
+            {
+                DownloadImageErrorText.Text = (string)TryFindResource("WswDownloadNoSelectionError");
+                return;
+            }
+
+            // Create all the requests we need
+            var requests = new List<RequestBase>();
+            if (downloadChamps)
+            {
+                requests.AddRange(await context.RequestManager.GetAllChampionRequests()
+                    .ConfigureAwait(true));
+            }
+            if (downloadItems)
+            {
+                requests.AddRange(await context.RequestManager.GetAllItemRequests()
+                    .ConfigureAwait(true));
+            }
+
+            // No requests? nothing to do
+            if (requests.Count < 1)
+            {
+                DownloadImageErrorText.Text = (string)TryFindResource("WswDownloadMissingError");
+                return;
+            }
+
+            // Disable buttons while download happens
+            ItemCheckBox.IsEnabled = false;
+            ChampionCheckBox.IsEnabled = false;
+            DownloadImageButton.IsEnabled = false;
+
+            // Make progress elements visible
+            DownloadProgressGrid.Visibility = Visibility.Visible;
+
+            DownloadProgressBar.Value = 0;
+            DownloadProgressBar.Minimum = 0;
+            DownloadProgressBar.Maximum = requests.Count;
+
+            foreach (var request in requests)
+            {
+                var response = await context.RequestManager.MakeRequestAsync(request)
+                    .ConfigureAwait(true);
+
+                string splitSubstring = response.ResponsePath;
+                if (splitSubstring.Length > 50)
+                {
+                    splitSubstring = response.ResponsePath.Substring(0, 35) + "..." + response.ResponsePath.Substring(response.ResponsePath.Length - 15);
+                }
+
+                DownloadProgressText.Text = splitSubstring;
+
+                DownloadProgressBar.Value++;
+            }
+        }
+
+        private void DownloadProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (Math.Abs(DownloadProgressBar.Value) < 0.1) return;
+
+            if (Math.Abs(DownloadProgressBar.Value - DownloadProgressBar.Maximum) < 0.1)
+            {
+                DownloadProgressText.Text = (string)TryFindResource("WswDownloadFinished");
+                ItemCheckBox.IsEnabled = true;
+                ChampionCheckBox.IsEnabled = true;
+                DownloadImageButton.IsEnabled = true;
             }
         }
     }

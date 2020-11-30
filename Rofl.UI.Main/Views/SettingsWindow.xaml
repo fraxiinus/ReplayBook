@@ -548,37 +548,114 @@
                                                  Spacing="12">
                                 <Button x:Name="DeleteItemsButton"
                                         Content="{StaticResource RequestsCacheClearItemsButton}"
-                                        Click="DeleteItemsButton_Click"/>
+                                        Click="DeleteItemsButton_Click"
+                                        Width="140"/>
                                 <Button x:Name="DeleteChampsButton"
                                         Content="{StaticResource RequestsCacheClearChampsButton}"
-                                        Click="DeleteChampsButton_Click"/>
+                                        Click="DeleteChampsButton_Click"
+                                        Width="140"/>
                             </ui:SimpleStackPanel>
-                            
-                            <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" 
-                                       FontSize="16"/>
-                            <TextBox Text="{Binding Settings.DataDragonBaseUrl}" 
-                                     Height="25"
-                                     VerticalContentAlignment="Center"
-                                     Padding="2"/>
-                            <TextBlock Text="{StaticResource DataDragonChampionUrlLabelText}" 
-                                       FontSize="16"/>
-                            <TextBox Text="{Binding Settings.ChampionRelativeUrl}" 
-                                     Height="25"
-                                     VerticalContentAlignment="Center"
-                                     Padding="2"/>
-                            <TextBlock Text="{StaticResource DataDragonMapUrlLabelText}" 
-                                       FontSize="16"/>
-                            <TextBox Text="{Binding Settings.MapRelativeUrl}" 
-                                     Padding="2" 
-                                     Height="25"
-                                     VerticalContentAlignment="Center"/>
-                            <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}"
-                                       FontSize="16"/>
-                            <TextBox Text="{Binding Settings.ItemRelativeUrl}" 
-                                     Padding="2" 
-                                     Height="25"
-                                     VerticalContentAlignment="Center"/>
 
+                            <TextBlock Text="{StaticResource RequestsDownloadAllLabel}"
+                                       FontSize="16"/>
+                            
+                            <CheckBox x:Name="ChampionCheckBox">
+                                <CheckBox.Content>
+                                    <Grid Margin="5 0 0 0">
+                                        <TextBlock Text="{StaticResource WswDownloadChampionsText}"/>
+                                    </Grid>
+                                </CheckBox.Content>
+                            </CheckBox>
+
+                            <CheckBox x:Name="ItemCheckBox"
+                                      Margin="0 -10 0 0">
+                                <CheckBox.Content>
+                                    <Grid Margin="5 0 0 0">
+                                        <TextBlock Text="{StaticResource WswDownloadItemsText}"/>
+                                    </Grid>
+                                </CheckBox.Content>
+                            </CheckBox>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button x:Name="DownloadImageButton"
+                                        Click="DownloadImageButton_Click"
+                                        Content="{StaticResource WswDownloadButton}"
+                                        Width="100"
+                                        HorizontalAlignment="Left"
+                                        Grid.Column="0"/>
+
+                                <TextBlock x:Name="DownloadImageErrorText"
+                                           FontSize="12"
+                                           VerticalAlignment="Center"
+                                           Margin="10 0 0 0"
+                                           Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                                           Grid.Column="1"/>
+                            </Grid>
+                            
+
+                            <Grid x:Name="DownloadProgressGrid"
+                                  Grid.Row="6"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Top"
+                                  Margin="0 0 0 0"
+                                  Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock x:Name="DownloadProgressText"
+                                           TextAlignment="Left"
+                                           Margin="25 0 0 0"
+                                           Grid.Row="0"
+                                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+
+                                <ProgressBar x:Name="DownloadProgressBar"
+                                             Height="25"
+                                             Margin="20 0 20 0"
+                                             ValueChanged="DownloadProgressBar_ValueChanged"
+                                             Grid.Row="1"/>
+                            </Grid>
+                            
+                            <Expander Header="{StaticResource RequestsAdvancedLabel}"
+                                      FontSize="16"
+                                      ExpandDirection="Down">
+                                <ui:SimpleStackPanel Orientation="Vertical"
+                                                     Spacing="12">
+                                    <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" 
+                                               FontSize="16"/>
+                                    <TextBox Text="{Binding Settings.DataDragonBaseUrl}" 
+                                             Height="25"
+                                             VerticalContentAlignment="Center"
+                                             Padding="2"/>
+                                    <TextBlock Text="{StaticResource DataDragonChampionUrlLabelText}" 
+                                               FontSize="16"/>
+                                    <TextBox Text="{Binding Settings.ChampionRelativeUrl}" 
+                                             Height="25"
+                                             VerticalContentAlignment="Center"
+                                             Padding="2"/>
+                                    <TextBlock Text="{StaticResource DataDragonMapUrlLabelText}" 
+                                               FontSize="16"/>
+                                    <TextBox Text="{Binding Settings.MapRelativeUrl}" 
+                                             Padding="2" 
+                                             Height="25"
+                                             VerticalContentAlignment="Center"/>
+                                    <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}"
+                                               FontSize="16"/>
+                                    <TextBox Text="{Binding Settings.ItemRelativeUrl}" 
+                                             Padding="2" 
+                                             Height="25"
+                                             VerticalContentAlignment="Center"/>
+                                </ui:SimpleStackPanel>
+                            </Expander>
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
                 </TabItem>

@@ -39,8 +39,8 @@ namespace Rofl.UI.Main.Views
             PageNameTextBlock.Text = GetPageTitle(selectedPage);
 
             // Change sizes of the navigation dots
-            ((Image)NavigationDotsPanel.Children[newIndex]).Width = 8;
-            ((Image)NavigationDotsPanel.Children[newIndex - 1]).Width = 5;
+            ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[newIndex]).Width = 8;
+            ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[newIndex - 1]).Width = 5;
         }
 
         public void MoveToPreviousPage()
@@ -55,8 +55,8 @@ namespace Rofl.UI.Main.Views
             PageNameTextBlock.Text = GetPageTitle(selectedPage);
 
             // Change sizes of the navigation dots
-            ((Image)NavigationDotsPanel.Children[newIndex]).Width = 8;
-            ((Image)NavigationDotsPanel.Children[newIndex + 1]).Width = 5;
+            ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[newIndex]).Width = 8;
+            ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[newIndex + 1]).Width = 5;
         }
 
         private void WelcomeSetupWindow_OnLoaded(object sender, RoutedEventArgs e)
