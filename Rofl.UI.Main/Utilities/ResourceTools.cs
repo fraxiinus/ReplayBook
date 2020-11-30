@@ -11,6 +11,11 @@ namespace Rofl.UI.Main.Utilities
 {
     public static class ResourceTools
     {
+        internal static T GetObjectFromResource<T>(string resourceName)
+        {
+            return (T)Application.Current.TryFindResource(resourceName);
+        }
+
         internal static ImageSource GetImageSourceFromResource(string resourceName)
         {
             return Application.Current.TryFindResource(resourceName) as ImageSource;

@@ -173,7 +173,7 @@ namespace Rofl.UI.Main.ViewModels
                 // Set default item image, to be replaced
                 Application.Current.Dispatcher.Invoke((Action) delegate
                 {
-                    item.ImageSource = ResourceTools.GetImageSourceFromResource("DownloadDrawingImage");
+                    item.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
                 });
 
                 itemTasks.Add(Task.Run(async () =>
@@ -189,7 +189,7 @@ namespace Rofl.UI.Main.ViewModels
                         _log.Warning($"Failed to load image for {(response.Request as ItemRequest).ItemID}");
                         Application.Current.Dispatcher.Invoke((Action)delegate
                         {
-                            item.ImageSource = ResourceTools.GetImageSourceFromResource("ErrorDrawingImage");
+                            item.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                         });
                     }
                     else
@@ -198,6 +198,7 @@ namespace Rofl.UI.Main.ViewModels
                         {
                             Application.Current.Dispatcher.Invoke((Action)delegate
                             {
+                                item.OverlayIcon = null; // hide overlay icons, if any
                                 item.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
                             });
                         }
@@ -205,6 +206,7 @@ namespace Rofl.UI.Main.ViewModels
                         {
                             Application.Current.Dispatcher.Invoke((Action)delegate
                             {
+                                item.OverlayIcon = null; // hide overlay icons, if any
                                 item.ImageSource = response.ResponseBytes.ToBitmapImage();
                             });
                         }
@@ -254,7 +256,7 @@ namespace Rofl.UI.Main.ViewModels
             {
                 Application.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    request.Player.ImageSource = ResourceTools.GetImageSourceFromResource("DownloadDrawingImage");
+                    request.Player.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
                 });
 
                 allTasks.Add(Task.Run(async () =>
@@ -267,7 +269,7 @@ namespace Rofl.UI.Main.ViewModels
                         _log.Warning($"Failed to load image for {(response.Request as ChampionRequest).ChampionName}");
                         Application.Current.Dispatcher.Invoke((Action)delegate
                         {
-                            request.Player.ImageSource = ResourceTools.GetImageSourceFromResource("ErrorDrawingImage");
+                            request.Player.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                         });
                     }
 
@@ -275,6 +277,7 @@ namespace Rofl.UI.Main.ViewModels
                     {
                         Application.Current.Dispatcher.Invoke((Action)delegate
                         {
+                            request.Player.OverlayIcon = null; // hide overlay icons, if any
                             request.Player.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
                         });
                     }
@@ -282,6 +285,7 @@ namespace Rofl.UI.Main.ViewModels
                     {
                         Application.Current.Dispatcher.Invoke((Action)delegate
                         {
+                            request.Player.OverlayIcon = null; // hide overlay icons, if any
                             request.Player.ImageSource = response.ResponseBytes.ToBitmapImage();
                         });
                     }

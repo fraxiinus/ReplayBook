@@ -52,6 +52,33 @@ namespace Rofl.UI.Main.Models
             }
         }
 
+        private Geometry _overlayIcon;
+        public Geometry OverlayIcon
+        {
+            get => _overlayIcon;
+            set
+            {
+                _overlayIcon = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(OverlayIcon)));
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(OverlayVisible)));
+            }
+        }
+
+        public System.Windows.Visibility OverlayVisible
+        {
+            get
+            {
+                if (_overlayIcon != null)
+                {
+                    return System.Windows.Visibility.Visible;
+                }
+
+                return System.Windows.Visibility.Collapsed;
+            }
+        }
+
         public string CombinedName
         {
             get

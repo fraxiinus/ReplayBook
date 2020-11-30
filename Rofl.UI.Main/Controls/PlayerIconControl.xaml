@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             xmlns:local="clr-namespace:Rofl.UI.Main.Controls" 
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="30">
 
@@ -22,27 +23,34 @@
                 </ImageBrush>
             </Border.Background>
 
-            <Rectangle x:Name="MarkerRectangle"
-                       Width="8"
-                       Height="8"
-                       Margin="0 1 1 0"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Top">
-                <Rectangle.Style>
-                    <Style TargetType="Rectangle">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="True">
-                                <Setter Property="Fill" Value="{Binding Path=Marker.Color}"/>
-                                <Setter Property="Stroke" Value="Black"/>
-                                <Setter Property="StrokeThickness" Value="1"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="False">
-                                <Setter Property="Fill" Value="Transparent"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Rectangle.Style>
-            </Rectangle>
+            <Grid>
+                <ui:PathIcon RenderOptions.BitmapScalingMode="HighQuality"
+                             Data="{Binding Path=OverlayIcon}"
+                             Visibility="{Binding Path=OverlayVisible}"/>
+
+                <Rectangle x:Name="MarkerRectangle"
+                           Width="8"
+                           Height="8"
+                           Margin="0 1 1 0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Top">
+                    <Rectangle.Style>
+                        <Style TargetType="Rectangle">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="True">
+                                    <Setter Property="Fill" Value="{Binding Path=Marker.Color}"/>
+                                    <Setter Property="Stroke" Value="Black"/>
+                                    <Setter Property="StrokeThickness" Value="1"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsKnownPlayer}" Value="False">
+                                    <Setter Property="Fill" Value="Transparent"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+            </Grid>
+            
         </Border>
         
     </Grid>
