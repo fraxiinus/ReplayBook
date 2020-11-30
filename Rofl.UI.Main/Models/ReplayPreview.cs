@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Rofl.Executables.Utilities;
 
 namespace Rofl.UI.Main.Models
 {
@@ -45,6 +46,8 @@ namespace Rofl.UI.Main.Models
         public TimeSpan GameDuration { get; private set; }
 
         public string GameVersion { get; private set; }
+
+        public string GameVersionShort { get => "Patch " + GameVersion?.VersionSubstring(); }
 
         public string MatchId { get; private set; }
 
