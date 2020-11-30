@@ -169,6 +169,12 @@
                           ScrollViewer.ScrollChanged="ReplayListView_ScrollChanged"
                           SelectionChanged="ReplayListView_SelectionChanged"
                           Grid.Row="2">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundAltHighBrush}" />
+                            <Setter Property="BorderThickness" Value="0, 0, 0, 1" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <controls:ReplayItemControl/>

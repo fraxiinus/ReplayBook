@@ -14,11 +14,12 @@
           MouseRightButtonUp="UIElement_OnMouseRightButtonUp"
           MouseEnter="Grid_MouseEnter"
           MouseLeave="Grid_MouseLeave">
+
         <Grid.ContextMenu>
             <ContextMenu x:Name="DockPanelReplayContextMenu"
                          Placement="Bottom">
                 <MenuItem Header="{StaticResource OpenContainingFolder}" 
-                          Click="OpenContainingFolder_Click">
+                           Click="OpenContainingFolder_Click">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}"/>
                     </MenuItem.Icon>
@@ -158,7 +159,7 @@
                     </TextBlock.Style>
                 </TextBlock>
             </Border>
-            
+
             <TextBlock x:Name="MapNameText"
                        FontSize="12"
                        Text="{Binding Path=MapName, FallbackValue=Map name}"/>
@@ -208,9 +209,9 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                    
+
             </StackPanel>
-                
+
             <!--</Border>-->
 
         </StackPanel>
@@ -251,7 +252,7 @@
                     </Style.Triggers>
                 </Style>
             </StackPanel.Style>
-            
+
             <Button x:Name="PlayButton"
                     Margin="0 0 0 5"
                     Width="37"
@@ -283,7 +284,7 @@
                     </Style>
                 </Button.Style>
                 <ui:PathIcon Data="{StaticResource PlayPathIcon}"
-                                RenderOptions.BitmapScalingMode="HighQuality"/>
+                             RenderOptions.BitmapScalingMode="HighQuality"/>
             </Button>
 
             <Button x:Name="MoreButton"
@@ -292,7 +293,7 @@
                     ToolTip="{StaticResource MoreToolTip}"
                     Click="MoreButton_Click">
                 <ui:PathIcon Data="{StaticResource MorePathIcon}"
-                       RenderOptions.BitmapScalingMode="HighQuality"/>
+                             RenderOptions.BitmapScalingMode="HighQuality"/>
 
                 <Button.ContextMenu>
                     <ContextMenu x:Name="ReplayContextMenu"
@@ -339,9 +340,9 @@
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
-            
+
         </StackPanel>
-        
+
     </Grid>
-    
+
 </UserControl>
