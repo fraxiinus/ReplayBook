@@ -42,7 +42,7 @@
                         Click="TargetButton_Click"
                         Background="Transparent"
                         ToolTip="{StaticResource BrowseButtonText}">
-                    <Image Source="{StaticResource FolderHorizontalDrawingImage}"/>
+                    <ui:PathIcon Data="{StaticResource FolderHorizontalPathIcon}"/>
                 </Button>
             </Grid>
 
@@ -107,7 +107,7 @@
                         Grid.Column="1" Grid.Row="0"
                         Background="Transparent"
                         ToolTip="{StaticResource EditButtonText}">
-                    <Image Source="{StaticResource EditDrawingImage}"/>
+                    <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
                 </Button>
             </Grid>
         </ui:SimpleStackPanel>

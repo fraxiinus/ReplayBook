@@ -106,18 +106,18 @@ namespace Rofl.UI.Main.Views
                     Width = new GridLength(20)
                 });
 
-                var newImage = new Image()
+                var dotIcon = new ModernWpf.Controls.PathIcon()
                 {
-                    Source = (ImageSource)TryFindResource("CircleFillDrawingImage"),
+                    Data = (Geometry)TryFindResource("CirclePathIcon"),
                     Width = 5,
                     Margin = new Thickness(5, 0, 5, 0)
                 };
 
-                if (i == 0) newImage.Width = 8;
+                if (i == 0) dotIcon.Width = 8;
 
-                Grid.SetColumn(newImage, i);
+                Grid.SetColumn(dotIcon, i);
 
-                markerPanel.Children.Add(newImage);
+                markerPanel.Children.Add(dotIcon);
             }
         }
 
