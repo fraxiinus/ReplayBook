@@ -296,6 +296,7 @@
     <string:String x:Key="ExportReplayData">Export Data...</string:String>
     <string:String x:Key="RenameReplayFile">Rename</string:String>
     <string:String x:Key="DeleteReplayFile">Delete</string:String>
+    <string:String x:Key="RefreshReplayList">Refresh List</string:String>
 
     <!--Replay Data Export-->
     <string:String x:Key="ErdTitleText">Export Replay Data</string:String>

@@ -33,7 +33,7 @@
                                     <Condition Binding="{Binding Path=IsKnownPlayer}" Value="True"/>
                                     <Condition Binding="{Binding Path=PlayerMarkerStyle}" Value="{x:Static settings:MarkerStyle.Border}"/>
                                 </MultiDataTrigger.Conditions>
-                                <Setter Property="BorderThickness" Value="3"/>
+                                <Setter Property="BorderThickness" Value="2"/>
                                 <Setter Property="BorderBrush" Value="{Binding Path=Marker.Color}"/>
                             </MultiDataTrigger>
                         </Style.Triggers>

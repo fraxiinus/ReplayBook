@@ -52,6 +52,13 @@
                         <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator/>
+                <MenuItem Header="{StaticResource RefreshReplayList}"
+                          Click="RefreshReplayList_Click">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource RefreshPathIcon}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </ContextMenu>
         </Grid.ContextMenu>
 
@@ -335,6 +342,14 @@
                                   Click="DeleteReplayFile_OnClick">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem x:Name="RefreshReplayList"
+                                  Header="{StaticResource RefreshReplayList}"
+                                  Click="RefreshReplayList_Click">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource RefreshPathIcon}"/>
                             </MenuItem.Icon>
                         </MenuItem>
                     </ContextMenu>

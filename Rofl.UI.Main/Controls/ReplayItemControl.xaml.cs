@@ -158,6 +158,14 @@ namespace Rofl.UI.Main.Controls
             flyout.GetFlyoutButton().Focus();
         }
 
+        private async void RefreshReplayList_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
+
+            context.ValidateReplayStorage();
+            await context.ReloadReplayList().ConfigureAwait(true);
+        }
+
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
             if (!(this.DataContext is ReplayPreview replay)) { return; }

@@ -207,15 +207,15 @@ namespace Rofl.UI.Main
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
 
-        private async void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+        //private async void RefreshButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
-            RefreshButton.IsEnabled = false;
-            context.ValidateReplayStorage();
-            await context.ReloadReplayList().ConfigureAwait(true);
-            RefreshButton.IsEnabled = true;
-        }
+        //    RefreshButton.IsEnabled = false;
+        //    context.ValidateReplayStorage();
+        //    await context.ReloadReplayList().ConfigureAwait(true);
+        //    RefreshButton.IsEnabled = true;
+        //}
 
         private async void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {

@@ -59,14 +59,14 @@
                                            QuerySubmitted="SearchBox_QuerySubmitted"/>
                     </Border>
 
-                    <Button x:Name="RefreshButton"
+                    <!--<Button x:Name="RefreshButton"
                             ToolTip="{StaticResource RefreshToolTip}"
                             Width="37"
                             Click="RefreshButton_Click"
                             Background="Transparent"
                             Grid.Column="1">
                         <ui:PathIcon Data="{StaticResource RefreshPathIcon}"/>
-                    </Button>
+                    </Button>-->
 
                     <Button x:Name="SortButton"
                             ToolTip="{StaticResource SortToolTip}"
