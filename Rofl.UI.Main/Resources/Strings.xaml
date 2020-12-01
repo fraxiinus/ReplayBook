@@ -145,7 +145,7 @@
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
     <!--<string:String x:Key="WebCacheClearButtonText">Clear cached images</string:String>-->
 
-    <string:String x:Key="Name">ReplayBook</string:String>
+    <string:String x:Key="Name">Replay Book</string:String>
     <string:String x:Key="Author">Fraxinus (Etirps)</string:String>
     <string:String x:Key="Version">Pre-Release 9</string:String>
     <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
@@ -153,7 +153,7 @@
     <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
     <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
-    <string:String x:Key="AcknowledgementText">ReplayBook is only possible thanks to the following:</string:String>
+    <string:String x:Key="AcknowledgementText">Replay Book is only possible thanks to the following:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Open Source Projects</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Open Source Acknowledgements</string:String>
     
