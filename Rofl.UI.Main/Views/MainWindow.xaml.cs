@@ -1,23 +1,19 @@
 ﻿using Etirps.RiZhi;
+using ModernWpf.Controls;
 using Rofl.Files;
 using Rofl.Files.Models;
 using Rofl.Requests;
 using Rofl.Settings;
 using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.Models;
+using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
 using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
-using Rofl.UI.Main.Utilities;
-using Rofl.UI.Main.Extensions;
-using ModernWpf.Controls;
 
 namespace Rofl.UI.Main
 {
@@ -191,7 +187,7 @@ namespace Rofl.UI.Main
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
-            if (context.LoadReplays() == 0)
+            if (context.LoadReplaysFromDatabase() == 0)
             {
                 // Create and show flyout above the button
                 var flyout = FlyoutHelper.CreateFlyout(includeButton: false, includeCustom: false);
@@ -226,7 +222,7 @@ namespace Rofl.UI.Main
             context.SortParameters.SearchTerm = searchBox.Text;
 
             context.ClearReplays();
-            context.LoadReplays();
+            context.LoadReplaysFromDatabase();
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
 
@@ -238,7 +234,7 @@ namespace Rofl.UI.Main
             context.SortParameters.SearchTerm = args.QueryText;
 
             context.ClearReplays();
-            context.LoadReplays();
+            context.LoadReplaysFromDatabase();
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
 

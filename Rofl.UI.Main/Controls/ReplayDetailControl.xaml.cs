@@ -1,6 +1,7 @@
 ﻿using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
+using Rofl.UI.Main.Views;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +20,15 @@ namespace Rofl.UI.Main.Controls
         public ReplayDetailControl()
         {
             InitializeComponent();
+        }
+
+        private void ReplayDetailControlElement_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Disable delete menu option in single replay mode,
+            if (Window.GetWindow(this) is SingleReplayWindow)
+            {
+                DeleteReplayFile.Visibility = Visibility.Collapsed;
+            }
         }
 
         private Thickness _statsPlayerIconMargin;
@@ -116,15 +126,11 @@ namespace Rofl.UI.Main.Controls
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(Window.GetWindow(this) is MainWindow mainWindow)) { return; }
-            if (!(this.DataContext is ReplayDetail replay)) { return; }
             if (!(sender is Button moreButton)) { return; }
-
-            // Select the item
-            mainWindow.SelectReplayItem(replay.PreviewModel);
 
             // Get the button and menu
             ContextMenu contextMenu = moreButton.ContextMenu;
+
             // Set placement and open
             contextMenu.PlacementTarget = moreButton;
             contextMenu.IsOpen = true;
@@ -203,7 +209,7 @@ namespace Rofl.UI.Main.Controls
         private void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            if (!(this.DataContext is ReplayDetail replay)) { return; }
 
             // create the flyout
             var flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: false);
@@ -215,7 +221,7 @@ namespace Rofl.UI.Main.Controls
             // set button click function
             flyout.GetFlyoutButton().Click += async (object eSender, RoutedEventArgs eConfirm) =>
             {
-                await context.DeleteReplayFile(replay).ConfigureAwait(false);
+                await context.DeleteReplayFile(replay.PreviewModel).ConfigureAwait(false);
 
                 // Hide the flyout
                 this.Dispatcher.Invoke(() =>

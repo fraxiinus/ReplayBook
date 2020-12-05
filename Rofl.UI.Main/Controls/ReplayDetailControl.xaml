@@ -11,7 +11,8 @@
              d:DesignHeight="650" d:DesignWidth="760"
              HorizontalAlignment="Left"
              VerticalAlignment="Top"
-             DataContextChanged="ReplayDetailControlElement_DataContextChanged">
+             DataContextChanged="ReplayDetailControlElement_DataContextChanged"
+             Loaded="ReplayDetailControlElement_Loaded">
     <UserControl.Resources>
         <converters:FormatKbSizeConverter x:Key="FormatKbSizeConverter"/>
     </UserControl.Resources>

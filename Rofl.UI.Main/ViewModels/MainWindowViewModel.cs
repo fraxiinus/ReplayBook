@@ -91,7 +91,7 @@ namespace Rofl.UI.Main.ViewModels
         /// <summary>
         /// Get replays from database and load to display
         /// </summary>
-        public int LoadReplays()
+        public int LoadReplaysFromDatabase()
         {
             _log.Information("Loading replays from database...");
             var databaseResults = _fileManager.GetReplays(SortParameters, SettingsManager.Settings.ItemsPerPage, PreviewReplays.Count);
@@ -100,17 +100,28 @@ namespace Rofl.UI.Main.ViewModels
             
             foreach (var file in databaseResults)
             {
-                var previewModel = CreateReplayPreview(file);
-
-                App.Current.Dispatcher.Invoke((Action) delegate
-                {
-                    PreviewReplays.Add(previewModel);
-                });
-
-                FileResults.Add(file.FileInfo.Path, file);
+                AddReplay(file);
             }
 
             return databaseResults.Count;
+        }
+
+        /// <summary>
+        /// Save a Replay File result
+        /// </summary>
+        /// <param name="fileResult"></param>
+        public ReplayPreview AddReplay(FileResult file)
+        {
+            var previewModel = CreateReplayPreview(file);
+
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                PreviewReplays.Add(previewModel);
+            });
+
+            FileResults.Add(file.FileInfo.Path, file);
+
+            return previewModel;
         }
 
         public ReplayPreview CreateReplayPreview(FileResult file)
@@ -356,8 +367,13 @@ namespace Rofl.UI.Main.ViewModels
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
+            
+            // Discover and load replays into database
             await _fileManager.InitialLoadAsync().ConfigureAwait(true);
-            LoadReplays();
+
+            // Load from database into our viewmodel
+            LoadReplaysFromDatabase();
+
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
             await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
             StatusBarModel.Visible = false;
@@ -403,10 +419,10 @@ namespace Rofl.UI.Main.ViewModels
 
             if (String.IsNullOrEmpty(location)) { throw new ArgumentNullException(nameof(location)); }
 
-            FileResults.TryGetValue(location, out FileResult match);
-            if (match == null) { throw new ArgumentException($"{location} does not match any known replays"); }
+            //FileResults.TryGetValue(location, out FileResult match);
+            //if (match == null) { throw new ArgumentException($"{location} does not match any known replays"); }
 
-            string selectArg = $"/select, \"{match.FileInfo.Path}\"";
+            string selectArg = $"/select, \"{location}\"";
             Process.Start("explorer.exe", selectArg);
         }
 

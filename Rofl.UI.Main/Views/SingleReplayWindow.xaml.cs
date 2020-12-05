@@ -77,7 +77,8 @@ namespace Rofl.UI.Main.Views
             }
             else
             {
-                var previewReplay = context.CreateReplayPreview(replay);
+                // Let the view model know about the replay
+                var previewReplay = context.AddReplay(replay);
                 var replayDetail = new ReplayDetail(replay, previewReplay);
                 DetailView.DataContext = replayDetail;
                 (DetailView.FindName("BlankContent") as StackPanel).Visibility = Visibility.Hidden;

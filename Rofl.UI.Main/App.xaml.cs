@@ -1,17 +1,11 @@
 ﻿using Etirps.RiZhi;
 using ModernWpf;
-using Rofl.Executables.Models;
-using Rofl.Executables.Utilities;
 using Rofl.Files;
 using Rofl.Requests;
 using Rofl.Settings;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
