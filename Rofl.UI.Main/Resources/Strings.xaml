@@ -69,8 +69,8 @@
     <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
     <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
     <string:String x:Key="FileAssociationButtonText">Set .ROFL file association</string:String>
-    <string:String x:Key="FileActionOption1">Directly play replay file</string:String>
-    <string:String x:Key="FileActionOption2">Open file in ReplayBook</string:String>
+    <string:String x:Key="FileActionOption1">Play replay</string:String>
+    <string:String x:Key="FileActionOption2">Show stats</string:String>
     <string:String x:Key="ReplayBehaviorLabelText">Play Button Behavior</string:String>
     <string:String x:Key="UpdatesLabelText">Updates</string:String>
     <string:String x:Key="CheckUpdatesButtonText">Check for Updates...</string:String>
@@ -84,7 +84,7 @@
 
     <!--Settings : Appearance-->
     <string:String x:Key="AppearanceThemeModeTitle">Theme</string:String>
-    <string:String x:Key="AppearanceThemeMode0">Use system setting</string:String>
+    <string:String x:Key="AppearanceThemeMode0">System assigned</string:String>
     <string:String x:Key="AppearanceThemeMode1">Dark</string:String>
     <string:String x:Key="AppearanceThemeMode2">Light</string:String>
     <string:String x:Key="AppearanceThemeAccentTitle">Accent Color</string:String>

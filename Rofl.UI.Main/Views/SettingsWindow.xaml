@@ -183,33 +183,28 @@
                                      VerticalContentAlignment="Center"
                                      Text="{Binding Path=Settings.MatchHistoryBaseUrl}"/>
 
-                            <TextBlock Text="{StaticResource FileAssociationLabelText}" 
-                                       FontSize="16"/>
+                            <ui:RadioButtons x:Name="FileActionOptions"
+                                             MaxColumns="2"
+                                             Header="{StaticResource FileAssociationLabelText}"
+                                             SelectionChanged="FileActionOptions_SelectionChanged">
+                                <ui:RadioButtons.Style>
+                                    <Style TargetType="ui:RadioButtons">
+                                        <Setter Property="FontSize" Value="16"/>
+                                    </Style>
+                                </ui:RadioButtons.Style>
+                                <RadioButton Content="{StaticResource FileActionOption1}"
+                                             x:Name="FileActionOption1"/>
+                                <RadioButton Content="{StaticResource FileActionOption2}"
+                                             x:Name="FileActionOption2"/>
+                            </ui:RadioButtons>
 
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="10"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <ComboBox Name="FileActionComboBox"
-                                          Grid.Column="0"
-                                          MinWidth="200"
-                                          SelectedIndex="{Binding Path=Settings.FileAction}"
-                                          VerticalContentAlignment="Center">
-                                    <ComboBoxItem Content="{StaticResource FileActionOption1}"/>
-                                    <ComboBoxItem Content="{StaticResource FileActionOption2}"/>
-                                </ComboBox>
-
-                                <Button x:Name="SetFileAssocButton"
+                            <Button x:Name="SetFileAssocButton"
                                         Height="30"
                                         Grid.Column="2"
                                         Content="{StaticResource FileAssociationButtonText}"
                                         Padding="15 0 15 0"
                                         HorizontalAlignment="Left"
                                         Click="SetFileAssocButton_Click"/>
-                            </Grid>
 
                             <TextBlock Text="{StaticResource ReplayBehaviorLabelText}" 
                                        FontSize="16" />
@@ -235,20 +230,23 @@
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Spacing="12"
                                              Margin="15 0 20 12">
-                            
-                            <TextBlock Text="{StaticResource AppearanceThemeModeTitle}"
-                                       FontSize="16"/>
-                            
-                            <ComboBox x:Name="ThemeComboBox"
-                                      Width="200"
-                                      SelectedIndex="{Binding Path=Settings.ThemeMode}"
-                                      HorizontalAlignment="Left"
-                                      VerticalContentAlignment="Center"
-                                      SelectionChanged="ThemeComboBox_SelectionChanged">
-                                <ComboBoxItem Content="{StaticResource AppearanceThemeMode0}"/>
-                                <ComboBoxItem Content="{StaticResource AppearanceThemeMode1}"/>
-                                <ComboBoxItem Content="{StaticResource AppearanceThemeMode2}"/>
-                            </ComboBox>
+
+                            <ui:RadioButtons x:Name="AppearanceThemeOptions"
+                                             MaxColumns="1"
+                                             Header="{StaticResource AppearanceThemeModeTitle}"
+                                             SelectionChanged="AppearanceThemeOptions_SelectionChanged">
+                                <ui:RadioButtons.Style>
+                                    <Style TargetType="ui:RadioButtons">
+                                        <Setter Property="FontSize" Value="16"/>
+                                    </Style>
+                                </ui:RadioButtons.Style>
+                                <RadioButton Content="{StaticResource AppearanceThemeMode0}"
+                                             x:Name="AppearanceThemeOption1"/>
+                                <RadioButton Content="{StaticResource AppearanceThemeMode1}"
+                                             x:Name="AppearanceThemeOption2"/>
+                                <RadioButton Content="{StaticResource AppearanceThemeMode2}"
+                                             x:Name="AppearanceThemeOption3"/>
+                            </ui:RadioButtons>
 
                             <TextBlock Text="{StaticResource AppearanceThemeAccentTitle}"
                                        FontSize="16"/>

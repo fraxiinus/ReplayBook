@@ -33,13 +33,13 @@ namespace Rofl.UI.Main
             {
                 var selectedFile = e.Args[0];
                 // 0 = directly play, 1 = open in replaybook
-                if (_settingsManager.Settings.FileAction == 0)
+                if (_settingsManager.Settings.FileAction == Settings.Models.FileAction.Play)
                 {
                     StartDialogHost();
                     await _player.PlayReplay(selectedFile).ConfigureAwait(true);
                     Application.Current.Shutdown();
                 }
-                else if (_settingsManager.Settings.FileAction == 1)
+                else if (_settingsManager.Settings.FileAction == Settings.Models.FileAction.Open)
                 {
                     StartSingleReplayWindow(selectedFile);
                 }

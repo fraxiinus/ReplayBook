@@ -11,8 +11,10 @@ namespace Rofl.Settings.Models
 
         }
 
-        // 0 = Use Default, 1 = Dark, 2 = Light
+        
         [JsonProperty("theme_mode")]
+
+        // 0 = Use Default, 1 = Dark, 2 = Light
         public int ThemeMode { get; set; }
 
         // Null = using Windows, Hex otherwise

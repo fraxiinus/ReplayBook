@@ -17,7 +17,7 @@ namespace Rofl.Settings.Models
         {
             KnownPlayers = new ObservableCollection<PlayerMarker>();
             PlayerMarkerStyle = MarkerStyle.Border;
-            FileAction = 0;
+            FileAction = FileAction.Open;
             PlayConfirmation = true;
             MatchHistoryBaseUrl = @"https://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/";
             ItemsPerPage = 50;
@@ -85,8 +85,8 @@ namespace Rofl.Settings.Models
         // Replay Settings
         public ObservableCollection<string> SourceFolders { get; private set; }
 
-        private int _fileAction;
-        public int FileAction
+        private FileAction _fileAction;
+        public FileAction FileAction
         {
             get => _fileAction;
             set

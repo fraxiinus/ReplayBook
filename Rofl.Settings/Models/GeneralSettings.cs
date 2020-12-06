@@ -6,6 +6,8 @@ namespace Rofl.Settings.Models
 {
     public enum MarkerStyle { Border = 0, Square = 1 }
 
+    public enum FileAction { Play = 0, Open = 1}
+
     public class GeneralSettings
     {
         public GeneralSettings()
@@ -21,7 +23,8 @@ namespace Rofl.Settings.Models
         public MarkerStyle PlayerMarkerStyle { get; set; }
 
         [JsonProperty("file_action")]
-        public int FileAction { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public FileAction FileAction { get; set; }
 
         [JsonProperty("play_confirm")]
         public bool PlayConfirmation { get; set; }

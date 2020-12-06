@@ -74,6 +74,15 @@ namespace Rofl.UI.Main.Views
             // Set player marker style radio
             PlayerMarkerStyleOption1.IsChecked = (context.Settings.PlayerMarkerStyle == MarkerStyle.Border);
             PlayerMarkerStyleOption2.IsChecked = (context.Settings.PlayerMarkerStyle == MarkerStyle.Square);
+
+            // Set file action radio
+            FileActionOption1.IsChecked = (context.Settings.FileAction == FileAction.Play);
+            FileActionOption2.IsChecked = (context.Settings.FileAction == FileAction.Open);
+
+            // Set theme mode radio
+            AppearanceThemeOption1.IsChecked = (context.Settings.ThemeMode == 0);
+            AppearanceThemeOption2.IsChecked = (context.Settings.ThemeMode == 1);
+            AppearanceThemeOption3.IsChecked = (context.Settings.ThemeMode == 2);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -628,18 +637,23 @@ namespace Rofl.UI.Main.Views
             ackDialog.ShowDialog();
         }
 
-        private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AppearanceThemeOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (ThemeComboBox.SelectedIndex)
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
+            switch (AppearanceThemeOptions.SelectedIndex)
             {
                 case 0: // system default
                     ThemeManager.Current.ApplicationTheme = null;
+                    context.Settings.ThemeMode = 0;
                     break;
                 case 1: // dark
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+                    context.Settings.ThemeMode = 1;
                     break;
                 case 2: // light
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+                    context.Settings.ThemeMode = 2;
                     break;
             }
         }
@@ -733,6 +747,20 @@ namespace Rofl.UI.Main.Views
             else if (PlayerMarkerStyleOptions.SelectedIndex == 1)
             {
                 context.Settings.PlayerMarkerStyle = MarkerStyle.Square;
+            }
+        }
+
+        private void FileActionOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
+            if (FileActionOptions.SelectedIndex == 0)
+            {
+                context.Settings.FileAction = FileAction.Play;
+            }
+            else if (FileActionOptions.SelectedIndex == 1)
+            {
+                context.Settings.FileAction = FileAction.Open;
             }
         }
 
