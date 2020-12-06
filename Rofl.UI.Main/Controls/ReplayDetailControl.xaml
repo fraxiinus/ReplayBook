@@ -94,7 +94,7 @@
                                 Click="PlayButton_Click"
                                 Grid.Column="4">
                             <Button.Style>
-                                <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                                <Style TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false">
                                             <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
