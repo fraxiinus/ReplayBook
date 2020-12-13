@@ -265,7 +265,7 @@
                     ToolTipService.ShowOnDisabled="True"
                     Click="PlayButton_Click">
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                    <Style TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
                                 <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
