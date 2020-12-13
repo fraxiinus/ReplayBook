@@ -12,18 +12,14 @@ jobs:
     - name: Checkout files
       uses: actions/checkout@v1
       
-    - name: Setup MSBuild.exe
-      uses: warrenbuckley/Setup-MSBuild@v1
+    - name: Add msbuild.exe to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
       
-    - name: Setup Nuget
-      uses: warrenbuckley/Setup-Nuget@v1
+    - name: Add nuget.exe to PATH
+      uses: nuget/setup-nuget@v1
       
-    - name: Restore Nuget
+    - name: Restore NuGet packages
       run: nuget restore ReplayBook.sln
       
     - name: Build solution
       run: msbuild /t:Build -p:Configuration="Release" -p:Platform="Any CPU"
-    - name: Package release
-      run: |
-        Compress-Archive ./Rofl.UI.Main/bin/Release ./ReplayBook.zip
-      shell: pwsh
