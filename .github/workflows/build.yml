@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: [windows-latest]
+    steps:
+    - name: Checkout files
+      uses: actions/checkout@v1
+      
+    - name: Add msbuild.exe to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+      
+    - name: Add nuget.exe to PATH
+      uses: nuget/setup-nuget@v1
+      
+    - name: Restore NuGet packages
+      run: nuget restore ReplayBook.sln
+      
+    - name: Build solution
+      run: msbuild /t:Build -p:Configuration="Release" -p:Platform="Any CPU"

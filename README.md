@@ -2,9 +2,9 @@
 
 ![Screenshot](https://i.imgur.com/wbnETCQ.png "Preview Image")
 
-[![Build](https://github.com/leeanchu/ReplayBook/workflows/Build/badge.svg)](https://github.com/leeanchu/ReplayBook/actions?query=workflow%3ABuild)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/leeanchu/ROFL-Player/blob/master/LICENSE)
-[![Discord](https://img.shields.io/discord/606263917211156501?color=blue&label=chat&logo=discord&style=social)](https://discord.gg/c33Rc5J)
+[![Build](https://img.shields.io/github/workflow/status/fraxiinus/ReplayBook/Build?style=flat-square)](https://github.com/leeanchu/ReplayBook/actions?query=workflow%3ABuild)
+[![License](https://img.shields.io/github/license/fraxiinus/ReplayBook?style=flat-square)](https://github.com/leeanchu/ROFL-Player/blob/master/LICENSE)
+[![Discord](https://img.shields.io/discord/606263917211156501?logo=discord&style=flat-square)](https://discord.gg/c33Rc5J)
 
 Replay Book is a replay management tool that is currently in pre-release alpha.
 
