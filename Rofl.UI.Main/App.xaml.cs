@@ -5,6 +5,7 @@ using Rofl.Requests;
 using Rofl.Settings;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
+using System;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
@@ -88,10 +89,19 @@ namespace Rofl.UI.Main
 
             _log.Error($"Log files are generated for each run while in prerelease");
 
-            _settingsManager = new SettingsManager(_log);
-            _files = new FileManager(_settingsManager.Settings, _log);
-            _requests = new RequestManager(_settingsManager.Settings, _log);
-            _player = new ReplayPlayer(_files, _settingsManager, _log);
+            try
+            {
+                _settingsManager = new SettingsManager(_log);
+                _files = new FileManager(_settingsManager.Settings, _log);
+                _requests = new RequestManager(_settingsManager.Settings, _log);
+                _player = new ReplayPlayer(_files, _settingsManager, _log);
+            }
+            catch(Exception ex)
+            {
+                _log.Error(ex.ToString());
+                _log.WriteLog();
+                throw;
+            }
         }
 
         private void ApplyThemeSetting()
