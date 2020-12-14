@@ -88,7 +88,7 @@ namespace Rofl.UI.Main.Controls
             // Create textbox to add as flyout custom element
             var fileNameBox = new TextBox
             {
-                Text = replay.Name,
+                Text = replay.DisplayName,
                 MinWidth = 200
             };
             Grid.SetColumn(fileNameBox, 0);

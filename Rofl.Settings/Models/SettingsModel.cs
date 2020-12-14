@@ -31,6 +31,7 @@ namespace Rofl.Settings.Models
             GeneralSettings.PlayerMarkerStyle = settings.PlayerMarkerStyle;
             GeneralSettings.FileAction = settings.FileAction;
             GeneralSettings.PlayConfirmation = settings.PlayConfirmation;
+            GeneralSettings.RenameAction = settings.RenameAction;
             GeneralSettings.MatchHistoryBaseUrl = settings.MatchHistoryBaseUrl;
             GeneralSettings.ItemsPerPage = settings.ItemsPerPage;
 

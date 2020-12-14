@@ -69,7 +69,7 @@ namespace Rofl.UI.Main.Views
                     Name = property.Name,
                     InternalString = property.Name,
                     Checked = false,
-                    Value = property.GetValue(_replay).ToString()
+                    Value = property.GetValue(_replay)?.ToString()
                 });
             }
 

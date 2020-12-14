@@ -33,5 +33,8 @@ namespace Rofl.Reader.Models
         public string MapName { get; set; }
 
         public bool IsBlueVictorious { get; set; }
+
+        // User assigned fields
+        public string AlternativeName { get; set; }
     }
 }

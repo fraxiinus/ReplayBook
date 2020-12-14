@@ -112,8 +112,8 @@
             <TextBlock x:Name="FilenameText"
                        FontSize="14"
                        FontWeight="Bold"
-                       Text="{Binding Path=Name, FallbackValue=Filename}"
-                       ToolTip="{Binding Path=Name}"/>
+                       Text="{Binding Path=DisplayName, FallbackValue=Filename}"
+                       ToolTip="{Binding Path=DisplayName}"/>
 
             <ui:PathIcon Data="{StaticResource CirclePathIcon}"
                          Foreground="Red"

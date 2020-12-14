@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:string="clr-namespace:System;assembly=mscorlib" xmlns:system="clr-namespace:System;assembly=System">
+                    xmlns:string="clr-namespace:System;assembly=mscorlib" 
+                    xmlns:system="clr-namespace:System;assembly=System">
 
    
     <!--General UI Text-->
@@ -66,12 +67,14 @@
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Player name cannot be empty</string:String>
     <string:String x:Key="PlayerMarkerColorIsEmptyErrorText">Please choose a color</string:String>
     <string:String x:Key="PlayConfirmCheckboxText">Always ask for confirmation before playing replays</string:String>
+    <string:String x:Key="ReplayRenameCheckboxText">Use actual file name (renaming replay will rename the file)</string:String>
     <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
     <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
     <string:String x:Key="FileAssociationButtonText">Set .ROFL file association</string:String>
     <string:String x:Key="FileActionOption1">Play replay</string:String>
     <string:String x:Key="FileActionOption2">Show stats</string:String>
     <string:String x:Key="ReplayBehaviorLabelText">Play Button Behavior</string:String>
+    <string:String x:Key="ReplayRenameLabelText">Replay Name Behavior</string:String>
     <string:String x:Key="UpdatesLabelText">Updates</string:String>
     <string:String x:Key="CheckUpdatesButtonText">Check for Updates...</string:String>
     <string:String x:Key="UpdateExceptionTitleText">Unable to check for updates</string:String>
@@ -366,6 +369,7 @@
 
     <!--Rename dialog-->
     <string:String x:Key="RenameFlyoutEmptyError">Enter valid file name</string:String>
+    <string:String x:Key="RenameFlyoutNotFoundError">Replay is not in a replay folder</string:String>
     <string:String x:Key="RenameDialogTitle">Rename file...</string:String>
     <string:String x:Key="RenameDialogInvalidCharacters">A file name can't contain any of the following characters:{n}{t}\/:*?&lt;&gt;|</string:String>
     

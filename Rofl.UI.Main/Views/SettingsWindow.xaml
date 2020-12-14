@@ -212,6 +212,12 @@
                             <CheckBox Content="{StaticResource PlayConfirmCheckboxText}" 
                                       IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
 
+                            <TextBlock Text="{StaticResource ReplayRenameLabelText}" 
+                                       FontSize="16" />
+
+                            <CheckBox Content="{StaticResource ReplayRenameCheckboxText}" 
+                                      IsChecked="{Binding Path=Settings.SaveNamesToFile}"/>
+
                             <TextBlock Text="{StaticResource UpdatesLabelText}" 
                                        FontSize="16"/>
 

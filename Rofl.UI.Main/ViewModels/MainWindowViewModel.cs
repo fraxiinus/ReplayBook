@@ -128,7 +128,12 @@ namespace Rofl.UI.Main.ViewModels
         {
             if (file == null) throw new ArgumentNullException(nameof(file));
 
-            ReplayPreview previewModel = new ReplayPreview(file.ReplayFile, file.FileInfo.CreationTime, SettingsManager.Settings.PlayerMarkerStyle, file.IsNewFile);
+            ReplayPreview previewModel = new ReplayPreview(file.ReplayFile,
+                file.FileInfo.CreationTime,
+                SettingsManager.Settings.PlayerMarkerStyle,
+                SettingsManager.Settings.RenameAction,
+                file.IsNewFile);
+
             previewModel.IsSupported = SettingsManager.Executables.DoesVersionExist(previewModel.GameVersion);
 
             foreach (var bluePlayer in previewModel.BluePreviewPlayers)
@@ -570,7 +575,7 @@ namespace Rofl.UI.Main.ViewModels
             var replay = FileResults[preview.Location];
 
             // Ask the file manager to rename the replay
-            var error = _fileManager.RenameFile(replay, newText);
+            var error = _fileManager.RenameReplay(replay, newText);
 
             // If the request returned nothing, it worked
             if (error == null)
@@ -580,6 +585,10 @@ namespace Rofl.UI.Main.ViewModels
             else if (error == "{EMPTY ERROR}")
             {
                 error = Application.Current.TryFindResource("RenameFlyoutEmptyError") as string;
+            }
+            else if (error == "{NOT FOUND ERROR}")
+            {
+                error = Application.Current.TryFindResource("RenameFlyoutNotFoundError") as string;
             }
             // Return error 
             return error;

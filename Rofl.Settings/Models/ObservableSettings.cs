@@ -19,6 +19,7 @@ namespace Rofl.Settings.Models
             PlayerMarkerStyle = MarkerStyle.Border;
             FileAction = FileAction.Open;
             PlayConfirmation = true;
+            RenameAction = RenameAction.Database;
             MatchHistoryBaseUrl = @"https://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/";
             ItemsPerPage = 50;
 
@@ -44,6 +45,7 @@ namespace Rofl.Settings.Models
             PlayerMarkerStyle = settings.GeneralSettings.PlayerMarkerStyle;
             FileAction = settings.GeneralSettings.FileAction;
             PlayConfirmation = settings.GeneralSettings.PlayConfirmation;
+            RenameAction = settings.GeneralSettings.RenameAction;
             MatchHistoryBaseUrl = settings.GeneralSettings.MatchHistoryBaseUrl;
 
             ItemsPerPage = settings.GeneralSettings.ItemsPerPage;
@@ -107,6 +109,36 @@ namespace Rofl.Settings.Models
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(PlayConfirmation)));
             }
+        }
+
+        private RenameAction _renameAction;
+        public RenameAction RenameAction
+        {
+            get => _renameAction;
+            set
+            {
+                _renameAction = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(RenameAction)));
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(SaveNamesToFile)));
+            }
+        }
+
+        public bool SaveNamesToFile
+        {
+            set
+            {
+                if (value)
+                {
+                    RenameAction = RenameAction.File;
+                }
+                else
+                {
+                    RenameAction = RenameAction.Database;
+                }
+            }
+            get => RenameAction == RenameAction.File;
         }
 
         private string _matchHistoryBaseUrl;

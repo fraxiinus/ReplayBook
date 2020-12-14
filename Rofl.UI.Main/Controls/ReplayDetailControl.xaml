@@ -63,7 +63,7 @@
                                  Background="Transparent"
                                  BorderThickness="0"
                                  IsReadOnly="True"
-                                 Text="{Binding Path=PreviewModel.Name, FallbackValue=FileName, Mode=OneWay}"
+                                 Text="{Binding Path=PreviewModel.DisplayName, FallbackValue=FileName, Mode=OneWay}"
                                  Grid.Column="0"/>
                         
                         <ui:PathIcon Data="{StaticResource CirclePathIcon}"

@@ -229,7 +229,11 @@ namespace Rofl.UI.Main
         private async void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
-            if (string.IsNullOrEmpty(args.QueryText)) { return; }
+            if (string.IsNullOrEmpty(args.QueryText))
+            {
+                context.ValidateReplayStorage();
+                await context.ReloadReplayList().ConfigureAwait(true);
+            }
 
             context.SortParameters.SearchTerm = args.QueryText;
 

@@ -11,15 +11,21 @@ namespace Rofl.UI.Main.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private bool _showRealName;
+
         public ReplayPreview(ReplayFile replayFile, 
                              DateTimeOffset creationDate,
                              Settings.Models.MarkerStyle markerStyle,
+                             Settings.Models.RenameAction nameSource,
                              bool newFile = false)
         {
             if (replayFile == null) { throw new ArgumentNullException(nameof(replayFile)); }
 
+            _showRealName = nameSource == Settings.Models.RenameAction.File;
+
             // Copy all the replay file fields
             Name = replayFile.Name;
+            AlternativeName = replayFile.AlternativeName;
             GameDuration = replayFile.GameDuration;
             GameVersion = replayFile.GameVersion;
             MatchId = replayFile.MatchId;
@@ -42,6 +48,16 @@ namespace Rofl.UI.Main.Models
         }
 
         public string Name { get; private set; }
+
+        public string AlternativeName { get; private set; }
+
+        public string DisplayName
+        {
+            get 
+            {
+                return _showRealName ? Name : AlternativeName;
+            }
+        }
 
         public TimeSpan GameDuration { get; private set; }
 

@@ -4,9 +4,44 @@ using System.Collections.Generic;
 
 namespace Rofl.Settings.Models
 {
-    public enum MarkerStyle { Border = 0, Square = 1 }
+    public enum MarkerStyle 
+    {
+        /// <summary>
+        /// Show player marker as a colored border around the icon
+        /// </summary>
+        Border = 0,
 
-    public enum FileAction { Play = 0, Open = 1}
+        /// <summary>
+        /// Show player marker as a square in the top right of the icon
+        /// </summary>
+        Square = 1
+    }
+
+    public enum FileAction 
+    {
+        /// <summary>
+        /// Play replays when opened in Explorer
+        /// </summary>
+        Play = 0,
+
+        /// <summary>
+        /// Open replays in ReplayBook when opened in Explorer
+        /// </summary>
+        Open = 1
+    }
+
+    public enum RenameAction 
+    { 
+        /// <summary>
+        /// Rename replays in the filesystem
+        /// </summary>
+        File = 0, 
+
+        /// <summary>
+        /// Rename replays in the database, files untouched
+        /// </summary>
+        Database = 1
+    }
 
     public class GeneralSettings
     {
@@ -28,6 +63,10 @@ namespace Rofl.Settings.Models
 
         [JsonProperty("play_confirm")]
         public bool PlayConfirmation { get; set; }
+
+        [JsonProperty("rename_action")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public RenameAction RenameAction { get; set; }
 
         [JsonProperty("match_history_url")]
         public string MatchHistoryBaseUrl { get; set; }
