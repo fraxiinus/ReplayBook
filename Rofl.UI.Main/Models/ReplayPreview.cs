@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Rofl.Executables.Utilities;
 
 namespace Rofl.UI.Main.Models
 {
@@ -10,12 +11,21 @@ namespace Rofl.UI.Main.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ReplayPreview(ReplayFile replayFile, DateTimeOffset creationDate, bool newFile = false)
+        private bool _showRealName;
+
+        public ReplayPreview(ReplayFile replayFile, 
+                             DateTimeOffset creationDate,
+                             Settings.Models.MarkerStyle markerStyle,
+                             Settings.Models.RenameAction nameSource,
+                             bool newFile = false)
         {
             if (replayFile == null) { throw new ArgumentNullException(nameof(replayFile)); }
 
+            _showRealName = nameSource == Settings.Models.RenameAction.File;
+
             // Copy all the replay file fields
             Name = replayFile.Name;
+            AlternativeName = replayFile.AlternativeName;
             GameDuration = replayFile.GameDuration;
             GameVersion = replayFile.GameVersion;
             MatchId = replayFile.MatchId;
@@ -28,19 +38,32 @@ namespace Rofl.UI.Main.Models
             IsNewFile = newFile;
 
             BluePreviewPlayers = (from bplayer in replayFile.BluePlayers
-                                  select new PlayerPreview(bplayer)).ToList();
+                                  select new PlayerPreview(bplayer, markerStyle)).ToList();
 
             RedPreviewPlayers = (from rplayer in replayFile.RedPlayers
-                                 select new PlayerPreview(rplayer)).ToList();
+                                 select new PlayerPreview(rplayer, markerStyle)).ToList();
 
             IsPlaying = false;
+            IsSelected = false;
         }
 
         public string Name { get; private set; }
 
+        public string AlternativeName { get; private set; }
+
+        public string DisplayName
+        {
+            get 
+            {
+                return _showRealName ? Name : AlternativeName;
+            }
+        }
+
         public TimeSpan GameDuration { get; private set; }
 
         public string GameVersion { get; private set; }
+
+        public string GameVersionShort { get => "Patch " + GameVersion?.VersionSubstring(); }
 
         public string MatchId { get; private set; }
 
@@ -76,6 +99,30 @@ namespace Rofl.UI.Main.Models
                 _isPlaying = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(IsPlaying)));
+            }
+        }
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                _isSelected = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(IsSelected)));
+            }
+        }
+
+        private bool _isHovered;
+        public bool IsHovered
+        {
+            get => _isHovered;
+            set
+            {
+                _isHovered = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(IsHovered)));
             }
         }
     }

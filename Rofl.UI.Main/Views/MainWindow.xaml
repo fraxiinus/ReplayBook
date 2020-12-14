@@ -7,16 +7,19 @@
         xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="{StaticResource ProgramName}" 
         Icon="{StaticResource ProgramIcon}"
         ResizeMode="CanResize"
-        MinHeight="655"
+        MinHeight="670"
         MinWidth="1150"
-        Height="655" 
+        Height="670" 
         Width="1150"
         Loaded="MainWindow_OnLoaded"
-        Closing="MainWindow_OnClosing">
+        Closing="MainWindow_OnClosing"
+        Closed="Window_Closed"
+        ui:WindowHelper.UseModernWindowStyle="True">
 
     <Grid>
 
@@ -25,10 +28,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border BorderThickness="0 0 1 0"
-                BorderBrush="{StaticResource AccentColorLight3}"
-                Background="{StaticResource BackgroundColor}"
-                Padding="0 0 5 0">
+        <Border Padding="0 0 0 0"
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -48,74 +49,73 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <Border Style="{StaticResource SearchBorderStyle}"
-                            Grid.Column="0">
-                        <TextBox x:Name="SearchBox"
-                                 FontSize="18"
-                                 BorderBrush="Transparent"
-                                 Style="{StaticResource SearchBoxStyle}"
-                                 KeyUp="SearchBox_KeyUp"/>
+                    <Border Grid.Column="0"
+                            Margin="10 10 5 10"
+                            BorderThickness="1">
+                        <ui:AutoSuggestBox x:Name="SearchBox"
+                                           PlaceholderText="Search"
+                                           FontSize="14"
+                                           QueryIcon="Find"
+                                           QuerySubmitted="SearchBox_QuerySubmitted"/>
                     </Border>
 
-                    <Button x:Name="RefreshButton"
+                    <!--<Button x:Name="RefreshButton"
                             ToolTip="{StaticResource RefreshToolTip}"
-                            Style="{StaticResource ToolButton}"
+                            Width="37"
                             Click="RefreshButton_Click"
+                            Background="Transparent"
                             Grid.Column="1">
-                        <Image Source="{StaticResource RefreshDrawingImage}"/>
-                    </Button>
+                        <ui:PathIcon Data="{StaticResource RefreshPathIcon}"/>
+                    </Button>-->
 
                     <Button x:Name="SortButton"
                             ToolTip="{StaticResource SortToolTip}"
-                            Style="{StaticResource ToolButton}"
+                            Width="37"
                             ContextMenuService.Placement="Bottom"
                             Click="SortButton_Click"
+                            Background="Transparent"
                             Grid.Column="2">
-                        <Image Source="{StaticResource SortDrawingImage}"/>
+                        <ui:PathIcon Data="{StaticResource SortPathIcon}"/>
                         <Button.ContextMenu>
-                            <ContextMenu x:Name="SortMenu" Style="{StaticResource ContextMenuStyle}">
-                                <MenuItem x:Name="NameAsc"
-                                          Header="{StaticResource NameAsc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
-                                <MenuItem x:Name="NameDesc"
-                                          Header="{StaticResource NameDesc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
-                                <Separator Style="{StaticResource MenuSeparatorStyle}"/>
-                                <MenuItem x:Name="DateAsc"
-                                          Header="{StaticResource DateAsc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
-                                <MenuItem x:Name="DateDesc"
-                                          Header="{StaticResource DateDesc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
-                                <Separator Style="{StaticResource MenuSeparatorStyle}"/>
-                                <MenuItem x:Name="SizeAsc"
-                                          Header="{StaticResource SizeAsc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
-                                <MenuItem x:Name="SizeDesc"
-                                          Header="{StaticResource SizeDesc}" 
-                                          Click="MenuItem_Click"
-                                          Style="{StaticResource MenuItemStyle}"/>
+                            <ContextMenu x:Name="SortMenu">
+                                <ui:RadioMenuItem x:Name="NameAsc"
+                                                  Header="{StaticResource NameAsc}" 
+                                                  Click="MenuItem_Click"/>
+                                <ui:RadioMenuItem x:Name="NameDesc"
+                                                  Header="{StaticResource NameDesc}" 
+                                                  Click="MenuItem_Click"/>
+                                <Separator/>
+                                <ui:RadioMenuItem x:Name="DateAsc"
+                                                  Header="{StaticResource DateAsc}" 
+                                                  Click="MenuItem_Click"/>
+                                <ui:RadioMenuItem x:Name="DateDesc"
+                                                  Header="{StaticResource DateDesc}" 
+                                                  Click="MenuItem_Click"/>
+                                <Separator/>
+                                <ui:RadioMenuItem x:Name="SizeAsc"
+                                                  Header="{StaticResource SizeAsc}" 
+                                                  Click="MenuItem_Click"/>
+                                <ui:RadioMenuItem x:Name="SizeDesc"
+                                                  Header="{StaticResource SizeDesc}" 
+                                                  Click="MenuItem_Click"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
 
                     <Button x:Name="SettingsButton"
                             ToolTip="{StaticResource SettingsToolTip}"
-                            Style="{StaticResource ToolButton}"
+                            Width="37"
+                            Margin="0 5 5 5"
                             Click="SettingsButton_Click"
+                            Background="Transparent"
                             Grid.Column="3">
-                        <Image Source="{StaticResource SettingsDrawingImage}"/>
+                        <ui:PathIcon Data="{StaticResource SettingsPathIcon}"/>
                     </Button>
 
                 </Grid>
 
                 <Grid x:Name="ReplayStatusBar"
-                      Background="{Binding Path=StatusBarModel.Color}"
+                      Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
                       HorizontalAlignment="Stretch"
                       Grid.Row="1">
                     <Grid.Style>
@@ -137,11 +137,11 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ProgressBar IsIndeterminate="true"
-                                 Grid.Row="0"
-                                 Height="5">
-                        <ProgressBar.Style>
-                            <Style TargetType="ProgressBar">
+                    <ui:ProgressBar IsIndeterminate="true"
+                                    Grid.Row="0"
+                                    Height="5">
+                        <ui:ProgressBar.Style>
+                            <Style TargetType="ui:ProgressBar">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=StatusBarModel.ShowProgressBar}" Value="true">
                                         <Setter Property="Visibility" Value="Visible"/>
@@ -151,27 +151,30 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </ProgressBar.Style>
-                    </ProgressBar>
-                    <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage}"
+                        </ui:ProgressBar.Style>
+                    </ui:ProgressBar>
+                    <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage, FallbackValue=Status}"
                                TextAlignment="Center"
-                               FontSize="14"
+                               FontSize="16"
                                VerticalAlignment="Center" 
-                               Grid.Column="0"
-                               Grid.Row="1"
-                               Padding="1"/>
+                               Grid.Column="0" Grid.Row="1"
+                               Margin="0 3 0 3"/>
                 </Grid>
 
                 <ListView x:Name="ReplayListView"
-                          Style="{StaticResource ReplayListStyle}"
                           ItemsSource="{Binding Path=PreviewReplays}"
-                          ItemContainerStyle="{StaticResource ReplayListItemStyle}"
                           Loaded="ReplayListView_Loaded"
                           MinWidth="350"
                           VerticalAlignment="Stretch"
                           ScrollViewer.ScrollChanged="ReplayListView_ScrollChanged"
                           SelectionChanged="ReplayListView_SelectionChanged"
                           Grid.Row="2">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource DefaultListViewItemStyle}">
+                            <Setter Property="BorderBrush" Value="{DynamicResource BaseBackground}" />
+                            <Setter Property="BorderThickness" Value="0, 0, 0, 1" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <controls:ReplayItemControl/>
@@ -187,9 +190,9 @@
                     <Button x:Name="LoadMoreButton"
                             Content="{StaticResource LoadMoreButtonText}"
                             FontSize="14"
-                            Padding="2"
-                            Style="{StaticResource BaseButton}"
-                            Click="LoadMoreButton_Click"/>
+                            Margin="5"
+                            Click="LoadMoreButton_Click"
+                            HorizontalAlignment="Stretch"/>
                 </Grid>
             </Grid>
         </Border>
@@ -197,7 +200,8 @@
         <controls:ReplayDetailControl x:Name="DetailView"
                                       Grid.Column="1"
                                       HorizontalContentAlignment="Stretch"
-                                      HorizontalAlignment="Stretch"/>
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"/>
     </Grid>
     
 </Window>

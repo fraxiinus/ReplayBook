@@ -4,13 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
              mc:Ignorable="d" 
              x:Name="ReplayDetailControlElement"
              d:DesignHeight="650" d:DesignWidth="760"
              HorizontalAlignment="Left"
              VerticalAlignment="Top"
-             Background="White">
+             DataContextChanged="ReplayDetailControlElement_DataContextChanged"
+             Loaded="ReplayDetailControlElement_Loaded">
     <UserControl.Resources>
         <converters:FormatKbSizeConverter x:Key="FormatKbSizeConverter"/>
     </UserControl.Resources>
@@ -20,278 +22,247 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!--Blank content to show when nothing is selected-->
-        <StackPanel x:Name="BlankContent"
-                    Orientation="Vertical"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+        <Grid x:Name="BlankContent"
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch"
+              Background="{DynamicResource TabViewBackground}">
             
             <TextBlock Text="{StaticResource BlankDetailMessageText}"
                        TextAlignment="Center"
-                       Foreground="Gray"/>
-        </StackPanel>
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource SystemControlPageTextBaseMediumBrush}"/>
+        </Grid>
         
         <!--The actual replay content-->
         <Grid x:Name="ReplayContent"
-              Margin="10 5 0 0"
               Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
 
             <!--The header information-->
             <StackPanel Orientation="Vertical"
-                        Margin="10 0 10 10"
+                        Margin="0 0 0 0"
+                        Background="{DynamicResource TabViewBackground}"
                         Grid.Row="0">
                 
-                <Border BorderThickness="0 0 0 2"
-                            BorderBrush="Gray">
+                <Border BorderThickness="0 0 0 2">
 
-                    <DockPanel>
+                    <Grid>
 
-                        <TextBox FontSize="25"
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="ReplayFileName"
+                                 FontSize="25"
                                  Background="Transparent"
                                  BorderThickness="0"
                                  IsReadOnly="True"
-                                 Text="{Binding Path=PreviewModel.Name, FallbackValue=FileName, Mode=OneWay}"
-                                 DockPanel.Dock="Left"/>
+                                 Text="{Binding Path=PreviewModel.DisplayName, FallbackValue=FileName, Mode=OneWay}"
+                                 Grid.Column="0"/>
+                        
+                        <ui:PathIcon Data="{StaticResource CirclePathIcon}"
+                                     Foreground="Red"
+                                     Width="20"
+                                     Margin="5 2 2 0"
+                                     Grid.Column="1">
+                            <ui:PathIcon.Style>
+                                <Style TargetType="ui:PathIcon">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="true">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Setter Property="ToolTip" Value="{StaticResource AlreadyPlayingToolTip}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false">
+                                            <Setter Property="Visibility" Value="Hidden"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ui:PathIcon.Style>
+                        </ui:PathIcon>
+                        
+                        <Button x:Name="PlayButton"
+                                Margin="5 12 12 0"
+                                Width="80"
+                                Height="32"
+                                ToolTipService.ShowOnDisabled="True"
+                                Click="PlayButton_Click"
+                                Grid.Column="4">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false">
+                                            <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="true">
+                                            <Setter Property="ToolTip" Value="{StaticResource AlreadyPlayingToolTip}"/>
+                                            <Setter Property="IsEnabled" Value="false"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="false">
+                                            <Setter Property="IsEnabled" Value="false"/>
+                                            <Setter Property="ToolTip" Value="{StaticResource CannotPlayToolTip}"/>
+                                        </DataTrigger>
 
-                        <StackPanel Orientation="Horizontal"
-                                    Margin="20 0 0 0"
-                                    DockPanel.Dock="Right"
-                                    HorizontalAlignment="Right">
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false"/>
+                                                <Condition Binding="{Binding Path=PreviewModel.IsSupported}" Value="true"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="IsEnabled" Value="true"/>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <ui:PathIcon Data="{StaticResource PlayPathIcon}"
+                                         RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Button>
 
-                            <Button x:Name="PlayButton"
-                                    Margin="0"
-                                    Width="100"
-                                    Height="30"
-                                    ToolTipService.ShowOnDisabled="True"
-                                    Background="Transparent"
-                                    BorderBrush="LightGray"
-                                    Click="PlayButton_Click"
-                                    HorizontalContentAlignment="Stretch">
-                                <Button.Style>
-                                    <Style TargetType="Button" BasedOn="{StaticResource BaseButton}">
-                                        <Style.Triggers>
-                                            <!--Conditions to enable/disable button-->
-                                            <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="True">
-                                                <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
-                                                <Setter Property="IsEnabled" Value="True"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="False">
-                                                <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupportedToolTip}"/>
-                                                <Setter Property="IsEnabled" Value="False"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="True">
-                                                <Setter Property="ToolTip" Value="{StaticResource AlreadyPlayingToolTip}"/>
-                                                <Setter Property="IsEnabled" Value="False"/>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="False">
-                                                <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
-                                                <Setter Property="IsEnabled" Value="True"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <Grid Background="Transparent" HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{StaticResource PlayButtonText}"
-                                               FontSize="20"
-                                               Margin="0"
-                                               VerticalAlignment="Stretch"
-                                               HorizontalAlignment="Right"
-                                               Grid.Column="0"/>
-                                    <Image Source="{StaticResource PlayDrawingImage}"
-                                           RenderOptions.BitmapScalingMode="HighQuality"
-                                           Height="20"
-                                           Margin="0 0 5 0"
-                                           HorizontalAlignment="Left"
-                                           VerticalAlignment="Center"
-                                           Grid.Column="1"/>
-                                    <Image Source="{StaticResource CircleFillDrawingImage}"
-                                           Width="10"
-                                           HorizontalAlignment="Stretch"
-                                           VerticalAlignment="Top"
-                                           Grid.Column="2">
-                                        <Image.Style>
-                                            <Style TargetType="Image">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="true">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false">
-                                                        <Setter Property="Visibility" Value="Hidden"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Image.Style>
-                                    </Image>
-                                </Grid>
-                            </Button>
+                        <Button x:Name="MoreButton"
+                                Margin="0 12 0 0"
+                                Width="37"
+                                ToolTip="{StaticResource MoreToolTip}"
+                                Click="MoreButton_Click"
+                                Grid.Column="3">
+                            <ui:PathIcon Data="{StaticResource MorePathIcon}"
+                                         RenderOptions.BitmapScalingMode="HighQuality"/>
 
-                            <!--<Button x:Name="MoreButton"
-                                    Width="20"
-                                    Height="30"
-                                    ToolTip="{StaticResource MoreToolTip}"
-                                    Background="Transparent"
-                                    BorderBrush="LightGray"
-                                    Click="MoreButton_Click">
-                                <Image Source="{StaticResource MoreDrawingImage}"
-                                               RenderOptions.BitmapScalingMode="HighQuality"
-                                               Height="15"
-                                               DockPanel.Dock="Right"
-                                               HorizontalAlignment="Right"
-                                               VerticalAlignment="Center"/>
-                                <Button.ContextMenu>
-                                    <ContextMenu x:Name="ReplayConextMenu">
-                                        <MenuItem x:Name="OpenContainingFolder"
-                                                  Header="{StaticResource OpenContainingFolder}" 
-                                                  Click="OpenContainingFolder_Click"/>
+                            <Button.ContextMenu>
+                                <ContextMenu x:Name="ReplayContextMenu"
+                                             Placement="Bottom">
+                                    <MenuItem x:Name="OpenContainingFolder"
+                                              Header="{StaticResource OpenContainingFolder}" 
+                                              Click="OpenContainingFolder_Click">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
 
-                                        <MenuItem x:Name="ViewOnlineMatchHistory"
-                                                  Header="{StaticResource ViewOnlinePage}"
-                                                  Click="ViewOnlineMatchHistory_Click"/>
-                                    </ContextMenu>
-                                </Button.ContextMenu>
-                            </Button>-->
-                        </StackPanel>
+                                    <MenuItem x:Name="ViewOnlineMatchHistory"
+                                              Header="{StaticResource ViewOnlinePage}"
+                                              Click="ViewOnlineMatchHistory_Click">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource GlobePathIcon}"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
 
-                    </DockPanel>
+                                    <MenuItem x:Name="ExportReplayData"
+                                              Header="{StaticResource ExportReplayData}"
+                                              Click="ExportReplayData_OnClick">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource ExportPathIcon}"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+
+                                    <MenuItem x:Name="RenameReplayFile"
+                                              Header="{StaticResource RenameReplayFile}"
+                                              Click="RenameReplayFile_OnClick">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource RenamePathIcon}"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+
+                                    <MenuItem x:Name="DeleteReplayFile"
+                                              Header="{StaticResource DeleteReplayFile}"
+                                              Click="DeleteReplayFile_OnClick">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+                    </Grid>
 
                 </Border>
 
                 <StackPanel Orientation="Horizontal"
-                        Margin="0 5 0 0">
+                            VerticalAlignment="Center"
+                            Margin="10 0 0 0">
 
-                    <TextBlock FontSize="14"
-                           FontWeight="Bold">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Text" Value="VICTORY"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="True">
-                                        <Setter Property="TextBlock.Text" Value="{StaticResource BlueVictory}"/>
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=PreviewModel.IsBlueVictorious}" Value="False">
-                                        <Setter Property="TextBlock.Text" Value="{StaticResource RedVictory}"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{StaticResource MapNameToolTip}"
+                               Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{StaticResource MapNameToolTip}"
-                         Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"/>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{Binding Path=PreviewModel.GameDuration}"
+                               Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{Binding Path=PreviewModel.GameDuration}"
-                         Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"/>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{StaticResource MatchIdToolTip}"
+                               Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{StaticResource MatchIdToolTip}"
-                         Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{StaticResource GameVersionToolTip}"
+                               Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{StaticResource GameVersionToolTip}"
-                         Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{StaticResource FileSizeToolTip}"
+                               Text="{Binding Path=FileInfo.FileSizeBytes, FallbackValue=FileSize, Mode=OneWay, Converter={StaticResource FormatKbSizeConverter}}"/>
 
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{StaticResource FileSizeToolTip}"
-                         Text="{Binding Path=FileInfo.FileSizeBytes, FallbackValue=FileSize, Mode=OneWay, Converter={StaticResource FormatKbSizeConverter}}"/>
-
-                    <TextBlock Text="-" Padding="5 0 5 0"/>
-                    <TextBox Background="Transparent"
-                         BorderThickness="0"
-                         FontSize="14"
-                         IsReadOnly="True"
-                         ToolTip="{StaticResource FileDateToolTip}"
-                         Text="{Binding Path=PreviewModel.CreationDate, StringFormat=yyyy-MM-dd  hh:mm tt, FallbackValue=GameVersion, Mode=OneWay}"/>
+                    <TextBlock Background="Transparent"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               Margin="0 0 15 0"
+                               ToolTip="{StaticResource FileDateToolTip}"
+                               Text="{Binding Path=PreviewModel.CreationDate, StringFormat=yyyy-MM-dd  hh:mm tt, FallbackValue=GameVersion, Mode=OneWay}"/>
                 </StackPanel>
 
             </StackPanel>
 
             <TabControl x:Name="DetailTabControl"
-                        BorderThickness="0 1 0 0"
-                        BorderBrush="{StaticResource AccentColor}"
+                        BorderThickness="0 0 0 0"
                         Grid.Row="1"
                         SelectionChanged="TabControl_SelectionChanged">
+                <TabControl.Style>
+                    <Style TargetType="TabControl" BasedOn="{StaticResource DefaultTabControlStyle}">
+                    </Style>
+                </TabControl.Style>
                 <TabItem Header="{StaticResource ScoreboardTabText}"
                          FontSize="12"
-                         Style="{StaticResource TabHeaderStyle}">
-                    <local:ScoreboardControl Margin="0 10 5 0"/>
+                         Style="{StaticResource AlteredTabItemStyle}">
+                    <Border Background="{DynamicResource BaseBackground}">
+                        <local:ScoreboardControl Margin="10 10 5 0"/>
+                    </Border>
                 </TabItem>
 
                 <TabItem Header="{StaticResource StatsTabText}"
                          FontSize="12"
-                         Style="{StaticResource TabHeaderStyle}">
-                    <Grid>
+                         Style="{StaticResource AlteredTabItemStyle}">
+                    <Grid Background="{DynamicResource BaseBackground}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ListView x:Name="PlayerIconsListView"
-                                  ItemsSource="{Binding Path=AllPlayers}"
-                                  HorizontalAlignment="Stretch"
-                                  BorderBrush="Transparent"
-                                  Margin="162 0 10 0"
-                                  SizeChanged="PlayerIconsListView_SizeChanged">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Setter Property="Focusable" Value="False"/>
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="Margin" Value="{Binding Path=StatsPlayerIconMargin, ElementName=ReplayDetailControlElement}"/>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="ListViewItem">
-                                                <ContentPresenter/>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                            
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
-                                                             Width="50"
-                                                             Margin="0"/>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                        
+                        <Grid x:Name="PlayerIconsGrid"
+                              Grid.Row="0"
+                              Margin="165 10 8 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+
                         <ScrollViewer x:Name="StatsScrollViewer"
                                       Margin="0 5 0 0" 
                                       VerticalScrollBarVisibility="Visible"

@@ -81,6 +81,9 @@ namespace Rofl.Reader
                 player.Id = $"{result.MatchId}_{player.PlayerID}";
             }
 
+            // Set the alternate name to the default
+            result.AlternativeName = result.Name;
+
             return result;
         }
 

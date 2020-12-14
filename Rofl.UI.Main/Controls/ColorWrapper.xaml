@@ -13,27 +13,28 @@
             <ToggleButton x:Name="ColorPickerButton"
                           VerticalContentAlignment="Stretch"
                           IsHitTestVisible="{Binding ElementName=ColorPickerPopup, Path=IsOpen, Mode=OneWay, Converter={converters:BoolInvertConverter}}"
-                          Height="25"
                           Margin="0 0 0 0">
 
-                <Grid>
+                <Grid Width="200">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <Border x:Name="ButtonColorPreview"
-                            BorderBrush="Black"
+                            BorderBrush="{DynamicResource SystemControlPageTextBaseHighBrush}"
                             BorderThickness="1"
                             Background="{Binding ElementName=ColorPickerContent, Path=SelectedColor, Mode=OneWay, Converter={converters:ColorBrushConverter}}"
-                            Width="19"
-                            Height="19"/>
+                            Width="18" Height="12"
+                            Grid.Column="1"/>
 
                     <TextBlock x:Name="ButtonColorName"
                                Text="{Binding ElementName=ColorPickerContent, Path=SelectedColor, Mode=OneWay}"
                                VerticalAlignment="Center"
                                Margin="5 0 0 0"
-                               Grid.Column="1"/>
+                               Grid.Column="2"/>
                 </Grid>
             </ToggleButton>
         </Grid>
@@ -41,10 +42,7 @@
                IsOpen="{Binding IsChecked, ElementName=ColorPickerButton}"
                Width="{Binding ActualWidth, ElementName=ColorPickerButton}"
                StaysOpen="False">
-            <Border BorderThickness="1 0 1 1"
-                    BorderBrush="{StaticResource DarkTextColor}">
-                <akr:ColorPicker x:Name="ColorPickerContent"/>
-            </Border>
+            <akr:ColorPicker x:Name="ColorPickerContent"/>
         </Popup>
     </StackPanel>
 </UserControl>

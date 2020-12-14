@@ -55,6 +55,10 @@ namespace Rofl.UI.Main.ViewModels
 
         public StatusBar StatusBarModel { get; private set; }
 
+        // Flags used to clear cache when closing
+        public bool ClearItemsCacheOnClose { get; set; }
+        public bool ClearChampsCacheOnClose { get; set; }
+
         // public string LatestDataDragonVersion { get; private set; }
 
         public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, ReplayPlayer player, RiZhi log)
@@ -78,12 +82,16 @@ namespace Rofl.UI.Main.ViewModels
             };
 
             StatusBarModel = new StatusBar();
+
+            // By default we do not want to delete our cache
+            ClearItemsCacheOnClose = false;
+            ClearChampsCacheOnClose = false;
         }
 
         /// <summary>
         /// Get replays from database and load to display
         /// </summary>
-        public int LoadReplays()
+        public int LoadReplaysFromDatabase()
         {
             _log.Information("Loading replays from database...");
             var databaseResults = _fileManager.GetReplays(SortParameters, SettingsManager.Settings.ItemsPerPage, PreviewReplays.Count);
@@ -92,24 +100,40 @@ namespace Rofl.UI.Main.ViewModels
             
             foreach (var file in databaseResults)
             {
-                var previewModel = CreateReplayPreview(file);
-
-                App.Current.Dispatcher.Invoke((Action) delegate
-                {
-                    PreviewReplays.Add(previewModel);
-                });
-
-                FileResults.Add(file.FileInfo.Path, file);
+                AddReplay(file);
             }
 
             return databaseResults.Count;
+        }
+
+        /// <summary>
+        /// Save a Replay File result
+        /// </summary>
+        /// <param name="fileResult"></param>
+        public ReplayPreview AddReplay(FileResult file)
+        {
+            var previewModel = CreateReplayPreview(file);
+
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                PreviewReplays.Add(previewModel);
+            });
+
+            FileResults.Add(file.FileInfo.Path, file);
+
+            return previewModel;
         }
 
         public ReplayPreview CreateReplayPreview(FileResult file)
         {
             if (file == null) throw new ArgumentNullException(nameof(file));
 
-            ReplayPreview previewModel = new ReplayPreview(file.ReplayFile, file.FileInfo.CreationTime, file.IsNewFile);
+            ReplayPreview previewModel = new ReplayPreview(file.ReplayFile,
+                file.FileInfo.CreationTime,
+                SettingsManager.Settings.PlayerMarkerStyle,
+                SettingsManager.Settings.RenameAction,
+                file.IsNewFile);
+
             previewModel.IsSupported = SettingsManager.Executables.DoesVersionExist(previewModel.GameVersion);
 
             foreach (var bluePlayer in previewModel.BluePreviewPlayers)
@@ -165,7 +189,7 @@ namespace Rofl.UI.Main.ViewModels
                 // Set default item image, to be replaced
                 Application.Current.Dispatcher.Invoke((Action) delegate
                 {
-                    item.ImageSource = ResourceTools.GetImageSourceFromResource("DownloadDrawingImage");
+                    item.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
                 });
 
                 itemTasks.Add(Task.Run(async () =>
@@ -181,7 +205,7 @@ namespace Rofl.UI.Main.ViewModels
                         _log.Warning($"Failed to load image for {(response.Request as ItemRequest).ItemID}");
                         Application.Current.Dispatcher.Invoke((Action)delegate
                         {
-                            item.ImageSource = ResourceTools.GetImageSourceFromResource("ErrorDrawingImage");
+                            item.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                         });
                     }
                     else
@@ -190,6 +214,7 @@ namespace Rofl.UI.Main.ViewModels
                         {
                             Application.Current.Dispatcher.Invoke((Action)delegate
                             {
+                                item.OverlayIcon = null; // hide overlay icons, if any
                                 item.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
                             });
                         }
@@ -197,6 +222,7 @@ namespace Rofl.UI.Main.ViewModels
                         {
                             Application.Current.Dispatcher.Invoke((Action)delegate
                             {
+                                item.OverlayIcon = null; // hide overlay icons, if any
                                 item.ImageSource = response.ResponseBytes.ToBitmapImage();
                             });
                         }
@@ -246,7 +272,7 @@ namespace Rofl.UI.Main.ViewModels
             {
                 Application.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    request.Player.ImageSource = ResourceTools.GetImageSourceFromResource("DownloadDrawingImage");
+                    request.Player.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
                 });
 
                 allTasks.Add(Task.Run(async () =>
@@ -259,7 +285,7 @@ namespace Rofl.UI.Main.ViewModels
                         _log.Warning($"Failed to load image for {(response.Request as ChampionRequest).ChampionName}");
                         Application.Current.Dispatcher.Invoke((Action)delegate
                         {
-                            request.Player.ImageSource = ResourceTools.GetImageSourceFromResource("ErrorDrawingImage");
+                            request.Player.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                         });
                     }
 
@@ -267,6 +293,7 @@ namespace Rofl.UI.Main.ViewModels
                     {
                         Application.Current.Dispatcher.Invoke((Action)delegate
                         {
+                            request.Player.OverlayIcon = null; // hide overlay icons, if any
                             request.Player.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
                         });
                     }
@@ -274,6 +301,7 @@ namespace Rofl.UI.Main.ViewModels
                     {
                         Application.Current.Dispatcher.Invoke((Action)delegate
                         {
+                            request.Player.OverlayIcon = null; // hide overlay icons, if any
                             request.Player.ImageSource = response.ResponseBytes.ToBitmapImage();
                         });
                     }
@@ -342,11 +370,15 @@ namespace Rofl.UI.Main.ViewModels
             PreviewReplays.Clear();
             ValidateReplayStorage();
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
-            StatusBarModel.Color = Brushes.White;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
+            
+            // Discover and load replays into database
             await _fileManager.InitialLoadAsync().ConfigureAwait(true);
-            LoadReplays();
+
+            // Load from database into our viewmodel
+            LoadReplaysFromDatabase();
+
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
             await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
             StatusBarModel.Visible = false;
@@ -359,7 +391,6 @@ namespace Rofl.UI.Main.ViewModels
         public void ValidateReplayStorage()
         {
             StatusBarModel.StatusMessage = "Pruning storage...";
-            StatusBarModel.Color = Brushes.White;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
             _fileManager.PruneDatabaseEntries();
@@ -393,10 +424,10 @@ namespace Rofl.UI.Main.ViewModels
 
             if (String.IsNullOrEmpty(location)) { throw new ArgumentNullException(nameof(location)); }
 
-            FileResults.TryGetValue(location, out FileResult match);
-            if (match == null) { throw new ArgumentException($"{location} does not match any known replays"); }
+            //FileResults.TryGetValue(location, out FileResult match);
+            //if (match == null) { throw new ArgumentException($"{location} does not match any known replays"); }
 
-            string selectArg = $"/select, \"{match.FileInfo.Path}\"";
+            string selectArg = $"/select, \"{location}\"";
             Process.Start("explorer.exe", selectArg);
         }
 
@@ -509,6 +540,9 @@ namespace Rofl.UI.Main.ViewModels
             SettingsManager.Executables.Settings.DefaultLocale = initialSettings.DefaultRegionLocale;
         }
 
+        /// <summary>
+        /// Function is called at the start of the program, checking for invalid replay paths
+        /// </summary>
         public void ShowMissingReplayFoldersMessageBox()
         {
             // Check if replay paths are missing, if so remove them
@@ -526,28 +560,38 @@ namespace Rofl.UI.Main.ViewModels
                 );
             }
         }
-      
-        public async Task ShowRenameDialog(ReplayPreview preview)
+
+        /// <summary>
+        /// Renames a given replay and refreshes the list
+        /// </summary>
+        /// <param name="preview"></param>
+        /// <param name="newText"></param>
+        /// <returns></returns>
+        public async Task<string> RenameFile(ReplayPreview preview, string newText)
         {
             if (preview == null) throw new ArgumentNullException(nameof(preview));
 
+            // Get the full replay object, it contains more information
             var replay = FileResults[preview.Location];
 
-            var renameDialog = new RenameFileDialog
-            {
-                FileName = Path.GetFileNameWithoutExtension(replay.Id),
-                Top = App.Current.MainWindow.Top + 50,
-                Left = App.Current.MainWindow.Left + 50
-            };
+            // Ask the file manager to rename the replay
+            var error = _fileManager.RenameReplay(replay, newText);
 
-            if (renameDialog.ShowDialog().Equals(true))
+            // If the request returned nothing, it worked
+            if (error == null)
             {
-                // Okay
-                if(_fileManager.RenameFile(replay, renameDialog.FileName) != null)
-                {
-                    await ReloadReplayList().ConfigureAwait(false);
-                }
+                await ReloadReplayList().ConfigureAwait(false);
+            } // User entered nothing, change message
+            else if (error == "{EMPTY ERROR}")
+            {
+                error = Application.Current.TryFindResource("RenameFlyoutEmptyError") as string;
             }
+            else if (error == "{NOT FOUND ERROR}")
+            {
+                error = Application.Current.TryFindResource("RenameFlyoutNotFoundError") as string;
+            }
+            // Return error 
+            return error;
         }
 
         public async Task DeleteReplayFile(ReplayPreview preview)
@@ -563,5 +607,23 @@ namespace Rofl.UI.Main.ViewModels
         {
             _fileManager.ClearDeletedFiles();
         }
+
+        public async Task<(long ItemsTotalSize, long ChampsTotalSize)> CalculateCacheSizes()
+        {
+            var itemsInfo = new DirectoryInfo(RequestManager.GetItemCachePath());
+            long itemsTotal = await Task.Run(() => itemsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
+
+            var champsInfo = new DirectoryInfo(RequestManager.GetChampionCachePath());
+            long champsTotal = await Task.Run(() => champsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
+
+            return (itemsTotal, champsTotal);
+        }
+
+        public async Task ClearImageCache()
+        {
+            if (ClearItemsCacheOnClose) await RequestManager.ClearItemCache().ConfigureAwait(true);
+            if (ClearChampsCacheOnClose) await RequestManager.ClearChampionCache().ConfigureAwait(true);
+        }
     }
 }
+

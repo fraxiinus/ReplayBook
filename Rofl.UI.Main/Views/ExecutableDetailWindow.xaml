@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="{StaticResource ExecutableDetailWindowText}"
         SizeToContent="Height"
@@ -11,8 +12,9 @@
         ResizeMode="CanResize"
         Icon="{StaticResource SettingsDrawingImage}"
         SourceInitialized="Window_SourceInitialized"
-        Loaded="Window_Loaded">
-    <Grid Margin="7">
+        Loaded="Window_Loaded"
+        ui:WindowHelper.UseModernWindowStyle="True">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -31,10 +33,9 @@
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="TargetTextBox" Padding="2" Margin="0 0 5 0" Grid.Row="0" Grid.Column="0"
                          VerticalContentAlignment="Center"
-                         Height="25"
-                         Style="{StaticResource TextBoxBaseStyle}"/>
+                         Height="25"/>
                 <Button x:Name="TargetButton" Padding="10 0 10 0" Content="Browse..." Grid.Row="0" Grid.Column="1"
-                        Height="25"
+                        Height="30"
                         Click="TargetButton_Click"/>
             </Grid>
 
@@ -42,8 +43,7 @@
             <TextBox x:Name="NameTextBox"
                      Margin="0 5 0 5" Padding="2"
                      VerticalContentAlignment="Center"
-                     Height="25"
-                     Style="{StaticResource TextBoxBaseStyle}"/>
+                     Height="25"/>
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -57,7 +57,7 @@
                 <ComboBox x:Name="LocaleComboBox"
                           Grid.Column="1"
                           VerticalContentAlignment="Center"
-                          Height="25"
+                          Height="30"
                           Margin="0 5 0 5"/>
             </Grid>
 
@@ -67,23 +67,20 @@
                      Margin="0 5 0 5" Padding="2"
                      TextWrapping="Wrap"
                      Height="Auto"
-                     IsReadOnly="True"
-                     Style="{StaticResource TextBoxBaseStyle}"/>
+                     IsReadOnly="True"/>
 
             <Button x:Name="EditLaunchArgsButton"
                     Content="{StaticResource EditButtonText}"
                     Click="EditLaunchArgsButton_Click"
                     HorizontalAlignment="Left"
-                    Height="25" Width="60"
-                    Margin="0 0 0 5"/>
+                    Height="30" Width="60"/>
 
-            <GroupBox Header="{StaticResource ExecutableDetailPropertyHeader}" Padding="5">
+            <GroupBox Padding="5">
                 <StackPanel>
                     <TextBlock Text="{StaticResource ExecutableDetailPropertyStartPath}"/>
                     <TextBox x:Name="StartPathTextBox" Margin="0 5 0 5" Padding="2" BorderThickness="0 0 0 1" IsReadOnly="True"
                              VerticalContentAlignment="Center"
-                             Height="25"
-                             Style="{StaticResource TextBoxBaseStyle}"/>
+                             Height="25"/>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -98,14 +95,12 @@
                         <TextBlock Text="{StaticResource ExecutableDetailPropertyPatch}"/>
                         <TextBox x:Name="PatchTextBox" Margin="0 5 5 5" Padding="2" IsReadOnly="True" BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="0"
                                  VerticalContentAlignment="Center"
-                                 Height="25"
-                                 Style="{StaticResource TextBoxBaseStyle}"/>
+                                 Height="25"/>
 
                         <TextBlock Text="{StaticResource ExecutableDetailPropertyModified}" Grid.Column="1" Grid.Row="0"/>
                         <TextBox x:Name="ModifiedDateTextBox" Margin="0 5 0 5" Padding="2" IsReadOnly="True" BorderThickness="0 0 0 1" Grid.Row="1" Grid.Column="1"
                                  VerticalContentAlignment="Center"
-                                 Height="25"
-                                 Style="{StaticResource TextBoxBaseStyle}"/>
+                                 Height="25"/>
 
                     </Grid>
                     
@@ -119,11 +114,11 @@
                     Margin="0 10 0 1"
                     Grid.Row="1">
             <Button x:Name="SaveButton" Content="{StaticResource SaveButtonText}"
-                    Width="75" Height="25"
+                    Width="75" Height="30"
                     Margin="0 0 5 0"
                     Click="SaveButton_Click"/>
             <Button x:Name="CancelButton" Content="{StaticResource CancelButtonText}"
-                    Width="75" Height="25"
+                    Width="75" Height="30"
                     Margin="0 0 0 0"
                     Click="CancelButton_Click"/>
         </StackPanel>

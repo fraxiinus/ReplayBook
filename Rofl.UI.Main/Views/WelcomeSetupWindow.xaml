@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="{StaticResource WswWindowTitleText}" 
         Height="470" Width="800"
         ResizeMode="NoResize"
         Loaded="WelcomeSetupWindow_OnLoaded"
-        Closing="WelcomeSetupWindow_OnClosing">
+        Closing="WelcomeSetupWindow_OnClosing"
+        ui:WindowHelper.UseModernWindowStyle="True">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,7 +19,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
               HorizontalAlignment="Stretch"
-              Background="{StaticResource AccentColorDark1}">
+              Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -27,15 +29,15 @@
                        Text="PageName"
                        Margin="10"
                        TextAlignment="Left"
-                       FontSize="16"
-                       Foreground="{StaticResource LightTextColor}"/>
+                       FontSize="18"
+                       Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
             <Grid x:Name="NavigationDotsPanel"
                   Grid.Column="1"
                   Margin="0 0 10 0"/>
         </Grid>
-        <Border Grid.Row="1"
+        <!--<Border Grid.Row="1"
                 BorderBrush="Black"
-                BorderThickness="0 1 0 0"/>
+                BorderThickness="0 1 0 0"/>-->
         <Frame x:Name="SetupFrame"
                Grid.Row="1"
                NavigationUIVisibility="Hidden"/>

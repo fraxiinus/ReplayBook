@@ -4,17 +4,22 @@ using System.ComponentModel;
 
 namespace Rofl.Settings.Models
 {
+    
+
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "<Pending>")]
 
     public class ObservableSettings : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // Create using default settings
         public ObservableSettings()
         {
             KnownPlayers = new ObservableCollection<PlayerMarker>();
-            FileAction = 0;
+            PlayerMarkerStyle = MarkerStyle.Border;
+            FileAction = FileAction.Open;
             PlayConfirmation = true;
+            RenameAction = RenameAction.Database;
             MatchHistoryBaseUrl = @"https://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/";
             ItemsPerPage = 50;
 
@@ -25,15 +30,22 @@ namespace Rofl.Settings.Models
             MapRelativeUrl = @"/img/map/map";
             ItemRelativeUrl = @"/img/item/";
             UseMostRecent = true;
+
+            // Appearance
+            ThemeMode = 0;
+            AccentColor = null;
         }
 
+        // Create using existing settings
         public ObservableSettings(SettingsModel settings)
         {
             if (settings == null) { throw new ArgumentNullException(nameof(settings)); }
 
             KnownPlayers = new ObservableCollection<PlayerMarker>(settings.GeneralSettings.KnownPlayers);
+            PlayerMarkerStyle = settings.GeneralSettings.PlayerMarkerStyle;
             FileAction = settings.GeneralSettings.FileAction;
             PlayConfirmation = settings.GeneralSettings.PlayConfirmation;
+            RenameAction = settings.GeneralSettings.RenameAction;
             MatchHistoryBaseUrl = settings.GeneralSettings.MatchHistoryBaseUrl;
 
             ItemsPerPage = settings.GeneralSettings.ItemsPerPage;
@@ -49,18 +61,34 @@ namespace Rofl.Settings.Models
             MapRelativeUrl = settings.RequestSettings.MapRelativeUrl;
             ItemRelativeUrl = settings.RequestSettings.ItemRelativeUrl;
             UseMostRecent = settings.RequestSettings.UseMostRecent;
+
+            // Appearence
+            ThemeMode = settings.AppearanceSettings.ThemeMode;
+            AccentColor = settings.AppearanceSettings.AccentColor;
         }
 
 
         // General Settings
         public ObservableCollection<PlayerMarker> KnownPlayers { get; private set; }
 
+        private MarkerStyle _playerMarkerStyle;
+        public MarkerStyle PlayerMarkerStyle
+        {
+            get => _playerMarkerStyle;
+            set
+            {
+                _playerMarkerStyle = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(PlayerMarkerStyle)));
+            }
+        }
+
 
         // Replay Settings
         public ObservableCollection<string> SourceFolders { get; private set; }
 
-        private int _fileAction;
-        public int FileAction
+        private FileAction _fileAction;
+        public FileAction FileAction
         {
             get => _fileAction;
             set
@@ -81,6 +109,36 @@ namespace Rofl.Settings.Models
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(PlayConfirmation)));
             }
+        }
+
+        private RenameAction _renameAction;
+        public RenameAction RenameAction
+        {
+            get => _renameAction;
+            set
+            {
+                _renameAction = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(RenameAction)));
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(SaveNamesToFile)));
+            }
+        }
+
+        public bool SaveNamesToFile
+        {
+            set
+            {
+                if (value)
+                {
+                    RenameAction = RenameAction.File;
+                }
+                else
+                {
+                    RenameAction = RenameAction.Database;
+                }
+            }
+            get => RenameAction == RenameAction.File;
         }
 
         private string _matchHistoryBaseUrl;
@@ -169,6 +227,30 @@ namespace Rofl.Settings.Models
                 _useMostRecent = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(UseMostRecent)));
+            }
+        }
+
+        private int _themeMode;
+        public int ThemeMode
+        {
+            get => _themeMode;
+            set
+            {
+                _themeMode = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ThemeMode)));
+            }
+        }
+
+        private string _accentColor;
+        public string AccentColor
+        {
+            get => _accentColor;
+            set
+            {
+                _accentColor = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(AccentColor)));
             }
         }
     }

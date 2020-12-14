@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
+      xmlns:local="clr-namespace:Rofl.UI.Main.Pages" xmlns:ui="clr-namespace:ModernWpf.Controls;assembly=ModernWpf"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WelcomeSetupFinish">
@@ -29,13 +29,15 @@
                 <TextBlock Text="{StaticResource WswFinishTitle}"
                            FontSize="24"
                            Margin="0 0 0 5"
-                           Grid.Row="0"/>
+                           Grid.Row="0"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
 
                 <TextBlock Text="{StaticResource WswFinishBody}"
                            FontSize="16"
                            TextWrapping="Wrap"
                            Grid.Row="1"
-                           Margin="0 0 0 20"/>
+                           Margin="0 0 0 20"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
 
                 <!--<Grid Grid.Row="2">
                     <Button x:Name="FinishButton"
@@ -48,50 +50,87 @@
                 </Grid>-->
             </Grid>
 
+            <!--#region Navigation buttons-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="PreviousButton"
-                        Style="{StaticResource ToolButton}"
                         Grid.Column="0"
-                        Width="75"
-                        Height="25"
+                        Width="100"
                         Margin="0 0 5 0"
-                        Padding="5"
-                        Background="Transparent"
                         BorderThickness="1"
                         HorizontalContentAlignment="Stretch"
+                        ToolTipService.ShowOnDisabled="True"
                         Click="PreviousButton_Click">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}"
+                                             Value="False">
+                                    <Setter Property="ToolTip" Value="{StaticResource WswPreviousDisabled}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0"
-                               Source="{StaticResource BackArrowDrawingImage}"
-                               Width="12"
-                               RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <ui:PathIcon Data="{StaticResource BackArrowPathIcon}"
+                                     Width="12" Height="12">
+                            <ui:PathIcon.Style>
+                                <Style TargetType="ui:PathIcon">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}"
+                                                     Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ui:PathIcon.Style>
+                        </ui:PathIcon>
                         <TextBlock Grid.Column="1"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    TextAlignment="Center"
-                                   Text="{StaticResource WswPreviousText}"/>
+                                   Text="{StaticResource WswPreviousText}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}"
+                                                     Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                 </Button>
                 <Button x:Name="NextButton"
                         Grid.Column="1"
-                        Style="{StaticResource ToolButton}"
-                        Width="75"
-                        Height="25"
+                        Width="100"
                         Margin="0 0 5 0"
-                        Background="Transparent"
-                        BorderThickness="1"
                         HorizontalContentAlignment="Stretch"
-                        Click="NextButton_Click">
+                        IsDefault="True"
+                        Click="NextButton_Click"
+                        ToolTipService.ShowOnDisabled="True">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}"
+                                             Value="False">
+                                    <Setter Property="ToolTip" Value="{StaticResource WswNextDisabled}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -101,36 +140,58 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    TextAlignment="Center"
-                                   Text="{StaticResource WswFinishButton}"/>
-                        <Image Grid.Column="1"
-                               Source="{StaticResource BackArrowDrawingImage}" 
-                               Width="12"
-                               RenderTransformOrigin="0.5,0.5"
-                               RenderOptions.BitmapScalingMode="HighQuality">
-                            <Image.RenderTransform>
+                                   Text="{StaticResource WswFinishButton}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}"
+                                                     Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <ui:PathIcon Data="{StaticResource BackArrowPathIcon}"
+                                     Width="12" Height="12"
+                                     Grid.Column="1"
+                                     RenderTransformOrigin="0.5,0.5">
+                            <ui:PathIcon.RenderTransform>
                                 <ScaleTransform ScaleX="-1"/>
-                            </Image.RenderTransform>
-                        </Image>
+                            </ui:PathIcon.RenderTransform>
+                            <ui:PathIcon.Style>
+                                <Style TargetType="ui:PathIcon">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}"
+                                                     Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ui:PathIcon.Style>
+                        </ui:PathIcon>
                     </Grid>
                 </Button>
                 <Button x:Name="SkipButton"
-                        Grid.Column="2"
-                        Style="{StaticResource ToolButton}"
-                        Width="50"
-                        Height="25"
-                        Padding="5"
-                        Background="Transparent"
-                        BorderThickness="1"
-                        HorizontalContentAlignment="Stretch"
+                        Grid.Column="3"
+                        Width="100"
+                        Content="{StaticResource WswSkipText}"
+                        HorizontalContentAlignment="Center"
+                        ToolTipService.ShowOnDisabled="True"
                         Click="SkipButton_Click">
-                    <Grid>
-                        <TextBlock VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   TextAlignment="Center"
-                                   Text="{StaticResource WswSkipText}"/>
-                    </Grid>
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=SkipButton}"
+                                             Value="False">
+                                    <Setter Property="ToolTip" Value="{StaticResource WswSkipDisabled}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </Grid>
+            <!--#endregion-->
         </Grid>
     </Border>
 </Page>

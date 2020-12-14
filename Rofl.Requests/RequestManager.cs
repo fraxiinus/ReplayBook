@@ -52,6 +52,7 @@ namespace Rofl.Requests
                 return new ResponseBase()
                 {
                     Exception = new Exception($"requestId is not valid: {requestId}"),
+                    Request = request,
                     IsFaulted = true
                 };
             }
@@ -103,6 +104,7 @@ namespace Rofl.Requests
                 return new ResponseBase()
                 {
                     Exception = ex,
+                    Request = request,
                     IsFaulted = true
                 };
             }
@@ -164,6 +166,31 @@ namespace Rofl.Requests
                 ItemID = x,
                 DataDragonVersion = latestVersion
             });
+        }
+
+        public string GetRootCachePath()
+        {
+            return _cachePath;
+        }
+
+        public string GetChampionCachePath()
+        {
+            return Path.Combine(_cachePath, "champs");
+        }
+
+        public string GetItemCachePath()
+        {
+            return Path.Combine(_cachePath, "items");
+        }
+
+        public async Task ClearItemCache()
+        {
+            await _cacheClient.ClearImageCache(GetItemCachePath()).ConfigureAwait(true);
+        }
+
+        public async Task ClearChampionCache()
+        {
+            await _cacheClient.ClearImageCache(GetChampionCachePath()).ConfigureAwait(true);
         }
 
         private string GetRequestIdentifier(RequestBase request)

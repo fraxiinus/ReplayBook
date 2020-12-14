@@ -5,19 +5,23 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using Rofl.UI.Main.Extensions;
+using ModernWpf.Controls;
+using Rofl.UI.Main.Utilities;
 
 namespace Rofl.UI.Main.Views
 {
     /// <summary>
     /// Interaction logic for PlayerMarkerWindow.xaml
     /// </summary>
-    public partial class PlayerMarkerWindow : Window
+    public partial class PlayerMarkerDialog : ContentDialog
     {
         private readonly PlayerMarker _marker;
         private readonly string _oldName;
         private readonly bool _isEditMode;
 
-        public PlayerMarkerWindow()
+        private bool _blockClose = false;
+
+        public PlayerMarkerDialog()
         {
             _isEditMode = false;
             InitializeComponent();
@@ -26,7 +30,7 @@ namespace Rofl.UI.Main.Views
             MarkerColorPicker.SelectedColor = Colors.White;
         }
 
-        public PlayerMarkerWindow(PlayerMarker marker)
+        public PlayerMarkerDialog(PlayerMarker marker)
         {
             InitializeComponent();
 
@@ -50,7 +54,7 @@ namespace Rofl.UI.Main.Views
             }
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             if (!(this.DataContext is ObservableCollection<PlayerMarker> context)) { return; }
 
@@ -58,28 +62,19 @@ namespace Rofl.UI.Main.Views
             string noteText = NoteTextBox.Text;
             string colorText = MarkerColorPicker.SelectedColorHex;
 
+            // Hide error, reset the block
+            _blockClose = false;
+
             // Validate if input information is OK
             if (String.IsNullOrWhiteSpace(inputName))
             {
-                MessageBox.Show
-                (
-                    TryFindResource("PlayerMarkerNameIsEmptyErrorText") as String,
-                    TryFindResource("ErrorTitle") as String,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
-                return;
-            }
+                // Show error
+                _blockClose = true;
 
-            if (String.IsNullOrWhiteSpace(colorText))
-            {
-                MessageBox.Show
-                (
-                    TryFindResource("PlayerMarkerColorIsEmptyErrorText") as String,
-                    TryFindResource("ErrorTitle") as String,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error
-                );
+                var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                flyout.SetFlyoutLabelText(TryFindResource("PlayerMarkerNameIsEmptyErrorText") as String);
+                flyout.ShowAt(NameTextBox);
+
                 return;
             }
 
@@ -91,16 +86,18 @@ namespace Rofl.UI.Main.Views
                         x => x.Name.Equals(inputName, StringComparison.OrdinalIgnoreCase)
                     ).FirstOrDefault();
 
-                // Name does not exist
+                // Name already exists
                 if (existingItem != null)
                 {
-                    MessageBox.Show
-                    (
-                        (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String).Replace("$", inputName),
-                        TryFindResource("PlayerMarkerAlreadyExistsErrorTitle") as String,
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error
-                    );
+                    _blockClose = true;
+
+                    var errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String)
+                        .Replace("$", inputName);
+
+                    var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                    flyout.SetFlyoutLabelText(errorText);
+                    flyout.ShowAt(NameTextBox);
+
                     return;
                 }
 
@@ -112,7 +109,7 @@ namespace Rofl.UI.Main.Views
                     Note = noteText
                 };
                 context.Add(newMarker);
-                this.Close();
+                this.Hide();
             }
             else
             {
@@ -123,16 +120,18 @@ namespace Rofl.UI.Main.Views
                              !x.Name.Equals(_oldName, StringComparison.OrdinalIgnoreCase)
                     ).FirstOrDefault();
 
-                // Name does not exist
+                // Name already exists
                 if (existingItem != null)
                 {
-                    MessageBox.Show
-                    (
-                        (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String).Replace("$", inputName),
-                        TryFindResource("PlayerMarkerAlreadyExistsErrorTitle") as String,
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error
-                    );
+                    _blockClose = true;
+
+                    var errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String)
+                        .Replace("$", inputName);
+
+                    var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                    flyout.SetFlyoutLabelText(errorText);
+                    flyout.ShowAt(NameTextBox);
+
                     return;
                 }
 
@@ -140,13 +139,22 @@ namespace Rofl.UI.Main.Views
                 _marker.Name = inputName;
                 _marker.Color = colorText;
                 _marker.Note = noteText;
-                this.Close();
+                this.Hide();
             }
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            this.Close();
+            _blockClose = false;
+            this.Hide();
+        }
+
+        private void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
+        {
+            if (_blockClose)
+            {
+                args.Cancel = true;
+            }
         }
     }
 }

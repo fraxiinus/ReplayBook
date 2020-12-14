@@ -5,15 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         Title="{StaticResource ProgramName}"
-        MinHeight="655"
-        Height="655" 
+        MinHeight="670"
+        Height="670" 
         MinWidth="780"
         Width="780"
-        MaxWidth="780"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        ui:WindowHelper.UseModernWindowStyle="True">
     <Grid>
-        <controls:ReplayDetailControl x:Name="DetailView"/>
+        <controls:ReplayDetailControl x:Name="DetailView"
+                                      HorizontalContentAlignment="Stretch"
+                                      HorizontalAlignment="Stretch"/>
     </Grid>
 </Window>

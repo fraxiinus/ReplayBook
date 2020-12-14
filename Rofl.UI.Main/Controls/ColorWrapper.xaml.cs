@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -24,6 +25,11 @@ namespace Rofl.UI.Main.Controls
         public ColorWrapper()
         {
             InitializeComponent();
+        }
+
+        public Popup GetColorPickerPopup
+        {
+            get => ColorPickerPopup;
         }
 
         public Color SelectedColor

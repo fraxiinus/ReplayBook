@@ -1,17 +1,13 @@
 ﻿using Etirps.RiZhi;
-using Rofl.Executables.Models;
-using Rofl.Executables.Utilities;
+using ModernWpf;
 using Rofl.Files;
 using Rofl.Requests;
 using Rofl.Settings;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Rofl.UI.Main
 {
@@ -30,16 +26,20 @@ namespace Rofl.UI.Main
         {
             CreateCommonObjects();
 
+            // Apply appearence theme
+            ApplyThemeSetting();
+
             if (e.Args.Length == 1)
             {
                 var selectedFile = e.Args[0];
                 // 0 = directly play, 1 = open in replaybook
-                if (_settingsManager.Settings.FileAction == 0)
+                if (_settingsManager.Settings.FileAction == Settings.Models.FileAction.Play)
                 {
+                    StartDialogHost();
                     await _player.PlayReplay(selectedFile).ConfigureAwait(true);
                     Application.Current.Shutdown();
                 }
-                else if (_settingsManager.Settings.FileAction == 1)
+                else if (_settingsManager.Settings.FileAction == Settings.Models.FileAction.Open)
                 {
                     StartSingleReplayWindow(selectedFile);
                 }
@@ -50,6 +50,13 @@ namespace Rofl.UI.Main
             {
                 StartMainWindow();
             }
+        }
+
+        private void StartDialogHost()
+        {
+            // Start a blank/invisible window that will host dialogs, otherwise dialogs are invisible
+            var host = new DialogHostWindow();
+            host.Show();
         }
 
         private void StartMainWindow()
@@ -85,6 +92,38 @@ namespace Rofl.UI.Main
             _files = new FileManager(_settingsManager.Settings, _log);
             _requests = new RequestManager(_settingsManager.Settings, _log);
             _player = new ReplayPlayer(_files, _settingsManager, _log);
+        }
+
+        private void ApplyThemeSetting()
+        {
+            // Set theme mode
+            switch (_settingsManager.Settings.ThemeMode)
+            {
+                case 0: // system default
+                    ThemeManager.Current.ApplicationTheme = null;
+                    break;
+                case 1: // 
+                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+                    break;
+                case 2: // light
+                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+                    break;
+            }
+
+            // Set accent color
+            if (_settingsManager.Settings.AccentColor == null)
+            {
+                ThemeManager.Current.AccentColor = null;
+            }
+            else
+            {
+                ThemeManager.Current.AccentColor = (Color)ColorConverter.ConvertFromString(_settingsManager.Settings.AccentColor);
+            }
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            _log.WriteLog();
         }
     }
 }

@@ -5,6 +5,7 @@ using Rofl.Reader;
 using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,13 +20,15 @@ namespace Rofl.Files
         private readonly RiZhi _log;
         private readonly ReplayReader _reader;
         private List<string> _deletedFiles;
+        private ObservableSettings _settings;
 
         public FileManager(ObservableSettings settings, RiZhi log)
         {
             _log = log ?? throw new ArgumentNullException(nameof(log));
 
+            _settings = settings;
             _fileSystem = new FolderRepository(settings, log);
-            _db = new DatabaseRepository(log);
+            _db = new DatabaseRepository(settings, log);
 
             _reader = new ReplayReader(log);
 
@@ -134,16 +137,55 @@ namespace Rofl.Files
             return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
         }
 
-        public string RenameFile(FileResult file, string newName)
+        public string RenameReplay(FileResult file, string newName)
+        {
+            switch (_settings.RenameAction)
+            {
+                case RenameAction.Database:
+                    return RenameAlternative(file, newName);
+                case RenameAction.File:
+                    return RenameFile(file, newName);
+                default:
+                    throw new InvalidOperationException("Invalid rename action");
+            }
+        }
+
+        private string RenameAlternative(FileResult file, string newName)
         {
             if (file == null) throw new ArgumentNullException(nameof(file));
-            if (String.IsNullOrEmpty(newName)) throw new ArgumentNullException(nameof(newName));
+            if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
+
+            try
+            {
+                _db.UpdateAlternativeName(file.Id, newName);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                _log.Information(ex.ToString());
+                return "{NOT FOUND ERROR}";
+            }
+
+            // Return value is an error message, no message means no error
+            return null;
+        }
+
+        private string RenameFile(FileResult file, string newName)
+        {
+            if (file == null) throw new ArgumentNullException(nameof(file));
+            if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
 
             var newPath = Path.Combine(Path.GetDirectoryName(file.Id), newName + ".rofl");
 
             _log.Information($"Renaming {file.Id} -> {newPath}");
             // Rename the file
-            File.Move(file.Id, newPath);
+            try
+            {
+                File.Move(file.Id, newPath);
+            }
+            catch (Exception e)
+            {
+                return e.Message.Trim();
+            }
 
             // delete the database entry
             _db.RemoveFileResult(file.Id);
@@ -160,7 +202,8 @@ namespace Rofl.Files
             var newFileResult = new FileResult(fileInfo, replayFile);
             _db.AddFileResult(newFileResult);
 
-            return newPath;
+            // Return value is an error message, no message means no error
+            return null;
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using LiteDB;
 using Rofl.Files.Models;
 using Rofl.Reader.Models;
+using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,9 +16,11 @@ namespace Rofl.Files.Repositories
     {
         private readonly RiZhi _log;
         private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "replayCache.db");
+        private readonly ObservableSettings _settings;
 
-        public DatabaseRepository(RiZhi log)
+        public DatabaseRepository(ObservableSettings settings, RiZhi log)
         {
+            _settings = settings;
             _log = log;
 
             try
@@ -59,6 +62,7 @@ namespace Rofl.Files.Repositories
                     .DbRef(r => r.Players, "players");
 
                 fileResults.EnsureIndex(x => x.FileName);
+                fileResults.EnsureIndex(x => x.AlternativeName);
                 fileResults.EnsureIndex(x => x.FileSizeBytes);
                 fileResults.EnsureIndex(x => x.FileCreationTime);
                 fileResults.EnsureIndex(x => x.PlayerNames);
@@ -174,10 +178,11 @@ namespace Rofl.Files.Repositories
                     sortQuery = Query.All("FileSizeBytes", Query.Descending);
                     break;
                 case SortMethod.NameAsc:
-                    sortQuery = Query.All("FileName", Query.Ascending);
+                    // Query either filename or alternative name
+                    sortQuery = Query.All(_settings.RenameAction == RenameAction.File ? "FileName" : "AlternativeName", Query.Ascending);
                     break;
                 case SortMethod.NameDesc:
-                    sortQuery = Query.All("FileName", Query.Descending);
+                    sortQuery = Query.All(_settings.RenameAction == RenameAction.File ? "FileName" : "AlternativeName", Query.Descending);
                     break;
             }
 
@@ -193,7 +198,7 @@ namespace Rofl.Files.Repositories
                     )
                 );
             }
-
+            
             Query endQuery;
             if (playerQueries.Any())
             {
@@ -217,6 +222,41 @@ namespace Rofl.Files.Repositories
                 var fileResults = db.GetCollection<FileResult>("fileResults");
 
                 return fileResults.IncludeAll().Find(endQuery, limit: maxEntries, skip: skip).ToList();
+            }
+        }
+
+        public void UpdateAlternativeName(string id, string newName)
+        {
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(id);
+
+            using (var db = new LiteDatabase(_filePath))
+            {
+                var fileResults = db.GetCollection<FileResult>("fileResults");
+
+                var result = fileResults
+                    .IncludeAll()
+                    .FindById(id);
+
+                if (result == null)
+                {
+                    throw new KeyNotFoundException($"Could not find FileResult by id {id}");
+                }
+                else
+                {
+                    _log.Information($"Db updating {result.AlternativeName} to {newName}");
+
+                    // Update the file results (for indexing/search)
+                    result.AlternativeName = newName;
+                    fileResults.Update(result);
+
+                    // Update the replay entry
+                    var replays = db.GetCollection<ReplayFile>("replayFiles");
+                    var replayEntry = replays
+                        .IncludeAll()
+                        .FindById(id);
+                    replayEntry.AlternativeName = newName;
+                    replays.Update(replayEntry);
+                }
             }
         }
     }

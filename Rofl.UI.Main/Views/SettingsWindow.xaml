@@ -4,486 +4,710 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
         mc:Ignorable="d"
         Title="Settings"
-        MinWidth="600"
-        MinHeight="405"
-        Width="600"
-        Height="405"
-        Icon="{StaticResource SettingsDrawingImage}"
+        MinWidth="600" MinHeight="200"
+        Width="600" Height="550"
         SourceInitialized="SettingsWindow_OnSourceInitialized"
-        Background="{StaticResource BackgroundColor}"
         Loaded="Window_Loaded"
-        Closing="Window_Closing">
-    <DockPanel Margin="5">
+        Closing="Window_Closing"
+        ui:WindowHelper.UseModernWindowStyle="True">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         
         <ListBox x:Name="SettingsMenuListBox"
-                 DockPanel.Dock="Left"
-                 Width="150"
-                 Margin="0 0 5 0"
                  SelectionChanged="SettingsMenuListBox_SelectionChanged"
-                 Style="{StaticResource SettingsListBoxStyle}">
+                 Background="{DynamicResource TabViewBackground}"
+                 Grid.Column="0">
             
-            <ListBoxItem x:Name="GeneralSettingsListItem"
-                         Style="{StaticResource SettingsListBoxItemStyle}">
+            <ListBoxItem x:Name="GeneralSettingsListItem">
                 <TextBlock Text="{StaticResource GeneralSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
-            
-            <ListBoxItem x:Name="ExecutablesSettingsListItem"
-                         Style="{StaticResource SettingsListBoxItemStyle}">
+
+            <ListBoxItem x:Name="AppearanceSettingsListItem">
+                <TextBlock Text="{StaticResource AppearanceSettingsItemText}" FontSize="14"/>
+            </ListBoxItem>
+
+            <ListBoxItem x:Name="ExecutablesSettingsListItem">
                 <TextBlock Text="{StaticResource ExecutablesSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
-            <ListBoxItem x:Name="ReplaySettingsListItem"
-                         Style="{StaticResource SettingsListBoxItemStyle}">
+            <ListBoxItem x:Name="ReplaySettingsListItem">
                 <TextBlock Text="{StaticResource ReplaySettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
-            <ListBoxItem x:Name="RequestSettingsListItem"
-                         Style="{StaticResource SettingsListBoxItemStyle}">
+            <ListBoxItem x:Name="RequestSettingsListItem">
                 <TextBlock Text="{StaticResource RequestSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
-            <ListBoxItem x:Name="AboutSettingsListItem"
-                         Style="{StaticResource SettingsListBoxItemStyle}">
+            <ListBoxItem x:Name="AboutSettingsListItem">
                 <TextBlock Text="{StaticResource AboutSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
         </ListBox>
         
-        <Grid DockPanel.Dock="Right"
-              Background="Blue">
+        <Grid Grid.Column="1"
+              Background="{DynamicResource BaseBackground}">
 
             <TabControl x:Name="SettingsTabControl"
                         HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch" 
-                        Style="{StaticResource SettingsTabControlStyle}">
+                        VerticalAlignment="Stretch"
+                        ui:ThemeManager.HasThemeResources="True">
                 
+                <!--We are using the themeing functionality to remove the tab strip-->
+                <TabControl.Resources>
+                    <ui:ResourceDictionaryEx>
+                        <ui:ResourceDictionaryEx.ThemeDictionaries>
+                            <ResourceDictionary x:Key="Light">
+                                <SolidColorBrush x:Key="TabViewBackground" Color="Transparent" />
+                            </ResourceDictionary>
+                            <ResourceDictionary x:Key="Dark">
+                                <SolidColorBrush x:Key="TabViewBackground" Color="Transparent" />
+                            </ResourceDictionary>
+                        </ui:ResourceDictionaryEx.ThemeDictionaries>
+                    </ui:ResourceDictionaryEx>
+                </TabControl.Resources>
+
                 <TabItem x:Name="GeneralTabItem" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical">
-                        
-                        <TextBlock Text="{StaticResource PlayerMarkerLabelText}" 
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
+                    <ScrollViewer>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                             Spacing="12"
+                                             Margin="15 0 20 12">
 
-                        <Grid HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <ListBox x:Name="KnownPlayersListBox"
-                                     Height="100"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                     ItemsSource="{Binding Path=Settings.KnownPlayers}"
-                                     SelectionChanged="KnownPlayersListBox_SelectionChanged"
-                                     MouseDoubleClick="EditKnownPlayerButton_Click"
-                                     Grid.Column="0" Grid.Row="0"
-                                     Style="{StaticResource SettingsListBoxStyle}"
-                                     ItemContainerStyle="{StaticResource SettingsListBoxItemStyle}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <DockPanel>
-                                            <Rectangle Fill="{Binding Path=Color}" DockPanel.Dock="Left"
-                                                       Stroke="Black" StrokeThickness="1"
-                                                       Width="10" Height="10" 
-                                                       Margin="5 0 5 0"/>
-                                            <TextBlock Text="{Binding Path=Name}" 
-                                                       DockPanel.Dock="Left"
-                                                       FontSize="14"/>
-                                            <TextBlock Text="{Binding Path=Note}"
-                                                       Margin="10 0 5 0"
-                                                       DockPanel.Dock="Right"
-                                                       FontSize="14"
-                                                       TextAlignment="Right"
-                                                       Foreground="{StaticResource AccentColorLight1}"
-                                                       TextWrapping="NoWrap"
-                                                       TextTrimming="CharacterEllipsis"/>
-                                        </DockPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                            <TextBlock Text="{StaticResource PlayerMarkerLabelText}" 
+                                       FontSize="16"/>
 
-                            <StackPanel Orientation="Vertical"
-                                        Margin="5 0 0 0"
-                                        Width="75"
-                                        Grid.Column="1" Grid.Row="0">
-                                <Button x:Name="AddKnownPlayerButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
-                                        Content="{StaticResource AddButtonText}"
-                                        Click="AddKnownPlayerButton_Click"/>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <ListBox x:Name="KnownPlayersListBox"
+                                         Height="150"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         ItemsSource="{Binding Path=Settings.KnownPlayers}"
+                                         SelectionChanged="KnownPlayersListBox_SelectionChanged"
+                                         MouseDoubleClick="EditKnownPlayerButton_Click"
+                                         Grid.Column="0" Grid.Row="0">
 
-                                <Button x:Name="EditKnownPlayerButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
-                                        Content="{StaticResource EditButtonText}"
-                                        Click="EditKnownPlayerButton_Click"
-                                        IsEnabled="False"/>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="Padding" Value="10 8 10 8"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Rectangle Fill="{Binding Path=Color}"
+                                                           Stroke="Black" StrokeThickness="1"
+                                                           Width="15" Height="15" 
+                                                           Margin="0 0 5 0"
+                                                           VerticalAlignment="Center"
+                                                           Grid.Column="0"/>
+                                                <TextBlock Text="{Binding Path=Name}" 
+                                                           VerticalAlignment="Center"
+                                                           FontSize="14"
+                                                           Grid.Column="1"/>
+                                                <TextBlock Text="{Binding Path=Note}"
+                                                           Margin="10 0 5 0"
+                                                           FontSize="14"
+                                                           TextAlignment="Right"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
+                                                           TextWrapping="NoWrap"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Grid.Column="2"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
 
-                                <Button x:Name="RemoveKnownPlayerButton" 
-                                        Height="25"
-                                        Content="{StaticResource RemoveButtonText}"
-                                        Click="RemoveKnownPlayerButton_Click"
-                                        IsEnabled="False"/>
-                            </StackPanel>
+                                <ui:CommandBar Grid.Row="1">
+                                    <ui:AppBarButton x:Name="AddKnownPlayerButton"
+                                                     Label="{StaticResource AddButtonText}"
+                                                     Click="AddKnownPlayerButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="EditKnownPlayerButton"
+                                                     IsEnabled="False"
+                                                     Label="{StaticResource EditButtonText}"
+                                                     Click="EditKnownPlayerButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="RemoveKnownPlayerButton"
+                                                     IsEnabled="False"
+                                                     Label="{StaticResource RemoveButtonText}"
+                                                     Click="RemoveKnownPlayerButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                </ui:CommandBar>
+                            </Grid>
 
-                        </Grid>
+                            <ui:RadioButtons x:Name="PlayerMarkerStyleOptions"
+                                             MaxColumns="2"
+                                             Header="{StaticResource PlayerMarkerStyleLabel}"
+                                             SelectionChanged="PlayerMarkerStyleOptions_SelectionChanged">
+                                <ui:RadioButtons.Style>
+                                    <Style TargetType="ui:RadioButtons">
+                                        <Setter Property="FontSize" Value="16"/>
+                                    </Style>
+                                </ui:RadioButtons.Style>
+                                <RadioButton Content="{StaticResource PlayerMarkerStyleOption1}"
+                                             x:Name="PlayerMarkerStyleOption1"/>
+                                <RadioButton Content="{StaticResource PlayerMarkerStyleOption2}"
+                                             x:Name="PlayerMarkerStyleOption2"/>
+                            </ui:RadioButtons>
+                            
+                            <TextBlock Text="{StaticResource MatchHistoryUrlLabelText}" 
+                                       FontSize="16"/>
 
-                        <TextBlock Text="{StaticResource MatchHistoryUrlLabelText}" 
-                                   FontSize="14" 
-                                   Margin="0 10 0 3"/>
+                            <TextBox x:Name="MatchHistoryUrlTextBox" 
+                                     Padding="2"
+                                     Height="25"
+                                     VerticalContentAlignment="Center"
+                                     Text="{Binding Path=Settings.MatchHistoryBaseUrl}"/>
 
-                        <TextBox x:Name="MatchHistoryUrlTextBox" 
-                                 Padding="2" 
-                                 Margin=" 0 2 0 0"
-                                 Height="25"
-                                 VerticalContentAlignment="Center"
-                                 Text="{Binding Path=Settings.MatchHistoryBaseUrl}" Style="{DynamicResource TextBoxBaseStyle}"/>
-                        
-                        <TextBlock Text="{StaticResource FileAssociationLabelText}" 
-                                   FontSize="14" 
-                                   Margin="0 10 0 3"/>
-
-                        <Grid Margin=" 0 2 0 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <ComboBox Name="FileActionComboBox"
-                                      Height="25"
-                                      Grid.Column="0"
-                                      Margin="0 0 10 0"
-                                      SelectedIndex="{Binding Path=Settings.FileAction}"
-                                      VerticalContentAlignment="Center">
-                                <ComboBoxItem Content="{StaticResource FileActionOption1}"/>
-                                <ComboBoxItem Content="{StaticResource FileActionOption2}"/>
-                            </ComboBox>
+                            <ui:RadioButtons x:Name="FileActionOptions"
+                                             MaxColumns="2"
+                                             Header="{StaticResource FileAssociationLabelText}"
+                                             SelectionChanged="FileActionOptions_SelectionChanged">
+                                <ui:RadioButtons.Style>
+                                    <Style TargetType="ui:RadioButtons">
+                                        <Setter Property="FontSize" Value="16"/>
+                                    </Style>
+                                </ui:RadioButtons.Style>
+                                <RadioButton Content="{StaticResource FileActionOption1}"
+                                             x:Name="FileActionOption1"/>
+                                <RadioButton Content="{StaticResource FileActionOption2}"
+                                             x:Name="FileActionOption2"/>
+                            </ui:RadioButtons>
 
                             <Button x:Name="SetFileAssocButton"
-                                    Grid.Column="1"
-                                    Content="{StaticResource FileAssociationButtonText}"
-                                    Height="25"
-                                    Margin="10 0 0 0"
-                                    Click="SetFileAssocButton_Click"/>
-                        </Grid>
-                        
-                        <TextBlock Text="{StaticResource ReplayBehaviorLabelText}" 
-                                   FontSize="14" 
-                                   Margin="0 10 0 3"/>
-                        
-                        <CheckBox Content="{StaticResource PlayConfirmCheckboxText}" 
-                                  Margin="0 2 0 0"
-                                  IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
-                        
-                        <TextBlock Text="{StaticResource UpdatesLabelText}" 
-                                   FontSize="14" 
-                                   Margin="0 10 0 3"/>
+                                        Height="30"
+                                        Grid.Column="2"
+                                        Content="{StaticResource FileAssociationButtonText}"
+                                        Padding="15 0 15 0"
+                                        HorizontalAlignment="Left"
+                                        Click="SetFileAssocButton_Click"/>
 
-                        <Button x:Name="UpdateCheckButton"
-                                HorizontalAlignment="Left"
-                                Content="{StaticResource CheckUpdatesButtonText}"
-                                Height="25"
-                                Width="150"
-                                Margin="0 2 0 0"
-                                Click="UpdateCheckButton_Click"/>
-                    </StackPanel>
+                            <TextBlock Text="{StaticResource ReplayBehaviorLabelText}" 
+                                       FontSize="16" />
+
+                            <CheckBox Content="{StaticResource PlayConfirmCheckboxText}" 
+                                      IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
+
+                            <TextBlock Text="{StaticResource ReplayRenameLabelText}" 
+                                       FontSize="16" />
+
+                            <CheckBox Content="{StaticResource ReplayRenameCheckboxText}" 
+                                      IsChecked="{Binding Path=Settings.SaveNamesToFile}"/>
+
+                            <TextBlock Text="{StaticResource UpdatesLabelText}" 
+                                       FontSize="16"/>
+
+                            <Button x:Name="UpdateCheckButton"
+                                    HorizontalAlignment="Left"
+                                    Content="{StaticResource CheckUpdatesButtonText}"
+                                    Height="30"
+                                    Width="150"
+                                    Click="UpdateCheckButton_Click"/>
+                        </ui:SimpleStackPanel>
+                    </ScrollViewer>
                 </TabItem>
 
+                <TabItem x:Name="AppearanceTabItem" Visibility="Collapsed">
+                    <ScrollViewer>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                             Spacing="12"
+                                             Margin="15 0 20 12">
+
+                            <ui:RadioButtons x:Name="AppearanceThemeOptions"
+                                             MaxColumns="1"
+                                             Header="{StaticResource AppearanceThemeModeTitle}"
+                                             SelectionChanged="AppearanceThemeOptions_SelectionChanged">
+                                <ui:RadioButtons.Style>
+                                    <Style TargetType="ui:RadioButtons">
+                                        <Setter Property="FontSize" Value="16"/>
+                                    </Style>
+                                </ui:RadioButtons.Style>
+                                <RadioButton Content="{StaticResource AppearanceThemeMode0}"
+                                             x:Name="AppearanceThemeOption1"/>
+                                <RadioButton Content="{StaticResource AppearanceThemeMode1}"
+                                             x:Name="AppearanceThemeOption2"/>
+                                <RadioButton Content="{StaticResource AppearanceThemeMode2}"
+                                             x:Name="AppearanceThemeOption3"/>
+                            </ui:RadioButtons>
+
+                            <TextBlock Text="{StaticResource AppearanceThemeAccentTitle}"
+                                       FontSize="16"/>
+
+                            <ui:SimpleStackPanel Orientation="Horizontal"
+                                                 Spacing="12">
+                                <controls:ColorWrapper x:Name="AccentColorButton"
+                                                       Width="200"
+                                                       HorizontalAlignment="Left"/>
+                                <Button x:Name="AccentColorResetButton"
+                                        Content="{StaticResource AppearanceThemeResetColorText}"
+                                        Click="AccentColorResetButton_Click"/>
+                            </ui:SimpleStackPanel>
+
+                            <TextBlock x:Name="AccentColorNoteTextBlock"
+                                       Text="{StaticResource AppearanceThemeDefaultAccentNote}"
+                                       Foreground="{DynamicResource SystemControlHighlightBaseMediumHighBrush}"/>
+
+                        </ui:SimpleStackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                
                 <TabItem x:Name="ExecutableTabItem" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical">
-                        
-                        <TextBlock Text="{StaticResource ExecutableFoldersLabelText}" 
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
+                    <ScrollViewer>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                             Spacing="12"
+                                             Margin="15 0 20 12">
 
-                        <Grid HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
+                            <TextBlock Text="{StaticResource ExecutableFoldersLabelText}" 
+                                       FontSize="16"/>
 
-                            <ListBox x:Name="ExecutableFoldersListBox"
-                                     Height="100"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                     ItemsSource="{Binding Path=Executables.Settings.SourceFolders}"
-                                     SelectionChanged="ExecutableFoldersListBox_SelectionChanged"
-                                     MouseDoubleClick="EditExecutableFolderButton_Click"
-                                     Grid.Row="0" Grid.Column="0"
-                                     Style="{StaticResource SettingsListBoxStyle}"
-                                     ItemContainerStyle="{StaticResource SettingsListBoxItemStyle}"
-                                     FontSize="14">
-                            </ListBox>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Vertical"
-                                        Margin="5 0 0 0"
-                                        Width="75"
-                                        Grid.Row="0" Grid.Column="1">
-                                <Button x:Name="AddExecutableFolderButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
-                                        Content="{StaticResource AddButtonText}"
-                                        Click="AddExecutableFolderButton_Click"/>
+                                <ListBox x:Name="ExecutableFoldersListBox"
+                                         Height="150"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         ItemsSource="{Binding Path=Executables.Settings.SourceFolders}"
+                                         SelectionChanged="ExecutableFoldersListBox_SelectionChanged"
+                                         MouseDoubleClick="EditExecutableFolderButton_Click"
+                                         Grid.Row="0" Grid.Column="0"
+                                         FontSize="14">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                                            <Setter Property="Padding" Value="10 8 10 8"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
 
-                                <Button x:Name="EditExecutableFolderButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
-                                        Content="{StaticResource EditButtonText}"
-                                        Click="EditExecutableFolderButton_Click"
-                                        IsEnabled="False"/>
+                                <ui:CommandBar Grid.Row="1">
+                                    <ui:AppBarButton x:Name="AddExecutableFolderButton"
+                                                     Label="{StaticResource AddButtonText}"
+                                                     Click="AddExecutableFolderButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="EditExecutableFolderButton"
+                                                     IsEnabled="False"
+                                                     Label="{StaticResource EditButtonText}"
+                                                     Click="EditExecutableFolderButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="RemoveExecutableFolderButton"
+                                                     IsEnabled="False"
+                                                     Label="{StaticResource RemoveButtonText}"
+                                                     Click="RemoveExecutableFolderButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                </ui:CommandBar>
+                            </Grid>
 
-                                <Button x:Name="RemoveExecutableFolderButton" 
-                                        Content="{StaticResource RemoveButtonText}"
-                                        Height="25"
-                                        Click="RemoveExecutableFolderButton_Click"
-                                        IsEnabled="False"/>
-                            </StackPanel>
-                            
                             <Button x:Name="SourceFoldersSearchButton"
                                     Content="{StaticResource ExecutableFoldersSearchButtonText}" 
                                     HorizontalAlignment="Left"
-                                    Margin="0 10 0 10"
-                                    Padding="20 0 20 0"
-                                    Height="25"
-                                    Click="SourceFoldersSearchButton_Click"
-                                    Grid.Row="1" Grid.Column="0"/>
+                                    Padding="10 0 10 0"
+                                    Height="30"
+                                    Click="SourceFoldersSearchButton_Click"/>
 
                             <TextBlock Text="{StaticResource ExecutablesLabelText}"
-                                       FontSize="14"
-                                       Grid.Row="2" Grid.Column="0"
-                                       Margin="0 0 0 3"/>
+                                       FontSize="16"
+                                       Grid.Row="2" Grid.Column="0"/>
 
-                            <ListBox x:Name="ExecutablesListBox"
-                                     Margin="0 0 0 10"
-                                     Height="100"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                     ItemsSource="{Binding Path=Executables.Settings.Executables}"
-                                     HorizontalContentAlignment="Stretch"
-                                     SelectionChanged="ExecutablesListBox_SelectionChanged"
-                                     MouseDoubleClick="EditExecutableButton_Click"
-                                     Grid.Row="3" Grid.Column="0"
-                                     Style="{StaticResource SettingsListBoxStyle}"
-                                     ItemContainerStyle="{StaticResource SettingsListBoxItemStyle}">
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
 
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{Binding Path=Name}"
-                                                       FontSize="14"
-                                                       Grid.Column="0"/>
-                                            <TextBlock Text="{Binding Path=PatchNumber}"
-                                                       FontSize="14"
-                                                       Grid.Column="1"
-                                                       Margin="0 0 5 0"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                                <ListBox x:Name="ExecutablesListBox"
+                                         Height="150"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         ItemsSource="{Binding Path=Executables.Settings.Executables}"
+                                         HorizontalContentAlignment="Stretch"
+                                         SelectionChanged="ExecutablesListBox_SelectionChanged"
+                                         MouseDoubleClick="EditExecutableButton_Click"
+                                         Grid.Row="0" Grid.Column="0">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                                            <Setter Property="Padding" Value="10 8 10 8"/>
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Path=Name}"
+                                                           FontSize="14"
+                                                           VerticalAlignment="Center"
+                                                           Grid.Column="0"/>
+                                                <TextBlock Text="{Binding Path=PatchNumber}"
+                                                           FontSize="14"
+                                                           Grid.Column="1"
+                                                           VerticalAlignment="Center"
+                                                           TextAlignment="Right"
+                                                           Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
+                                                           Margin="5 0 5 0"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                
+                                <ui:CommandBar Grid.Row="1">
+                                    <ui:AppBarButton x:Name="AddExecutableButton"
+                                                     Label="{StaticResource AddButtonText}"
+                                                     Click="AddExecutableButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="EditExecutableButton"
+                                                     IsEnabled="False"
+                                                     Label="{StaticResource EditButtonText}"
+                                                     Click="EditExecutableButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="RemoveExecutableButton"
+                                                     IsEnabled="False"
+                                                     Label="{StaticResource RemoveButtonText}"
+                                                     Click="RemoveExecutableButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                </ui:CommandBar>
+                                
+                            </Grid>
 
-                            <StackPanel Orientation="Vertical"
-                                        Margin="5 0 0 0"
-                                        Width="75"
-                                        Grid.Row="3" Grid.Column="1">
-                                <Button x:Name="AddExecutableButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
-                                        Content="{StaticResource AddButtonText}"
-                                        Click="AddExecutableButton_Click"/>
-
-                                <Button x:Name="EditExecutableButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
-                                        Content="{StaticResource EditButtonText}"
-                                        Click="EditExecutableButton_Click"
-                                        IsEnabled="False"/>
-
-                                <Button x:Name="RemoveExecutableButton" 
-                                        Height="25"
-                                        Content="{StaticResource RemoveButtonText}"
-                                        Click="RemoveExecutableButton_Click"
-                                        IsEnabled="False"/>
-                            </StackPanel>
-                        </Grid>
-
-                    </StackPanel>
+                        </ui:SimpleStackPanel>
+                    </ScrollViewer>
                 </TabItem>
                 
                 <TabItem x:Name="ReplaysTabItem" Visibility="Collapsed">
-                    <StackPanel>
-                        <TextBlock Text="{StaticResource SourceFoldersLabelText}" 
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
+                    <ScrollViewer>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                             Spacing="12"
+                                             Margin="15 0 20 12">
+                            <TextBlock Text="{StaticResource SourceFoldersLabelText}" 
+                                       FontSize="16"/>
 
-                        <Grid HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            
-                            <ListBox x:Name="SourceFoldersListBox"
-                                     Height="100"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                     ItemsSource="{Binding Path=Settings.SourceFolders}"
-                                     SelectionChanged="SourceFoldersListBox_SelectionChanged"
-                                     Grid.Row="0" Grid.Column="0"
-                                     Style="{StaticResource SettingsListBoxStyle}"
-                                     ItemContainerStyle="{StaticResource SettingsListBoxItemStyle}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding}" 
-                                                   TextTrimming="CharacterEllipsis"
-                                                   ToolTip="{Binding}"
-                                                   FontSize="14"/>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Vertical"
-                                        Margin="5 0 0 0"
-                                        Width="75"
-                                        Grid.Row="0" Grid.Column="1">
-                                <Button x:Name="AddSourceFolderButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
-                                        Content="{StaticResource AddButtonText}"
-                                        Click="AddSourceFolderButton_Click"/>
+                                <ListBox x:Name="SourceFoldersListBox"
+                                         Height="150"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         ItemsSource="{Binding Path=Settings.SourceFolders}"
+                                         SelectionChanged="SourceFoldersListBox_SelectionChanged"
+                                         MouseDoubleClick="EditSourceFolderButton_Click"
+                                         Grid.Row="0" Grid.Column="0">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
+                                            <Setter Property="Padding" Value="10 8 10 8"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" 
+                                                       TextTrimming="CharacterEllipsis"
+                                                       ToolTip="{Binding}"
+                                                       FontSize="14"/>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                
+                                <ui:CommandBar Grid.Row="1">
+                                    <ui:AppBarButton x:Name="AddSourceFolderButton"
+                                                     Label="{StaticResource AddButtonText}"
+                                                     Click="AddSourceFolderButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="EditSourceFolderButton"
+                                                     IsEnabled="False"
+                                                     Label="{StaticResource EditButtonText}"
+                                                     Click="EditSourceFolderButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="RemoveSourceFolderButton"
+                                                     IsEnabled="False"
+                                                     Label="{StaticResource RemoveButtonText}"
+                                                     Click="RemoveSourceFolderButton_Click">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                </ui:CommandBar>
+                                
+                            </Grid>
 
-                                <Button x:Name="EditSourceFolderButton" 
-                                        Margin="0 0 0 5"
-                                        Height="25"
-                                        Content="{StaticResource EditButtonText}"
-                                        Click="EditSourceFolderButton_Click"
-                                        IsEnabled="False"/>
+                            <TextBlock Text="{StaticResource ReplayItemsPerPage}" FontSize="16"/>
+                            <Grid VerticalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="25"/>
+                                </Grid.ColumnDefinitions>
+                                <Slider x:Name="ItemCountSlider"
+                                        Minimum="10" 
+                                        Maximum="200" 
+                                        TickFrequency="10" 
+                                        TickPlacement="BottomRight"
+                                        IsSnapToTickEnabled="True"
+                                        Value="{Binding Path=Settings.ItemsPerPage}"
+                                        Grid.Column="0"
+                                        Margin="0 0 10 0"/>
 
-                                <Button x:Name="RemoveSourceFolderButton" 
-                                        Content="{StaticResource RemoveButtonText}"
-                                        Click="RemoveSourceFolderButton_Click"
-                                        Height="25"
-                                        IsEnabled="False"/>
-                            </StackPanel>
-                        </Grid>
-
-                        <TextBlock Text="{StaticResource ReplayItemsPerPage}" FontSize="14" Padding="0 10 0 5"/>
-                        <Grid VerticalAlignment="Stretch">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Slider x:Name="ItemCountSlider"
-                                    Minimum="10" 
-                                    Maximum="200" 
-                                    TickFrequency="10" 
-                                    TickPlacement="BottomRight"
-                                    IsSnapToTickEnabled="True"
-                                    Value="{Binding Path=Settings.ItemsPerPage}"
-                                    Grid.Column="0"
-                                    Margin="0 0 10 0"/>
-                            
-                            <TextBox x:Name="ItemCountTextBox"
-                                     Width="50"
-                                     Height="25"
-                                     TextAlignment="Center"
-                                     VerticalAlignment="Top"
-                                     VerticalContentAlignment="Center"
-                                     Text="{Binding ElementName=ItemCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
-                                     Grid.Column="1"
-                                     Style="{StaticResource TextBoxBaseStyle}"/>
-                        </Grid>
-                    </StackPanel>
+                                <TextBlock x:Name="ItemCountTextBox"
+                                           TextAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding ElementName=ItemCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                                           Grid.Column="1"/>
+                            </Grid>
+                        </ui:SimpleStackPanel>
+                    </ScrollViewer>
                 </TabItem>
                 
                 <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" 
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
-                        <TextBox Text="{Binding Settings.DataDragonBaseUrl}" 
-                                 Height="25"
-                                 VerticalContentAlignment="Center"
-                                 Padding="2" 
-                                 Margin=" 0 0 0 5"
-                                 Style="{StaticResource TextBoxBaseStyle}"/>
-                        <TextBlock Text="{StaticResource DataDragonChampionUrlLabelText}" 
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
-                        <TextBox Text="{Binding Settings.ChampionRelativeUrl}" 
-                                 Height="25"
-                                 VerticalContentAlignment="Center"
-                                 Padding="2" 
-                                 Margin=" 0 0 0 5"
-                                 Style="{StaticResource TextBoxBaseStyle}"/>
-                        <TextBlock Text="{StaticResource DataDragonMapUrlLabelText}" 
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
-                        <TextBox Text="{Binding Settings.MapRelativeUrl}" 
-                                 Padding="2" 
-                                 Height="25"
-                                 VerticalContentAlignment="Center"
-                                 Margin=" 0 0 0 5"
-                                 Style="{StaticResource TextBoxBaseStyle}"/>
-                        <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}"
-                                   FontSize="14"
-                                   Margin="0 0 0 3"/>
-                        <TextBox Text="{Binding Settings.ItemRelativeUrl}" 
-                                 Padding="2" 
-                                 Height="25"
-                                 VerticalContentAlignment="Center"
-                                 Margin=" 0 0 0 10"
-                                 Style="{StaticResource TextBoxBaseStyle}"/>
-                        <!--<CheckBox Content="{StaticResource WebRequestsUseMostRecentText}"
-                                  IsChecked="{Binding Settings.UseMostRecent}"/>-->
+                    <ScrollViewer>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                             Spacing="12"
+                                             Margin="15 0 20 12">
+                            <TextBlock Text="{StaticResource RequestsCacheLabel}" 
+                                       FontSize="16"/>
+                            <Grid MinWidth="400"
+                                  HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock Text="{StaticResource RequestsCacheItemsSize}"
+                                           Grid.Column="0" Grid.Row="0"/>
+                                <TextBlock Text="{StaticResource RequestsCacheChampsSize}"
+                                           Grid.Column="0" Grid.Row="1"/>
 
-                    </StackPanel>
+                                <TextBlock x:Name="RequestsCacheItemSize"
+                                           Grid.Column="1" Grid.Row="0"/>
+                                <TextBlock x:Name="RequestsCacheChampsSize"
+                                           Grid.Column="1" Grid.Row="1"/>
+                            </Grid>
+                            <ui:SimpleStackPanel Orientation="Horizontal"
+                                                 Spacing="12">
+                                <Button x:Name="DeleteItemsButton"
+                                        Content="{StaticResource RequestsCacheClearItemsButton}"
+                                        Click="DeleteItemsButton_Click"
+                                        Width="140"/>
+                                <Button x:Name="DeleteChampsButton"
+                                        Content="{StaticResource RequestsCacheClearChampsButton}"
+                                        Click="DeleteChampsButton_Click"
+                                        Width="140"/>
+                            </ui:SimpleStackPanel>
+
+                            <TextBlock Text="{StaticResource RequestsDownloadAllLabel}"
+                                       FontSize="16"/>
+                            
+                            <CheckBox x:Name="ChampionCheckBox">
+                                <CheckBox.Content>
+                                    <Grid Margin="5 0 0 0">
+                                        <TextBlock Text="{StaticResource WswDownloadChampionsText}"/>
+                                    </Grid>
+                                </CheckBox.Content>
+                            </CheckBox>
+
+                            <CheckBox x:Name="ItemCheckBox"
+                                      Margin="0 -10 0 0">
+                                <CheckBox.Content>
+                                    <Grid Margin="5 0 0 0">
+                                        <TextBlock Text="{StaticResource WswDownloadItemsText}"/>
+                                    </Grid>
+                                </CheckBox.Content>
+                            </CheckBox>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button x:Name="DownloadImageButton"
+                                        Click="DownloadImageButton_Click"
+                                        Content="{StaticResource WswDownloadButton}"
+                                        Width="100"
+                                        HorizontalAlignment="Left"
+                                        Grid.Column="0"/>
+
+                                <TextBlock x:Name="DownloadImageErrorText"
+                                           FontSize="12"
+                                           VerticalAlignment="Center"
+                                           Margin="10 0 0 0"
+                                           Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                                           Grid.Column="1"/>
+                            </Grid>
+                            
+
+                            <Grid x:Name="DownloadProgressGrid"
+                                  Grid.Row="6"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Top"
+                                  Margin="0 0 0 0"
+                                  Visibility="Collapsed">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock x:Name="DownloadProgressText"
+                                           TextAlignment="Left"
+                                           Margin="25 0 0 0"
+                                           Grid.Row="0"
+                                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+
+                                <ProgressBar x:Name="DownloadProgressBar"
+                                             Height="25"
+                                             Margin="20 0 20 0"
+                                             ValueChanged="DownloadProgressBar_ValueChanged"
+                                             Grid.Row="1"/>
+                            </Grid>
+                            
+                            <Expander Header="{StaticResource RequestsAdvancedLabel}"
+                                      FontSize="16"
+                                      ExpandDirection="Down">
+                                <ui:SimpleStackPanel Orientation="Vertical"
+                                                     Spacing="12">
+                                    <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" 
+                                               FontSize="16"/>
+                                    <TextBox Text="{Binding Settings.DataDragonBaseUrl}" 
+                                             Height="25"
+                                             VerticalContentAlignment="Center"
+                                             Padding="2"/>
+                                    <TextBlock Text="{StaticResource DataDragonChampionUrlLabelText}" 
+                                               FontSize="16"/>
+                                    <TextBox Text="{Binding Settings.ChampionRelativeUrl}" 
+                                             Height="25"
+                                             VerticalContentAlignment="Center"
+                                             Padding="2"/>
+                                    <TextBlock Text="{StaticResource DataDragonMapUrlLabelText}" 
+                                               FontSize="16"/>
+                                    <TextBox Text="{Binding Settings.MapRelativeUrl}" 
+                                             Padding="2" 
+                                             Height="25"
+                                             VerticalContentAlignment="Center"/>
+                                    <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}"
+                                               FontSize="16"/>
+                                    <TextBox Text="{Binding Settings.ItemRelativeUrl}" 
+                                             Padding="2" 
+                                             Height="25"
+                                             VerticalContentAlignment="Center"/>
+                                </ui:SimpleStackPanel>
+                            </Expander>
+                        </ui:SimpleStackPanel>
+                    </ScrollViewer>
                 </TabItem>
 
                 <TabItem x:Name="AboutTabItem" Visibility="Collapsed">
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center"
-                                Margin="0 0 0 0">
-                        <Image Source="/ReplayBook;component/Resources/iconBMP.png"
-                               Width="75"
-                               HorizontalAlignment="Center"
-                               RenderOptions.BitmapScalingMode="HighQuality"/>
-                        <TextBlock Text="{StaticResource Name}" FontSize="28" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{StaticResource Version}" FontSize="16" HorizontalAlignment="Center"/>
-                        <TextBlock Text="{StaticResource Author}" FontSize="14" HorizontalAlignment="Center"/>
-                        <TextBox Text="{StaticResource DiscordInvite}" 
-                                 FontSize="14" 
-                                 HorizontalAlignment="Center" 
-                                 BorderBrush="Transparent" 
-                                 IsReadOnly="True"
-                                 VerticalContentAlignment="Center"
-                                 Height="25"
-                                 Style="{StaticResource TextBoxBaseStyle}"/>
-                        <TextBlock Text="{StaticResource AcknowledgementText}" FontSize="12" HorizontalAlignment="Center" Margin="0 10 0 0"/>
-                        <Button x:Name="AcknowledgementsButton"
-                                Content="{StaticResource AcknowledgementButtonText}"
-                                Height="25"
-                                Width="200"
-                                Style="{StaticResource BaseButton}"
-                                Click="AcknowledgementsButton_Click"/>
-                    </StackPanel>
+                    <ScrollViewer>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center"
+                                    Margin="0 0 0 0">
+                            <Image Source="/ReplayBook;component/Resources/iconBMP.png"
+                                   Width="75"
+                                   HorizontalAlignment="Center"
+                                   RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <TextBlock Text="{StaticResource Name}" FontSize="28" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{StaticResource Version}" FontSize="16" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{StaticResource Author}" FontSize="14" HorizontalAlignment="Center"/>
+                            <ui:HyperlinkButton HorizontalAlignment="Center"
+                                                NavigateUri="{StaticResource DiscordInviteLink}">
+                                <StackPanel Orientation="Vertical">
+
+                                    <TextBlock Text="{StaticResource DiscordInviteButton}"
+                                               VerticalAlignment="Center"/>
+                                    <Grid>
+                                        <ui:PathIcon Data="{StaticResource DiscordPart1}"
+                                                     Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}"
+                                                     Width="30"/>
+                                        <ui:PathIcon Data="{StaticResource DiscordPart2}"
+                                                     Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}"
+                                                     Width="30"/>
+                                    </Grid>
+
+                                </StackPanel>
+                            </ui:HyperlinkButton>
+                            <TextBlock Text="{StaticResource AcknowledgementText}" 
+                                       FontSize="14" 
+                                       HorizontalAlignment="Center" 
+                                       Margin="0 10 0 5"/>
+                            <Button x:Name="AcknowledgementsButton"
+                                    Content="{StaticResource AcknowledgementButtonText}"
+                                    Height="30"
+                                    Width="200"
+                                    Click="AcknowledgementsButton_Click"
+                                    HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </ScrollViewer>
                 </TabItem>
             </TabControl>
         </Grid>
-    </DockPanel>
+    </Grid>
 </Window>

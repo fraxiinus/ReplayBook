@@ -29,7 +29,7 @@ namespace Rofl.UI.Main.Views
             Titles = new List<string>();
 
             // Count how many times "AckTitle" shows up in the resource dictionary
-            var keys = Application.Current.Resources.MergedDictionaries[4].Keys.OfType<string>()
+            var keys = Application.Current.Resources.MergedDictionaries[5].Keys.OfType<string>()
                 .Where(x => x.StartsWith("AckTitle", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
@@ -54,7 +54,9 @@ namespace Rofl.UI.Main.Views
             var index = AcknowledgementsListBox.SelectedIndex;
             TitleText.Text = FindResource($"AckTitle{index + 1}") as string;
             AuthorText.Text = FindResource($"AckAuthor{index + 1}") as string;
-            LinkText.Text = FindResource($"AckLink{index + 1}") as string;
+            HyperlinkButton.NavigateUri = new Uri(FindResource($"AckLink{index + 1}") as string);
+            HyperlinkText.Text = FindResource($"AckLink{index + 1}") as string;
+            //LinkText.Text = FindResource($"AckLink{index + 1}") as string;
             LicenseText.Text = FindResource($"AckLicense{index + 1}") as string;
         }
     }

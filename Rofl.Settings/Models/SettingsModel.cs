@@ -3,6 +3,7 @@ using System;
 
 namespace Rofl.Settings.Models
 {
+    
     public class SettingsModel
     {
         public SettingsModel()
@@ -27,10 +28,16 @@ namespace Rofl.Settings.Models
 
             GeneralSettings = new GeneralSettings();
             GeneralSettings.KnownPlayers.AddRange(settings.KnownPlayers);
+            GeneralSettings.PlayerMarkerStyle = settings.PlayerMarkerStyle;
             GeneralSettings.FileAction = settings.FileAction;
             GeneralSettings.PlayConfirmation = settings.PlayConfirmation;
+            GeneralSettings.RenameAction = settings.RenameAction;
             GeneralSettings.MatchHistoryBaseUrl = settings.MatchHistoryBaseUrl;
             GeneralSettings.ItemsPerPage = settings.ItemsPerPage;
+
+            AppearanceSettings = new AppearanceSettings();
+            AppearanceSettings.ThemeMode = settings.ThemeMode;
+            AppearanceSettings.AccentColor = settings.AccentColor;
         }
 
         [JsonProperty("request_settings")]
@@ -41,5 +48,8 @@ namespace Rofl.Settings.Models
 
         [JsonProperty("general_settings")]
         public GeneralSettings GeneralSettings { get; set; }
+
+        [JsonProperty("appearance_settings")]
+        public AppearanceSettings AppearanceSettings { get; set; }
     }
 }

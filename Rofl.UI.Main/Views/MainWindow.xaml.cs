@@ -1,22 +1,19 @@
 ﻿using Etirps.RiZhi;
+using ModernWpf.Controls;
 using Rofl.Files;
 using Rofl.Files.Models;
 using Rofl.Requests;
 using Rofl.Settings;
 using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.Models;
+using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
 using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Threading;
-using Rofl.UI.Main.Utilities;
-using Rofl.UI.Main.Extensions;
 
 namespace Rofl.UI.Main
 {
@@ -31,6 +28,8 @@ namespace Rofl.UI.Main
         private readonly RiZhi _log;
         private readonly ReplayPlayer _player;
 
+        private ReplayPreview _lastSelection;
+
         public MainWindow(RiZhi log, SettingsManager settingsManager, RequestManager requests, FileManager files, ReplayPlayer player)
         {
             InitializeComponent();
@@ -40,6 +39,8 @@ namespace Rofl.UI.Main
             _requests = requests;
             _files = files;
             _player = player;
+
+            _lastSelection = null;
 
             Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
             {
@@ -86,8 +87,14 @@ namespace Rofl.UI.Main
         private async void ReplayListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
-            if (!(sender is ListView replayList)) { return; }
+            if (!(sender is System.Windows.Controls.ListView replayList)) { return; }
             if (!(replayList.SelectedItem is ReplayPreview previewModel)) { return; }
+
+            // Deselect the last selected item
+            if (_lastSelection != null && _lastSelection.IsSelected) _lastSelection.IsSelected = false;
+
+            previewModel.IsSelected = true;
+            _lastSelection = previewModel;
 
             FileResult replayFile = context.FileResults[previewModel.Location];
 
@@ -96,7 +103,7 @@ namespace Rofl.UI.Main
             ReplayDetailControl detailControl = this.FindName("DetailView") as ReplayDetailControl;
             detailControl.DataContext = replayDetail;
 
-            (detailControl.FindName("BlankContent") as StackPanel).Visibility = Visibility.Hidden;
+            (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
             (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
             await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail).ConfigureAwait(true);
@@ -115,10 +122,10 @@ namespace Rofl.UI.Main
             contextMenu.IsOpen = true;
 
             var name = Enum.GetName(context.SortParameters.SortMethod.GetType(), context.SortParameters.SortMethod);
-            if (this.FindName(name) is MenuItem selectItem)
+            if (this.FindName(name) is RadioMenuItem selectItem)
             {
                 // Select our item
-                selectItem.BorderBrush = ResourceTools.GetColorFromResource("AccentColorLight2");
+                selectItem.IsChecked = true;
             }
         }
 
@@ -130,23 +137,14 @@ namespace Rofl.UI.Main
         private async void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
-            if (!(sender is MenuItem selectedItem)) { return; }
+            if (!(sender is RadioMenuItem selectedItem)) { return; }
 
             if (Enum.TryParse(selectedItem.Name, out SortMethod selectSort))
             {
                 context.SortParameters.SortMethod = selectSort;
             }
 
-            // Clear all selections
-            foreach (Object item in (this.FindName("SortMenu") as ContextMenu).Items)
-            {
-                if (item is MenuItem menuItem)
-                {
-                    menuItem.BorderBrush = Brushes.Transparent;
-                }
-            }
-
-            await context.ReloadReplayList().ConfigureAwait(true);
+            await context.ReloadReplayList().ConfigureAwait(false);
         }
 
         private async void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -180,44 +178,67 @@ namespace Rofl.UI.Main
             }
         }
 
+        /// <summary>
+        /// Handler for LoadMoreButton
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void LoadMoreButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
-            if (context.LoadReplays() == 0)
+            if (context.LoadReplaysFromDatabase() == 0)
             {
-                MessageBox.Show(
-                    TryFindResource("NoReplaysFoundText") as string,
-                    TryFindResource("NoReplaysFoundTitle") as string,
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
+                // Create and show flyout above the button
+                var flyout = FlyoutHelper.CreateFlyout(includeButton: false, includeCustom: false);
+                flyout.SetFlyoutLabelText(TryFindResource("NoReplaysFoundTitle") as string);
+
+                flyout.ShowAt(LoadMoreButton);
+
                 return;
             }
 
+            // Hide the button bar once we've loaded more
+            ReplayPageBar.Visibility = Visibility.Collapsed;
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
 
-        private async void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+        //private async void RefreshButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
-            RefreshButton.IsEnabled = false;
-            context.ValidateReplayStorage();
-            await context.ReloadReplayList().ConfigureAwait(true);
-            RefreshButton.IsEnabled = true;
-        }
+        //    RefreshButton.IsEnabled = false;
+        //    context.ValidateReplayStorage();
+        //    await context.ReloadReplayList().ConfigureAwait(true);
+        //    RefreshButton.IsEnabled = true;
+        //}
 
         private async void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
             if (e.Key != System.Windows.Input.Key.Enter) { return; }
-            if (!(sender is TextBox searchBox)) { return; }
+            if (!(sender is AutoSuggestBox searchBox)) { return; }
 
             context.SortParameters.SearchTerm = searchBox.Text;
 
             context.ClearReplays();
-            context.LoadReplays();
+            context.LoadReplaysFromDatabase();
+            await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+        }
+
+        private async void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+            if (string.IsNullOrEmpty(args.QueryText))
+            {
+                context.ValidateReplayStorage();
+                await context.ReloadReplayList().ConfigureAwait(true);
+            }
+
+            context.SortParameters.SearchTerm = args.QueryText;
+
+            context.ClearReplays();
+            context.LoadReplaysFromDatabase();
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
 
@@ -234,9 +255,20 @@ namespace Rofl.UI.Main
             _settingsManager.TemporaryValues["WindowMaximized"] = (this.WindowState == WindowState.Maximized);
 
             _settingsManager.SaveTemporaryValues();
+        }
+        
+        private async void Window_Closed(object sender, EventArgs e)
+        {
+            if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
-            _log.WriteLog();
+            await context.ClearImageCache().ConfigureAwait(true);
         }
 
+        public void SelectReplayItem(ReplayPreview replay)
+        {
+            ReplayListView.SelectedItem = replay;
+        }
+
+        
     }
 }

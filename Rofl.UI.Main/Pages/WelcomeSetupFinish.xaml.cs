@@ -18,18 +18,6 @@ namespace Rofl.UI.Main.Pages
             SkipButton.IsEnabled = false;
         }
 
-        //private void FinishButton_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //    if (!(this.DataContext is MainWindowViewModel context)) return;
-
-        //    var parentWindow = Window.GetWindow(this);
-        //    if (!(parentWindow is WelcomeSetupWindow parent)) throw new ArgumentException("Parent window is not WelcomeSetupWindow type");
-
-        //    context.ApplyInitialSettings(parent.SetupSettings);
-
-        //    parentWindow.Close();
-        //}
-
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is WelcomeSetupWindow parent)) return;

@@ -17,6 +17,7 @@ namespace Rofl.Files.Models
 
             Id = FileInfo.Path;
             FileName = FileInfo.Name;
+            AlternativeName = replayFile.AlternativeName;
             FileSizeBytes = FileInfo.FileSizeBytes;
             FileCreationTime = FileInfo.CreationTime;
             PlayerNames = string.Join("|", ReplayFile.Players.Select(x => x.NAME.ToUpper(CultureInfo.InvariantCulture)));
@@ -34,6 +35,11 @@ namespace Rofl.Files.Models
         // The following fields are used to allow for fast indexing
         // Placing them on the root level object makes creating indexes very easy and clear.
         public string FileName { get; set; }
+
+        /// <summary>
+        /// User assigned name alternative
+        /// </summary>
+        public string AlternativeName { get; set; }
         public long FileSizeBytes { get; set; }
         public DateTime FileCreationTime { get; set; }
         public string PlayerNames { get; set; }

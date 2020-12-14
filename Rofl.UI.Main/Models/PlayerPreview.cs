@@ -8,12 +8,13 @@ namespace Rofl.UI.Main.Models
 {
     public class PlayerPreview : INotifyPropertyChanged
     {
-        public PlayerPreview(Player player)
+        public PlayerPreview(Player player, MarkerStyle markerStyle)
         {
             if (player == null) { throw new ArgumentNullException(nameof(player)); }
 
             ChampionName = player.SKIN;
             PlayerName = player.NAME;
+            PlayerMarkerStyle = markerStyle;
             marker = null;
             imgSrc = null;
         }
@@ -23,6 +24,8 @@ namespace Rofl.UI.Main.Models
         public string ChampionName { get; private set; }
 
         public string PlayerName { get; private set; }
+
+        public MarkerStyle PlayerMarkerStyle { get; private set; }
 
         public bool IsKnownPlayer => marker != null;
 
@@ -49,6 +52,33 @@ namespace Rofl.UI.Main.Models
                 imgSrc = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(ImageSource)));
+            }
+        }
+
+        private Geometry _overlayIcon;
+        public Geometry OverlayIcon
+        {
+            get => _overlayIcon;
+            set
+            {
+                _overlayIcon = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(OverlayIcon)));
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(OverlayVisible)));
+            }
+        }
+
+        public System.Windows.Visibility OverlayVisible
+        {
+            get
+            {
+                if (_overlayIcon != null)
+                {
+                    return System.Windows.Visibility.Visible;
+                }
+
+                return System.Windows.Visibility.Collapsed;
             }
         }
 

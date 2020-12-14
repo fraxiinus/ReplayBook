@@ -11,6 +11,11 @@ namespace Rofl.UI.Main.Utilities
 {
     public static class ResourceTools
     {
+        internal static T GetObjectFromResource<T>(string resourceName)
+        {
+            return (T)Application.Current.TryFindResource(resourceName);
+        }
+
         internal static ImageSource GetImageSourceFromResource(string resourceName)
         {
             return Application.Current.TryFindResource(resourceName) as ImageSource;
@@ -18,7 +23,7 @@ namespace Rofl.UI.Main.Utilities
 
         internal static ImageSource GetImageSourceFromPath(string path)
         {
-            return BitmapFrame.Create(new Uri(path));
+            return BitmapFrame.Create(new Uri(path), BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
         }
 
         internal static SolidColorBrush GetColorFromResource(string key)

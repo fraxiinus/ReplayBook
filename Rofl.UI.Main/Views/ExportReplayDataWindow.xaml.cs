@@ -69,7 +69,7 @@ namespace Rofl.UI.Main.Views
                     Name = property.Name,
                     InternalString = property.Name,
                     Checked = false,
-                    Value = property.GetValue(_replay).ToString()
+                    Value = property.GetValue(_replay)?.ToString()
                 });
             }
 
@@ -133,7 +133,9 @@ namespace Rofl.UI.Main.Views
             // Update preview box
             Update_PreviewStringTextBox();
 
-            this.LevelTwoSelectBox.SelectedItem = _levelTwoItems.First(x => x.Name.Equals((string)checkBox.Content, StringComparison.OrdinalIgnoreCase));
+            var selectedName = (checkBox.Content as TextBlock).Text;
+
+            this.LevelTwoSelectBox.SelectedItem = _levelTwoItems.First(x => x.Name.Equals(selectedName, StringComparison.OrdinalIgnoreCase));
 
             this.LevelThreeSelectBox.IsEnabled = _levelTwoItems.Any(x => x.Checked);
         }
@@ -394,6 +396,21 @@ namespace Rofl.UI.Main.Views
                 e.Accepted = false;
             else if (src.Name != null && !src.Name.Contains(filterText.ToUpper(CultureInfo.InvariantCulture)))// here is FirstName a Property in my YourCollectionItem
                 e.Accepted = false;
+        }
+
+        private void PreviewBlock_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var currentHeight = MainGrid.RowDefinitions[2].Height;
+            var minHeight = MainGrid.RowDefinitions[2].MinHeight;
+
+            if (currentHeight.Value == minHeight)
+            {
+                MainGrid.RowDefinitions[2].Height = new GridLength(200);
+            }
+            else
+            {
+                MainGrid.RowDefinitions[2].Height = new GridLength(minHeight);
+            }
         }
     }
 }

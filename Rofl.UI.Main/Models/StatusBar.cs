@@ -10,7 +10,6 @@ namespace Rofl.UI.Main.Models
         public StatusBar()
         {
             _statusMessage = string.Empty;
-            _color = Brushes.Red;
             _visible = false;
         }
 
@@ -26,17 +25,17 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        private Brush _color;
-        public Brush Color
-        {
-            get => _color;
-            set
-            {
-                _color = value;
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(Color)));
-            }
-        }
+        //private Brush _color;
+        //public Brush Color
+        //{
+        //    get => _color;
+        //    set
+        //    {
+        //        _color = value;
+        //        PropertyChanged?.Invoke(
+        //            this, new PropertyChangedEventArgs(nameof(Color)));
+        //    }
+        //}
 
         private bool _visible;
         public bool Visible

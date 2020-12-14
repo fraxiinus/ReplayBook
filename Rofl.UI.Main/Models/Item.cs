@@ -15,7 +15,7 @@ namespace Rofl.UI.Main.Models
 
         public string ItemId { get; set; }
 
-        public string ItemName { get; set; }
+        public string ItemName { get; set; } // currently unused
 
         private bool _showBorder;
         public bool ShowBorder
@@ -38,6 +38,33 @@ namespace Rofl.UI.Main.Models
                 _imgSrc = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(ImageSource)));
+            }
+        }
+
+        private Geometry _overlayIcon;
+        public Geometry OverlayIcon
+        {
+            get => _overlayIcon;
+            set
+            {
+                _overlayIcon = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(OverlayIcon)));
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(OverlayVisible)));
+            }
+        }
+
+        public System.Windows.Visibility OverlayVisible
+        {
+            get
+            {
+                if (_overlayIcon != null)
+                {
+                    return System.Windows.Visibility.Visible;
+                }
+
+                return System.Windows.Visibility.Collapsed;
             }
         }
     }

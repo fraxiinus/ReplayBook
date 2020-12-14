@@ -1,0 +1,116 @@
+﻿<ui:ContentDialog x:Class="Rofl.UI.Main.Views.ExecutableDetailDialog"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+                  xmlns:ui="http://schemas.modernwpf.com/2019"
+                  mc:Ignorable="d"
+                  Title="{StaticResource ExecutableDetailWindowText}"
+                  Loaded="Window_Loaded"
+                  PrimaryButtonText="{StaticResource SaveButtonText}"
+                  CloseButtonText="{StaticResource CancelButtonText}"
+                  PrimaryButtonClick="SaveButton_Click"
+                  CloseButtonClick="CancelButton_Click"
+                  DefaultButton="Primary"
+                  Closing="ContentDialog_Closing">
+
+    <ScrollViewer>
+        <ui:SimpleStackPanel Orientation="Vertical"
+                             Spacing="12"
+                             Width="350">
+
+            <TextBlock Text="{StaticResource ExecutableDetailTargetPath}"
+                   FontSize="14"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="TargetTextBox" 
+                         Padding="2 2 30 2"
+                         Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                         VerticalContentAlignment="Center"
+                         Height="25"
+                         ui:TextBoxHelper.IsDeleteButtonVisible = "False"/>
+                <Button x:Name="TargetButton"
+                        Grid.Row="0" Grid.Column="1"
+                        Height="30"
+                        Click="TargetButton_Click"
+                        Background="Transparent"
+                        ToolTip="{StaticResource BrowseButtonText}">
+                    <ui:PathIcon Data="{StaticResource FolderHorizontalPathIcon}"/>
+                </Button>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="{StaticResource ExecutableDetailName}"
+                           FontSize="14"
+                           Grid.Row="0" Grid.Column="0"
+                           Margin="0 0 0 12"/>
+                <TextBox x:Name="NameTextBox"
+                         Padding="2"
+                         VerticalContentAlignment="Center"
+                         Grid.Row="1" Grid.Column="0"
+                         Margin="0 0 5 0"/>
+
+                <TextBlock Text="{StaticResource ExecutableDetailLocale}"
+                           VerticalAlignment="Center"
+                           FontSize="14"
+                           Grid.Row="0" Grid.Column="1"
+                           Margin="0 0 0 12"/>
+
+                <ComboBox x:Name="LocaleComboBox"
+                          VerticalContentAlignment="Center"
+                          Grid.Row="1" Grid.Column="1"
+                          HorizontalAlignment="Stretch"/>
+            </Grid>
+
+            <TextBlock Text="{StaticResource ExecutableDetailLaunchArgs}"
+                       FontSize="14"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="LaunchArgsTextBox" 
+                         Padding="2"
+                         TextWrapping="Wrap"
+                         Height="75"
+                         VerticalScrollBarVisibility="Auto"
+                         IsReadOnly="True"
+                         Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+
+                <Button x:Name="EditLaunchArgsButton"
+                        Click="EditLaunchArgsButton_Click"
+                        HorizontalAlignment="Left"
+                        Height="30"
+                        Margin="5 0 0 0"
+                        Grid.Column="1" Grid.Row="0"
+                        Background="Transparent"
+                        ToolTip="{StaticResource EditButtonText}">
+                    <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
+                </Button>
+            </Grid>
+        </ui:SimpleStackPanel>
+    </ScrollViewer>
+    
+</ui:ContentDialog>

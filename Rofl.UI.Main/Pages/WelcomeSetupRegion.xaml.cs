@@ -13,7 +13,6 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class WelcomeSetupRegion : Page
     {
-        private WelcomeSetupSettings _setupSettings;
 
         public WelcomeSetupRegion()
         {
