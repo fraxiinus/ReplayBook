@@ -17,6 +17,7 @@
     <Grid>
         <controls:ReplayDetailControl x:Name="DetailView"
                                       HorizontalContentAlignment="Stretch"
-                                      HorizontalAlignment="Stretch"/>
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"/>
     </Grid>
 </Window>
