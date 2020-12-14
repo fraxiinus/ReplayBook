@@ -22,15 +22,16 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!--Blank content to show when nothing is selected-->
-        <StackPanel x:Name="BlankContent"
-                    Orientation="Vertical"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+        <Grid x:Name="BlankContent"
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch"
+              Background="{DynamicResource TabViewBackground}">
             
             <TextBlock Text="{StaticResource BlankDetailMessageText}"
                        TextAlignment="Center"
+                       VerticalAlignment="Center"
                        Foreground="{DynamicResource SystemControlPageTextBaseMediumBrush}"/>
-        </StackPanel>
+        </Grid>
         
         <!--The actual replay content-->
         <Grid x:Name="ReplayContent"
