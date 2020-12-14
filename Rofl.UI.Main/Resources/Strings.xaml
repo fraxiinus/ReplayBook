@@ -150,7 +150,7 @@
 
     <string:String x:Key="Name">Replay Book</string:String>
     <string:String x:Key="Author">Fraxinus (Etirps)</string:String>
-    <string:String x:Key="Version">Pre-Release 9</string:String>
+    <string:String x:Key="Version">Pre-Release 9.1</string:String>
     <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
     <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
