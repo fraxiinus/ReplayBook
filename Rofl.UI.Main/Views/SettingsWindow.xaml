@@ -23,6 +23,7 @@
         
         <ListBox x:Name="SettingsMenuListBox"
                  SelectionChanged="SettingsMenuListBox_SelectionChanged"
+                 Background="{DynamicResource TabViewBackground}"
                  Grid.Column="0">
             
             <ListBoxItem x:Name="GeneralSettingsListItem">
@@ -51,7 +52,8 @@
 
         </ListBox>
         
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1"
+              Background="{DynamicResource BaseBackground}">
 
             <TabControl x:Name="SettingsTabControl"
                         HorizontalAlignment="Stretch"

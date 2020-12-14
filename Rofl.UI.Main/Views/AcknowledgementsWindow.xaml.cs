@@ -29,7 +29,7 @@ namespace Rofl.UI.Main.Views
             Titles = new List<string>();
 
             // Count how many times "AckTitle" shows up in the resource dictionary
-            var keys = Application.Current.Resources.MergedDictionaries[4].Keys.OfType<string>()
+            var keys = Application.Current.Resources.MergedDictionaries[5].Keys.OfType<string>()
                 .Where(x => x.StartsWith("AckTitle", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 

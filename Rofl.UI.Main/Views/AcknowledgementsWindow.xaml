@@ -9,18 +9,19 @@
         Title="{StaticResource AcknowledgementWindowTitleText}" 
         Height="450" Width="800"
         ui:WindowHelper.UseModernWindowStyle="True">
-    <Grid>
+    <Grid Background="{StaticResource BaseBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ListBox x:Name="AcknowledgementsListBox"
                  Width="200"
-                 Margin="0 0 12 0"
                  FontSize="14"
                  SelectionChanged="AcknowledgementsListBox_SelectionChanged"
-                 Grid.Column="0"/>
-        <Grid Grid.Column="1">
+                 Grid.Column="0"
+                 Background="{StaticResource TabViewBackground}"/>
+        <Grid Grid.Column="1"
+              Margin="12 0 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
