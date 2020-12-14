@@ -54,6 +54,8 @@
                 <Setter Property="BorderBrush" Value="Transparent"/>
                 <Setter Property="Margin" Value="0"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="Background" Value="{DynamicResource TabBackground}"/>
+                <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
             </Style>
         </DataGrid.ColumnHeaderStyle>
         <DataGrid.LayoutTransform>

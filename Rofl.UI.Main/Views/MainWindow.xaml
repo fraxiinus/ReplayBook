@@ -171,7 +171,7 @@
                           Grid.Row="2">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource DefaultListViewItemStyle}">
-                            <Setter Property="BorderBrush" Value="{DynamicResource SystemControlForegroundAltHighBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource BaseBackground}" />
                             <Setter Property="BorderThickness" Value="0, 0, 0, 1" />
                         </Style>
                     </ListView.ItemContainerStyle>
@@ -200,7 +200,8 @@
         <controls:ReplayDetailControl x:Name="DetailView"
                                       Grid.Column="1"
                                       HorizontalContentAlignment="Stretch"
-                                      HorizontalAlignment="Stretch"/>
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"/>
     </Grid>
     
 </Window>

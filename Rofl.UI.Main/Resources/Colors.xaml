@@ -16,4 +16,6 @@
 
     <SolidColorBrush x:Key="BlueTeamAccent" Color="#2747e8"/>
     <SolidColorBrush x:Key="RedTeamAccent" Color="#cb2124"/>
+
+    <SolidColorBrush x:Key="TabBackgroundHack" Color="#333333"/>
 </ResourceDictionary>

@@ -13,9 +13,24 @@
                 <ResourceDictionary Source="Resources/Strings.xaml"/>
                 <ResourceDictionary Source="Resources/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/Icons.xaml"/>
+                <ResourceDictionary Source="Resources/Styles.xaml"/>
                 <ResourceDictionary Source="Resources/Acknowledgements.xaml"/>
 
-                <ui:ThemeResources/>
+                <ui:ThemeResources>
+                    <ui:ThemeResources.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Dark" ui:ThemeDictionary.Key="Dark">
+                            <StaticResource x:Key="TabViewBackground" ResourceKey="SystemControlBackgroundChromeMediumBrush"/>
+                            <StaticResource x:Key="BaseBackground" ResourceKey="SystemControlBackgroundBaseLowBrush"/>
+                            <StaticResource x:Key="TabBackground" ResourceKey="TabBackgroundHack"/>
+                            <StaticResource x:Key="BadgeBackground" ResourceKey="SystemControlBackgroundBaseLowBrush"/>
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Light" ui:ThemeDictionary.Key="Light">
+                            <StaticResource x:Key="BaseBackground" ResourceKey="SystemControlBackgroundAltHighBrush"/>
+                            <StaticResource x:Key="TabBackground" ResourceKey="SystemControlBackgroundAltHighBrush"/>
+                            <StaticResource x:Key="BadgeBackground" ResourceKey="SystemControlBackgroundListLowBrush"/>
+                        </ResourceDictionary>
+                    </ui:ThemeResources.ThemeDictionaries>
+                </ui:ThemeResources>
                 <ui:XamlControlsResources/>
                 <ui:ColorPaletteResources/>
                 <ui:ResourceDictionaryEx/>

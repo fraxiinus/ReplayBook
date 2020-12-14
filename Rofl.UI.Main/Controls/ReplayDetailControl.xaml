@@ -39,7 +39,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
 
             <!--The header information-->
             <StackPanel Orientation="Vertical"
@@ -231,17 +230,25 @@
             </StackPanel>
 
             <TabControl x:Name="DetailTabControl"
-                        BorderThickness="0 1 0 0"
+                        BorderThickness="0 0 0 0"
                         Grid.Row="1"
                         SelectionChanged="TabControl_SelectionChanged">
+                <TabControl.Style>
+                    <Style TargetType="TabControl" BasedOn="{StaticResource DefaultTabControlStyle}">
+                    </Style>
+                </TabControl.Style>
                 <TabItem Header="{StaticResource ScoreboardTabText}"
-                         FontSize="12">
-                    <local:ScoreboardControl Margin="10 10 5 0"/>
+                         FontSize="12"
+                         Style="{StaticResource AlteredTabItemStyle}">
+                    <Border Background="{DynamicResource BaseBackground}">
+                        <local:ScoreboardControl Margin="10 10 5 0"/>
+                    </Border>
                 </TabItem>
 
                 <TabItem Header="{StaticResource StatsTabText}"
-                         FontSize="12">
-                    <Grid>
+                         FontSize="12"
+                         Style="{StaticResource AlteredTabItemStyle}">
+                    <Grid Background="{DynamicResource BaseBackground}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
