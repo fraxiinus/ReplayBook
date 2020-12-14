@@ -30,7 +30,7 @@ namespace Rofl.UI.Main.Utilities
             FileAssociations.Set(new FileAssociation
             {
                 Extension = ".rofl",
-                ProgId = "LOL_Replay_File",
+                ProgId = "ReplayBook",
                 FileTypeDescription = "League of Legends Replay File",
                 ExecutableFilePath = filePath
             });
@@ -58,12 +58,14 @@ namespace Rofl.UI.Main.Utilities
 
         private static bool SaveToRegistry(string extension, string progId, string fileTypeDescription, string applicationFilePath)
         {
-            return SetRegistryKey(@"Software\Classes\" + extension, progId) ||
-                   SetRegistryKey(@"Software\Classes\" + progId, fileTypeDescription) ||
-                   SetRegistryKey($@"Software\Classes\{progId}\shell\open\command", "\"" + applicationFilePath + "\" \"%1\"");
+            bool madeChanges = false;
+            madeChanges |= SetKeyDefaultValue(@"Software\Classes\" + extension, progId);
+            madeChanges |= SetKeyDefaultValue(@"Software\Classes\" + progId, fileTypeDescription);
+            madeChanges |= SetKeyDefaultValue($@"Software\Classes\{progId}\shell\open\command", "\"" + applicationFilePath + "\" \"%1\"");
+            return madeChanges;
         }
 
-        private static bool SetRegistryKey(string keyPath, string value)
+        private static bool SetKeyDefaultValue(string keyPath, string value)
         {
             using (var key = Registry.CurrentUser.CreateSubKey(keyPath))
             {

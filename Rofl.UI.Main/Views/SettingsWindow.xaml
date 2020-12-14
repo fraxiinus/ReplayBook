@@ -201,12 +201,12 @@
                             </ui:RadioButtons>
 
                             <Button x:Name="SetFileAssocButton"
-                                        Height="30"
-                                        Grid.Column="2"
-                                        Content="{StaticResource FileAssociationButtonText}"
-                                        Padding="15 0 15 0"
-                                        HorizontalAlignment="Left"
-                                        Click="SetFileAssocButton_Click"/>
+                                    Height="30"
+                                    Grid.Column="2"
+                                    Content="{StaticResource FileAssociationButtonText}"
+                                    Padding="15 0 15 0"
+                                    HorizontalAlignment="Left"
+                                    Click="SetFileAssocButton_Click"/>
 
                             <TextBlock Text="{StaticResource ReplayBehaviorLabelText}" 
                                        FontSize="16" />
