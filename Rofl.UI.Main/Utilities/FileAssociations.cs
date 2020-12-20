@@ -27,7 +27,9 @@ namespace Rofl.UI.Main.Utilities
         {
             var filePath = Process.GetCurrentProcess().MainModule.FileName;
 
-            FileAssociations.Set(new FileAssociation
+            ClearExplorerKeys();
+
+            Set(new FileAssociation
             {
                 Extension = ".rofl",
                 ProgId = "ReplayBook",
@@ -36,7 +38,25 @@ namespace Rofl.UI.Main.Utilities
             });
         }
 
-        public static void Set(params FileAssociation[] associations)
+        /// <summary>
+        /// File associations set by the user in explorer are stored in a different place
+        /// </summary>
+        private static void ClearExplorerKeys()
+        {
+            // Deleting keys one at a time as DeleteSubKeyTree was causing errors
+            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.rofl\UserChoice", false);
+            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.rofl\OpenWithProgids", false);
+            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.rofl\OpenWithList", false);
+            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.rofl", false);
+
+            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Classes\.rofl", false);
+            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Classes\rofl_auto_file\shell\open\command", false);
+            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Classes\rofl_auto_file\shell\open", false);
+            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Classes\rofl_auto_file\shell", false);
+            Registry.CurrentUser.DeleteSubKey(@"SOFTWARE\Classes\rofl_auto_file", false);
+        }
+
+        private static void Set(params FileAssociation[] associations)
         {
             // This flat is used to determine if changes were made in the registry
             bool madeChanges = false;

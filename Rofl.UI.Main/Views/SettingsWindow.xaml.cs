@@ -547,11 +547,21 @@ namespace Rofl.UI.Main.Views
             confirmFlyout.ShowAt(RemoveExecutableButton);
         }
 
-        private void SetFileAssocButton_Click(object sender, RoutedEventArgs e)
+        private async void SetFileAssocButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
 
             FileAssociations.SetRoflToSelf();
+
+            var msgDialog = new GenericMessageDialog()
+            {
+                Title = TryFindResource("FileAssociationMessageTitleText") as String,
+                Owner = this
+            };
+            msgDialog.SetMessage(TryFindResource("FileAssociationMessageBodyText") as String);
+
+            // Show dialog
+            await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
         private async void UpdateCheckButton_Click(object sender, RoutedEventArgs e)
