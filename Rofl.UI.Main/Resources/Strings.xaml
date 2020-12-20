@@ -71,6 +71,8 @@
     <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
     <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
     <string:String x:Key="FileAssociationButtonText">Set .ROFL file association</string:String>
+    <string:String x:Key="FileAssociationMessageTitleText">File Association Set</string:String>
+    <string:String x:Key="FileAssociationMessageBodyText">Replay Book set as default application for .rofl files</string:String>
     <string:String x:Key="FileActionOption1">Play replay</string:String>
     <string:String x:Key="FileActionOption2">Show stats</string:String>
     <string:String x:Key="ReplayBehaviorLabelText">Play Button Behavior</string:String>
