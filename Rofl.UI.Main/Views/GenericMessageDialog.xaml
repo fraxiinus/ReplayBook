@@ -8,7 +8,8 @@
                   mc:Ignorable="d"
                   Title="GenericMessageDialog"
                   PrimaryButtonText="{StaticResource OKButtonText}"
-                  DefaultButton="Primary">
+                  DefaultButton="Primary"
+                  Background="{DynamicResource TabBackground}">
     <Grid>
         <TextBlock x:Name="MessageTextBlock"
                    Text="Placeholder"

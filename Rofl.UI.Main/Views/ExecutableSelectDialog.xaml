@@ -11,7 +11,8 @@
                   CloseButtonText="{StaticResource CancelButtonText}"
                   PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
                   CloseButtonClick="ContentDialog_CloseButtonClick"
-                  DefaultButton="Primary">
+                  DefaultButton="Primary"
+                  Background="{DynamicResource TabBackground}">
     <Grid>
         <ListBox x:Name="ExecutablesListBox"
                  HorizontalContentAlignment="Stretch"

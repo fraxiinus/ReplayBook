@@ -13,7 +13,8 @@
                   PrimaryButtonClick="SaveButton_Click"
                   CloseButtonClick="CancelButton_Click"
                   DefaultButton="Primary"
-                  Closing="ContentDialog_Closing">
+                  Closing="ContentDialog_Closing"
+                  Background="{DynamicResource TabBackground}">
 
     <ScrollViewer>
         <ui:SimpleStackPanel Orientation="Vertical"
