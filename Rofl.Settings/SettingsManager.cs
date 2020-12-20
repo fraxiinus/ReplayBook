@@ -91,14 +91,13 @@ namespace Rofl.Settings
             // Validate that nothing is null
             if (rawSettings == null) { throw new Exception("Parsed config file is null"); }
 
-            var nullSubObjectCount = typeof(SettingsModel).GetProperties()
-                .Select(prop => prop.GetValue(rawSettings))
-                .Where(value => value == null)
-                .Count();
+            var nullSubObjects = typeof(SettingsModel).GetProperties()
+                .Where(prop => prop.GetValue(rawSettings) == null)
+                .Select(prop => prop.Name);
 
-            if(nullSubObjectCount > 0)
+            if(nullSubObjects.Any())
             {
-                throw new Exception("Parsed config file contained null subobject");
+                throw new Exception($"Parsed config file contained null subobject(s): {string.Join(",", nullSubObjects)}");
             }
 
             var nullGeneralSettingsCount = typeof(GeneralSettings).GetProperties()
