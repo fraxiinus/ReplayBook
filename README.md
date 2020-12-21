@@ -1,6 +1,6 @@
 # Replay Book
 
-![Screenshot](https://i.imgur.com/wbnETCQ.png "Preview Image")
+![Screenshot](.github/screenshots/overview_light.png "Preview Image")
 
 [![Build](https://img.shields.io/github/workflow/status/fraxiinus/ReplayBook/Build?style=flat-square)](https://github.com/leeanchu/ReplayBook/actions?query=workflow%3ABuild)
 [![License](https://img.shields.io/github/license/fraxiinus/ReplayBook?style=flat-square)](https://github.com/leeanchu/ROFL-Player/blob/master/LICENSE)
@@ -28,24 +28,28 @@ Replay Book is a replay management tool that is currently in pre-release alpha.
 
 ## Current Features
 
-![MarkerFeature](https://i.imgur.com/h1Z9135.png, "Player markers")
+![DarkMode](.github/screenshots/overview_dark.png "Dark Mode")
+
+#### Windows 10 dark mode supported!
+
+<br>
+
+![MarkerFeature](.github/screenshots/notes_tooltip.png "Player Markers")
 
 #### Assign player markers to easily spot players in the replay list. For example, you could assign your team different colors to easily see the champions they are playing.
 
 <br>
 
-![ExportFeature](https://i.imgur.com/AgZGNqk.gif, "Exporter")
+![StatsFeature](.github/screenshots/statistics_view.gif "View statistics")
 
 #### View every single statistic that is readable from replay files. This includes some weird ones like spell cast counts and mute information.
 
+#### Export data to CSV or JSON file formats to use in data analysis
+
 <br>
 
-![Executables](https://i.imgur.com/ePp632d.png, "Executables")
+![Executables](.github/screenshots/multi_executables.png "Executables")
 
 #### Keep old League of Legends patches and Replay Book will automatically detect and match compatible replay files.
-
-<br>
-
-![Regions](https://i.imgur.com/5m8W7mz.png, "Regions")
 
 #### Supports all regions! You can assign locale on an executable level, supporting different region installs of League of Legends.
