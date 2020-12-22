@@ -29,7 +29,9 @@
         </Grid.ColumnDefinitions>
 
         <Border Padding="0 0 0 0"
-                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}">
+                Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                BorderThickness="0 0 1 0"
+                BorderBrush="{DynamicResource BaseBackground}">
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
