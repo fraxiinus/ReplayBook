@@ -94,43 +94,50 @@
 
             <DataGridTextColumn Binding="{Binding Path=SummonerSpell2Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource SummonerSpell2CastsHeaderText}"/>
+                    <TextBlock Text="{StaticResource SummonerSpell2CastsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=SummonerSpell1Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource SummonerSpell1CastsHeaderText}"/>
+                    <TextBlock Text="{StaticResource SummonerSpell1CastsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=Spell4Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource Spell4CastsHeaderText}"/>
+                    <TextBlock Text="{StaticResource Spell4CastsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=Spell3Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource Spell3CastsHeaderText}"/>
+                    <TextBlock Text="{StaticResource Spell3CastsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=Spell2Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource Spell2CastsHeaderText}"/>
+                    <TextBlock Text="{StaticResource Spell2CastsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=Spell1Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource Spell1CastsHeaderText}"/>
+                    <TextBlock Text="{StaticResource Spell1CastsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=IndividualPosition, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource IndividualPositionHeaderText}"/>
+                    <TextBlock Text="{StaticResource IndividualPositionHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -138,7 +145,8 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource MiscGroupHeaderText}"
                                FontWeight="Bold"
-                               FontSize="14"/>
+                               FontSize="14"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -160,7 +168,7 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource WasEarlySurrenderAccompliceHeaderText}"
                                TextTrimming="CharacterEllipsis"
-                               ToolTip="{StaticResource WasEarlySurrenderAccompliceHeaderText}"/>
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -180,7 +188,7 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource WasAFKAfterFailedSurrenderHeaderText}"
                                TextTrimming="CharacterEllipsis"
-                               ToolTip="{StaticResource WasAFKAfterFailedSurrenderHeaderText}"/>
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
             
@@ -198,25 +206,29 @@
                     </Style>
                 </DataGridTextColumn.ElementStyle>
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource WasAFKHeaderText}"/>
+                    <TextBlock Text="{StaticResource WasAFKHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
             
             <DataGridTextColumn Binding="{Binding Path=Ping, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource PingHeaderText}"/>
+                    <TextBlock Text="{StaticResource PingHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=MutedByPlayers, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource MutedByPlayersHeaderText}"/>
+                    <TextBlock Text="{StaticResource MutedByPlayersHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=PlayersMuted, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource PlayersMutedHeaderText}"/>
+                    <TextBlock Text="{StaticResource PlayersMutedHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -234,19 +246,22 @@
                     </Style>
                 </DataGridTextColumn.ElementStyle>
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TeamEarlySurrenderedHeaderText}"/>
+                    <TextBlock Text="{StaticResource TeamEarlySurrenderedHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
             
             <DataGridTextColumn Binding="{Binding Path=TimeOfLastDisconnect, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TimeOfLastDisconnectHeaderText}"/>
+                    <TextBlock Text="{StaticResource TimeOfLastDisconnectHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TimeSpentDisconnected, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TimeSpentDisconnectedHeaderText}"/>
+                    <TextBlock Text="{StaticResource TimeSpentDisconnectedHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
             
@@ -254,7 +269,8 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource ToxicityGroupHeaderText}"
                                FontWeight="Bold"
-                               FontSize="14"/>
+                               FontSize="14"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -274,55 +290,64 @@
                     </Style>
                 </DataGridTextColumn.ElementStyle>
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource LastHitNexusHeaderText}"/>
+                    <TextBlock Text="{StaticResource LastHitNexusHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TotalTimeSpentDead, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalTimeSpentDeadHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalTimeSpentDeadHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=LongestTimeSpentAlive, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource LongestTimeSpentAliveHeaderText}"/>
+                    <TextBlock Text="{StaticResource LongestTimeSpentAliveHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=DragonsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource DragonsKilledHeaderText}"/>
+                    <TextBlock Text="{StaticResource DragonsKilledHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=BaronsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource BaronsKilledHeaderText}"/>
+                    <TextBlock Text="{StaticResource BaronsKilledHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=ObjectivesStolen, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource ObjectivesStolenHeaderText}"/>
+                    <TextBlock Text="{StaticResource ObjectivesStolenHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=InhibitorsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource InhibitorsKilledHeaderText}"/>
+                    <TextBlock Text="{StaticResource InhibitorsKilledHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TurretsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TurretsKilledHeaderText}"/>
+                    <TextBlock Text="{StaticResource TurretsKilledHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TotalExperience, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalExperienceHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalExperienceHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -330,7 +355,8 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource ObjectivesGroupHeaderText}"
                                FontWeight="Bold"
-                               FontSize="14"/>
+                               FontSize="14"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -338,49 +364,57 @@
 
             <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilledFromEnemyJungle, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource NeutralMinionsKilledFromEnemyJungleHeaderText}"/>
+                    <TextBlock Text="{StaticResource NeutralMinionsKilledFromEnemyJungleHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilledFromOwnJungle, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource NeutralMinionsKilledFromOwnJungleHeaderText}"/>
+                    <TextBlock Text="{StaticResource NeutralMinionsKilledFromOwnJungleHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource NeutralMinionsKilledHeaderText}"/>
+                    <TextBlock Text="{StaticResource NeutralMinionsKilledHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=MinionsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource MinionsKilledHeaderText}"/>
+                    <TextBlock Text="{StaticResource MinionsKilledHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=ConsumablesPurchased, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource ConsumablesPurchasedHeaderText}"/>
+                    <TextBlock Text="{StaticResource ConsumablesPurchasedHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=ItemsPurchased, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource ItemsPurchasedHeaderText}"/>
+                    <TextBlock Text="{StaticResource ItemsPurchasedHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=GoldSpent, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource GoldSpentHeaderText}"/>
+                    <TextBlock Text="{StaticResource GoldSpentHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=GoldEarned, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource GoldEarnedHeaderText}"/>
+                    <TextBlock Text="{StaticResource GoldEarnedHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -388,7 +422,8 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource IncomeGroupHeaderText}"
                                FontWeight="Bold"
-                               FontSize="14"/>
+                               FontSize="14"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -396,25 +431,29 @@
 
             <DataGridTextColumn Binding="{Binding Path=VisionWardsPurchased, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource VisionWardsPurchasedHeaderText}"/>
+                    <TextBlock Text="{StaticResource VisionWardsPurchasedHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=WardsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource WardsKilledHeaderText}"/>
+                    <TextBlock Text="{StaticResource WardsKilledHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=WardsPlaced, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource WardsPlacedHeaderText}"/>
+                    <TextBlock Text="{StaticResource WardsPlacedHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=VisionScore, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource VisionScoreHeaderText}"/>
+                    <TextBlock Text="{StaticResource VisionScoreHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -422,7 +461,8 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource VisionGroupHeaderText}"
                                FontWeight="Bold"
-                               FontSize="14"/>
+                               FontSize="14"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -430,31 +470,36 @@
 
             <DataGridTextColumn Binding="{Binding Path=TotalDamageSelfMitigated, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalDamageSelfMitigatedHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalDamageSelfMitigatedHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TrueDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TrueDamageTakenHeaderText}"/>
+                    <TextBlock Text="{StaticResource TrueDamageTakenHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=MagicDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource MagicDamageTakenHeaderText}"/>
+                    <TextBlock Text="{StaticResource MagicDamageTakenHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=PhysicalDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource PhysicalDamageTakenHeaderText}"/>
+                    <TextBlock Text="{StaticResource PhysicalDamageTakenHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TotalDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalDamageTakenHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalDamageTakenHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -462,13 +507,14 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource TotalDamageShieldedToTeammatesHeaderText}"
                                TextTrimming="CharacterEllipsis"
-                               ToolTip="{StaticResource TotalDamageShieldedToTeammatesHeaderText}"/>
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TotalUnitsHealed, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalUnitsHealedHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalUnitsHealedHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -476,13 +522,14 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource TotalHealingDoneToTeammatesHeaderText}"
                                TextTrimming="CharacterEllipsis"
-                               ToolTip="{StaticResource TotalHealingDoneToTeammatesHeaderText}"/>
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TotalHealingDone, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalHealingDoneHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalHealingDoneHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -490,7 +537,8 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource DamageTakenAndHealedGroupHeaderText}"
                                FontWeight="Bold"
-                               FontSize="14"/>
+                               FontSize="14"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -498,55 +546,64 @@
 
             <DataGridTextColumn Binding="{Binding Path=TotalDamageToObjectives, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalDamageToObjectivesHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalDamageToObjectivesHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TotalDamageToTurrets, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalDamageToTurretsHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalDamageToTurretsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=LargestCriticalStrike, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource LargestCriticalStrikeHeaderText}"/>
+                    <TextBlock Text="{StaticResource LargestCriticalStrikeHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TrueDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TrueDamageDealtHeaderText}"/>
+                    <TextBlock Text="{StaticResource TrueDamageDealtHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=MagicDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource MagicDamageDealtHeaderText}"/>
+                    <TextBlock Text="{StaticResource MagicDamageDealtHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=PhysicalDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource PhysicalDamageDealtHeaderText}"/>
+                    <TextBlock Text="{StaticResource PhysicalDamageDealtHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TotalDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalDamageDealtHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalDamageDealtHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TrueDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TrueDamageDealtToChampionsHeaderText}"/>
+                    <TextBlock Text="{StaticResource TrueDamageDealtToChampionsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=MagicDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource MagicDamageDealtToChampionsHeaderText}"/>
+                    <TextBlock Text="{StaticResource MagicDamageDealtToChampionsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -554,13 +611,14 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource PhysicalDamageDealtToChampionsHeaderText}"
                                TextTrimming="CharacterEllipsis"
-                               ToolTip="{StaticResource PhysicalDamageDealtToChampionsHeaderText}"/>
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TotalDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalDamageDealtToChampionsHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalDamageDealtToChampionsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -568,92 +626,107 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource DamageDealtGroupHeaderText}"
                                FontWeight="Bold"
-                               FontSize="14"/>
+                               FontSize="14"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
             <!---->
 
             <DataGridTextColumn Binding="{Binding Path=TotalTimeCrowdControlDealt, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TotalTimeCrowdControlDealtHeaderText}"/>
+                    <TextBlock Text="{StaticResource TotalTimeCrowdControlDealtHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=CrowdControlScore, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource CrowdControlScoreHeaderText}"/>
+                    <TextBlock Text="{StaticResource CrowdControlScoreHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=UnrealKills, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource UnrealKillsHeaderText}"/>
+                    <TextBlock Text="{StaticResource UnrealKillsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=PentaKills, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource PentaKillsHeaderText}"/>
+                    <TextBlock Text="{StaticResource PentaKillsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=QuadraKills, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource QuadraKillsHeaderText}"/>
+                    <TextBlock Text="{StaticResource QuadraKillsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TripleKills, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource TripleKillsHeaderText}"/>
+                    <TextBlock Text="{StaticResource TripleKillsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=DoubleKills, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource DoubleKillsHeaderText}"/>
+                    <TextBlock Text="{StaticResource DoubleKillsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=BountyLevel, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource BountyLevelHeaderText}"/>
+                    <TextBlock Text="{StaticResource BountyLevelHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=LargestMultiKill, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource LargestMultiKillHeaderText}"/>
+                    <TextBlock Text="{StaticResource LargestMultiKillHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn  Binding="{Binding Path=KillingSprees, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource KillingSpreesHeaderText}"/>
+                    <TextBlock Text="{StaticResource KillingSpreesHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=LargestKillingSpree, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource LargestKillingSpreeHeaderText}"/>
+                    <TextBlock Text="{StaticResource LargestKillingSpreeHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=Assists, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource AssistsHeaderText}"/>
+                    <TextBlock Text="{StaticResource AssistsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=Deaths, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource DeathsHeaderText}"/>
+                    <TextBlock Text="{StaticResource DeathsHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=ChampionsKilled, Mode=OneWay}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="{StaticResource ChampionsKilledHeaderText}"/>
+                    <TextBlock Text="{StaticResource ChampionsKilledHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -661,7 +734,8 @@
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{StaticResource CombatGroupHeaderText}"
                                FontWeight="Bold"
-                               FontSize="14"/>
+                               FontSize="14"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
         </DataGrid.Columns>
