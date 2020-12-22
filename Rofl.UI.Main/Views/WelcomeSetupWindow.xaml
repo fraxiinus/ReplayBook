@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
               HorizontalAlignment="Stretch"
-              Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+              Background="{DynamicResource TabViewBackground}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -40,6 +40,7 @@
                 BorderThickness="0 1 0 0"/>-->
         <Frame x:Name="SetupFrame"
                Grid.Row="1"
-               NavigationUIVisibility="Hidden"/>
+               NavigationUIVisibility="Hidden"
+               Background="{DynamicResource BaseBackground}"/>
     </Grid>
 </Window>
