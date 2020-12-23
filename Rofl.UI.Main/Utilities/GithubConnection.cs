@@ -10,7 +10,7 @@ namespace Rofl.UI.Main.Utilities
 {
     public static class GithubConnection
     {
-        private const string UserAgent = @"ReplayBook/PR9 (+https://github.com/fraxiinus/ReplayBook)";
+        private const string UserAgent = @"ReplayBook/PR9.2 (+https://github.com/fraxiinus/ReplayBook)";
         private const string GithubUrl = @"https://api.github.com/repos/fraxiinus/ReplayBook/releases/latest";
 
         public static async Task<string> GetLatestVersion()
