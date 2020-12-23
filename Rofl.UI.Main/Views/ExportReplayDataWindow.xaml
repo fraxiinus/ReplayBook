@@ -12,7 +12,7 @@
         MinHeight="300" MinWidth="600"
         Loaded="ExportReplayDataWindow_OnLoaded"
         ui:WindowHelper.UseModernWindowStyle="True"
-        Background="{DynamicResource TabBackground}">
+        Background="{DynamicResource TabViewBackground}">
     
     <Grid Margin="12"
           x:Name="MainGrid">
