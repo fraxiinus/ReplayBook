@@ -635,6 +635,12 @@ namespace Rofl.UI.Main.Views
 
             return;
         }
+        
+        private void OpenGitHubButton_Click(object sender, RoutedEventArgs e)
+        {
+            var url = TryFindResource("GitHubLink") as string;
+            Process.Start(url);
+        }
 
         private void AcknowledgementsButton_Click(object sender, RoutedEventArgs e)
         {

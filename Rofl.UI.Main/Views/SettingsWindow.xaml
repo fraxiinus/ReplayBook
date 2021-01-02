@@ -81,8 +81,8 @@
                                              Margin="15 0 20 12">
 
                             <TextBlock Text="{StaticResource PlayerMarkerLabelText}" 
-                                       FontSize="16"/>
-
+                                        FontSize="16"/>
+                                
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -176,9 +176,14 @@
                                              x:Name="PlayerMarkerStyleOption2"/>
                             </ui:RadioButtons>
                             
-                            <TextBlock Text="{StaticResource MatchHistoryUrlLabelText}" 
-                                       FontSize="16"/>
-
+                            <ui:SimpleStackPanel Orientation="Horizontal">
+                                <TextBlock Text="{StaticResource MatchHistoryUrlLabelText}" 
+                                           FontSize="16"/>
+                                <ui:PathIcon Data="{StaticResource InfoIcon}"
+                                             Width="16" Margin="5 2 0 0"
+                                             ToolTip="{StaticResource MarchHistoryUrlInfoText}"/>
+                            </ui:SimpleStackPanel>
+                            
                             <TextBox x:Name="MatchHistoryUrlTextBox" 
                                      Padding="2"
                                      Height="25"
@@ -208,27 +213,33 @@
                                     HorizontalAlignment="Left"
                                     Click="SetFileAssocButton_Click"/>
 
-                            <TextBlock Text="{StaticResource ReplayBehaviorLabelText}" 
+                            <TextBlock Text="{StaticResource MiscBehaviorLabelText}" 
                                        FontSize="16" />
 
-                            <CheckBox Content="{StaticResource PlayConfirmCheckboxText}" 
-                                      IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
+                            <ui:SimpleStackPanel Orientation="Vertical">
+                                <CheckBox Content="{StaticResource PlayConfirmCheckboxText}" 
+                                          IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
 
-                            <TextBlock Text="{StaticResource ReplayRenameLabelText}" 
-                                       FontSize="16" />
-
-                            <CheckBox Content="{StaticResource ReplayRenameCheckboxText}" 
-                                      IsChecked="{Binding Path=Settings.SaveNamesToFile}"/>
+                                <CheckBox Content="{StaticResource ReplayRenameCheckboxText}" 
+                                          IsChecked="{Binding Path=Settings.SaveNamesToFile}"/>
+                            </ui:SimpleStackPanel>
 
                             <TextBlock Text="{StaticResource UpdatesLabelText}" 
                                        FontSize="16"/>
 
-                            <Button x:Name="UpdateCheckButton"
-                                    HorizontalAlignment="Left"
-                                    Content="{StaticResource CheckUpdatesButtonText}"
-                                    Height="30"
-                                    Width="150"
-                                    Click="UpdateCheckButton_Click"/>
+                            <ui:SimpleStackPanel Orientation="Horizontal">
+                                <Button x:Name="UpdateCheckButton"
+                                        HorizontalAlignment="Left"
+                                        Content="{StaticResource CheckUpdatesButtonText}"
+                                        Height="30" Width="150"
+                                        Click="UpdateCheckButton_Click"/>
+                                <Button x:Name="OpenGitHub"
+                                        HorizontalAlignment="Left"
+                                        Content="{StaticResource OpenGitHubButtonText}"
+                                        Height="30" Margin="12 0 0 0"
+                                        Click="OpenGitHubButton_Click"/>
+                            </ui:SimpleStackPanel>
+                            
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
                 </TabItem>
@@ -283,8 +294,13 @@
                                              Spacing="12"
                                              Margin="15 0 20 12">
 
-                            <TextBlock Text="{StaticResource ExecutableFoldersLabelText}" 
-                                       FontSize="16"/>
+                            <ui:SimpleStackPanel Orientation="Horizontal">
+                                <TextBlock Text="{StaticResource ExecutableFoldersLabelText}" 
+                                           FontSize="16"/>
+                                <ui:PathIcon Data="{StaticResource InfoIcon}"
+                                             Width="16" Margin="5 2 0 0"
+                                             ToolTip="{StaticResource ExecutableFoldersInfoText}"/>
+                            </ui:SimpleStackPanel>
 
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
@@ -433,8 +449,14 @@
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Spacing="12"
                                              Margin="15 0 20 12">
-                            <TextBlock Text="{StaticResource SourceFoldersLabelText}" 
-                                       FontSize="16"/>
+                            <ui:SimpleStackPanel Orientation="Horizontal">
+                                <TextBlock Text="{StaticResource SourceFoldersLabelText}" 
+                                           FontSize="16"/>
+                                <ui:PathIcon Data="{StaticResource InfoIcon}"
+                                             Width="16" Margin="5 2 0 0"
+                                             ToolTip="{StaticResource SourceFoldersInfoText}"/>
+                            </ui:SimpleStackPanel>
+                            
 
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
