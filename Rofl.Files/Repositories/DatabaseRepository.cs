@@ -65,8 +65,8 @@ namespace Rofl.Files.Repositories
                 fileResults.EnsureIndex(x => x.AlternativeName);
                 fileResults.EnsureIndex(x => x.FileSizeBytes);
                 fileResults.EnsureIndex(x => x.FileCreationTime);
-                fileResults.EnsureIndex(x => x.PlayerNames);
-                fileResults.EnsureIndex(x => x.ChampionNames);
+
+                fileResults.EnsureIndex(x => x.SearchKeywords);
             }
         }
 
@@ -186,29 +186,27 @@ namespace Rofl.Files.Repositories
                     break;
             }
 
-            List<Query> playerQueries = new List<Query>();
+            // Create queries trying to match keywords into search string
+            List<Query> queries = new List<Query>();
             foreach (var word in keywords)
             {
-                playerQueries.Add
+                queries.Add
                 (
-                    Query.Or
-                    (
-                        Query.Where("PlayerNames", players => players.AsString.Contains(word.ToUpper(CultureInfo.InvariantCulture))),
-                        Query.Where("ChampionNames", champions => champions.AsString.Contains(word.ToUpper(CultureInfo.InvariantCulture)))
-                    )
+                    Query.Where("SearchKeywords", fileKeywords => fileKeywords.AsString.Contains(word.ToUpper(CultureInfo.InvariantCulture)))
                 );
             }
             
+            // Comebine all keyword queries using AND keyword, then AND by sort query
             Query endQuery;
-            if (playerQueries.Any())
+            if (queries.Any())
             {
-                if (playerQueries.Count == 1)
+                if (queries.Count == 1)
                 {
-                    endQuery = Query.And(sortQuery, playerQueries[0]);
+                    endQuery = Query.And(sortQuery, queries[0]);
                 }
                 else
                 {
-                    var combinedPlayerQuery = Query.And(playerQueries.ToArray());
+                    var combinedPlayerQuery = Query.And(queries.ToArray());
                     endQuery = Query.And(sortQuery, combinedPlayerQuery);
                 }
             }
@@ -217,6 +215,7 @@ namespace Rofl.Files.Repositories
                 endQuery = sortQuery;
             }
 
+            // Query the database
             using (var db = new LiteDatabase(_filePath))
             {
                 var fileResults = db.GetCollection<FileResult>("fileResults");

@@ -16,12 +16,18 @@ namespace Rofl.Files.Models
             ReplayFile = replayFile ?? throw new ArgumentNullException(nameof(replayFile));
 
             Id = FileInfo.Path;
+
+            SearchKeywords = $"{FileInfo.Name.ToUpper(CultureInfo.InvariantCulture)};" +
+                $"{ReplayFile.AlternativeName.ToUpper(CultureInfo.InvariantCulture)};" +
+                $"{string.Join("|", ReplayFile.Players.Select(x => x.NAME.ToUpper(CultureInfo.InvariantCulture)))};" +
+                $"{string.Join("|", ReplayFile.Players.Select(x => x.SKIN.ToUpper(CultureInfo.InvariantCulture)))}";
+
             FileName = FileInfo.Name;
             AlternativeName = replayFile.AlternativeName;
             FileSizeBytes = FileInfo.FileSizeBytes;
             FileCreationTime = FileInfo.CreationTime;
-            PlayerNames = string.Join("|", ReplayFile.Players.Select(x => x.NAME.ToUpper(CultureInfo.InvariantCulture)));
-            ChampionNames = string.Join("|", ReplayFile.Players.Select(x => x.SKIN.ToUpper(CultureInfo.InvariantCulture)));
+            //PlayerNames = string.Join("|", ReplayFile.Players.Select(x => x.NAME.ToUpper(CultureInfo.InvariantCulture)));
+            //ChampionNames = string.Join("|", ReplayFile.Players.Select(x => x.SKIN.ToUpper(CultureInfo.InvariantCulture)));
         }
         
         public ReplayFileInfo FileInfo { get; set; }
@@ -34,15 +40,24 @@ namespace Rofl.Files.Models
 
         // The following fields are used to allow for fast indexing
         // Placing them on the root level object makes creating indexes very easy and clear.
-        public string FileName { get; set; }
 
         /// <summary>
-        /// User assigned name alternative
+        /// Contains all search keywords, delimited by semicolon
+        /// Only field used by search
         /// </summary>
-        public string AlternativeName { get; set; }
+        public string SearchKeywords { get; set; }
+
+        // The following fields are only used for sorting
+        public string FileName { get; set; }
         public long FileSizeBytes { get; set; }
         public DateTime FileCreationTime { get; set; }
-        public string PlayerNames { get; set; }
-        public string ChampionNames { get; set; }
+        public string AlternativeName { get; set; }
+
+        ///// <summary>
+        ///// User assigned name alternative
+        ///// </summary>
+        //
+        //public string PlayerNames { get; set; }
+        //public string ChampionNames { get; set; }
     }
 }
