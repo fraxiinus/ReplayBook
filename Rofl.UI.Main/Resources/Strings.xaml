@@ -66,19 +66,25 @@
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorTitle">Marker already exists</string:String>
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Player name cannot be empty</string:String>
     <string:String x:Key="PlayerMarkerColorIsEmptyErrorText">Please choose a color</string:String>
-    <string:String x:Key="PlayConfirmCheckboxText">Always ask for confirmation before playing replays</string:String>
-    <string:String x:Key="ReplayRenameCheckboxText">Use actual file name (renaming replay will rename the file)</string:String>
+    
+    
     <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
+    <string:String x:Key="MarchHistoryUrlInfoText">The "View Online" may not work if replays are from a different region than this URL</string:String>
+    
     <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
     <string:String x:Key="FileAssociationButtonText">Set .ROFL file association</string:String>
     <string:String x:Key="FileAssociationMessageTitleText">File Association Set</string:String>
     <string:String x:Key="FileAssociationMessageBodyText">Replay Book set as default application for .rofl files</string:String>
     <string:String x:Key="FileActionOption1">Play replay</string:String>
     <string:String x:Key="FileActionOption2">Show stats</string:String>
-    <string:String x:Key="ReplayBehaviorLabelText">Play Button Behavior</string:String>
-    <string:String x:Key="ReplayRenameLabelText">Replay Name Behavior</string:String>
+
+    <string:String x:Key="MiscBehaviorLabelText">Miscellaneous Behaviors</string:String>
+    <string:String x:Key="PlayConfirmCheckboxText">Show confirmation before playing replays</string:String>
+    <string:String x:Key="ReplayRenameCheckboxText">Rename file when renaming replays</string:String>
+
     <string:String x:Key="UpdatesLabelText">Updates</string:String>
     <string:String x:Key="CheckUpdatesButtonText">Check for Updates...</string:String>
+    <string:String x:Key="OpenGitHubButtonText">View project on GitHub</string:String>
     <string:String x:Key="UpdateExceptionTitleText">Unable to check for updates</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">Failed to connect to GitHub. Check your connection and try again.</string:String>
     <string:String x:Key="UpdateGitHubErrorBodyText">GitHub returned an error response. Manually check for updates by going to https://github.com/fraxiinus/ReplayBook</string:String>
@@ -98,6 +104,7 @@
     <string:String x:Key="AppearanceThemeCustomAccentNote">Using custom accent color</string:String>
 
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
+    <string:String x:Key="ExecutableFoldersInfoText">Any subfolders are included</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Scan Folders for Executables</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultTitleText">Search results</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultLabelText">Registered $ new executable(s)</string:String>
@@ -122,6 +129,7 @@
     <string:String x:Key="ExecutableDetailTargetPath">Target Path</string:String>
     <string:String x:Key="ExecutableDetailName">Executable Name</string:String>
     <string:String x:Key="ExecutableDetailLocale">Locale</string:String>
+    <string:String x:Key="ExecutableDetailLocaleInfo">Replays may bugsplat if this value does not match the executable</string:String>
     <string:String x:Key="ExecutableDetailLaunchArgs">Other Launch Arguments</string:String>
     <string:String x:Key="ExecutableDetailPropertyHeader">Properties</string:String>
     <string:String x:Key="ExecutableDetailPropertyStartPath">Start Path</string:String>
@@ -129,11 +137,12 @@
     <string:String x:Key="ExecutableDetailPropertyModified">Modified Date</string:String>
 
     <string:String x:Key="SourceFoldersLabelText">Replay Source Folders</string:String>
+    <string:String x:Key="SourceFoldersInfoText">Any subfolders are included</string:String>
     <string:String x:Key="SourceFoldersWindowText">Select Replay Source Folder</string:String>
     <string:String x:Key="SourceFoldersAlreadyExistsErrorText">Selected folder is already added, please select another folder</string:String>
     <string:String x:Key="SourceFoldersAlreadyExistsErrorTitle">Folder already added</string:String>
 
-    <string:String x:Key="ReplayItemsPerPage">Results Per Page</string:String>
+    <string:String x:Key="ReplayItemsPerPage">Replay items per page</string:String>
 
     <string:String x:Key="RequestsDownloadAllLabel">Download Images</string:String>
     <string:String x:Key="RequestsCacheLabel">Downloaded Images Cache</string:String>
