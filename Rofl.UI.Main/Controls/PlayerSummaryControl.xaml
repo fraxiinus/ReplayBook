@@ -132,7 +132,7 @@
                        TextAlignment="Center"
                        Width="40"
                        ToolTip="{StaticResource CreepScoreToolTip}"
-                       Text="{Binding Path=MinionsKilled, FallbackValue=CS, Mode=OneWay}">
+                       Text="{Binding Path=TotalMinionsKilled, FallbackValue=CS, Mode=OneWay}">
                 <TextBlock.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="{StaticResource CopyText}"
