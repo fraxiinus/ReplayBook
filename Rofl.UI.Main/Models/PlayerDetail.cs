@@ -23,6 +23,7 @@ namespace Rofl.UI.Main.Models
             // Kills/Deaths/Assists
             MinionsKilled = player.MINIONS_KILLED.ToInt();
             NeutralMinionsKilled = player.NEUTRAL_MINIONS_KILLED.ToInt();
+            TotalMinionsKilled = MinionsKilled + NeutralMinionsKilled;
             NeutralMinionsKilledFromOwnJungle = player.NEUTRAL_MINIONS_KILLED_YOUR_JUNGLE.ToInt();
             NeutralMinionsKilledFromEnemyJungle = player.NEUTRAL_MINIONS_KILLED_ENEMY_JUNGLE.ToInt();
             ChampionsKilled = player.CHAMPIONS_KILLED.ToInt();
@@ -95,10 +96,12 @@ namespace Rofl.UI.Main.Models
             PlayersMuted = player.PLAYERS_I_MUTED.ToInt();
             MutedByPlayers = player.PLAYERS_THAT_MUTED_ME.ToInt();
             Ping = player.PING.ToInt();
+
             // Only capitalize first letter of position name JUNGLE -> Jungle
 #pragma warning disable CA1308 // Normalize strings to uppercase
             IndividualPosition = player.INDIVIDUAL_POSITION == null ? "N/A" : player.INDIVIDUAL_POSITION[0] + player.INDIVIDUAL_POSITION.Substring(1).ToLowerInvariant();
 #pragma warning restore CA1308 // Normalize strings to uppercase
+
             TeamEarlySurrendered = Convert.ToBoolean(player.TEAM_EARLY_SURRENDERED.ToInt());
             TimeOfLastDisconnect = player.TIME_OF_FROM_LAST_DISCONNECT.ToInt();
             WasAFK = Convert.ToBoolean(player.WAS_AFK.ToInt());
@@ -129,6 +132,8 @@ namespace Rofl.UI.Main.Models
         public int GoldEarned { get; private set; }
 
         public int GoldSpent { get; private set; }
+
+        public int TotalMinionsKilled { get; private set; }
 
         public int MinionsKilled { get; private set; }
 

@@ -25,7 +25,10 @@ namespace Rofl.UI.Main.Models
                 BlueDeaths += newPlayer.Deaths;
                 BlueAssists += newPlayer.Assists;
                 BlueGoldEarned += newPlayer.GoldEarned;
-                BlueMinionsKilled += newPlayer.MinionsKilled;
+                
+                // Includes both minions and jungle camps
+                BlueMinionsKilled += newPlayer.TotalMinionsKilled;
+
                 BluePlayers.Add(newPlayer);
                 AllPlayers.Add(newPlayer);
             }
@@ -39,7 +42,10 @@ namespace Rofl.UI.Main.Models
                 RedDeaths += newPlayer.Deaths;
                 RedAssists += newPlayer.Assists;
                 RedGoldEarned += newPlayer.GoldEarned;
-                RedMinionsKilled += newPlayer.MinionsKilled;
+
+                // Includes both minions and jungle camps
+                RedMinionsKilled += newPlayer.TotalMinionsKilled;
+
                 RedPlayers.Add(newPlayer);
                 AllPlayers.Add(newPlayer);
             }
