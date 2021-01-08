@@ -3,12 +3,10 @@
                     xmlns:string="clr-namespace:System;assembly=mscorlib" 
                     xmlns:system="clr-namespace:System;assembly=System">
 
-   
     <!--General UI Text-->
     <string:String x:Key="ProgramName">Replay Book</string:String>
     <string:String x:Key="SearchDefaultText">Search...</string:String>
     <string:String x:Key="MoreButtonText">Options</string:String>
-    <string:String x:Key="PlayButtonText">Play</string:String>
     <string:String x:Key="LoadMoreButtonText">Load more...</string:String>
 
     <string:String x:Key="LoadingMessageReplay">Loading replays...</string:String>
@@ -37,10 +35,8 @@
     <string:String x:Key="ReplaySupported">Playable</string:String>
     <string:String x:Key="ReplayUnsupported">Unsupported</string:String>
     <string:String x:Key="ReplayPlayExceptionTitle">Exception Occured</string:String>
-    <!--<string:String x:Key="ReplayPlayExceptionText">Exception occured trying to play replay:</string:String>-->
     
     <string:String x:Key="NoReplaysFoundTitle">No more results</string:String>
-    <string:String x:Key="NoReplaysFoundText">There are no more replays to load</string:String>
     
     <string:String x:Key="MissingPathTitle">Replay folder not found</string:String>
     <string:String x:Key="MissingPathText">The following path(s) could not be found are were removed:</string:String>
@@ -63,11 +59,8 @@
     <string:String x:Key="PlayerMarkerNoteLabelText">Note</string:String>
     <string:String x:Key="PlayerMarkerColorLabelText">Marker Color</string:String>
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">Marker for player name "$" already exists</string:String>
-    <string:String x:Key="PlayerMarkerAlreadyExistsErrorTitle">Marker already exists</string:String>
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Player name cannot be empty</string:String>
-    <string:String x:Key="PlayerMarkerColorIsEmptyErrorText">Please choose a color</string:String>
-    
-    
+
     <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
     <string:String x:Key="MarchHistoryUrlInfoText">The "View Online" may not work if replays are from a different region than this URL</string:String>
     
@@ -116,14 +109,11 @@
     <string:String x:Key="ExecutableSelectInvalidErrorTitle">Invalid Executable</string:String>
     <string:String x:Key="ExecutableSaveNullText">Required fields are not filled out</string:String>
     <string:String x:Key="ExecutableSaveNullTitle">Error while saving</string:String>
-    <string:String x:Key="ExecutableDefaultLabelText">Default Executable</string:String>
     <string:String x:Key="ExecutableSelectWindowTitleText">Select Executable</string:String>
     <string:String x:Key="ExecutableNotFoundErrorTitle">Unsupported Replay</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">No matching executable found for patch</string:String>
     <string:String x:Key="ReplayPlayConfirmTitle">Play replay?</string:String>
     <string:String x:Key="ReplayPlayConfirmOptOut">You can turn off this confirmation in the settings window</string:String>
-
-    <string:String x:Key="WebRequestsUseMostRecentText">Always use most recent API version</string:String>
     
     <!--Executable Detail-->
     <string:String x:Key="ExecutableDetailTargetPath">Target Path</string:String>
@@ -131,7 +121,6 @@
     <string:String x:Key="ExecutableDetailLocale">Locale</string:String>
     <string:String x:Key="ExecutableDetailLocaleInfo">Replays may bugsplat if this value does not match the executable</string:String>
     <string:String x:Key="ExecutableDetailLaunchArgs">Other Launch Arguments</string:String>
-    <string:String x:Key="ExecutableDetailPropertyHeader">Properties</string:String>
     <string:String x:Key="ExecutableDetailPropertyStartPath">Start Path</string:String>
     <string:String x:Key="ExecutableDetailPropertyPatch">Patch Number</string:String>
     <string:String x:Key="ExecutableDetailPropertyModified">Modified Date</string:String>
@@ -157,12 +146,10 @@
     <string:String x:Key="DataDragonChampionUrlLabelText">Champion Image Relative URL</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">Item Image Relative URL</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
-    <!--<string:String x:Key="WebCacheClearButtonText">Clear cached images</string:String>-->
 
     <string:String x:Key="Name">Replay Book</string:String>
     <string:String x:Key="Author">Fraxinus (Etirps)</string:String>
     <string:String x:Key="Version">Pre-Release 9.3</string:String>
-    <string:String x:Key="AboutDiscordText">Have questions or feedback? Join the Discord!</string:String>
     <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
     <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
@@ -271,7 +258,6 @@
 
     <!--ToolTip Text-->
     <string:String x:Key="SortToolTip">Sort</string:String>
-    <string:String x:Key="OpenToolTip">Open</string:String>
     <string:String x:Key="RefreshToolTip">Refresh</string:String>
     <string:String x:Key="SettingsToolTip">Settings</string:String>
     <string:String x:Key="PlayReplayToolTip">Play Replay</string:String>
@@ -279,8 +265,6 @@
     <string:String x:Key="CannotPlayToolTip">Cannot play this replay</string:String>
     <string:String x:Key="MoreToolTip">More...</string:String>
 
-    <string:String x:Key="ReplayUnsupportedToolTip">This replay is from an unsupported version</string:String>
-    <string:String x:Key="ReplaySupportedToolTip">Replay enabled</string:String>
     <string:String x:Key="FileDateToolTip">File creation date</string:String>
     <string:String x:Key="MatchIdToolTip">Match ID</string:String>
     <string:String x:Key="FileSizeToolTip">File size</string:String>
@@ -325,8 +309,6 @@
     <string:String x:Key="ErdExportNullTest">Nothing selected to export</string:String>
     <string:String x:Key="ErdCsvModeText">CSV Mode</string:String>
     <string:String x:Key="ErdFailedToSave">Failed to save file</string:String>
-    <string:String x:Key="ErdSaveCompleteTitle">File Saved!</string:String>
-    <string:String x:Key="ErdSaveComplete">File "@" saved successfully</string:String>
     <string:String x:Key="ErdPreviewTitle">Data Preview</string:String>
 
     <!--Welcome Setup-->
@@ -347,8 +329,6 @@
     <string:String x:Key="WswRegionFrameTitle">Language Setup</string:String>
     <string:String x:Key="WswDownloadFrameTitle">Download Assets</string:String>
     <string:String x:Key="WswFinishedFrameTitle">Complete!</string:String>
-    <string:String x:Key="WswSkipHint">You can skip this setup at any time by closing the window</string:String>
-    <string:String x:Key="WswNextHint">Looks good? Click the next button on the bottom to continue</string:String>
 
     <string:String x:Key="WswIntroductionTitle">Thank you for downloading ReplayBook!</string:String>
     <string:String x:Key="WswIntroductionBody">First, lets do some initial setup. Click the 'Next' button below to continue.</string:String>
@@ -359,7 +339,6 @@
     <string:String x:Key="WswExecutablesTitle">Select the Riot Games folder</string:String>
     <string:String x:Key="WswExecutablesBody">ReplayBook needs to register League of Legends before it is able to play replays. We will search this folder for all versions of League of Legends that exist.</string:String>
     <string:String x:Key="WswExecutablesHint">For example: 'C:\Riot Games'</string:String>
-    <string:String x:Key="WswExecutablesRegisterButton">Register</string:String>
     <string:String x:Key="WswExecutablesRegisterList">Detected versions:</string:String>
     <string:String x:Key="WswExecutablesRegisterListEmpty">Nothing found...</string:String>
 
@@ -381,8 +360,6 @@
     <!--Rename dialog-->
     <string:String x:Key="RenameFlyoutEmptyError">Enter valid file name</string:String>
     <string:String x:Key="RenameFlyoutNotFoundError">Replay is not in a replay folder</string:String>
-    <string:String x:Key="RenameDialogTitle">Rename file...</string:String>
-    <string:String x:Key="RenameDialogInvalidCharacters">A file name can't contain any of the following characters:{n}{t}\/:*?&lt;&gt;|</string:String>
     
     <!--Delete dialog-->
     <string:String x:Key="DeleteFlyoutLabel">Are you sure?</string:String>
