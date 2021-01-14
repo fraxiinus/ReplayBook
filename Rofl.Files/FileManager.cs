@@ -35,6 +35,10 @@ namespace Rofl.Files
             _deletedFiles = new List<string>();
         }
 
+        public string DatabasePath { get => _db.GetDatabasePath(); }
+
+        public void DeleteDatabase() => _db.DeleteDatabase();
+
         /// <summary>
         /// This function is responsible for finding and loading in new replays
         /// </summary>

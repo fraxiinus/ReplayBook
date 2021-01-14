@@ -110,6 +110,7 @@ namespace Rofl.UI.Main.Views
                     break;
                 case "ReplaySettingsListItem":
                     SettingsTabControl.SelectedIndex = 3;
+                    LoadReplayCacheSizes();
                     break;
                 case "RequestSettingsListItem":
                     SettingsTabControl.SelectedIndex = 4;
@@ -858,6 +859,34 @@ namespace Rofl.UI.Main.Views
                 ChampionCheckBox.IsEnabled = true;
                 DownloadImageButton.IsEnabled = true;
             }
+        }
+
+        private void LoadReplayCacheSizes()
+        {
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+
+            var results = viewModel.CalculateReplayCacheSize();
+
+            var readableSizeConverter = new FormatKbSizeConverter();
+            ReplayCacheSize.Text = (string)readableSizeConverter.Convert(results, null, null, CultureInfo.InvariantCulture);
+        }
+
+        private async void DeleteReplayCacheButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+
+            // Set the delete flag, to be deleted by the main view model on close
+            viewModel.ClearReplayCacheOnClose = true;
+
+            // inform the user that the delete will happen when the window is closed
+            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            dialog.DefaultButton = ContentDialogButton.Primary;
+
+            dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
+            dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
+            dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
+
+            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
     }
 }
