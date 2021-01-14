@@ -261,7 +261,7 @@ namespace Rofl.UI.Main
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
 
-            await context.ClearImageCache().ConfigureAwait(true);
+            await context.ClearCache().ConfigureAwait(true);
         }
 
         public void SelectReplayItem(ReplayPreview replay)

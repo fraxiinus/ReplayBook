@@ -59,6 +59,8 @@ namespace Rofl.UI.Main.ViewModels
         public bool ClearItemsCacheOnClose { get; set; }
         public bool ClearChampsCacheOnClose { get; set; }
 
+        public bool ClearReplayCacheOnClose { get; set; }
+
         // public string LatestDataDragonVersion { get; private set; }
 
         public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, ReplayPlayer player, RiZhi log)
@@ -86,6 +88,7 @@ namespace Rofl.UI.Main.ViewModels
             // By default we do not want to delete our cache
             ClearItemsCacheOnClose = false;
             ClearChampsCacheOnClose = false;
+            ClearReplayCacheOnClose = false;
         }
 
         /// <summary>
@@ -619,10 +622,24 @@ namespace Rofl.UI.Main.ViewModels
             return (itemsTotal, champsTotal);
         }
 
-        public async Task ClearImageCache()
+        public long CalculateReplayCacheSize()
         {
+            var databaseInfo = new FileInfo(_fileManager.DatabasePath);
+            return databaseInfo.Length;
+        }
+
+        public async Task ClearCache()
+        {
+            System.GC.Collect();
+            System.GC.WaitForPendingFinalizers();
+
             if (ClearItemsCacheOnClose) await RequestManager.ClearItemCache().ConfigureAwait(true);
             if (ClearChampsCacheOnClose) await RequestManager.ClearChampionCache().ConfigureAwait(true);
+
+            if (ClearReplayCacheOnClose)
+            {
+                _fileManager.DeleteDatabase();
+            }
         }
     }
 }

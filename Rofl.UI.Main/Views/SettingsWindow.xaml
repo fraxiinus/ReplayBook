@@ -540,6 +540,28 @@
                                            Text="{Binding ElementName=ItemCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
                                            Grid.Column="1"/>
                             </Grid>
+
+                            <TextBlock Text="{StaticResource ReplayDatabaseText}" FontSize="16"/>
+                            <Grid MinWidth="200"
+                                  HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="{StaticResource ReplayDatabaseSize}"
+                                           Grid.Column="0" Grid.Row="0"/>
+
+                                <TextBlock x:Name="ReplayCacheSize"
+                                           Grid.Column="1" Grid.Row="0"/>
+                            </Grid>
+                            <Button x:Name="DeleteReplayCacheButton"
+                                    Content="{StaticResource ReplayDatabaseClearButton}"
+                                    Click="DeleteReplayCacheButton_Click"
+                                    Width="140"/>
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
                 </TabItem>

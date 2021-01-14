@@ -131,7 +131,11 @@
     <string:String x:Key="SourceFoldersAlreadyExistsErrorText">Selected folder is already added, please select another folder</string:String>
     <string:String x:Key="SourceFoldersAlreadyExistsErrorTitle">Folder already added</string:String>
 
-    <string:String x:Key="ReplayItemsPerPage">Replay items per page</string:String>
+    <string:String x:Key="ReplayItemsPerPage">Items Per Page</string:String>
+
+    <string:String x:Key="ReplayDatabaseText">Replay Data Cache</string:String>
+    <string:String x:Key="ReplayDatabaseSize">Size:</string:String>
+    <string:String x:Key="ReplayDatabaseClearButton">Clear cache</string:String>
 
     <string:String x:Key="RequestsDownloadAllLabel">Download Images</string:String>
     <string:String x:Key="RequestsCacheLabel">Downloaded Images Cache</string:String>

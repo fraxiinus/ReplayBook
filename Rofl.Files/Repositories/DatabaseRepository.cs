@@ -35,6 +35,13 @@ namespace Rofl.Files.Repositories
             }
         }
 
+        public string GetDatabasePath() => _filePath;
+
+        public void DeleteDatabase()
+        {
+            File.Delete(_filePath);
+        }
+
         private void InitializeDatabase()
         {
             if (!Directory.Exists(Path.GetDirectoryName(_filePath)))
