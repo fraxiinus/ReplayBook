@@ -738,6 +738,9 @@
 
                                 </StackPanel>
                             </ui:HyperlinkButton>
+                            <ui:HyperlinkButton HorizontalAlignment="Center"
+                                                NavigateUri="{StaticResource LicenseLink}"
+                                                Content="{StaticResource LicenseText}"/>
                             <TextBlock Text="{StaticResource AcknowledgementText}" 
                                        FontSize="14" 
                                        HorizontalAlignment="Center" 
