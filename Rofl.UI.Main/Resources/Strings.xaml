@@ -69,7 +69,7 @@
     
     
     <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
-    <string:String x:Key="MarchHistoryUrlInfoText">The "View Online" may not work if replays are from a different region than this URL</string:String>
+    <string:String x:Key="MarchHistoryUrlInfoText">The "View Online" feature may not work if replays are from a different region than this URL</string:String>
     
     <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
     <string:String x:Key="FileAssociationButtonText">Set .ROFL file association</string:String>
@@ -167,6 +167,8 @@
     <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
     <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
+    <string:String x:Key="LicenseText">This program is licensed under  GPL-3.0</string:String>
+    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">Replay Book is only possible thanks to the following:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Open Source Projects</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Open Source Acknowledgements</string:String>
