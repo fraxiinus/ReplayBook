@@ -19,7 +19,7 @@ namespace Rofl.Requests.Utilities
         private readonly RiZhi _log;
         private readonly HttpClient _httpClient;
 
-        private const string UserAgent = @"ReplayBook/PR9.3 (+https://github.com/fraxiinus/ReplayBook)";
+        private const string UserAgent = @"ReplayBook/R1.0 (+https://github.com/fraxiinus/ReplayBook)";
 
         private string LatestDataDragonVersion = null;
 
