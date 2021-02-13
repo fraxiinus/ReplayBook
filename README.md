@@ -1,55 +1,46 @@
-# Replay Book
-
-![Screenshot](.github/screenshots/overview_light.png "Preview Image")
-
+![Banner](.github/logo/banner_rev2_fullsize.png "ReplayBook Banner")
 [![Build](https://img.shields.io/github/workflow/status/fraxiinus/ReplayBook/Build?style=flat-square)](https://github.com/fraxiinus/ReplayBook/actions?query=workflow%3ABuild)
 [![License](https://img.shields.io/github/license/fraxiinus/ReplayBook?style=flat-square)](https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE)
-[![Discord](https://img.shields.io/discord/606263917211156501?logo=discord&style=flat-square)](https://discord.gg/c33Rc5J)
 
-Replay Book is a replay management tool that is currently in pre-release alpha.
+![DarkMode](.github/screenshots/overview_dark.png "Screenshot")
 
-**Join the Discord for progress updates and pre-release builds.**
-
-<br>
-
-## Frequently Asked Questions
-* How do I download ReplayBook?
-    * ReplayBook is currently in closed alpha. If you'd like to test the alpha, join the Discord server and ask!
-* Can you add \*this\* feature?
-    * Join the Discord and ask! I'm open to feature requests.
-* Can I get \*this\* information?
-    * All the information we know how to read from a replay is displayed in the stats view. Stuff like summoner spells, icons, and time based information are not readable from a replay.
-* ReplayBook is suddenly having trouble/won't start
-    * Go to where you saved ReplayBook and delete the 'cache' folder. If that doesn't work try deleting appsettings.json and executablesettings.json. You will lose your settings, but may resolve your problem.
-* I accidentally deleted a replay from within ReplayBook. How do I get it back?
-    * Files are only deleted when ReplayBook closes. If you accidentally deleted a file and you didn't close ReplayBook, go to where you saved ReplayBook and open 'cache' then your replay file should be in the 'deletedReplays' folder.
-* ReplayBook crashed! What do I do?
-    * Send me a message on Discord, and include the log file written in the 'logs' folder where you saved ReplayBook.
-
-## Current Features
-
-![DarkMode](.github/screenshots/overview_dark.png "Dark Mode")
-
-#### Windows 10 dark mode supported!
+### ReplayBook is a free open-source tool that helps you organize and manage replays.
 
 <br>
 
-![MarkerFeature](.github/screenshots/notes_tooltip.png "Player Markers")
+## ReplayBook is currently looking for **translators!** Please contact me if you are interested in helping!
 
-#### Assign player markers to easily spot players in the replay list. For example, you could assign your team different colors to easily see the champions they are playing.
+## Join the Discord if you need help, or have any problems
 
-<br>
+![Discord Banner](https://discordapp.com/api/guilds/606263917211156501/widget.png?style=banner2)
 
-![StatsFeature](.github/screenshots/statistics_view.gif "View statistics")
 
-#### View every single statistic that is readable from replay files. This includes some weird ones like spell cast counts and mute information.
+## Features
+* Keep old League of Legends patches and ReplayBook will automatically detect and match compatible replay files
+* Assign player markers to easily spot players in the replay list
+* View all information available in replay files
+* Export data to CSV or JSON file formats
+* Supports all regions!
+* Windows 10 dark/light themes supported
 
-#### Export data to CSV or JSON file formats to use in data analysis
+## Getting Started
+### YouTube Tutorial (coming soon)
+### Tutorial
+1. Get the latest release of ReplayBook ([download link](https://github.com/fraxiinus/ReplayBook/releases))
+2. Extract the program and run ReplayBook.exe, you will be prompted with a first time setup.
+3. Follow the on-screen instructions. It is *highly recommended* to download all images as it makes ReplayBook more responsive.
+5. *(optional)* Add any other folders where you keep backups for old League of Legends versions by opening the settings window (Gear icon) ➡ Executables ➡ **Add** button under Executable Source Folders. Once you have added your folders, press the **Scan Folders** button and ReplayBook will automatically add your backups.
+6. *(optional)* Add any other folders where you keep replay files by going to the settings menu (Gear icon), and adding folders under Replays ➡ Replay Source Folders.
 
-<br>
+## Troubleshooting
+**Trying to play a replay causes a Bugsplat!**
 
-![Executables](.github/screenshots/multi_executables.png "Executables")
+Check that you have the Locale set correctly for your League of Legends install. If you game is in French, you need to tell ReplayBook by going to the settings (Gear icon) ➡ Executables ➡ Edit your executable under **Register Executables** and change the **Locale** value to your language.
 
-#### Keep old League of Legends patches and Replay Book will automatically detect and match compatible replay files.
+**The application won't open**
 
-#### Supports all regions! You can assign locale on an executable level, supporting different region installs of League of Legends.
+Go to where you saved ReplayBook and delete the 'cache' folder. If that doesn't work try deleting appsettings.json and executablesettings.json. You will lose your settings, but may fix the problem.
+
+**I accidentally deleted a replay within the program**
+
+Files are only deleted when the window closes. If you accidentally deleted a file and didn't close ReplayBook, go to where ReplayBook is saved, open the 'cache' folder then the replay file should be in the 'deletedReplays' folder.
