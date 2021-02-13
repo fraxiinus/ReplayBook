@@ -67,7 +67,7 @@
     <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
     <string:String x:Key="FileAssociationButtonText">Set .ROFL file association</string:String>
     <string:String x:Key="FileAssociationMessageTitleText">File Association Set</string:String>
-    <string:String x:Key="FileAssociationMessageBodyText">Replay Book set as default application for .rofl files</string:String>
+    <string:String x:Key="FileAssociationMessageBodyText">ReplayBook set as default application for .rofl files</string:String>
     <string:String x:Key="FileActionOption1">Play replay</string:String>
     <string:String x:Key="FileActionOption2">Show stats</string:String>
 
@@ -143,15 +143,15 @@
     <string:String x:Key="RequestsCacheChampsSize">Champions cache size:</string:String>
     <string:String x:Key="RequestsCacheClearItemsButton">Delete Items</string:String>
     <string:String x:Key="RequestsCacheClearChampsButton">Delete Champions</string:String>
-    <string:String x:Key="RequestsCacheCloseToDeleteTitle">Close Replay Book</string:String>
-    <string:String x:Key="RequestsCacheCloseToDelete">Cache will be deleted when Replay Book is closed</string:String>
+    <string:String x:Key="RequestsCacheCloseToDeleteTitle">Close ReplayBook</string:String>
+    <string:String x:Key="RequestsCacheCloseToDelete">Cache will be deleted when ReplayBook is closed</string:String>
     <string:String x:Key="RequestsAdvancedLabel">Advanced Options</string:String>
     <string:String x:Key="DataDragonBaseUrlLabelText">Data Dragon Base URL</string:String>
     <string:String x:Key="DataDragonChampionUrlLabelText">Champion Image Relative URL</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">Item Image Relative URL</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
 
-    <string:String x:Key="Name">Replay Book</string:String>
+    <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxinus (Etirps)</string:String>
     <string:String x:Key="Version">Release 1.0.0</string:String>
     <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
@@ -160,7 +160,7 @@
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">This program is licensed under  GPL-3.0</string:String>
     <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
-    <string:String x:Key="AcknowledgementText">Replay Book is only possible thanks to the following:</string:String>
+    <string:String x:Key="AcknowledgementText">ReplayBook is only possible thanks to the following:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Open Source Projects</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Open Source Acknowledgements</string:String>
     
