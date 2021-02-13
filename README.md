@@ -9,7 +9,7 @@
 
 ## Join the Discord if you need help or have any suggestions
 
-![Discord Banner](https://discordapp.com/api/guilds/606263917211156501/widget.png?style=banner2)
+[![Discord Banner](https://discordapp.com/api/guilds/606263917211156501/widget.png?style=banner2)](https://discord.gg/c33Rc5J)
 
 
 ## Features
@@ -21,7 +21,7 @@
 * Windows 10 dark/light themes supported
 
 ## Getting Started
-### YouTube Tutorial (coming soon)
+### [YouTube Tutorial](https://youtu.be/mOpoyZuVyzs)
 ### Tutorial
 1. Get the latest release of ReplayBook ([download link](https://github.com/fraxiinus/ReplayBook/releases))
 2. Extract the program and run ReplayBook.exe, you will be prompted with a first time setup.
