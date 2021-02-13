@@ -87,8 +87,6 @@ namespace Rofl.UI.Main
                 AssemblyVersion = assemblyName.Version.ToString(2)
             };
 
-            _log.Error($"Log files are generated for each run while in prerelease");
-
             try
             {
                 _settingsManager = new SettingsManager(_log);
