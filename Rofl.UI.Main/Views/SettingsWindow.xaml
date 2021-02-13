@@ -712,10 +712,10 @@
 
                 <TabItem x:Name="AboutTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Center"
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Top"
                                     Margin="0 0 0 0">
-                            <Image Source="/ReplayBook;component/Resources/iconBMP.png"
-                                   Width="75"
+                            <Image Source="/ReplayBook;component/Resources/icon_image.png"
+                                   Width="200"
                                    HorizontalAlignment="Center"
                                    RenderOptions.BitmapScalingMode="HighQuality"/>
                             <TextBlock Text="{StaticResource Name}" FontSize="28" HorizontalAlignment="Center"/>

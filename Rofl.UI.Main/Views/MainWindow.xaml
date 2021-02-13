@@ -12,14 +12,13 @@
         Title="{StaticResource ProgramName}" 
         Icon="{StaticResource ProgramIcon}"
         ResizeMode="CanResize"
-        MinHeight="670"
-        MinWidth="1150"
-        Height="670" 
-        Width="1150"
+        MinHeight="670" MinWidth="1150"
+        Height="670" Width="1150"
         Loaded="MainWindow_OnLoaded"
         Closing="MainWindow_OnClosing"
         Closed="Window_Closed"
-        ui:WindowHelper.UseModernWindowStyle="True">
+        ui:WindowHelper.UseModernWindowStyle="True"
+        ui:TitleBar.IsIconVisible="True">
 
     <Grid>
 

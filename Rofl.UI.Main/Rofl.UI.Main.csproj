@@ -376,9 +376,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\program_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\scoreboardicon_champion.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -406,9 +403,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\iconBMP.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Etirps.RiZhi">
@@ -461,6 +455,12 @@
     <PackageReference Include="WindowsAPICodePack-Shell">
       <Version>1.1.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\program_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\icon_image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

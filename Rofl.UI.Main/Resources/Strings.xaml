@@ -4,7 +4,7 @@
                     xmlns:system="clr-namespace:System;assembly=System">
 
     <!--General UI Text-->
-    <string:String x:Key="ProgramName">Replay Book</string:String>
+    <string:String x:Key="ProgramName">ReplayBook</string:String>
     <string:String x:Key="SearchDefaultText">Search...</string:String>
     <string:String x:Key="MoreButtonText">Options</string:String>
     <string:String x:Key="LoadMoreButtonText">Load more...</string:String>
@@ -153,7 +153,7 @@
 
     <string:String x:Key="Name">Replay Book</string:String>
     <string:String x:Key="Author">Fraxinus (Etirps)</string:String>
-    <string:String x:Key="Version">Pre-Release 9.3</string:String>
+    <string:String x:Key="Version">Release 1.0.0</string:String>
     <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
     <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>

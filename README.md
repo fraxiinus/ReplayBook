@@ -10,7 +10,7 @@
 
 ## ReplayBook is currently looking for **translators!** Please contact me if you are interested in helping!
 
-## Join the Discord if you need help, or have any problems
+## Join the Discord if you need help or have any suggestions
 
 ![Discord Banner](https://discordapp.com/api/guilds/606263917211156501/widget.png?style=banner2)
 
