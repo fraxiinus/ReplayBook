@@ -6,7 +6,7 @@
 [![Donate](https://shields.io/badge/ko--fi-support%20me-green?logo=ko-fi&style=flat-square)](https://ko-fi.com/fraxiinus)
 ### ReplayBook is a free open-source tool that helps you organize and manage replays.
 
-### This project is currently looking for translators! Contact me for more information.
+### This project is currently looking for translators! [View the wiki for more information](https://github.com/fraxiinus/ReplayBook/wiki/Translating).
 
 ## Join the Discord if you need help or have any suggestions
 
@@ -31,17 +31,16 @@
 6. *(optional)* Add any other folders where you keep replay files by going to the settings menu (Gear icon), and adding folders under Replays -> Replay Source Folders.
 
 ## Troubleshooting
-**Trying to play a replay causes a Bugsplat!**
 
-Check that you have the Locale set correctly for your League of Legends install. If you game is in French, you need to tell ReplayBook by going to the settings (Gear icon) -> Executables -> Edit your executable under **Register Executables** and change the **Locale** value to your language.
+**Playing replays causes a Bugsplat**
 
-**The application won't open**
+Check that you have the locale set correctly for your League of Legends executable. By default, ReplayBook uses the locale you selected during the setup process. If you game is in a different locale, you need to tell ReplayBook by going to the settings (Gear icon) -> Executables -> Edit your executable under `Register Executables` and change the `Locale` value to your language.
 
-Go to where you saved ReplayBook and delete the 'cache' folder. If that doesn't work try deleting appsettings.json and executablesettings.json. You will lose your settings, but may fix the problem.
+**Playing replays crashes with missing stub.dll**
 
-**I accidentally deleted a replay within the program**
+In order to play replays, ReplayBook needs the entire League of Legends installation, not just `League of Legends.exe`. To make sure your installation is complete, you can try re-installing the game, or downloading someone else's backup.
 
-Files are only deleted when the window closes. If you accidentally deleted a file and didn't close ReplayBook, go to where ReplayBook is saved, open the 'cache' folder then the replay file should be in the 'deletedReplays' folder.
+[View full troubleshooting document](https://github.com/fraxiinus/ReplayBook/wiki/Troubleshooting)
 
 ## Building
 ### Requirements
