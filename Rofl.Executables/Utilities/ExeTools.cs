@@ -128,6 +128,12 @@ namespace Rofl.Executables.Utilities
                 case LeagueLocale.Turkish:
                     code = "tr_TR";
                     break;
+                case LeagueLocale.ChineseTW:
+                    code = "zh_TW";
+                    break;
+                case LeagueLocale.Custom:
+                    code = "Custom";
+                    break;
                 default:
                     code = "en_US";
                     break;

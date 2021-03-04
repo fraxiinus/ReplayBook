@@ -90,6 +90,19 @@ namespace Rofl.Executables.Models
             }
         }
 
+        private string _customLocale;
+        [JsonProperty("customLocale")]
+        public string CustomLocale 
+        { 
+            get { return _customLocale; }
+            set
+            {
+                _customLocale = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(CustomLocale)));
+            }
+        }
+
         private DateTime _modifiedDate;
         [JsonProperty("modifiedDate")]
         public DateTime ModifiedDate

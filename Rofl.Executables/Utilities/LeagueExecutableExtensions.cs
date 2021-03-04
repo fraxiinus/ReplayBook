@@ -22,7 +22,9 @@ namespace Rofl.Executables.Utilities
 
             // Create the launch arguments, each argument is put in quotes
             // <replay file path> GameBaseDir=... <other arguments>
-            string launchArgs = $"\"{path}\" " + executable.LaunchArguments + $" \"-Locale={ExeTools.GetLocaleCode(executable.Locale)}\"";
+            var locale = executable.Locale == LeagueLocale.Custom ? executable.CustomLocale : ExeTools.GetLocaleCode(executable.Locale);
+
+            string launchArgs = $"\"{path}\" " + executable.LaunchArguments + $" \"-Locale={locale}\"";
 
             ProcessStartInfo processStartInfo = new ProcessStartInfo
             {

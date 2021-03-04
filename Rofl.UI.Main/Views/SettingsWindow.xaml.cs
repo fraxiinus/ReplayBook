@@ -2,6 +2,7 @@
 using ModernWpf;
 using ModernWpf.Controls;
 using Rofl.Executables.Models;
+using Rofl.Executables.Utilities;
 using Rofl.Requests.Models;
 using Rofl.Settings;
 using Rofl.Settings.Models;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -83,6 +85,13 @@ namespace Rofl.UI.Main.Views
             AppearanceThemeOption1.IsChecked = (context.Settings.ThemeMode == 0);
             AppearanceThemeOption2.IsChecked = (context.Settings.ThemeMode == 1);
             AppearanceThemeOption3.IsChecked = (context.Settings.ThemeMode == 2);
+
+            // Load locale drop down
+            var allLocales = Enum.GetNames(typeof(LeagueLocale))
+                .Where(x => !string.Equals(x, LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase))
+                .Select(x => x + " (" + ExeTools.GetLocaleCode(x) + ")");
+            ExecutableLocaleComboBox.ItemsSource = allLocales;
+            ExecutableLocaleComboBox.SelectedIndex = (int) context.Executables.Settings.DefaultLocale;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -887,6 +896,13 @@ namespace Rofl.UI.Main.Views
             dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
 
             await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+        }
+
+        private void ExecutableLocaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
+            context.Executables.Settings.DefaultLocale = (LeagueLocale) ExecutableLocaleComboBox.SelectedIndex;
         }
     }
 }

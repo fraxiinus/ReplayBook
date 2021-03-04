@@ -96,6 +96,7 @@
     <string:String x:Key="AppearanceThemeDefaultAccentNote">Using system defined accent color</string:String>
     <string:String x:Key="AppearanceThemeCustomAccentNote">Using custom accent color</string:String>
 
+    <string:String x:Key="ExecutableDefaultLocaleLabelText">Default Locale</string:String>
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
     <string:String x:Key="ExecutableFoldersInfoText">Any subfolders are included</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Scan Folders for Executables</string:String>
@@ -118,6 +119,7 @@
     <!--Executable Detail-->
     <string:String x:Key="ExecutableDetailTargetPath">Target Path</string:String>
     <string:String x:Key="ExecutableDetailName">Executable Name</string:String>
+    <string:String x:Key="ExecutableDetailCustomLocale">Custom Locale</string:String>
     <string:String x:Key="ExecutableDetailLocale">Locale</string:String>
     <string:String x:Key="ExecutableDetailLocaleInfo">Replays may bugsplat if this value does not match the executable</string:String>
     <string:String x:Key="ExecutableDetailLaunchArgs">Other Launch Arguments</string:String>
