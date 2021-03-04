@@ -9,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 
 namespace Rofl.UI.Main.Views
@@ -43,7 +44,9 @@ namespace Rofl.UI.Main.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var allLocales = Enum.GetNames(typeof(LeagueLocale)).Select(x => x + " (" + ExeTools.GetLocaleCode(x) + ")");
+            // load locales into drop down, skip parentheses for custom option
+            var allLocales = Enum.GetNames(typeof(LeagueLocale))
+                .Select(x => x + (x.StartsWith(LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase) ? "" : " (" + ExeTools.GetLocaleCode(x) + ")"));
 
             this.LocaleComboBox.ItemsSource = allLocales;
         }
@@ -54,11 +57,9 @@ namespace Rofl.UI.Main.Views
 
             TargetTextBox.Text = executable.TargetPath;
             NameTextBox.Text = executable.Name;
-            LocaleComboBox.SelectedIndex = (int) executable.Locale;
+            LocaleComboBox.SelectedIndex = executable.Locale == LeagueLocale.Custom ? Enum.GetNames(typeof(LeagueLocale)).Length - 1 : (int) executable.Locale;
             LaunchArgsTextBox.Text = PrettifyLaunchArgs(executable.LaunchArguments);
-            //ModifiedDateTextBox.Text = executable.ModifiedDate.ToString("o", CultureInfo.InvariantCulture);
-            //StartPathTextBox.Text = executable.StartFolder;
-            //PatchTextBox.Text = executable.PatchNumber;
+            CustomLocaleTextBox.Text = executable.CustomLocale;
         }
 
         private void SaveButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -84,7 +85,8 @@ namespace Rofl.UI.Main.Views
             {
                 _executable.Name = NameTextBox.Text;
                 _executable.TargetPath = TargetTextBox.Text;
-                _executable.Locale = (LeagueLocale) LocaleComboBox.SelectedIndex;
+                _executable.Locale = LocaleComboBox.SelectedIndex == Enum.GetNames(typeof(LeagueLocale)).Length - 1 ? LeagueLocale.Custom : (LeagueLocale) LocaleComboBox.SelectedIndex;
+                _executable.CustomLocale = CustomLocaleTextBox.Text;
 
                 if (_isEditMode)
                 {
@@ -203,6 +205,12 @@ namespace Rofl.UI.Main.Views
             {
                 args.Cancel = true;
             }
+        }
+
+        private void LocaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // show custom locale controls when option is selected
+            CustomLocaleContainer.Visibility = String.Equals(LocaleComboBox.SelectedItem as string, LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

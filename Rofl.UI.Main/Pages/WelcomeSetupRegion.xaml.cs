@@ -24,7 +24,9 @@ namespace Rofl.UI.Main.Pages
         private void Page_Initialized(object sender, EventArgs e)
         {
             // Load locales into combo box, set default to English
-            var allLocales = Enum.GetNames(typeof(LeagueLocale)).Select(x => x + " (" + ExeTools.GetLocaleCode(x) + ")");
+            var allLocales = Enum.GetNames(typeof(LeagueLocale))
+                .Where(x => !string.Equals(x, LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase))
+                .Select(x => x + " (" + ExeTools.GetLocaleCode(x) + ")");
 
             this.LocaleComboBox.ItemsSource = allLocales;
 

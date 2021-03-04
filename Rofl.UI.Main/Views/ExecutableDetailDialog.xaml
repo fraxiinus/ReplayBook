@@ -78,17 +78,22 @@
                                  ToolTip="{StaticResource ExecutableDetailLocaleInfo}"/>
                 </ui:SimpleStackPanel>
 
-                <!--<TextBlock Text="{StaticResource ExecutableDetailLocale}"
-                           VerticalAlignment="Center"
-                           FontSize="14"
-                           Grid.Row="0" Grid.Column="1"
-                           Margin="0 0 0 12"/>-->
-
                 <ComboBox x:Name="LocaleComboBox"
                           VerticalContentAlignment="Center"
                           Grid.Row="1" Grid.Column="1"
-                          HorizontalAlignment="Stretch"/>
+                          HorizontalAlignment="Stretch"
+                          SelectionChanged="LocaleComboBox_SelectionChanged"/>
             </Grid>
+
+            <ui:SimpleStackPanel x:Name="CustomLocaleContainer"
+                                 Orientation="Vertical"
+                                 Spacing="12">
+                <TextBlock Text="{StaticResource ExecutableDetailCustomLocale}"
+                           FontSize="14"/>
+                <TextBox x:Name="CustomLocaleTextBox"
+                         VerticalContentAlignment="Center"
+                         Padding="2"/>
+            </ui:SimpleStackPanel>
 
             <TextBlock Text="{StaticResource ExecutableDetailLaunchArgs}"
                        FontSize="14"/>

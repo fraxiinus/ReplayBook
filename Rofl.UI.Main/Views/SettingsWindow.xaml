@@ -294,6 +294,11 @@
                                              Spacing="12"
                                              Margin="15 0 20 12">
 
+                            <TextBlock Text="{StaticResource ExecutableDefaultLocaleLabelText}" 
+                                       FontSize="16"/>
+                            <ComboBox x:Name="ExecutableLocaleComboBox" Width="200"
+                                      SelectionChanged="ExecutableLocaleComboBox_SelectionChanged"/>
+
                             <ui:SimpleStackPanel Orientation="Horizontal">
                                 <TextBlock Text="{StaticResource ExecutableFoldersLabelText}" 
                                            FontSize="16"/>
