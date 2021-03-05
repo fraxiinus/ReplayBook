@@ -15,6 +15,7 @@
         MinHeight="670" MinWidth="1150"
         Height="670" Width="1150"
         Loaded="MainWindow_OnLoaded"
+        ContentRendered="Window_ContentRendered"
         Closing="MainWindow_OnClosing"
         Closed="Window_Closed"
         ui:WindowHelper.UseModernWindowStyle="True"
