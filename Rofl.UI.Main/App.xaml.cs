@@ -131,7 +131,10 @@ namespace Rofl.UI.Main
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            _log.WriteLog();
+            if(_log.ErrorFlag)
+            {
+                _log.WriteLog();
+            }
         }
     }
 }

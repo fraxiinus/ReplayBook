@@ -30,6 +30,10 @@
                 <TextBlock Text="{StaticResource GeneralSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
+            <ListBoxItem x:Name="UpdatesSettingsListItem">
+                <TextBlock Text="{StaticResource UpdatesSettingsItemText}" FontSize="14"/>
+            </ListBoxItem>
+            
             <ListBoxItem x:Name="AppearanceSettingsListItem">
                 <TextBlock Text="{StaticResource AppearanceSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
@@ -224,26 +228,36 @@
                                           IsChecked="{Binding Path=Settings.SaveNamesToFile}"/>
                             </ui:SimpleStackPanel>
 
-                            <TextBlock Text="{StaticResource UpdatesLabelText}" 
-                                       FontSize="16"/>
-
-                            <ui:SimpleStackPanel Orientation="Horizontal">
-                                <Button x:Name="UpdateCheckButton"
-                                        HorizontalAlignment="Left"
-                                        Content="{StaticResource CheckUpdatesButtonText}"
-                                        Height="30" Width="150"
-                                        Click="UpdateCheckButton_Click"/>
-                                <Button x:Name="OpenGitHub"
-                                        HorizontalAlignment="Left"
-                                        Content="{StaticResource OpenGitHubButtonText}"
-                                        Height="30" Margin="12 0 0 0"
-                                        Click="OpenGitHubButton_Click"/>
-                            </ui:SimpleStackPanel>
-                            
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
                 </TabItem>
 
+                <TabItem x:Name="UpdateTabItem" Visibility="Collapsed">
+                    <ScrollViewer>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                             Spacing="12"
+                                             Margin="15 0 20 12">
+                            <TextBlock Text="{StaticResource UpdatesLabelText}" 
+                                       FontSize="16"/>
+
+                            <CheckBox Content="{StaticResource AutoUpdateCheckboxText}" 
+                                      IsChecked="{Binding Path=Settings.AutoUpdateCheck}"/>
+                            
+                            <Button x:Name="UpdateCheckButton"
+                                    HorizontalAlignment="Left"
+                                    Content="{StaticResource CheckUpdatesButtonText}"
+                                    Height="30" Width="150"
+                                    Click="UpdateCheckButton_Click"/>
+
+                            <ui:HyperlinkButton x:Name="UpdateAvailableButton"
+                                                Visibility="Collapsed"
+                                                Content="{StaticResource UpdateAvailableText}"
+                                                Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                                                NavigateUri="{StaticResource GitHubReleasesLink}"/>
+                        </ui:SimpleStackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                
                 <TabItem x:Name="AppearanceTabItem" Visibility="Collapsed">
                     <ScrollViewer>
                         <ui:SimpleStackPanel Orientation="Vertical"

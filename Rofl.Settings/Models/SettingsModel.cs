@@ -34,6 +34,7 @@ namespace Rofl.Settings.Models
             GeneralSettings.RenameAction = settings.RenameAction;
             GeneralSettings.MatchHistoryBaseUrl = settings.MatchHistoryBaseUrl;
             GeneralSettings.ItemsPerPage = settings.ItemsPerPage;
+            GeneralSettings.AutoUpdateCheck = settings.AutoUpdateCheck;
 
             AppearanceSettings = new AppearanceSettings();
             AppearanceSettings.ThemeMode = settings.ThemeMode;

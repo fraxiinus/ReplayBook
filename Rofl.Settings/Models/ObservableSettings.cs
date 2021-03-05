@@ -22,6 +22,7 @@ namespace Rofl.Settings.Models
             RenameAction = RenameAction.Database;
             MatchHistoryBaseUrl = @"https://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/";
             ItemsPerPage = 50;
+            AutoUpdateCheck = true;
 
             SourceFolders = new ObservableCollection<string>();
 
@@ -53,6 +54,8 @@ namespace Rofl.Settings.Models
             {
                 ItemsPerPage = 50;
             }
+
+            AutoUpdateCheck = settings.GeneralSettings.AutoUpdateCheck;
 
             SourceFolders = new ObservableCollection<string>(settings.ReplaySettings.SourceFolders);
 
@@ -162,6 +165,18 @@ namespace Rofl.Settings.Models
                 _itemsPerPage = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(ItemsPerPage)));
+            }
+        }
+
+        private bool _autoUpdateCheck;
+        public bool AutoUpdateCheck
+        {
+            get => _autoUpdateCheck;
+            set
+            {
+                _autoUpdateCheck = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(AutoUpdateCheck)));
             }
         }
 

@@ -10,6 +10,9 @@ using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -56,6 +59,7 @@ namespace Rofl.UI.Main
             context.ShowMissingReplayFoldersMessageBox();
         }
 
+        // Window is loaded and ready to be shown on screen
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             var values = _settingsManager.TemporaryValues;
@@ -75,6 +79,56 @@ namespace Rofl.UI.Main
                     this.WindowState = WindowState.Maximized;
                 }
             }
+        }
+
+        // Window has been rendered to the screen
+        private async void Window_ContentRendered(object sender, EventArgs e)
+        {
+            if (!_settingsManager.Settings.AutoUpdateCheck) return;
+
+            string latestVersion;
+            try
+            {
+                _log.Information("Checking for updates...");
+                latestVersion = await GithubConnection.GetLatestVersion().ConfigureAwait(true);
+            }
+            catch (HttpRequestException ex)
+            {
+                _log.Warning("Failed to check for updates - " + ex.ToString());
+                return; // keep in mind when adding anything to this function!
+            }
+
+            if (String.IsNullOrEmpty(latestVersion))
+            {
+                _log.Warning("Failed to check for updates - github returned nothing or error code");
+                return; // keep in mind when adding anything to this function!
+            }
+
+            var assemblyName = Assembly.GetEntryAssembly()?.GetName();
+            var assemblyVersion = assemblyName.Version.ToString(3);
+
+            if (latestVersion.Equals(assemblyVersion, StringComparison.OrdinalIgnoreCase))
+            {
+                _settingsManager.TemporaryValues["UpdateAvailable"] = false;
+            }
+            else
+            {
+                _settingsManager.TemporaryValues["UpdateAvailable"] = true;
+
+                var updateNotif = FlyoutHelper.CreateFlyout(true, true);
+                updateNotif.SetFlyoutLabelText(TryFindResource("UpdateAvailableNotifText") as String);
+                updateNotif.SetFlyoutButtonText(TryFindResource("UpdateAvailableNotifButton") as String);
+
+                updateNotif.GetFlyoutButton().Click += (object e1, RoutedEventArgs a) =>
+                {
+                    Process.Start((TryFindResource("GitHubReleasesLink") as Uri).ToString());
+                };
+
+                updateNotif.Placement = ModernWpf.Controls.Primitives.FlyoutPlacementMode.Bottom;
+                updateNotif.ShowAt(SettingsButton);
+            }
+
+            return;
         }
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
@@ -203,16 +257,6 @@ namespace Rofl.UI.Main
             await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
         }
 
-        //private async void RefreshButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (!(this.DataContext is MainWindowViewModel context)) { return; }
-
-        //    RefreshButton.IsEnabled = false;
-        //    context.ValidateReplayStorage();
-        //    await context.ReloadReplayList().ConfigureAwait(true);
-        //    RefreshButton.IsEnabled = true;
-        //}
-
         private async void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (!(this.DataContext is MainWindowViewModel context)) { return; }
@@ -268,7 +312,5 @@ namespace Rofl.UI.Main
         {
             ReplayListView.SelectedItem = replay;
         }
-
-        
     }
 }
