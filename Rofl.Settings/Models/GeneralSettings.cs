@@ -74,5 +74,8 @@ namespace Rofl.Settings.Models
         [JsonProperty("items_per_page")]
         public int ItemsPerPage { get; set; }
 
+        [JsonProperty("auto_update_check")]
+        public bool AutoUpdateCheck { get; set; }
+
     }
 }

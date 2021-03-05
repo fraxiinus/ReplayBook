@@ -43,6 +43,7 @@
 
     <!--Settings Window Text-->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
+    <string:String x:Key="UpdatesSettingsItemText">Updates</string:String>
     <string:String x:Key="AppearanceSettingsItemText">Appearance</string:String>
     <string:String x:Key="ReplaySettingsItemText">Replays</string:String>
     <string:String x:Key="RequestSettingsItemText">Downloads</string:String>
@@ -75,8 +76,11 @@
     <string:String x:Key="PlayConfirmCheckboxText">Show confirmation before playing replays</string:String>
     <string:String x:Key="ReplayRenameCheckboxText">Rename file when renaming replays</string:String>
 
-    <string:String x:Key="UpdatesLabelText">Updates</string:String>
-    <string:String x:Key="CheckUpdatesButtonText">Check for Updates...</string:String>
+    <string:String x:Key="UpdatesLabelText">Check for Updates</string:String>
+    <string:String x:Key="AutoUpdateCheckboxText">Automatically check for updates</string:String>
+    <string:String x:Key="CheckUpdatesButtonText">Check now</string:String>
+    <string:String x:Key="UpdateAvailableText">Update is available! Download the new version here</string:String>
+    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
     <string:String x:Key="OpenGitHubButtonText">View project on GitHub</string:String>
     <string:String x:Key="UpdateExceptionTitleText">Unable to check for updates</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">Failed to connect to GitHub. Check your connection and try again.</string:String>

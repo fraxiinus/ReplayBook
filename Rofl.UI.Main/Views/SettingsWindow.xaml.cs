@@ -92,6 +92,11 @@ namespace Rofl.UI.Main.Views
                 .Select(x => x + " (" + ExeTools.GetLocaleCode(x) + ")");
             ExecutableLocaleComboBox.ItemsSource = allLocales;
             ExecutableLocaleComboBox.SelectedIndex = (int) context.Executables.Settings.DefaultLocale;
+
+            if (context.TemporaryValues.TryGetBool("UpdateAvailable", out bool update))
+            {
+                UpdateAvailableButton.Visibility = update ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -111,22 +116,25 @@ namespace Rofl.UI.Main.Views
                 case "GeneralSettingsListItem":
                     SettingsTabControl.SelectedIndex = 0;
                     break;
-                case "AppearanceSettingsListItem":
+                case "UpdatesSettingsListItem":
                     SettingsTabControl.SelectedIndex = 1;
                     break;
-                case "ExecutablesSettingsListItem":
+                case "AppearanceSettingsListItem":
                     SettingsTabControl.SelectedIndex = 2;
                     break;
-                case "ReplaySettingsListItem":
+                case "ExecutablesSettingsListItem":
                     SettingsTabControl.SelectedIndex = 3;
+                    break;
+                case "ReplaySettingsListItem":
+                    SettingsTabControl.SelectedIndex = 4;
                     LoadReplayCacheSizes();
                     break;
                 case "RequestSettingsListItem":
-                    SettingsTabControl.SelectedIndex = 4;
+                    SettingsTabControl.SelectedIndex = 5;
                     await LoadCacheSizes().ConfigureAwait(true);
                     break;
                 case "AboutSettingsListItem":
-                    SettingsTabControl.SelectedIndex = 5;
+                    SettingsTabControl.SelectedIndex = 6;
                     break;
                 default:
                     break;
@@ -576,6 +584,8 @@ namespace Rofl.UI.Main.Views
 
         private async void UpdateCheckButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
             string latestVersion;
             try
             {
@@ -619,6 +629,9 @@ namespace Rofl.UI.Main.Views
 
             if (latestVersion.Equals(assemblyVersion, StringComparison.OrdinalIgnoreCase))
             {
+                context.TemporaryValues["UpdateAvailable"] = false;
+                UpdateAvailableButton.Visibility = Visibility.Collapsed;
+
                 var msgDialog = new GenericMessageDialog()
                 {
                     Title = TryFindResource("UpdateMostRecentTitleText") as String,
@@ -629,27 +642,26 @@ namespace Rofl.UI.Main.Views
             }
             else
             {
+                context.TemporaryValues["UpdateAvailable"] = true;
+                UpdateAvailableButton.Visibility = Visibility.Visible;
+
                 var msgDialog = new GenericMessageDialog()
                 {
                     Title = TryFindResource("UpdateNewerTitleText") as String,
-                    Owner = this
+                    Owner = this,
+                    IsSecondaryButtonEnabled = true,
+                    SecondaryButtonText = TryFindResource("CancelButtonText") as String
                 };
                 msgDialog.SetMessage(TryFindResource("UpdateNewerBodyText") as String + $"\n{assemblyVersion} -> {latestVersion}");
                 var response = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
                 if(response == ContentDialogResult.Primary)
                 {
-                    Process.Start($"https://github.com/fraxiinus/ReplayBook/releases");
+                    Process.Start((TryFindResource("GitHubReleasesLink") as Uri).ToString());
                 }
             }
 
             return;
-        }
-        
-        private void OpenGitHubButton_Click(object sender, RoutedEventArgs e)
-        {
-            var url = TryFindResource("GitHubLink") as string;
-            Process.Start(url);
         }
 
         private void AcknowledgementsButton_Click(object sender, RoutedEventArgs e)
