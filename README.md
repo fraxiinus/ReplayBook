@@ -1,10 +1,16 @@
-![Banner](.github/logo/banner_rev2_fullsize.png "ReplayBook Banner")
-![DarkMode](.github/screenshots/overview_dark.png "Screenshot")
+<p align="center">
+<a href="https://github.com/fraxiinus/ReplayBook/releases/latest">
+<img src=".github/logo/banner_rev2_fullsize.png" alt="ReplayBook Logo Banner Image" width="400"/>
+</a>
+</p>
+
+![DarkMode](.github/screenshots/0_overview.png "Window Overview Image")
 
 [![Build](https://img.shields.io/github/workflow/status/fraxiinus/ReplayBook/Build?style=flat-square)](https://github.com/fraxiinus/ReplayBook/actions?query=workflow%3ABuild)
 [![License](https://img.shields.io/github/license/fraxiinus/ReplayBook?style=flat-square)](https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE)
+[![Downloads](https://img.shields.io/github/downloads/fraxiinus/replaybook/total?style=flat-square)](https://github.com/fraxiinus/ReplayBook/releases/latest)
 [![Donate](https://shields.io/badge/ko--fi-support%20me-green?logo=ko-fi&style=flat-square)](https://ko-fi.com/fraxiinus)
-### ReplayBook is a free open-source tool that helps you organize and manage replays.
+### ReplayBook is a free open-source tool that helps you organize and manage your downloaded replay files.
 
 ### This project is currently looking for translators! [View the wiki for more information](https://github.com/fraxiinus/ReplayBook/wiki/Translating).
 
@@ -20,6 +26,7 @@
 * Export data to CSV or JSON file formats
 * Supports all regions!
 * Windows 10 dark/light themes supported
+* [See more/screenshots...](https://github.com/fraxiinus/ReplayBook/wiki/Features-and-Screenshots)
 
 ## Getting Started
 ### [YouTube Tutorial](https://youtu.be/mOpoyZuVyzs)
