@@ -26,8 +26,8 @@
               VerticalAlignment="Stretch"
               HorizontalAlignment="Stretch"
               Background="{DynamicResource TabViewBackground}">
-            
-            <TextBlock Text="{StaticResource BlankDetailMessageText}"
+
+            <TextBlock Text="{DynamicResource BlankDetailMessageText}"
                        TextAlignment="Center"
                        VerticalAlignment="Center"
                        Foreground="{DynamicResource SystemControlPageTextBaseMediumBrush}"/>
@@ -76,7 +76,7 @@
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="true">
                                             <Setter Property="Visibility" Value="Visible"/>
-                                            <Setter Property="ToolTip" Value="{StaticResource AlreadyPlayingToolTip}"/>
+                                            <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false">
                                             <Setter Property="Visibility" Value="Hidden"/>
@@ -97,15 +97,15 @@
                                 <Style TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false">
-                                            <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
+                                            <Setter Property="ToolTip" Value="{DynamicResource PlayReplayToolTip}"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="true">
-                                            <Setter Property="ToolTip" Value="{StaticResource AlreadyPlayingToolTip}"/>
+                                            <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}"/>
                                             <Setter Property="IsEnabled" Value="false"/>
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="false">
                                             <Setter Property="IsEnabled" Value="false"/>
-                                            <Setter Property="ToolTip" Value="{StaticResource CannotPlayToolTip}"/>
+                                            <Setter Property="ToolTip" Value="{DynamicResource CannotPlayToolTip}"/>
                                         </DataTrigger>
 
                                         <MultiDataTrigger>
@@ -125,7 +125,7 @@
                         <Button x:Name="MoreButton"
                                 Margin="0 12 0 0"
                                 Width="37"
-                                ToolTip="{StaticResource MoreToolTip}"
+                                ToolTip="{DynamicResource MoreToolTip}"
                                 Click="MoreButton_Click"
                                 Grid.Column="3">
                             <ui:PathIcon Data="{StaticResource MorePathIcon}"
@@ -135,7 +135,7 @@
                                 <ContextMenu x:Name="ReplayContextMenu"
                                              Placement="Bottom">
                                     <MenuItem x:Name="OpenContainingFolder"
-                                              Header="{StaticResource OpenContainingFolder}" 
+                                              Header="{DynamicResource OpenContainingFolder}" 
                                               Click="OpenContainingFolder_Click">
                                         <MenuItem.Icon>
                                             <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}"/>
@@ -143,7 +143,7 @@
                                     </MenuItem>
 
                                     <MenuItem x:Name="ViewOnlineMatchHistory"
-                                              Header="{StaticResource ViewOnlinePage}"
+                                              Header="{DynamicResource ViewOnlinePage}"
                                               Click="ViewOnlineMatchHistory_Click">
                                         <MenuItem.Icon>
                                             <ui:PathIcon Data="{StaticResource GlobePathIcon}"/>
@@ -151,7 +151,7 @@
                                     </MenuItem>
 
                                     <MenuItem x:Name="ExportReplayData"
-                                              Header="{StaticResource ExportReplayData}"
+                                              Header="{DynamicResource ExportReplayData}"
                                               Click="ExportReplayData_OnClick">
                                         <MenuItem.Icon>
                                             <ui:PathIcon Data="{StaticResource ExportPathIcon}"/>
@@ -159,7 +159,7 @@
                                     </MenuItem>
 
                                     <MenuItem x:Name="RenameReplayFile"
-                                              Header="{StaticResource RenameReplayFile}"
+                                              Header="{DynamicResource RenameReplayFile}"
                                               Click="RenameReplayFile_OnClick">
                                         <MenuItem.Icon>
                                             <ui:PathIcon Data="{StaticResource RenamePathIcon}"/>
@@ -167,7 +167,7 @@
                                     </MenuItem>
 
                                     <MenuItem x:Name="DeleteReplayFile"
-                                              Header="{StaticResource DeleteReplayFile}"
+                                              Header="{DynamicResource DeleteReplayFile}"
                                               Click="DeleteReplayFile_OnClick">
                                         <MenuItem.Icon>
                                             <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
@@ -189,7 +189,7 @@
                                FontWeight="Bold"
                                VerticalAlignment="Center"
                                Margin="0 0 15 0"
-                               ToolTip="{StaticResource MapNameToolTip}"
+                               ToolTip="{DynamicResource MapNameToolTip}"
                                Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"/>
 
                     <TextBlock Background="Transparent"
@@ -203,28 +203,28 @@
                                FontSize="14"
                                VerticalAlignment="Center"
                                Margin="0 0 15 0"
-                               ToolTip="{StaticResource MatchIdToolTip}"
+                               ToolTip="{DynamicResource MatchIdToolTip}"
                                Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"/>
 
                     <TextBlock Background="Transparent"
                                FontSize="14"
                                VerticalAlignment="Center"
                                Margin="0 0 15 0"
-                               ToolTip="{StaticResource GameVersionToolTip}"
+                               ToolTip="{DynamicResource GameVersionToolTip}"
                                Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"/>
 
                     <TextBlock Background="Transparent"
                                FontSize="14"
                                VerticalAlignment="Center"
                                Margin="0 0 15 0"
-                               ToolTip="{StaticResource FileSizeToolTip}"
+                               ToolTip="{DynamicResource FileSizeToolTip}"
                                Text="{Binding Path=FileInfo.FileSizeBytes, FallbackValue=FileSize, Mode=OneWay, Converter={StaticResource FormatKbSizeConverter}}"/>
 
                     <TextBlock Background="Transparent"
                                FontSize="14"
                                VerticalAlignment="Center"
                                Margin="0 0 15 0"
-                               ToolTip="{StaticResource FileDateToolTip}"
+                               ToolTip="{DynamicResource FileDateToolTip}"
                                Text="{Binding Path=PreviewModel.CreationDate, StringFormat=yyyy-MM-dd  hh:mm tt, FallbackValue=GameVersion, Mode=OneWay}"/>
                 </StackPanel>
 
@@ -238,7 +238,7 @@
                     <Style TargetType="TabControl" BasedOn="{StaticResource DefaultTabControlStyle}">
                     </Style>
                 </TabControl.Style>
-                <TabItem Header="{StaticResource ScoreboardTabText}"
+                <TabItem Header="{DynamicResource ScoreboardTabText}"
                          FontSize="12"
                          Style="{StaticResource AlteredTabItemStyle}">
                     <Border Background="{DynamicResource BaseBackground}">
@@ -246,7 +246,7 @@
                     </Border>
                 </TabItem>
 
-                <TabItem Header="{StaticResource StatsTabText}"
+                <TabItem Header="{DynamicResource StatsTabText}"
                          FontSize="12"
                          Style="{StaticResource AlteredTabItemStyle}">
                     <Grid Background="{DynamicResource BaseBackground}">

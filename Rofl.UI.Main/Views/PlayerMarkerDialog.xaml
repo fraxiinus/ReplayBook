@@ -7,9 +7,9 @@
                   xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
                   xmlns:ui="http://schemas.modernwpf.com/2019"
                   mc:Ignorable="d"
-                  Title="{StaticResource PlayerMarkerWindowText}"
-                  PrimaryButtonText="{StaticResource SaveButtonText}"
-                  CloseButtonText="{StaticResource CancelButtonText}"
+                  Title="{DynamicResource PlayerMarkerWindowText}"
+                  PrimaryButtonText="{DynamicResource SaveButtonText}"
+                  CloseButtonText="{DynamicResource CancelButtonText}"
                   PrimaryButtonClick="SaveButton_Click"
                   CloseButtonClick="CancelButton_Click"
                   DefaultButton="Primary"
@@ -20,14 +20,14 @@
         <ui:SimpleStackPanel Orientation="Vertical"
                              Spacing="12"
                              Width="300">
-            <TextBlock Text="{StaticResource PlayerMarkerNameLabelText}"
+            <TextBlock Text="{DynamicResource PlayerMarkerNameLabelText}"
                        FontSize="14"/>
             <TextBox x:Name="NameTextBox"
                      VerticalContentAlignment="Center"
                      Height="25"
                      Padding="2"/>
 
-            <TextBlock Text="{StaticResource PlayerMarkerNoteLabelText}"
+            <TextBlock Text="{DynamicResource PlayerMarkerNoteLabelText}"
                        FontSize="14"/>
             <TextBox x:Name="NoteTextBox"
                      VerticalContentAlignment="Top"
@@ -35,7 +35,7 @@
                      Padding="2"
                      TextWrapping="WrapWithOverflow"/>
 
-            <TextBlock Text="{StaticResource PlayerMarkerColorLabelText}"
+            <TextBlock Text="{DynamicResource PlayerMarkerColorLabelText}"
                        FontSize="14"/>
             <controls:ColorWrapper x:Name="MarkerColorPicker"
                                    HorizontalAlignment="Center"

@@ -17,42 +17,42 @@
         <Grid.ContextMenu>
             <ContextMenu x:Name="DockPanelReplayContextMenu"
                          Placement="Bottom">
-                <MenuItem Header="{StaticResource OpenContainingFolder}" 
+                <MenuItem Header="{DynamicResource OpenContainingFolder}" 
                            Click="OpenContainingFolder_Click">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}"/>
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Header="{StaticResource ViewOnlinePage}"
+                <MenuItem Header="{DynamicResource ViewOnlinePage}"
                           Click="ViewOnlineMatchHistory_Click">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource GlobePathIcon}"/>
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Header="{StaticResource ExportReplayData}"
+                <MenuItem Header="{DynamicResource ExportReplayData}"
                           Click="ExportReplayData_OnClick">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource ExportPathIcon}"/>
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Header="{StaticResource RenameReplayFile}"
+                <MenuItem Header="{DynamicResource RenameReplayFile}"
                           Click="RenameReplayFile_OnClick">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource RenamePathIcon}"/>
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Header="{StaticResource DeleteReplayFile}"
+                <MenuItem Header="{DynamicResource DeleteReplayFile}"
                           Click="DeleteReplayFile_OnClick">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="{StaticResource RefreshReplayList}"
+                <MenuItem Header="{DynamicResource RefreshReplayList}"
                           Click="RefreshReplayList_Click">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource RefreshPathIcon}"/>
@@ -74,8 +74,14 @@
         <ui:SimpleStackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                              Margin="0 5 0 2"
                              Orientation="Horizontal">
+        </ui:SimpleStackPanel>
 
-            <Border Padding="3 1 3 1" Margin="0 3 35 0"
+        <!--Left side stats-->
+        <StackPanel Orientation="Vertical"
+                    Margin="0 0 5 0"
+                    Grid.Column="0" Grid.Row="1">
+
+            <Border Padding="3 1 3 1" Margin="0 2 0 2"
                     CornerRadius="3"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left">
@@ -98,48 +104,16 @@
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="True">
-                                    <Setter Property="Text" Value="{StaticResource BlueVictory}"/>
+                                    <Setter Property="Text" Value="{DynamicResource BlueVictory}"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
-                                    <Setter Property="Text" Value="{StaticResource RedVictory}"/>
+                                    <Setter Property="Text" Value="{DynamicResource RedVictory}"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
             </Border>
-
-            <TextBlock x:Name="FilenameText"
-                       FontSize="14"
-                       FontWeight="Bold"
-                       Text="{Binding Path=DisplayName, FallbackValue=Filename}"
-                       ToolTip="{Binding Path=DisplayName}"/>
-
-            <ui:PathIcon Data="{StaticResource CirclePathIcon}"
-                         Foreground="Red"
-                         Width="12"
-                         Margin="5 2 2 0">
-                <ui:PathIcon.Style>
-                    <Style TargetType="ui:PathIcon">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Setter Property="ToolTip" Value="{StaticResource AlreadyPlayingToolTip}"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ui:PathIcon.Style>
-            </ui:PathIcon>
-
-        </ui:SimpleStackPanel>
-
-        <!--Left side stats-->
-        <StackPanel Orientation="Vertical"
-                    Margin="0 0 5 0"
-                    Grid.Column="0" Grid.Row="1">
 
             <Border Padding="3 1 5 1"
                     CornerRadius="3"
@@ -153,11 +127,11 @@
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding IsSupported}" Value="True">
-                                    <Setter Property="ToolTip" Value="{StaticResource ReplaySupported}"/>
+                                    <Setter Property="ToolTip" Value="{DynamicResource ReplaySupported}"/>
                                     <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding IsSupported}" Value="False">
-                                    <Setter Property="ToolTip" Value="{StaticResource ReplayUnsupported}"/>
+                                    <Setter Property="ToolTip" Value="{DynamicResource ReplayUnsupported}"/>
                                     <Setter Property="Foreground" Value="{DynamicResource SystemControlErrorTextForegroundBrush}"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -178,7 +152,7 @@
             <TextBlock x:Name="CreationDateText"
                        FontSize="12"
                        Text="{Binding Path=CreationDate, StringFormat=yyyy-MM-dd, FallbackValue=Creation date}"
-                       ToolTip="{StaticResource FileDateToolTip}"/>
+                       ToolTip="{DynamicResource FileDateToolTip}"/>
 
         </StackPanel>
 
@@ -186,8 +160,33 @@
         <StackPanel Orientation="Vertical"
                     VerticalAlignment="Top"
                     Grid.Column="1" Grid.Row="1">
+            
+            <TextBlock x:Name="FilenameText"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Text="{Binding Path=DisplayName, FallbackValue=Filename}"
+                       ToolTip="{Binding Path=DisplayName}"/>
 
-            <StackPanel Margin="2 -2 0 0">
+            <ui:PathIcon Data="{StaticResource CirclePathIcon}"
+                         Foreground="Red"
+                         Width="12"
+                         Margin="5 2 2 0">
+                <ui:PathIcon.Style>
+                    <Style TargetType="ui:PathIcon">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ui:PathIcon.Style>
+            </ui:PathIcon>
+
+            <StackPanel Margin="2 -13 0 0">
                 <ItemsControl ItemsSource="{Binding Path=BluePreviewPlayers}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -268,15 +267,15 @@
                     <Style TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
-                                <Setter Property="ToolTip" Value="{StaticResource PlayReplayToolTip}"/>
+                                <Setter Property="ToolTip" Value="{DynamicResource PlayReplayToolTip}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
-                                <Setter Property="ToolTip" Value="{StaticResource AlreadyPlayingToolTip}"/>
+                                <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}"/>
                                 <Setter Property="IsEnabled" Value="false"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding Path=IsSupported}" Value="false">
                                 <Setter Property="IsEnabled" Value="false"/>
-                                <Setter Property="ToolTip" Value="{StaticResource CannotPlayToolTip}"/>
+                                <Setter Property="ToolTip" Value="{DynamicResource CannotPlayToolTip}"/>
                             </DataTrigger>
 
                             <MultiDataTrigger>
@@ -296,7 +295,7 @@
             <Button x:Name="MoreButton"
                     Margin="0"
                     Width="37"
-                    ToolTip="{StaticResource MoreToolTip}"
+                    ToolTip="{DynamicResource MoreToolTip}"
                     Click="MoreButton_Click">
                 <ui:PathIcon Data="{StaticResource MorePathIcon}"
                              RenderOptions.BitmapScalingMode="HighQuality"/>
@@ -305,7 +304,7 @@
                     <ContextMenu x:Name="ReplayContextMenu"
                                  Placement="Bottom">
                         <MenuItem x:Name="OpenContainingFolder"
-                                  Header="{StaticResource OpenContainingFolder}" 
+                                  Header="{DynamicResource OpenContainingFolder}" 
                                   Click="OpenContainingFolder_Click">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}"/>
@@ -313,7 +312,7 @@
                         </MenuItem>
 
                         <MenuItem x:Name="ViewOnlineMatchHistory"
-                                  Header="{StaticResource ViewOnlinePage}"
+                                  Header="{DynamicResource ViewOnlinePage}"
                                   Click="ViewOnlineMatchHistory_Click">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource GlobePathIcon}"/>
@@ -321,7 +320,7 @@
                         </MenuItem>
 
                         <MenuItem x:Name="ExportReplayData"
-                                  Header="{StaticResource ExportReplayData}"
+                                  Header="{DynamicResource ExportReplayData}"
                                   Click="ExportReplayData_OnClick">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource ExportPathIcon}"/>
@@ -329,7 +328,7 @@
                         </MenuItem>
 
                         <MenuItem x:Name="RenameReplayFile"
-                                  Header="{StaticResource RenameReplayFile}"
+                                  Header="{DynamicResource RenameReplayFile}"
                                   Click="RenameReplayFile_OnClick">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource RenamePathIcon}"/>
@@ -337,7 +336,7 @@
                         </MenuItem>
 
                         <MenuItem x:Name="DeleteReplayFile"
-                                  Header="{StaticResource DeleteReplayFile}"
+                                  Header="{DynamicResource DeleteReplayFile}"
                                   Click="DeleteReplayFile_OnClick">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
@@ -345,7 +344,7 @@
                         </MenuItem>
                         <Separator/>
                         <MenuItem x:Name="RefreshReplayList"
-                                  Header="{StaticResource RefreshReplayList}"
+                                  Header="{DynamicResource RefreshReplayList}"
                                   Click="RefreshReplayList_Click">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource RefreshPathIcon}"/>

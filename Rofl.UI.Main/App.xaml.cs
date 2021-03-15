@@ -30,6 +30,9 @@ namespace Rofl.UI.Main
             // Apply appearence theme
             ApplyThemeSetting();
 
+            // Apply language setting
+            LanguageHelper.SetProgramLanguage(_settingsManager.Settings.ProgramLanguage);
+
             if (e.Args.Length == 1)
             {
                 var selectedFile = e.Args[0];

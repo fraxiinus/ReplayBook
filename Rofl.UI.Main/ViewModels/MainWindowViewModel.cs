@@ -541,6 +541,7 @@ namespace Rofl.UI.Main.ViewModels
             }
 
             SettingsManager.Executables.Settings.DefaultLocale = initialSettings.DefaultRegionLocale;
+            SettingsManager.Settings.ProgramLanguage = initialSettings.SetupLanguage;
         }
 
         /// <summary>

@@ -43,6 +43,11 @@ namespace Rofl.Settings.Models
         Database = 1
     }
 
+    public enum Language
+    {
+        En, ZhHans
+    }
+
     public class GeneralSettings
     {
         public GeneralSettings()
@@ -76,6 +81,10 @@ namespace Rofl.Settings.Models
 
         [JsonProperty("auto_update_check")]
         public bool AutoUpdateCheck { get; set; }
+
+        [JsonProperty("language")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Language ProgramLanguage { get; set; }
 
     }
 }

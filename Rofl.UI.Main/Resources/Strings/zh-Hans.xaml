@@ -1,0 +1,388 @@
+<!--
+    说明：简体中文包
+    作者：ASTWY  
+    日期：2021/03/14
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:string="clr-namespace:System;assembly=mscorlib" 
+                    xmlns:system="clr-namespace:System;assembly=System">
+
+    <!--General UI Text-->
+    <string:String x:Key="ProgramName">ReplayBook</string:String>
+    <string:String x:Key="SearchDefaultText">搜索...</string:String>
+    <string:String x:Key="MoreButtonText">选项</string:String>
+    <string:String x:Key="LoadMoreButtonText">装载更多...</string:String>
+
+    <string:String x:Key="LoadingMessageReplay">正在载入回放文件...</string:String>
+    <string:String x:Key="LoadingMessageThumbnails">正在加载缩略图...</string:String>
+
+    <string:String x:Key="YesText">是</string:String>
+    <string:String x:Key="NoText">否</string:String>
+
+    <string:String x:Key="CopyText">复制</string:String>
+
+    <string:String x:Key="CheckText">✔</string:String>
+    <string:String x:Key="CrossText">❌</string:String>
+    <string:String x:Key="BlueTeamText">蓝队</string:String>
+    <string:String x:Key="RedTeamText">红队</string:String>
+    <string:String x:Key="ScoreboardTabText">计分板</string:String>
+    <string:String x:Key="StatsTabText">统计</string:String>
+    <string:String x:Key="BlankDetailMessageText">在左侧选择一个回放文件</string:String>
+    <string:String x:Key="FailedToLoadReplayText">无法加载回放文件</string:String>
+    <string:String x:Key="Victory">胜利</string:String>
+    <string:String x:Key="BlueVictory">蓝队胜利</string:String>
+    <string:String x:Key="RedVictory">红队胜利</string:String>
+    <string:String x:Key="ErrorTitle">错误</string:String>
+    <string:String x:Key="ConfirmTitle">确认</string:String>
+    <string:String x:Key="ConfirmText">你确定?</string:String>
+
+    <string:String x:Key="ReplaySupported">可播放</string:String>
+    <string:String x:Key="ReplayUnsupported">不支持</string:String>
+    <string:String x:Key="ReplayPlayExceptionTitle">发生异常</string:String>
+
+    <string:String x:Key="NoReplaysFoundTitle">没有更多结果</string:String>
+
+    <string:String x:Key="MissingPathTitle">找不到回放文件夹</string:String>
+    <string:String x:Key="MissingPathText">删除了以下找不到的路径：</string:String>
+
+    <!--Settings Window Text-->
+    <string:String x:Key="GeneralSettingsItemText">常规</string:String>
+    <string:String x:Key="UpdatesSettingsItemText">更新</string:String>
+    <string:String x:Key="AppearanceSettingsItemText">外貌</string:String>
+    <string:String x:Key="ReplaySettingsItemText">回放文件相关</string:String>
+    <string:String x:Key="RequestSettingsItemText">图片资源</string:String>
+    <string:String x:Key="ExecutablesSettingsItemText">游戏客户端相关</string:String>
+    <string:String x:Key="AboutSettingsItemText">关于</string:String>
+
+    <!--Settings : General-->
+    <string:String x:Key="LanguageLabelText">语言</string:String>
+    
+    <string:String x:Key="PlayerMarkerLabelText">高亮玩家列表</string:String>
+    <string:String x:Key="PlayerMarkerStyleLabel">高亮标记样式</string:String>
+    <string:String x:Key="PlayerMarkerStyleOption1">外边框</string:String>
+    <string:String x:Key="PlayerMarkerStyleOption2">内部方块</string:String>
+    <string:String x:Key="PlayerMarkerWindowText">玩家标记</string:String>
+    <string:String x:Key="PlayerMarkerNameLabelText">召唤师ID</string:String>
+    <string:String x:Key="PlayerMarkerNoteLabelText">注释</string:String>
+    <string:String x:Key="PlayerMarkerColorLabelText">标记颜色</string:String>
+    <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">"$" 的标记已存在</string:String>
+    <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">召唤师ID不能为空</string:String>
+
+    <string:String x:Key="MatchHistoryUrlLabelText">比赛记录的URL</string:String>
+    <string:String x:Key="MarchHistoryUrlInfoText">如果回放文件来自与此URL不同的区域，“联机查看”功能可能不起作用</string:String>
+
+    <string:String x:Key="FileAssociationLabelText">ROFL文件默认打开样式</string:String>
+    <string:String x:Key="FileAssociationButtonText">设置 .ROFL 文件关联</string:String>
+    <string:String x:Key="FileAssociationMessageTitleText">文件关联设置</string:String>
+    <string:String x:Key="FileAssociationMessageBodyText">.rofl文件的默认应用程序设置为ReplayBook</string:String>
+    <string:String x:Key="FileActionOption1">播放回放文件</string:String>
+    <string:String x:Key="FileActionOption2">展示对局信息</string:String>
+
+    <string:String x:Key="MiscBehaviorLabelText">其他</string:String>
+    <string:String x:Key="PlayConfirmCheckboxText">播放对局回放前显示确认</string:String>
+    <string:String x:Key="ReplayRenameCheckboxText">重命名回放同时重命名文件</string:String>
+
+    <string:String x:Key="UpdatesLabelText">检查更新</string:String>
+    <string:String x:Key="AutoUpdateCheckboxText">自动检查更新</string:String>
+    <string:String x:Key="CheckUpdatesButtonText">手动检查</string:String>
+    <string:String x:Key="UpdateAvailableText">更新可用！在此处下载新版本</string:String>
+    <string:String x:Key="UpdateAvailableNotifText">有新版本可用！</string:String>
+    <string:String x:Key="UpdateAvailableNotifButton">下载</string:String>
+    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
+    <string:String x:Key="OpenGitHubButtonText">前往Github查看项目</string:String>
+    <string:String x:Key="UpdateExceptionTitleText">无法获取更新信息</string:String>
+    <string:String x:Key="UpdateHTTPExceptionBodyText">无法连接到GitHub。请检查您的网络连接，然后重试。</string:String>
+    <string:String x:Key="UpdateGitHubErrorBodyText">无法获取更新，您可前往 https://github.com/fraxiinus/ReplayBook 获取更新</string:String>
+    <string:String x:Key="UpdateMostRecentTitleText">已经是最新版本</string:String>
+    <string:String x:Key="UpdateMostRecentBodyText">您正在使用最新版本的ReplayBook。</string:String>
+    <string:String x:Key="UpdateNewerTitleText">新版本可用</string:String>
+    <string:String x:Key="UpdateNewerBodyText">可以使用更新版本的ReplayBook。按确定进入下载页面</string:String>
+
+    <!--Settings : Appearance-->
+    <string:String x:Key="AppearanceThemeModeTitle">主题</string:String>
+    <string:String x:Key="AppearanceThemeMode0">跟随系统</string:String>
+    <string:String x:Key="AppearanceThemeMode1">暗夜</string:String>
+    <string:String x:Key="AppearanceThemeMode2">明亮</string:String>
+    <string:String x:Key="AppearanceThemeAccentTitle">选中项颜色</string:String>
+    <string:String x:Key="AppearanceThemeResetColorText">恢复默认</string:String>
+    <string:String x:Key="AppearanceThemeDefaultAccentNote">当前跟随系统颜色</string:String>
+    <string:String x:Key="AppearanceThemeCustomAccentNote">当前使用自定义的配色</string:String>
+
+    <string:String x:Key="ExecutableDefaultLocaleLabelText">播放回放文件时默认使用语言</string:String>
+    <string:String x:Key="ExecutableFoldersLabelText">游戏客户端目录列表</string:String>
+    <string:String x:Key="ExecutableFoldersInfoText">包括所有子文件夹</string:String>
+    <string:String x:Key="ExecutableFoldersSearchButtonText">扫描列表文件夹中的游戏客户端</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultTitleText">扫描结果</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultLabelText">新添加 $ 个客户端</string:String>
+    <string:String x:Key="ExecutablesLabelText">已添加的客户端</string:String>
+    <string:String x:Key="ExecutableSelectFolderDialogText">选择游戏客户端文件夹</string:String>
+    <string:String x:Key="ExecutableDetailWindowText">游戏客户端配置</string:String>
+    <string:String x:Key="ExecutableSelectDialogText">选择 League of Legends.exe</string:String>
+    <string:String x:Key="ExecutableSelectInvalidErrorText">请先选择可用的可执行文件</string:String>
+    <string:String x:Key="ExecutableSelectInvalidErrorTitle">无效的可执行文件</string:String>
+    <string:String x:Key="ExecutableSaveNullText">未填写必填字段</string:String>
+    <string:String x:Key="ExecutableSaveNullTitle">保存时出错</string:String>
+    <string:String x:Key="ExecutableSelectWindowTitleText">选择可执行文件</string:String>
+    <string:String x:Key="ExecutableNotFoundErrorTitle">不支持</string:String>
+    <string:String x:Key="ExecutableNotFoundErrorText">找不到与可匹配的可执行文件</string:String>
+    <string:String x:Key="ReplayPlayConfirmTitle">播放对局回放?</string:String>
+    <string:String x:Key="ReplayPlayConfirmOptOut">您可以在“设置”窗口中关闭此确认</string:String>
+
+    <!--Executable Detail-->
+    <string:String x:Key="ExecutableDetailTargetPath">League of Legends.exe 路径</string:String>
+    <string:String x:Key="ExecutableDetailName">备注名</string:String>
+    <string:String x:Key="ExecutableDetailCustomLocale">自定义语言参数</string:String>
+    <string:String x:Key="ExecutableDetailLocale">语言参数</string:String>
+    <string:String x:Key="ExecutableDetailLocaleInfo">如果此值与可执行文件不匹配，则播放对局回放可能会出错</string:String>
+    <string:String x:Key="ExecutableDetailLaunchArgs">其他运行参数</string:String>
+    <string:String x:Key="ExecutableDetailPropertyStartPath">起始路径</string:String>
+    <string:String x:Key="ExecutableDetailPropertyPatch">版本号</string:String>
+    <string:String x:Key="ExecutableDetailPropertyModified">修改日期</string:String>
+
+    <string:String x:Key="SourceFoldersLabelText">回放文件储存目录</string:String>
+    <string:String x:Key="SourceFoldersInfoText">包括所有子文件夹</string:String>
+    <string:String x:Key="SourceFoldersWindowText">选择回放文件储存目录</string:String>
+    <string:String x:Key="SourceFoldersAlreadyExistsErrorText">已添加所选文件夹，请选择其他文件夹</string:String>
+    <string:String x:Key="SourceFoldersAlreadyExistsErrorTitle">已添加目录</string:String>
+
+    <string:String x:Key="ReplayItemsPerPage">每页数目</string:String>
+
+    <string:String x:Key="ReplayDatabaseText">回放文件数据缓存</string:String>
+    <string:String x:Key="ReplayDatabaseSize">大小:</string:String>
+    <string:String x:Key="ReplayDatabaseClearButton">清理缓存</string:String>
+
+    <string:String x:Key="RequestsDownloadAllLabel">图像下载</string:String>
+    <string:String x:Key="RequestsCacheLabel">已下载的装备图像缓存</string:String>
+    <string:String x:Key="RequestsCacheItemsSize">装备图像缓存大小:</string:String>
+    <string:String x:Key="RequestsCacheChampsSize">英雄图像大小:</string:String>
+    <string:String x:Key="RequestsCacheClearItemsButton">删除装备图像</string:String>
+    <string:String x:Key="RequestsCacheClearChampsButton">删除英雄图像</string:String>
+    <string:String x:Key="RequestsCacheCloseToDeleteTitle">关闭软件</string:String>
+    <string:String x:Key="RequestsCacheCloseToDelete">当ReplayBook关闭时，缓存将被删除</string:String>
+    <string:String x:Key="RequestsAdvancedLabel">高级选项</string:String>
+    <string:String x:Key="DataDragonBaseUrlLabelText">数据库URL</string:String>
+    <string:String x:Key="DataDragonChampionUrlLabelText">英雄图像的相对URL</string:String>
+    <string:String x:Key="DataDragonItemUrlLabelText">装备图像的相对URL</string:String>
+    <string:String x:Key="DataDragonMapUrlLabelText">地图图像的相对URL</string:String>
+
+    <string:String x:Key="Name">ReplayBook</string:String>
+    <string:String x:Key="Author">Fraxinus (Etirps)</string:String>
+    <string:String x:Key="Version">发行版 1.1.0</string:String>
+    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
+    <string:String x:Key="DiscordInviteButton">加入 Discord</string:String>
+    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
+    <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
+    <string:String x:Key="LicenseText">This program is licensed under  GPL-3.0</string:String>
+    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
+    <string:String x:Key="AcknowledgementText">感谢以下项目对本软件的支持:</string:String>
+    <string:String x:Key="AcknowledgementButtonText">查看支持库项目</string:String>
+    <string:String x:Key="AcknowledgementWindowTitleText">开源确认</string:String>
+
+    <!--Generic button text-->
+    <string:String x:Key="OKButtonText">确定</string:String>
+    <string:String x:Key="AddButtonText">添加</string:String>
+    <string:String x:Key="EditButtonText">编辑</string:String>
+    <string:String x:Key="RemoveButtonText">删除</string:String>
+    <string:String x:Key="SaveButtonText">保存</string:String>
+    <string:String x:Key="CancelButtonText">取消</string:String>
+    <string:String x:Key="BrowseButtonText">浏览...</string:String>
+    <string:String x:Key="SelectButtonText">选中</string:String>
+
+    <!--Stats Header Text-->
+    <string:String x:Key="CombatGroupHeaderText">战斗总览</string:String>
+    <string:String x:Key="ChampionsKilledHeaderText">击杀</string:String>
+    <string:String x:Key="DeathsHeaderText">阵亡</string:String>
+    <string:String x:Key="AssistsHeaderText">助攻</string:String>
+    <string:String x:Key="LargestKillingSpreeHeaderText">连杀</string:String>
+    <string:String x:Key="KillingSpreesHeaderText">大杀特杀</string:String>
+    <string:String x:Key="LargestMultiKillHeaderText">最高连杀</string:String>
+    <string:String x:Key="BountyLevelHeaderText">悬赏等级</string:String>
+    <string:String x:Key="DoubleKillsHeaderText">双杀</string:String>
+    <string:String x:Key="TripleKillsHeaderText">三杀</string:String>
+    <string:String x:Key="QuadraKillsHeaderText">四杀</string:String>
+    <string:String x:Key="PentaKillsHeaderText">五杀</string:String>
+    <string:String x:Key="UnrealKillsHeaderText">六杀</string:String>
+    <string:String x:Key="CrowdControlScoreHeaderText">控制得分</string:String>
+    <string:String x:Key="TotalTimeCrowdControlDealtHeaderText">控制时间</string:String>
+
+    <string:String x:Key="DamageDealtGroupHeaderText">造成的伤害</string:String>
+    <string:String x:Key="TotalDamageDealtToChampionsHeaderText">对英雄总伤害</string:String>
+    <string:String x:Key="PhysicalDamageDealtToChampionsHeaderText">对英雄的物理伤害</string:String>
+    <string:String x:Key="MagicDamageDealtToChampionsHeaderText">对英雄的魔法伤害</string:String>
+    <string:String x:Key="TrueDamageDealtToChampionsHeaderText">对英雄的真实伤害</string:String>
+    <string:String x:Key="TotalDamageDealtHeaderText">造成的总伤害</string:String>
+    <string:String x:Key="PhysicalDamageDealtHeaderText">造成物理伤害</string:String>
+    <string:String x:Key="MagicDamageDealtHeaderText">造成的魔法伤害</string:String>
+    <string:String x:Key="TrueDamageDealtHeaderText">造成的真是伤害</string:String>
+    <string:String x:Key="LargestCriticalStrikeHeaderText">最大的暴击伤害</string:String>
+    <string:String x:Key="TotalDamageToTurretsHeaderText">承受防御塔</string:String>
+    <string:String x:Key="TotalDamageToObjectivesHeaderText">对建筑的伤害</string:String>
+
+    <string:String x:Key="DamageTakenAndHealedGroupHeaderText">Damage Taken and Healed</string:String>
+    <string:String x:Key="TotalHealingDoneHeaderText">Total Healing Done</string:String>
+    <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Total Healing Done to Teammates</string:String>
+    <string:String x:Key="TotalUnitsHealedHeaderText">Total Units Healed</string:String>
+    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded to Teammates</string:String>
+    <string:String x:Key="TotalDamageTakenHeaderText">Total Damage Taken</string:String>
+    <string:String x:Key="PhysicalDamageTakenHeaderText">Physical Damage Taken</string:String>
+    <string:String x:Key="MagicDamageTakenHeaderText">Magic Damage Taken</string:String>
+    <string:String x:Key="TrueDamageTakenHeaderText">True Damage Taken</string:String>
+    <string:String x:Key="TotalDamageSelfMitigatedHeaderText">Total Damage Self Mitigated</string:String>
+
+    <string:String x:Key="VisionGroupHeaderText">Vision</string:String>
+    <string:String x:Key="VisionScoreHeaderText">Vision Score</string:String>
+    <string:String x:Key="WardsPlacedHeaderText">Wards Placed</string:String>
+    <string:String x:Key="WardsKilledHeaderText">Wards Destroyed</string:String>
+    <string:String x:Key="VisionWardsPurchasedHeaderText">Control Wards Purchased</string:String>
+
+    <string:String x:Key="IncomeGroupHeaderText">Income</string:String>
+    <string:String x:Key="GoldEarnedHeaderText">Gold Earned</string:String>
+    <string:String x:Key="GoldSpentHeaderText">Gold Spent</string:String>
+    <string:String x:Key="ItemsPurchasedHeaderText">Items Purchased</string:String>
+    <string:String x:Key="ConsumablesPurchasedHeaderText">Consumables Purchased</string:String>
+    <string:String x:Key="MinionsKilledHeaderText">Minions Killed</string:String>
+    <string:String x:Key="NeutralMinionsKilledHeaderText">Neutral Minions Killed</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Own Jungle Minion Kills</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Other Jungle Minion Kills</string:String>
+
+    <string:String x:Key="ObjectivesGroupHeaderText">Objectives</string:String>
+    <string:String x:Key="TotalExperienceHeaderText">Total Experience</string:String>
+    <string:String x:Key="TurretsKilledHeaderText">Turrets Killed</string:String>
+    <string:String x:Key="InhibitorsKilledHeaderText">Inhibitors Killed</string:String>
+    <string:String x:Key="ObjectivesStolenHeaderText">Objectives Stolen</string:String>
+    <string:String x:Key="BaronsKilledHeaderText">Barons Killed</string:String>
+    <string:String x:Key="DragonsKilledHeaderText">Dragons Killed</string:String>
+    <string:String x:Key="LongestTimeSpentAliveHeaderText">Longest Time Spent Alive</string:String>
+    <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
+    <string:String x:Key="LastHitNexusHeaderText">Last Hit Nexus</string:String>
+
+    <string:String x:Key="ToxicityGroupHeaderText">Toxicity</string:String>
+    <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>
+    <string:String x:Key="TimeOfLastDisconnectHeaderText">Time Of Last Disconnect</string:String>
+    <string:String x:Key="PlayersMutedHeaderText">Players Muted</string:String>
+    <string:String x:Key="MutedByPlayersHeaderText">Muted By Players</string:String>
+    <string:String x:Key="PingHeaderText">Ping</string:String>
+    <string:String x:Key="TeamEarlySurrenderedHeaderText">Team Early Surrendered</string:String>
+    <string:String x:Key="WasAFKHeaderText">Was AFK</string:String>
+    <string:String x:Key="WasAFKAfterFailedSurrenderHeaderText">Was AFK After Failed Surrender</string:String>
+    <string:String x:Key="WasEarlySurrenderAccompliceHeaderText">Was Early Surrender Accomplice</string:String>
+
+    <string:String x:Key="MiscGroupHeaderText">Misc</string:String>
+    <string:String x:Key="Spell1CastsHeaderText">Spell 1 Casts</string:String>
+    <string:String x:Key="Spell2CastsHeaderText">Spell 2 Casts</string:String>
+    <string:String x:Key="Spell3CastsHeaderText">Spell 3 Casts</string:String>
+    <string:String x:Key="Spell4CastsHeaderText">Spell 4 Casts</string:String>
+    <string:String x:Key="SummonerSpell1CastsHeaderText">Summoner Spell 1 Casts</string:String>
+    <string:String x:Key="SummonerSpell2CastsHeaderText">Summoner Spell 2 Casts</string:String>
+    <string:String x:Key="IndividualPositionHeaderText">Individual Position</string:String>
+
+    <!--ToolTip Text-->
+    <string:String x:Key="SortToolTip">排序</string:String>
+    <string:String x:Key="RefreshToolTip">刷新</string:String>
+    <string:String x:Key="SettingsToolTip">设置</string:String>
+    <string:String x:Key="PlayReplayToolTip">播放回放</string:String>
+    <string:String x:Key="AlreadyPlayingToolTip">正在播放中...</string:String>
+    <string:String x:Key="CannotPlayToolTip">无法播放这个回放</string:String>
+    <string:String x:Key="MoreToolTip">更多...</string:String>
+
+    <string:String x:Key="FileDateToolTip">创建日期</string:String>
+    <string:String x:Key="MatchIdToolTip">匹配ID</string:String>
+    <string:String x:Key="FileSizeToolTip">文件大小</string:String>
+    <string:String x:Key="MapNameToolTip">地图</string:String>
+    <string:String x:Key="GameVersionToolTip">回放版本</string:String>
+
+    <string:String x:Key="LevelToolTip">等级</string:String>
+    <string:String x:Key="KillsToolTip">击杀</string:String>
+    <string:String x:Key="DeathsToolTip">死亡</string:String>
+    <string:String x:Key="AssistsToolTip">助攻</string:String>
+    <string:String x:Key="CreepScoreToolTip">补兵</string:String>
+    <string:String x:Key="GoldEarnedToolTip">金币收入</string:String>
+
+    <!--sort menu text-->
+    <string:String x:Key="NameAsc">名称升序</string:String>
+    <string:String x:Key="NameDesc">名称降序</string:String>
+
+    <string:String x:Key="DateAsc">创建日期升序</string:String>
+    <string:String x:Key="DateDesc">创建日期降序</string:String>
+
+    <string:String x:Key="SizeAsc">文件大小升序</string:String>
+    <string:String x:Key="SizeDesc">文件大小降序</string:String>
+
+    <!--Replay Menu Item Text-->
+    <string:String x:Key="OpenContainingFolder">打开包含文件夹</string:String>
+    <string:String x:Key="ViewOnlinePage">在网络上查看</string:String>
+    <string:String x:Key="ExportReplayData">导出数据...</string:String>
+    <string:String x:Key="RenameReplayFile">重命名</string:String>
+    <string:String x:Key="DeleteReplayFile">删除</string:String>
+    <string:String x:Key="RefreshReplayList">刷新列表</string:String>
+
+    <!--Replay Data Export-->
+    <string:String x:Key="ErdTitleText">导出回放文件数据</string:String>
+    <string:String x:Key="ErdLevel1TitleText">回放文件属性</string:String>
+    <string:String x:Key="ErdLevel2TitleText">召唤师</string:String>
+    <string:String x:Key="ErdLevel3TitleText">召唤师属性</string:String>
+    <string:String x:Key="ErdSelectAllItems">全选</string:String>
+    <string:String x:Key="ErdDeselectAllItems">取消全选</string:String>
+    <string:String x:Key="ErdExportButtonText">导出...</string:String>
+    <string:String x:Key="ErdExportDialogTitle">选择导出位置</string:String>
+    <string:String x:Key="ErdExportNullTitle">尚未选中任何数据</string:String>
+    <string:String x:Key="ErdExportNullTest">没有选择要导出的内容</string:String>
+    <string:String x:Key="ErdCsvModeText">CSV表格模式</string:String>
+    <string:String x:Key="ErdFailedToSave">无法保存文件</string:String>
+    <string:String x:Key="ErdPreviewTitle">数据预览</string:String>
+
+    <!--Welcome Setup-->
+    <string:String x:Key="WswWindowTitleText">ReplayBook 安装</string:String>
+    <string:String x:Key="WswPreviousText">上一步</string:String>
+    <string:String x:Key="WswPreviousDisabled">无法转到上一步</string:String>
+    <string:String x:Key="WswNextText">下一步</string:String>
+    <string:String x:Key="WswNextDisabled">无法转到下一步</string:String>
+    <string:String x:Key="WswSkipText">跳过</string:String>
+    <string:String x:Key="WswSkipDisabled">不能跳过</string:String>
+    <string:String x:Key="WswDownloadMissingError">找不到要下载的任何内容-检查您的互联网连接或跳过此步骤</string:String>
+    <string:String x:Key="WswDownloadNoSelectionError">请选择下载</string:String>
+
+    <!--Welcome Setup : Introduction-->
+    <string:String x:Key="WswIntroFrameTitle">欢迎使用ReplayBook</string:String>
+    <string:String x:Key="WswReplaysFrameTitle">回放文件设置</string:String>
+    <string:String x:Key="WswExecutablesFrameTitle">客户端设置</string:String>
+    <string:String x:Key="WswRegionFrameTitle">语言设置</string:String>
+    <string:String x:Key="WswDownloadFrameTitle">下载资源</string:String>
+    <string:String x:Key="WswFinishedFrameTitle">完成！</string:String>
+
+    <string:String x:Key="WswIntroductionTitle">感谢您下载ReplayBook！</string:String>
+    <string:String x:Key="WswIntroductionBody">首先，让我们进行一些初始设置。点击下面的“下一步”按钮继续。</string:String>
+
+    <string:String x:Key="WswRegionTitle">设置默认的英雄联盟语言</string:String>
+    <string:String x:Key="WswRegionBody">通过下拉菜单选择一种语言。 ReplayBook将使用此语言注册您的可执行文件。您可以稍后手动编辑可执行文件的语言。</string:String>
+
+    <string:String x:Key="WswExecutablesTitle">选择Riot Games文件夹</string:String>
+    <string:String x:Key="WswExecutablesBody">ReplayBook需要先链接英雄联盟，然后才能播放重播。我们将在此文件夹中搜索存在的英雄联盟的所有版本。</string:String>
+    <string:String x:Key="WswExecutablesHint">例如: 'C:\Riot Games'</string:String>
+    <string:String x:Key="WswExecutablesRegisterList">检测到的版本:</string:String>
+    <string:String x:Key="WswExecutablesRegisterListEmpty">什么也没找到...</string:String>
+
+    <string:String x:Key="WswReplaysTitle">选择回放文件储存目录</string:String>
+    <string:String x:Key="WswReplaysBody">如果ReplayBook不知道它们在哪里，则将无法显示任何重放。确认这是您的回放文件存储的位置。您可以稍后添加其他文件夹。</string:String>
+    <string:String x:Key="WswReplaysHint">默认情况下，回放文件存储在“Documents\League of Legends\Replay”中</string:String>
+
+    <string:String x:Key="WswDownloadTitle">立即下载图标?</string:String>
+    <string:String x:Key="WswDownloadBody">下载图标将花费几分钟，但会使ReplayBook运行更快。如果您跳过此步骤，ReplayBook将按需下载图标。</string:String>
+    <string:String x:Key="WswDownloadChampionsText">下载英雄缩略图</string:String>
+    <string:String x:Key="WswDownloadItemsText">下载装备缩略图</string:String>
+    <string:String x:Key="WswDownloadButton">下载</string:String>
+    <string:String x:Key="WswDownloadFinished">下载完成</string:String>
+
+    <string:String x:Key="WswFinishTitle">安装完成！</string:String>
+    <string:String x:Key="WswFinishBody">单击“完成”，ReplayBook将自动以您选择的设置开始。</string:String>
+    <string:String x:Key="WswFinishButton">完成</string:String>
+
+    <!--Rename dialog-->
+    <string:String x:Key="RenameFlyoutEmptyError">键入新的文件名</string:String>
+    <string:String x:Key="RenameFlyoutNotFoundError">回放文件不存在</string:String>
+
+    <!--Delete dialog-->
+    <string:String x:Key="DeleteFlyoutLabel">确认删除?</string:String>
+
+</ResourceDictionary>

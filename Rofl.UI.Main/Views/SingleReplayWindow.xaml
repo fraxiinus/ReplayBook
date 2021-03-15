@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="{StaticResource ProgramName}"
+        Title="{DynamicResource ProgramName}"
         MinHeight="670"
         Height="670" 
         MinWidth="780"

@@ -27,31 +27,31 @@
                  Grid.Column="0">
             
             <ListBoxItem x:Name="GeneralSettingsListItem">
-                <TextBlock Text="{StaticResource GeneralSettingsItemText}" FontSize="14"/>
+                <TextBlock Text="{DynamicResource GeneralSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
             <ListBoxItem x:Name="UpdatesSettingsListItem">
-                <TextBlock Text="{StaticResource UpdatesSettingsItemText}" FontSize="14"/>
+                <TextBlock Text="{DynamicResource UpdatesSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
             
             <ListBoxItem x:Name="AppearanceSettingsListItem">
-                <TextBlock Text="{StaticResource AppearanceSettingsItemText}" FontSize="14"/>
+                <TextBlock Text="{DynamicResource AppearanceSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
             <ListBoxItem x:Name="ExecutablesSettingsListItem">
-                <TextBlock Text="{StaticResource ExecutablesSettingsItemText}" FontSize="14"/>
+                <TextBlock Text="{DynamicResource ExecutablesSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
             <ListBoxItem x:Name="ReplaySettingsListItem">
-                <TextBlock Text="{StaticResource ReplaySettingsItemText}" FontSize="14"/>
+                <TextBlock Text="{DynamicResource ReplaySettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
             <ListBoxItem x:Name="RequestSettingsListItem">
-                <TextBlock Text="{StaticResource RequestSettingsItemText}" FontSize="14"/>
+                <TextBlock Text="{DynamicResource RequestSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
             <ListBoxItem x:Name="AboutSettingsListItem">
-                <TextBlock Text="{StaticResource AboutSettingsItemText}" FontSize="14"/>
+                <TextBlock Text="{DynamicResource AboutSettingsItemText}" FontSize="14"/>
             </ListBoxItem>
 
         </ListBox>
@@ -84,8 +84,15 @@
                                              Spacing="12"
                                              Margin="15 0 20 12">
 
-                            <TextBlock Text="{StaticResource PlayerMarkerLabelText}" 
-                                        FontSize="16"/>
+                            <TextBlock Text="{DynamicResource LanguageLabelText}" 
+                                       FontSize="16"/>
+
+                            <ComboBox x:Name="LanguageComboBox"
+                                      Width="200"
+                                      SelectionChanged="LanguageComboBox_SelectionChanged"/>
+
+                            <TextBlock Text="{DynamicResource PlayerMarkerLabelText}" 
+                                       FontSize="16"/>
                                 
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.RowDefinitions>
@@ -140,7 +147,7 @@
 
                                 <ui:CommandBar Grid.Row="1">
                                     <ui:AppBarButton x:Name="AddKnownPlayerButton"
-                                                     Label="{StaticResource AddButtonText}"
+                                                     Label="{DynamicResource AddButtonText}"
                                                      Click="AddKnownPlayerButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
@@ -148,7 +155,7 @@
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="EditKnownPlayerButton"
                                                      IsEnabled="False"
-                                                     Label="{StaticResource EditButtonText}"
+                                                     Label="{DynamicResource EditButtonText}"
                                                      Click="EditKnownPlayerButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
@@ -156,7 +163,7 @@
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="RemoveKnownPlayerButton"
                                                      IsEnabled="False"
-                                                     Label="{StaticResource RemoveButtonText}"
+                                                     Label="{DynamicResource RemoveButtonText}"
                                                      Click="RemoveKnownPlayerButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
@@ -167,25 +174,25 @@
 
                             <ui:RadioButtons x:Name="PlayerMarkerStyleOptions"
                                              MaxColumns="2"
-                                             Header="{StaticResource PlayerMarkerStyleLabel}"
+                                             Header="{DynamicResource PlayerMarkerStyleLabel}"
                                              SelectionChanged="PlayerMarkerStyleOptions_SelectionChanged">
                                 <ui:RadioButtons.Style>
                                     <Style TargetType="ui:RadioButtons">
                                         <Setter Property="FontSize" Value="16"/>
                                     </Style>
                                 </ui:RadioButtons.Style>
-                                <RadioButton Content="{StaticResource PlayerMarkerStyleOption1}"
+                                <RadioButton Content="{DynamicResource PlayerMarkerStyleOption1}"
                                              x:Name="PlayerMarkerStyleOption1"/>
-                                <RadioButton Content="{StaticResource PlayerMarkerStyleOption2}"
+                                <RadioButton Content="{DynamicResource PlayerMarkerStyleOption2}"
                                              x:Name="PlayerMarkerStyleOption2"/>
                             </ui:RadioButtons>
                             
                             <ui:SimpleStackPanel Orientation="Horizontal">
-                                <TextBlock Text="{StaticResource MatchHistoryUrlLabelText}" 
+                                <TextBlock Text="{DynamicResource MatchHistoryUrlLabelText}" 
                                            FontSize="16"/>
                                 <ui:PathIcon Data="{StaticResource InfoIcon}"
                                              Width="16" Margin="5 2 0 0"
-                                             ToolTip="{StaticResource MarchHistoryUrlInfoText}"/>
+                                             ToolTip="{DynamicResource MarchHistoryUrlInfoText}"/>
                             </ui:SimpleStackPanel>
                             
                             <TextBox x:Name="MatchHistoryUrlTextBox" 
@@ -196,35 +203,35 @@
 
                             <ui:RadioButtons x:Name="FileActionOptions"
                                              MaxColumns="2"
-                                             Header="{StaticResource FileAssociationLabelText}"
+                                             Header="{DynamicResource FileAssociationLabelText}"
                                              SelectionChanged="FileActionOptions_SelectionChanged">
                                 <ui:RadioButtons.Style>
                                     <Style TargetType="ui:RadioButtons">
                                         <Setter Property="FontSize" Value="16"/>
                                     </Style>
                                 </ui:RadioButtons.Style>
-                                <RadioButton Content="{StaticResource FileActionOption1}"
+                                <RadioButton Content="{DynamicResource FileActionOption1}"
                                              x:Name="FileActionOption1"/>
-                                <RadioButton Content="{StaticResource FileActionOption2}"
+                                <RadioButton Content="{DynamicResource FileActionOption2}"
                                              x:Name="FileActionOption2"/>
                             </ui:RadioButtons>
 
                             <Button x:Name="SetFileAssocButton"
                                     Height="30"
                                     Grid.Column="2"
-                                    Content="{StaticResource FileAssociationButtonText}"
+                                    Content="{DynamicResource FileAssociationButtonText}"
                                     Padding="15 0 15 0"
                                     HorizontalAlignment="Left"
                                     Click="SetFileAssocButton_Click"/>
 
-                            <TextBlock Text="{StaticResource MiscBehaviorLabelText}" 
+                            <TextBlock Text="{DynamicResource MiscBehaviorLabelText}" 
                                        FontSize="16" />
 
                             <ui:SimpleStackPanel Orientation="Vertical">
-                                <CheckBox Content="{StaticResource PlayConfirmCheckboxText}" 
+                                <CheckBox Content="{DynamicResource PlayConfirmCheckboxText}" 
                                           IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
 
-                                <CheckBox Content="{StaticResource ReplayRenameCheckboxText}" 
+                                <CheckBox Content="{DynamicResource ReplayRenameCheckboxText}" 
                                           IsChecked="{Binding Path=Settings.SaveNamesToFile}"/>
                             </ui:SimpleStackPanel>
 
@@ -237,23 +244,23 @@
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Spacing="12"
                                              Margin="15 0 20 12">
-                            <TextBlock Text="{StaticResource UpdatesLabelText}" 
+                            <TextBlock Text="{DynamicResource UpdatesLabelText}" 
                                        FontSize="16"/>
 
-                            <CheckBox Content="{StaticResource AutoUpdateCheckboxText}" 
+                            <CheckBox Content="{DynamicResource AutoUpdateCheckboxText}" 
                                       IsChecked="{Binding Path=Settings.AutoUpdateCheck}"/>
                             
                             <Button x:Name="UpdateCheckButton"
                                     HorizontalAlignment="Left"
-                                    Content="{StaticResource CheckUpdatesButtonText}"
+                                    Content="{DynamicResource CheckUpdatesButtonText}"
                                     Height="30" Width="150"
                                     Click="UpdateCheckButton_Click"/>
 
                             <ui:HyperlinkButton x:Name="UpdateAvailableButton"
                                                 Visibility="Collapsed"
-                                                Content="{StaticResource UpdateAvailableText}"
+                                                Content="{DynamicResource UpdateAvailableText}"
                                                 Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
-                                                NavigateUri="{StaticResource GitHubReleasesLink}"/>
+                                                NavigateUri="{DynamicResource GitHubReleasesLink}"/>
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
                 </TabItem>
@@ -266,22 +273,22 @@
 
                             <ui:RadioButtons x:Name="AppearanceThemeOptions"
                                              MaxColumns="1"
-                                             Header="{StaticResource AppearanceThemeModeTitle}"
+                                             Header="{DynamicResource AppearanceThemeModeTitle}"
                                              SelectionChanged="AppearanceThemeOptions_SelectionChanged">
                                 <ui:RadioButtons.Style>
                                     <Style TargetType="ui:RadioButtons">
                                         <Setter Property="FontSize" Value="16"/>
                                     </Style>
                                 </ui:RadioButtons.Style>
-                                <RadioButton Content="{StaticResource AppearanceThemeMode0}"
+                                <RadioButton Content="{DynamicResource AppearanceThemeMode0}"
                                              x:Name="AppearanceThemeOption1"/>
-                                <RadioButton Content="{StaticResource AppearanceThemeMode1}"
+                                <RadioButton Content="{DynamicResource AppearanceThemeMode1}"
                                              x:Name="AppearanceThemeOption2"/>
-                                <RadioButton Content="{StaticResource AppearanceThemeMode2}"
+                                <RadioButton Content="{DynamicResource AppearanceThemeMode2}"
                                              x:Name="AppearanceThemeOption3"/>
                             </ui:RadioButtons>
 
-                            <TextBlock Text="{StaticResource AppearanceThemeAccentTitle}"
+                            <TextBlock Text="{DynamicResource AppearanceThemeAccentTitle}"
                                        FontSize="16"/>
 
                             <ui:SimpleStackPanel Orientation="Horizontal"
@@ -290,12 +297,12 @@
                                                        Width="200"
                                                        HorizontalAlignment="Left"/>
                                 <Button x:Name="AccentColorResetButton"
-                                        Content="{StaticResource AppearanceThemeResetColorText}"
+                                        Content="{DynamicResource AppearanceThemeResetColorText}"
                                         Click="AccentColorResetButton_Click"/>
                             </ui:SimpleStackPanel>
 
                             <TextBlock x:Name="AccentColorNoteTextBlock"
-                                       Text="{StaticResource AppearanceThemeDefaultAccentNote}"
+                                       Text="{DynamicResource AppearanceThemeDefaultAccentNote}"
                                        Foreground="{DynamicResource SystemControlHighlightBaseMediumHighBrush}"/>
 
                         </ui:SimpleStackPanel>
@@ -308,17 +315,17 @@
                                              Spacing="12"
                                              Margin="15 0 20 12">
 
-                            <TextBlock Text="{StaticResource ExecutableDefaultLocaleLabelText}" 
+                            <TextBlock Text="{DynamicResource ExecutableDefaultLocaleLabelText}" 
                                        FontSize="16"/>
                             <ComboBox x:Name="ExecutableLocaleComboBox" Width="200"
                                       SelectionChanged="ExecutableLocaleComboBox_SelectionChanged"/>
 
                             <ui:SimpleStackPanel Orientation="Horizontal">
-                                <TextBlock Text="{StaticResource ExecutableFoldersLabelText}" 
+                                <TextBlock Text="{DynamicResource ExecutableFoldersLabelText}" 
                                            FontSize="16"/>
                                 <ui:PathIcon Data="{StaticResource InfoIcon}"
                                              Width="16" Margin="5 2 0 0"
-                                             ToolTip="{StaticResource ExecutableFoldersInfoText}"/>
+                                             ToolTip="{DynamicResource ExecutableFoldersInfoText}"/>
                             </ui:SimpleStackPanel>
 
                             <Grid HorizontalAlignment="Stretch">
@@ -348,7 +355,7 @@
 
                                 <ui:CommandBar Grid.Row="1">
                                     <ui:AppBarButton x:Name="AddExecutableFolderButton"
-                                                     Label="{StaticResource AddButtonText}"
+                                                     Label="{DynamicResource AddButtonText}"
                                                      Click="AddExecutableFolderButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
@@ -356,7 +363,7 @@
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="EditExecutableFolderButton"
                                                      IsEnabled="False"
-                                                     Label="{StaticResource EditButtonText}"
+                                                     Label="{DynamicResource EditButtonText}"
                                                      Click="EditExecutableFolderButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
@@ -364,7 +371,7 @@
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="RemoveExecutableFolderButton"
                                                      IsEnabled="False"
-                                                     Label="{StaticResource RemoveButtonText}"
+                                                     Label="{DynamicResource RemoveButtonText}"
                                                      Click="RemoveExecutableFolderButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
@@ -374,13 +381,13 @@
                             </Grid>
 
                             <Button x:Name="SourceFoldersSearchButton"
-                                    Content="{StaticResource ExecutableFoldersSearchButtonText}" 
+                                    Content="{DynamicResource ExecutableFoldersSearchButtonText}" 
                                     HorizontalAlignment="Left"
                                     Padding="10 0 10 0"
                                     Height="30"
                                     Click="SourceFoldersSearchButton_Click"/>
 
-                            <TextBlock Text="{StaticResource ExecutablesLabelText}"
+                            <TextBlock Text="{DynamicResource ExecutablesLabelText}"
                                        FontSize="16"
                                        Grid.Row="2" Grid.Column="0"/>
 
@@ -433,7 +440,7 @@
                                 
                                 <ui:CommandBar Grid.Row="1">
                                     <ui:AppBarButton x:Name="AddExecutableButton"
-                                                     Label="{StaticResource AddButtonText}"
+                                                     Label="{DynamicResource AddButtonText}"
                                                      Click="AddExecutableButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
@@ -441,7 +448,7 @@
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="EditExecutableButton"
                                                      IsEnabled="False"
-                                                     Label="{StaticResource EditButtonText}"
+                                                     Label="{DynamicResource EditButtonText}"
                                                      Click="EditExecutableButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
@@ -449,7 +456,7 @@
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="RemoveExecutableButton"
                                                      IsEnabled="False"
-                                                     Label="{StaticResource RemoveButtonText}"
+                                                     Label="{DynamicResource RemoveButtonText}"
                                                      Click="RemoveExecutableButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
@@ -469,11 +476,11 @@
                                              Spacing="12"
                                              Margin="15 0 20 12">
                             <ui:SimpleStackPanel Orientation="Horizontal">
-                                <TextBlock Text="{StaticResource SourceFoldersLabelText}" 
+                                <TextBlock Text="{DynamicResource SourceFoldersLabelText}" 
                                            FontSize="16"/>
                                 <ui:PathIcon Data="{StaticResource InfoIcon}"
                                              Width="16" Margin="5 2 0 0"
-                                             ToolTip="{StaticResource SourceFoldersInfoText}"/>
+                                             ToolTip="{DynamicResource SourceFoldersInfoText}"/>
                             </ui:SimpleStackPanel>
                             
 
@@ -511,7 +518,7 @@
                                 
                                 <ui:CommandBar Grid.Row="1">
                                     <ui:AppBarButton x:Name="AddSourceFolderButton"
-                                                     Label="{StaticResource AddButtonText}"
+                                                     Label="{DynamicResource AddButtonText}"
                                                      Click="AddSourceFolderButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
@@ -519,7 +526,7 @@
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="EditSourceFolderButton"
                                                      IsEnabled="False"
-                                                     Label="{StaticResource EditButtonText}"
+                                                     Label="{DynamicResource EditButtonText}"
                                                      Click="EditSourceFolderButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
@@ -527,7 +534,7 @@
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="RemoveSourceFolderButton"
                                                      IsEnabled="False"
-                                                     Label="{StaticResource RemoveButtonText}"
+                                                     Label="{DynamicResource RemoveButtonText}"
                                                      Click="RemoveSourceFolderButton_Click">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
@@ -537,7 +544,7 @@
                                 
                             </Grid>
 
-                            <TextBlock Text="{StaticResource ReplayItemsPerPage}" FontSize="16"/>
+                            <TextBlock Text="{DynamicResource ReplayItemsPerPage}" FontSize="16"/>
                             <Grid VerticalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -560,7 +567,7 @@
                                            Grid.Column="1"/>
                             </Grid>
 
-                            <TextBlock Text="{StaticResource ReplayDatabaseText}" FontSize="16"/>
+                            <TextBlock Text="{DynamicResource ReplayDatabaseText}" FontSize="16"/>
                             <Grid MinWidth="200"
                                   HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
@@ -571,14 +578,14 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="{StaticResource ReplayDatabaseSize}"
+                                <TextBlock Text="{DynamicResource ReplayDatabaseSize}"
                                            Grid.Column="0" Grid.Row="0"/>
 
                                 <TextBlock x:Name="ReplayCacheSize"
                                            Grid.Column="1" Grid.Row="0"/>
                             </Grid>
                             <Button x:Name="DeleteReplayCacheButton"
-                                    Content="{StaticResource ReplayDatabaseClearButton}"
+                                    Content="{DynamicResource ReplayDatabaseClearButton}"
                                     Click="DeleteReplayCacheButton_Click"
                                     Width="140"/>
                         </ui:SimpleStackPanel>
@@ -590,7 +597,7 @@
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Spacing="12"
                                              Margin="15 0 20 12">
-                            <TextBlock Text="{StaticResource RequestsCacheLabel}" 
+                            <TextBlock Text="{DynamicResource RequestsCacheLabel}" 
                                        FontSize="16"/>
                             <Grid MinWidth="400"
                                   HorizontalAlignment="Left">
@@ -602,10 +609,10 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                
-                                <TextBlock Text="{StaticResource RequestsCacheItemsSize}"
+
+                                <TextBlock Text="{DynamicResource RequestsCacheItemsSize}"
                                            Grid.Column="0" Grid.Row="0"/>
-                                <TextBlock Text="{StaticResource RequestsCacheChampsSize}"
+                                <TextBlock Text="{DynamicResource RequestsCacheChampsSize}"
                                            Grid.Column="0" Grid.Row="1"/>
 
                                 <TextBlock x:Name="RequestsCacheItemSize"
@@ -616,22 +623,22 @@
                             <ui:SimpleStackPanel Orientation="Horizontal"
                                                  Spacing="12">
                                 <Button x:Name="DeleteItemsButton"
-                                        Content="{StaticResource RequestsCacheClearItemsButton}"
+                                        Content="{DynamicResource RequestsCacheClearItemsButton}"
                                         Click="DeleteItemsButton_Click"
                                         Width="140"/>
                                 <Button x:Name="DeleteChampsButton"
-                                        Content="{StaticResource RequestsCacheClearChampsButton}"
+                                        Content="{DynamicResource RequestsCacheClearChampsButton}"
                                         Click="DeleteChampsButton_Click"
                                         Width="140"/>
                             </ui:SimpleStackPanel>
 
-                            <TextBlock Text="{StaticResource RequestsDownloadAllLabel}"
+                            <TextBlock Text="{DynamicResource RequestsDownloadAllLabel}"
                                        FontSize="16"/>
                             
                             <CheckBox x:Name="ChampionCheckBox">
                                 <CheckBox.Content>
                                     <Grid Margin="5 0 0 0">
-                                        <TextBlock Text="{StaticResource WswDownloadChampionsText}"/>
+                                        <TextBlock Text="{DynamicResource WswDownloadChampionsText}"/>
                                     </Grid>
                                 </CheckBox.Content>
                             </CheckBox>
@@ -640,7 +647,7 @@
                                       Margin="0 -10 0 0">
                                 <CheckBox.Content>
                                     <Grid Margin="5 0 0 0">
-                                        <TextBlock Text="{StaticResource WswDownloadItemsText}"/>
+                                        <TextBlock Text="{DynamicResource WswDownloadItemsText}"/>
                                     </Grid>
                                 </CheckBox.Content>
                             </CheckBox>
@@ -653,7 +660,7 @@
 
                                 <Button x:Name="DownloadImageButton"
                                         Click="DownloadImageButton_Click"
-                                        Content="{StaticResource WswDownloadButton}"
+                                        Content="{DynamicResource WswDownloadButton}"
                                         Width="100"
                                         HorizontalAlignment="Left"
                                         Grid.Column="0"/>
@@ -693,31 +700,31 @@
                                              ValueChanged="DownloadProgressBar_ValueChanged"
                                              Grid.Row="1"/>
                             </Grid>
-                            
-                            <Expander Header="{StaticResource RequestsAdvancedLabel}"
+
+                            <Expander Header="{DynamicResource RequestsAdvancedLabel}"
                                       FontSize="16"
                                       ExpandDirection="Down">
                                 <ui:SimpleStackPanel Orientation="Vertical"
                                                      Spacing="12">
-                                    <TextBlock Text="{StaticResource DataDragonBaseUrlLabelText}" 
+                                    <TextBlock Text="{DynamicResource DataDragonBaseUrlLabelText}" 
                                                FontSize="16"/>
                                     <TextBox Text="{Binding Settings.DataDragonBaseUrl}" 
                                              Height="25"
                                              VerticalContentAlignment="Center"
                                              Padding="2"/>
-                                    <TextBlock Text="{StaticResource DataDragonChampionUrlLabelText}" 
+                                    <TextBlock Text="{DynamicResource DataDragonChampionUrlLabelText}" 
                                                FontSize="16"/>
                                     <TextBox Text="{Binding Settings.ChampionRelativeUrl}" 
                                              Height="25"
                                              VerticalContentAlignment="Center"
                                              Padding="2"/>
-                                    <TextBlock Text="{StaticResource DataDragonMapUrlLabelText}" 
+                                    <TextBlock Text="{DynamicResource DataDragonMapUrlLabelText}" 
                                                FontSize="16"/>
                                     <TextBox Text="{Binding Settings.MapRelativeUrl}" 
                                              Padding="2" 
                                              Height="25"
                                              VerticalContentAlignment="Center"/>
-                                    <TextBlock Text="{StaticResource DataDragonItemUrlLabelText}"
+                                    <TextBlock Text="{DynamicResource DataDragonItemUrlLabelText}"
                                                FontSize="16"/>
                                     <TextBox Text="{Binding Settings.ItemRelativeUrl}" 
                                              Padding="2" 
@@ -737,20 +744,20 @@
                                    Width="200"
                                    HorizontalAlignment="Center"
                                    RenderOptions.BitmapScalingMode="HighQuality"/>
-                            <TextBlock Text="{StaticResource Name}" FontSize="28" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{StaticResource Version}" FontSize="16" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{StaticResource Author}" FontSize="14" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource Name}" FontSize="28" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource Version}" FontSize="16" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource Author}" FontSize="14" HorizontalAlignment="Center"/>
                             <ui:HyperlinkButton HorizontalAlignment="Center"
-                                                NavigateUri="{StaticResource DiscordInviteLink}">
+                                                NavigateUri="{DynamicResource DiscordInviteLink}">
                                 <StackPanel Orientation="Vertical">
 
-                                    <TextBlock Text="{StaticResource DiscordInviteButton}"
+                                    <TextBlock Text="{DynamicResource DiscordInviteButton}"
                                                VerticalAlignment="Center"/>
                                     <Grid>
-                                        <ui:PathIcon Data="{StaticResource DiscordPart1}"
+                                        <ui:PathIcon Data="{DynamicResource DiscordPart1}"
                                                      Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}"
                                                      Width="30"/>
-                                        <ui:PathIcon Data="{StaticResource DiscordPart2}"
+                                        <ui:PathIcon Data="{DynamicResource DiscordPart2}"
                                                      Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}"
                                                      Width="30"/>
                                     </Grid>
@@ -758,14 +765,14 @@
                                 </StackPanel>
                             </ui:HyperlinkButton>
                             <ui:HyperlinkButton HorizontalAlignment="Center"
-                                                NavigateUri="{StaticResource LicenseLink}"
-                                                Content="{StaticResource LicenseText}"/>
-                            <TextBlock Text="{StaticResource AcknowledgementText}" 
+                                                NavigateUri="{DynamicResource LicenseLink}"
+                                                Content="{DynamicResource LicenseText}"/>
+                            <TextBlock Text="{DynamicResource AcknowledgementText}" 
                                        FontSize="14" 
                                        HorizontalAlignment="Center" 
                                        Margin="0 10 0 5"/>
                             <Button x:Name="AcknowledgementsButton"
-                                    Content="{StaticResource AcknowledgementButtonText}"
+                                    Content="{DynamicResource AcknowledgementButtonText}"
                                     Height="30"
                                     Width="200"
                                     Click="AcknowledgementsButton_Click"

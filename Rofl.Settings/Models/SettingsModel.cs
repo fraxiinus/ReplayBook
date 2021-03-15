@@ -35,6 +35,7 @@ namespace Rofl.Settings.Models
             GeneralSettings.MatchHistoryBaseUrl = settings.MatchHistoryBaseUrl;
             GeneralSettings.ItemsPerPage = settings.ItemsPerPage;
             GeneralSettings.AutoUpdateCheck = settings.AutoUpdateCheck;
+            GeneralSettings.ProgramLanguage = settings.ProgramLanguage;
 
             AppearanceSettings = new AppearanceSettings();
             AppearanceSettings.ThemeMode = settings.ThemeMode;

@@ -7,7 +7,7 @@
         xmlns:models="clr-namespace:Rofl.UI.Main.Models"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="{StaticResource ErdTitleText}" 
+        Title="{DynamicResource ErdTitleText}" 
         Height="650" Width="800"
         MinHeight="300" MinWidth="600"
         Loaded="ExportReplayDataWindow_OnLoaded"
@@ -38,7 +38,7 @@
 
             <TextBlock Grid.Row="0"
                        Margin="0 0 0 12"
-                       Text="{StaticResource ErdLevel1TitleText}"
+                       Text="{DynamicResource ErdLevel1TitleText}"
                        FontSize="16"/>
 
             <ListBox Grid.Row="1"
@@ -47,8 +47,8 @@
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ContextMenu>
                     <ContextMenu Name="LevelOneContextMenu">
-                        <MenuItem Header="{StaticResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
-                        <MenuItem Header="{StaticResource ErdDeselectAllItems}" Click="DeselectAllMenuItem_OnClick"/>
+                        <MenuItem Header="{DynamicResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
+                        <MenuItem Header="{DynamicResource ErdDeselectAllItems}" Click="DeselectAllMenuItem_OnClick"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemContainerStyle>
@@ -90,7 +90,7 @@
 
             <TextBlock Grid.Row="0"
                        Margin="0 0 0 12"
-                       Text="{StaticResource ErdLevel2TitleText}"
+                       Text="{DynamicResource ErdLevel2TitleText}"
                        FontSize="16"/>
 
             <ListBox Grid.Row="1"
@@ -101,8 +101,8 @@
                      SelectionChanged="LevelTwoSelectBox_SelectionChanged">
                 <ListBox.ContextMenu>
                     <ContextMenu Name="LevelTwoContextMenu">
-                        <MenuItem Header="{StaticResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
-                        <MenuItem Header="{StaticResource ErdDeselectAllItems}" Click="DeselectAllMenuItem_OnClick"/>
+                        <MenuItem Header="{DynamicResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
+                        <MenuItem Header="{DynamicResource ErdDeselectAllItems}" Click="DeselectAllMenuItem_OnClick"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemContainerStyle>
@@ -154,11 +154,11 @@
 
             <TextBlock Grid.Row="0"
                        Margin="0 0 0 12"
-                       Text="{StaticResource ErdLevel3TitleText}"
+                       Text="{DynamicResource ErdLevel3TitleText}"
                        FontSize="16"/>
 
             <TextBox Grid.Row="1" Margin="0 0 0 8"
-                     ui:ControlHelper.PlaceholderText="{StaticResource SearchDefaultText}" 
+                     ui:ControlHelper.PlaceholderText="{DynamicResource SearchDefaultText}" 
                      x:Name="FilterTextBox"
                      FontSize="14"
                      VerticalContentAlignment="Center"
@@ -172,8 +172,8 @@
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ContextMenu>
                     <ContextMenu Name="LevelThreeContextMenu">
-                        <MenuItem Header="{StaticResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
-                        <MenuItem Header="{StaticResource ErdDeselectAllItems}" Click="DeselectAllMenuItem_OnClick"/>
+                        <MenuItem Header="{DynamicResource ErdSelectAllItems}" Click="SelectAllMenuItem_OnClick"/>
+                        <MenuItem Header="{DynamicResource ErdDeselectAllItems}" Click="DeselectAllMenuItem_OnClick"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
                 <ListBox.ItemContainerStyle>
@@ -228,7 +228,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
-                       Text="{StaticResource ErdPreviewTitle}"
+                       Text="{DynamicResource ErdPreviewTitle}"
                        MouseLeftButtonUp="PreviewBlock_MouseLeftButtonUp"
                        FontSize="16"
                        Margin="0 0 0 12"/>
@@ -245,7 +245,7 @@
 
         <CheckBox Grid.Row="3" Grid.Column="0"
                   x:Name="CsvModeCheckbox"
-                  Content="{StaticResource ErdCsvModeText}"
+                  Content="{DynamicResource ErdCsvModeText}"
                   Checked="CsvModeCheckbox_CheckChanged"
                   Unchecked="CsvModeCheckbox_CheckChanged"/>
 
@@ -259,7 +259,7 @@
 
             <Button Grid.Column="1" 
                     x:Name="ExportButton"
-                    Content="{StaticResource ErdExportButtonText}"
+                    Content="{DynamicResource ErdExportButtonText}"
                     Click="ExportButton_OnClick"
                     IsDefault="True"
                     Style="{StaticResource AccentButtonStyle}"
@@ -268,7 +268,7 @@
 
             <Button Grid.Column="2" 
                     x:Name="CancelButton"
-                    Content="{StaticResource CancelButtonText}"
+                    Content="{DynamicResource CancelButtonText}"
                     Click="CancelButton_OnClick"
                     IsCancel="True"
                     Width="100" Height="30"/>

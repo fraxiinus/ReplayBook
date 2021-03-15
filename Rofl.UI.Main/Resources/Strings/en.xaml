@@ -51,6 +51,8 @@
     <string:String x:Key="AboutSettingsItemText">About</string:String>
 
     <!--Settings : General-->
+    <string:String x:Key="LanguageLabelText">Language</string:String>
+                   
     <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
     <string:String x:Key="PlayerMarkerStyleLabel">Player Marker Style</string:String>
     <string:String x:Key="PlayerMarkerStyleOption1">Border around</string:String>
