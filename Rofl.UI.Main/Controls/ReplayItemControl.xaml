@@ -74,8 +74,14 @@
         <ui:SimpleStackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                              Margin="0 5 0 2"
                              Orientation="Horizontal">
+        </ui:SimpleStackPanel>
 
-            <Border Padding="3 1 3 1" Margin="0 3 35 0"
+        <!--Left side stats-->
+        <StackPanel Orientation="Vertical"
+                    Margin="0 0 5 0"
+                    Grid.Column="0" Grid.Row="1">
+
+            <Border Padding="3 1 3 1" Margin="0 2 0 2"
                     CornerRadius="3"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left">
@@ -108,38 +114,6 @@
                     </TextBlock.Style>
                 </TextBlock>
             </Border>
-
-            <TextBlock x:Name="FilenameText"
-                       FontSize="14"
-                       FontWeight="Bold"
-                       Text="{Binding Path=DisplayName, FallbackValue=Filename}"
-                       ToolTip="{Binding Path=DisplayName}"/>
-
-            <ui:PathIcon Data="{StaticResource CirclePathIcon}"
-                         Foreground="Red"
-                         Width="12"
-                         Margin="5 2 2 0">
-                <ui:PathIcon.Style>
-                    <Style TargetType="ui:PathIcon">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
-                                <Setter Property="Visibility" Value="Visible"/>
-                                <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ui:PathIcon.Style>
-            </ui:PathIcon>
-
-        </ui:SimpleStackPanel>
-
-        <!--Left side stats-->
-        <StackPanel Orientation="Vertical"
-                    Margin="0 0 5 0"
-                    Grid.Column="0" Grid.Row="1">
 
             <Border Padding="3 1 5 1"
                     CornerRadius="3"
@@ -186,8 +160,33 @@
         <StackPanel Orientation="Vertical"
                     VerticalAlignment="Top"
                     Grid.Column="1" Grid.Row="1">
+            
+            <TextBlock x:Name="FilenameText"
+                       FontSize="14"
+                       FontWeight="Bold"
+                       Text="{Binding Path=DisplayName, FallbackValue=Filename}"
+                       ToolTip="{Binding Path=DisplayName}"/>
 
-            <StackPanel Margin="2 -2 0 0">
+            <ui:PathIcon Data="{StaticResource CirclePathIcon}"
+                         Foreground="Red"
+                         Width="12"
+                         Margin="5 2 2 0">
+                <ui:PathIcon.Style>
+                    <Style TargetType="ui:PathIcon">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ui:PathIcon.Style>
+            </ui:PathIcon>
+
+            <StackPanel Margin="2 -13 0 0">
                 <ItemsControl ItemsSource="{Binding Path=BluePreviewPlayers}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
