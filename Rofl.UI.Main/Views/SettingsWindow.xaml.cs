@@ -86,6 +86,21 @@ namespace Rofl.UI.Main.Views
             AppearanceThemeOption2.IsChecked = (context.Settings.ThemeMode == 1);
             AppearanceThemeOption3.IsChecked = (context.Settings.ThemeMode == 2);
 
+            // Load language drop down
+            foreach (var lang in (Language[])Enum.GetValues(typeof(Language)))
+            {
+                switch (lang)
+                {
+                    case Settings.Models.Language.En:
+                        LanguageComboBox.Items.Add("English");
+                        break;
+                    case Settings.Models.Language.ZhHans:
+                        LanguageComboBox.Items.Add("Chinese (Simplified)");
+                        break;
+                }
+            }
+            LanguageComboBox.SelectedIndex = (int) context.Settings.ProgramLanguage;
+
             // Load locale drop down
             var allLocales = Enum.GetNames(typeof(LeagueLocale))
                 .Where(x => !string.Equals(x, LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase))
@@ -93,6 +108,7 @@ namespace Rofl.UI.Main.Views
             ExecutableLocaleComboBox.ItemsSource = allLocales;
             ExecutableLocaleComboBox.SelectedIndex = (int) context.Executables.Settings.DefaultLocale;
 
+            // See if an update exists
             if (context.TemporaryValues.TryGetBool("UpdateAvailable", out bool update))
             {
                 UpdateAvailableButton.Visibility = update ? Visibility.Visible : Visibility.Collapsed;
@@ -915,6 +931,13 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is SettingsManager context)) { return; }
 
             context.Executables.Settings.DefaultLocale = (LeagueLocale) ExecutableLocaleComboBox.SelectedIndex;
+        }
+
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(this.DataContext is SettingsManager context)) { return; }
+
+            context.Settings.ProgramLanguage = (Language) LanguageComboBox.SelectedIndex;
         }
     }
 }

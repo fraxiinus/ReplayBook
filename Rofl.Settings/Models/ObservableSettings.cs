@@ -23,6 +23,7 @@ namespace Rofl.Settings.Models
             MatchHistoryBaseUrl = @"https://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/";
             ItemsPerPage = 50;
             AutoUpdateCheck = true;
+            ProgramLanguage = Language.En;
 
             SourceFolders = new ObservableCollection<string>();
 
@@ -56,6 +57,7 @@ namespace Rofl.Settings.Models
             }
 
             AutoUpdateCheck = settings.GeneralSettings.AutoUpdateCheck;
+            ProgramLanguage = settings.GeneralSettings.ProgramLanguage;
 
             SourceFolders = new ObservableCollection<string>(settings.ReplaySettings.SourceFolders);
 
@@ -177,6 +179,18 @@ namespace Rofl.Settings.Models
                 _autoUpdateCheck = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(AutoUpdateCheck)));
+            }
+        }
+
+        private Language _programLanguage;
+        public Language ProgramLanguage
+        {
+            get => _programLanguage;
+            set
+            {
+                _programLanguage = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ProgramLanguage)));
             }
         }
 

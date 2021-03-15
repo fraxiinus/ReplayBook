@@ -84,6 +84,13 @@
                                              Spacing="12"
                                              Margin="15 0 20 12">
 
+                            <TextBlock Text="{StaticResource LanguageLabelText}" 
+                                        FontSize="16"/>
+
+                            <ComboBox x:Name="LanguageComboBox"
+                                      Width="200"
+                                      SelectionChanged="LanguageComboBox_SelectionChanged"/>
+
                             <TextBlock Text="{StaticResource PlayerMarkerLabelText}" 
                                         FontSize="16"/>
                                 
