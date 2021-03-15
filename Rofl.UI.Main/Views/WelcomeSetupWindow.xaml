@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="{StaticResource WswWindowTitleText}" 
+        Title="{DynamicResource WswWindowTitleText}" 
         Height="470" Width="800"
         ResizeMode="NoResize"
         Loaded="WelcomeSetupWindow_OnLoaded"

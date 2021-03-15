@@ -9,7 +9,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="{StaticResource ProgramName}" 
+        Title="{DynamicResource ProgramName}" 
         Icon="{StaticResource ProgramIcon}"
         ResizeMode="CanResize"
         MinHeight="670" MinWidth="1150"
@@ -60,18 +60,9 @@
                                            QueryIcon="Find"
                                            QuerySubmitted="SearchBox_QuerySubmitted"/>
                     </Border>
-
-                    <!--<Button x:Name="RefreshButton"
-                            ToolTip="{StaticResource RefreshToolTip}"
-                            Width="37"
-                            Click="RefreshButton_Click"
-                            Background="Transparent"
-                            Grid.Column="1">
-                        <ui:PathIcon Data="{StaticResource RefreshPathIcon}"/>
-                    </Button>-->
-
+                    
                     <Button x:Name="SortButton"
-                            ToolTip="{StaticResource SortToolTip}"
+                            ToolTip="{DynamicResource SortToolTip}"
                             Width="37"
                             ContextMenuService.Placement="Bottom"
                             Click="SortButton_Click"
@@ -81,31 +72,31 @@
                         <Button.ContextMenu>
                             <ContextMenu x:Name="SortMenu">
                                 <ui:RadioMenuItem x:Name="NameAsc"
-                                                  Header="{StaticResource NameAsc}" 
+                                                  Header="{DynamicResource NameAsc}" 
                                                   Click="MenuItem_Click"/>
                                 <ui:RadioMenuItem x:Name="NameDesc"
-                                                  Header="{StaticResource NameDesc}" 
+                                                  Header="{DynamicResource NameDesc}" 
                                                   Click="MenuItem_Click"/>
                                 <Separator/>
                                 <ui:RadioMenuItem x:Name="DateAsc"
-                                                  Header="{StaticResource DateAsc}" 
+                                                  Header="{DynamicResource DateAsc}" 
                                                   Click="MenuItem_Click"/>
                                 <ui:RadioMenuItem x:Name="DateDesc"
-                                                  Header="{StaticResource DateDesc}" 
+                                                  Header="{DynamicResource DateDesc}" 
                                                   Click="MenuItem_Click"/>
                                 <Separator/>
                                 <ui:RadioMenuItem x:Name="SizeAsc"
-                                                  Header="{StaticResource SizeAsc}" 
+                                                  Header="{DynamicResource SizeAsc}" 
                                                   Click="MenuItem_Click"/>
                                 <ui:RadioMenuItem x:Name="SizeDesc"
-                                                  Header="{StaticResource SizeDesc}" 
+                                                  Header="{DynamicResource SizeDesc}" 
                                                   Click="MenuItem_Click"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
 
                     <Button x:Name="SettingsButton"
-                            ToolTip="{StaticResource SettingsToolTip}"
+                            ToolTip="{DynamicResource SettingsToolTip}"
                             Width="37"
                             Margin="0 5 5 5"
                             Click="SettingsButton_Click"
@@ -190,7 +181,7 @@
                       Grid.Row="3"
                       Visibility="Collapsed">
                     <Button x:Name="LoadMoreButton"
-                            Content="{StaticResource LoadMoreButtonText}"
+                            Content="{DynamicResource LoadMoreButtonText}"
                             FontSize="14"
                             Margin="5"
                             Click="LoadMoreButton_Click"

@@ -30,7 +30,7 @@
                        TextAlignment="Center"
                        Margin="2"
                        Width="25"
-                       ToolTip="{StaticResource LevelToolTip}"/>
+                       ToolTip="{DynamicResource LevelToolTip}"/>
 
             <ui:SimpleStackPanel Orientation="Vertical"
                                  Margin="3 0 0 0">
@@ -40,7 +40,7 @@
                            Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}">
                     <TextBlock.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="{StaticResource CopyText}"
+                            <MenuItem Header="{DynamicResource CopyText}"
                                       Click="CopyTextBlock_Click">
                                 <MenuItem.Icon>
                                     <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
@@ -69,7 +69,7 @@
                        VerticalAlignment="Center"
                        TextAlignment="Center"
                        Width="25"
-                       ToolTip="{StaticResource KillsToolTip}"/>
+                       ToolTip="{DynamicResource KillsToolTip}"/>
 
             <TextBlock Text="/"
                        Margin="0"
@@ -85,7 +85,7 @@
                        VerticalAlignment="Center"
                        TextAlignment="Center"
                        Width="25"
-                       ToolTip="{StaticResource DeathsToolTip}"/>
+                       ToolTip="{DynamicResource DeathsToolTip}"/>
 
             <TextBlock Text="/"
                        Margin="0"
@@ -101,7 +101,7 @@
                        VerticalAlignment="Center"
                        TextAlignment="Center"
                        Width="25"
-                       ToolTip="{StaticResource AssistsToolTip}"/>
+                       ToolTip="{DynamicResource AssistsToolTip}"/>
         </ui:SimpleStackPanel>
 
         <ui:SimpleStackPanel VerticalAlignment="Center"
@@ -131,11 +131,11 @@
                        VerticalAlignment="Center"
                        TextAlignment="Center"
                        Width="40"
-                       ToolTip="{StaticResource CreepScoreToolTip}"
+                       ToolTip="{DynamicResource CreepScoreToolTip}"
                        Text="{Binding Path=TotalMinionsKilled, FallbackValue=CS, Mode=OneWay}">
                 <TextBlock.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{StaticResource CopyText}"
+                        <MenuItem Header="{DynamicResource CopyText}"
                                       Click="CopyTextBlock_Click">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
@@ -155,11 +155,11 @@
                        VerticalAlignment="Center"
                        TextAlignment="Center"
                        Width="60"
-                       ToolTip="{StaticResource GoldEarnedToolTip}"
+                       ToolTip="{DynamicResource GoldEarnedToolTip}"
                        Text="{Binding Path=GoldEarned, FallbackValue=Gold, Mode=OneWay, StringFormat={}{0:#,#}}">
                 <TextBlock.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{StaticResource CopyText}"
+                        <MenuItem Header="{DynamicResource CopyText}"
                                   Click="CopyTextBlock_Click">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>

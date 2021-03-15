@@ -938,6 +938,7 @@ namespace Rofl.UI.Main.Views
             if (!(this.DataContext is SettingsManager context)) { return; }
 
             context.Settings.ProgramLanguage = (Language) LanguageComboBox.SelectedIndex;
+            LanguageHelper.SetProgramLanguage(context.Settings.ProgramLanguage);
         }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="{StaticResource ExecutableDetailLaunchArgs}" 
+        Title="{DynamicResource ExecutableDetailLaunchArgs}" 
         Height="250" Width="300"
         MinHeight="250" MinWidth="300"
         ui:WindowHelper.UseModernWindowStyle="True"
@@ -29,7 +29,7 @@
                  Margin="0 0 0 10"/>
 
         <Button x:Name="SaveButton"
-                Content="{StaticResource SaveButtonText}"
+                Content="{DynamicResource SaveButtonText}"
                 Height="30"
                 Click="SaveButton_Click"
                 Grid.Row="1" Grid.Column="0">
@@ -41,7 +41,7 @@
         </Button>
 
         <Button x:Name="CloseButton"
-                Content="{StaticResource CancelButtonText}"
+                Content="{DynamicResource CancelButtonText}"
                 Margin="0 0 0 0"
                 Height="30"
                 Grid.Row="1" Grid.Column="2"

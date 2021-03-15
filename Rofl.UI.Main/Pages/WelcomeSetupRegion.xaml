@@ -27,13 +27,13 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{StaticResource WswRegionTitle}"
+                <TextBlock Text="{DynamicResource WswRegionTitle}"
                            FontSize="24"
                            Margin="0 0 0 5"
                            Grid.Row="0"
                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
 
-                <TextBlock Text="{StaticResource WswRegionBody}"
+                <TextBlock Text="{DynamicResource WswRegionBody}"
                            FontSize="16"
                            TextWrapping="Wrap"
                            Grid.Row="1"
@@ -67,7 +67,7 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}"
                                              Value="False">
-                                    <Setter Property="ToolTip" Value="{StaticResource WswPreviousDisabled}"/>
+                                    <Setter Property="ToolTip" Value="{DynamicResource WswPreviousDisabled}"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -94,7 +94,7 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    TextAlignment="Center"
-                                   Text="{StaticResource WswPreviousText}">
+                                   Text="{DynamicResource WswPreviousText}">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
@@ -121,7 +121,7 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}"
                                              Value="False">
-                                    <Setter Property="ToolTip" Value="{StaticResource WswNextDisabled}"/>
+                                    <Setter Property="ToolTip" Value="{DynamicResource WswNextDisabled}"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -136,7 +136,7 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    TextAlignment="Center"
-                                   Text="{StaticResource WswNextText}">
+                                   Text="{DynamicResource WswNextText}">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
@@ -171,7 +171,7 @@
                 <Button x:Name="SkipButton"
                         Grid.Column="3"
                         Width="100"
-                        Content="{StaticResource WswSkipText}"
+                        Content="{DynamicResource WswSkipText}"
                         HorizontalContentAlignment="Center"
                         ToolTipService.ShowOnDisabled="True">
                     <Button.Style>
@@ -179,7 +179,7 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=SkipButton}"
                                              Value="False">
-                                    <Setter Property="ToolTip" Value="{StaticResource WswSkipDisabled}"/>
+                                    <Setter Property="ToolTip" Value="{DynamicResource WswSkipDisabled}"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

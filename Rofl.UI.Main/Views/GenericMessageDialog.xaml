@@ -7,7 +7,7 @@
                   xmlns:ui="http://schemas.modernwpf.com/2019"
                   mc:Ignorable="d"
                   Title="GenericMessageDialog"
-                  PrimaryButtonText="{StaticResource OKButtonText}"
+                  PrimaryButtonText="{DynamicResource OKButtonText}"
                   DefaultButton="Primary"
                   Background="{DynamicResource TabBackground}">
     <Grid>
