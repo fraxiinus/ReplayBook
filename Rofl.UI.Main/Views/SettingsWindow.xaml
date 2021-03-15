@@ -85,14 +85,14 @@
                                              Margin="15 0 20 12">
 
                             <TextBlock Text="{DynamicResource LanguageLabelText}" 
-                                        FontSize="16"/>
+                                       FontSize="16"/>
 
                             <ComboBox x:Name="LanguageComboBox"
                                       Width="200"
                                       SelectionChanged="LanguageComboBox_SelectionChanged"/>
 
                             <TextBlock Text="{DynamicResource PlayerMarkerLabelText}" 
-                                        FontSize="16"/>
+                                       FontSize="16"/>
                                 
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.RowDefinitions>

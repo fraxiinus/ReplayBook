@@ -1,4 +1,6 @@
 ﻿using Rofl.Settings.Models;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace Rofl.UI.Main.Utilities
@@ -19,6 +21,24 @@ namespace Rofl.UI.Main.Utilities
             }
 
             Application.Current.Resources.MergedDictionaries.Add(dict);
+        }
+
+        public static string[] GetFriendlyLanguageNames()
+        {
+            var languages = new List<string>();
+            foreach (var lang in (Language[])Enum.GetValues(typeof(Language)))
+            {
+                switch (lang)
+                {
+                    case Language.En:
+                        languages.Add("English");
+                        break;
+                    case Language.ZhHans:
+                        languages.Add("简体中文");
+                        break;
+                }
+            }
+            return languages.ToArray(); ;
         }
     }
 }

@@ -87,18 +87,7 @@ namespace Rofl.UI.Main.Views
             AppearanceThemeOption3.IsChecked = (context.Settings.ThemeMode == 2);
 
             // Load language drop down
-            foreach (var lang in (Language[])Enum.GetValues(typeof(Language)))
-            {
-                switch (lang)
-                {
-                    case Settings.Models.Language.En:
-                        LanguageComboBox.Items.Add("English");
-                        break;
-                    case Settings.Models.Language.ZhHans:
-                        LanguageComboBox.Items.Add("Chinese (Simplified)");
-                        break;
-                }
-            }
+            LanguageComboBox.ItemsSource = LanguageHelper.GetFriendlyLanguageNames();
             LanguageComboBox.SelectedIndex = (int) context.Settings.ProgramLanguage;
 
             // Load locale drop down
