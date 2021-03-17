@@ -80,6 +80,7 @@
         </DataGrid.CellStyle>
         <DataGrid.RowStyle>
             <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                <EventSetter Event="Control.RequestBringIntoView" Handler="DataGrid_Row_RequestBringIntoView"/>
                 <Style.Triggers>
                     <!--<DataTrigger Binding="{Binding Path=IsBlueTeamMember}" Value="True">
                         <Setter Property="Background" Value="#f5fafe"></Setter>

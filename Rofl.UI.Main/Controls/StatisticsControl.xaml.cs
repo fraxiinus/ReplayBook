@@ -38,5 +38,10 @@ namespace Rofl.UI.Main.Controls
 
             dataGrid.RowHeight = targetColumnWidth;
         }
+
+        private void DataGrid_Row_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }
