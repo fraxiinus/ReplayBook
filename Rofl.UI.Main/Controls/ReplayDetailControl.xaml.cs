@@ -172,6 +172,7 @@ namespace Rofl.UI.Main.Controls
             var fileNameBox = new TextBox
             {
                 Text = replay.PreviewModel.DisplayName,
+                IsReadOnly = false,
                 MinWidth = 200
             };
             Grid.SetColumn(fileNameBox, 0);
@@ -179,10 +180,10 @@ namespace Rofl.UI.Main.Controls
             (flyout.Content as Grid).Children.Add(fileNameBox);
 
             // Handle save button
-            flyout.GetFlyoutButton().Click += async (object eSender, RoutedEventArgs eConfirm) =>
+            flyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 // Rename the file and see if an error was returned
-                var error = await context.RenameFile(replay.PreviewModel, fileNameBox.Text).ConfigureAwait(false);
+                var error = context.RenameFile(replay.PreviewModel, fileNameBox.Text);
 
                 if (error != null)
                 {
@@ -204,6 +205,7 @@ namespace Rofl.UI.Main.Controls
 
             // Show the flyout and focus it
             flyout.ShowAt(ReplayFileName);
+            fileNameBox.SelectAll();
             fileNameBox.Focus();
         }
         private void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
