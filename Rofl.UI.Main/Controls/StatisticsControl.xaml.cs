@@ -38,5 +38,12 @@ namespace Rofl.UI.Main.Controls
 
             dataGrid.RowHeight = targetColumnWidth;
         }
+
+        // Disable auto-scroll to cell
+        // Bandaid fix for drag scroll-up bug
+        private void DataGrid_Row_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }
