@@ -51,11 +51,26 @@ namespace Rofl.UI.Main.Models
 
         public string AlternativeName { get; private set; }
 
+        private string _displayName;
+        /// <summary>
+        /// Returns the name to be displayed
+        /// Setting this only changes the displayed value and will not save
+        /// </summary>
         public string DisplayName
         {
             get 
             {
-                return _showRealName ? Name : AlternativeName;
+                if (String.IsNullOrEmpty(_displayName))
+                {
+                    return _showRealName ? Name : AlternativeName;
+                }
+                else return _displayName;
+            }
+            set
+            {
+                _displayName = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(DisplayName)));
             }
         }
 

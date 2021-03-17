@@ -571,7 +571,7 @@ namespace Rofl.UI.Main.ViewModels
         /// <param name="preview"></param>
         /// <param name="newText"></param>
         /// <returns></returns>
-        public async Task<string> RenameFile(ReplayPreview preview, string newText)
+        public string RenameFile(ReplayPreview preview, string newText)
         {
             if (preview == null) throw new ArgumentNullException(nameof(preview));
 
@@ -581,12 +581,8 @@ namespace Rofl.UI.Main.ViewModels
             // Ask the file manager to rename the replay
             var error = _fileManager.RenameReplay(replay, newText);
 
-            // If the request returned nothing, it worked
-            if (error == null)
-            {
-                await ReloadReplayList().ConfigureAwait(false);
-            } // User entered nothing, change message
-            else if (error == "{EMPTY ERROR}")
+            // User entered nothing, change message
+            if (error == "{EMPTY ERROR}")
             {
                 error = Application.Current.TryFindResource("RenameFlyoutEmptyError") as string;
             }
@@ -594,7 +590,12 @@ namespace Rofl.UI.Main.ViewModels
             {
                 error = Application.Current.TryFindResource("RenameFlyoutNotFoundError") as string;
             }
-            // Return error 
+            else // Success
+            {
+                // Change the displayed data to the new name
+                preview.DisplayName = newText;
+            }
+
             return error;
         }
 
