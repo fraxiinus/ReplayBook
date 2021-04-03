@@ -2,6 +2,7 @@
 using System.IO;
 using System.Diagnostics;
 using Rofl.Executables.Models;
+using System.Linq;
 
 namespace Rofl.Executables.Utilities
 {
@@ -53,7 +54,7 @@ namespace Rofl.Executables.Utilities
             LeagueExecutable newExe = new LeagueExecutable()
             {
                 TargetPath = path,
-                Locale = LeagueLocale.EnglishUS,
+                Locale = DetectExecutableLocale(path),
                 StartFolder = Path.GetDirectoryName(path),
                 PatchNumber = GetLeagueVersion(path),
                 ModifiedDate = GetLastModifiedDate(path)
@@ -67,6 +68,72 @@ namespace Rofl.Executables.Utilities
                                         " \"-UseNewX3D=1\"" +
                                         " \"-UseNewX3DFramebuffers=1\"";
             return newExe;
+        }
+
+        // Given a executable path, tries to determine executable locale
+        public static LeagueLocale DetectExecutableLocale(string path)
+        {
+            // Get the base directory
+            var baseFolder = Path.GetDirectoryName(path);
+            // Navigate to DATA folder
+            var dataFolder = Path.Combine(baseFolder, "DATA", "FINAL");
+            if (Directory.Exists(dataFolder))
+            {
+                var localeCode = Directory.EnumerateFiles(dataFolder, "UI.*.wad.client")
+                    .Select(x => Path.GetFileName(x))
+                    .FirstOrDefault()
+                    .Substring(3, 5);
+                return GetLocaleEnum(localeCode);
+            }
+
+            return LeagueLocale.EnglishUS;
+        }
+
+        public static LeagueLocale GetLocaleEnum(string name)
+        {
+            switch(name)
+            {
+                case "cs_CZ":
+                    return LeagueLocale.Czech;
+                case "de_DE":
+                    return LeagueLocale.German;
+                case "el_GR":
+                    return LeagueLocale.Greek;
+                case "en_AU":
+                    return LeagueLocale.EnglishAU;
+                case "en_GB":
+                    return LeagueLocale.EnglishGB;
+                case "en_US":
+                    return LeagueLocale.EnglishUS;
+                case "es_ES":
+                    return LeagueLocale.SpanishES;
+                case "es_MS":
+                    return LeagueLocale.SpanishMX;
+                case "fr_FR":
+                    return LeagueLocale.French;
+                case "hu_HU":
+                    return LeagueLocale.Hungarian;
+                case "it_IT":
+                    return LeagueLocale.Italian;
+                case "ja_JP":
+                    return LeagueLocale.Japanese;
+                case "ko_KR":
+                    return LeagueLocale.Korean;
+                case "pl_PL":
+                    return LeagueLocale.Polish;
+                case "bt_BR":
+                    return LeagueLocale.Portuguese;
+                case "ro_RO":
+                    return LeagueLocale.Romanian;
+                case "ru_RU":
+                    return LeagueLocale.Russian;
+                case "tr_TR":
+                    return LeagueLocale.Turkish;
+                case "zh_TW":
+                    return LeagueLocale.ChineseTW;
+                default:
+                    return LeagueLocale.EnglishUS;
+            }
         }
 
         public static string GetLocaleCode(LeagueLocale name)
