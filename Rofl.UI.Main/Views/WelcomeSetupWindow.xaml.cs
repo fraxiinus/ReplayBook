@@ -65,10 +65,10 @@ namespace Rofl.UI.Main.Views
             {
                 DataContext = this
             });
-            _welcomeSetupPages.Add(new WelcomeSetupRegion
-            {
-                DataContext = this
-            });
+            //_welcomeSetupPages.Add(new WelcomeSetupRegion
+            //{
+            //    DataContext = this
+            //});
             _welcomeSetupPages.Add(new WelcomeSetupExecutables
             {
                 DataContext = this
