@@ -18,6 +18,9 @@ namespace Rofl.UI.Main.Utilities
                 case Language.ZhHans:
                     dict.Source = new System.Uri("..\\Resources\\Strings\\zh-Hans.xaml", System.UriKind.Relative);
                     break;
+                case Language.De:
+                    dict.Source = new System.Uri("..\\Resources\\Strings\\de.xaml", System.UriKind.Relative);
+                    break;
             }
 
             Application.Current.Resources.MergedDictionaries.Add(dict);
@@ -35,6 +38,9 @@ namespace Rofl.UI.Main.Utilities
                         break;
                     case Language.ZhHans:
                         languages.Add("简体中文");
+                        break;
+                    case Language.De:
+                        languages.Add("Deutsch");
                         break;
                 }
             }
