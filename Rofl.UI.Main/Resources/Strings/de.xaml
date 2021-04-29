@@ -67,7 +67,7 @@
     <string:String x:Key="MatchHistoryUrlLabelText">Spielverlauf URL</string:String>
     <string:String x:Key="MarchHistoryUrlInfoText">Die "Online Ansehen"-Funktion funktioniert nicht, wenn das Replay von einer anderen Region als die URL ist.</string:String>
 
-    <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String> //TODO
+    <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String> <!--TODO-->
     <string:String x:Key="FileAssociationButtonText">.rofl Dateizuordnung gesetzt</string:String>
     <string:String x:Key="FileAssociationMessageTitleText">Dateizuordnung gesetzt</string:String>
     <string:String x:Key="FileAssociationMessageBodyText">ReplayBook als Standartapplikation für .rofl Dateien gesetzt</string:String>
@@ -163,7 +163,7 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxinus (Etirps)</string:String>
-    <string:String x:Key="Version">Release 1.2.0</string:String>
+    <string:String x:Key="Version">Release 1.2.1</string:String>
     <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Trete dem Discord bei!</string:String>
     <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
@@ -218,7 +218,7 @@
     <string:String x:Key="TotalHealingDoneHeaderText">Gesamte Heilung</string:String>
     <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Gesamte Heilung an Mitspieler</string:String>
     <string:String x:Key="TotalUnitsHealedHeaderText">Einheiten geheilt</string:String>
-    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded to Teammates</string:String> //TODO
+    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded to Teammates</string:String> <!--TODO-->
     <string:String x:Key="TotalDamageTakenHeaderText">Gesamter genommener Schaden</string:String>
     <string:String x:Key="PhysicalDamageTakenHeaderText">Normaler Schaden genommen</string:String>
     <string:String x:Key="MagicDamageTakenHeaderText">Magischer Schaden genommen</string:String>
