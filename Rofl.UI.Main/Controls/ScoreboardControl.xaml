@@ -32,7 +32,7 @@
                        Margin="0 0 5 1"/>
 
                 <TextBlock Text="{DynamicResource BlueTeamText}"
-                           Width="80"
+                           Width="90"
                            FontSize="15"/>
 
                 <Border Background="{DynamicResource BlueTeamAccent}"
@@ -192,7 +192,7 @@
                        Margin="0 0 5 1"/>
 
                 <TextBlock Text="{DynamicResource RedTeamText}"
-                           Width="80"
+                           Width="90"
                            FontSize="15"/>
                 
                 <Border Background="{DynamicResource RedTeamAccent}"
