@@ -163,7 +163,7 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxinus (Etirps)</string:String>
-    <string:String x:Key="Version">Release 1.2.0</string:String>
+    <string:String x:Key="Version">Release 1.2.1</string:String>
     <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Trete dem Discord bei!</string:String>
     <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
