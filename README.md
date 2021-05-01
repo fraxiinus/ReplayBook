@@ -12,9 +12,12 @@
 [![Donate](https://shields.io/badge/ko--fi-support%20me-green?logo=ko-fi&style=flat-square)](https://ko-fi.com/fraxiinus)
 ### ReplayBook is a free open-source tool that helps you organize and manage your downloaded replay files.
 
-### This project is currently looking for translators! [View the wiki for more information](https://github.com/fraxiinus/ReplayBook/wiki/Translating).
+## [Download ReplayBook](https://github.com/fraxiinus/ReplayBook/releases/latest)
 
-## Join the Discord if you need help or have any suggestions
+This project is currently looking for translators! [View the wiki for more information](https://github.com/fraxiinus/ReplayBook/wiki/Translating).
+
+## Need help with ReplayBook? 
+Check out the [troubleshooting guide](https://github.com/fraxiinus/ReplayBook/wiki/Troubleshooting). If you'd like to contact someone, join the Discord or post in the project [discussions](https://github.com/fraxiinus/ReplayBook/discussions)
 
 [![Discord Banner](https://discordapp.com/api/guilds/606263917211156501/widget.png?style=banner2)](https://discord.gg/c33Rc5J)
 
