@@ -152,8 +152,23 @@ namespace Rofl.UI.Main.Views
 
                     if (ExeTools.CheckExecutableFile(selectedExe))
                     {
-                        var newExe = ExeTools.CreateNewLeagueExecutable(selectedExe);
-                        LoadLeagueExecutable(newExe);
+
+                        LeagueExecutable newExe = null;
+
+                        try
+                        {
+                            newExe = ExeTools.CreateNewLeagueExecutable(selectedExe);
+                            LoadLeagueExecutable(newExe);
+                        }
+                        catch (Exception)
+                        {
+                            _blockClose = true;
+
+                            // show fly out
+                            var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                            flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as String);
+                            flyout.ShowAt(TargetButton);
+                        }
                     }
                     else
                     {

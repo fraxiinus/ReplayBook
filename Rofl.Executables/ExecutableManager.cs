@@ -104,10 +104,18 @@ namespace Rofl.Executables
 
                 foreach (string exePath in exeFiles)
                 {
-                    LeagueExecutable newExe = ExeTools.CreateNewLeagueExecutable(exePath);
+                    LeagueExecutable newExe = null;
 
-                    // Set default locale
-                    newExe.Locale = Settings.DefaultLocale;
+                    try
+                    {
+                        newExe = ExeTools.CreateNewLeagueExecutable(exePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.Error($"{ex.GetType()} trying to create executable for path = \"{exePath}\"");
+                        _log.Error(ex.ToString());
+                        continue;
+                    }
 
                     // Do we already have an exe with the same target?
                     if (!foundExecutables.Exists(x => x.TargetPath.Equals(newExe.TargetPath, StringComparison.OrdinalIgnoreCase)))
