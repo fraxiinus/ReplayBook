@@ -23,3 +23,14 @@ jobs:
       
     - name: Build solution
       run: msbuild /t:Build -p:Configuration="Release" -p:Platform="Any CPU"
+
+    - name: Package release
+      run: |
+        Compress-Archive ./Rofl.UI.Main/bin/Release ./ReplayBook.zip
+      shell: pwsh
+
+    - name: Create Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ReplayBook-Test
+        path: ./ReplayBook.zip
