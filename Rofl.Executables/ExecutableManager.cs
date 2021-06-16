@@ -66,14 +66,27 @@ namespace Rofl.Executables
             Save();
         }
 
-        public int SearchAllFoldersForExecutablesAndAddThemAll()
+        public (int, string[]) SearchAllFoldersForExecutablesAndAddThemAll()
         {
             int counter = 0;
+            var skippedDirs = new List<string>();
+
             // loop through all source folders
             foreach (var path in Settings.SourceFolders)
             {
                 // Look for executables
-                var foundExes = SearchFolderForExecutables(path);
+                IList<LeagueExecutable> foundExes;
+                try
+                {
+                    foundExes = SearchFolderForExecutables(path);
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    // If a directory does not exist, save it to be returned to sender
+                    skippedDirs.Add(path);
+                    continue;
+                }
+
                 foreach (var exe in foundExes)
                 {
                     // Check if target executable already exists
@@ -84,7 +97,7 @@ namespace Rofl.Executables
                     }
                 }
             }
-            return counter;
+            return (counter, skippedDirs.ToArray());
         }
 
         public IList<LeagueExecutable> SearchFolderForExecutables(string startPath)

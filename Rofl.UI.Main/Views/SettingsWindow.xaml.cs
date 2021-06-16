@@ -495,10 +495,21 @@ namespace Rofl.UI.Main.Views
         {
             if (!(this.DataContext is SettingsManager context)) { return; }
 
-            var addedCount = context.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
+            var results = context.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
+            int addedCount = results.Item1;
+            var skippedDirs = results.Item2;
 
             var labelText = TryFindResource("ExecutableFoldersSearchResultLabelText") as String;
             labelText = labelText.Replace("$", addedCount.ToString(CultureInfo.InvariantCulture));
+
+            if (skippedDirs.Length > 0)
+            {
+                labelText += "\n\n" + TryFindResource("ExecutableFoldersSearchResultErrorText") as String;
+                foreach (string dir in skippedDirs)
+                {
+                    labelText += "\n" + dir;
+                }
+            }
 
             // Create Dialog with message
             var msgDialog = new GenericMessageDialog()

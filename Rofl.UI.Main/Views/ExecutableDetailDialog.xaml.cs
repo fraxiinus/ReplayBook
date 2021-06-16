@@ -30,7 +30,7 @@ namespace Rofl.UI.Main.Views
 
             this.Title = TryFindResource("AddButtonText") as String + " " + this.Title;
         }
-
+         
         public ExecutableDetailDialog(LeagueExecutable executable)
         {
             if (executable == null) { throw new ArgumentNullException(nameof(executable)); }

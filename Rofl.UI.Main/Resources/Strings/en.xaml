@@ -110,6 +110,7 @@
     <string:String x:Key="ExecutableFoldersSearchButtonText">Scan Folders for Executables</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultTitleText">Search results</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultLabelText">Registered $ new executable(s)</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultErrorText">The following folder(s) could not be searched:</string:String>
     <string:String x:Key="ExecutablesLabelText">Registered Executables</string:String>
     <string:String x:Key="ExecutableSelectFolderDialogText">Select Executable Source Folder</string:String>
     <string:String x:Key="ExecutableDetailWindowText">Executable</string:String>
