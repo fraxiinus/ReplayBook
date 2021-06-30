@@ -34,8 +34,18 @@ namespace Rofl.UI.Main.Utilities
         public async Task<Process> PlayReplay(string path)
         {
             var replay = await _files.GetSingleFile(path).ConfigureAwait(true);
-            var executables = _settingsManager.Executables.GetExecutablesByPatch(replay.ReplayFile.GameVersion);
+            if (replay is null)
+            {
+                // replay file could not be read
+                await ShowExceptionDialog(
+                    new NotSupportedException(
+                        Application.Current.TryFindResource("FailedToLoadReplayText").ToString()))
+                    .ConfigureAwait(true);
+             
+                return null;
+            }
 
+            var executables = _settingsManager.Executables.GetExecutablesByPatch(replay.ReplayFile.GameVersion);
             if (!executables.Any())
             {
                 _log.Information($"No executables found to play replay");

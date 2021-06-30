@@ -54,8 +54,8 @@ namespace Rofl.Reader
                 //    file.Data = null;
                 //    break;
                 default:
-                    _log.Error("File is not an accepted format: rofl");
-                    throw new NotSupportedException($"File is not an accepted format: rofl");
+                    _log.Error($"File {filePath} is not an accepted format: rofl");
+                    return null;
             }
 
             // Make some educated guesses
