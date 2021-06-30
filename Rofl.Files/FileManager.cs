@@ -67,6 +67,9 @@ namespace Rofl.Files
             {
                 var parseResult = await _reader.ReadFile(file.Path).ConfigureAwait(false);
 
+                // skip file if invalid
+                if (parseResult is null) continue;
+
                 FileResult newResult = new FileResult(file, parseResult)
                 {
                     IsNewFile = false
@@ -93,6 +96,9 @@ namespace Rofl.Files
 
             var replayFileInfo = _fileSystem.GetSingleReplayFileInfo(path);
             var parseResult = await _reader.ReadFile(path).ConfigureAwait(false);
+
+            if (parseResult is null) return null;
+
             var newResult = new FileResult(replayFileInfo, parseResult)
             {
                 IsNewFile = false

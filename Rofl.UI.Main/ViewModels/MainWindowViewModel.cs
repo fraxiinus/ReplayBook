@@ -616,10 +616,10 @@ namespace Rofl.UI.Main.ViewModels
         public async Task<(long ItemsTotalSize, long ChampsTotalSize)> CalculateCacheSizes()
         {
             var itemsInfo = new DirectoryInfo(RequestManager.GetItemCachePath());
-            long itemsTotal = await Task.Run(() => itemsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
-
+            long itemsTotal = !itemsInfo.Exists ? 0L : await Task.Run(() => itemsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
+            
             var champsInfo = new DirectoryInfo(RequestManager.GetChampionCachePath());
-            long champsTotal = await Task.Run(() => champsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
+            long champsTotal = !champsInfo.Exists ? 0L : await Task.Run(() => champsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
             return (itemsTotal, champsTotal);
         }

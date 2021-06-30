@@ -72,6 +72,10 @@ namespace Rofl.Requests.Utilities
         public async Task ClearImageCache(string path)
         {
             var dirInfo = new DirectoryInfo(path);
+
+            // short circuit if directory does not exist
+            if (!dirInfo.Exists) return;
+
             await Task.Run(() =>
             {
                 foreach (var image in dirInfo.EnumerateFiles("*.png"))
