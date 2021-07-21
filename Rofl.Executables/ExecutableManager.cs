@@ -130,6 +130,18 @@ namespace Rofl.Executables
                         continue;
                     }
 
+                    try
+                    {
+                        newExe.Locale = ExeTools.DetectExecutableLocale(exePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.Error($"{ex.GetType()} trying to find locale for path = \"{exePath}\"");
+                        _log.Error(ex.ToString());
+                        newExe.Locale = LeagueLocale.EnglishUS;
+                        // do not stop operation
+                    }
+
                     // Do we already have an exe with the same target?
                     if (!foundExecutables.Exists(x => x.TargetPath.Equals(newExe.TargetPath, StringComparison.OrdinalIgnoreCase)))
                     {

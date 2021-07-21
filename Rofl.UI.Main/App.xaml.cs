@@ -33,6 +33,10 @@ namespace Rofl.UI.Main
             // Apply language setting
             LanguageHelper.SetProgramLanguage(_settingsManager.Settings.ProgramLanguage);
 
+#if DEBUG
+            _log.Error("Debug mode, writing log");
+#endif
+
             if (e.Args.Length == 1)
             {
                 var selectedFile = e.Args[0];
