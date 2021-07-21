@@ -70,7 +70,7 @@ namespace Rofl.Executables.Utilities
             string baseFolder = Path.GetDirectoryName(path);
 
             // Navigate to DATA folder
-            string dataFolder = Path.Combine(baseFolder, "DATA", "FINAL");
+            string dataFolder = Path.Combine(baseFolder, "DATA", "FINAL", "Champions");
 
             if (!Directory.Exists(dataFolder)) { throw new DirectoryNotFoundException(dataFolder); }
 
