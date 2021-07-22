@@ -5,6 +5,7 @@
     {
         Czech, German, Greek, EnglishAU, EnglishGB, EnglishUS, SpanishES, SpanishMX, French,
         Hungarian, Italian, Japanese, Korean, Polish, Portuguese, Romanian, Russian, Turkish,
-        ChineseTW, ChineseCN, Custom = 99
+        ChineseTW, ChineseCN, EnglishPH, EnglishSG, SpanishAR, Indonesian, Thai, Vietnamese,
+        ChineseMY, Custom = 99
     }
 }
