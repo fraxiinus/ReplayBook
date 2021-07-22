@@ -11,50 +11,37 @@ namespace Rofl.Executables.Utilities
     {
         public static bool CheckExecutableFile(string filePath)
         {
-            if (String.IsNullOrEmpty(filePath) 
-                || !filePath.Contains("League of Legends.exe") 
-                || !File.Exists(filePath) 
-                || !(FileVersionInfo.GetVersionInfo(filePath).FileDescription)
-                        .Equals(@"League of Legends (TM) Client", StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-
-            return true;
+            return !string.IsNullOrEmpty(filePath)
+                && filePath.Contains("League of Legends.exe")
+                && File.Exists(filePath)
+                && FileVersionInfo.GetVersionInfo(filePath).FileDescription
+                        .Equals(@"League of Legends (TM) Client", StringComparison.OrdinalIgnoreCase);
         }
 
         public static string GetLeagueVersion(string filePath)
         {
-            if (CheckExecutableFile(filePath))
-            {
-                return FileVersionInfo.GetVersionInfo(filePath).FileVersion;
-            }
-            else
-            {
-                // _log.Warning(_myName, $"Invalid Executable: {filePath}");
-                throw new ArgumentException($"Invalid Executable: {filePath}");
-            }
+            return CheckExecutableFile(filePath)
+                ? FileVersionInfo.GetVersionInfo(filePath).FileVersion
+                : throw new ArgumentException($"Invalid Executable: {filePath}");
         }
 
         public static DateTime GetLastModifiedDate(string filePath)
         {
-            if(CheckExecutableFile(filePath))
-            {
-                return (new FileInfo(filePath)).LastWriteTime;
-            }
-            else
-            {
-                // _log.Warning(_myName, $"Invalid Executable: {filePath}");
-                throw new FileNotFoundException($"Invalid Executable: {filePath}");
-            }
+            return CheckExecutableFile(filePath)
+                ? new FileInfo(filePath).LastWriteTime
+                : throw new FileNotFoundException($"Invalid Executable: {filePath}");
         }
 
+        /// <summary>
+        /// Given a executable path, creates a new LeagueExecutable
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static LeagueExecutable CreateNewLeagueExecutable(string path)
         {
             LeagueExecutable newExe = new LeagueExecutable()
             {
                 TargetPath = path,
-                Locale = DetectExecutableLocale(path),
                 StartFolder = Path.GetDirectoryName(path),
                 PatchNumber = GetLeagueVersion(path),
                 ModifiedDate = GetLastModifiedDate(path)
@@ -70,28 +57,35 @@ namespace Rofl.Executables.Utilities
             return newExe;
         }
 
-        // Given a executable path, tries to determine executable locale
+        /// <summary>
+        /// Tries to detect locale
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        /// <exception cref="DirectoryNotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public static LeagueLocale DetectExecutableLocale(string path)
         {
             // Get the base directory
-            var baseFolder = Path.GetDirectoryName(path);
-            // Navigate to DATA folder
-            var dataFolder = Path.Combine(baseFolder, "DATA", "FINAL");
-            if (Directory.Exists(dataFolder))
-            {
-                var localeCode = Directory.EnumerateFiles(dataFolder, "UI.*.wad.client")
-                    .Select(x => Path.GetFileName(x))
-                    .FirstOrDefault()
-                    .Substring(3, 5);
-                return GetLocaleEnum(localeCode);
-            }
+            string baseFolder = Path.GetDirectoryName(path);
 
-            return LeagueLocale.EnglishUS;
+            // Navigate to DATA folder
+            string dataFolder = Path.Combine(baseFolder, "DATA", "FINAL", "Champions");
+
+            if (!Directory.Exists(dataFolder)) { throw new DirectoryNotFoundException(dataFolder); }
+
+            // Look for a locale file
+            string code = Directory.EnumerateFiles(dataFolder, "Nidalee.*.wad.client", SearchOption.AllDirectories)
+                .Select(x => Path.GetFileName(x))
+                .FirstOrDefault()
+                .Substring(8, 5);
+
+            return GetLocaleEnum(code);
         }
 
-        public static LeagueLocale GetLocaleEnum(string name)
+        private static LeagueLocale GetLocaleEnum(string name)
         {
-            switch(name)
+            switch (name)
             {
                 case "cs_CZ":
                     return LeagueLocale.Czech;
@@ -131,8 +125,10 @@ namespace Rofl.Executables.Utilities
                     return LeagueLocale.Turkish;
                 case "zh_TW":
                     return LeagueLocale.ChineseTW;
+                case "zh_CN":
+                    return LeagueLocale.ChineseCN;
                 default:
-                    return LeagueLocale.EnglishUS;
+                    throw new ArgumentException($"locale not found {name}");
             }
         }
 
@@ -198,6 +194,9 @@ namespace Rofl.Executables.Utilities
                 case LeagueLocale.ChineseTW:
                     code = "zh_TW";
                     break;
+                case LeagueLocale.ChineseCN:
+                    code = "zh_CN";
+                    break;
                 case LeagueLocale.Custom:
                     code = "Custom";
                     break;
@@ -210,14 +209,7 @@ namespace Rofl.Executables.Utilities
 
         public static string GetLocaleCode(string name)
         {
-            if (Enum.TryParse<LeagueLocale>(name, out LeagueLocale result))
-            {
-                return GetLocaleCode(result);
-            }
-            else
-            {
-                return GetLocaleCode(LeagueLocale.EnglishUS);
-            }
+            return Enum.TryParse(name, out LeagueLocale result) ? GetLocaleCode(result) : GetLocaleCode(LeagueLocale.EnglishUS);
         }
     }
 }

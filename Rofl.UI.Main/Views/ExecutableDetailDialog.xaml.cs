@@ -158,6 +158,17 @@ namespace Rofl.UI.Main.Views
                         try
                         {
                             newExe = ExeTools.CreateNewLeagueExecutable(selectedExe);
+
+                            try
+                            {
+                                newExe.Locale = ExeTools.DetectExecutableLocale(selectedExe);
+                            }
+                            catch (Exception)
+                            {
+                                newExe.Locale = LeagueLocale.EnglishUS;
+                                // do not stop operation
+                            }
+
                             LoadLeagueExecutable(newExe);
                         }
                         catch (Exception)
