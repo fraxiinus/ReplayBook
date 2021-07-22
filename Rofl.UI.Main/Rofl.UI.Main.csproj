@@ -88,6 +88,9 @@
     <Compile Include="Controls\ColorWrapper.xaml.cs">
       <DependentUpon>ColorWrapper.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PlayerRunesControl.xaml.cs">
+      <DependentUpon>PlayerRunesControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BoolInvertConverter.cs" />
     <Compile Include="Converters\ColorBrushConverter.cs" />
     <Compile Include="Converters\FormatKbSizeConverter.cs" />
@@ -172,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PlayerIconControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PlayerRunesControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
