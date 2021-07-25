@@ -245,3 +245,6 @@ ModelManifest.xml
 .gitignore
 /MigrationBackup/cad34477/Rofl.UI.Main
 .vscode/settings.json
+
+# data json files
+*.data.json
