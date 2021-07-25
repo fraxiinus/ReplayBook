@@ -92,7 +92,7 @@ namespace Rofl.UI.Main.Controls
 
             StatsScrollViewer.ScrollToVerticalOffset(0);
 
-            if (context.SelectedIndex == 1 && PlayerIconsGrid.ColumnDefinitions.Count < 1)
+            if (context.SelectedIndex == 2 && PlayerIconsGrid.ColumnDefinitions.Count < 1)
             {
                 int counter = 0;
                 foreach (var player in replay.AllPlayers)

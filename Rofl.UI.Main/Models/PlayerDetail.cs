@@ -119,6 +119,17 @@ namespace Rofl.UI.Main.Models
                 new Item(player.ITEM5),
                 new Item(player.ITEM6)
             };
+
+            // Runes
+            KeystoneRune = new Rune(0, player.PERK0, player.PERK0_VAR1, player.PERK0_VAR2, player.PERK0_VAR3);
+            Runes = new List<Rune>
+            {
+                new Rune(0, player.PERK1, player.PERK1_VAR1, player.PERK1_VAR2, player.PERK1_VAR3),
+                new Rune(1, player.PERK2, player.PERK2_VAR1, player.PERK2_VAR2, player.PERK2_VAR3),
+                new Rune(2, player.PERK3, player.PERK3_VAR1, player.PERK3_VAR2, player.PERK3_VAR3),
+                new Rune(3, player.PERK4, player.PERK4_VAR1, player.PERK4_VAR2, player.PERK4_VAR3),
+                new Rune(4, player.PERK5, player.PERK5_VAR1, player.PERK5_VAR2, player.PERK5_VAR3)
+            };
         }
 
         public PlayerPreview PreviewModel { get; private set; }
@@ -259,14 +270,22 @@ namespace Rofl.UI.Main.Models
 
         public int Ping { get; private set; }
 
-        public IList<Item> Items { get; private set; }
-
         public string IndividualPosition { get; private set; }
 
         public bool TeamEarlySurrendered { get; private set; }
+
         public int TimeOfLastDisconnect { get; private set; }
+
         public bool WasAFK { get; private set; }
+
         public bool WasAFKAfterFailedSurrender { get; private set; }
+
         public bool WasEarlySurrenderAccomplice { get; private set; }
+
+        public Rune KeystoneRune { get; private set; }
+
+        public IList<Item> Items { get; private set; }
+
+        public IList<Rune> Runes { get; private set; }
     }
 }

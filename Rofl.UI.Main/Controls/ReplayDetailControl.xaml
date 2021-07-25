@@ -246,6 +246,14 @@
                     </Border>
                 </TabItem>
 
+                <TabItem Header="RUNES"
+                         FontSize="12"
+                         Style="{StaticResource AlteredTabItemStyle}">
+                    <Border Background="{DynamicResource BaseBackground}">
+                        <local:RunesDetailControl Margin="10 10 5 0"/>
+                    </Border>
+                </TabItem>
+
                 <TabItem Header="{DynamicResource StatsTabText}"
                          FontSize="12"
                          Style="{StaticResource AlteredTabItemStyle}">

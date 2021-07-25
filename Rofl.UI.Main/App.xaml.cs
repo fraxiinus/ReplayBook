@@ -33,6 +33,9 @@ namespace Rofl.UI.Main
             // Apply language setting
             LanguageHelper.SetProgramLanguage(_settingsManager.Settings.ProgramLanguage);
 
+            // Load data
+            RuneHelper.LoadRunes(_settingsManager.Settings.ProgramLanguage);
+
 #if DEBUG
             _log.Error("Debug mode, writing log");
 #endif

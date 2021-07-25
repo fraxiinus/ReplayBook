@@ -5,18 +5,157 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls" 
              xmlns:models="clr-namespace:Rofl.UI.Main.Models" 
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              d:DataContext="{d:DesignInstance Type=models:PlayerDetail}"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="500">
-    <Grid Margin="0 2 0 2">
+             Height="100"
+             d:DesignHeight="100" d:DesignWidth="750">
+    <Border BorderBrush="{DynamicResource GridLinesBrush}" BorderThickness="0 0 0 1">
+        <Grid Margin="0 0 0 3">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40*"/>
-            <ColumnDefinition Width="40*"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
-                                 Width="40" Height="40"
-                                 Grid.Column="0"/>
-    </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ui:SimpleStackPanel Orientation="Horizontal"
+                                     Grid.Column="0">
+                    <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
+                                     Width="40" Height="40"/>
+
+                    <ui:SimpleStackPanel Orientation="Vertical"
+                                 Margin="10 0 0 0"
+                                 VerticalAlignment="Center">
+
+                        <TextBlock FontSize="14"
+                           FontWeight="Bold"
+                           Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}">
+                            <TextBlock.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="{DynamicResource CopyText}">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
+
+                        <TextBlock FontSize="12"
+                               Text="{Binding Path=PreviewModel.ChampionName, FallbackValue=ChampionName, Mode=OneWay}"
+                               Width="150">
+                        </TextBlock>
+
+                    </ui:SimpleStackPanel>
+                </ui:SimpleStackPanel>
+
+                <ui:SimpleStackPanel Orientation="Horizontal" DataContext="{Binding KeystoneRune}"
+                                     Grid.Column="1">
+                    <Border Background="Black"
+                            Height="35" Width="35"
+                            Grid.Row="1">
+                        <Image Width="30" Height="30"/>
+                    </Border>
+                    <ui:SimpleStackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding RuneName}"
+                               FontSize="14" TextAlignment="Left"
+                               VerticalAlignment="Top"
+                                   HorizontalAlignment="Left"
+                               Width="150"
+                               Grid.Row="0" Grid.Column="0"
+                               Padding="10 0 0 0"/>
+                        <ui:SimpleStackPanel HorizontalAlignment="Left"
+                                             Orientation="Horizontal">
+                            <TextBlock Text="A:" Padding="10 0 5 0"
+                                       FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Value0}"
+                                   TextAlignment="Left"
+                                   Width="40" VerticalAlignment="Center"
+                                   Grid.Row="0" Grid.Column="0"/>
+                            <TextBlock Text="B:" Padding="0 0 5 0"
+                                       FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Value1}"
+                                   TextAlignment="Left"
+                                   Width="40" VerticalAlignment="Center"
+                                   Grid.Row="1" Grid.Column="0"/>
+                            <TextBlock Text="C:" Padding="0 0 5 0"
+                                       FontWeight="Bold"/>
+                            <TextBlock Text="{Binding Value2}"
+                                   TextAlignment="Left"
+                                   Width="40" VerticalAlignment="Center"
+                                   Grid.Row="0" Grid.Column="1"/>
+                        </ui:SimpleStackPanel>
+                    </ui:SimpleStackPanel>
+                </ui:SimpleStackPanel>
+            </Grid>
+
+            <ItemsControl ItemsSource="{Binding Path=Runes}"
+                      Grid.Row="1">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ui:SimpleStackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding RuneName}"
+                                       FontSize="14"
+                                       Grid.Row="0" Grid.Column="0"/>
+                                <ui:SimpleStackPanel HorizontalAlignment="Left"
+                                                 Orientation="Horizontal">
+                                    <Border Background="Black"
+                                        Height="30" Width="30"
+                                        Grid.Row="1">
+                                        <Image Width="30" Height="30"/>
+                                    </Border>
+                                    <Grid Margin="5 0 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Text="{Binding Value0}"
+                                               Width="50"
+                                               Grid.Row="0" Grid.Column="0"/>
+                                        <TextBlock Text="{Binding Value1}"
+                                               Width="50"
+                                               Grid.Row="1" Grid.Column="0"/>
+                                        <TextBlock Text="{Binding Value2}"
+                                               Width="50"
+                                               Grid.Row="0" Grid.Column="1"/>
+                                    </Grid>
+                                </ui:SimpleStackPanel>
+                            </ui:SimpleStackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Grid.Column" Value="{Binding GridPosition}"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </Grid>
+    </Border>
 </UserControl>

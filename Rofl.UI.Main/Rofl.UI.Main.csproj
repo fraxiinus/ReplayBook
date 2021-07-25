@@ -91,6 +91,9 @@
     <Compile Include="Controls\PlayerRunesControl.xaml.cs">
       <DependentUpon>PlayerRunesControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RunesDetailControl.xaml.cs">
+      <DependentUpon>RunesDetailControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BoolInvertConverter.cs" />
     <Compile Include="Converters\ColorBrushConverter.cs" />
     <Compile Include="Converters\FormatKbSizeConverter.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Extensions\StaticResourceExtension.cs" />
     <Compile Include="Models\ExportContext.cs" />
     <Compile Include="Models\ExportSelectItem.cs" />
+    <Compile Include="Models\Rune.cs" />
     <Compile Include="Models\StatusBar.cs" />
     <Compile Include="Models\WelcomeSetupSettings.cs" />
     <Compile Include="NativeMethods.cs" />
@@ -128,6 +132,7 @@
     <Compile Include="Utilities\LanguageHelper.cs" />
     <Compile Include="Utilities\ReplayPlayer.cs" />
     <Compile Include="Utilities\ResourceTools.cs" />
+    <Compile Include="Utilities\RuneHelper.cs" />
     <Compile Include="Utilities\WindowHelper.cs" />
     <Compile Include="Views\AcknowledgementsWindow.xaml.cs">
       <DependentUpon>AcknowledgementsWindow.xaml</DependentUpon>
@@ -191,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ReplayItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RunesDetailControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
