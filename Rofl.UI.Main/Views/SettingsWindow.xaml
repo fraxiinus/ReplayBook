@@ -608,29 +608,45 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
                                     <RowDefinition/>
+                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Text="{DynamicResource RequestsCacheItemsSize}"
                                            Grid.Column="0" Grid.Row="0"/>
                                 <TextBlock Text="{DynamicResource RequestsCacheChampsSize}"
                                            Grid.Column="0" Grid.Row="1"/>
+                                <TextBlock Text="{DynamicResource RequestsCacheRunesSize}"
+                                           Grid.Column="0" Grid.Row="2"/>
 
                                 <TextBlock x:Name="RequestsCacheItemSize"
                                            Grid.Column="1" Grid.Row="0"/>
                                 <TextBlock x:Name="RequestsCacheChampsSize"
                                            Grid.Column="1" Grid.Row="1"/>
+                                <TextBlock x:Name="RequestsCacheRunesSize"
+                                           Grid.Column="1" Grid.Row="2"/>
                             </Grid>
-                            <ui:SimpleStackPanel Orientation="Horizontal"
-                                                 Spacing="12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
                                 <Button x:Name="DeleteItemsButton"
                                         Content="{DynamicResource RequestsCacheClearItemsButton}"
                                         Click="DeleteItemsButton_Click"
-                                        Width="140"/>
+                                        Grid.Column="0"
+                                        Margin="0 0 6 0"/>
                                 <Button x:Name="DeleteChampsButton"
                                         Content="{DynamicResource RequestsCacheClearChampsButton}"
                                         Click="DeleteChampsButton_Click"
-                                        Width="140"/>
-                            </ui:SimpleStackPanel>
+                                        Grid.Column="1"
+                                        Margin="6 0 6 0"/>
+                                <Button x:Name="DeleteRunesButton"
+                                        Content="{DynamicResource RequestsCacheClearRunesButton}"
+                                        Click="DeleteRunesButton_Click"
+                                        Grid.Column="2"
+                                        Margin="6 0 6 0"/>
+                            </Grid>
 
                             <TextBlock Text="{DynamicResource RequestsDownloadAllLabel}"
                                        FontSize="16"/>
@@ -648,6 +664,15 @@
                                 <CheckBox.Content>
                                     <Grid Margin="5 0 0 0">
                                         <TextBlock Text="{DynamicResource WswDownloadItemsText}"/>
+                                    </Grid>
+                                </CheckBox.Content>
+                            </CheckBox>
+                            
+                            <CheckBox x:Name="RunesCheckBox"
+                                      Margin="0 -10 0 0">
+                                <CheckBox.Content>
+                                    <Grid Margin="5 0 0 0">
+                                        <TextBlock Text="{DynamicResource WswDownloadRunesText}"/>
                                     </Grid>
                                 </CheckBox.Content>
                             </CheckBox>

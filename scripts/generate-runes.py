@@ -30,6 +30,7 @@ for lang in languages:
                 x = {
                     "id": r["id"],
                     "name": r["name"],
+                    "key": r["key"],
                     "icon": r["icon"]
                 }
                 runes.append(x)

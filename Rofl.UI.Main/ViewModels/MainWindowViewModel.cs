@@ -58,6 +58,7 @@ namespace Rofl.UI.Main.ViewModels
         // Flags used to clear cache when closing
         public bool ClearItemsCacheOnClose { get; set; }
         public bool ClearChampsCacheOnClose { get; set; }
+        public bool ClearRunesCacheOnClose { get; set; }
 
         public bool ClearReplayCacheOnClose { get; set; }
 
@@ -88,6 +89,7 @@ namespace Rofl.UI.Main.ViewModels
             // By default we do not want to delete our cache
             ClearItemsCacheOnClose = false;
             ClearChampsCacheOnClose = false;
+            ClearRunesCacheOnClose = false;
             ClearReplayCacheOnClose = false;
         }
 
@@ -613,7 +615,7 @@ namespace Rofl.UI.Main.ViewModels
             _fileManager.ClearDeletedFiles();
         }
 
-        public async Task<(long ItemsTotalSize, long ChampsTotalSize)> CalculateCacheSizes()
+        public async Task<(long ItemsTotalSize, long ChampsTotalSize, long RunesTotalSize)> CalculateCacheSizes()
         {
             var itemsInfo = new DirectoryInfo(RequestManager.GetItemCachePath());
             long itemsTotal = !itemsInfo.Exists ? 0L : await Task.Run(() => itemsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
@@ -621,7 +623,10 @@ namespace Rofl.UI.Main.ViewModels
             var champsInfo = new DirectoryInfo(RequestManager.GetChampionCachePath());
             long champsTotal = !champsInfo.Exists ? 0L : await Task.Run(() => champsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
-            return (itemsTotal, champsTotal);
+            var runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
+            long runesTotal = !runesInfo.Exists ? 0L : await Task.Run(() => runesInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
+
+            return (itemsTotal, champsTotal, runesTotal);
         }
 
         public long CalculateReplayCacheSize()
@@ -637,6 +642,7 @@ namespace Rofl.UI.Main.ViewModels
 
             if (ClearItemsCacheOnClose) await RequestManager.ClearItemCache().ConfigureAwait(true);
             if (ClearChampsCacheOnClose) await RequestManager.ClearChampionCache().ConfigureAwait(true);
+            if (ClearRunesCacheOnClose) await RequestManager.ClearRunesCache().ConfigureAwait(true);
 
             if (ClearReplayCacheOnClose)
             {

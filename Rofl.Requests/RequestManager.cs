@@ -44,9 +44,9 @@ namespace Rofl.Requests
         public async Task<ResponseBase> MakeRequestAsync(RequestBase request)
         {
             // This acts as the key to tell if a download is in progress
-            var requestId = GetRequestIdentifier(request);
+            string requestId = GetRequestIdentifier(request);
 
-            if (requestId == "0")
+            if (requestId == "0" || requestId is null)
             {
                 _log.Warning($"Invalid requestId: {requestId}");
                 return new ResponseBase()
@@ -57,11 +57,11 @@ namespace Rofl.Requests
                 };
             }
 
-            // If a download is in progress, use the same task to get the result
-            if(_inProgressTasks.ContainsKey(requestId))
+            // 1. If a download is in progress, use the same task to get the result
+            if (_inProgressTasks.ContainsKey(requestId))
             {
                 // Get the matching in progress task
-                var responseTask = _inProgressTasks[requestId];
+                Task<ResponseBase> responseTask = _inProgressTasks[requestId];
 
                 // If the task is complete, remove it
                 if (responseTask.IsCompleted)
@@ -73,12 +73,12 @@ namespace Rofl.Requests
                 }
 
                 // Get the result of the task and return it
-                var result = await responseTask.ConfigureAwait(true);
+                ResponseBase result = await responseTask.ConfigureAwait(true);
                 return result;
             }
 
-            // A download is not in progress, is it cached?
-            var cacheResponse = _cacheClient.CheckImageCache(request);
+            // 2. A download is not in progress, is it cached?
+            ResponseBase cacheResponse = _cacheClient.CheckImageCache(request);
 
             // Fault occurs if cache is unable to find the file, or if the file is corrupted
             if (!cacheResponse.IsFaulted)
@@ -86,16 +86,16 @@ namespace Rofl.Requests
                 return cacheResponse;
             }
 
-            // Does not exist in cache, make download request
+            // 3. Does not exist in cache, make download request
             try
             {
-                var responseTask = _downloadClient.DownloadIconImageAsync(request);
+                Task<ResponseBase> responseTask = _downloadClient.DownloadIconImageAsync(request);
                 if (!_inProgressTasks.TryAdd(requestId, responseTask))
                 {
                     _log.Warning($"Failed to add in progress task {requestId}");
                 }
 
-                var result = await responseTask.ConfigureAwait(true);
+                ResponseBase result = await responseTask.ConfigureAwait(true);
                 return result;
             }
             catch (Exception ex)
@@ -146,8 +146,8 @@ namespace Rofl.Requests
 
         public async Task<IEnumerable<ChampionRequest>> GetAllChampionRequests()
         {
-            var championNames = await _downloadClient.GetAllChampionNames().ConfigureAwait(true);
-            var latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
+            IEnumerable<string> championNames = await _downloadClient.GetAllChampionNames().ConfigureAwait(true);
+            string latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
 
             return championNames.Select(x => new ChampionRequest
             {
@@ -158,12 +158,24 @@ namespace Rofl.Requests
 
         public async Task<IEnumerable<ItemRequest>> GetAllItemRequests()
         {
-            var itemNumbers = await _downloadClient.GetAllItemNumbers().ConfigureAwait(true);
-            var latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
+            IEnumerable<string> itemNumbers = await _downloadClient.GetAllItemNumbers().ConfigureAwait(true);
+            string latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
 
             return itemNumbers.Select(x => new ItemRequest
             {
                 ItemID = x,
+                DataDragonVersion = latestVersion
+            });
+        }
+
+        public async Task<IEnumerable<RuneRequest>> GetAllRuneRequests((string key, string target)[] runes)
+        {
+            string latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
+
+            return runes.Select(x => new RuneRequest
+            {
+                RuneKey = x.key,
+                TargetPath = x.target,
                 DataDragonVersion = latestVersion
             });
         }
@@ -183,6 +195,11 @@ namespace Rofl.Requests
             return Path.Combine(_cachePath, "items");
         }
 
+        public string GetRuneCachePath()
+        {
+            return Path.Combine(_cachePath, "runes");
+        }
+
         public async Task ClearItemCache()
         {
             await _cacheClient.ClearImageCache(GetItemCachePath()).ConfigureAwait(true);
@@ -193,6 +210,11 @@ namespace Rofl.Requests
             await _cacheClient.ClearImageCache(GetChampionCachePath()).ConfigureAwait(true);
         }
 
+        public async Task ClearRunesCache()
+        {
+            await _cacheClient.ClearImageCache(GetRuneCachePath()).ConfigureAwait(true);
+        }
+
         private string GetRequestIdentifier(RequestBase request)
         {
             string result = null;
@@ -201,13 +223,18 @@ namespace Rofl.Requests
                 case ChampionRequest championRequest:
                     result = championRequest.ChampionName;
                     break;
-                
+
                 case MapRequest mapRequest:
                     result = mapRequest.MapID;
                     break;
 
                 case ItemRequest itemRequest:
                     result = itemRequest.ItemID;
+                    break;
+                case RuneRequest runeRequest:
+                    result = runeRequest.RuneKey;
+                    break;
+                default:
                     break;
             }
 

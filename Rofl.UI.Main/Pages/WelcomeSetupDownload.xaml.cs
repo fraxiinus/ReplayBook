@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using Rofl.Requests.Models;
+using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
 using Rofl.UI.Main.Views;
 
@@ -30,11 +31,12 @@ namespace Rofl.UI.Main.Pages
             ErrorText.Text = String.Empty;
 
             // What do we download?
-            var downloadChamps = ChampionCheckBox.IsChecked ?? false;
-            var downloadItems = ItemCheckBox.IsChecked ?? false;
+            bool downloadChamps = ChampionCheckBox.IsChecked ?? false;
+            bool downloadItems = ItemCheckBox.IsChecked ?? false;
+            bool downloadRunes = RunesCheckBox.IsChecked ?? false;
 
             // Nothing was selected, do nothing
-            if (downloadChamps == false && downloadItems == false)
+            if (downloadChamps == false && downloadItems == false && downloadRunes == false)
             {
                 ErrorText.Text = (string) TryFindResource("WswDownloadNoSelectionError");
                 return;
@@ -52,11 +54,16 @@ namespace Rofl.UI.Main.Pages
                 requests.AddRange(await context.RequestManager.GetAllItemRequests()
                     .ConfigureAwait(true));
             }
+            if (downloadRunes)
+            {
+                requests.AddRange(await context.RequestManager.GetAllRuneRequests(RuneHelper.GetAllRunes())
+                    .ConfigureAwait(true));
+            }
 
             // No requests? nothing to do
             if (requests.Count < 1)
             {
-                ErrorText.Text = (string) TryFindResource("WswDownloadMissingError");
+                ErrorText.Text = (string)TryFindResource("WswDownloadMissingError");
                 return;
             }
 
@@ -64,6 +71,7 @@ namespace Rofl.UI.Main.Pages
             DownloadButton.IsEnabled = false;
             ItemCheckBox.IsEnabled = false;
             ChampionCheckBox.IsEnabled = false;
+            RunesCheckBox.IsEnabled = false;
 
             NextButton.IsEnabled = false;
             PreviousButton.IsEnabled = false;
@@ -76,9 +84,9 @@ namespace Rofl.UI.Main.Pages
             DownloadProgressBar.Minimum = 0;
             DownloadProgressBar.Maximum = requests.Count;
 
-            foreach (var request in requests)
+            foreach (RequestBase request in requests)
             {
-                var response = await context.RequestManager.MakeRequestAsync(request)
+                ResponseBase response = await context.RequestManager.MakeRequestAsync(request)
                     .ConfigureAwait(true);
 
                 DownloadProgressText.Text = response.ResponsePath;

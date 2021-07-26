@@ -15,6 +15,9 @@ namespace Rofl.UI.Main.Utilities
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("key")]
+        public string Key { get; set; }
+
         [JsonProperty("icon")]
         public string Icon { get; set; }
     }
@@ -48,9 +51,17 @@ namespace Rofl.UI.Main.Utilities
             return temp ?? new RuneJson
             {
                 Name = "Unknown Rune",
+                Key = "UnknownRune",
                 Id = id,
                 Icon = ""
             };
+        }
+
+        public static (string key, string target)[] GetAllRunes()
+        {
+            if (RuneData is null) { throw new Exception("run LoadRunes() method first"); }
+
+            return RuneData.Select(x => (key: x.Key, target: x.Icon)).ToArray();
         }
 
         private static string GetAppropriateRegionForLanguage(Language language)
