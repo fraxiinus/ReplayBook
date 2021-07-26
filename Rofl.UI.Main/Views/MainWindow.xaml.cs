@@ -161,6 +161,12 @@ namespace Rofl.UI.Main
             (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
             await (this.DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail).ConfigureAwait(true);
+
+            // See if tab control needs to update runes:
+            if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)
+            {
+                await context.LoadRuneThumbnails(replayDetail).ConfigureAwait(true);
+            }
         }
 
         private void SortButton_Click(object sender, RoutedEventArgs e)

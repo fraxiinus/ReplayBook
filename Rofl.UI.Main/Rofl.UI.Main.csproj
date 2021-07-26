@@ -88,6 +88,9 @@
     <Compile Include="Controls\ColorWrapper.xaml.cs">
       <DependentUpon>ColorWrapper.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RuneIconControl.xaml.cs">
+      <DependentUpon>RuneIconControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PlayerRunesControl.xaml.cs">
       <DependentUpon>PlayerRunesControl.xaml</DependentUpon>
     </Compile>
@@ -174,6 +177,10 @@
     <Page Include="Controls\ColorWrapper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RuneIconControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ItemIconControl.xaml">
       <SubType>Designer</SubType>

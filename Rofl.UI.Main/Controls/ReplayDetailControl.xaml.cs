@@ -87,12 +87,18 @@ namespace Rofl.UI.Main.Controls
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(sender is TabControl context)) { return; }
+            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
+            if (!(sender is TabControl tabControl)) { return; }
             if (!(this.DataContext is ReplayDetail replay)) { return; }
 
             StatsScrollViewer.ScrollToVerticalOffset(0);
 
-            if (context.SelectedIndex == 2 && PlayerIconsGrid.ColumnDefinitions.Count < 1)
+            if (tabControl.SelectedIndex == 1)
+            {
+                context.LoadRuneThumbnails(replay).ConfigureAwait(true);
+            }
+
+            if (tabControl.SelectedIndex == 2 && PlayerIconsGrid.ColumnDefinitions.Count < 1)
             {
                 int counter = 0;
                 foreach (var player in replay.AllPlayers)
