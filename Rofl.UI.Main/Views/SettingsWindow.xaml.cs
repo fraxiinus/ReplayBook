@@ -750,8 +750,9 @@ namespace Rofl.UI.Main.Views
             var results = await viewModel.CalculateCacheSizes().ConfigureAwait(true);
 
             var readableSizeConverter = new FormatKbSizeConverter();
-            RequestsCacheItemSize.Text = (string) readableSizeConverter.Convert(results.ItemsTotalSize, null, null, CultureInfo.InvariantCulture);
+            RequestsCacheItemSize.Text = (string)readableSizeConverter.Convert(results.ItemsTotalSize, null, null, CultureInfo.InvariantCulture);
             RequestsCacheChampsSize.Text = (string)readableSizeConverter.Convert(results.ChampsTotalSize, null, null, CultureInfo.InvariantCulture);
+            RequestsCacheRunesSize.Text = (string)readableSizeConverter.Convert(results.RunesTotalSize, null, null, CultureInfo.InvariantCulture);
         }
 
         private async void DeleteItemsButton_Click(object sender, RoutedEventArgs e)
@@ -778,6 +779,24 @@ namespace Rofl.UI.Main.Views
 
             // Set the delete flag, to be deleted by the main view model on close
             viewModel.ClearChampsCacheOnClose = true;
+
+            // inform the user that the delete will happen when the window is closed
+            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            dialog.DefaultButton = ContentDialogButton.Primary;
+
+            dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
+            dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
+            dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
+
+            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+        }
+
+        private async void DeleteRunesButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+
+            // Set the delete flag, to be deleted by the main view model on close
+            viewModel.ClearRunesCacheOnClose = true;
 
             // inform the user that the delete will happen when the window is closed
             var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
@@ -826,18 +845,19 @@ namespace Rofl.UI.Main.Views
             DownloadImageErrorText.Text = String.Empty;
 
             // What do we download?
-            var downloadChamps = ChampionCheckBox.IsChecked ?? false;
-            var downloadItems = ItemCheckBox.IsChecked ?? false;
+            bool downloadChamps = ChampionCheckBox.IsChecked ?? false;
+            bool downloadItems = ItemCheckBox.IsChecked ?? false;
+            bool downloadRunes = RunesCheckBox.IsChecked ?? false;
 
             // Nothing was selected, do nothing
-            if (downloadChamps == false && downloadItems == false)
+            if (downloadChamps == false && downloadItems == false && downloadRunes == false)
             {
                 DownloadImageErrorText.Text = (string)TryFindResource("WswDownloadNoSelectionError");
                 return;
             }
 
             // Create all the requests we need
-            var requests = new List<RequestBase>();
+            List<RequestBase> requests = new List<RequestBase>();
             if (downloadChamps)
             {
                 requests.AddRange(await context.RequestManager.GetAllChampionRequests()
@@ -846,6 +866,11 @@ namespace Rofl.UI.Main.Views
             if (downloadItems)
             {
                 requests.AddRange(await context.RequestManager.GetAllItemRequests()
+                    .ConfigureAwait(true));
+            }
+            if (downloadRunes)
+            {
+                requests.AddRange(await context.RequestManager.GetAllRuneRequests(RuneHelper.GetAllRunes())
                     .ConfigureAwait(true));
             }
 
@@ -860,6 +885,7 @@ namespace Rofl.UI.Main.Views
             ItemCheckBox.IsEnabled = false;
             ChampionCheckBox.IsEnabled = false;
             DownloadImageButton.IsEnabled = false;
+            RunesCheckBox.IsChecked = false;
 
             // Make progress elements visible
             DownloadProgressGrid.Visibility = Visibility.Visible;

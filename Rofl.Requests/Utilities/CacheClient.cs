@@ -21,31 +21,36 @@ namespace Rofl.Requests.Utilities
 
         public ResponseBase CheckImageCache(RequestBase request)
         {
-            string downloadLocation = String.Empty;
+            if (request is null) { throw new ArgumentNullException(nameof(request)); }
+            string downloadLocation = string.Empty;
 
             // what kind of request is it?
             switch (request)
             {
                 case ChampionRequest c: // check if each unique string isnt null
-                    if(String.IsNullOrEmpty(c.ChampionName)) { throw new ArgumentNullException(); }
+                    if (string.IsNullOrEmpty(c.ChampionName)) { throw new ArgumentNullException(nameof(request)); }
 
                     downloadLocation = Path.Combine(CachePath, "champs", $"{c.ChampionName}.png");
                     break;
 
                 case ItemRequest i:
-                    if (String.IsNullOrEmpty(i.ItemID)) { throw new ArgumentNullException(); }
+                    if (string.IsNullOrEmpty(i.ItemID)) { throw new ArgumentNullException(nameof(request)); }
 
                     downloadLocation = Path.Combine(CachePath, "items", $"{i.ItemID}.png");
                     break;
 
                 case MapRequest m:
-                    if(String.IsNullOrEmpty(m.MapID)) { throw new ArgumentNullException(); }
+                    if (string.IsNullOrEmpty(m.MapID)) { throw new ArgumentNullException(nameof(request)); }
 
                     downloadLocation = Path.Combine(CachePath, "maps", $"{m.MapID}.png");
                     break;
+                case RuneRequest r:
+                    if (string.IsNullOrEmpty(r.TargetPath)) { throw new ArgumentNullException(nameof(request)); }
 
-                default:
+                    downloadLocation = Path.Combine(CachePath, "runes", $"{r.RuneKey}.png");
                     break;
+                default:
+                    throw new NotSupportedException($"unsupported request type: {request.GetType()}");
             }
 
             // Create the response item

@@ -58,6 +58,7 @@ namespace Rofl.UI.Main.ViewModels
         // Flags used to clear cache when closing
         public bool ClearItemsCacheOnClose { get; set; }
         public bool ClearChampsCacheOnClose { get; set; }
+        public bool ClearRunesCacheOnClose { get; set; }
 
         public bool ClearReplayCacheOnClose { get; set; }
 
@@ -88,6 +89,7 @@ namespace Rofl.UI.Main.ViewModels
             // By default we do not want to delete our cache
             ClearItemsCacheOnClose = false;
             ClearChampsCacheOnClose = false;
+            ClearRunesCacheOnClose = false;
             ClearReplayCacheOnClose = false;
         }
 
@@ -308,6 +310,84 @@ namespace Rofl.UI.Main.ViewModels
                             request.Player.ImageSource = response.ResponseBytes.ToBitmapImage();
                         });
                     }
+                }));
+            }
+
+            await Task.WhenAll(allTasks).ConfigureAwait(true);
+        }
+
+        public async Task LoadRuneThumbnails(ReplayDetail replay)
+        {
+            _log.Information("Loading/downloading thumbnails for runes...");
+            if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
+
+            string dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
+
+            List<Rune> allRunes = new List<Rune>();
+            List<Task> allTasks = new List<Task>();
+
+            allRunes.AddRange(replay.AllPlayers.Select(x => x.KeystoneRune));
+            allRunes.AddRange(replay.AllPlayers.SelectMany(x => x.Runes));
+
+            _log.Information($"Processing {allRunes.Count} rune thumbnail requests");
+            foreach (Rune rune in allRunes)
+            {
+                RuneJson runeData = RuneHelper.GetRune(rune.RuneId);
+                // If an item does not exist, set it to nothing!
+                if (string.IsNullOrEmpty(runeData.Icon))
+                {
+                    Application.Current.Dispatcher.Invoke(delegate
+                    {
+                        rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
+                    });
+                    // move on to the next rune
+                    continue;
+                }
+
+                // Set default item image, to be replaced
+                Application.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
+                });
+
+                // make requests for images
+                allTasks.Add(Task.Run(async () =>
+                {
+                    ResponseBase response = await RequestManager.MakeRequestAsync(new RuneRequest
+                    {
+                        DataDragonVersion = dataVersion,
+                        RuneKey = runeData.Key,
+                        TargetPath = runeData.Icon
+                    }).ConfigureAwait(true);
+
+                    if (response.IsFaulted)
+                    {
+                        _log.Warning($"Failed to load image for {(response.Request as RuneRequest).RuneKey}");
+                        Application.Current.Dispatcher.Invoke(delegate
+                        {
+                            rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
+                        });
+                    }
+                    else
+                    {
+                        if (response.FromCache) // load image from file
+                        {
+                            Application.Current.Dispatcher.Invoke(delegate
+                            {
+                                rune.OverlayIcon = null; // hide overlay icons, if any
+                                rune.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
+                            });
+                        }
+                        else // load image straight from response if its not cachsed
+                        {
+                            Application.Current.Dispatcher.Invoke(delegate
+                            {
+                                rune.OverlayIcon = null; // hide overlay icons, if any
+                                rune.ImageSource = response.ResponseBytes.ToBitmapImage();
+                            });
+                        }
+                    }
+
                 }));
             }
 
@@ -613,7 +693,7 @@ namespace Rofl.UI.Main.ViewModels
             _fileManager.ClearDeletedFiles();
         }
 
-        public async Task<(long ItemsTotalSize, long ChampsTotalSize)> CalculateCacheSizes()
+        public async Task<(long ItemsTotalSize, long ChampsTotalSize, long RunesTotalSize)> CalculateCacheSizes()
         {
             var itemsInfo = new DirectoryInfo(RequestManager.GetItemCachePath());
             long itemsTotal = !itemsInfo.Exists ? 0L : await Task.Run(() => itemsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
@@ -621,7 +701,10 @@ namespace Rofl.UI.Main.ViewModels
             var champsInfo = new DirectoryInfo(RequestManager.GetChampionCachePath());
             long champsTotal = !champsInfo.Exists ? 0L : await Task.Run(() => champsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
-            return (itemsTotal, champsTotal);
+            var runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
+            long runesTotal = !runesInfo.Exists ? 0L : await Task.Run(() => runesInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
+
+            return (itemsTotal, champsTotal, runesTotal);
         }
 
         public long CalculateReplayCacheSize()
@@ -637,6 +720,7 @@ namespace Rofl.UI.Main.ViewModels
 
             if (ClearItemsCacheOnClose) await RequestManager.ClearItemCache().ConfigureAwait(true);
             if (ClearChampsCacheOnClose) await RequestManager.ClearChampionCache().ConfigureAwait(true);
+            if (ClearRunesCacheOnClose) await RequestManager.ClearRunesCache().ConfigureAwait(true);
 
             if (ClearReplayCacheOnClose)
             {

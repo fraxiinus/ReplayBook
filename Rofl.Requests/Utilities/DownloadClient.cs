@@ -48,15 +48,12 @@ namespace Rofl.Requests.Utilities
         /// <returns></returns>
         public async Task<ResponseBase> DownloadIconImageAsync(RequestBase request)
         {
-            if(request == null) { throw new ArgumentNullException(nameof(request)); }
+            if (request == null) { throw new ArgumentNullException(nameof(request)); }
 
-            if (string.IsNullOrEmpty(request.DataDragonVersion))
-            {
-                throw new ArgumentNullException(nameof(request));
-            }
+            if (string.IsNullOrEmpty(request.DataDragonVersion)) { throw new ArgumentNullException(nameof(request)); }
 
-            var downloadUrl = ConstructRequestUrl(request);
-            var downloadLocation = ConstructDownloadPath(request);
+            string downloadUrl = ConstructRequestUrl(request);
+            string downloadLocation = ConstructDownloadPath(request);
 
             if (string.IsNullOrEmpty(downloadUrl))
             {
@@ -73,9 +70,9 @@ namespace Rofl.Requests.Utilities
                 };
             }
 
-            var bytes = await DownloadImage(downloadUrl, downloadLocation).ConfigureAwait(false);
+            byte[] bytes = await DownloadImage(downloadUrl, downloadLocation).ConfigureAwait(false);
             // failed to download an image!
-            if(bytes == null)
+            if (bytes == null)
             {
                 return new ResponseBase()
                 {
@@ -255,7 +252,7 @@ namespace Rofl.Requests.Utilities
             switch (request)
             {
                 case ChampionRequest c:
-                {
+                    // Fix for fiddlesticks, name is different from replays
                     if (c.ChampionName == "FiddleSticks")
                     {
                         c.ChampionName = "Fiddlesticks";
@@ -263,21 +260,22 @@ namespace Rofl.Requests.Utilities
 
                     downloadUrl = _settings.DataDragonBaseUrl + c.DataDragonVersion + _settings.ChampionRelativeUrl + c.ChampionName + ".png";
                     break;
-                }
                 case ItemRequest i:
-                {
+                    // make sure we aren't downloading item 0
                     if (!i.ItemID.Equals("0", StringComparison.OrdinalIgnoreCase))
                     {
                         downloadUrl = _settings.DataDragonBaseUrl + i.DataDragonVersion + _settings.ItemRelativeUrl + i.ItemID + ".png";
                     }
 
                     break;
-                }
                 case MapRequest m:
-                {
                     downloadUrl = _settings.DataDragonBaseUrl + m.DataDragonVersion + _settings.MapRelativeUrl + m.MapID + ".png";
                     break;
-                }
+                case RuneRequest r:
+                    downloadUrl = _settings.DataDragonBaseUrl + "img/" + r.TargetPath;
+                    break;
+                default:
+                    throw new NotSupportedException($"unsupported request type: {request.GetType()}");
             }
 
             return downloadUrl;
@@ -296,29 +294,28 @@ namespace Rofl.Requests.Utilities
             switch (request)
             {
                 case ChampionRequest c:
-                {
                     if (c.ChampionName == "FiddleSticks")
                     {
                         c.ChampionName = "Fiddlesticks";
                     }
 
                     downloadPath = Path.Combine(_downloadRootFolder, "champs", $"{c.ChampionName}.png");
-                        break;
-                }
+                    break;
                 case ItemRequest i:
-                {
                     if (!i.ItemID.Equals("0", StringComparison.OrdinalIgnoreCase))
                     {
                         downloadPath = Path.Combine(_downloadRootFolder, "items", $"{i.ItemID}.png");
                     }
 
                     break;
-                }
                 case MapRequest m:
-                {
                     downloadPath = Path.Combine(_downloadRootFolder, "maps", $"{m.MapID}.png");
                     break;
-                }
+                case RuneRequest r:
+                    downloadPath = Path.Combine(_downloadRootFolder, "runes", $"{r.RuneKey}.png");
+                    break;
+                default:
+                    throw new NotSupportedException($"unsupported request type: {request.GetType()}");
             }
 
             return downloadPath;
