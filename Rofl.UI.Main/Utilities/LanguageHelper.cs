@@ -13,14 +13,23 @@ namespace Rofl.UI.Main.Utilities
             switch (target)
             {
                 case Language.En:
-                    dict.Source = new System.Uri("..\\Resources\\Strings\\en.xaml", System.UriKind.Relative);
+                    dict.Source = new Uri("..\\Resources\\Strings\\en.xaml", UriKind.Relative);
                     break;
                 case Language.ZhHans:
-                    dict.Source = new System.Uri("..\\Resources\\Strings\\zh-Hans.xaml", System.UriKind.Relative);
+                    dict.Source = new Uri("..\\Resources\\Strings\\zh-Hans.xaml", UriKind.Relative);
                     break;
                 case Language.De:
-                    dict.Source = new System.Uri("..\\Resources\\Strings\\de.xaml", System.UriKind.Relative);
+                    dict.Source = new Uri("..\\Resources\\Strings\\de.xaml", UriKind.Relative);
                     break;
+            }
+
+            if (target != Language.En)
+            {
+                ResourceDictionary backupDict = new ResourceDictionary
+                {
+                    Source = new Uri("..\\Resources\\Strings\\en.xaml", UriKind.Relative)
+                };
+                Application.Current.Resources.MergedDictionaries.Add(backupDict);
             }
 
             Application.Current.Resources.MergedDictionaries.Add(dict);

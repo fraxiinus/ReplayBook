@@ -219,64 +219,6 @@
     <string:String x:Key="TotalDamageToTurretsHeaderText">承受防御塔</string:String>
     <string:String x:Key="TotalDamageToObjectivesHeaderText">对建筑的伤害</string:String>
 
-    <string:String x:Key="DamageTakenAndHealedGroupHeaderText">Damage Taken and Healed</string:String>
-    <string:String x:Key="TotalHealingDoneHeaderText">Total Healing Done</string:String>
-    <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Total Healing Done to Teammates</string:String>
-    <string:String x:Key="TotalUnitsHealedHeaderText">Total Units Healed</string:String>
-    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded to Teammates</string:String>
-    <string:String x:Key="TotalDamageTakenHeaderText">Total Damage Taken</string:String>
-    <string:String x:Key="PhysicalDamageTakenHeaderText">Physical Damage Taken</string:String>
-    <string:String x:Key="MagicDamageTakenHeaderText">Magic Damage Taken</string:String>
-    <string:String x:Key="TrueDamageTakenHeaderText">True Damage Taken</string:String>
-    <string:String x:Key="TotalDamageSelfMitigatedHeaderText">Total Damage Self Mitigated</string:String>
-
-    <string:String x:Key="VisionGroupHeaderText">Vision</string:String>
-    <string:String x:Key="VisionScoreHeaderText">Vision Score</string:String>
-    <string:String x:Key="WardsPlacedHeaderText">Wards Placed</string:String>
-    <string:String x:Key="WardsKilledHeaderText">Wards Destroyed</string:String>
-    <string:String x:Key="VisionWardsPurchasedHeaderText">Control Wards Purchased</string:String>
-
-    <string:String x:Key="IncomeGroupHeaderText">Income</string:String>
-    <string:String x:Key="GoldEarnedHeaderText">Gold Earned</string:String>
-    <string:String x:Key="GoldSpentHeaderText">Gold Spent</string:String>
-    <string:String x:Key="ItemsPurchasedHeaderText">Items Purchased</string:String>
-    <string:String x:Key="ConsumablesPurchasedHeaderText">Consumables Purchased</string:String>
-    <string:String x:Key="MinionsKilledHeaderText">Minions Killed</string:String>
-    <string:String x:Key="NeutralMinionsKilledHeaderText">Neutral Minions Killed</string:String>
-    <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Own Jungle Minion Kills</string:String>
-    <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Other Jungle Minion Kills</string:String>
-
-    <string:String x:Key="ObjectivesGroupHeaderText">Objectives</string:String>
-    <string:String x:Key="TotalExperienceHeaderText">Total Experience</string:String>
-    <string:String x:Key="TurretsKilledHeaderText">Turrets Killed</string:String>
-    <string:String x:Key="InhibitorsKilledHeaderText">Inhibitors Killed</string:String>
-    <string:String x:Key="ObjectivesStolenHeaderText">Objectives Stolen</string:String>
-    <string:String x:Key="BaronsKilledHeaderText">Barons Killed</string:String>
-    <string:String x:Key="DragonsKilledHeaderText">Dragons Killed</string:String>
-    <string:String x:Key="LongestTimeSpentAliveHeaderText">Longest Time Spent Alive</string:String>
-    <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
-    <string:String x:Key="LastHitNexusHeaderText">Last Hit Nexus</string:String>
-
-    <string:String x:Key="ToxicityGroupHeaderText">Toxicity</string:String>
-    <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>
-    <string:String x:Key="TimeOfLastDisconnectHeaderText">Time Of Last Disconnect</string:String>
-    <string:String x:Key="PlayersMutedHeaderText">Players Muted</string:String>
-    <string:String x:Key="MutedByPlayersHeaderText">Muted By Players</string:String>
-    <string:String x:Key="PingHeaderText">Ping</string:String>
-    <string:String x:Key="TeamEarlySurrenderedHeaderText">Team Early Surrendered</string:String>
-    <string:String x:Key="WasAFKHeaderText">Was AFK</string:String>
-    <string:String x:Key="WasAFKAfterFailedSurrenderHeaderText">Was AFK After Failed Surrender</string:String>
-    <string:String x:Key="WasEarlySurrenderAccompliceHeaderText">Was Early Surrender Accomplice</string:String>
-
-    <string:String x:Key="MiscGroupHeaderText">Misc</string:String>
-    <string:String x:Key="Spell1CastsHeaderText">Spell 1 Casts</string:String>
-    <string:String x:Key="Spell2CastsHeaderText">Spell 2 Casts</string:String>
-    <string:String x:Key="Spell3CastsHeaderText">Spell 3 Casts</string:String>
-    <string:String x:Key="Spell4CastsHeaderText">Spell 4 Casts</string:String>
-    <string:String x:Key="SummonerSpell1CastsHeaderText">Summoner Spell 1 Casts</string:String>
-    <string:String x:Key="SummonerSpell2CastsHeaderText">Summoner Spell 2 Casts</string:String>
-    <string:String x:Key="IndividualPositionHeaderText">Individual Position</string:String>
-
     <!--ToolTip Text-->
     <string:String x:Key="SortToolTip">排序</string:String>
     <string:String x:Key="RefreshToolTip">刷新</string:String>
