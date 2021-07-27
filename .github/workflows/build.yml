@@ -39,7 +39,8 @@ jobs:
     
     - name: Copy runes to release
       run: |
-        robocopy ./runes/ ./Rofl.UI.Main/bin/Release/lib/
+        Copy-Item -Path "./runes" -Destination "./Rofl.UI.Main/bin/Release/lib" -Recurse
+      shell: pwsh
 
     - name: Package release
       run: |
