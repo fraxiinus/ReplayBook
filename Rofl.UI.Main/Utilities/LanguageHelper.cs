@@ -24,6 +24,9 @@ namespace Rofl.UI.Main.Utilities
             }
 
             Application.Current.Resources.MergedDictionaries.Add(dict);
+
+            // Re-load static rune data
+            RuneHelper.LoadRunes(target);
         }
 
         public static string[] GetFriendlyLanguageNames()
