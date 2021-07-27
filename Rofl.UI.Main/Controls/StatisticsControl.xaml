@@ -38,7 +38,7 @@
               BorderThickness="0"
               MinRowHeight="56"
               RowHeight="56"
-              Width="2530">
+              Width="2590">
 
         <DataGrid.ColumnHeaderStyle>
             <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource DefaultDataGridColumnHeaderStyle}">
@@ -632,6 +632,20 @@
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
             <!---->
+
+            <DataGridTextColumn Binding="{Binding Path=TotalTimeSpentDead, Mode=OneWay}">
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{DynamicResource TotalTimeDeadHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+
+            <DataGridTextColumn Binding="{Binding Path=LongestTimeSpentAlive, Mode=OneWay}">
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{DynamicResource LongestTimeAliveHeaderText}"
+                               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=TotalTimeCrowdControlDealt, Mode=OneWay}">
                 <DataGridTextColumn.Header>
