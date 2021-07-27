@@ -2,6 +2,7 @@
 using Rofl.UI.Main.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Rofl.UI.Main.Models
 {
@@ -286,6 +287,21 @@ namespace Rofl.UI.Main.Models
 
         public IList<Item> Items { get; private set; }
 
+        // Does not include keystone rune
         public IList<Rune> Runes { get; private set; }
+
+        public Rune PrimaryPathRune0 => Runes[0];
+
+        public Rune PrimaryPathRune1 => Runes[1];
+
+        public Rune PrimaryPathRune2 => Runes[2];
+
+        public Rune SecondaryPathRune0 => Runes[3];
+
+        public Rune SecondaryPathRune1 => Runes[4];
+
+        public IEnumerable<Rune> PrimaryPathRunes => Runes.Take(3);
+
+        public IEnumerable<Rune> SecondaryPathRunes => Runes.Skip(3).Take(2);
     }
 }

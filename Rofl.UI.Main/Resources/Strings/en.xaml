@@ -22,6 +22,7 @@
     <string:String x:Key="BlueTeamText">Blue Team</string:String>
     <string:String x:Key="RedTeamText">Red Team</string:String>
     <string:String x:Key="ScoreboardTabText">SCOREBOARD</string:String>
+    <string:String x:Key="RunesTabText">RUNES</string:String>
     <string:String x:Key="StatsTabText">STATS</string:String>
     <string:String x:Key="BlankDetailMessageText">Select a replay on the left to begin</string:String>
     <string:String x:Key="FailedToLoadReplayText">Failed to load replay</string:String>
