@@ -2,7 +2,6 @@
 using Rofl.UI.Main.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Rofl.UI.Main.Models
 {
@@ -299,9 +298,5 @@ namespace Rofl.UI.Main.Models
         public Rune SecondaryPathRune0 => Runes[3];
 
         public Rune SecondaryPathRune1 => Runes[4];
-
-        public IEnumerable<Rune> PrimaryPathRunes => Runes.Take(3);
-
-        public IEnumerable<Rune> SecondaryPathRunes => Runes.Skip(3).Take(2);
     }
 }
