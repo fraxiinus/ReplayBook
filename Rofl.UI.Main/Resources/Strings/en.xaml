@@ -202,8 +202,6 @@
     <string:String x:Key="QuadraKillsHeaderText">Quadra Kills</string:String>
     <string:String x:Key="PentaKillsHeaderText">Penta Kills</string:String>
     <string:String x:Key="UnrealKillsHeaderText">Unreal Kills</string:String>
-    <string:String x:Key="LongestTimeAliveHeaderText">Longest Life</string:String>
-    <string:String x:Key="TotalTimeDeadHeaderText">Total Time Dead</string:String>
     <string:String x:Key="CrowdControlScoreHeaderText">Crowd Control Score</string:String>
     <string:String x:Key="TotalTimeCrowdControlDealtHeaderText">Crowd Control Time</string:String>
 

@@ -20,6 +20,9 @@ namespace Rofl.UI.Main.Utilities
 
         [JsonProperty("icon")]
         public string Icon { get; set; }
+
+        [JsonProperty("endOfGameStatDescs")]
+        public List<string> EndOfGameStatDescs { get; private set; }
     }
 
     public static class RuneHelper
@@ -62,6 +65,17 @@ namespace Rofl.UI.Main.Utilities
             if (RuneData is null) { throw new Exception("run LoadRunes() method first"); }
 
             return RuneData.Select(x => (key: x.Key, target: x.Icon)).ToArray();
+        }
+
+        public static string FillInDescriptions(string desc, string value0, string value1, string value2)
+        {
+            if (string.IsNullOrEmpty(desc)) { throw new ArgumentNullException(nameof(desc)); }
+
+            desc = desc.Replace("@eogvar1@", value0);
+            desc = desc.Replace("@eogvar2@", value1);
+            desc = desc.Replace("@eogvar3@", value2);
+
+            return desc;
         }
 
         private static string GetAppropriateRegionForLanguage(Language language)
