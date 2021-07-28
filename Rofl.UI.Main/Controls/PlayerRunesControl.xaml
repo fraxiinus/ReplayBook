@@ -200,7 +200,7 @@
                                          Grid.Column="0"
                                          Margin="0 0 0 10">
                         <local:RuneIconControl DataContext="{Binding}"
-                                               Width="40" Height="40"
+                                               Width="60" Height="60"
                                                VerticalAlignment="Top"/>
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Margin="5 0 0 0">
@@ -232,6 +232,7 @@
                                          Margin="0 0 0 10">
                         <local:RuneIconControl DataContext="{Binding}"
                                                Width="40" Height="40"
+                                               Margin="10 0 10 0"
                                                VerticalAlignment="Top"/>
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Margin="5 0 0 0">
@@ -263,6 +264,7 @@
                                          Margin="0 0 0 10">
                         <local:RuneIconControl DataContext="{Binding}"
                                                Width="40" Height="40"
+                                               Margin="10 0 10 0"
                                                VerticalAlignment="Top"/>
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Margin="5 0 0 0">
@@ -294,6 +296,7 @@
                                          Margin="0 0 0 10">
                         <local:RuneIconControl DataContext="{Binding}"
                                                Width="40" Height="40"
+                                               Margin="10 0 10 0"
                                                VerticalAlignment="Top"/>
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Margin="5 0 0 0">
@@ -325,6 +328,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
 
                     <ui:SimpleStackPanel Orientation="Horizontal"
@@ -333,6 +337,7 @@
                                          Margin="0 0 0 10">
                         <local:RuneIconControl DataContext="{Binding}"
                                                Width="40" Height="40"
+                                               Margin="0 0 10 0"
                                                VerticalAlignment="Top"/>
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Margin="5 0 0 0">
@@ -364,6 +369,7 @@
                                          Margin="0 0 0 10">
                         <local:RuneIconControl DataContext="{Binding}"
                                                Width="40" Height="40"
+                                               Margin="0 0 10 0"
                                                VerticalAlignment="Top"/>
                         <ui:SimpleStackPanel Orientation="Vertical"
                                              Margin="5 0 0 0">
@@ -388,7 +394,63 @@
                             </ItemsControl>
                         </ui:SimpleStackPanel>
                     </ui:SimpleStackPanel>
-                    
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Rectangle Grid.Column="0" Grid.ColumnSpan="2"
+                                   Fill="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                                   Height="3" Width="21"
+                                   Margin="0 0 12 0"/>
+
+                        <Rectangle Grid.Column="1" Grid.ColumnSpan="2"
+                                   Fill="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                                   Height="3" Width="21"
+                                   Margin="0 0 1 0"/>
+
+                        <ui:SimpleStackPanel Orientation="Horizontal"
+                                             DataContext="{Binding StatsRunes0}"
+                                             Margin="0 0 10 0">
+                            <Border Background="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                                    CornerRadius="15"
+                                    Height="30">
+                                <local:RuneIconControl DataContext="{Binding}"
+                                                       Width="30" Height="30"
+                                                       VerticalAlignment="Top"/>
+                            </Border>
+                        </ui:SimpleStackPanel>
+
+                        <ui:SimpleStackPanel Orientation="Horizontal"
+                                             DataContext="{Binding StatsRunes1}"
+                                             Margin="10 0 10 0"
+                                             Grid.Column="1">
+                            <Border Background="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                                    CornerRadius="15"
+                                    Height="30">
+                                <local:RuneIconControl DataContext="{Binding}"
+                                                       Width="30" Height="30"
+                                                       VerticalAlignment="Top"/>
+                            </Border>
+                        </ui:SimpleStackPanel>
+
+                        <ui:SimpleStackPanel Orientation="Horizontal"
+                                             DataContext="{Binding StatsRunes2}"
+                                             Margin="10 0 10 0"
+                                             Grid.Column="2">
+                            <Border Background="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                                    CornerRadius="15"
+                                    Height="30">
+                                <local:RuneIconControl DataContext="{Binding}"
+                                                       Width="30" Height="30"
+                                                       VerticalAlignment="Top"/>
+                            </Border>
+                        </ui:SimpleStackPanel>
+                    </Grid>
+
                 </Grid>
             </Grid>
         </Expander>

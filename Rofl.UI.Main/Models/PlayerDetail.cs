@@ -121,14 +121,20 @@ namespace Rofl.UI.Main.Models
             };
 
             // Runes
-            KeystoneRune = new Rune(0, player.PERK0, player.PERK0_VAR1, player.PERK0_VAR2, player.PERK0_VAR3);
+            KeystoneRune = new Rune(player.PERK0, player.PERK0_VAR1, player.PERK0_VAR2, player.PERK0_VAR3);
             Runes = new List<Rune>
             {
-                new Rune(0, player.PERK1, player.PERK1_VAR1, player.PERK1_VAR2, player.PERK1_VAR3),
-                new Rune(1, player.PERK2, player.PERK2_VAR1, player.PERK2_VAR2, player.PERK2_VAR3),
-                new Rune(2, player.PERK3, player.PERK3_VAR1, player.PERK3_VAR2, player.PERK3_VAR3),
-                new Rune(3, player.PERK4, player.PERK4_VAR1, player.PERK4_VAR2, player.PERK4_VAR3),
-                new Rune(4, player.PERK5, player.PERK5_VAR1, player.PERK5_VAR2, player.PERK5_VAR3)
+                new Rune(player.PERK1, player.PERK1_VAR1, player.PERK1_VAR2, player.PERK1_VAR3),
+                new Rune(player.PERK2, player.PERK2_VAR1, player.PERK2_VAR2, player.PERK2_VAR3),
+                new Rune(player.PERK3, player.PERK3_VAR1, player.PERK3_VAR2, player.PERK3_VAR3),
+                new Rune(player.PERK4, player.PERK4_VAR1, player.PERK4_VAR2, player.PERK4_VAR3),
+                new Rune(player.PERK5, player.PERK5_VAR1, player.PERK5_VAR2, player.PERK5_VAR3)
+            };
+            StatsRunes = new List<Rune>
+            {
+                new Rune(player.STAT_PERK_0, "", "", ""),
+                new Rune(player.STAT_PERK_1, "", "", ""),
+                new Rune(player.STAT_PERK_2, "", "", "")
             };
         }
 
@@ -286,8 +292,10 @@ namespace Rofl.UI.Main.Models
 
         public IList<Item> Items { get; private set; }
 
-        // Does not include keystone rune
+        // Does not include keystone rune or stats runes
         public IList<Rune> Runes { get; private set; }
+
+        public IList<Rune> StatsRunes { get; private set; }
 
         public Rune PrimaryPathRune0 => Runes[0];
 
@@ -298,5 +306,11 @@ namespace Rofl.UI.Main.Models
         public Rune SecondaryPathRune0 => Runes[3];
 
         public Rune SecondaryPathRune1 => Runes[4];
+
+        public Rune StatsRunes0 => StatsRunes[0];
+
+        public Rune StatsRunes1 => StatsRunes[1];
+
+        public Rune StatsRunes2 => StatsRunes[2];
     }
 }

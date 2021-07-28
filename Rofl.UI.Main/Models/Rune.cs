@@ -9,9 +9,8 @@ namespace Rofl.UI.Main.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Rune(int order, string id, string firstValue, string secondValue, string thirdValue)
+        public Rune(string id, string firstValue, string secondValue, string thirdValue)
         {
-            GridPosition = order;
             RuneId = id;
 
             RuneJson staticData = RuneHelper.GetRune(id);
@@ -65,8 +64,6 @@ namespace Rofl.UI.Main.Models
                 return System.Windows.Visibility.Collapsed;
             }
         }
-
-        public int GridPosition { get; set; }
 
         public string RuneId { get; set; }
 

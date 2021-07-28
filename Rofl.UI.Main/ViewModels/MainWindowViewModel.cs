@@ -328,6 +328,7 @@ namespace Rofl.UI.Main.ViewModels
 
             allRunes.AddRange(replay.AllPlayers.Select(x => x.KeystoneRune));
             allRunes.AddRange(replay.AllPlayers.SelectMany(x => x.Runes));
+            allRunes.AddRange(replay.AllPlayers.SelectMany(x => x.StatsRunes));
 
             _log.Information($"Processing {allRunes.Count} rune thumbnail requests");
             foreach (Rune rune in allRunes)
