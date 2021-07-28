@@ -12,6 +12,7 @@
              d:DesignHeight="50" d:DesignWidth="750">
     <Border BorderBrush="{DynamicResource GridLinesBrush}" BorderThickness="0 0 0 1"
             Margin="0 0 10 0">
+
         <Expander HorizontalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch"
                   VerticalAlignment="Center">
@@ -20,6 +21,7 @@
                 <!--see https://stackoverflow.com/a/40508245/15625585-->
                 <Grid HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}"
                       Height="48">
+
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="*"/>
@@ -52,7 +54,7 @@
                                 <TextBlock.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="{DynamicResource CopyText}"
-                                          Click="CopyItem_Click">
+                                                  Click="CopyItem_Click">
                                             <MenuItem.Icon>
                                                 <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
                                             </MenuItem.Icon>
@@ -181,6 +183,7 @@
                     </local:RuneIconControl>
                 </Grid>
             </Expander.Header>
+
             <Border Background="{DynamicResource SystemControlBackgroundListLowBrush}"
                     CornerRadius="0" Margin="0 5 5 0" Padding="0 5 0 0">
 
@@ -199,14 +202,14 @@
                         </Grid.RowDefinitions>
 
                         <ui:SimpleStackPanel Orientation="Horizontal"
-                                         DataContext="{Binding KeystoneRune}"
-                                         Grid.Column="0"
-                                         Margin="0 0 0 10">
+                                             DataContext="{Binding KeystoneRune}"
+                                             Grid.Column="0"
+                                             Margin="0 0 0 10">
                             <local:RuneIconControl DataContext="{Binding}"
-                                               Width="60" Height="60"
-                                               VerticalAlignment="Top"/>
+                                                   Width="60" Height="60"
+                                                   VerticalAlignment="Top"/>
                             <ui:SimpleStackPanel Orientation="Vertical"
-                                             Margin="5 0 0 0">
+                                                 Margin="5 0 0 0">
                                 <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
                                 <ItemsControl ItemsSource="{Binding Descriptions}">
                                     <ItemsControl.ItemTemplate>
@@ -215,7 +218,7 @@
                                                 <TextBlock.ContextMenu>
                                                     <ContextMenu>
                                                         <MenuItem Header="{DynamicResource CopyText}"
-                                                              Click="CopyItem_Click">
+                                                                  Click="CopyItem_Click">
                                                             <MenuItem.Icon>
                                                                 <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
                                                             </MenuItem.Icon>
@@ -230,15 +233,15 @@
                         </ui:SimpleStackPanel>
 
                         <ui:SimpleStackPanel Orientation="Horizontal"
-                                         DataContext="{Binding PrimaryPathRune0}"
-                                         Grid.Row="1"
-                                         Margin="0 0 0 10">
+                                             DataContext="{Binding PrimaryPathRune0}"
+                                             Grid.Row="1"
+                                             Margin="0 0 0 10">
                             <local:RuneIconControl DataContext="{Binding}"
-                                               Width="40" Height="40"
-                                               Margin="10 0 10 0"
-                                               VerticalAlignment="Top"/>
+                                                   Width="40" Height="40"
+                                                   Margin="10 0 10 0"
+                                                   VerticalAlignment="Top"/>
                             <ui:SimpleStackPanel Orientation="Vertical"
-                                             Margin="5 0 0 0">
+                                                 Margin="5 0 0 0">
                                 <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
                                 <ItemsControl ItemsSource="{Binding Descriptions}">
                                     <ItemsControl.ItemTemplate>
@@ -247,7 +250,7 @@
                                                 <TextBlock.ContextMenu>
                                                     <ContextMenu>
                                                         <MenuItem Header="{DynamicResource CopyText}"
-                                                              Click="CopyItem_Click">
+                                                                  Click="CopyItem_Click">
                                                             <MenuItem.Icon>
                                                                 <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
                                                             </MenuItem.Icon>
@@ -262,15 +265,15 @@
                         </ui:SimpleStackPanel>
 
                         <ui:SimpleStackPanel Orientation="Horizontal"
-                                         DataContext="{Binding PrimaryPathRune1}"
-                                         Grid.Row="2"
-                                         Margin="0 0 0 10">
+                                             DataContext="{Binding PrimaryPathRune1}"
+                                             Grid.Row="2"
+                                             Margin="0 0 0 10">
                             <local:RuneIconControl DataContext="{Binding}"
-                                               Width="40" Height="40"
-                                               Margin="10 0 10 0"
-                                               VerticalAlignment="Top"/>
+                                                   Width="40" Height="40"
+                                                   Margin="10 0 10 0"
+                                                   VerticalAlignment="Top"/>
                             <ui:SimpleStackPanel Orientation="Vertical"
-                                             Margin="5 0 0 0">
+                                                 Margin="5 0 0 0">
                                 <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
                                 <ItemsControl ItemsSource="{Binding Descriptions}">
                                     <ItemsControl.ItemTemplate>
@@ -279,7 +282,7 @@
                                                 <TextBlock.ContextMenu>
                                                     <ContextMenu>
                                                         <MenuItem Header="{DynamicResource CopyText}"
-                                                              Click="CopyItem_Click">
+                                                                  Click="CopyItem_Click">
                                                             <MenuItem.Icon>
                                                                 <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
                                                             </MenuItem.Icon>
@@ -294,15 +297,15 @@
                         </ui:SimpleStackPanel>
 
                         <ui:SimpleStackPanel Orientation="Horizontal"
-                                         DataContext="{Binding PrimaryPathRune2}"
-                                         Grid.Row="3"
-                                         Margin="0 0 0 10">
+                                             DataContext="{Binding PrimaryPathRune2}"
+                                             Grid.Row="3"
+                                             Margin="0 0 0 10">
                             <local:RuneIconControl DataContext="{Binding}"
-                                               Width="40" Height="40"
-                                               Margin="10 0 10 0"
-                                               VerticalAlignment="Top"/>
+                                                   Width="40" Height="40"
+                                                   Margin="10 0 10 0"
+                                                   VerticalAlignment="Top"/>
                             <ui:SimpleStackPanel Orientation="Vertical"
-                                             Margin="5 0 0 0">
+                                                 Margin="5 0 0 0">
                                 <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
                                 <ItemsControl ItemsSource="{Binding Descriptions}">
                                     <ItemsControl.ItemTemplate>
@@ -311,7 +314,7 @@
                                                 <TextBlock.ContextMenu>
                                                     <ContextMenu>
                                                         <MenuItem Header="{DynamicResource CopyText}"
-                                                              Click="CopyItem_Click">
+                                                                  Click="CopyItem_Click">
                                                             <MenuItem.Icon>
                                                                 <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
                                                             </MenuItem.Icon>
@@ -335,15 +338,15 @@
                         </Grid.RowDefinitions>
 
                         <ui:SimpleStackPanel Orientation="Horizontal"
-                                         DataContext="{Binding SecondaryPathRune0}"
-                                         Grid.Row="0"
-                                         Margin="0 0 0 10">
+                                             DataContext="{Binding SecondaryPathRune0}"
+                                             Grid.Row="1"
+                                             Margin="0 20 0 10">
                             <local:RuneIconControl DataContext="{Binding}"
-                                               Width="40" Height="40"
-                                               Margin="0 0 10 0"
-                                               VerticalAlignment="Top"/>
+                                                   Width="40" Height="40"
+                                                   Margin="0 0 10 0"
+                                                   VerticalAlignment="Top"/>
                             <ui:SimpleStackPanel Orientation="Vertical"
-                                             Margin="5 0 0 0">
+                                                 Margin="5 0 0 0">
                                 <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
                                 <ItemsControl ItemsSource="{Binding Descriptions}">
                                     <ItemsControl.ItemTemplate>
@@ -352,7 +355,7 @@
                                                 <TextBlock.ContextMenu>
                                                     <ContextMenu>
                                                         <MenuItem Header="{DynamicResource CopyText}"
-                                                              Click="CopyItem_Click">
+                                                                  Click="CopyItem_Click">
                                                             <MenuItem.Icon>
                                                                 <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
                                                             </MenuItem.Icon>
@@ -367,15 +370,15 @@
                         </ui:SimpleStackPanel>
 
                         <ui:SimpleStackPanel Orientation="Horizontal"
-                                         DataContext="{Binding SecondaryPathRune1}"
-                                         Grid.Row="1"
-                                         Margin="0 0 0 10">
+                                             DataContext="{Binding SecondaryPathRune1}"
+                                             Grid.Row="2"
+                                             Margin="0 0 0 10">
                             <local:RuneIconControl DataContext="{Binding}"
-                                               Width="40" Height="40"
-                                               Margin="0 0 10 0"
-                                               VerticalAlignment="Top"/>
+                                                   Width="40" Height="40"
+                                                   Margin="0 0 10 0"
+                                                   VerticalAlignment="Top"/>
                             <ui:SimpleStackPanel Orientation="Vertical"
-                                             Margin="5 0 0 0">
+                                                 Margin="5 0 0 0">
                                 <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
                                 <ItemsControl ItemsSource="{Binding Descriptions}">
                                     <ItemsControl.ItemTemplate>
@@ -384,7 +387,7 @@
                                                 <TextBlock.ContextMenu>
                                                     <ContextMenu>
                                                         <MenuItem Header="{DynamicResource CopyText}"
-                                                              Click="CopyItem_Click">
+                                                                  Click="CopyItem_Click">
                                                             <MenuItem.Icon>
                                                                 <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
                                                             </MenuItem.Icon>
@@ -398,7 +401,7 @@
                             </ui:SimpleStackPanel>
                         </ui:SimpleStackPanel>
 
-                        <Grid Grid.Row="2">
+                        <Grid Grid.Row="3" Margin="0 0 0 10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -406,50 +409,50 @@
                             </Grid.ColumnDefinitions>
 
                             <Rectangle Grid.Column="0" Grid.ColumnSpan="2"
-                                   Fill="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
-                                   Height="3" Width="21"
-                                   Margin="0 0 12 0"/>
+                                       Fill="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                                       Height="3" Width="21"
+                                       Margin="0 0 12 0"/>
 
                             <Rectangle Grid.Column="1" Grid.ColumnSpan="2"
-                                   Fill="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
-                                   Height="3" Width="21"
-                                   Margin="0 0 1 0"/>
+                                       Fill="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                                       Height="3" Width="21"
+                                       Margin="0 0 1 0"/>
 
                             <ui:SimpleStackPanel Orientation="Horizontal"
-                                             DataContext="{Binding StatsRunes0}"
-                                             Margin="0 0 10 0">
+                                                 DataContext="{Binding StatsRunes0}"
+                                                 Margin="0 0 10 0">
                                 <Border Background="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
-                                    CornerRadius="15"
-                                    Height="30">
+                                        CornerRadius="15"
+                                        Height="30">
                                     <local:RuneIconControl DataContext="{Binding}"
-                                                       Width="30" Height="30"
-                                                       VerticalAlignment="Top"/>
+                                                           Width="30" Height="30"
+                                                           VerticalAlignment="Top"/>
                                 </Border>
                             </ui:SimpleStackPanel>
 
                             <ui:SimpleStackPanel Orientation="Horizontal"
-                                             DataContext="{Binding StatsRunes1}"
-                                             Margin="10 0 10 0"
-                                             Grid.Column="1">
+                                                 DataContext="{Binding StatsRunes1}"
+                                                 Margin="10 0 10 0"
+                                                 Grid.Column="1">
                                 <Border Background="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
-                                    CornerRadius="15"
-                                    Height="30">
+                                        CornerRadius="15"
+                                        Height="30">
                                     <local:RuneIconControl DataContext="{Binding}"
-                                                       Width="30" Height="30"
-                                                       VerticalAlignment="Top"/>
+                                                           Width="30" Height="30"
+                                                           VerticalAlignment="Top"/>
                                 </Border>
                             </ui:SimpleStackPanel>
 
                             <ui:SimpleStackPanel Orientation="Horizontal"
-                                             DataContext="{Binding StatsRunes2}"
-                                             Margin="10 0 10 0"
-                                             Grid.Column="2">
+                                                 DataContext="{Binding StatsRunes2}"
+                                                 Margin="10 0 10 0"
+                                                 Grid.Column="2">
                                 <Border Background="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
-                                    CornerRadius="15"
-                                    Height="30">
+                                        CornerRadius="15"
+                                        Height="30">
                                     <local:RuneIconControl DataContext="{Binding}"
-                                                       Width="30" Height="30"
-                                                       VerticalAlignment="Top"/>
+                                                           Width="30" Height="30"
+                                                           VerticalAlignment="Top"/>
                                 </Border>
                             </ui:SimpleStackPanel>
                         </Grid>
