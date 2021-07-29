@@ -254,11 +254,12 @@
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1.4*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
@@ -629,19 +630,19 @@
                         </Grid.ColumnDefinitions>
 
                         <Rectangle Grid.Column="0" Grid.ColumnSpan="2"
-                                   Fill="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                                   Fill="{DynamicResource RuneCircleBrush}"
                                    Height="3" Width="21"
                                    Margin="0 0 12 0"/>
 
                         <Rectangle Grid.Column="1" Grid.ColumnSpan="2"
-                                   Fill="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                                   Fill="{DynamicResource RuneCircleBrush}"
                                    Height="3" Width="21"
                                    Margin="0 0 1 0"/>
 
                         <ui:SimpleStackPanel Orientation="Horizontal"
                                              DataContext="{Binding StatsRunes0}"
                                              Margin="0 0 10 0">
-                            <Border Background="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                            <Border Background="{DynamicResource RuneCircleBrush}"
                                     CornerRadius="15"
                                     Height="30">
                                 <local:RuneIconControl DataContext="{Binding}"
@@ -654,7 +655,7 @@
                                              DataContext="{Binding StatsRunes1}"
                                              Margin="10 0 10 0"
                                              Grid.Column="1">
-                            <Border Background="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                            <Border Background="{DynamicResource RuneCircleBrush}"
                                     CornerRadius="15"
                                     Height="30">
                                 <local:RuneIconControl DataContext="{Binding}"
@@ -667,7 +668,7 @@
                                              DataContext="{Binding StatsRunes2}"
                                              Margin="10 0 10 0"
                                              Grid.Column="2">
-                            <Border Background="{DynamicResource SystemControlBackgroundChromeBlackMediumBrush}"
+                            <Border Background="{DynamicResource RuneCircleBrush}"
                                     CornerRadius="15"
                                     Height="30">
                                 <local:RuneIconControl DataContext="{Binding}"
