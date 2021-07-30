@@ -82,7 +82,7 @@ namespace Rofl.Executables.Utilities
             return GetLocaleEnum(code);
         }
 
-        private static LeagueLocale GetLocaleEnum(string name)
+        public static LeagueLocale GetLocaleEnum(string name)
         {
             switch (name)
             {

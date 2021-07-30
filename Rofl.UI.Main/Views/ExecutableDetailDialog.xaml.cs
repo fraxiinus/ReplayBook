@@ -5,12 +5,11 @@ using Rofl.Executables.Models;
 using Rofl.Executables.Utilities;
 using Rofl.UI.Main.Utilities;
 using System;
-using System.Globalization;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
 
 namespace Rofl.UI.Main.Views
 {
@@ -21,34 +20,45 @@ namespace Rofl.UI.Main.Views
     {
         private LeagueExecutable _executable;
         private readonly bool _isEditMode;
-        private bool _blockClose = false;
+        private bool _blockClose;
+        private readonly IEnumerable<string> LocaleNames;
 
         public ExecutableDetailDialog()
         {
+            // load locales into drop down, skip parentheses for custom option
+            LocaleNames = Enum.GetNames(typeof(LeagueLocale))
+                .Select(x => x + (x.StartsWith(LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase) ? "" : " (" + ExeTools.GetLocaleCode(x) + ")"))
+                .OrderBy(x => x == LeagueLocale.Custom.ToString())
+                .ThenBy(x => x);
+
             InitializeComponent();
             _isEditMode = false;
 
-            this.Title = TryFindResource("AddButtonText") as String + " " + this.Title;
+            Title = TryFindResource("AddButtonText") as string + " " + Title;
         }
-         
+
         public ExecutableDetailDialog(LeagueExecutable executable)
         {
             if (executable == null) { throw new ArgumentNullException(nameof(executable)); }
+
+            // load locales into drop down, skip parentheses for custom option
+            LocaleNames = Enum.GetNames(typeof(LeagueLocale))
+                .Select(x => x + (x.StartsWith(LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase) ? "" : " (" + ExeTools.GetLocaleCode(x) + ")"))
+                .OrderBy(x => x == LeagueLocale.Custom.ToString())
+                .ThenBy(x => x);
 
             InitializeComponent();
 
             LoadLeagueExecutable(executable);
             _isEditMode = true;
-            this.Title = TryFindResource("EditButtonText") as String + " " + this.Title;
+            Title = TryFindResource("EditButtonText") as string + " " + Title;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // load locales into drop down, skip parentheses for custom option
-            var allLocales = Enum.GetNames(typeof(LeagueLocale))
-                .Select(x => x + (x.StartsWith(LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase) ? "" : " (" + ExeTools.GetLocaleCode(x) + ")"));
+            
 
-            this.LocaleComboBox.ItemsSource = allLocales;
+            LocaleComboBox.ItemsSource = LocaleNames;
         }
 
         private void LoadLeagueExecutable(LeagueExecutable executable)
@@ -57,14 +67,18 @@ namespace Rofl.UI.Main.Views
 
             TargetTextBox.Text = executable.TargetPath;
             NameTextBox.Text = executable.Name;
-            LocaleComboBox.SelectedIndex = executable.Locale == LeagueLocale.Custom ? Enum.GetNames(typeof(LeagueLocale)).Length - 1 : (int) executable.Locale;
+
+            LocaleComboBox.SelectedItem = executable.Locale == LeagueLocale.Custom
+                ? LocaleNames.Last()
+                : LocaleNames.First(x => x.Split('(', ')')[1] == ExeTools.GetLocaleCode(executable.Locale));
+
             LaunchArgsTextBox.Text = PrettifyLaunchArgs(executable.LaunchArguments);
             CustomLocaleTextBox.Text = executable.CustomLocale;
         }
 
         private void SaveButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (!(this.DataContext is ExecutableManager context)) { return; }
+            if (!(DataContext is ExecutableManager context)) { return; }
 
             // Reset error
             _blockClose = false;
@@ -74,10 +88,10 @@ namespace Rofl.UI.Main.Views
                 _blockClose = true;
 
                 // show fly out
-                var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
-                flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as String);
+                Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as string);
                 flyout.ShowAt(TargetTextBox);
-                
+
                 return;
             }
 
@@ -85,27 +99,37 @@ namespace Rofl.UI.Main.Views
             {
                 _executable.Name = NameTextBox.Text;
                 _executable.TargetPath = TargetTextBox.Text;
-                _executable.Locale = LocaleComboBox.SelectedIndex == Enum.GetNames(typeof(LeagueLocale)).Length - 1 ? LeagueLocale.Custom : (LeagueLocale) LocaleComboBox.SelectedIndex;
-                _executable.CustomLocale = CustomLocaleTextBox.Text;
+
+                string locale = LocaleComboBox.SelectedItem as string;
+
+                if ((LocaleComboBox.SelectedItem as string) == LeagueLocale.Custom.ToString())
+                {
+                    _executable.Locale = LeagueLocale.Custom;
+                    _executable.CustomLocale = CustomLocaleTextBox.Text;
+                }
+                else
+                {
+                    _executable.Locale = ExeTools.GetLocaleEnum((LocaleComboBox.SelectedItem as string).Split('(', ')')[1]);
+                }
 
                 if (_isEditMode)
                 {
-                    this.Hide();
+                    Hide();
                 }
                 else
                 {
                     context.AddExecutable(_executable);
                 }
-                
-                this.Hide();
+
+                Hide();
             }
             catch (Exception)
             {
                 _blockClose = true;
 
                 // show fly out
-                var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
-                flyout.SetFlyoutLabelText(TryFindResource("ExecutableSaveNullText") as String);
+                Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                flyout.SetFlyoutLabelText(TryFindResource("ExecutableSaveNullText") as string);
                 flyout.ShowAt(TargetTextBox);
             }
         }
@@ -113,26 +137,21 @@ namespace Rofl.UI.Main.Views
         private void CancelButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             _blockClose = false;
-            this.Hide();
+            Hide();
         }
 
         private void TargetButton_Click(object sender, RoutedEventArgs e)
         {
             _blockClose = false;
 
-            var initialDirectory = TargetTextBox.Text;
-            if (String.IsNullOrEmpty(initialDirectory))
+            string initialDirectory = TargetTextBox.Text;
+            initialDirectory = string.IsNullOrEmpty(initialDirectory)
+                ? Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.System))
+                : Path.GetDirectoryName(initialDirectory);
+
+            using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
             {
-                initialDirectory = Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.System));
-            }
-            else
-            {
-                initialDirectory = Path.GetDirectoryName(initialDirectory);
-            }
-            
-            using (var folderDialog = new CommonOpenFileDialog())
-            {
-                folderDialog.Title = TryFindResource("ExecutableSelectDialogText") as String;
+                folderDialog.Title = TryFindResource("ExecutableSelectDialogText") as string;
                 folderDialog.IsFolderPicker = false;
                 folderDialog.AddToMostRecentlyUsedList = false;
                 folderDialog.AllowNonFileSystemItems = false;
@@ -148,11 +167,10 @@ namespace Rofl.UI.Main.Views
 
                 if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    var selectedExe = folderDialog.FileName;
+                    string selectedExe = folderDialog.FileName;
 
                     if (ExeTools.CheckExecutableFile(selectedExe))
                     {
-
                         LeagueExecutable newExe = null;
 
                         try
@@ -176,8 +194,8 @@ namespace Rofl.UI.Main.Views
                             _blockClose = true;
 
                             // show fly out
-                            var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
-                            flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as String);
+                            Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                            flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as string);
                             flyout.ShowAt(TargetButton);
                         }
                     }
@@ -186,8 +204,8 @@ namespace Rofl.UI.Main.Views
                         _blockClose = true;
 
                         // show fly out
-                        var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
-                        flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as String);
+                        Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                        flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as string);
                         flyout.ShowAt(TargetButton);
                     }
                 }
@@ -199,16 +217,16 @@ namespace Rofl.UI.Main.Views
             if (_executable == null)
             {
                 // show fly out
-                var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
-                flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as String);
+                Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as string);
                 flyout.ShowAt(EditLaunchArgsButton);
 
                 return;
             }
 
-            var parent = Window.GetWindow(this);
+            Window parent = Window.GetWindow(this);
 
-            var editDialog = new ExecutableLaunchArgsWindow(_executable)
+            ExecutableLaunchArgsWindow editDialog = new ExecutableLaunchArgsWindow(_executable)
             {
                 Top = parent.Top + 50,
                 Left = parent.Left + 50,
@@ -219,10 +237,10 @@ namespace Rofl.UI.Main.Views
             LaunchArgsTextBox.Text = PrettifyLaunchArgs(_executable.LaunchArguments);
         }
 
-        private string PrettifyLaunchArgs(string args)
+        private static string PrettifyLaunchArgs(string args)
         {
-            var individual = args.Split('\"').Where(x => !String.IsNullOrWhiteSpace(x));
-            return String.Join("\n", individual);
+            IEnumerable<string> individual = args.Split('\"').Where(x => !string.IsNullOrWhiteSpace(x));
+            return string.Join("\n", individual);
         }
 
         private void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
@@ -236,7 +254,9 @@ namespace Rofl.UI.Main.Views
         private void LocaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // show custom locale controls when option is selected
-            CustomLocaleContainer.Visibility = String.Equals(LocaleComboBox.SelectedItem as string, LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase) ? Visibility.Visible : Visibility.Collapsed;
+            CustomLocaleContainer.Visibility = (LocaleComboBox.SelectedItem as string) == LeagueLocale.Custom.ToString()
+                ? Visibility.Visible
+                : Visibility.Collapsed;
         }
     }
 }
