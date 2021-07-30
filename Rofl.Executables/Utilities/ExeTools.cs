@@ -6,7 +6,6 @@ using System.Linq;
 
 namespace Rofl.Executables.Utilities
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public static class ExeTools
     {
         public static bool CheckExecutableFile(string filePath)
@@ -101,7 +100,7 @@ namespace Rofl.Executables.Utilities
                     return LeagueLocale.EnglishUS;
                 case "es_ES":
                     return LeagueLocale.SpanishES;
-                case "es_MS":
+                case "es_MX":
                     return LeagueLocale.SpanishMX;
                 case "fr_FR":
                     return LeagueLocale.French;
@@ -127,6 +126,20 @@ namespace Rofl.Executables.Utilities
                     return LeagueLocale.ChineseTW;
                 case "zh_CN":
                     return LeagueLocale.ChineseCN;
+                case "en_PH":
+                    return LeagueLocale.EnglishPH;
+                case "en_SG":
+                    return LeagueLocale.EnglishSG;
+                case "es_AR":
+                    return LeagueLocale.SpanishAR;
+                case "id_ID":
+                    return LeagueLocale.Indonesian;
+                case "th_TH":
+                    return LeagueLocale.Thai;
+                case "vn_VN":
+                    return LeagueLocale.Vietnamese;
+                case "zh_MY":
+                    return LeagueLocale.ChineseMY;
                 default:
                     throw new ArgumentException($"locale not found {name}");
             }
@@ -196,6 +209,27 @@ namespace Rofl.Executables.Utilities
                     break;
                 case LeagueLocale.ChineseCN:
                     code = "zh_CN";
+                    break;
+                case LeagueLocale.EnglishPH:
+                    code = "en_PH";
+                    break;
+                case LeagueLocale.EnglishSG:
+                    code = "en_SG";
+                    break;
+                case LeagueLocale.SpanishAR:
+                    code = "es_AR";
+                    break;
+                case LeagueLocale.Indonesian:
+                    code = "id_ID";
+                    break;
+                case LeagueLocale.Thai:
+                    code = "th_TH";
+                    break;
+                case LeagueLocale.Vietnamese:
+                    code = "vn_VN";
+                    break;
+                case LeagueLocale.ChineseMY:
+                    code = "zh_MY";
                     break;
                 case LeagueLocale.Custom:
                     code = "Custom";
