@@ -9,6 +9,15 @@ namespace Rofl.UI.Main.Utilities
 {
     public class RuneJson
     {
+        public RuneJson(string id, string name, string key, string icon, List<string> descriptions)
+        {
+            Id = id;
+            Name = name;
+            Key = key;
+            Icon = icon;
+            EndOfGameStatDescs = descriptions;
+        }
+
         [JsonProperty("id")]
         public string Id { get; set; }
 
@@ -20,6 +29,9 @@ namespace Rofl.UI.Main.Utilities
 
         [JsonProperty("icon")]
         public string Icon { get; set; }
+
+        [JsonProperty("endOfGameStatDescs")]
+        public List<string> EndOfGameStatDescs { get; private set; }
     }
 
     public static class RuneHelper
@@ -40,21 +52,18 @@ namespace Rofl.UI.Main.Utilities
 
         public static RuneJson GetRune(string id)
         {
-            if (id is null) { throw new ArgumentNullException(nameof(id)); }
-            if (id.Length != 4) { throw new ArgumentException("invalid rune id"); }
+            if (id is null || id.Length != 4)
+            {
+                return new RuneJson("-1", "N/A", "UnknownRune", "", new List<string>());
+            }
+
             if (RuneData is null) { throw new Exception("run LoadRunes() method first"); }
 
             string prefix = id.Substring(0, 2);
 
             RuneJson temp = RuneData.FirstOrDefault(x => x.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
 
-            return temp ?? new RuneJson
-            {
-                Name = "Unknown Rune",
-                Key = "UnknownRune",
-                Id = id,
-                Icon = ""
-            };
+            return temp ?? new RuneJson("-1", "N/A", "UnknownRune", "", new List<string>());
         }
 
         public static (string key, string target)[] GetAllRunes()
@@ -62,6 +71,17 @@ namespace Rofl.UI.Main.Utilities
             if (RuneData is null) { throw new Exception("run LoadRunes() method first"); }
 
             return RuneData.Select(x => (key: x.Key, target: x.Icon)).ToArray();
+        }
+
+        public static string FillInDescriptions(string desc, string value0, string value1, string value2)
+        {
+            if (string.IsNullOrEmpty(desc)) { throw new ArgumentNullException(nameof(desc)); }
+
+            desc = desc.Replace("@eogvar1@", value0);
+            desc = desc.Replace("@eogvar2@", value1);
+            desc = desc.Replace("@eogvar3@", value2);
+
+            return desc;
         }
 
         private static string GetAppropriateRegionForLanguage(Language language)

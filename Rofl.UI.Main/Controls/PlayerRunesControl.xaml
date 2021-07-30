@@ -8,448 +8,678 @@
              xmlns:ui="http://schemas.modernwpf.com/2019"
              d:DataContext="{d:DesignInstance Type=models:PlayerDetail}"
              mc:Ignorable="d" 
-             Height="100"
-             d:DesignHeight="100" d:DesignWidth="750">
+             MinHeight="48"
+             d:DesignHeight="50" d:DesignWidth="750">
+
     <Border BorderBrush="{DynamicResource GridLinesBrush}" BorderThickness="0 0 0 1">
-        <Grid Margin="0 0 0 0">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <ui:SimpleStackPanel Orientation="Horizontal"
-                                 Grid.Column="0" Grid.ColumnSpan="2"
-                                 Grid.RowSpan="2"
-                                 Margin="5 0 0 40">
-                <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
-                                         Width="40" Height="40"/>
-
-                <ui:SimpleStackPanel Orientation="Vertical"
-                                     Margin="10 0 0 0"
-                                     VerticalAlignment="Center">
-
-                    <TextBlock FontSize="14"
-                               FontWeight="Bold"
-                               Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}">
-                        <TextBlock.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="{DynamicResource CopyText}"
-                                          Click="CopyItem_Click">
-                                    <MenuItem.Icon>
-                                        <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                    </MenuItem.Icon>
-                                </MenuItem>
-                            </ContextMenu>
-                        </TextBlock.ContextMenu>
-                    </TextBlock>
-
-                    <TextBlock FontSize="12"
-                               Text="{Binding Path=PreviewModel.ChampionName, FallbackValue=ChampionName, Mode=OneWay}"
-                               Width="150">
-                    </TextBlock>
-
-                </ui:SimpleStackPanel>
-            </ui:SimpleStackPanel>
-
-            <ui:SimpleStackPanel Orientation="Horizontal"
-                                 Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
-                                 DataContext="{Binding Path=KeystoneRune}">
-                <local:RuneIconControl Width="75" Height="75"
-                                       HorizontalAlignment="Left"
-                                       Margin="0 0 5 0"/>
-                <ui:SimpleStackPanel Orientation="Vertical"
-                                     VerticalAlignment="Center">
-                    <ui:SimpleStackPanel Orientation="Horizontal">
-                        <TextBlock Text="A:" Padding="0 0 5 0"
-                                   FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value0}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-
-                    <ui:SimpleStackPanel Orientation="Horizontal">
-                        <TextBlock Text="B:" Padding="0 0 5 0"
-                                   FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value1}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-
-                    <ui:SimpleStackPanel Orientation="Horizontal">
-                        <TextBlock Text="C:" Padding="0 0 5 0"
-                                   FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value2}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-                </ui:SimpleStackPanel>
-            </ui:SimpleStackPanel>
-
-            <ui:SimpleStackPanel Orientation="Horizontal" DataContext="{Binding PrimaryPathRune0}"
-                                 Grid.Column="2">
-                <local:RuneIconControl Width="30" Height="30"
-                                       Margin="0 0 10 0"
-                                       VerticalAlignment="Stretch"/>
-                <ui:SimpleStackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <ui:SimpleStackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBlock Text="A:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value0}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                        <TextBlock Text="C:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value2}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="1">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-                    <ui:SimpleStackPanel HorizontalAlignment="Left"
-                                             Orientation="Horizontal">
-                        <TextBlock Text="B:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value1}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="1" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-                </ui:SimpleStackPanel>
-            </ui:SimpleStackPanel>
+        <Expander HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Stretch"
+                  VerticalAlignment="Center" 
+                  Style="{DynamicResource CustomExpanderStyle}"
+                  Padding="10 0 10 0">
             
-            <ui:SimpleStackPanel Orientation="Horizontal" DataContext="{Binding PrimaryPathRune1}"
-                                 Grid.Column="3">
-                <local:RuneIconControl Width="30" Height="30"
-                                       Margin="0 0 10 0"/>
-                <ui:SimpleStackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <ui:SimpleStackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBlock Text="A:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value0}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                        <TextBlock Text="C:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value2}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="1">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-                    <ui:SimpleStackPanel HorizontalAlignment="Left"
-                                             Orientation="Horizontal">
-                        <TextBlock Text="B:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value1}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="1" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-                </ui:SimpleStackPanel>
-            </ui:SimpleStackPanel>
+            <!--Copy of expander style to enable mouse over and mouse click effect-->
+            <Expander.Resources>
+                <Style x:Key="CustomExpanderStyle" TargetType="{x:Type Expander}">
+                    <Setter Property="OverridesDefaultStyle" Value="True"/>
+                    <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                    <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Expander}">
+                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="{DynamicResource ControlCornerRadius}" SnapsToDevicePixels="True">
+                                    <DockPanel>
+                                        <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" DockPanel.Dock="Top" Foreground="{TemplateBinding Foreground}" ui:FocusVisualHelper.FocusVisualMargin="-3" FontWeight="{TemplateBinding FontWeight}" FocusVisualStyle="{DynamicResource {x:Static SystemParameters.FocusVisualStyleKey}}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" ui:FocusVisualHelper.UseSystemFocusVisuals="True" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                                            <ToggleButton.Style>
+                                                <Style TargetType="{x:Type ToggleButton}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                                <ControlTemplate.Resources>
+                                                                    <StreamGeometry x:Key="ChevronDown">M18.935547,4.560547L19.814453,5.439453 10,15.253906 0.185547,5.439453 1.064453,4.560547 10,13.496094z</StreamGeometry>
+                                                                    <StreamGeometry x:Key="ChevronUp">M19.091797,14.970703L10,5.888672 0.908203,14.970703 0.029297,14.091797 10,4.111328 19.970703,14.091797z</StreamGeometry>
+                                                                </ControlTemplate.Resources>
+                                                                <Border Padding="{TemplateBinding Padding}"
+                                                                        x:Name="bkg">
+                                                                    <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="*"/>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <ui:FontIconFallback x:Name="arrow" Data="M18.935547,4.560547L19.814453,5.439453 10,15.253906 0.185547,5.439453 1.064453,4.560547 10,13.496094z" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" FontSize="12" FontFamily="{DynamicResource SymbolThemeFontFamily}" HorizontalAlignment="Center" SnapsToDevicePixels="False" VerticalAlignment="Center"/>
+                                                                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Left" Margin="8,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                                                                    </Grid>
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsChecked" Value="True">
+                                                                        <Setter Property="Data" TargetName="arrow" Value="M19.091797,14.970703L10,5.888672 0.908203,14.970703 0.029297,14.091797 10,4.111328 19.970703,14.091797z"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Background" TargetName="bkg" Value="{DynamicResource ButtonBackgroundPointerOver}"/>
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlPageTextBaseMediumBrush}"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"/>
+                                                                        <Setter Property="Background" TargetName="bkg" Value="{DynamicResource ButtonBackgroundPressed}" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsEnabled" Value="False">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ToggleButton.Style>
+                                        </ToggleButton>
+                                        <ContentPresenter x:Name="ExpandSite" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" DockPanel.Dock="Bottom" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    </DockPanel>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsExpanded" Value="True">
+                                        <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                                    </Trigger>
+                                    <Trigger Property="ExpandDirection" Value="Right">
+                                        <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right"/>
+                                        <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
+                                        <Setter Property="Style" TargetName="HeaderSite">
+                                            <Setter.Value>
+                                                <Style TargetType="{x:Type ToggleButton}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                                <ControlTemplate.Resources>
+                                                                    <StreamGeometry x:Key="ChevronDown">M18.935547,4.560547L19.814453,5.439453 10,15.253906 0.185547,5.439453 1.064453,4.560547 10,13.496094z</StreamGeometry>
+                                                                    <StreamGeometry x:Key="ChevronUp">M19.091797,14.970703L10,5.888672 0.908203,14.970703 0.029297,14.091797 10,4.111328 19.970703,14.091797z</StreamGeometry>
+                                                                </ControlTemplate.Resources>
+                                                                <Border Padding="{TemplateBinding Padding}">
+                                                                    <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                                                        <Grid.RowDefinitions>
+                                                                            <RowDefinition Height="Auto"/>
+                                                                            <RowDefinition Height="*"/>
+                                                                        </Grid.RowDefinitions>
+                                                                        <Grid>
+                                                                            <Grid.LayoutTransform>
+                                                                                <TransformGroup>
+                                                                                    <RotateTransform Angle="-90"/>
+                                                                                </TransformGroup>
+                                                                            </Grid.LayoutTransform>
+                                                                            <ui:FontIconFallback x:Name="arrow" Data="M18.935547,4.560547L19.814453,5.439453 10,15.253906 0.185547,5.439453 1.064453,4.560547 10,13.496094z" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" FontSize="12" FontFamily="{DynamicResource SymbolThemeFontFamily}" HorizontalAlignment="Center" SnapsToDevicePixels="False" VerticalAlignment="Center"/>
+                                                                        </Grid>
+                                                                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
+                                                                    </Grid>
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsChecked" Value="True">
+                                                                        <Setter Property="Data" TargetName="arrow" Value="M19.091797,14.970703L10,5.888672 0.908203,14.970703 0.029297,14.091797 10,4.111328 19.970703,14.091797z"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlPageTextBaseMediumBrush}"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsEnabled" Value="False">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="ExpandDirection" Value="Up">
+                                        <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
+                                        <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
+                                        <Setter Property="Style" TargetName="HeaderSite">
+                                            <Setter.Value>
+                                                <Style TargetType="{x:Type ToggleButton}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                                <ControlTemplate.Resources>
+                                                                    <StreamGeometry x:Key="ChevronDown">M18.935547,4.560547L19.814453,5.439453 10,15.253906 0.185547,5.439453 1.064453,4.560547 10,13.496094z</StreamGeometry>
+                                                                    <StreamGeometry x:Key="ChevronUp">M19.091797,14.970703L10,5.888672 0.908203,14.970703 0.029297,14.091797 10,4.111328 19.970703,14.091797z</StreamGeometry>
+                                                                </ControlTemplate.Resources>
+                                                                <Border Padding="{TemplateBinding Padding}">
+                                                                    <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                                                        <Grid.ColumnDefinitions>
+                                                                            <ColumnDefinition Width="Auto"/>
+                                                                            <ColumnDefinition Width="*"/>
+                                                                        </Grid.ColumnDefinitions>
+                                                                        <Grid>
+                                                                            <Grid.LayoutTransform>
+                                                                                <TransformGroup>
+                                                                                    <RotateTransform Angle="180"/>
+                                                                                </TransformGroup>
+                                                                            </Grid.LayoutTransform>
+                                                                            <ui:FontIconFallback x:Name="arrow" Data="M18.935547,4.560547L19.814453,5.439453 10,15.253906 0.185547,5.439453 1.064453,4.560547 10,13.496094z" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" FontSize="12" FontFamily="{DynamicResource SymbolThemeFontFamily}" HorizontalAlignment="Center" SnapsToDevicePixels="False" VerticalAlignment="Center"/>
+                                                                        </Grid>
+                                                                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Left" Margin="8,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                                                                    </Grid>
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsChecked" Value="True">
+                                                                        <Setter Property="Data" TargetName="arrow" Value="M19.091797,14.970703L10,5.888672 0.908203,14.970703 0.029297,14.091797 10,4.111328 19.970703,14.091797z"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlPageTextBaseMediumBrush}"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsEnabled" Value="False">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="ExpandDirection" Value="Left">
+                                        <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left"/>
+                                        <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
+                                        <Setter Property="Style" TargetName="HeaderSite">
+                                            <Setter.Value>
+                                                <Style TargetType="{x:Type ToggleButton}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                                <ControlTemplate.Resources>
+                                                                    <StreamGeometry x:Key="ChevronDown">M18.935547,4.560547L19.814453,5.439453 10,15.253906 0.185547,5.439453 1.064453,4.560547 10,13.496094z</StreamGeometry>
+                                                                    <StreamGeometry x:Key="ChevronUp">M19.091797,14.970703L10,5.888672 0.908203,14.970703 0.029297,14.091797 10,4.111328 19.970703,14.091797z</StreamGeometry>
+                                                                </ControlTemplate.Resources>
+                                                                <Border Padding="{TemplateBinding Padding}">
+                                                                    <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                                                        <Grid.RowDefinitions>
+                                                                            <RowDefinition Height="Auto"/>
+                                                                            <RowDefinition Height="*"/>
+                                                                        </Grid.RowDefinitions>
+                                                                        <Grid>
+                                                                            <Grid.LayoutTransform>
+                                                                                <TransformGroup>
+                                                                                    <RotateTransform Angle="90"/>
+                                                                                </TransformGroup>
+                                                                            </Grid.LayoutTransform>
+                                                                            <ui:FontIconFallback x:Name="arrow" Data="M18.935547,4.560547L19.814453,5.439453 10,15.253906 0.185547,5.439453 1.064453,4.560547 10,13.496094z" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" FontSize="12" FontFamily="{DynamicResource SymbolThemeFontFamily}" HorizontalAlignment="Center" SnapsToDevicePixels="False" VerticalAlignment="Center"/>
+                                                                        </Grid>
+                                                                        <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
+                                                                    </Grid>
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsChecked" Value="True">
+                                                                        <Setter Property="Data" TargetName="arrow" Value="M19.091797,14.970703L10,5.888672 0.908203,14.970703 0.029297,14.091797 10,4.111328 19.970703,14.091797z"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlPageTextBaseMediumBrush}"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"/>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsEnabled" Value="False">
+                                                                        <Setter Property="Foreground" TargetName="arrow" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Expander.Resources>
 
-            <ui:SimpleStackPanel Orientation="Horizontal" DataContext="{Binding PrimaryPathRune2}"
-                                 Grid.Column="4">
-                <local:RuneIconControl Width="30" Height="30"
-                                       Margin="0 0 10 0"/>
-                <ui:SimpleStackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <ui:SimpleStackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBlock Text="A:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value0}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                        <TextBlock Text="C:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value2}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="1">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-                    <ui:SimpleStackPanel HorizontalAlignment="Left"
-                                             Orientation="Horizontal">
-                        <TextBlock Text="B:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value1}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="1" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-                </ui:SimpleStackPanel>
-            </ui:SimpleStackPanel>
+            <Expander.Header>
+                <!--this weird horizontal alignment binding is to get the header to stretch all the way-->
+                <!--see https://stackoverflow.com/a/40508245/15625585-->
+                <Grid HorizontalAlignment="{Binding Path=HorizontalAlignment, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}, Mode=OneWayToSource}"
+                      Height="48">
 
-            <ui:SimpleStackPanel Orientation="Horizontal" DataContext="{Binding SecondaryPathRune0}"
-                                 Grid.Column="2" Grid.Row="1">
-                <local:RuneIconControl Width="30" Height="30"
-                                       Margin="0 0 10 0"/>
-                <ui:SimpleStackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <ui:SimpleStackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBlock Text="A:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value0}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                        <TextBlock Text="C:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value2}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="1">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-                    <ui:SimpleStackPanel HorizontalAlignment="Left"
-                                             Orientation="Horizontal">
-                        <TextBlock Text="B:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value1}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="1" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                    </ui:SimpleStackPanel>
-                </ui:SimpleStackPanel>
-            </ui:SimpleStackPanel>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1.4*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width=".5*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-            <ui:SimpleStackPanel Orientation="Horizontal" DataContext="{Binding SecondaryPathRune1}"
-                                 Grid.Column="3" Grid.Row="1">
-                <local:RuneIconControl Width="30" Height="30"
-                                       Margin="0 0 10 0"/>
-                <ui:SimpleStackPanel Orientation="Vertical" VerticalAlignment="Center">
-                    <ui:SimpleStackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBlock Text="A:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value0}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
-                        <TextBlock Text="C:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value2}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="0" Grid.Column="1">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <ui:SimpleStackPanel Orientation="Horizontal"
+                                         Grid.Column="0" Grid.ColumnSpan="2"
+                                         Grid.RowSpan="2"
+                                         Margin="5 0 0 0">
+                        <local:PlayerIconControl DataContext="{Binding Path=PreviewModel}"
+                                                 Width="40" Height="40"/>
+
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                             Margin="10 0 0 0"
+                                             VerticalAlignment="Center">
+
+                            <TextBlock FontSize="14"
+                                       FontWeight="Bold"
+                                       Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}">
+                                <TextBlock.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="{DynamicResource CopyText}"
+                                                  Click="CopyItem_Click">
+                                            <MenuItem.Icon>
+                                                <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </TextBlock.ContextMenu>
+                            </TextBlock>
+
+                            <TextBlock FontSize="12"
+                                       Text="{Binding Path=PreviewModel.ChampionName, FallbackValue=ChampionName, Mode=OneWay}"
+                                       Width="150">
+                            </TextBlock>
+
+                        </ui:SimpleStackPanel>
                     </ui:SimpleStackPanel>
-                    <ui:SimpleStackPanel HorizontalAlignment="Left"
-                                             Orientation="Horizontal">
-                        <TextBlock Text="B:" Padding="0 0 5 0"
-                                       FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Value1}"
-                                   TextAlignment="Left"
-                                   Width="40" VerticalAlignment="Center"
-                                   Grid.Row="1" Grid.Column="0">
-                            <TextBlock.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="{DynamicResource CopyText}"
-                                              Click="CopyItem_Click">
-                                        <MenuItem.Icon>
-                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </TextBlock.ContextMenu>
-                        </TextBlock>
+
+                    <local:RuneIconControl Width="40" Height="40"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 0 5 0"
+                                           DataContext="{Binding Path=KeystoneRune}"
+                                           Grid.Column="1"
+                                           x:Name="Rune0">
+                        <local:RuneIconControl.Style>
+                            <Style TargetType="local:RuneIconControl">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}}" Value="True">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </local:RuneIconControl.Style>
+                    </local:RuneIconControl>
+
+                    <local:RuneIconControl Width="30" Height="30"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 0 5 0"
+                                           DataContext="{Binding Path=PrimaryPathRune0}"
+                                           Grid.Column="2">
+                        <local:RuneIconControl.Style>
+                            <Style TargetType="local:RuneIconControl">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}}" Value="True">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </local:RuneIconControl.Style>
+                    </local:RuneIconControl>
+
+                    <local:RuneIconControl Width="30" Height="30"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 0 5 0"
+                                           DataContext="{Binding Path=PrimaryPathRune1}"
+                                           Grid.Column="3">
+                        <local:RuneIconControl.Style>
+                            <Style TargetType="local:RuneIconControl">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}}" Value="True">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </local:RuneIconControl.Style>
+                    </local:RuneIconControl>
+
+                    <local:RuneIconControl Width="30" Height="30"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 0 5 0"
+                                           DataContext="{Binding Path=PrimaryPathRune2}"
+                                           Grid.Column="4">
+                        <local:RuneIconControl.Style>
+                            <Style TargetType="local:RuneIconControl">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}}" Value="True">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </local:RuneIconControl.Style>
+                    </local:RuneIconControl>
+
+                    <ui:AppBarSeparator Grid.Column="5"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                        <ui:AppBarSeparator.Style>
+                            <Style TargetType="ui:AppBarSeparator">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}}" Value="True">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ui:AppBarSeparator.Style>
+                    </ui:AppBarSeparator>
+
+                    <local:RuneIconControl Width="30" Height="30"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 0 5 0"
+                                           DataContext="{Binding Path=SecondaryPathRune0}"
+                                           Grid.Column="6">
+                        <local:RuneIconControl.Style>
+                            <Style TargetType="local:RuneIconControl">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}}" Value="True">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </local:RuneIconControl.Style>
+                    </local:RuneIconControl>
+
+                    <local:RuneIconControl Width="30" Height="30"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 0 5 0"
+                                           DataContext="{Binding Path=SecondaryPathRune1}"
+                                           Grid.Column="7">
+                        <local:RuneIconControl.Style>
+                            <Style TargetType="local:RuneIconControl">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsExpanded, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Expander}}}" Value="True">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </local:RuneIconControl.Style>
+                    </local:RuneIconControl>
+                </Grid>
+            </Expander.Header>
+
+            <Border Background="{DynamicResource SystemControlBackgroundListLowBrush}"
+                    CornerRadius="0" Margin="0 0 5 10" Padding="0 10 0 5">
+
+                <Grid Margin="40 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <ui:SimpleStackPanel Orientation="Horizontal"
+                                             DataContext="{Binding KeystoneRune}"
+                                             Grid.Column="0" Grid.Row="0"
+                                             Margin="0 0 0 10">
+                        <local:RuneIconControl DataContext="{Binding}"
+                                                   Width="60" Height="60"
+                                                   VerticalAlignment="Top"/>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                                 Margin="5 0 0 0">
+                            <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
+                            <ItemsControl ItemsSource="{Binding Descriptions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}">
+                                            <TextBlock.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="{DynamicResource CopyText}"
+                                                                  Click="CopyItem_Click">
+                                                        <MenuItem.Icon>
+                                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                </ContextMenu>
+                                            </TextBlock.ContextMenu>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ui:SimpleStackPanel>
                     </ui:SimpleStackPanel>
-                </ui:SimpleStackPanel>
-            </ui:SimpleStackPanel>
-        </Grid>
+
+                    <ui:SimpleStackPanel Orientation="Horizontal"
+                                             DataContext="{Binding PrimaryPathRune0}"
+                                             Grid.Column="0" Grid.Row="1"
+                                             Margin="0 0 0 10">
+                        <local:RuneIconControl DataContext="{Binding}"
+                                                   Width="40" Height="40"
+                                                   Margin="10 0 10 0"
+                                                   VerticalAlignment="Top"/>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                                 Margin="5 0 0 0">
+                            <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
+                            <ItemsControl ItemsSource="{Binding Descriptions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}">
+                                            <TextBlock.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="{DynamicResource CopyText}"
+                                                                  Click="CopyItem_Click">
+                                                        <MenuItem.Icon>
+                                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                </ContextMenu>
+                                            </TextBlock.ContextMenu>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ui:SimpleStackPanel>
+                    </ui:SimpleStackPanel>
+
+                    <ui:SimpleStackPanel Orientation="Horizontal"
+                                             DataContext="{Binding PrimaryPathRune1}"
+                                             Grid.Column="0" Grid.Row="2"
+                                             Margin="0 0 0 10">
+                        <local:RuneIconControl DataContext="{Binding}"
+                                                   Width="40" Height="40"
+                                                   Margin="10 0 10 0"
+                                                   VerticalAlignment="Top"/>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                                 Margin="5 0 0 0">
+                            <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
+                            <ItemsControl ItemsSource="{Binding Descriptions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}">
+                                            <TextBlock.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="{DynamicResource CopyText}"
+                                                                  Click="CopyItem_Click">
+                                                        <MenuItem.Icon>
+                                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                </ContextMenu>
+                                            </TextBlock.ContextMenu>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ui:SimpleStackPanel>
+                    </ui:SimpleStackPanel>
+
+                    <ui:SimpleStackPanel Orientation="Horizontal"
+                                             DataContext="{Binding PrimaryPathRune2}"
+                                             Grid.Column="0" Grid.Row="3"
+                                             Margin="0 0 0 10">
+                        <local:RuneIconControl DataContext="{Binding}"
+                                                   Width="40" Height="40"
+                                                   Margin="10 0 10 0"
+                                                   VerticalAlignment="Top"/>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                                 Margin="5 0 0 0">
+                            <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
+                            <ItemsControl ItemsSource="{Binding Descriptions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}">
+                                            <TextBlock.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="{DynamicResource CopyText}"
+                                                                  Click="CopyItem_Click">
+                                                        <MenuItem.Icon>
+                                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                </ContextMenu>
+                                            </TextBlock.ContextMenu>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ui:SimpleStackPanel>
+                    </ui:SimpleStackPanel>
+
+                    <ui:SimpleStackPanel Orientation="Horizontal"
+                                         DataContext="{Binding SecondaryPathRune0}"
+                                         Grid.Column="1" Grid.Row="1"
+                                         Margin="0 0 0 10">
+                        <local:RuneIconControl DataContext="{Binding}"
+                                               Width="40" Height="40"
+                                               Margin="0 0 10 0"
+                                               VerticalAlignment="Top"/>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                             Margin="5 0 0 0">
+                            <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
+                            <ItemsControl ItemsSource="{Binding Descriptions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}">
+                                            <TextBlock.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="{DynamicResource CopyText}"
+                                                              Click="CopyItem_Click">
+                                                        <MenuItem.Icon>
+                                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                </ContextMenu>
+                                            </TextBlock.ContextMenu>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ui:SimpleStackPanel>
+                    </ui:SimpleStackPanel>
+
+                    <ui:SimpleStackPanel Orientation="Horizontal"
+                                         DataContext="{Binding SecondaryPathRune1}"
+                                         Grid.Column="1" Grid.Row="2"
+                                         Margin="0 0 0 10">
+                        <local:RuneIconControl DataContext="{Binding}"
+                                               Width="40" Height="40"
+                                               Margin="0 0 10 0"
+                                               VerticalAlignment="Top"/>
+                        <ui:SimpleStackPanel Orientation="Vertical"
+                                             Margin="5 0 0 0">
+                            <TextBlock Text="{Binding RuneName}" FontStyle="Italic"/>
+                            <ItemsControl ItemsSource="{Binding Descriptions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}">
+                                            <TextBlock.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="{DynamicResource CopyText}"
+                                                              Click="CopyItem_Click">
+                                                        <MenuItem.Icon>
+                                                            <ui:PathIcon Data="{StaticResource CopyPathIcon}"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                </ContextMenu>
+                                            </TextBlock.ContextMenu>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ui:SimpleStackPanel>
+                    </ui:SimpleStackPanel>
+
+                    <Grid Grid.Column="1" Grid.Row="3" Margin="0 0 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Rectangle Grid.Column="0" Grid.ColumnSpan="2"
+                                   Fill="{DynamicResource RuneCircleBrush}"
+                                   Height="3" Width="21"
+                                   Margin="0 0 12 0"/>
+
+                        <Rectangle Grid.Column="1" Grid.ColumnSpan="2"
+                                   Fill="{DynamicResource RuneCircleBrush}"
+                                   Height="3" Width="21"
+                                   Margin="0 0 1 0"/>
+
+                        <ui:SimpleStackPanel Orientation="Horizontal"
+                                             DataContext="{Binding StatsRunes0}"
+                                             Margin="0 0 10 0">
+                            <Border Background="{DynamicResource RuneCircleBrush}"
+                                    CornerRadius="15"
+                                    Height="30">
+                                <local:RuneIconControl DataContext="{Binding}"
+                                                       Width="30" Height="30"
+                                                       VerticalAlignment="Top"/>
+                            </Border>
+                        </ui:SimpleStackPanel>
+
+                        <ui:SimpleStackPanel Orientation="Horizontal"
+                                             DataContext="{Binding StatsRunes1}"
+                                             Margin="10 0 10 0"
+                                             Grid.Column="1">
+                            <Border Background="{DynamicResource RuneCircleBrush}"
+                                    CornerRadius="15"
+                                    Height="30">
+                                <local:RuneIconControl DataContext="{Binding}"
+                                                       Width="30" Height="30"
+                                                       VerticalAlignment="Top"/>
+                            </Border>
+                        </ui:SimpleStackPanel>
+
+                        <ui:SimpleStackPanel Orientation="Horizontal"
+                                             DataContext="{Binding StatsRunes2}"
+                                             Margin="10 0 10 0"
+                                             Grid.Column="2">
+                            <Border Background="{DynamicResource RuneCircleBrush}"
+                                    CornerRadius="15"
+                                    Height="30">
+                                <local:RuneIconControl DataContext="{Binding}"
+                                                       Width="30" Height="30"
+                                                       VerticalAlignment="Top"/>
+                            </Border>
+                        </ui:SimpleStackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Expander>
     </Border>
+
 </UserControl>

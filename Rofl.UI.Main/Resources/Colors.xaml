@@ -17,5 +17,9 @@
     <SolidColorBrush x:Key="BlueTeamAccent" Color="#2747e8"/>
     <SolidColorBrush x:Key="RedTeamAccent" Color="#cb2124"/>
 
+    <!--used to get tab backgrounds to be flush with surroundings-->
     <SolidColorBrush x:Key="TabBackgroundHack" Color="#333333"/>
+
+    <SolidColorBrush x:Key="RuneCircleBrushDark" Color="#1f1f1f"/>
+    <SolidColorBrush x:Key="RuneCircleBrushLight" Color="#3d3d3d"/>
 </ResourceDictionary>

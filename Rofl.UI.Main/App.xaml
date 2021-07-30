@@ -23,11 +23,13 @@
                             <StaticResource x:Key="BaseBackground" ResourceKey="SystemControlBackgroundBaseLowBrush"/>
                             <StaticResource x:Key="TabBackground" ResourceKey="TabBackgroundHack"/>
                             <StaticResource x:Key="BadgeBackground" ResourceKey="SystemControlBackgroundBaseLowBrush"/>
+                            <StaticResource x:Key="RuneCircleBrush" ResourceKey="RuneCircleBrushDark"/>
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="Light" ui:ThemeDictionary.Key="Light">
                             <StaticResource x:Key="BaseBackground" ResourceKey="SystemControlBackgroundAltHighBrush"/>
                             <StaticResource x:Key="TabBackground" ResourceKey="SystemControlBackgroundAltHighBrush"/>
                             <StaticResource x:Key="BadgeBackground" ResourceKey="SystemControlBackgroundListLowBrush"/>
+                            <StaticResource x:Key="RuneCircleBrush" ResourceKey="RuneCircleBrushLight"/>
                         </ResourceDictionary>
                     </ui:ThemeResources.ThemeDictionaries>
                 </ui:ThemeResources>

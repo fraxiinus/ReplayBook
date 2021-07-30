@@ -1,4 +1,5 @@
 ﻿using Rofl.UI.Main.Utilities;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Media;
 
@@ -8,11 +9,18 @@ namespace Rofl.UI.Main.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Rune(int order, string id, string firstValue, string secondValue, string thirdValue)
+        public Rune(string id, string firstValue, string secondValue, string thirdValue)
         {
-            GridPosition = order;
             RuneId = id;
-            RuneName = RuneHelper.GetRune(id).Name;
+
+            RuneJson staticData = RuneHelper.GetRune(id);
+            RuneName = staticData.Name;
+            Descriptions = new List<string>();
+            for (int i = 0; i < staticData.EndOfGameStatDescs.Count; i++)
+            {
+                Descriptions.Add(RuneHelper.FillInDescriptions(staticData.EndOfGameStatDescs[i], firstValue, secondValue, thirdValue));
+            }
+
             Value0 = int.TryParse(firstValue, out int parsedValue0) ? parsedValue0 : 0;
             Value1 = int.TryParse(secondValue, out int parsedValue1) ? parsedValue1 : 0;
             Value2 = int.TryParse(thirdValue, out int parsedValue2) ? parsedValue2 : 0;
@@ -57,11 +65,11 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        public int GridPosition { get; set; }
-
         public string RuneId { get; set; }
 
         public string RuneName { get; set; }
+
+        public List<string> Descriptions { get; private set; }
 
         public int Value0 { get; set; }
 
