@@ -2,6 +2,7 @@
     说明：简体中文包
     作者：ASTWY  
     日期：2021/03/14
+    更新：awter 2021/08/03
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -27,6 +28,7 @@
     <string:String x:Key="BlueTeamText">蓝队</string:String>
     <string:String x:Key="RedTeamText">红队</string:String>
     <string:String x:Key="ScoreboardTabText">计分板</string:String>
+    <string:String x:Key="RunesTabText">符文</string:String>
     <string:String x:Key="StatsTabText">统计</string:String>
     <string:String x:Key="BlankDetailMessageText">在左侧选择一个回放文件</string:String>
     <string:String x:Key="FailedToLoadReplayText">无法加载回放文件</string:String>
@@ -115,6 +117,7 @@
     <string:String x:Key="ExecutableFoldersSearchButtonText">扫描列表文件夹中的游戏客户端</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultTitleText">扫描结果</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultLabelText">新添加 $ 个客户端</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultErrorText">无法搜索以下文件夹：</string:String>
     <string:String x:Key="ExecutablesLabelText">已添加的客户端</string:String>
     <string:String x:Key="ExecutableSelectFolderDialogText">选择游戏客户端文件夹</string:String>
     <string:String x:Key="ExecutableDetailWindowText">游戏客户端配置</string:String>
@@ -156,8 +159,10 @@
     <string:String x:Key="RequestsCacheLabel">已下载的装备图像缓存</string:String>
     <string:String x:Key="RequestsCacheItemsSize">装备图像缓存大小:</string:String>
     <string:String x:Key="RequestsCacheChampsSize">英雄图像大小:</string:String>
+    <string:String x:Key="RequestsCacheRunesSize">符文缓存大小：</string:String>
     <string:String x:Key="RequestsCacheClearItemsButton">删除装备图像</string:String>
     <string:String x:Key="RequestsCacheClearChampsButton">删除英雄图像</string:String>
+    <string:String x:Key="RequestsCacheClearRunesButton">删除符文</string:String>
     <string:String x:Key="RequestsCacheCloseToDeleteTitle">关闭软件</string:String>
     <string:String x:Key="RequestsCacheCloseToDelete">当ReplayBook关闭时，缓存将被删除</string:String>
     <string:String x:Key="RequestsAdvancedLabel">高级选项</string:String>
@@ -167,8 +172,8 @@
     <string:String x:Key="DataDragonMapUrlLabelText">地图图像的相对URL</string:String>
 
     <string:String x:Key="Name">ReplayBook</string:String>
-    <string:String x:Key="Author">Fraxinus (Etirps)</string:String>
-    <string:String x:Key="Version">发行版 1.2.1</string:String>
+    <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
+    <string:String x:Key="Version">发行版 1.3.0</string:String>
     <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">加入 Discord</string:String>
     <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
@@ -218,6 +223,64 @@
     <string:String x:Key="LargestCriticalStrikeHeaderText">最大的暴击伤害</string:String>
     <string:String x:Key="TotalDamageToTurretsHeaderText">承受防御塔</string:String>
     <string:String x:Key="TotalDamageToObjectivesHeaderText">对建筑的伤害</string:String>
+
+    <string:String x:Key="DamageTakenAndHealedGroupHeaderText">承受伤害和治疗</string:String>
+    <string:String x:Key="TotalHealingDoneHeaderText">总治疗效果</string:String>
+    <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">对队友的总治疗效果</string:String>
+    <string:String x:Key="TotalUnitsHealedHeaderText">治疗单位数</string:String>
+    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">对队友保护的总伤害</string:String>
+    <string:String x:Key="TotalDamageTakenHeaderText">承受伤害</string:String>
+    <string:String x:Key="PhysicalDamageTakenHeaderText">承受物理伤害</string:String>
+    <string:String x:Key="MagicDamageTakenHeaderText">承受魔法伤害</string:String>
+    <string:String x:Key="TrueDamageTakenHeaderText">承受的真实伤害</string:String>
+    <string:String x:Key="TotalDamageSelfMitigatedHeaderText">自我缓和的伤害</string:String>
+
+    <string:String x:Key="VisionGroupHeaderText">视野</string:String>
+    <string:String x:Key="VisionScoreHeaderText">视野得分</string:String>
+    <string:String x:Key="WardsPlacedHeaderText">放置守卫</string:String>
+    <string:String x:Key="WardsKilledHeaderText">摧毁守卫</string:String>
+    <string:String x:Key="VisionWardsPurchasedHeaderText">购买控制守卫</string:String>
+
+    <string:String x:Key="IncomeGroupHeaderText">收入</string:String>
+    <string:String x:Key="GoldEarnedHeaderText">金钱获取</string:String>
+    <string:String x:Key="GoldSpentHeaderText">金钱使用</string:String>
+    <string:String x:Key="ItemsPurchasedHeaderText">购买物品</string:String>
+    <string:String x:Key="ConsumablesPurchasedHeaderText">购买消耗品</string:String>
+    <string:String x:Key="MinionsKilledHeaderText">击杀小兵</string:String>
+    <string:String x:Key="NeutralMinionsKilledHeaderText">击杀野怪</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">击杀我方野怪</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">击杀敌方野怪</string:String>
+
+    <string:String x:Key="ObjectivesGroupHeaderText">目标</string:String>
+    <string:String x:Key="TotalExperienceHeaderText">所有经验</string:String>
+    <string:String x:Key="TurretsKilledHeaderText">摧毁防御塔</string:String>
+    <string:String x:Key="InhibitorsKilledHeaderText">摧毁召唤水晶</string:String>
+    <string:String x:Key="ObjectivesStolenHeaderText">目标被偷</string:String>
+    <string:String x:Key="BaronsKilledHeaderText">击杀男爵</string:String>
+    <string:String x:Key="DragonsKilledHeaderText">击杀小龙</string:String>
+    <string:String x:Key="LongestTimeSpentAliveHeaderText">最长生存时间</string:String>
+    <string:String x:Key="TotalTimeSpentDeadHeaderText">死亡总时间</string:String>
+    <string:String x:Key="LastHitNexusHeaderText">最后一次摧毁水晶</string:String>
+
+    <string:String x:Key="ToxicityGroupHeaderText">不友好的行为</string:String>
+    <string:String x:Key="TimeSpentDisconnectedHeaderText">断开连接所花费时间</string:String>
+    <string:String x:Key="TimeOfLastDisconnectHeaderText">上次断开时间</string:String>
+    <string:String x:Key="PlayersMutedHeaderText">玩家静音</string:String>
+    <string:String x:Key="MutedByPlayersHeaderText">被玩家静音</string:String>
+    <string:String x:Key="PingHeaderText">延迟</string:String>
+    <string:String x:Key="TeamEarlySurrenderedHeaderText">队伍提前投降</string:String>
+    <string:String x:Key="WasAFKHeaderText">脱离游戏</string:String>
+    <string:String x:Key="WasAFKAfterFailedSurrenderHeaderText">投降失败后脱离游戏</string:String>
+    <string:String x:Key="WasEarlySurrenderAccompliceHeaderText">提前投降的玩家</string:String>    
+
+    <string:String x:Key="MiscGroupHeaderText">杂项</string:String>
+    <string:String x:Key="Spell1CastsHeaderText">技能 1 释放</string:String>
+    <string:String x:Key="Spell2CastsHeaderText">技能 2 释放</string:String>
+    <string:String x:Key="Spell3CastsHeaderText">技能 3 释放</string:String>
+    <string:String x:Key="Spell4CastsHeaderText">技能 4 释放</string:String>
+    <string:String x:Key="SummonerSpell1CastsHeaderText">召唤师技能 1 释放</string:String>
+    <string:String x:Key="SummonerSpell2CastsHeaderText">召唤师技能 2 释放</string:String>
+    <string:String x:Key="IndividualPositionHeaderText">个人位置</string:String>
 
     <!--ToolTip Text-->
     <string:String x:Key="SortToolTip">排序</string:String>
