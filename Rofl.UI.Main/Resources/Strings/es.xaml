@@ -160,9 +160,9 @@
     <string:String x:Key="RequestsCacheCloseToDeleteTitle">Cerrar ReplayBook</string:String>
     <string:String x:Key="RequestsCacheCloseToDelete">El caché se limpiará tras cerrar ReplayBook.</string:String>
     <string:String x:Key="RequestsAdvancedLabel">Opciones avanzadas</string:String>
-    <string:String x:Key="DataDragonBaseUrlLabelText">URL de Data Dragon Base</string:String>
+    <string:String x:Key="DataDragonBaseUrlLabelText">URL de Data Dragon</string:String>
     <string:String x:Key="DataDragonChampionUrlLabelText">URL de las imágenes de campeones</string:String>
-    <string:String x:Key="DataDragonItemUrlLabelText">URL de las imágenes de objetosItem Image Relative URL</string:String>
+    <string:String x:Key="DataDragonItemUrlLabelText">URL de las imágenes de objetos</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">URL de la imagen del mapa</string:String>
 
     <string:String x:Key="Name">ReplayBook</string:String>
@@ -176,7 +176,7 @@
     <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">ReplayBook existe gracias a:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Proyectos de código abierto</string:String>
-    <string:String x:Key="AcknowledgementWindowTitleText">Agradecimientos por código abierto</string:String>
+    <string:String x:Key="AcknowledgementWindowTitleText">Agradecimientos</string:String>
     
     <!--Generic button text-->
     <string:String x:Key="OKButtonText">OK</string:String>
