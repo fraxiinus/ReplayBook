@@ -10,19 +10,21 @@
 [![License](https://img.shields.io/github/license/fraxiinus/ReplayBook?style=flat-square)](https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE)
 [![Downloads](https://img.shields.io/github/downloads/fraxiinus/replaybook/total?style=flat-square)](https://github.com/fraxiinus/ReplayBook/releases/latest)
 [![Donate](https://shields.io/badge/ko--fi-support%20me-green?logo=ko-fi&style=flat-square)](https://ko-fi.com/fraxiinus)
+
 ### ReplayBook is a free open-source tool that helps you organize and manage your downloaded replay files.
 
 ## [Download ReplayBook](https://github.com/fraxiinus/ReplayBook/releases/latest)
 
 This project is currently looking for translators! [View the wiki for more information](https://github.com/fraxiinus/ReplayBook/wiki/Translating).
 
-## Need help with ReplayBook? 
+## Need help with ReplayBook?
+
 Check out the [troubleshooting guide](https://github.com/fraxiinus/ReplayBook/wiki/Troubleshooting). If you'd like to contact someone, join the Discord or post in the project [discussions](https://github.com/fraxiinus/ReplayBook/discussions)
 
 [![Discord Banner](https://discordapp.com/api/guilds/606263917211156501/widget.png?style=banner2)](https://discord.gg/c33Rc5J)
 
-
 ## Features
+
 * Keep old League of Legends patches and ReplayBook will automatically detect and match compatible replay files
 * Assign player markers to easily spot players in the replay list
 * View all information available in replay files
@@ -32,13 +34,16 @@ Check out the [troubleshooting guide](https://github.com/fraxiinus/ReplayBook/wi
 * [See more/screenshots...](https://github.com/fraxiinus/ReplayBook/wiki/Features-and-Screenshots)
 
 ## Getting Started
+
 ### [YouTube Tutorial](https://youtu.be/mOpoyZuVyzs)
+
 ### Tutorial
+
 1. Get the latest release of ReplayBook ([download link](https://github.com/fraxiinus/ReplayBook/releases))
 2. Extract the program and run ReplayBook.exe, you will be prompted with a first time setup.
 3. Follow the on-screen instructions. It is *highly recommended* to download all images as it makes ReplayBook more responsive.
-5. *(optional)* Add any other folders where you keep backups for old League of Legends versions by opening the settings window (Gear icon) -> Executables -> **Add** button under Executable Source Folders. Once you have added your folders, press the **Scan Folders** button and ReplayBook will automatically add your backups.
-6. *(optional)* Add any other folders where you keep replay files by going to the settings menu (Gear icon), and adding folders under Replays -> Replay Source Folders.
+4. *(optional)* Add any other folders where you keep backups for old League of Legends versions by opening the settings window (Gear icon) -> Executables -> **Add** button under Executable Source Folders. Once you have added your folders, press the **Scan Folders** button and ReplayBook will automatically add your backups.
+5. *(optional)* Add any other folders where you keep replay files by going to the settings menu (Gear icon), and adding folders under Replays -> Replay Source Folders.
 
 ## Troubleshooting
 
@@ -53,8 +58,16 @@ In order to play replays, ReplayBook needs the entire League of Legends installa
 [View full troubleshooting document](https://github.com/fraxiinus/ReplayBook/wiki/Troubleshooting)
 
 ## Building
+
 ### Requirements
+
 * Visual Studio 2019
 * .NET Framework v4.7.2
+* Python 3+
 
-Use the provided solution file.
+### Steps
+
+1. Open the provided solution file. Set **Rofl.UI.Main** as the startup project. Build the solution, but running it now will crash.
+2. Run the provided `scripts/generate-runes.py` python script. This script will create the required rune data files in a new `runes` folder.
+3. Copy the `runes` folder and all the contents to `Rofl.UI.Main\bin\Debug\lib`.
+4. The solution will run successfully now.
