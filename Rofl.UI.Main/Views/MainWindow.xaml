@@ -55,7 +55,7 @@
                             Margin="10 10 5 10"
                             BorderThickness="1">
                         <ui:AutoSuggestBox x:Name="SearchBox"
-                                           PlaceholderText="Search"
+                                           PlaceholderText="{DynamicResource SearchDefaultText}"
                                            FontSize="14"
                                            QueryIcon="Find"
                                            QuerySubmitted="SearchBox_QuerySubmitted"/>

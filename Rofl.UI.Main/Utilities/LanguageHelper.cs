@@ -21,6 +21,9 @@ namespace Rofl.UI.Main.Utilities
                 case Language.De:
                     dict.Source = new Uri("..\\Resources\\Strings\\de.xaml", UriKind.Relative);
                     break;
+                case Language.Es:
+                    dict.Source = new Uri("..\\Resources\\Strings\\es.xaml", UriKind.Relative);
+                    break;
             }
 
             if (target != Language.En)
@@ -54,9 +57,29 @@ namespace Rofl.UI.Main.Utilities
                     case Language.De:
                         languages.Add("Deutsch");
                         break;
+                    case Language.Es:
+                        languages.Add("Español");
+                        break;
                 }
             }
-            return languages.ToArray(); ;
+            return languages.ToArray();
+        }
+
+        public static string GetAppropriateRegionForLanguage(Language language)
+        {
+            switch (language)
+            {
+                case Language.En:
+                    return "en_US";
+                case Language.ZhHans:
+                    return "zh_CN";
+                case Language.De:
+                    return "de_DE";
+                case Language.Es:
+                    return "es_ES";
+                default:
+                    return "en_US";
+            }
         }
     }
 }

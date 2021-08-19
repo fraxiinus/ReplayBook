@@ -40,7 +40,7 @@ namespace Rofl.UI.Main.Utilities
 
         public static void LoadRunes(Language language)
         {
-            string targetFile = GetAppropriateRegionForLanguage(language) + ".data.json";
+            string targetFile = LanguageHelper.GetAppropriateRegionForLanguage(language) + ".data.json";
             string runeFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lib", "runes", targetFile);
 
             using (StreamReader r = new StreamReader(runeFile))
@@ -82,21 +82,6 @@ namespace Rofl.UI.Main.Utilities
             desc = desc.Replace("@eogvar3@", value2);
 
             return desc;
-        }
-
-        private static string GetAppropriateRegionForLanguage(Language language)
-        {
-            switch (language)
-            {
-                case Language.En:
-                    return "en_US";
-                case Language.ZhHans:
-                    return "zh_CN";
-                case Language.De:
-                    return "de_DE";
-                default:
-                    return "en_US";
-            }
         }
     }
 }
