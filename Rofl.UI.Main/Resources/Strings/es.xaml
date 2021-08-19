@@ -177,7 +177,7 @@
     <string:String x:Key="AcknowledgementText">ReplayBook existe gracias a:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Proyectos de código abierto</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Agradecimientos</string:String>
-    
+
     <!--Generic button text-->
     <string:String x:Key="OKButtonText">OK</string:String>
     <string:String x:Key="AddButtonText">Añadir</string:String>
@@ -384,5 +384,4 @@
     
     <!--Delete dialog-->
     <string:String x:Key="DeleteFlyoutLabel">¿Estás seguro?</string:String>
-    
 </ResourceDictionary>
