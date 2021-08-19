@@ -19,8 +19,8 @@
     
     <string:String x:Key="CheckText">✔</string:String>
     <string:String x:Key="CrossText">❌</string:String>
-    <string:String x:Key="BlueTeamText">Equipo Azul</string:String>
-    <string:String x:Key="RedTeamText">Equipo Rojo</string:String>
+    <string:String x:Key="BlueTeamText">EQUIPO AZUL</string:String>
+    <string:String x:Key="RedTeamText">EQUIPO ROJO</string:String>
     <string:String x:Key="ScoreboardTabText">MARCADOR</string:String>
     <string:String x:Key="RunesTabText">RUNAS</string:String>
     <string:String x:Key="StatsTabText">ESTADÍSTICAS</string:String>
@@ -81,7 +81,7 @@
 
     <string:String x:Key="UpdatesLabelText">Actualizaciones</string:String>
     <string:String x:Key="AutoUpdateCheckboxText">Buscar actualizaciones automáticamente</string:String>
-    <string:String x:Key="CheckUpdatesButtonText">Buscar actualizaciones</string:String>
+    <string:String x:Key="CheckUpdatesButtonText">Buscar ahora</string:String>
     <string:String x:Key="UpdateAvailableText">Hay una actualización disponible. Descarga la nueva versión aquí</string:String>
     <string:String x:Key="UpdateAvailableNotifText">Nueva versión disponible</string:String>
     <string:String x:Key="UpdateAvailableNotifButton">Descargar</string:String>
@@ -146,21 +146,21 @@
     <string:String x:Key="ReplayItemsPerPage">Repeticiones por página</string:String>
 
     <string:String x:Key="ReplayDatabaseText">Caché de repeticiones</string:String>
-    <string:String x:Key="ReplayDatabaseSize">Tamaño:</string:String>
+    <string:String x:Key="ReplayDatabaseSize">Peso:</string:String>
     <string:String x:Key="ReplayDatabaseClearButton">Limpiar caché</string:String>
 
     <string:String x:Key="RequestsDownloadAllLabel">Descargar imágenes</string:String>
     <string:String x:Key="RequestsCacheLabel">Caché de imágenes</string:String>
-    <string:String x:Key="RequestsCacheItemsSize">Tamaño de caché de objetos:</string:String>
-    <string:String x:Key="RequestsCacheChampsSize">Tamaño de caché de campeones:</string:String>
-    <string:String x:Key="RequestsCacheRunesSize">Tamaño de caché de runas:</string:String>
+    <string:String x:Key="RequestsCacheItemsSize">Peso de caché de objetos:</string:String>
+    <string:String x:Key="RequestsCacheChampsSize">Peso de caché de campeones:</string:String>
+    <string:String x:Key="RequestsCacheRunesSize">Peso de caché de runas:</string:String>
     <string:String x:Key="RequestsCacheClearItemsButton">Borrar objetos</string:String>
     <string:String x:Key="RequestsCacheClearChampsButton">Borrar campeones</string:String>
     <string:String x:Key="RequestsCacheClearRunesButton">Borrar runas</string:String>
     <string:String x:Key="RequestsCacheCloseToDeleteTitle">Cerrar ReplayBook</string:String>
     <string:String x:Key="RequestsCacheCloseToDelete">El caché se limpiará tras cerrar ReplayBook.</string:String>
     <string:String x:Key="RequestsAdvancedLabel">Opciones avanzadas</string:String>
-    <string:String x:Key="DataDragonBaseUrlLabelText">URL de Data Dragon</string:String>
+    <string:String x:Key="DataDragonBaseUrlLabelText">URL de Data Dragon Base</string:String>
     <string:String x:Key="DataDragonChampionUrlLabelText">URL de las imágenes de campeones</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">URL de las imágenes de objetos</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">URL de la imagen del mapa</string:String>
@@ -176,8 +176,8 @@
     <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">ReplayBook existe gracias a:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Proyectos de código abierto</string:String>
-    <string:String x:Key="AcknowledgementWindowTitleText">Agradecimientos</string:String>
-
+    <string:String x:Key="AcknowledgementWindowTitleText">Agradecimientos y créditos</string:String>
+    
     <!--Generic button text-->
     <string:String x:Key="OKButtonText">OK</string:String>
     <string:String x:Key="AddButtonText">Añadir</string:String>
@@ -340,7 +340,7 @@
     <string:String x:Key="WswSkipText">Saltar</string:String>
     <string:String x:Key="WswSkipDisabled">No es posible saltar</string:String>
     <string:String x:Key="WswDownloadMissingError">No se encontraron ficheros para descargar. Revisa tu conexión a internet o sáltate este paso.</string:String>
-    <string:String x:Key="WswDownloadNoSelectionError">Por favor elija una categoría para descargar.</string:String>
+    <string:String x:Key="WswDownloadNoSelectionError">Por favor elige una categoría para descargar.</string:String>
 
     <!--Welcome Setup : Introduction-->
     <string:String x:Key="WswIntroFrameTitle">Bienvenido a ReplayBook</string:String>
@@ -351,20 +351,20 @@
     <string:String x:Key="WswFinishedFrameTitle">¡Listo!</string:String>
 
     <string:String x:Key="WswIntroductionTitle">¡Gracias por descargar ReplayBook!</string:String>
-    <string:String x:Key="WswIntroductionBody">Antes de continuar, revise la siguiente configuración. Presione el botón Siguiente para continuar.</string:String>
+    <string:String x:Key="WswIntroductionBody">Antes de continuar, es necesario configurar algunos parámetros. Presiona el botón Siguiente para continuar.</string:String>
 
     <string:String x:Key="WswRegionTitle">Elige tu idioma preferido para League of Legends</string:String>
     <string:String x:Key="WswRegionBody">Elige un idioma del menú desplegable. ReplayBook registrará tus ejecutables usando este idioma. De ser necesario, puedes cambiar el idioma de un ejecutable más tarde.</string:String>
 
     <string:String x:Key="WswExecutablesTitle">Selecciona la carpeta Riot Games</string:String>
-    <string:String x:Key="WswExecutablesBody">ReplayBook necesita registrar League of Legends para ver repeticiones. Se buscarán todas las versiones existentes de League of Legends en esta carpeta.</string:String>
-    <string:String x:Key="WswExecutablesHint">Por ejemplo: 'C:\Riot Games'</string:String>
+    <string:String x:Key="WswExecutablesBody">ReplayBook necesita registrar la carpeta donde se aloja League of Legends para ver repeticiones. Se buscarán todas las versiones existentes de League of Legends en esta carpeta.</string:String>
+    <string:String x:Key="WswExecutablesHint">Por defecto, la puedes encontrar en: 'C:\Riot Games'</string:String>
     <string:String x:Key="WswExecutablesRegisterList">Versiones encontradas:</string:String>
     <string:String x:Key="WswExecutablesRegisterListEmpty">No se encontraron versiones</string:String>
 
     <string:String x:Key="WswReplaysTitle">Elige la carpeta de repeticiones</string:String>
-    <string:String x:Key="WswReplaysBody">ReplayBook no podrá ver repeticiones si no sabe dónde están. Verifica que tus repeticiones se encuentren en esta carpeta. Puedes añadir carpetas adicionales más tarde.</string:String>
-    <string:String x:Key="WswReplaysHint">Por defecto, las repeticiones se guardan en "Documentos\League of Legends\Replays".</string:String>
+    <string:String x:Key="WswReplaysBody">ReplayBook necesita saber dónde se encuentran tus repeticiones para poder verlas. Selecciona la carpeta donde se alojan tus repeticiones. Puedes añadir carpetas adicionales más tarde.</string:String>
+    <string:String x:Key="WswReplaysHint">Por defecto, las repeticiones se guardan en 'Documentos\League of Legends\Replays'.</string:String>
 
     <string:String x:Key="WswDownloadTitle">¿Descargar íconos ahora?</string:String>
     <string:String x:Key="WswDownloadBody">Descargar íconos tomará unos minutos, pero hará que ReplayBook funcione más rápido. Si saltas este paso, ReplayBook descargará íconos a medida que se necesiten.</string:String>
@@ -375,7 +375,7 @@
     <string:String x:Key="WswDownloadFinished">Descarga finalizada</string:String>
 
     <string:String x:Key="WswFinishTitle">¡Instalación completada!</string:String>
-    <string:String x:Key="WswFinishBody">Haz clic en "Finalizar" y ReplayBook se iniciará automáticamente con tus configuraciones elegidas.</string:String>
+    <string:String x:Key="WswFinishBody">Haz clic en "Finalizar" y ReplayBook se iniciará automáticamente con los ajustes seleccionados.</string:String>
     <string:String x:Key="WswFinishButton">Finalizar</string:String>
 
     <!--Rename dialog-->
@@ -384,4 +384,5 @@
     
     <!--Delete dialog-->
     <string:String x:Key="DeleteFlyoutLabel">¿Estás seguro?</string:String>
+    
 </ResourceDictionary>
