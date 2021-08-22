@@ -25,7 +25,7 @@ namespace Rofl.UI.Main.Extensions
         /// <returns></returns>
         public static int ToInt(this string source)
         {
-            if(source == null) { return 0; }
+            if (source == null) { return 0; }
 
             int result = -1;
             if (int.TryParse(source, NumberStyles.Integer, CultureInfo.InvariantCulture, out int parseResult))
@@ -36,6 +36,9 @@ namespace Rofl.UI.Main.Extensions
             return result;
         }
 
-        public static string ToHexString(this Color c) => $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+        public static string ToHexString(this Color c)
+        {
+            return $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+        }
     }
 }

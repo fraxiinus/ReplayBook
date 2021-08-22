@@ -1,7 +1,6 @@
 ﻿using Rofl.Executables.Models;
 using Rofl.Executables.Utilities;
 using Rofl.Settings.Models;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Rofl.UI.Main.Models

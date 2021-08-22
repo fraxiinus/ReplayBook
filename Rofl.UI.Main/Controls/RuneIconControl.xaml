@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              xmlns:ui="http://schemas.modernwpf.com/2019" 
              xmlns:models="clr-namespace:Rofl.UI.Main.Models" 
-             d:DataContext="{d:DesignInstance Type=models:Rune}"
+             d:DataContext="{d:DesignInstance Type=models:RuneStat}"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="30">
     <Grid>

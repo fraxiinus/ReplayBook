@@ -2,11 +2,7 @@
 /// https://stackoverflow.com/a/44816953
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rofl.UI.Main.Utilities
 {
@@ -25,7 +21,7 @@ namespace Rofl.UI.Main.Utilities
 
         public static void SetRoflToSelf()
         {
-            var filePath = Process.GetCurrentProcess().MainModule.FileName;
+            string filePath = Process.GetCurrentProcess().MainModule.FileName;
 
             ClearExplorerKeys();
 
@@ -61,7 +57,7 @@ namespace Rofl.UI.Main.Utilities
             // This flat is used to determine if changes were made in the registry
             bool madeChanges = false;
             // Apply our associations
-            foreach (var association in associations)
+            foreach (FileAssociation association in associations)
             {
                 madeChanges |= SaveToRegistry(association.Extension,
                     association.ProgId,
@@ -87,9 +83,9 @@ namespace Rofl.UI.Main.Utilities
 
         private static bool SetKeyDefaultValue(string keyPath, string value)
         {
-            using (var key = Registry.CurrentUser.CreateSubKey(keyPath))
+            using (RegistryKey key = Registry.CurrentUser.CreateSubKey(keyPath))
             {
-                if (key.GetValue(null) as string != value)
+                if ((key.GetValue(null) as string) != value)
                 {
                     key.SetValue(null, value);
                     return true;

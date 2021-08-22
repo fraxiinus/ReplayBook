@@ -42,13 +42,13 @@ namespace Rofl.UI.Main
 
             if (e.Args.Length == 1)
             {
-                var selectedFile = e.Args[0];
+                string selectedFile = e.Args[0];
                 // 0 = directly play, 1 = open in replaybook
                 if (_settingsManager.Settings.FileAction == Settings.Models.FileAction.Play)
                 {
                     StartDialogHost();
                     await _player.PlayReplay(selectedFile).ConfigureAwait(true);
-                    Application.Current.Shutdown();
+                    Current.Shutdown();
                 }
                 else if (_settingsManager.Settings.FileAction == Settings.Models.FileAction.Open)
                 {
@@ -63,22 +63,22 @@ namespace Rofl.UI.Main
             }
         }
 
-        private void StartDialogHost()
+        private static void StartDialogHost()
         {
             // Start a blank/invisible window that will host dialogs, otherwise dialogs are invisible
-            var host = new DialogHostWindow();
+            DialogHostWindow host = new DialogHostWindow();
             host.Show();
         }
 
         private void StartMainWindow()
         {
-            var mainWindow = new MainWindow(_log, _settingsManager, _requests, _files, _player);
+            MainWindow mainWindow = new MainWindow(_log, _settingsManager, _requests, _files, _player);
             mainWindow.Show();
         }
 
         private void StartSingleReplayWindow(string path)
         {
-            var singleWindow = new SingleReplayWindow(_log, _settingsManager, _requests, _files, _player)
+            SingleReplayWindow singleWindow = new SingleReplayWindow(_log, _settingsManager, _requests, _files, _player)
             {
                 ReplayFileLocation = path
             };
@@ -88,7 +88,7 @@ namespace Rofl.UI.Main
         private void CreateCommonObjects()
         {
             // Create common objects
-            var assemblyName = Assembly.GetEntryAssembly()?.GetName();
+            AssemblyName assemblyName = Assembly.GetEntryAssembly()?.GetName();
 
             _log = new RiZhi()
             {
@@ -101,10 +101,10 @@ namespace Rofl.UI.Main
             {
                 _settingsManager = new SettingsManager(_log);
                 _files = new FileManager(_settingsManager.Settings, _log);
-                _requests = new RequestManager(_settingsManager.Settings, _log);
+                _requests = new RequestManager(_settingsManager.Settings, ApplicationHelper.GetUserAgent(), _log);
                 _player = new ReplayPlayer(_files, _settingsManager, _log);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _log.Error(ex.ToString());
                 _log.WriteLog();
@@ -126,22 +126,19 @@ namespace Rofl.UI.Main
                 case 2: // light
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
                     break;
+                default:
+                    break;
             }
 
             // Set accent color
-            if (_settingsManager.Settings.AccentColor == null)
-            {
-                ThemeManager.Current.AccentColor = null;
-            }
-            else
-            {
-                ThemeManager.Current.AccentColor = (Color)ColorConverter.ConvertFromString(_settingsManager.Settings.AccentColor);
-            }
+            ThemeManager.Current.AccentColor = _settingsManager.Settings.AccentColor == null
+                ? null
+                : (Color?)(Color)ColorConverter.ConvertFromString(_settingsManager.Settings.AccentColor);
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            if(_log.ErrorFlag)
+            if (_log.ErrorFlag)
             {
                 _log.WriteLog();
             }

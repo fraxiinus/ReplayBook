@@ -18,17 +18,17 @@ namespace Rofl.UI.Main.Pages
         {
             InitializeComponent();
 
-            this.NextButton.IsEnabled = false;
+            NextButton.IsEnabled = false;
         }
 
         private async void DownloadButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(sender is Button)) return;
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
-            if (!(parent.DataContext is MainWindowViewModel context)) return;
+            if (!(sender is Button)) { return; }
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
+            if (!(parent.DataContext is MainWindowViewModel context)) { return; }
 
             // Clear the error text box
-            ErrorText.Text = String.Empty;
+            ErrorText.Text = string.Empty;
 
             // What do we download?
             bool downloadChamps = ChampionCheckBox.IsChecked ?? false;
@@ -38,12 +38,12 @@ namespace Rofl.UI.Main.Pages
             // Nothing was selected, do nothing
             if (downloadChamps == false && downloadItems == false && downloadRunes == false)
             {
-                ErrorText.Text = (string) TryFindResource("WswDownloadNoSelectionError");
+                ErrorText.Text = (string)TryFindResource("WswDownloadNoSelectionError");
                 return;
             }
 
             // Create all the requests we need
-            var requests = new List<RequestBase>();
+            List<RequestBase> requests = new List<RequestBase>();
             if (downloadChamps)
             {
                 requests.AddRange(await context.RequestManager.GetAllChampionRequests()
@@ -97,11 +97,11 @@ namespace Rofl.UI.Main.Pages
 
         private void DownloadProgressBar_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (Math.Abs(DownloadProgressBar.Value) < 0.1) return;
+            if (Math.Abs(DownloadProgressBar.Value) < 0.1) { return; }
 
             if (Math.Abs(DownloadProgressBar.Value - DownloadProgressBar.Maximum) < 0.1)
             {
-                DownloadProgressText.Text = (string) TryFindResource("WswDownloadFinished");
+                DownloadProgressText.Text = (string)TryFindResource("WswDownloadFinished");
 
                 NextButton.IsEnabled = true;
                 PreviousButton.IsEnabled = true;
@@ -111,21 +111,21 @@ namespace Rofl.UI.Main.Pages
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.MoveToNextPage();
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.MoveToPreviousPage();
         }
 
         private void SkipButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.MoveToNextPage();
         }

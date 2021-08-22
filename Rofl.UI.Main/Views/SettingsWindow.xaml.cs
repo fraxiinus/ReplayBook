@@ -2,7 +2,6 @@
 using ModernWpf;
 using ModernWpf.Controls;
 using Rofl.Executables.Models;
-using Rofl.Executables.Utilities;
 using Rofl.Requests.Models;
 using Rofl.Settings;
 using Rofl.Settings.Models;
@@ -13,10 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,8 +30,8 @@ namespace Rofl.UI.Main.Views
             InitializeComponent();
 
             // This window should open as a dialog, so set owner
-            this.Owner = App.Current.MainWindow;
-            
+            Owner = Application.Current.MainWindow;
+
             // Display the first settings page
             SettingsMenuListBox.SelectedIndex = 0;
 
@@ -48,47 +44,46 @@ namespace Rofl.UI.Main.Views
 
         private void SettingsWindow_OnSourceInitialized(object sender, EventArgs e)
         {
-            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
             // Set color picker note
-            if(context.Settings.AccentColor != null)
+            if (context.Settings.AccentColor != null)
             {
-                AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as String;
+                AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as string;
             }
 
             //// Change window style (i dont think this works anymore...2020-11-30)
-            var GWL_STYLE = -16;
+            int GWL_STYLE = -16;
             // Maximize box flag
-            var WS_MAXIMIZEBOX = 0x10000;
+            int WS_MAXIMIZEBOX = 0x10000;
 
-            var windowHandle = new WindowInteropHelper((Window)sender).Handle;
-            var value = NativeMethods.GetWindowLong(windowHandle, GWL_STYLE);
+            IntPtr windowHandle = new WindowInteropHelper((Window)sender).Handle;
+            int value = NativeMethods.GetWindowLong(windowHandle, GWL_STYLE);
 
             // Flip maximize box flag
-            _ = NativeMethods.SetWindowLong(windowHandle, GWL_STYLE, (int)(value & ~WS_MAXIMIZEBOX));
+            _ = NativeMethods.SetWindowLong(windowHandle, GWL_STYLE, value & ~WS_MAXIMIZEBOX);
             //
 
             // Set player marker style radio
-            PlayerMarkerStyleOption1.IsChecked = (context.Settings.PlayerMarkerStyle == MarkerStyle.Border);
-            PlayerMarkerStyleOption2.IsChecked = (context.Settings.PlayerMarkerStyle == MarkerStyle.Square);
+            PlayerMarkerStyleOption1.IsChecked = context.Settings.PlayerMarkerStyle == MarkerStyle.Border;
+            PlayerMarkerStyleOption2.IsChecked = context.Settings.PlayerMarkerStyle == MarkerStyle.Square;
 
             // Set file action radio
-            FileActionOption1.IsChecked = (context.Settings.FileAction == FileAction.Play);
-            FileActionOption2.IsChecked = (context.Settings.FileAction == FileAction.Open);
+            FileActionOption1.IsChecked = context.Settings.FileAction == FileAction.Play;
+            FileActionOption2.IsChecked = context.Settings.FileAction == FileAction.Open;
 
             // Set theme mode radio
-            AppearanceThemeOption1.IsChecked = (context.Settings.ThemeMode == 0);
-            AppearanceThemeOption2.IsChecked = (context.Settings.ThemeMode == 1);
-            AppearanceThemeOption3.IsChecked = (context.Settings.ThemeMode == 2);
+            AppearanceThemeOption1.IsChecked = context.Settings.ThemeMode == 0;
+            AppearanceThemeOption2.IsChecked = context.Settings.ThemeMode == 1;
+            AppearanceThemeOption3.IsChecked = context.Settings.ThemeMode == 2;
 
             // Load language drop down
             LanguageComboBox.ItemsSource = LanguageHelper.GetFriendlyLanguageNames();
-            LanguageComboBox.SelectedIndex = (int) context.Settings.ProgramLanguage;
+            LanguageComboBox.SelectedIndex = (int)context.Settings.ProgramLanguage;
 
             // Load default locale drop down
             //var allLocales = Enum.GetNames(typeof(LeagueLocale))
@@ -106,15 +101,15 @@ namespace Rofl.UI.Main.Views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
             context.SaveConfigFile();
-            this.DialogResult = true;
+            DialogResult = true;
         }
 
         private async void SettingsMenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedItem = ((sender as ListBox).SelectedItem as ListBoxItem);
+            ListBoxItem selectedItem = (sender as ListBox).SelectedItem as ListBoxItem;
 
             switch (selectedItem.Name)
             {
@@ -148,44 +143,44 @@ namespace Rofl.UI.Main.Views
 
         private void AddKnownPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
-            var addDialog = new PlayerMarkerDialog
+            PlayerMarkerDialog addDialog = new PlayerMarkerDialog
             {
                 Owner = this,
                 DataContext = context.Settings.KnownPlayers
             };
 
-            addDialog.ShowAsync(ContentDialogPlacement.Popup);
+            _ = addDialog.ShowAsync(ContentDialogPlacement.Popup);
         }
 
         private void EditKnownPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
             if (!(KnownPlayersListBox.SelectedItem is PlayerMarker selectedPlayer)) { return; }
 
-            var editDialog = new PlayerMarkerDialog(selectedPlayer)
+            PlayerMarkerDialog editDialog = new PlayerMarkerDialog(selectedPlayer)
             {
                 Owner = this,
                 DataContext = context.Settings.KnownPlayers
             };
 
-            editDialog.ShowAsync(ContentDialogPlacement.Popup);
+            _ = editDialog.ShowAsync(ContentDialogPlacement.Popup);
         }
-        
+
         private void RemoveKnownPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
             if (!(KnownPlayersListBox.SelectedItem is PlayerMarker selectedPlayer)) { return; }
 
             // Create confirmation flyout
-            var confirmFlyout = FlyoutHelper.CreateFlyout();
-            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as String);
-            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as String);
+            Flyout confirmFlyout = FlyoutHelper.CreateFlyout();
+            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as string);
+            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as string);
 
             confirmFlyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
-                context.Settings.KnownPlayers.Remove(selectedPlayer);
+                _ = context.Settings.KnownPlayers.Remove(selectedPlayer);
 
                 EditKnownPlayerButton.IsEnabled = false;
                 RemoveKnownPlayerButton.IsEnabled = false;
@@ -198,7 +193,7 @@ namespace Rofl.UI.Main.Views
 
         private void KnownPlayersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((sender as ListBox).SelectedItem as PlayerMarker == null) { return; };
+            if (((sender as ListBox).SelectedItem as PlayerMarker) == null) { return; };
 
             EditKnownPlayerButton.IsEnabled = true;
             RemoveKnownPlayerButton.IsEnabled = true;
@@ -206,7 +201,7 @@ namespace Rofl.UI.Main.Views
 
         private void SourceFoldersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((sender as ListBox).SelectedItem as String == null) { return; };
+            if (((sender as ListBox).SelectedItem as string) == null) { return; };
 
             EditSourceFolderButton.IsEnabled = true;
             RemoveSourceFolderButton.IsEnabled = true;
@@ -214,11 +209,11 @@ namespace Rofl.UI.Main.Views
 
         private async void AddSourceFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
-            using (var folderDialog = new CommonOpenFileDialog())
+            using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
             {
-                folderDialog.Title = TryFindResource("SourceFoldersWindowText") as String;
+                folderDialog.Title = TryFindResource("SourceFoldersWindowText") as string;
                 folderDialog.IsFolderPicker = true;
                 folderDialog.AddToMostRecentlyUsedList = false;
                 folderDialog.AllowNonFileSystemItems = false;
@@ -232,22 +227,22 @@ namespace Rofl.UI.Main.Views
                 folderDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 folderDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-                if(folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    var selectedFolder = folderDialog.FileName;
+                    string selectedFolder = folderDialog.FileName;
 
                     if (context.Settings.SourceFolders.Contains(selectedFolder))
                     {
                         // Create Dialog with error message
-                        var msgDialog = new GenericMessageDialog()
+                        GenericMessageDialog msgDialog = new GenericMessageDialog()
                         {
-                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
+                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as string,
                             Owner = this
                         };
-                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as String);
+                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as string);
 
                         // Show dialog
-                        var msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                        ContentDialogResult msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
                         // Repeat action
                         if (msgDialogResult == ContentDialogResult.Primary)
@@ -270,12 +265,12 @@ namespace Rofl.UI.Main.Views
 
         private async void EditSourceFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
-            if (!(SourceFoldersListBox.SelectedItem is String selectedFolder)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
+            if (!(SourceFoldersListBox.SelectedItem is string selectedFolder)) { return; }
 
-            using (var folderDialog = new CommonOpenFileDialog())
+            using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
             {
-                folderDialog.Title = TryFindResource("SourceFoldersWindowText") as String;
+                folderDialog.Title = TryFindResource("SourceFoldersWindowText") as string;
                 folderDialog.IsFolderPicker = true;
                 folderDialog.AddToMostRecentlyUsedList = false;
                 folderDialog.AllowNonFileSystemItems = false;
@@ -291,20 +286,20 @@ namespace Rofl.UI.Main.Views
 
                 if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    var newSelectedFolder = folderDialog.FileName;
+                    string newSelectedFolder = folderDialog.FileName;
 
                     if (context.Settings.SourceFolders.Contains(newSelectedFolder))
                     {
                         // Create Dialog with error message
-                        var msgDialog = new GenericMessageDialog()
+                        GenericMessageDialog msgDialog = new GenericMessageDialog()
                         {
-                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
+                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as string,
                             Owner = this
                         };
-                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as String);
+                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as string);
 
                         // Show dialog
-                        var msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                        ContentDialogResult msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
                         // Repeat action
                         if (msgDialogResult == ContentDialogResult.Primary)
@@ -318,7 +313,7 @@ namespace Rofl.UI.Main.Views
                     }
                     else
                     {
-                        context.Settings.SourceFolders.Remove(selectedFolder);
+                        _ = context.Settings.SourceFolders.Remove(selectedFolder);
                         context.Settings.SourceFolders.Add(newSelectedFolder);
                     }
                 }
@@ -327,17 +322,17 @@ namespace Rofl.UI.Main.Views
 
         private void RemoveSourceFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
-            if (!(SourceFoldersListBox.SelectedItem is String selectedFolder)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
+            if (!(SourceFoldersListBox.SelectedItem is string selectedFolder)) { return; }
 
             // Create confirmation flyout
-            var confirmFlyout = FlyoutHelper.CreateFlyout();
-            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as String);
-            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as String);
+            Flyout confirmFlyout = FlyoutHelper.CreateFlyout();
+            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as string);
+            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as string);
 
             confirmFlyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
-                context.Settings.SourceFolders.Remove(selectedFolder);
+                _ = context.Settings.SourceFolders.Remove(selectedFolder);
 
                 EditSourceFolderButton.IsEnabled = false;
                 RemoveSourceFolderButton.IsEnabled = false;
@@ -350,7 +345,7 @@ namespace Rofl.UI.Main.Views
 
         private void ExecutableFoldersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((sender as ListBox).SelectedItem as string == null) { return; };
+            if (((sender as ListBox).SelectedItem as string) == null) { return; };
 
             EditExecutableFolderButton.IsEnabled = true;
             RemoveExecutableFolderButton.IsEnabled = true;
@@ -358,11 +353,11 @@ namespace Rofl.UI.Main.Views
 
         private async void AddExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
-            using (var folderDialog = new CommonOpenFileDialog())
+            using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
             {
-                folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as String;
+                folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as string;
                 folderDialog.IsFolderPicker = true;
                 folderDialog.AddToMostRecentlyUsedList = false;
                 folderDialog.AllowNonFileSystemItems = false;
@@ -378,20 +373,20 @@ namespace Rofl.UI.Main.Views
 
                 if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    var selectedFolder = folderDialog.FileName;
+                    string selectedFolder = folderDialog.FileName;
 
                     if (context.Executables.Settings.SourceFolders.Contains(selectedFolder))
                     {
                         // Create Dialog with error message
-                        var msgDialog = new GenericMessageDialog()
+                        GenericMessageDialog msgDialog = new GenericMessageDialog()
                         {
-                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
+                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as string,
                             Owner = this
                         };
-                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as String);
+                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as string);
 
                         // Show dialog
-                        var msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                        ContentDialogResult msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
                         // Repeat action
                         if (msgDialogResult == ContentDialogResult.Primary)
@@ -413,12 +408,12 @@ namespace Rofl.UI.Main.Views
 
         private async void EditExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
-            if (!(ExecutableFoldersListBox.SelectedItem is String selectedFolder)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
+            if (!(ExecutableFoldersListBox.SelectedItem is string selectedFolder)) { return; }
 
-            using (var folderDialog = new CommonOpenFileDialog())
+            using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
             {
-                folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as String;
+                folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as string;
                 folderDialog.IsFolderPicker = true;
                 folderDialog.AddToMostRecentlyUsedList = false;
                 folderDialog.AllowNonFileSystemItems = false;
@@ -434,20 +429,20 @@ namespace Rofl.UI.Main.Views
 
                 if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    var newSelectedFolder = folderDialog.FileName;
+                    string newSelectedFolder = folderDialog.FileName;
 
                     if (context.Executables.Settings.SourceFolders.Contains(newSelectedFolder))
                     {
                         // Create Dialog with error message
-                        var msgDialog = new GenericMessageDialog()
+                        GenericMessageDialog msgDialog = new GenericMessageDialog()
                         {
-                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as String,
+                            Title = TryFindResource("SourceFoldersAlreadyExistsErrorTitle") as string,
                             Owner = this
                         };
-                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as String);
+                        msgDialog.SetMessage(TryFindResource("SourceFoldersAlreadyExistsErrorText") as string);
 
                         // Show dialog
-                        var msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                        ContentDialogResult msgDialogResult = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
                         // Repeat action
                         if (msgDialogResult == ContentDialogResult.Primary)
@@ -461,7 +456,7 @@ namespace Rofl.UI.Main.Views
                     }
                     else
                     {
-                        context.Executables.Settings.SourceFolders.Remove(selectedFolder);
+                        _ = context.Executables.Settings.SourceFolders.Remove(selectedFolder);
                         context.Executables.Settings.SourceFolders.Add(newSelectedFolder);
                     }
                 }
@@ -470,17 +465,17 @@ namespace Rofl.UI.Main.Views
 
         private void RemoveExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
-            if (!(ExecutableFoldersListBox.SelectedItem is String selectedFolder)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
+            if (!(ExecutableFoldersListBox.SelectedItem is string selectedFolder)) { return; }
 
             // Create confirmation flyout
-            var confirmFlyout = FlyoutHelper.CreateFlyout();
-            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as String);
-            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as String);
+            Flyout confirmFlyout = FlyoutHelper.CreateFlyout();
+            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as string);
+            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as string);
 
             confirmFlyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
-                context.Executables.Settings.SourceFolders.Remove(selectedFolder);
+                _ = context.Executables.Settings.SourceFolders.Remove(selectedFolder);
 
                 EditExecutableFolderButton.IsEnabled = false;
                 RemoveExecutableFolderButton.IsEnabled = false;
@@ -493,18 +488,18 @@ namespace Rofl.UI.Main.Views
 
         private void SourceFoldersSearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
-            var results = context.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
+            (int, string[]) results = context.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
             int addedCount = results.Item1;
-            var skippedDirs = results.Item2;
+            string[] skippedDirs = results.Item2;
 
-            var labelText = TryFindResource("ExecutableFoldersSearchResultLabelText") as String;
+            string labelText = TryFindResource("ExecutableFoldersSearchResultLabelText") as string;
             labelText = labelText.Replace("$", addedCount.ToString(CultureInfo.InvariantCulture));
 
             if (skippedDirs.Length > 0)
             {
-                labelText += "\n\n" + TryFindResource("ExecutableFoldersSearchResultErrorText") as String;
+                labelText += "\n\n" + TryFindResource("ExecutableFoldersSearchResultErrorText");
                 foreach (string dir in skippedDirs)
                 {
                     labelText += "\n" + dir;
@@ -512,20 +507,20 @@ namespace Rofl.UI.Main.Views
             }
 
             // Create Dialog with message
-            var msgDialog = new GenericMessageDialog()
+            GenericMessageDialog msgDialog = new GenericMessageDialog()
             {
-                Title = TryFindResource("ExecutableFoldersSearchResultTitleText") as String,
+                Title = TryFindResource("ExecutableFoldersSearchResultTitleText") as string,
                 Owner = this
             };
             msgDialog.SetMessage(labelText);
 
             // Show dialog
-            msgDialog.ShowAsync(ContentDialogPlacement.Popup);
+            _ = msgDialog.ShowAsync(ContentDialogPlacement.Popup);
         }
 
         private void ExecutablesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((sender as ListBox).SelectedItem as LeagueExecutable == null) { return; };
+            if (((sender as ListBox).SelectedItem as LeagueExecutable) == null) { return; };
 
             EditExecutableButton.IsEnabled = true;
             RemoveExecutableButton.IsEnabled = true;
@@ -533,40 +528,40 @@ namespace Rofl.UI.Main.Views
 
         private void AddExecutableButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
-            var addDialog = new ExecutableDetailDialog
+            ExecutableDetailDialog addDialog = new ExecutableDetailDialog
             {
                 Owner = this,
                 DataContext = context.Executables
             };
 
-            addDialog.ShowAsync(ContentDialogPlacement.Popup);
+            _ = addDialog.ShowAsync(ContentDialogPlacement.Popup);
         }
 
         private void EditExecutableButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
             if (!(ExecutablesListBox.SelectedItem is LeagueExecutable selectedExecutable)) { return; };
 
-            var editDialog = new ExecutableDetailDialog(selectedExecutable)
+            ExecutableDetailDialog editDialog = new ExecutableDetailDialog(selectedExecutable)
             {
                 Owner = this,
                 DataContext = context.Executables
             };
 
-            editDialog.ShowAsync(ContentDialogPlacement.Popup);
+            _ = editDialog.ShowAsync(ContentDialogPlacement.Popup);
         }
 
         private void RemoveExecutableButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
             if (!(ExecutablesListBox.SelectedItem is LeagueExecutable selectedExecutable)) { return; };
 
             // Create confirmation flyout
-            var confirmFlyout = FlyoutHelper.CreateFlyout();
-            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as String);
-            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as String);
+            Flyout confirmFlyout = FlyoutHelper.CreateFlyout();
+            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as string);
+            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as string);
 
             confirmFlyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
@@ -583,97 +578,96 @@ namespace Rofl.UI.Main.Views
 
         private async void SetFileAssocButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager)) { return; }
 
             FileAssociations.SetRoflToSelf();
 
-            var msgDialog = new GenericMessageDialog()
+            GenericMessageDialog msgDialog = new GenericMessageDialog()
             {
-                Title = TryFindResource("FileAssociationMessageTitleText") as String,
+                Title = TryFindResource("FileAssociationMessageTitleText") as string,
                 Owner = this
             };
-            msgDialog.SetMessage(TryFindResource("FileAssociationMessageBodyText") as String);
+            msgDialog.SetMessage(TryFindResource("FileAssociationMessageBodyText") as string);
 
             // Show dialog
-            await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            _ = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
         private async void UpdateCheckButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
             string latestVersion;
             try
             {
                 latestVersion = await GithubConnection.GetLatestVersion().ConfigureAwait(true);
             }
-            catch (HttpRequestException ex)
+            catch (HttpRequestException)
             {
                 // Http request failed, show error and stop
                 // Create Dialog with error message
-                var msgDialog = new GenericMessageDialog()
+                GenericMessageDialog msgDialog = new GenericMessageDialog()
                 {
-                    Title = TryFindResource("UpdateExceptionTitleText") as String,
+                    Title = TryFindResource("UpdateExceptionTitleText") as string,
                     Owner = this
                 };
-                msgDialog.SetMessage(TryFindResource("UpdateHTTPExceptionBodyText") as String);
+                msgDialog.SetMessage(TryFindResource("UpdateHTTPExceptionBodyText") as string);
 
                 // Show dialog
-                await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                _ = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
                 return;
             }
-            
-            if (String.IsNullOrEmpty(latestVersion))
+
+            if (string.IsNullOrEmpty(latestVersion))
             {
                 // Either github returned nothing or got an http error code
                 // Http request failed, show error and stop
                 // Create Dialog with error message
-                var msgDialog = new GenericMessageDialog()
+                GenericMessageDialog msgDialog = new GenericMessageDialog()
                 {
-                    Title = TryFindResource("UpdateExceptionTitleText") as String,
+                    Title = TryFindResource("UpdateExceptionTitleText") as string,
                     Owner = this
                 };
-                msgDialog.SetMessage(TryFindResource("UpdateGitHubErrorBodyText") as String);
+                msgDialog.SetMessage(TryFindResource("UpdateGitHubErrorBodyText") as string);
 
                 // Show dialog
-                await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                _ = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
                 return;
             }
 
-            var assemblyName = Assembly.GetEntryAssembly()?.GetName();
-            var assemblyVersion = assemblyName.Version.ToString(3);
+            string assemblyVersion = ApplicationHelper.GetVersion();
 
             if (latestVersion.Equals(assemblyVersion, StringComparison.OrdinalIgnoreCase))
             {
                 context.TemporaryValues["UpdateAvailable"] = false;
                 UpdateAvailableButton.Visibility = Visibility.Collapsed;
 
-                var msgDialog = new GenericMessageDialog()
+                GenericMessageDialog msgDialog = new GenericMessageDialog()
                 {
-                    Title = TryFindResource("UpdateMostRecentTitleText") as String,
+                    Title = TryFindResource("UpdateMostRecentTitleText") as string,
                     Owner = this
                 };
-                msgDialog.SetMessage(TryFindResource("UpdateMostRecentBodyText") as String);
-                await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                msgDialog.SetMessage(TryFindResource("UpdateMostRecentBodyText") as string);
+                _ = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
             }
             else
             {
                 context.TemporaryValues["UpdateAvailable"] = true;
                 UpdateAvailableButton.Visibility = Visibility.Visible;
 
-                var msgDialog = new GenericMessageDialog()
+                GenericMessageDialog msgDialog = new GenericMessageDialog()
                 {
-                    Title = TryFindResource("UpdateNewerTitleText") as String,
+                    Title = TryFindResource("UpdateNewerTitleText") as string,
                     Owner = this,
                     IsSecondaryButtonEnabled = true,
-                    SecondaryButtonText = TryFindResource("CancelButtonText") as String
+                    SecondaryButtonText = TryFindResource("CancelButtonText") as string
                 };
-                msgDialog.SetMessage(TryFindResource("UpdateNewerBodyText") as String + $"\n{assemblyVersion} -> {latestVersion}");
-                var response = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                msgDialog.SetMessage(TryFindResource("UpdateNewerBodyText") as string + $"\n{assemblyVersion} -> {latestVersion}");
+                ContentDialogResult response = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
-                if(response == ContentDialogResult.Primary)
+                if (response == ContentDialogResult.Primary)
                 {
-                    Process.Start((TryFindResource("GitHubReleasesLink") as Uri).ToString());
+                    _ = Process.Start((TryFindResource("GitHubReleasesLink") as Uri).ToString());
                 }
             }
 
@@ -682,18 +676,18 @@ namespace Rofl.UI.Main.Views
 
         private void AcknowledgementsButton_Click(object sender, RoutedEventArgs e)
         {
-            var ackDialog = new AcknowledgementsWindow
+            AcknowledgementsWindow ackDialog = new AcknowledgementsWindow
             {
-                Top = App.Current.MainWindow.Top + 50,
-                Left = App.Current.MainWindow.Left + 50
+                Top = Application.Current.MainWindow.Top + 50,
+                Left = Application.Current.MainWindow.Left + 50
             };
 
-            ackDialog.ShowDialog();
+            _ = ackDialog.ShowDialog();
         }
 
         private void AppearanceThemeOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
             switch (AppearanceThemeOptions.SelectedIndex)
             {
@@ -709,16 +703,18 @@ namespace Rofl.UI.Main.Views
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
                     context.Settings.ThemeMode = 2;
                     break;
+                default:
+                    break;
             }
         }
 
         private void AccentColorResetButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
             // Setting accent color as null resets the color
             ThemeManager.Current.AccentColor = null;
-            
+
             // Save the null here
             context.Settings.AccentColor = null;
 
@@ -726,12 +722,12 @@ namespace Rofl.UI.Main.Views
             AccentColorButton.SelectedColor = ThemeManager.Current.ActualAccentColor;
 
             // Update the note
-            AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeDefaultAccentNote") as String;
+            AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeDefaultAccentNote") as string;
         }
 
         private void AccentColorPickerPopup_Closed(object sender, EventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
             // Set accent color to picker color
             ThemeManager.Current.AccentColor = AccentColorButton.SelectedColor;
@@ -740,78 +736,78 @@ namespace Rofl.UI.Main.Views
             context.Settings.AccentColor = AccentColorButton.SelectedColorHex;
 
             // Update the note
-            AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as String;
+            AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as string;
         }
 
         private async Task LoadCacheSizes()
         {
-            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) { return; }
 
-            var results = await viewModel.CalculateCacheSizes().ConfigureAwait(true);
+            (long ItemsTotalSize, long ChampsTotalSize, long RunesTotalSize) = await viewModel.CalculateCacheSizes().ConfigureAwait(true);
 
-            var readableSizeConverter = new FormatKbSizeConverter();
-            RequestsCacheItemSize.Text = (string)readableSizeConverter.Convert(results.ItemsTotalSize, null, null, CultureInfo.InvariantCulture);
-            RequestsCacheChampsSize.Text = (string)readableSizeConverter.Convert(results.ChampsTotalSize, null, null, CultureInfo.InvariantCulture);
-            RequestsCacheRunesSize.Text = (string)readableSizeConverter.Convert(results.RunesTotalSize, null, null, CultureInfo.InvariantCulture);
+            FormatKbSizeConverter readableSizeConverter = new FormatKbSizeConverter();
+            RequestsCacheItemSize.Text = (string)readableSizeConverter.Convert(ItemsTotalSize, null, null, CultureInfo.InvariantCulture);
+            RequestsCacheChampsSize.Text = (string)readableSizeConverter.Convert(ChampsTotalSize, null, null, CultureInfo.InvariantCulture);
+            RequestsCacheRunesSize.Text = (string)readableSizeConverter.Convert(RunesTotalSize, null, null, CultureInfo.InvariantCulture);
         }
 
         private async void DeleteItemsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) { return; }
 
             // Set the delete flag, to be deleted by the main view model on close
             viewModel.ClearItemsCacheOnClose = true;
 
             // inform the user that the delete will happen when the window is closed
-            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
             dialog.DefaultButton = ContentDialogButton.Primary;
 
             dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
             dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
             dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
 
-            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
         private async void DeleteChampsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) { return; }
 
             // Set the delete flag, to be deleted by the main view model on close
             viewModel.ClearChampsCacheOnClose = true;
 
             // inform the user that the delete will happen when the window is closed
-            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
             dialog.DefaultButton = ContentDialogButton.Primary;
 
             dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
             dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
             dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
 
-            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
         private async void DeleteRunesButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) { return; }
 
             // Set the delete flag, to be deleted by the main view model on close
             viewModel.ClearRunesCacheOnClose = true;
 
             // inform the user that the delete will happen when the window is closed
-            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
             dialog.DefaultButton = ContentDialogButton.Primary;
 
             dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
             dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
             dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
 
-            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
         private void PlayerMarkerStyleOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
             if (PlayerMarkerStyleOptions.SelectedIndex == 0)
             {
@@ -825,7 +821,7 @@ namespace Rofl.UI.Main.Views
 
         private void FileActionOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
             if (FileActionOptions.SelectedIndex == 0)
             {
@@ -839,10 +835,10 @@ namespace Rofl.UI.Main.Views
 
         private async void DownloadImageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel context)) return;
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel context)) { return; }
 
             // Clear the error text box
-            DownloadImageErrorText.Text = String.Empty;
+            DownloadImageErrorText.Text = string.Empty;
 
             // What do we download?
             bool downloadChamps = ChampionCheckBox.IsChecked ?? false;
@@ -894,9 +890,9 @@ namespace Rofl.UI.Main.Views
             DownloadProgressBar.Minimum = 0;
             DownloadProgressBar.Maximum = requests.Count;
 
-            foreach (var request in requests)
+            foreach (RequestBase request in requests)
             {
-                var response = await context.RequestManager.MakeRequestAsync(request)
+                ResponseBase response = await context.RequestManager.MakeRequestAsync(request)
                     .ConfigureAwait(true);
 
                 string splitSubstring = response.ResponsePath;
@@ -913,7 +909,7 @@ namespace Rofl.UI.Main.Views
 
         private void DownloadProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (Math.Abs(DownloadProgressBar.Value) < 0.1) return;
+            if (Math.Abs(DownloadProgressBar.Value) < 0.1) { return; }
 
             if (Math.Abs(DownloadProgressBar.Value - DownloadProgressBar.Maximum) < 0.1)
             {
@@ -926,30 +922,30 @@ namespace Rofl.UI.Main.Views
 
         private void LoadReplayCacheSizes()
         {
-            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) { return; }
 
-            var results = viewModel.CalculateReplayCacheSize();
+            long results = viewModel.CalculateReplayCacheSize();
 
-            var readableSizeConverter = new FormatKbSizeConverter();
+            FormatKbSizeConverter readableSizeConverter = new FormatKbSizeConverter();
             ReplayCacheSize.Text = (string)readableSizeConverter.Convert(results, null, null, CultureInfo.InvariantCulture);
         }
 
         private async void DeleteReplayCacheButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) return;
+            if (!(Application.Current.MainWindow.DataContext is MainWindowViewModel viewModel)) { return; }
 
             // Set the delete flag, to be deleted by the main view model on close
             viewModel.ClearReplayCacheOnClose = true;
 
             // inform the user that the delete will happen when the window is closed
-            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
             dialog.DefaultButton = ContentDialogButton.Primary;
 
             dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
             dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
             dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
 
-            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
         //private void ExecutableLocaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -961,9 +957,9 @@ namespace Rofl.UI.Main.Views
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(this.DataContext is SettingsManager context)) { return; }
+            if (!(DataContext is SettingsManager context)) { return; }
 
-            context.Settings.ProgramLanguage = (Language) LanguageComboBox.SelectedIndex;
+            context.Settings.ProgramLanguage = (Language)LanguageComboBox.SelectedIndex;
             LanguageHelper.SetProgramLanguage(context.Settings.ProgramLanguage);
         }
     }

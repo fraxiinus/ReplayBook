@@ -23,12 +23,12 @@ namespace Rofl.UI.Main.Views
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             _executable.LaunchArguments = LaunchArgsBox.Text;
-            this.Close();
+            Close();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

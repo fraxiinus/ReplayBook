@@ -121,20 +121,20 @@ namespace Rofl.UI.Main.Models
             };
 
             // Runes
-            KeystoneRune = new Rune(player.PERK0, player.PERK0_VAR1, player.PERK0_VAR2, player.PERK0_VAR3);
-            Runes = new List<Rune>
+            KeystoneRune = new RuneStat(player.PERK0, player.PERK0_VAR1, player.PERK0_VAR2, player.PERK0_VAR3);
+            Runes = new List<RuneStat>
             {
-                new Rune(player.PERK1, player.PERK1_VAR1, player.PERK1_VAR2, player.PERK1_VAR3),
-                new Rune(player.PERK2, player.PERK2_VAR1, player.PERK2_VAR2, player.PERK2_VAR3),
-                new Rune(player.PERK3, player.PERK3_VAR1, player.PERK3_VAR2, player.PERK3_VAR3),
-                new Rune(player.PERK4, player.PERK4_VAR1, player.PERK4_VAR2, player.PERK4_VAR3),
-                new Rune(player.PERK5, player.PERK5_VAR1, player.PERK5_VAR2, player.PERK5_VAR3)
+                new RuneStat(player.PERK1, player.PERK1_VAR1, player.PERK1_VAR2, player.PERK1_VAR3),
+                new RuneStat(player.PERK2, player.PERK2_VAR1, player.PERK2_VAR2, player.PERK2_VAR3),
+                new RuneStat(player.PERK3, player.PERK3_VAR1, player.PERK3_VAR2, player.PERK3_VAR3),
+                new RuneStat(player.PERK4, player.PERK4_VAR1, player.PERK4_VAR2, player.PERK4_VAR3),
+                new RuneStat(player.PERK5, player.PERK5_VAR1, player.PERK5_VAR2, player.PERK5_VAR3)
             };
-            StatsRunes = new List<Rune>
+            StatsRunes = new List<RuneStat>
             {
-                new Rune(player.STAT_PERK_0, "", "", ""),
-                new Rune(player.STAT_PERK_1, "", "", ""),
-                new Rune(player.STAT_PERK_2, "", "", "")
+                new RuneStat(player.STAT_PERK_0, "", "", ""),
+                new RuneStat(player.STAT_PERK_1, "", "", ""),
+                new RuneStat(player.STAT_PERK_2, "", "", "")
             };
         }
 
@@ -288,29 +288,29 @@ namespace Rofl.UI.Main.Models
 
         public bool WasEarlySurrenderAccomplice { get; private set; }
 
-        public Rune KeystoneRune { get; private set; }
+        public RuneStat KeystoneRune { get; private set; }
 
         public IList<Item> Items { get; private set; }
 
         // Does not include keystone rune or stats runes
-        public IList<Rune> Runes { get; private set; }
+        public IList<RuneStat> Runes { get; private set; }
 
-        public IList<Rune> StatsRunes { get; private set; }
+        public IList<RuneStat> StatsRunes { get; private set; }
 
-        public Rune PrimaryPathRune0 => Runes[0];
+        public RuneStat PrimaryPathRune0 => Runes[0];
 
-        public Rune PrimaryPathRune1 => Runes[1];
+        public RuneStat PrimaryPathRune1 => Runes[1];
 
-        public Rune PrimaryPathRune2 => Runes[2];
+        public RuneStat PrimaryPathRune2 => Runes[2];
 
-        public Rune SecondaryPathRune0 => Runes[3];
+        public RuneStat SecondaryPathRune0 => Runes[3];
 
-        public Rune SecondaryPathRune1 => Runes[4];
+        public RuneStat SecondaryPathRune1 => Runes[4];
 
-        public Rune StatsRunes0 => StatsRunes[0];
+        public RuneStat StatsRunes0 => StatsRunes[0];
 
-        public Rune StatsRunes1 => StatsRunes[1];
+        public RuneStat StatsRunes1 => StatsRunes[1];
 
-        public Rune StatsRunes2 => StatsRunes[2];
+        public RuneStat StatsRunes2 => StatsRunes[2];
     }
 }

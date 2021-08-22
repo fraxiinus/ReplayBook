@@ -11,19 +11,17 @@ using System.Threading.Tasks;
 
 namespace Rofl.Requests.Utilities
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class DownloadClient
     {
         private readonly string _downloadRootFolder;
         private readonly ObservableSettings _settings;
         private readonly RiZhi _log;
         private readonly HttpClient _httpClient;
+        private readonly string _userAgent;
 
-        private const string UserAgent = @"ReplayBook/R1.3.1 (+https://github.com/fraxiinus/ReplayBook)";
+        private string LatestDataDragonVersion;
 
-        private string LatestDataDragonVersion = null;
-
-        public DownloadClient(string downloadPath, ObservableSettings settings, RiZhi log)
+        public DownloadClient(string downloadPath, string userAgent, ObservableSettings settings, RiZhi log)
         {
             if (string.IsNullOrEmpty(downloadPath))
             {
@@ -33,6 +31,7 @@ namespace Rofl.Requests.Utilities
             _settings = settings;
             _log = log;
             _downloadRootFolder = downloadPath;
+            _userAgent = userAgent;
             _httpClient = new HttpClient();
         }
 
@@ -124,7 +123,7 @@ namespace Rofl.Requests.Utilities
             HttpResponseMessage response;
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
-                request.Headers.UserAgent.ParseAdd(UserAgent);
+                request.Headers.UserAgent.ParseAdd(_userAgent);
                 request.Headers.Accept.ParseAdd("text/json");
 
                 try
@@ -164,7 +163,7 @@ namespace Rofl.Requests.Utilities
             HttpResponseMessage response;
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
-                request.Headers.UserAgent.ParseAdd(UserAgent);
+                request.Headers.UserAgent.ParseAdd(_userAgent);
                 request.Headers.Accept.ParseAdd("text/json");
 
                 try
@@ -207,7 +206,7 @@ namespace Rofl.Requests.Utilities
             HttpResponseMessage response;
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
-                request.Headers.UserAgent.ParseAdd(UserAgent);
+                request.Headers.UserAgent.ParseAdd(_userAgent);
                 request.Headers.Accept.ParseAdd("text/json");
 
                 try
@@ -332,7 +331,7 @@ namespace Rofl.Requests.Utilities
             HttpResponseMessage response;
             using (var request = new HttpRequestMessage(HttpMethod.Get, url))
             {
-                request.Headers.UserAgent.ParseAdd(UserAgent);
+                request.Headers.UserAgent.ParseAdd(_userAgent);
                 request.Headers.Accept.ParseAdd("image/png");
 
                 try
@@ -366,6 +365,11 @@ namespace Rofl.Requests.Utilities
                 _log.Warning($"HTTP request failed {(int) response.StatusCode} {url}");
                 return null;
             }
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

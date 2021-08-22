@@ -57,6 +57,5 @@ namespace Rofl.UI.Main.Models
                     this, new PropertyChangedEventArgs(nameof(Value)));
             }
         }
-        
     }
 }

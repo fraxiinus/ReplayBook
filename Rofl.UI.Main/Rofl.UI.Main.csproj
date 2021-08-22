@@ -104,7 +104,7 @@
     <Compile Include="Extensions\StaticResourceExtension.cs" />
     <Compile Include="Models\ExportContext.cs" />
     <Compile Include="Models\ExportSelectItem.cs" />
-    <Compile Include="Models\Rune.cs" />
+    <Compile Include="Models\RuneStat.cs" />
     <Compile Include="Models\StatusBar.cs" />
     <Compile Include="Models\WelcomeSetupSettings.cs" />
     <Compile Include="NativeMethods.cs" />
@@ -126,6 +126,7 @@
     <Compile Include="Pages\WelcomeSetupReplays.xaml.cs">
       <DependentUpon>WelcomeSetupReplays.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\ApplicationHelper.cs" />
     <Compile Include="Utilities\ContentDialogHelper.cs" />
     <Compile Include="Utilities\DictionaryExtensions.cs" />
     <Compile Include="Utilities\ExportHelper.cs" />

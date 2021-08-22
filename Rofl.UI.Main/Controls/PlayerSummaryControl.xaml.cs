@@ -15,11 +15,11 @@ namespace Rofl.UI.Main.Controls
 
         private void CopyTextBlock_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (!(sender is MenuItem context)) return;
-            
+            if (!(sender is MenuItem context)) { return; }
+
             // Navigate upward to get the textblock that was right clicked
             // MenuItem -> ContextMenu -> TextBlock
-            var textBlock = (TextBlock)((ContextMenu)context.Parent).PlacementTarget;
+            TextBlock textBlock = (TextBlock)((ContextMenu)context.Parent).PlacementTarget;
 
             Clipboard.SetText(textBlock.Text, TextDataFormat.UnicodeText);
         }

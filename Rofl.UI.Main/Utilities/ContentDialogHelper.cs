@@ -1,9 +1,6 @@
 ﻿using ModernWpf.Controls;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -20,18 +17,18 @@ namespace Rofl.UI.Main.Utilities
         public static ContentDialog CreateContentDialog(bool includeSecondaryButton = false)
         {
             #region Grid Definitions
-            var contentPanel = new Grid();
+            Grid contentPanel = new Grid();
 
-            var columnOne = new ColumnDefinition
+            ColumnDefinition columnOne = new ColumnDefinition
             {
                 Width = new GridLength(1, GridUnitType.Star)
             };
 
-            var rowOne = new RowDefinition
+            RowDefinition rowOne = new RowDefinition
             {
                 Height = new GridLength(1, GridUnitType.Auto)
             };
-            var rowTwo = new RowDefinition
+            RowDefinition rowTwo = new RowDefinition
             {
                 Height = new GridLength(1, GridUnitType.Star)
             };
@@ -41,7 +38,7 @@ namespace Rofl.UI.Main.Utilities
             contentPanel.RowDefinitions.Add(rowTwo);
             #endregion
 
-            var label = new TextBlock
+            TextBlock label = new TextBlock
             {
                 Name = "LabelTextBlock",
                 VerticalAlignment = VerticalAlignment.Center,
@@ -50,20 +47,20 @@ namespace Rofl.UI.Main.Utilities
             Grid.SetRow(label, 0);
             Grid.SetColumn(label, 0);
 
-            contentPanel.Children.Add(label);
+            _ = contentPanel.Children.Add(label);
 
-            var dialog = new ContentDialog
+            ContentDialog dialog = new ContentDialog
             {
                 Content = contentPanel,
                 IsPrimaryButtonEnabled = true,
                 IsSecondaryButtonEnabled = includeSecondaryButton,
-                Background = Application.Current.FindResource("TabBackground") as Brush
+                Background = System.Windows.Application.Current.FindResource("TabBackground") as Brush
             };
 
-            dialog.ApplyTemplate();
+            _ = dialog.ApplyTemplate();
             return dialog;
         }
-        
+
         /// <summary>
         /// Only works for <see cref="ContentDialog"/>s made by <see cref="ContentDialogHelper"/>
         /// </summary>
@@ -71,10 +68,11 @@ namespace Rofl.UI.Main.Utilities
         /// <returns></returns>
         public static TextBlock GetContentDialogLabel(this ContentDialog dialog)
         {
-            if (dialog == null) throw new ArgumentNullException(nameof(dialog));
-            if (!(dialog.Content is Grid content)) return null;
-
-            return LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock;
+            return dialog == null
+                ? throw new ArgumentNullException(nameof(dialog))
+                : !(dialog.Content is Grid content)
+                    ? null
+                    : LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock;
         }
 
         /// <summary>
@@ -84,8 +82,8 @@ namespace Rofl.UI.Main.Utilities
         /// <param name="text"></param>
         public static void SetLabelText(this ContentDialog dialog, string text)
         {
-            if (dialog == null) throw new ArgumentNullException(nameof(dialog));
-            if (!(dialog.Content is Grid content)) throw new ArgumentException("ContentDialog content is not as expected");
+            if (dialog == null) { throw new ArgumentNullException(nameof(dialog)); }
+            if (!(dialog.Content is Grid content)) { throw new ArgumentException("ContentDialog content is not as expected"); }
 
             (LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock).Text = text;
         }
@@ -97,10 +95,10 @@ namespace Rofl.UI.Main.Utilities
         /// <param name="color"></param>
         public static void SetBackgroundSmokeColor(this ContentDialog dialog, Brush color)
         {
-            if (dialog == null) throw new ArgumentNullException(nameof(dialog));
+            if (dialog == null) { throw new ArgumentNullException(nameof(dialog)); }
 
-            var root = WindowHelper.FindVisualChildren<Grid>(dialog)
-                .First(x => x.Name.Equals("LayoutRoot", StringComparison.OrdinalIgnoreCase));
+            Grid root = WindowHelper.FindVisualChildren<Grid>(dialog)
+                                    .First(x => x.Name.Equals("LayoutRoot", StringComparison.OrdinalIgnoreCase));
 
             root.Background = color;
         }

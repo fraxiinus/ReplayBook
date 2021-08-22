@@ -5,15 +5,15 @@ using System.Windows.Media;
 
 namespace Rofl.UI.Main.Models
 {
-    public class Rune : INotifyPropertyChanged
+    public class RuneStat : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Rune(string id, string firstValue, string secondValue, string thirdValue)
+        public RuneStat(string id, string firstValue, string secondValue, string thirdValue)
         {
             RuneId = id;
 
-            RuneJson staticData = RuneHelper.GetRune(id);
+            Rune staticData = RuneHelper.GetRune(id);
             RuneName = staticData.Name;
             Descriptions = new List<string>();
             for (int i = 0; i < staticData.EndOfGameStatDescs.Count; i++)
@@ -52,18 +52,9 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        public System.Windows.Visibility OverlayVisible
-        {
-            get
-            {
-                if (_overlayIcon != null)
-                {
-                    return System.Windows.Visibility.Visible;
-                }
-
-                return System.Windows.Visibility.Collapsed;
-            }
-        }
+        public System.Windows.Visibility OverlayVisible => _overlayIcon != null
+            ? System.Windows.Visibility.Visible
+            : System.Windows.Visibility.Collapsed;
 
         public string RuneId { get; set; }
 

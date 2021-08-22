@@ -11,9 +11,9 @@ namespace Rofl.UI.Main.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private bool _showRealName;
+        private readonly bool _showRealName;
 
-        public ReplayPreview(ReplayFile replayFile, 
+        public ReplayPreview(ReplayFile replayFile,
                              DateTimeOffset creationDate,
                              Settings.Models.MarkerStyle markerStyle,
                              Settings.Models.RenameAction nameSource,
@@ -58,13 +58,10 @@ namespace Rofl.UI.Main.Models
         /// </summary>
         public string DisplayName
         {
-            get 
+            get
             {
-                if (String.IsNullOrEmpty(_displayName))
-                {
-                    return _showRealName ? Name : AlternativeName;
-                }
-                else return _displayName;
+                if (string.IsNullOrEmpty(_displayName)) { return _showRealName ? Name : AlternativeName; }
+                else { return _displayName; }
             }
             set
             {
@@ -78,7 +75,7 @@ namespace Rofl.UI.Main.Models
 
         public string GameVersion { get; private set; }
 
-        public string GameVersionShort { get => "Patch " + GameVersion?.VersionSubstring(); }
+        public string GameVersionShort => "Patch " + GameVersion?.VersionSubstring();
 
         public string MatchId { get; private set; }
 
@@ -94,12 +91,7 @@ namespace Rofl.UI.Main.Models
 
         public bool IsSupported { get; set; }
 
-        public string GameLengthString
-        {
-            get {
-                return $"{(int)GameDuration.TotalMinutes} m {GameDuration.Seconds} s";
-            }
-        }
+        public string GameLengthString => $"{(int)GameDuration.TotalMinutes} m {GameDuration.Seconds} s";
 
         public IList<PlayerPreview> BluePreviewPlayers { get; private set; }
 

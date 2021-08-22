@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Rofl.UI.Main.ViewModels;
+using Rofl.UI.Main.Views;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using Rofl.UI.Main.Models;
-using Rofl.UI.Main.Views;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Rofl.UI.Main.ViewModels;
 
 namespace Rofl.UI.Main.Pages
 {
@@ -19,18 +18,18 @@ namespace Rofl.UI.Main.Pages
         {
             InitializeComponent();
 
-            this.NextButton.IsEnabled = false;
+            NextButton.IsEnabled = false;
         }
 
         private void BrowseReplayFolderButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(sender is Button)) return;
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
-            if (!(parent.DataContext is MainWindowViewModel context)) return;
+            if (!(sender is Button)) { return; }
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
+            if (!(parent.DataContext is MainWindowViewModel)) { return; }
 
-            using (var folderDialog = new CommonOpenFileDialog())
+            using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
             {
-                folderDialog.Title = TryFindResource("SourceFoldersWindowText") as String;
+                folderDialog.Title = TryFindResource("SourceFoldersWindowText") as string;
                 folderDialog.IsFolderPicker = true;
                 folderDialog.AddToMostRecentlyUsedList = false;
                 folderDialog.AllowNonFileSystemItems = false;
@@ -45,7 +44,7 @@ namespace Rofl.UI.Main.Pages
                 folderDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
                 // Only continue if user presses "OK"
-                if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) return;
+                if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) { return; }
 
                 _replayFolder = folderDialog.FileName;
 
@@ -57,14 +56,14 @@ namespace Rofl.UI.Main.Pages
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.MoveToPreviousPage();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.SetupSettings.ReplayPath = _replayFolder;
 
@@ -73,7 +72,7 @@ namespace Rofl.UI.Main.Pages
 
         private void SkipButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.MoveToNextPage();
         }

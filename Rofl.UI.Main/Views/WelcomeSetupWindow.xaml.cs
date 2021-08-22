@@ -28,13 +28,13 @@ namespace Rofl.UI.Main.Views
 
         public void MoveToNextPage()
         {
-            var maxPage = _welcomeSetupPages.Count - 1;
-            if (_pageIndex == maxPage) return;
+            int maxPage = _welcomeSetupPages.Count - 1;
+            if (_pageIndex == maxPage) { return; }
 
-            var newIndex = ++_pageIndex;
+            int newIndex = ++_pageIndex;
 
             // Show next page
-            var selectedPage = _welcomeSetupPages[newIndex];
+            Page selectedPage = _welcomeSetupPages[newIndex];
             SetupFrame.Content = selectedPage;
             PageNameTextBlock.Text = GetPageTitle(selectedPage);
 
@@ -45,12 +45,12 @@ namespace Rofl.UI.Main.Views
 
         public void MoveToPreviousPage()
         {
-            if (_pageIndex == 0) return;
+            if (_pageIndex == 0) { return; }
 
-            var newIndex = --_pageIndex;
+            int newIndex = --_pageIndex;
 
             // Show previous page
-            var selectedPage = _welcomeSetupPages[newIndex];
+            Page selectedPage = _welcomeSetupPages[newIndex];
             SetupFrame.Content = selectedPage;
             PageNameTextBlock.Text = GetPageTitle(selectedPage);
 
@@ -86,7 +86,7 @@ namespace Rofl.UI.Main.Views
                 DataContext = this
             });
 
-            var firstPage = _welcomeSetupPages[0];
+            Page firstPage = _welcomeSetupPages[0];
             SetupFrame.Content = firstPage;
             PageNameTextBlock.Text = GetPageTitle(firstPage);
 
@@ -95,29 +95,29 @@ namespace Rofl.UI.Main.Views
 
         private void InitializeNavigationDots()
         {
-            var markerPanel = NavigationDotsPanel;
+            Grid markerPanel = NavigationDotsPanel;
 
-            var pageCount = _welcomeSetupPages.Count;
+            int pageCount = _welcomeSetupPages.Count;
 
-            for (var i = 0; i < pageCount; i++)
+            for (int i = 0; i < pageCount; i++)
             {
                 markerPanel.ColumnDefinitions.Add(new ColumnDefinition()
                 {
                     Width = new GridLength(20)
                 });
 
-                var dotIcon = new ModernWpf.Controls.PathIcon()
+                ModernWpf.Controls.PathIcon dotIcon = new ModernWpf.Controls.PathIcon()
                 {
                     Data = (Geometry)TryFindResource("CirclePathIcon"),
                     Width = 5,
                     Margin = new Thickness(5, 0, 5, 0)
                 };
 
-                if (i == 0) dotIcon.Width = 8;
+                if (i == 0) { dotIcon.Width = 8; }
 
                 Grid.SetColumn(dotIcon, i);
 
-                markerPanel.Children.Add(dotIcon);
+                _ = markerPanel.Children.Add(dotIcon);
             }
         }
 
@@ -126,17 +126,17 @@ namespace Rofl.UI.Main.Views
             switch (page)
             {
                 case WelcomeSetupDownload _:
-                    return (string) TryFindResource("WswDownloadFrameTitle");
+                    return (string)TryFindResource("WswDownloadFrameTitle");
                 case WelcomeSetupExecutables _:
-                    return (string) TryFindResource("WswExecutablesFrameTitle");
+                    return (string)TryFindResource("WswExecutablesFrameTitle");
                 case WelcomeSetupFinish _:
-                    return (string) TryFindResource("WswFinishedFrameTitle");
+                    return (string)TryFindResource("WswFinishedFrameTitle");
                 case WelcomeSetupIntroduction _:
-                    return (string) TryFindResource("WswIntroFrameTitle");
+                    return (string)TryFindResource("WswIntroFrameTitle");
                 case WelcomeSetupRegion _:
-                    return (string) TryFindResource("WswRegionFrameTitle");
+                    return (string)TryFindResource("WswRegionFrameTitle");
                 case WelcomeSetupReplays _:
-                    return (string) TryFindResource("WswReplaysFrameTitle");
+                    return (string)TryFindResource("WswReplaysFrameTitle");
                 default:
                     return "Title";
             }
@@ -144,7 +144,7 @@ namespace Rofl.UI.Main.Views
 
         private void WelcomeSetupWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            if (!(this.DataContext is MainWindowViewModel context)) return;
+            if (!(DataContext is MainWindowViewModel context)) { return; }
 
             context.WriteSkipWelcome();
         }

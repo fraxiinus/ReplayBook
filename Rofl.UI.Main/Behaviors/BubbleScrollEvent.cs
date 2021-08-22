@@ -18,11 +18,13 @@ namespace Rofl.UI.Main.Behaviors
             base.OnDetaching();
         }
 
-        void AssociatedObject_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void AssociatedObject_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             e.Handled = true;
-            var e2 = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
-            e2.RoutedEvent = UIElement.MouseWheelEvent;
+            MouseWheelEventArgs e2 = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+            {
+                RoutedEvent = UIElement.MouseWheelEvent
+            };
             AssociatedObject.RaiseEvent(e2);
         }
     }

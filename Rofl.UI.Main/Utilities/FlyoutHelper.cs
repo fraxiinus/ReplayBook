@@ -1,11 +1,5 @@
 ﻿using ModernWpf.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,22 +17,22 @@ namespace Rofl.UI.Main.Utilities
                                           bool includeCustom = false)
         {
             #region Grid Definitions
-            var contentPanel = new Grid();
+            Grid contentPanel = new Grid();
 
-            var columnOne = new ColumnDefinition
+            ColumnDefinition columnOne = new ColumnDefinition
             {
                 Width = new GridLength(1, GridUnitType.Star)
             };
-            var columnTwo = new ColumnDefinition
+            ColumnDefinition columnTwo = new ColumnDefinition
             {
                 Width = new GridLength(1, GridUnitType.Auto)
             };
 
-            var rowOne = new RowDefinition
+            RowDefinition rowOne = new RowDefinition
             {
                 Height = new GridLength(1, GridUnitType.Auto)
             };
-            var rowTwo = new RowDefinition
+            RowDefinition rowTwo = new RowDefinition
             {
                 Height = new GridLength(1, GridUnitType.Star)
             };
@@ -49,7 +43,7 @@ namespace Rofl.UI.Main.Utilities
             contentPanel.RowDefinitions.Add(rowTwo);
             #endregion
 
-            var label = new TextBlock
+            TextBlock label = new TextBlock
             {
                 Name = "LabelTextBlock",
                 VerticalAlignment = VerticalAlignment.Center,
@@ -65,22 +59,22 @@ namespace Rofl.UI.Main.Utilities
                 Grid.SetColumnSpan(label, 2);
             }
 
-            var button = new Button
+            Button button = new Button
             {
                 Name = "PrimaryButton",
                 Margin = new Thickness(12, 0, 0, 0),
                 IsDefault = true // default makes the button accented + enter key
             };
             Grid.SetColumn(button, 1);
-            if (includeCustom) Grid.SetRow(button, 1);
-            else Grid.SetRow(button, 0);
+            if (includeCustom) { Grid.SetRow(button, 1); }
+            else { Grid.SetRow(button, 0); }
 
             // Include the controls to the flyout grid
-            contentPanel.Children.Add(label);
-            if (includeButton) contentPanel.Children.Add(button);
+            _ = contentPanel.Children.Add(label);
+            if (includeButton) { _ = contentPanel.Children.Add(button); }
 
             // Apply the template so that the visual tree is built
-            contentPanel.ApplyTemplate();
+            _ = contentPanel.ApplyTemplate();
 
             return new Flyout
             {
@@ -95,10 +89,11 @@ namespace Rofl.UI.Main.Utilities
         /// <returns></returns>
         public static TextBlock GetFlyoutLabel(this Flyout flyout)
         {
-            if (flyout == null) throw new ArgumentNullException(nameof(flyout));
-            if (!(flyout.Content is Grid content)) return null;
-
-            return LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock;
+            return flyout == null
+                ? throw new ArgumentNullException(nameof(flyout))
+                : !(flyout.Content is Grid content)
+                    ? null
+                    : LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock;
         }
 
         /// <summary>
@@ -108,8 +103,9 @@ namespace Rofl.UI.Main.Utilities
         /// <param name="text"></param>
         public static void SetFlyoutLabelText(this Flyout flyout, string text)
         {
-            if (flyout == null) throw new ArgumentNullException(nameof(flyout));
-            if (!(flyout.Content is Grid content)) throw new ArgumentException("Flyout content is not as expected");
+            if (flyout == null) { throw new ArgumentNullException(nameof(flyout)); }
+
+            if (!(flyout.Content is Grid content)) { throw new ArgumentException("Flyout content is not as expected"); }
 
             (LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock).Text = text;
         }
@@ -121,10 +117,11 @@ namespace Rofl.UI.Main.Utilities
         /// <returns></returns>
         public static Button GetFlyoutButton(this Flyout flyout)
         {
-            if (flyout == null) throw new ArgumentNullException(nameof(flyout));
-            if (!(flyout.Content is Grid content)) return null;
-
-            return LogicalTreeHelper.FindLogicalNode(content, "PrimaryButton") as Button;
+            return flyout == null
+                ? throw new ArgumentNullException(nameof(flyout))
+                : !(flyout.Content is Grid content)
+                    ? null
+                    : LogicalTreeHelper.FindLogicalNode(content, "PrimaryButton") as Button;
         }
 
         /// <summary>
@@ -134,13 +131,11 @@ namespace Rofl.UI.Main.Utilities
         /// <param name="text"></param>
         public static void SetFlyoutButtonText(this Flyout flyout, string text)
         {
-            if (flyout == null) throw new ArgumentNullException(nameof(flyout));
-            if (!(flyout.Content is Grid content)) throw new ArgumentException("Flyout content is not as expected");
+            if (flyout == null) { throw new ArgumentNullException(nameof(flyout)); }
+            if (!(flyout.Content is Grid content)) { throw new ArgumentException("Flyout content is not as expected"); }
 
             (LogicalTreeHelper.FindLogicalNode(content, "PrimaryButton") as Button).Content = text;
         }
-
-
 
         //public Flyout Flyout { get; private set; }
         //public Button Button { get; private set; }

@@ -56,8 +56,6 @@ namespace Rofl.UI.Main.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
-
             LocaleComboBox.ItemsSource = LocaleNames;
         }
 
@@ -233,7 +231,7 @@ namespace Rofl.UI.Main.Views
                 Owner = parent
             };
 
-            editDialog.ShowDialog();
+            _ = editDialog.ShowDialog();
             LaunchArgsTextBox.Text = PrettifyLaunchArgs(_executable.LaunchArguments);
         }
 

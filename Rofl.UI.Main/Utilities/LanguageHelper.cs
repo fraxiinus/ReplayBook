@@ -7,6 +7,11 @@ namespace Rofl.UI.Main.Utilities
 {
     public static class LanguageHelper
     {
+        /// <summary>
+        /// The current language loaded into ReplayBook. Set using <see cref="SetProgramLanguage(Language)"/>
+        /// </summary>
+        public static Language CurrentLanguage { get; private set; }
+
         public static void SetProgramLanguage(Language target)
         {
             ResourceDictionary dict = new ResourceDictionary();
@@ -24,27 +29,37 @@ namespace Rofl.UI.Main.Utilities
                 case Language.Es:
                     dict.Source = new Uri("..\\Resources\\Strings\\es.xaml", UriKind.Relative);
                     break;
+                default:
+                    break;
             }
 
+            // Load english data in for backup
             if (target != Language.En)
             {
                 ResourceDictionary backupDict = new ResourceDictionary
                 {
                     Source = new Uri("..\\Resources\\Strings\\en.xaml", UriKind.Relative)
                 };
-                Application.Current.Resources.MergedDictionaries.Add(backupDict);
+                System.Windows.Application.Current.Resources.MergedDictionaries.Add(backupDict);
             }
 
-            Application.Current.Resources.MergedDictionaries.Add(dict);
+            // Load selected language
+            System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
+
+            CurrentLanguage = target;
 
             // Re-load static rune data
             RuneHelper.LoadRunes(target);
         }
 
+        /// <summary>
+        /// Returns friendly names for all supported languages
+        /// </summary>
+        /// <returns></returns>
         public static string[] GetFriendlyLanguageNames()
         {
-            var languages = new List<string>();
-            foreach (var lang in (Language[])Enum.GetValues(typeof(Language)))
+            List<string> languages = new List<string>();
+            foreach (Language lang in (Language[])Enum.GetValues(typeof(Language)))
             {
                 switch (lang)
                 {
@@ -60,12 +75,19 @@ namespace Rofl.UI.Main.Utilities
                     case Language.Es:
                         languages.Add("Español");
                         break;
+                    default:
+                        break;
                 }
             }
             return languages.ToArray();
         }
 
-        public static string GetAppropriateRegionForLanguage(Language language)
+        /// <summary>
+        /// Returns language code used by Riot
+        /// </summary>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        public static string GetRiotRegionCode(Language language)
         {
             switch (language)
             {

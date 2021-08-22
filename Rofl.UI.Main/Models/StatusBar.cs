@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Windows.Media;
 
 namespace Rofl.UI.Main.Models
 {
@@ -14,11 +13,11 @@ namespace Rofl.UI.Main.Models
         }
 
         private string _statusMessage;
-        public string StatusMessage 
+        public string StatusMessage
         {
             get => _statusMessage;
-            set 
-            { 
+            set
+            {
                 _statusMessage = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(StatusMessage)));

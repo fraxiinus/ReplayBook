@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Rofl.UI.Main.Extensions;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Rofl.UI.Main.Extensions;
 
 namespace Rofl.UI.Main.Controls
 {
@@ -27,14 +15,11 @@ namespace Rofl.UI.Main.Controls
             InitializeComponent();
         }
 
-        public Popup GetColorPickerPopup
-        {
-            get => ColorPickerPopup;
-        }
+        public Popup GetColorPickerPopup => ColorPickerPopup;
 
         public Color SelectedColor
         {
-            get => (Color) ColorPickerContent.SelectedColor;
+            get => (Color)ColorPickerContent.SelectedColor;
             set => ColorPickerContent.SelectedColor = value;
         }
 

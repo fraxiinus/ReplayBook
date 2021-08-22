@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Rofl.Executables.Models;
+using Rofl.UI.Main.ViewModels;
+using Rofl.UI.Main.Views;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using Rofl.UI.Main.ViewModels;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Rofl.UI.Main.Models;
-using Rofl.UI.Main.Views;
-using Rofl.Executables.Models;
-using System.Collections.Generic;
 
 namespace Rofl.UI.Main.Pages
 {
@@ -23,18 +22,18 @@ namespace Rofl.UI.Main.Pages
         {
             InitializeComponent();
 
-            this.NextButton.IsEnabled = false;
+            NextButton.IsEnabled = false;
         }
 
         private void BrowseExecutablesButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(sender is Button)) return;
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
-            if (!(parent.DataContext is MainWindowViewModel context)) return;
+            if (!(sender is Button)) { return; }
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
+            if (!(parent.DataContext is MainWindowViewModel context)) { return; }
 
-            using (var folderDialog = new CommonOpenFileDialog())
+            using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
             {
-                folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as String;
+                folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as string;
                 folderDialog.IsFolderPicker = true;
                 folderDialog.AddToMostRecentlyUsedList = false;
                 folderDialog.AllowNonFileSystemItems = false;
@@ -49,16 +48,16 @@ namespace Rofl.UI.Main.Pages
                 folderDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
 
                 // Only continue if user presses "OK"
-                if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) return;
+                if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) { return; }
 
-                var selectedFolder = folderDialog.FileName;
+                string selectedFolder = folderDialog.FileName;
 
                 // Search for executables
-                var results = context.SettingsManager.Executables.SearchFolderForExecutables(selectedFolder);
+                IList<LeagueExecutable> results = context.SettingsManager.Executables.SearchFolderForExecutables(selectedFolder);
 
                 // Show results in preview box
                 ExecutablesEmptyTextBlock.Visibility = results.Count < 1 ? Visibility.Visible : Visibility.Collapsed;
-                this.ExecutablesPreviewListBox.ItemsSource = results;
+                ExecutablesPreviewListBox.ItemsSource = results;
                 BrowseButtonHintText.Text = selectedFolder;
 
                 // Save settings
@@ -71,14 +70,14 @@ namespace Rofl.UI.Main.Pages
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.MoveToPreviousPage();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.SetupSettings.RiotGamesPath = _riotParentPath;
             parent.SetupSettings.Executables = _executables;
@@ -88,7 +87,7 @@ namespace Rofl.UI.Main.Pages
 
         private void SkipButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
             parent.MoveToNextPage();
         }
     }

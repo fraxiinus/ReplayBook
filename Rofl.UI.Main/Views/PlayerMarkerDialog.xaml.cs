@@ -1,12 +1,10 @@
-﻿using Rofl.Settings.Models;
+﻿using ModernWpf.Controls;
+using Rofl.Settings.Models;
+using Rofl.UI.Main.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Media;
-using Rofl.UI.Main.Extensions;
-using ModernWpf.Controls;
-using Rofl.UI.Main.Utilities;
 
 namespace Rofl.UI.Main.Views
 {
@@ -19,14 +17,15 @@ namespace Rofl.UI.Main.Views
         private readonly string _oldName;
         private readonly bool _isEditMode;
 
-        private bool _blockClose = false;
+        private bool _blockClose;
 
         public PlayerMarkerDialog()
         {
             _isEditMode = false;
+            _blockClose = false;
             InitializeComponent();
 
-            this.Title = TryFindResource("AddButtonText") as String + " " + this.Title;
+            Title = (TryFindResource("AddButtonText") as string) + " " + Title;
             MarkerColorPicker.SelectedColor = Colors.White;
         }
 
@@ -40,7 +39,7 @@ namespace Rofl.UI.Main.Views
                 _marker = marker;
                 _oldName = _marker.Name;
 
-                this.Title = TryFindResource("EditButtonText") as String + " " + this.Title;
+                Title = TryFindResource("EditButtonText") as string + " " + Title;
                 NameTextBox.Text = _marker.Name;
 
                 NoteTextBox.Text = _marker.Note;
@@ -49,14 +48,14 @@ namespace Rofl.UI.Main.Views
             }
             else
             {
-                this.Title = TryFindResource("AddButtonText") as String + " " + this.Title;
+                Title = TryFindResource("AddButtonText") as string + " " + Title;
                 _isEditMode = false;
             }
         }
 
         private void SaveButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (!(this.DataContext is ObservableCollection<PlayerMarker> context)) { return; }
+            if (!(DataContext is ObservableCollection<PlayerMarker> context)) { return; }
 
             string inputName = NameTextBox.Text;
             string noteText = NoteTextBox.Text;
@@ -66,13 +65,13 @@ namespace Rofl.UI.Main.Views
             _blockClose = false;
 
             // Validate if input information is OK
-            if (String.IsNullOrWhiteSpace(inputName))
+            if (string.IsNullOrWhiteSpace(inputName))
             {
                 // Show error
                 _blockClose = true;
 
-                var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
-                flyout.SetFlyoutLabelText(TryFindResource("PlayerMarkerNameIsEmptyErrorText") as String);
+                Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                flyout.SetFlyoutLabelText(TryFindResource("PlayerMarkerNameIsEmptyErrorText") as string);
                 flyout.ShowAt(NameTextBox);
 
                 return;
@@ -81,20 +80,17 @@ namespace Rofl.UI.Main.Views
             // Check if name already exists
             if (!_isEditMode)   // If we are creating a new item, no need to check old name collision
             {
-                var existingItem = context.Where
-                    (
-                        x => x.Name.Equals(inputName, StringComparison.OrdinalIgnoreCase)
-                    ).FirstOrDefault();
+                PlayerMarker existingItem = context.FirstOrDefault(x => x.Name.Equals(inputName, StringComparison.OrdinalIgnoreCase));
 
                 // Name already exists
                 if (existingItem != null)
                 {
                     _blockClose = true;
 
-                    var errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String)
+                    string errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as string)
                         .Replace("$", inputName);
 
-                    var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                    Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false);
                     flyout.SetFlyoutLabelText(errorText);
                     flyout.ShowAt(NameTextBox);
 
@@ -102,33 +98,30 @@ namespace Rofl.UI.Main.Views
                 }
 
                 // New one, add it!!!!!
-                var newMarker = new PlayerMarker
+                PlayerMarker newMarker = new PlayerMarker
                 {
                     Name = inputName,
                     Color = colorText,
                     Note = noteText
                 };
                 context.Add(newMarker);
-                this.Hide();
+                Hide();
             }
             else
             {
                 // Make sure you aren't changing the name to another marker
-                var existingItem = context.Where
-                    (
-                        x => x.Name.Equals(inputName, StringComparison.OrdinalIgnoreCase) &&
-                             !x.Name.Equals(_oldName, StringComparison.OrdinalIgnoreCase)
-                    ).FirstOrDefault();
+                PlayerMarker existingItem = context.FirstOrDefault(x => x.Name.Equals(inputName, StringComparison.OrdinalIgnoreCase)
+                                                                    && !x.Name.Equals(_oldName, StringComparison.OrdinalIgnoreCase));
 
                 // Name already exists
                 if (existingItem != null)
                 {
                     _blockClose = true;
 
-                    var errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as String)
+                    string errorText = (TryFindResource("PlayerMarkerAlreadyExistsErrorText") as string)
                         .Replace("$", inputName);
 
-                    var flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                    Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false);
                     flyout.SetFlyoutLabelText(errorText);
                     flyout.ShowAt(NameTextBox);
 
@@ -139,14 +132,14 @@ namespace Rofl.UI.Main.Views
                 _marker.Name = inputName;
                 _marker.Color = colorText;
                 _marker.Note = noteText;
-                this.Hide();
+                Hide();
             }
         }
 
         private void CancelButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             _blockClose = false;
-            this.Hide();
+            Hide();
         }
 
         private void ContentDialog_Closing(ContentDialog sender, ContentDialogClosingEventArgs args)
