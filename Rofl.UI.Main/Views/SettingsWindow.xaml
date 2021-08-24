@@ -770,7 +770,7 @@
                                    HorizontalAlignment="Center"
                                    RenderOptions.BitmapScalingMode="HighQuality"/>
                             <TextBlock Text="{DynamicResource Name}" FontSize="28" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{DynamicResource Version}" FontSize="16" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="VersionTextBlock" FontSize="16" HorizontalAlignment="Center"/>
                             <TextBlock Text="{DynamicResource Author}" FontSize="14" HorizontalAlignment="Center"/>
                             <ui:HyperlinkButton HorizontalAlignment="Center"
                                                 NavigateUri="{DynamicResource DiscordInviteLink}">

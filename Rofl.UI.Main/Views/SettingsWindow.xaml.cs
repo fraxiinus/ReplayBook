@@ -135,6 +135,7 @@ namespace Rofl.UI.Main.Views
                     break;
                 case "AboutSettingsListItem":
                     SettingsTabControl.SelectedIndex = 6;
+                    VersionTextBlock.Text = "Release " + ApplicationHelper.GetVersion();
                     break;
                 default:
                     break;
@@ -647,7 +648,7 @@ namespace Rofl.UI.Main.Views
                     Title = TryFindResource("UpdateMostRecentTitleText") as string,
                     Owner = this
                 };
-                msgDialog.SetMessage(TryFindResource("UpdateMostRecentBodyText") as string);
+                msgDialog.SetMessage(TryFindResource("UpdateMostRecentBodyText") + $"\n{assemblyVersion}");
                 _ = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
             }
             else
@@ -662,7 +663,7 @@ namespace Rofl.UI.Main.Views
                     IsSecondaryButtonEnabled = true,
                     SecondaryButtonText = TryFindResource("CancelButtonText") as string
                 };
-                msgDialog.SetMessage(TryFindResource("UpdateNewerBodyText") as string + $"\n{assemblyVersion} -> {latestVersion}");
+                msgDialog.SetMessage(TryFindResource("UpdateNewerBodyText") + $"\n{assemblyVersion} -> {latestVersion}");
                 ContentDialogResult response = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
                 if (response == ContentDialogResult.Primary)
