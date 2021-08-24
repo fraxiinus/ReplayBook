@@ -1,6 +1,4 @@
 ﻿using Etirps.RiZhi;
-using Rofl.Executables.Models;
-using Rofl.Executables.Utilities;
 using Rofl.Files;
 using Rofl.Files.Models;
 using Rofl.Reader.Models;
@@ -8,7 +6,9 @@ using Rofl.Requests;
 using Rofl.Requests.Models;
 using Rofl.Settings;
 using Rofl.Settings.Models;
+using Rofl.UI.Main.Extensions;
 using Rofl.UI.Main.Models;
+using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
 using System;
 using System.Collections.Generic;
@@ -19,19 +19,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using Rofl.UI.Main.Utilities;
-using Rofl.UI.Main.Extensions;
 
 namespace Rofl.UI.Main.ViewModels
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class MainWindowViewModel
     {
         private readonly FileManager _fileManager;
         private readonly RiZhi _log;
         private readonly ReplayPlayer _player;
         // private readonly string _myName;
-        
+
         public RequestManager RequestManager { get; private set; }
 
         /// <summary>
@@ -80,7 +77,7 @@ namespace Rofl.UI.Main.ViewModels
 
             SortParameters = new QueryProperties
             {
-                SearchTerm = String.Empty,
+                SearchTerm = string.Empty,
                 SortMethod = SortMethod.DateDesc
             };
 
@@ -99,13 +96,13 @@ namespace Rofl.UI.Main.ViewModels
         public int LoadReplaysFromDatabase()
         {
             _log.Information("Loading replays from database...");
-            var databaseResults = _fileManager.GetReplays(SortParameters, SettingsManager.Settings.ItemsPerPage, PreviewReplays.Count);
+            IReadOnlyCollection<FileResult> databaseResults = _fileManager.GetReplays(SortParameters, SettingsManager.Settings.ItemsPerPage, PreviewReplays.Count);
 
             _log.Information($"Retrieved {databaseResults.Count} replays");
-            
-            foreach (var file in databaseResults)
+
+            foreach (FileResult file in databaseResults)
             {
-                AddReplay(file);
+                _ = AddReplay(file);
             }
 
             return databaseResults.Count;
@@ -117,9 +114,9 @@ namespace Rofl.UI.Main.ViewModels
         /// <param name="fileResult"></param>
         public ReplayPreview AddReplay(FileResult file)
         {
-            var previewModel = CreateReplayPreview(file);
+            ReplayPreview previewModel = CreateReplayPreview(file);
 
-            App.Current.Dispatcher.Invoke((Action)delegate
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 PreviewReplays.Add(previewModel);
             });
@@ -131,7 +128,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public ReplayPreview CreateReplayPreview(FileResult file)
         {
-            if (file == null) throw new ArgumentNullException(nameof(file));
+            if (file == null) { throw new ArgumentNullException(nameof(file)); }
 
             ReplayPreview previewModel = new ReplayPreview(file.ReplayFile,
                 file.FileInfo.CreationTime,
@@ -141,12 +138,12 @@ namespace Rofl.UI.Main.ViewModels
 
             previewModel.IsSupported = SettingsManager.Executables.DoesVersionExist(previewModel.GameVersion);
 
-            foreach (var bluePlayer in previewModel.BluePreviewPlayers)
+            foreach (PlayerPreview bluePlayer in previewModel.BluePreviewPlayers)
             {
                 bluePlayer.Marker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(bluePlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
             }
 
-            foreach (var redPlayer in previewModel.RedPreviewPlayers)
+            foreach (PlayerPreview redPlayer in previewModel.RedPreviewPlayers)
             {
                 redPlayer.Marker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(redPlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
             }
@@ -157,7 +154,7 @@ namespace Rofl.UI.Main.ViewModels
         public void ClearReplays()
         {
             _log.Information("Clearing replay list...");
-            App.Current.Dispatcher.Invoke((Action)delegate
+            System.Windows.Application.Current.Dispatcher.Invoke(delegate
             {
                 PreviewReplays.Clear();
             });
@@ -170,21 +167,21 @@ namespace Rofl.UI.Main.ViewModels
             _log.Information("Loading/downloading thumbnails for items...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            var dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
+            string dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
 
-            var allItems = new List<Item>();
-            var itemTasks = new List<Task>();
+            List<Item> allItems = new List<Item>();
+            List<Task> itemTasks = new List<Task>();
 
             allItems.AddRange(replay.BluePlayers.SelectMany(x => x.Items));
             allItems.AddRange(replay.RedPlayers.SelectMany(x => x.Items));
 
             _log.Information($"Processing {allItems.Count} item thumbnail requests");
-            foreach (var item in allItems)
+            foreach (Item item in allItems)
             {
                 // If an item does not exist, set it to nothing!
                 if (item.ItemId == "0")
                 {
-                    Application.Current.Dispatcher.Invoke((Action) delegate
+                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
                     {
                         item.ShowBorder = true;
                     });
@@ -192,14 +189,14 @@ namespace Rofl.UI.Main.ViewModels
                 }
 
                 // Set default item image, to be replaced
-                Application.Current.Dispatcher.Invoke((Action) delegate
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
                 {
                     item.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
                 });
 
                 itemTasks.Add(Task.Run(async () =>
                 {
-                    var response = await RequestManager.MakeRequestAsync(new ItemRequest
+                    ResponseBase response = await RequestManager.MakeRequestAsync(new ItemRequest
                     {
                         DataDragonVersion = dataVersion,
                         ItemID = item.ItemId
@@ -208,7 +205,7 @@ namespace Rofl.UI.Main.ViewModels
                     if (response.IsFaulted)
                     {
                         _log.Warning($"Failed to load image for {(response.Request as ItemRequest).ItemID}");
-                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
                             item.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                         });
@@ -217,7 +214,7 @@ namespace Rofl.UI.Main.ViewModels
                     {
                         if (response.FromCache)
                         {
-                            Application.Current.Dispatcher.Invoke((Action)delegate
+                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
                             {
                                 item.OverlayIcon = null; // hide overlay icons, if any
                                 item.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
@@ -225,7 +222,7 @@ namespace Rofl.UI.Main.ViewModels
                         }
                         else
                         {
-                            Application.Current.Dispatcher.Invoke((Action)delegate
+                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
                             {
                                 item.OverlayIcon = null; // hide overlay icons, if any
                                 item.ImageSource = response.ResponseBytes.ToBitmapImage();
@@ -243,7 +240,7 @@ namespace Rofl.UI.Main.ViewModels
         {
             _log.Information("Loading/downloading thumbnails for champions...");
 
-            foreach (var replay in PreviewReplays)
+            foreach (ReplayPreview replay in PreviewReplays)
             {
                 await LoadSinglePreviewPlayerThumbnails(replay).ConfigureAwait(true);
             }
@@ -251,16 +248,16 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task LoadSinglePreviewPlayerThumbnails(ReplayPreview replay)
         {
-            if (replay == null) throw new ArgumentNullException(nameof(replay));
+            if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            var dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
+            string dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
 
-            var allPlayers = new List<PlayerPreview>();
+            List<PlayerPreview> allPlayers = new List<PlayerPreview>();
             allPlayers.AddRange(replay.BluePreviewPlayers);
             allPlayers.AddRange(replay.RedPreviewPlayers);
 
             _log.Information($"Processing {allPlayers.Count} champion thumbnail requests");
-            var allRequests = new List<dynamic>(allPlayers.Select(x =>
+            List<dynamic> allRequests = new List<dynamic>(allPlayers.Select(x =>
                 new
                 {
                     Player = x,
@@ -271,24 +268,24 @@ namespace Rofl.UI.Main.ViewModels
                     }
                 }));
 
-            var allTasks = new List<Task>();
+            List<Task> allTasks = new List<Task>();
 
-            foreach (var request in allRequests)
+            foreach (dynamic request in allRequests)
             {
-                Application.Current.Dispatcher.Invoke((Action)delegate
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
                 {
                     request.Player.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
                 });
 
                 allTasks.Add(Task.Run(async () =>
                 {
-                    var response = await RequestManager.MakeRequestAsync(request.Request as RequestBase)
+                    ResponseBase response = await RequestManager.MakeRequestAsync(request.Request as RequestBase)
                         .ConfigureAwait(true);
 
                     if (response.IsFaulted)
                     {
                         _log.Warning($"Failed to load image for {(response.Request as ChampionRequest).ChampionName}");
-                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
                             request.Player.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                         });
@@ -296,7 +293,7 @@ namespace Rofl.UI.Main.ViewModels
 
                     if (response.FromCache)
                     {
-                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
                             request.Player.OverlayIcon = null; // hide overlay icons, if any
                             request.Player.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
@@ -304,7 +301,7 @@ namespace Rofl.UI.Main.ViewModels
                     }
                     else
                     {
-                        Application.Current.Dispatcher.Invoke((Action)delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
                             request.Player.OverlayIcon = null; // hide overlay icons, if any
                             request.Player.ImageSource = response.ResponseBytes.ToBitmapImage();
@@ -323,7 +320,7 @@ namespace Rofl.UI.Main.ViewModels
 
             string dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
 
-            List<Rune> allRunes = new List<Rune>();
+            List<RuneStat> allRunes = new List<RuneStat>();
             List<Task> allTasks = new List<Task>();
 
             allRunes.AddRange(replay.AllPlayers.Select(x => x.KeystoneRune));
@@ -331,13 +328,13 @@ namespace Rofl.UI.Main.ViewModels
             allRunes.AddRange(replay.AllPlayers.SelectMany(x => x.StatsRunes));
 
             _log.Information($"Processing {allRunes.Count} rune thumbnail requests");
-            foreach (Rune rune in allRunes)
+            foreach (RuneStat rune in allRunes)
             {
-                RuneJson runeData = RuneHelper.GetRune(rune.RuneId);
+                Rune runeData = RuneHelper.GetRune(rune.RuneId);
                 // If an item does not exist, set it to nothing!
                 if (string.IsNullOrEmpty(runeData.Icon))
                 {
-                    Application.Current.Dispatcher.Invoke(delegate
+                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
                     {
                         rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                     });
@@ -346,7 +343,7 @@ namespace Rofl.UI.Main.ViewModels
                 }
 
                 // Set default item image, to be replaced
-                Application.Current.Dispatcher.Invoke((Action)delegate
+                System.Windows.Application.Current.Dispatcher.Invoke(delegate
                 {
                     rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
                 });
@@ -364,7 +361,7 @@ namespace Rofl.UI.Main.ViewModels
                     if (response.IsFaulted)
                     {
                         _log.Warning($"Failed to load image for {(response.Request as RuneRequest).RuneKey}");
-                        Application.Current.Dispatcher.Invoke(delegate
+                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
                         {
                             rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                         });
@@ -373,7 +370,7 @@ namespace Rofl.UI.Main.ViewModels
                     {
                         if (response.FromCache) // load image from file
                         {
-                            Application.Current.Dispatcher.Invoke(delegate
+                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
                             {
                                 rune.OverlayIcon = null; // hide overlay icons, if any
                                 rune.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
@@ -381,7 +378,7 @@ namespace Rofl.UI.Main.ViewModels
                         }
                         else // load image straight from response if its not cachsed
                         {
-                            Application.Current.Dispatcher.Invoke(delegate
+                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
                             {
                                 rune.OverlayIcon = null; // hide overlay icons, if any
                                 rune.ImageSource = response.ResponseBytes.ToBitmapImage();
@@ -399,23 +396,17 @@ namespace Rofl.UI.Main.ViewModels
         {
             _log.Information($"Refreshing player markers...");
             // Look through all replays to get all players
-            foreach (var replay in PreviewReplays)
+            foreach (ReplayPreview replay in PreviewReplays)
             {
-                IEnumerable<PlayerPreview> allPlayers;
-                if(replay.BluePreviewPlayers != null)
-                {
-                    allPlayers = replay.BluePreviewPlayers.Union(replay.RedPreviewPlayers);
-                }
-                else
-                {
-                    allPlayers = replay.RedPreviewPlayers;
-                }
+                IEnumerable<PlayerPreview> allPlayers = replay.BluePreviewPlayers != null
+                    ? replay.BluePreviewPlayers.Union(replay.RedPreviewPlayers)
+                    : replay.RedPreviewPlayers;
 
-                foreach (var player in allPlayers)
+                foreach (PlayerPreview player in allPlayers)
                 {
-                    var matchedMarker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(player.PlayerName, StringComparison.OrdinalIgnoreCase));
+                    PlayerMarker matchedMarker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(player.PlayerName, StringComparison.OrdinalIgnoreCase));
 
-                    if(matchedMarker != null)
+                    if (matchedMarker != null)
                     {
                         player.Marker = matchedMarker;
                     }
@@ -425,10 +416,10 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task ShowSettingsDialog()
         {
-            var settingsDialog = new SettingsWindow
+            SettingsWindow settingsDialog = new SettingsWindow
             {
-                Top = App.Current.MainWindow.Top + 50,
-                Left = App.Current.MainWindow.Left + 50,
+                Top = System.Windows.Application.Current.MainWindow.Top + 50,
+                Left = System.Windows.Application.Current.MainWindow.Left + 50,
                 DataContext = SettingsManager,
             };
 
@@ -453,17 +444,17 @@ namespace Rofl.UI.Main.ViewModels
             FileResults.Clear();
             PreviewReplays.Clear();
             ValidateReplayStorage();
-            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
+            StatusBarModel.StatusMessage = System.Windows.Application.Current.TryFindResource("LoadingMessageReplay") as string;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
-            
+
             // Discover and load replays into database
             await _fileManager.InitialLoadAsync().ConfigureAwait(true);
 
             // Load from database into our viewmodel
-            LoadReplaysFromDatabase();
+            _ = LoadReplaysFromDatabase();
 
-            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
+            StatusBarModel.StatusMessage = System.Windows.Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
             await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
             StatusBarModel.Visible = false;
         }
@@ -486,14 +477,14 @@ namespace Rofl.UI.Main.ViewModels
             _log.Information($"Playing replay...");
 
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
-            
-            var process = await _player.PlayReplay(preview.Location).ConfigureAwait(true);
+
+            Process process = await _player.PlayReplay(preview.Location).ConfigureAwait(true);
             // if process is null, replay failed to play for whatever reason
-            if(process != null)
+            if (process != null)
             {
                 preview.IsPlaying = true;
                 // add event handler for when the replay stops
-                process.Exited += (object processSender, System.EventArgs processEventArgs) =>
+                process.Exited += (object processSender, EventArgs processEventArgs) =>
                 {
                     preview.IsPlaying = false;
                 };
@@ -506,23 +497,23 @@ namespace Rofl.UI.Main.ViewModels
         {
             _log.Information($"Opening replay file location {location}");
 
-            if (String.IsNullOrEmpty(location)) { throw new ArgumentNullException(nameof(location)); }
+            if (string.IsNullOrEmpty(location)) { throw new ArgumentNullException(nameof(location)); }
 
             //FileResults.TryGetValue(location, out FileResult match);
             //if (match == null) { throw new ArgumentException($"{location} does not match any known replays"); }
 
             string selectArg = $"/select, \"{location}\"";
-            Process.Start("explorer.exe", selectArg);
+            _ = Process.Start("explorer.exe", selectArg);
         }
 
         public void ViewOnlineMatchHistory(string matchid)
         {
             _log.Information($"Opening online match history for {matchid}");
 
-            if (String.IsNullOrEmpty(matchid)) { throw new ArgumentNullException(nameof(matchid)); }
+            if (string.IsNullOrEmpty(matchid)) { throw new ArgumentNullException(nameof(matchid)); }
 
             string url = SettingsManager.Settings.MatchHistoryBaseUrl + matchid;
-            Process.Start(url);
+            _ = Process.Start(url);
         }
 
         public void ShowExportReplayDataWindow(ReplayPreview preview)
@@ -531,25 +522,25 @@ namespace Rofl.UI.Main.ViewModels
 
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
 
-            var exportContext = new ExportContext()
+            ExportContext exportContext = new ExportContext()
             {
                 Replays = new ReplayFile[] { FileResults[preview.Location].ReplayFile },
                 Markers = KnownPlayers.ToList()
             };
 
-            var exportDialog = new ExportReplayDataWindow()
+            ExportReplayDataWindow exportDialog = new ExportReplayDataWindow()
             {
-                Top = App.Current.MainWindow.Top + 50,
-                Left = App.Current.MainWindow.Left + 50,
+                Top = System.Windows.Application.Current.MainWindow.Top + 50,
+                Left = System.Windows.Application.Current.MainWindow.Left + 50,
                 DataContext = exportContext,
             };
 
-            exportDialog.ShowDialog();
+            _ = exportDialog.ShowDialog();
         }
 
         public void ShowWelcomeWindow()
         {
-            var welcomeFileFlag = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache/SKIPWELCOME");
+            string welcomeFileFlag = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache/SKIPWELCOME");
             if (File.Exists(welcomeFileFlag))
             {
                 _log.Information("Skipping welcome screen...");
@@ -557,19 +548,19 @@ namespace Rofl.UI.Main.ViewModels
             }
 
             _log.Information(welcomeFileFlag);
-            var welcomeDialog = new WelcomeSetupWindow()
+            WelcomeSetupWindow welcomeDialog = new WelcomeSetupWindow()
             {
-                Top = App.Current.MainWindow.Top + 50,
-                Left = App.Current.MainWindow.Left + 50,
+                Top = System.Windows.Application.Current.MainWindow.Top + 50,
+                Left = System.Windows.Application.Current.MainWindow.Left + 50,
                 DataContext = this
             };
 
-            welcomeDialog.ShowDialog();
+            _ = welcomeDialog.ShowDialog();
         }
 
         public void WriteSkipWelcome()
         {
-            var welcomeFileFlag = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache/SKIPWELCOME");
+            string welcomeFileFlag = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache/SKIPWELCOME");
 
             if (File.Exists(welcomeFileFlag))
             {
@@ -578,12 +569,12 @@ namespace Rofl.UI.Main.ViewModels
             }
 
             _log.Information("Writing Welcome skip...");
-            File.WriteAllText(welcomeFileFlag, (string) Application.Current.TryFindResource("EggEggEgg"));
+            File.WriteAllText(welcomeFileFlag, contents: (string)System.Windows.Application.Current.TryFindResource("EggEggEgg"));
         }
 
-        public void DeleteSkipWelcome()
+        public static void DeleteSkipWelcome()
         {
-            var welcomeFileFlag = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache/SKIPWELCOME");
+            string welcomeFileFlag = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache/SKIPWELCOME");
 
             if (File.Exists(welcomeFileFlag))
             {
@@ -593,7 +584,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public void ApplyInitialSettings(WelcomeSetupSettings initialSettings)
         {
-            if (initialSettings == null) throw new ArgumentNullException(nameof(initialSettings));
+            if (initialSettings == null) { throw new ArgumentNullException(nameof(initialSettings)); }
 
             if (!string.IsNullOrEmpty(initialSettings.ReplayPath))
             {
@@ -615,7 +606,7 @@ namespace Rofl.UI.Main.ViewModels
 
             if (initialSettings.Executables != null)
             {
-                foreach (var executable in initialSettings.Executables)
+                foreach (Executables.Models.LeagueExecutable executable in initialSettings.Executables)
                 {
                     SettingsManager.Executables.AddExecutable(executable);
                 }
@@ -631,15 +622,15 @@ namespace Rofl.UI.Main.ViewModels
         public void ShowMissingReplayFoldersMessageBox()
         {
             // Check if replay paths are missing, if so remove them
-            var missingPaths = SettingsManager.RemoveInvalidReplayPaths();
+            string[] missingPaths = SettingsManager.RemoveInvalidReplayPaths();
             if (missingPaths.Length > 0)
             {
-                var msg = Application.Current.TryFindResource("MissingPathText") as string + "\n\n";
+                string msg = (System.Windows.Application.Current.TryFindResource("MissingPathText") as string) + "\n\n";
                 msg += string.Join(",\n", missingPaths);
 
-                MessageBox.Show(
+                _ = MessageBox.Show(
                     msg,
-                    Application.Current.TryFindResource("MissingPathTitle") as string,
+                    System.Windows.Application.Current.TryFindResource("MissingPathTitle") as string,
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning
                 );
@@ -654,22 +645,22 @@ namespace Rofl.UI.Main.ViewModels
         /// <returns></returns>
         public string RenameFile(ReplayPreview preview, string newText)
         {
-            if (preview == null) throw new ArgumentNullException(nameof(preview));
+            if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
 
             // Get the full replay object, it contains more information
-            var replay = FileResults[preview.Location];
+            FileResult replay = FileResults[preview.Location];
 
             // Ask the file manager to rename the replay
-            var error = _fileManager.RenameReplay(replay, newText);
+            string error = _fileManager.RenameReplay(replay, newText);
 
             // User entered nothing, change message
             if (error == "{EMPTY ERROR}")
             {
-                error = Application.Current.TryFindResource("RenameFlyoutEmptyError") as string;
+                error = System.Windows.Application.Current.TryFindResource("RenameFlyoutEmptyError") as string;
             }
             else if (error == "{NOT FOUND ERROR}")
             {
-                error = Application.Current.TryFindResource("RenameFlyoutNotFoundError") as string;
+                error = System.Windows.Application.Current.TryFindResource("RenameFlyoutNotFoundError") as string;
             }
             else // Success
             {
@@ -682,9 +673,9 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task DeleteReplayFile(ReplayPreview preview)
         {
-            if (preview == null) throw new ArgumentNullException(nameof(preview));
+            if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
 
-            _fileManager.DeleteFile(FileResults[preview.Location]);
+            _ = _fileManager.DeleteFile(FileResults[preview.Location]);
 
             await ReloadReplayList().ConfigureAwait(false);
         }
@@ -696,13 +687,13 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task<(long ItemsTotalSize, long ChampsTotalSize, long RunesTotalSize)> CalculateCacheSizes()
         {
-            var itemsInfo = new DirectoryInfo(RequestManager.GetItemCachePath());
+            DirectoryInfo itemsInfo = new DirectoryInfo(RequestManager.GetItemCachePath());
             long itemsTotal = !itemsInfo.Exists ? 0L : await Task.Run(() => itemsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
-            
-            var champsInfo = new DirectoryInfo(RequestManager.GetChampionCachePath());
+
+            DirectoryInfo champsInfo = new DirectoryInfo(RequestManager.GetChampionCachePath());
             long champsTotal = !champsInfo.Exists ? 0L : await Task.Run(() => champsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
-            var runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
+            DirectoryInfo runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
             long runesTotal = !runesInfo.Exists ? 0L : await Task.Run(() => runesInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
             return (itemsTotal, champsTotal, runesTotal);
@@ -710,18 +701,18 @@ namespace Rofl.UI.Main.ViewModels
 
         public long CalculateReplayCacheSize()
         {
-            var databaseInfo = new FileInfo(_fileManager.DatabasePath);
+            FileInfo databaseInfo = new FileInfo(_fileManager.DatabasePath);
             return databaseInfo.Length;
         }
 
         public async Task ClearCache()
         {
-            System.GC.Collect();
-            System.GC.WaitForPendingFinalizers();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
-            if (ClearItemsCacheOnClose) await RequestManager.ClearItemCache().ConfigureAwait(true);
-            if (ClearChampsCacheOnClose) await RequestManager.ClearChampionCache().ConfigureAwait(true);
-            if (ClearRunesCacheOnClose) await RequestManager.ClearRunesCache().ConfigureAwait(true);
+            if (ClearItemsCacheOnClose) { await RequestManager.ClearItemCache().ConfigureAwait(true); }
+            if (ClearChampsCacheOnClose) { await RequestManager.ClearChampionCache().ConfigureAwait(true); }
+            if (ClearRunesCacheOnClose) { await RequestManager.ClearRunesCache().ConfigureAwait(true); }
 
             if (ClearReplayCacheOnClose)
             {

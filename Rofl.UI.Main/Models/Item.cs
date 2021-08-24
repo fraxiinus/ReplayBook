@@ -7,8 +7,8 @@ namespace Rofl.UI.Main.Models
     {
         public Item(string itemId)
         {
-            this.ItemId = itemId;
-            this.ItemName = "Item";
+            ItemId = itemId;
+            ItemName = "Item";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -55,17 +55,8 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        public System.Windows.Visibility OverlayVisible
-        {
-            get
-            {
-                if (_overlayIcon != null)
-                {
-                    return System.Windows.Visibility.Visible;
-                }
-
-                return System.Windows.Visibility.Collapsed;
-            }
-        }
+        public System.Windows.Visibility OverlayVisible => _overlayIcon != null
+            ? System.Windows.Visibility.Visible
+            : System.Windows.Visibility.Collapsed;
     }
 }

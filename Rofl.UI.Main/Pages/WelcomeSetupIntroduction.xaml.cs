@@ -1,10 +1,8 @@
 ﻿using Rofl.Settings.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Rofl.UI.Main.Pages
 {
@@ -26,17 +24,17 @@ namespace Rofl.UI.Main.Pages
             LanguageRadioButtons.SelectedIndex = 0;
         }
 
-        private void NextButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.MoveToNextPage();
         }
 
         private void LanguageRadioButtons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
-            parent.SetupSettings.SetupLanguage = (Language) LanguageRadioButtons.SelectedIndex;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
+            parent.SetupSettings.SetupLanguage = (Language)LanguageRadioButtons.SelectedIndex;
 
             LanguageHelper.SetProgramLanguage(parent.SetupSettings.SetupLanguage);
         }

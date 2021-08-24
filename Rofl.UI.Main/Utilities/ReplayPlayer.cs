@@ -9,20 +9,17 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Threading;
 
 namespace Rofl.UI.Main.Utilities
 {
     public class ReplayPlayer
     {
-        private FileManager _files;
-        private SettingsManager _settingsManager;
-        private RiZhi _log;
+        private readonly FileManager _files;
+        private readonly SettingsManager _settingsManager;
+        private readonly RiZhi _log;
 
         public ReplayPlayer(FileManager files, SettingsManager settings, RiZhi log)
         {
@@ -33,19 +30,19 @@ namespace Rofl.UI.Main.Utilities
 
         public async Task<Process> PlayReplay(string path)
         {
-            var replay = await _files.GetSingleFile(path).ConfigureAwait(true);
+            Files.Models.FileResult replay = await _files.GetSingleFile(path).ConfigureAwait(true);
             if (replay is null)
             {
                 // replay file could not be read
                 await ShowExceptionDialog(
                     new NotSupportedException(
-                        Application.Current.TryFindResource("FailedToLoadReplayText").ToString()))
+                        System.Windows.Application.Current.TryFindResource("FailedToLoadReplayText").ToString()))
                     .ConfigureAwait(true);
-             
+
                 return null;
             }
 
-            var executables = _settingsManager.Executables.GetExecutablesByPatch(replay.ReplayFile.GameVersion);
+            IReadOnlyCollection<LeagueExecutable> executables = _settingsManager.Executables.GetExecutablesByPatch(replay.ReplayFile.GameVersion);
             if (!executables.Any())
             {
                 _log.Information($"No executables found to play replay");
@@ -62,7 +59,7 @@ namespace Rofl.UI.Main.Utilities
                 _log.Information($"More than one possible executable, asking user...");
                 // More than one?????
                 target = await ShowChooseReplayDialog(executables).ConfigureAwait(true);
-                if (target == null) return null;
+                if (target == null) { return null; }
             }
             else
             {
@@ -72,9 +69,9 @@ namespace Rofl.UI.Main.Utilities
             if (_settingsManager.Settings.PlayConfirmation)
             {
                 _log.Information($"Asking user for confirmation");
-                
+
                 // Only continue if the user pressed the yes button
-                var dialogResult = await ShowConfirmationDialog().ConfigureAwait(true);
+                ContentDialogResult dialogResult = await ShowConfirmationDialog().ConfigureAwait(true);
                 if (dialogResult != ContentDialogResult.Primary)
                 {
                     return null;
@@ -99,23 +96,23 @@ namespace Rofl.UI.Main.Utilities
 
         private static async Task<LeagueExecutable> ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
         {
-            var dialog = new ExecutableSelectDialog
+            ExecutableSelectDialog dialog = new ExecutableSelectDialog
             {
-                Owner = Application.Current.MainWindow,
+                Owner = System.Windows.Application.Current.MainWindow,
                 DataContext = executables
             };
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
-            if (Application.Current.MainWindow is DialogHostWindow)
+            if (System.Windows.Application.Current.MainWindow is DialogHostWindow)
             {
                 // allows us to look at the visual tree before showing the dialog
-                dialog.ApplyTemplate();
+                _ = dialog.ApplyTemplate();
 
                 dialog.SetBackgroundSmokeColor(Brushes.Transparent);
             }
 
-            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 
             return dialog.Selection;
         }
@@ -123,17 +120,17 @@ namespace Rofl.UI.Main.Utilities
         private static async Task<ContentDialogResult> ShowConfirmationDialog()
         {
             // Creating content dialog
-            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: true);
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: true);
             dialog.DefaultButton = ContentDialogButton.Primary;
 
-            dialog.PrimaryButtonText = Application.Current.TryFindResource("YesText") as string;
-            dialog.SecondaryButtonText = Application.Current.TryFindResource("NoText") as string;
-            dialog.Title = Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string;
-            dialog.SetLabelText(Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string);
+            dialog.PrimaryButtonText = System.Windows.Application.Current.TryFindResource("YesText") as string;
+            dialog.SecondaryButtonText = System.Windows.Application.Current.TryFindResource("NoText") as string;
+            dialog.Title = System.Windows.Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string;
+            dialog.SetLabelText(System.Windows.Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string);
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
-            if (Application.Current.MainWindow is DialogHostWindow)
+            if (System.Windows.Application.Current.MainWindow is DialogHostWindow)
             {
                 dialog.SetBackgroundSmokeColor(Brushes.Transparent);
             }
@@ -144,46 +141,46 @@ namespace Rofl.UI.Main.Utilities
         private static async Task ShowUnsupportedDialog(string version)
         {
             // Creating content dialog
-            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
             dialog.DefaultButton = ContentDialogButton.Primary;
 
-            dialog.PrimaryButtonText = Application.Current.TryFindResource("OKButtonText") as string;
-            dialog.Title = Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as string;
-            dialog.SetLabelText(Application.Current.TryFindResource("ExecutableNotFoundErrorText") as string + " " + version);
+            dialog.PrimaryButtonText = System.Windows.Application.Current.TryFindResource("OKButtonText") as string;
+            dialog.Title = System.Windows.Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as string;
+            dialog.SetLabelText((System.Windows.Application.Current.TryFindResource("ExecutableNotFoundErrorText") as string) + " " + version);
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
-            if (Application.Current.MainWindow is DialogHostWindow)
+            if (System.Windows.Application.Current.MainWindow is DialogHostWindow)
             {
                 dialog.SetBackgroundSmokeColor(Brushes.Transparent);
             }
 
-            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
         private static async Task ShowExceptionDialog(Exception ex)
         {
             // Creating content dialog
-            var dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
             dialog.DefaultButton = ContentDialogButton.Primary;
 
-            dialog.PrimaryButtonText = Application.Current.TryFindResource("OKButtonText") as string;
-            dialog.Title = Application.Current.TryFindResource("ReplayPlayExceptionTitle") as string;
+            dialog.PrimaryButtonText = System.Windows.Application.Current.TryFindResource("OKButtonText") as string;
+            dialog.Title = System.Windows.Application.Current.TryFindResource("ReplayPlayExceptionTitle") as string;
             dialog.SetLabelText(ex.ToString());
 
             // Make dialog as long as the exception
-            var label = dialog.GetContentDialogLabel();
+            System.Windows.Controls.TextBlock label = dialog.GetContentDialogLabel();
             label.MaxWidth = 350;
             label.TextWrapping = TextWrapping.Wrap;
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
-            if (Application.Current.MainWindow is DialogHostWindow)
+            if (System.Windows.Application.Current.MainWindow is DialogHostWindow)
             {
                 dialog.SetBackgroundSmokeColor(Brushes.Transparent);
             }
 
-            await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
     }
 }

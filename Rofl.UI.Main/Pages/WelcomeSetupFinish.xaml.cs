@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Rofl.UI.Main.ViewModels;
+using Rofl.UI.Main.Views;
 using System.Windows;
 using System.Windows.Controls;
-using Rofl.UI.Main.ViewModels;
-using Rofl.UI.Main.Views;
 
 namespace Rofl.UI.Main.Pages
 {
@@ -20,15 +19,15 @@ namespace Rofl.UI.Main.Pages
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.MoveToPreviousPage();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
-            if (!(parent.DataContext is MainWindowViewModel context)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
+            if (!(parent.DataContext is MainWindowViewModel context)) { return; }
 
             context.ApplyInitialSettings(parent.SetupSettings);
 
@@ -37,7 +36,7 @@ namespace Rofl.UI.Main.Pages
 
         private void SkipButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow)) { return; }
         }
     }
 }

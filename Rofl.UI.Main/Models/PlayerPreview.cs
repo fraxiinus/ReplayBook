@@ -69,18 +69,9 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        public System.Windows.Visibility OverlayVisible
-        {
-            get
-            {
-                if (_overlayIcon != null)
-                {
-                    return System.Windows.Visibility.Visible;
-                }
-
-                return System.Windows.Visibility.Collapsed;
-            }
-        }
+        public System.Windows.Visibility OverlayVisible => _overlayIcon != null
+            ? System.Windows.Visibility.Visible
+            : System.Windows.Visibility.Collapsed;
 
         public string CombinedName
         {
@@ -90,13 +81,11 @@ namespace Rofl.UI.Main.Models
                 {
                     return $"{PlayerName} - {ChampionName}";
                 }
-                else if (String.IsNullOrWhiteSpace(Marker.Note))
-                {
-                    return $"{PlayerName} - {ChampionName}";
-                }
                 else
                 {
-                    return $"{PlayerName} - {ChampionName}\n{Marker.Note}";
+                    return string.IsNullOrWhiteSpace(Marker.Note)
+                        ? $"{PlayerName} - {ChampionName}"
+                        : $"{PlayerName} - {ChampionName}\n{Marker.Note}";
                 }
             }
         }

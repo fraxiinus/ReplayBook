@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -13,12 +8,12 @@ namespace Rofl.UI.Main.Utilities
     {
         internal static T GetObjectFromResource<T>(string resourceName)
         {
-            return (T)Application.Current.TryFindResource(resourceName);
+            return (T)System.Windows.Application.Current.TryFindResource(resourceName);
         }
 
         internal static ImageSource GetImageSourceFromResource(string resourceName)
         {
-            return Application.Current.TryFindResource(resourceName) as ImageSource;
+            return System.Windows.Application.Current.TryFindResource(resourceName) as ImageSource;
         }
 
         internal static ImageSource GetImageSourceFromPath(string path)
@@ -28,7 +23,7 @@ namespace Rofl.UI.Main.Utilities
 
         internal static SolidColorBrush GetColorFromResource(string key)
         {
-            return Application.Current.TryFindResource(key) as SolidColorBrush;
+            return System.Windows.Application.Current.TryFindResource(key) as SolidColorBrush;
         }
     }
 }

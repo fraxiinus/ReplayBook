@@ -18,33 +18,33 @@ namespace Rofl.UI.Main.Pages
         {
             InitializeComponent();
 
-            this.SkipButton.IsEnabled = false;
+            SkipButton.IsEnabled = false;
         }
 
         private void Page_Initialized(object sender, EventArgs e)
         {
             // Load locales into combo box, set default to English
-            var allLocales = Enum.GetNames(typeof(LeagueLocale))
+            System.Collections.Generic.IEnumerable<string> allLocales = Enum.GetNames(typeof(LeagueLocale))
                 .Where(x => !string.Equals(x, LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase))
                 .Select(x => x + " (" + ExeTools.GetLocaleCode(x) + ")");
 
-            this.LocaleComboBox.ItemsSource = allLocales;
+            LocaleComboBox.ItemsSource = allLocales;
 
-            this.LocaleComboBox.SelectedIndex = (int)LeagueLocale.EnglishUS;
+            LocaleComboBox.SelectedIndex = (int)LeagueLocale.EnglishUS;
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
-            parent.SetupSettings.DefaultRegionLocale = (LeagueLocale) this.LocaleComboBox.SelectedIndex;
+            parent.SetupSettings.DefaultRegionLocale = (LeagueLocale)LocaleComboBox.SelectedIndex;
 
             parent.MoveToNextPage();
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is WelcomeSetupWindow parent)) return;
+            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
 
             parent.MoveToPreviousPage();
         }

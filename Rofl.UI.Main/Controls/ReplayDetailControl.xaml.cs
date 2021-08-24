@@ -5,7 +5,6 @@ using Rofl.UI.Main.Views;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace Rofl.UI.Main.Controls
@@ -45,7 +44,7 @@ namespace Rofl.UI.Main.Controls
 
         private void ReplayDetailControlElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(this.DataContext is ReplayDetail replay)) { return; }
+            if (!(DataContext is ReplayDetail replay)) { return; }
 
             PlayerIconsGrid.Children.Clear();
             PlayerIconsGrid.ColumnDefinitions.Clear();
@@ -53,16 +52,16 @@ namespace Rofl.UI.Main.Controls
             if (DetailTabControl.SelectedIndex == 1)
             {
                 int counter = 0;
-                foreach (var player in replay.AllPlayers)
+                foreach (PlayerDetail player in replay.AllPlayers)
                 {
                     // Add a column
-                    var newColumn = new ColumnDefinition
+                    ColumnDefinition newColumn = new ColumnDefinition
                     {
                         Width = GridLength.Auto
                     };
                     PlayerIconsGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
-                    var newImage = new PlayerIconControl
+                    PlayerIconControl newImage = new PlayerIconControl
                     {
                         DataContext = player.PreviewModel,
                         Width = 50,
@@ -70,7 +69,7 @@ namespace Rofl.UI.Main.Controls
                     };
                     Grid.SetRow(newImage, 0);
                     Grid.SetColumn(newImage, counter);
-                    PlayerIconsGrid.Children.Add(newImage);
+                    _ = PlayerIconsGrid.Children.Add(newImage);
 
                     counter++;
                 }
@@ -80,37 +79,37 @@ namespace Rofl.UI.Main.Controls
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayDetail replay)) { return; }
+            if (!(DataContext is ReplayDetail replay)) { return; }
 
-            await context.PlayReplay(replay.PreviewModel).ConfigureAwait(true);
+            _ = await context.PlayReplay(replay.PreviewModel).ConfigureAwait(true);
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
             if (!(sender is TabControl tabControl)) { return; }
-            if (!(this.DataContext is ReplayDetail replay)) { return; }
+            if (!(DataContext is ReplayDetail replay)) { return; }
 
             StatsScrollViewer.ScrollToVerticalOffset(0);
 
             if (tabControl.SelectedIndex == 1)
             {
-                context.LoadRuneThumbnails(replay).ConfigureAwait(true);
+                _ = context.LoadRuneThumbnails(replay).ConfigureAwait(true);
             }
 
             if (tabControl.SelectedIndex == 2 && PlayerIconsGrid.ColumnDefinitions.Count < 1)
             {
                 int counter = 0;
-                foreach (var player in replay.AllPlayers)
+                foreach (PlayerDetail player in replay.AllPlayers)
                 {
                     // Add a column
-                    var newColumn = new ColumnDefinition
+                    ColumnDefinition newColumn = new ColumnDefinition
                     {
                         Width = GridLength.Auto
                     };
                     PlayerIconsGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
-                    var newImage = new PlayerIconControl
+                    PlayerIconControl newImage = new PlayerIconControl
                     {
                         DataContext = player.PreviewModel,
                         Width = 50,
@@ -118,7 +117,7 @@ namespace Rofl.UI.Main.Controls
                     };
                     Grid.SetRow(newImage, 0);
                     Grid.SetColumn(newImage, counter);
-                    PlayerIconsGrid.Children.Add(newImage);
+                    _ = PlayerIconsGrid.Children.Add(newImage);
 
                     counter++;
                 }
@@ -146,21 +145,21 @@ namespace Rofl.UI.Main.Controls
         private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayDetail replay)) { return; }
+            if (!(DataContext is ReplayDetail replay)) { return; }
             context.OpenReplayContainingFolder(replay.PreviewModel.Location);
         }
 
         private void ViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayDetail replay)) { return; }
+            if (!(DataContext is ReplayDetail replay)) { return; }
             context.ViewOnlineMatchHistory(replay.PreviewModel.MatchId);
         }
 
         private void ExportReplayData_OnClick(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayDetail replay)) { return; }
+            if (!(DataContext is ReplayDetail replay)) { return; }
 
             context.ShowExportReplayDataWindow(replay.PreviewModel);
         }
@@ -168,14 +167,14 @@ namespace Rofl.UI.Main.Controls
         private void RenameReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayDetail replay)) { return; }
+            if (!(DataContext is ReplayDetail replay)) { return; }
 
-            var flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: true);
+            ModernWpf.Controls.Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: true);
             flyout.GetFlyoutLabel().Visibility = Visibility.Collapsed;
             flyout.SetFlyoutButtonText(TryFindResource("RenameReplayFile") as string);
 
             // Create textbox to add as flyout custom element
-            var fileNameBox = new TextBox
+            TextBox fileNameBox = new TextBox
             {
                 Text = replay.PreviewModel.DisplayName,
                 IsReadOnly = false,
@@ -183,13 +182,13 @@ namespace Rofl.UI.Main.Controls
             };
             Grid.SetColumn(fileNameBox, 0);
             Grid.SetRow(fileNameBox, 1);
-            (flyout.Content as Grid).Children.Add(fileNameBox);
+            _ = (flyout.Content as Grid).Children.Add(fileNameBox);
 
             // Handle save button
             flyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 // Rename the file and see if an error was returned
-                var error = context.RenameFile(replay.PreviewModel, fileNameBox.Text);
+                string error = context.RenameFile(replay.PreviewModel, fileNameBox.Text);
 
                 if (error != null)
                 {
@@ -202,7 +201,7 @@ namespace Rofl.UI.Main.Controls
                 else
                 {
                     // Hide the flyout
-                    this.Dispatcher.Invoke(() =>
+                    Dispatcher.Invoke(() =>
                     {
                         flyout.Hide();
                     });
@@ -212,15 +211,15 @@ namespace Rofl.UI.Main.Controls
             // Show the flyout and focus it
             flyout.ShowAt(ReplayFileName);
             fileNameBox.SelectAll();
-            fileNameBox.Focus();
+            _ = fileNameBox.Focus();
         }
         private void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayDetail replay)) { return; }
+            if (!(DataContext is ReplayDetail replay)) { return; }
 
             // create the flyout
-            var flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: false);
+            ModernWpf.Controls.Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: false);
 
             // set the flyout texts
             flyout.SetFlyoutButtonText(TryFindResource("DeleteReplayFile") as string);
@@ -232,7 +231,7 @@ namespace Rofl.UI.Main.Controls
                 await context.DeleteReplayFile(replay.PreviewModel).ConfigureAwait(false);
 
                 // Hide the flyout
-                this.Dispatcher.Invoke(() =>
+                Dispatcher.Invoke(() =>
                 {
                     flyout.Hide();
                 });
@@ -240,7 +239,7 @@ namespace Rofl.UI.Main.Controls
 
             // Show the flyout and focus it
             flyout.ShowAt(ReplayFileName);
-            flyout.GetFlyoutButton().Focus();
+            _ = flyout.GetFlyoutButton().Focus();
         }
         #endregion
     }

@@ -1,16 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Rofl.UI.Main.Views
 {
@@ -29,7 +21,7 @@ namespace Rofl.UI.Main.Views
             Titles = new List<string>();
 
             // Count how many times "AckTitle" shows up in the resource dictionary
-            var keys = Application.Current.Resources.MergedDictionaries[4].Keys.OfType<string>()
+            List<string> keys = Application.Current.Resources.MergedDictionaries[4].Keys.OfType<string>()
                 .Where(x => x.StartsWith("AckTitle", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
@@ -37,7 +29,7 @@ namespace Rofl.UI.Main.Views
             keys.Reverse();
 
             // Load titles to list
-            foreach (var key in keys)
+            foreach (string key in keys)
             {
                 Titles.Add(FindResource(key) as string);
             }
@@ -51,7 +43,7 @@ namespace Rofl.UI.Main.Views
 
         private void AcknowledgementsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var index = AcknowledgementsListBox.SelectedIndex;
+            int index = AcknowledgementsListBox.SelectedIndex;
             TitleText.Text = FindResource($"AckTitle{index + 1}") as string;
             AuthorText.Text = FindResource($"AckAuthor{index + 1}") as string;
             HyperlinkButton.NavigateUri = new Uri(FindResource($"AckLink{index + 1}") as string);

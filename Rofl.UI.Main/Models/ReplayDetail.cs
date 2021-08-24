@@ -20,12 +20,12 @@ namespace Rofl.UI.Main.Models
             var combinedBluePlayers = replay.ReplayFile.BluePlayers.Zip(previewModel.BluePreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var bPlayer in combinedBluePlayers)
             {
-                var newPlayer = new PlayerDetail(bPlayer.Player, bPlayer.Preview, true);
+                PlayerDetail newPlayer = new PlayerDetail(bPlayer.Player, bPlayer.Preview, true);
                 BlueKills += newPlayer.ChampionsKilled;
                 BlueDeaths += newPlayer.Deaths;
                 BlueAssists += newPlayer.Assists;
                 BlueGoldEarned += newPlayer.GoldEarned;
-                
+
                 // Includes both minions and jungle camps
                 BlueMinionsKilled += newPlayer.TotalMinionsKilled;
 
@@ -37,7 +37,7 @@ namespace Rofl.UI.Main.Models
             var combinedRedPlayers = replay.ReplayFile.RedPlayers.Zip(previewModel.RedPreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var rPlayer in combinedRedPlayers)
             {
-                var newPlayer = new PlayerDetail(rPlayer.Player, rPlayer.Preview, false);
+                PlayerDetail newPlayer = new PlayerDetail(rPlayer.Player, rPlayer.Preview, false);
                 RedKills += newPlayer.ChampionsKilled;
                 RedDeaths += newPlayer.Deaths;
                 RedAssists += newPlayer.Assists;

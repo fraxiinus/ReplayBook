@@ -26,16 +26,16 @@ namespace Rofl.UI.Main.Controls
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            if (!(DataContext is ReplayPreview replay)) { return; }
 
-            await context.PlayReplay(replay).ConfigureAwait(true);
+            _ = await context.PlayReplay(replay).ConfigureAwait(true);
         }
 
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this) is MainWindow mainWindow)) { return; }
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            if (!(DataContext is ReplayPreview replay)) { return; }
             if (!(sender is Button moreButton)) { return; }
 
             // Select the item
@@ -57,21 +57,21 @@ namespace Rofl.UI.Main.Controls
         private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            if (!(DataContext is ReplayPreview replay)) { return; }
             context.OpenReplayContainingFolder(replay.Location);
         }
 
         private void ViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            if (!(DataContext is ReplayPreview replay)) { return; }
             context.ViewOnlineMatchHistory(replay.MatchId);
         }
 
         private void ExportReplayData_OnClick(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            if (!(DataContext is ReplayPreview replay)) { return; }
 
             context.ShowExportReplayDataWindow(replay);
         }
@@ -79,14 +79,14 @@ namespace Rofl.UI.Main.Controls
         private void RenameReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            if (!(DataContext is ReplayPreview replay)) { return; }
 
-            var flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: true);
+            ModernWpf.Controls.Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: true);
             flyout.GetFlyoutLabel().Visibility = Visibility.Collapsed;
-            flyout.SetFlyoutButtonText(TryFindResource("RenameReplayFile") as String);
+            flyout.SetFlyoutButtonText(TryFindResource("RenameReplayFile") as string);
 
             // Create textbox to add as flyout custom element
-            var fileNameBox = new TextBox
+            TextBox fileNameBox = new TextBox
             {
                 Text = replay.DisplayName,
                 IsReadOnly = false,
@@ -94,14 +94,14 @@ namespace Rofl.UI.Main.Controls
             };
             Grid.SetColumn(fileNameBox, 0);
             Grid.SetRow(fileNameBox, 1);
-            (flyout.Content as Grid).Children.Add(fileNameBox);
+            _ = (flyout.Content as Grid).Children.Add(fileNameBox);
 
             // Handle save button
             flyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 // Rename the file and see if an error was returned
-                var error = context.RenameFile(replay, fileNameBox.Text);
-                
+                string error = context.RenameFile(replay, fileNameBox.Text);
+
                 if (error != null)
                 {
                     // Display the error using the label
@@ -113,7 +113,7 @@ namespace Rofl.UI.Main.Controls
                 else
                 {
                     // Hide the flyout
-                    this.Dispatcher.Invoke(() =>
+                    Dispatcher.Invoke(() =>
                     {
                         flyout.Hide();
                     });
@@ -123,7 +123,7 @@ namespace Rofl.UI.Main.Controls
             // Show the flyout and focus it
             flyout.ShowAt(FilenameText);
             fileNameBox.SelectAll();
-            fileNameBox.Focus();
+            _ = fileNameBox.Focus();
         }
 
         private void FileNameBox_KeyUp(object sender, KeyEventArgs e)
@@ -134,22 +134,22 @@ namespace Rofl.UI.Main.Controls
         private void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            if (!(DataContext is ReplayPreview replay)) { return; }
 
             // create the flyout
-            var flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: false);
+            ModernWpf.Controls.Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: false);
 
             // set the flyout texts
-            flyout.SetFlyoutButtonText(TryFindResource("DeleteReplayFile") as String);
-            flyout.SetFlyoutLabelText(TryFindResource("DeleteFlyoutLabel") as String);
-            
+            flyout.SetFlyoutButtonText(TryFindResource("DeleteReplayFile") as string);
+            flyout.SetFlyoutLabelText(TryFindResource("DeleteFlyoutLabel") as string);
+
             // set button click function
             flyout.GetFlyoutButton().Click += async (object eSender, RoutedEventArgs eConfirm) =>
             {
                 await context.DeleteReplayFile(replay).ConfigureAwait(false);
 
                 // Hide the flyout
-                this.Dispatcher.Invoke(() =>
+                Dispatcher.Invoke(() =>
                 {
                     flyout.Hide();
                 });
@@ -157,7 +157,7 @@ namespace Rofl.UI.Main.Controls
 
             // Show the flyout and focus it
             flyout.ShowAt(FilenameText);
-            flyout.GetFlyoutButton().Focus();
+            _ = flyout.GetFlyoutButton().Focus();
         }
 
         private async void RefreshReplayList_Click(object sender, RoutedEventArgs e)
@@ -170,14 +170,14 @@ namespace Rofl.UI.Main.Controls
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            if (!(DataContext is ReplayPreview replay)) { return; }
 
             replay.IsHovered = true;
         }
 
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (!(this.DataContext is ReplayPreview replay)) { return; }
+            if (!(DataContext is ReplayPreview replay)) { return; }
 
             replay.IsHovered = false;
         }

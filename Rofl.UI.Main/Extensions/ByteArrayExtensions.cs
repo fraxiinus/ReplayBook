@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace Rofl.UI.Main.Extensions
@@ -12,11 +7,11 @@ namespace Rofl.UI.Main.Extensions
     {
         public static BitmapImage ToBitmapImage(this byte[] bytes)
         {
-            if (bytes == null || bytes.Length == 0) return null;
+            if (bytes == null || bytes.Length == 0) { return null; }
 
-            var image = new BitmapImage();
+            BitmapImage image = new BitmapImage();
 
-            using (var mem = new MemoryStream(bytes))
+            using (MemoryStream mem = new MemoryStream(bytes))
             {
                 mem.Position = 0;
                 image.BeginInit();

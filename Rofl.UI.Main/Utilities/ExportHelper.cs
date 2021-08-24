@@ -4,8 +4,6 @@ using Rofl.UI.Main.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rofl.UI.Main.Utilities
 {
@@ -13,10 +11,10 @@ namespace Rofl.UI.Main.Utilities
     {
         public static string ConstructJsonString(ReplayFile replay, List<ExportSelectItem> LevelOneItems, List<ExportSelectItem> LevelTwoItems, List<ExportSelectItem> LevelThreeItems)
         {
-            if (replay == null) throw new ArgumentNullException(nameof(replay));
-            if (LevelOneItems == null) throw new ArgumentNullException(nameof(LevelOneItems));
-            if (LevelTwoItems == null) throw new ArgumentNullException(nameof(LevelTwoItems));
-            if (LevelThreeItems == null) throw new ArgumentNullException(nameof(LevelThreeItems));
+            if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
+            if (LevelOneItems == null) { throw new ArgumentNullException(nameof(LevelOneItems)); }
+            if (LevelTwoItems == null) { throw new ArgumentNullException(nameof(LevelTwoItems)); }
+            if (LevelThreeItems == null) { throw new ArgumentNullException(nameof(LevelThreeItems)); }
 
             JObject result = new JObject();
 
@@ -31,9 +29,9 @@ namespace Rofl.UI.Main.Utilities
 
         public static string ConstructCsvString(ReplayFile replay, List<ExportSelectItem> LevelTwoItems, List<ExportSelectItem> LevelThreeItems)
         {
-            if (replay == null) throw new ArgumentNullException(nameof(replay));
-            if (LevelTwoItems == null) throw new ArgumentNullException(nameof(LevelTwoItems));
-            if (LevelThreeItems == null) throw new ArgumentNullException(nameof(LevelThreeItems));
+            if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
+            if (LevelTwoItems == null) { throw new ArgumentNullException(nameof(LevelTwoItems)); }
+            if (LevelThreeItems == null) { throw new ArgumentNullException(nameof(LevelThreeItems)); }
 
             List<string> lines = new List<string>();
             bool doneOnce = false;
@@ -42,18 +40,18 @@ namespace Rofl.UI.Main.Utilities
             lines.Add("PLAYER");
 
             // Create enough strings for all the players
-            foreach (var playerName in LevelTwoItems)
+            foreach (ExportSelectItem playerName in LevelTwoItems)
             {
-                if (!playerName.Checked) continue;
+                if (!playerName.Checked) { continue; }
 
                 // Get the player in question
-                var player = replay.Players.First(x => x.NAME.Equals(playerName.Name, StringComparison.OrdinalIgnoreCase));
-                var playerString = playerName.Name;
+                Player player = replay.Players.First(x => x.NAME.Equals(playerName.Name, StringComparison.OrdinalIgnoreCase));
+                string playerString = playerName.Name;
 
                 // Load property values for player
-                foreach (var prop in LevelThreeItems)
+                foreach (ExportSelectItem prop in LevelThreeItems)
                 {
-                    if (!prop.Checked) continue;
+                    if (!prop.Checked) { continue; }
 
                     // Add property name
                     if (!doneOnce)
@@ -69,16 +67,16 @@ namespace Rofl.UI.Main.Utilities
                 lines.Add(playerString);
             }
 
-            return String.Join("\n", lines);
+            return string.Join("\n", lines);
         }
 
         #region JSON Helper Fields
 
         private static void JsonSerializeLevelOne(JObject result, List<ExportSelectItem> selectItems)
         {
-            foreach (var item in selectItems)
+            foreach (ExportSelectItem item in selectItems)
             {
-                if (!item.Checked) continue;
+                if (!item.Checked) { continue; }
 
                 // Include players field for level two to see
                 if (item.Name.Equals("Players", StringComparison.OrdinalIgnoreCase))
@@ -94,11 +92,11 @@ namespace Rofl.UI.Main.Utilities
         private static void JsonSerializeLevelTwo(JObject result, List<ExportSelectItem> selectItems)
         {
             // if there is no player property, we cant populate it
-            if (!result.ContainsKey("Players")) return;
+            if (!result.ContainsKey("Players")) { return; }
 
-            foreach (var item in selectItems)
+            foreach (ExportSelectItem item in selectItems)
             {
-                if (!item.Checked) continue;
+                if (!item.Checked) { continue; }
 
                 // Add the player name we need to add in level three
                 (result["Players"] as JArray).Add(item.Name);
@@ -108,24 +106,24 @@ namespace Rofl.UI.Main.Utilities
         private static void JsonSerializeLevelThree(JObject result, ReplayFile replay, List<ExportSelectItem> selectItems)
         {
             // if there is no player property, we cant populate it
-            if (!result.ContainsKey("Players")) return;
+            if (!result.ContainsKey("Players")) { return; }
 
             // If there are no players, we cannot populate them
-            if (!result["Players"].Any()) return;
+            if (!result["Players"].Any()) { return; }
 
             JArray populatedPlayers = new JArray();
-            foreach (var playerName in result["Players"])
+            foreach (JToken playerName in result["Players"])
             {
                 // Get the player in question
-                var player = replay.Players.First(x => x.NAME.Equals(playerName.ToString(), StringComparison.OrdinalIgnoreCase));
+                Player player = replay.Players.First(x => x.NAME.Equals(playerName.ToString(), StringComparison.OrdinalIgnoreCase));
 
                 JObject jsonPlayer = new JObject();
-                foreach (var item in selectItems)
+                foreach (ExportSelectItem item in selectItems)
                 {
-                    if (!item.Checked) continue;
+                    if (!item.Checked) { continue; }
 
                     // Get the real value
-                    var value = player.GetType().GetProperty(item.Name).GetValue(player)?.ToString();
+                    string value = player.GetType().GetProperty(item.Name).GetValue(player)?.ToString();
                     jsonPlayer[item.Name] = value;
                 }
 

@@ -11,7 +11,6 @@ using Rofl.Settings.Models;
 
 namespace Rofl.Requests
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class RequestManager
     {
         private readonly DownloadClient _downloadClient;
@@ -28,14 +27,14 @@ namespace Rofl.Requests
         private readonly ConcurrentDictionary<string, Task<ResponseBase>> _inProgressTasks;
 
         // Prevent unnecessary calls for data dragon version
-        private string _latestDataDragonVersion = null;
+        private string _latestDataDragonVersion;
 
-        public RequestManager(ObservableSettings settings, RiZhi log)
+        public RequestManager(ObservableSettings settings, string userAgent, RiZhi log)
         {
             _settings = settings;
             _log = log ?? throw new ArgumentNullException(nameof(log));
 
-            _downloadClient = new DownloadClient(_cachePath, _settings, _log);
+            _downloadClient = new DownloadClient(_cachePath, userAgent, _settings, _log);
             _cacheClient = new CacheClient(_cachePath, _log);
 
             _inProgressTasks = new ConcurrentDictionary<string, Task<ResponseBase>>();

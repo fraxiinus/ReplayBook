@@ -5,20 +5,8 @@ using Rofl.Settings;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Rofl.UI.Main.Views
@@ -52,8 +40,8 @@ namespace Rofl.UI.Main.Views
                 _log.WriteLog();
             };
 
-            var context = new MainWindowViewModel(_files, _requests, _settingsManager, _player, _log);
-            this.DataContext = context;
+            MainWindowViewModel context = new MainWindowViewModel(_files, _requests, _settingsManager, _player, _log);
+            DataContext = context;
 
             // Decide to show welcome window
             context.ShowWelcomeWindow();
@@ -61,14 +49,14 @@ namespace Rofl.UI.Main.Views
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(this.DataContext is MainWindowViewModel context)) { return; }
+            if (!(DataContext is MainWindowViewModel context)) { return; }
 
-            var replay = await _files.GetSingleFile(ReplayFileLocation).ConfigureAwait(true);
+            Files.Models.FileResult replay = await _files.GetSingleFile(ReplayFileLocation).ConfigureAwait(true);
 
             if (replay == null)
             {
                 _log.Error($"Failed to load file {ReplayFileLocation}");
-                MessageBox.Show((string)TryFindResource("FailedToLoadReplayText"),
+                _ = MessageBox.Show((string)TryFindResource("FailedToLoadReplayText"),
                                 (string)TryFindResource("ErrorTitle"),
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
@@ -78,8 +66,8 @@ namespace Rofl.UI.Main.Views
             else
             {
                 // Let the view model know about the replay
-                var previewReplay = context.AddReplay(replay);
-                var replayDetail = new ReplayDetail(replay, previewReplay);
+                ReplayPreview previewReplay = context.AddReplay(replay);
+                ReplayDetail replayDetail = new ReplayDetail(replay, previewReplay);
                 DetailView.DataContext = replayDetail;
                 (DetailView.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
                 (DetailView.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
