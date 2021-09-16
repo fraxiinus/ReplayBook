@@ -11,7 +11,6 @@ using System.Linq;
 
 namespace Rofl.Files.Repositories
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class DatabaseRepository
     {
         private readonly RiZhi _log;
@@ -35,7 +34,10 @@ namespace Rofl.Files.Repositories
             }
         }
 
-        public string GetDatabasePath() => _filePath;
+        public string GetDatabasePath()
+        {
+            return _filePath;
+        }
 
         public void DeleteDatabase()
         {
@@ -46,34 +48,34 @@ namespace Rofl.Files.Repositories
         {
             if (!Directory.Exists(Path.GetDirectoryName(_filePath)))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(_filePath));
+                _ = Directory.CreateDirectory(Path.GetDirectoryName(_filePath));
             }
 
-            using (var db = new LiteDatabase(_filePath))
+            using (LiteDatabase db = new LiteDatabase(_filePath))
             {
-                var fileResults = db.GetCollection<FileResult>("fileResults");
+                // Create and verify file results collection
+                LiteCollection<FileResult> fileResults = db.GetCollection<FileResult>("fileResults");
 
-                BsonMapper.Global.Entity<FileResult>()
+                _ = BsonMapper.Global.Entity<FileResult>()
                     .Id(r => r.Id)
                     .DbRef(r => r.FileInfo, "replayFileInfo")
                     .DbRef(r => r.ReplayFile, "replayFiles");
 
-                BsonMapper.Global.Entity<ReplayFileInfo>()
+                _ = BsonMapper.Global.Entity<ReplayFileInfo>()
                     .Id(r => r.Path);
 
-                BsonMapper.Global.Entity<Player>()
+                _ = BsonMapper.Global.Entity<Player>()
                     .Id(r => r.Id);
 
-                BsonMapper.Global.Entity<ReplayFile>()
+                _ = BsonMapper.Global.Entity<ReplayFile>()
                     .Id(r => r.Location)
                     .DbRef(r => r.Players, "players");
 
-                fileResults.EnsureIndex(x => x.FileName);
-                fileResults.EnsureIndex(x => x.AlternativeName);
-                fileResults.EnsureIndex(x => x.FileSizeBytes);
-                fileResults.EnsureIndex(x => x.FileCreationTime);
-
-                fileResults.EnsureIndex(x => x.SearchKeywords);
+                _ = fileResults.EnsureIndex(x => x.FileName);
+                _ = fileResults.EnsureIndex(x => x.AlternativeName);
+                _ = fileResults.EnsureIndex(x => x.FileSizeBytes);
+                _ = fileResults.EnsureIndex(x => x.FileCreationTime);
+                _ = fileResults.EnsureIndex(x => x.SearchKeywords);
             }
         }
 

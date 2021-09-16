@@ -8,6 +8,7 @@ using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
+using Rofl.UI.Main.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -312,6 +313,24 @@ namespace Rofl.UI.Main
         public void SelectReplayItem(ReplayPreview replay)
         {
             ReplayListView.SelectedItem = replay;
+        }
+
+        private void ReplayStatusBarDismissButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(DataContext is MainWindowViewModel context)) { return; }
+
+            context.StatusBarModel.Visible = false;
+        }
+
+        private async void ReplayStatusBar_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!(DataContext is MainWindowViewModel context)) { return; }
+
+            ReplayLoadErrorDialog errorDialog = new ReplayLoadErrorDialog
+            {
+                DataContext = context.StatusBarModel
+            };
+            _ = await errorDialog.ShowAsync().ConfigureAwait(true);
         }
     }
 }

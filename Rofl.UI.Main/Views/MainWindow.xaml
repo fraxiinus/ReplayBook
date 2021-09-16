@@ -110,6 +110,7 @@
                 <Grid x:Name="ReplayStatusBar"
                       Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
                       HorizontalAlignment="Stretch"
+                      MouseUp="ReplayStatusBar_MouseUp"
                       Grid.Row="1">
                     <Grid.Style>
                         <Style TargetType="Grid">
@@ -125,13 +126,14 @@
                     </Grid.Style>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <ui:ProgressBar IsIndeterminate="true"
-                                    Grid.Row="0"
+                                    Grid.Row="0" Grid.ColumnSpan="2"
                                     Height="5">
                         <ui:ProgressBar.Style>
                             <Style TargetType="ui:ProgressBar">
@@ -146,12 +148,34 @@
                             </Style>
                         </ui:ProgressBar.Style>
                     </ui:ProgressBar>
-                    <TextBlock Text="{Binding Path=StatusBarModel.StatusMessage, FallbackValue=Status}"
+
+                    <TextBlock x:Name="ReplayStatusBarMessage"
+                               Text="{Binding Path=StatusBarModel.StatusMessage, FallbackValue=Status}"
                                TextAlignment="Center"
                                FontSize="16"
                                VerticalAlignment="Center" 
                                Grid.Column="0" Grid.Row="1"
                                Margin="0 3 0 3"/>
+
+                    <Button x:Name="ReplayStatusBarDismissButton"
+                            Click="ReplayStatusBarDismissButton_Click"
+                            Width="30"
+                            Background="Transparent"
+                            Grid.Column="1" Grid.Row="1">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=StatusBarModel.ShowDismissButton}" Value="true">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=StatusBarModel.ShowDismissButton}" Value="false">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <ui:PathIcon Data="{StaticResource DismissIcon}"/>
+                    </Button>
                 </Grid>
 
                 <ListView x:Name="ReplayListView"

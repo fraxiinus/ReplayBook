@@ -144,6 +144,9 @@
     <Compile Include="Views\DialogHostWindow.xaml.cs">
       <DependentUpon>DialogHostWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReplayLoadErrorDialog.xaml.cs">
+      <DependentUpon>ReplayLoadErrorDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExecutableDetailDialog.xaml.cs">
       <DependentUpon>ExecutableDetailDialog.xaml</DependentUpon>
     </Compile>
@@ -280,6 +283,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DialogHostWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReplayLoadErrorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

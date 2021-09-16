@@ -116,7 +116,7 @@ namespace Rofl.UI.Main.ViewModels
         {
             ReplayPreview previewModel = CreateReplayPreview(file);
 
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            Application.Current.Dispatcher.Invoke(delegate
             {
                 PreviewReplays.Add(previewModel);
             });
@@ -154,7 +154,7 @@ namespace Rofl.UI.Main.ViewModels
         public void ClearReplays()
         {
             _log.Information("Clearing replay list...");
-            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+            Application.Current.Dispatcher.Invoke(delegate
             {
                 PreviewReplays.Clear();
             });
@@ -181,7 +181,7 @@ namespace Rofl.UI.Main.ViewModels
                 // If an item does not exist, set it to nothing!
                 if (item.ItemId == "0")
                 {
-                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                    Application.Current.Dispatcher.Invoke(delegate
                     {
                         item.ShowBorder = true;
                     });
@@ -189,7 +189,7 @@ namespace Rofl.UI.Main.ViewModels
                 }
 
                 // Set default item image, to be replaced
-                System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                Application.Current.Dispatcher.Invoke(delegate
                 {
                     item.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
                 });
@@ -205,7 +205,7 @@ namespace Rofl.UI.Main.ViewModels
                     if (response.IsFaulted)
                     {
                         _log.Warning($"Failed to load image for {(response.Request as ItemRequest).ItemID}");
-                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                        Application.Current.Dispatcher.Invoke(delegate
                         {
                             item.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                         });
@@ -214,7 +214,7 @@ namespace Rofl.UI.Main.ViewModels
                     {
                         if (response.FromCache)
                         {
-                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                            Application.Current.Dispatcher.Invoke(delegate
                             {
                                 item.OverlayIcon = null; // hide overlay icons, if any
                                 item.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
@@ -222,7 +222,7 @@ namespace Rofl.UI.Main.ViewModels
                         }
                         else
                         {
-                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                            Application.Current.Dispatcher.Invoke(delegate
                             {
                                 item.OverlayIcon = null; // hide overlay icons, if any
                                 item.ImageSource = response.ResponseBytes.ToBitmapImage();
@@ -272,7 +272,7 @@ namespace Rofl.UI.Main.ViewModels
 
             foreach (dynamic request in allRequests)
             {
-                System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                Application.Current.Dispatcher.Invoke(delegate
                 {
                     request.Player.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
                 });
@@ -285,7 +285,7 @@ namespace Rofl.UI.Main.ViewModels
                     if (response.IsFaulted)
                     {
                         _log.Warning($"Failed to load image for {(response.Request as ChampionRequest).ChampionName}");
-                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                        Application.Current.Dispatcher.Invoke(delegate
                         {
                             request.Player.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                         });
@@ -293,7 +293,7 @@ namespace Rofl.UI.Main.ViewModels
 
                     if (response.FromCache)
                     {
-                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                        Application.Current.Dispatcher.Invoke(delegate
                         {
                             request.Player.OverlayIcon = null; // hide overlay icons, if any
                             request.Player.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
@@ -301,7 +301,7 @@ namespace Rofl.UI.Main.ViewModels
                     }
                     else
                     {
-                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                        Application.Current.Dispatcher.Invoke(delegate
                         {
                             request.Player.OverlayIcon = null; // hide overlay icons, if any
                             request.Player.ImageSource = response.ResponseBytes.ToBitmapImage();
@@ -334,7 +334,7 @@ namespace Rofl.UI.Main.ViewModels
                 // If an item does not exist, set it to nothing!
                 if (string.IsNullOrEmpty(runeData.Icon))
                 {
-                    System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                    Application.Current.Dispatcher.Invoke(delegate
                     {
                         rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                     });
@@ -343,7 +343,7 @@ namespace Rofl.UI.Main.ViewModels
                 }
 
                 // Set default item image, to be replaced
-                System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                Application.Current.Dispatcher.Invoke(delegate
                 {
                     rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
                 });
@@ -361,7 +361,7 @@ namespace Rofl.UI.Main.ViewModels
                     if (response.IsFaulted)
                     {
                         _log.Warning($"Failed to load image for {(response.Request as RuneRequest).RuneKey}");
-                        System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                        Application.Current.Dispatcher.Invoke(delegate
                         {
                             rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                         });
@@ -370,7 +370,7 @@ namespace Rofl.UI.Main.ViewModels
                     {
                         if (response.FromCache) // load image from file
                         {
-                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                            Application.Current.Dispatcher.Invoke(delegate
                             {
                                 rune.OverlayIcon = null; // hide overlay icons, if any
                                 rune.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
@@ -378,7 +378,7 @@ namespace Rofl.UI.Main.ViewModels
                         }
                         else // load image straight from response if its not cachsed
                         {
-                            System.Windows.Application.Current.Dispatcher.Invoke(delegate
+                            Application.Current.Dispatcher.Invoke(delegate
                             {
                                 rune.OverlayIcon = null; // hide overlay icons, if any
                                 rune.ImageSource = response.ResponseBytes.ToBitmapImage();
@@ -418,8 +418,8 @@ namespace Rofl.UI.Main.ViewModels
         {
             SettingsWindow settingsDialog = new SettingsWindow
             {
-                Top = System.Windows.Application.Current.MainWindow.Top + 50,
-                Left = System.Windows.Application.Current.MainWindow.Left + 50,
+                Top = Application.Current.MainWindow.Top + 50,
+                Left = Application.Current.MainWindow.Left + 50,
                 DataContext = SettingsManager,
             };
 
@@ -444,19 +444,31 @@ namespace Rofl.UI.Main.ViewModels
             FileResults.Clear();
             PreviewReplays.Clear();
             ValidateReplayStorage();
-            StatusBarModel.StatusMessage = System.Windows.Application.Current.TryFindResource("LoadingMessageReplay") as string;
+            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
+            StatusBarModel.ShowDismissButton = false;
 
             // Discover and load replays into database
-            await _fileManager.InitialLoadAsync().ConfigureAwait(true);
+            IEnumerable<FileErrorResult> results = await _fileManager.InitialLoadAsync().ConfigureAwait(true);
 
             // Load from database into our viewmodel
             _ = LoadReplaysFromDatabase();
 
-            StatusBarModel.StatusMessage = System.Windows.Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
+            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
             await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
-            StatusBarModel.Visible = false;
+
+            if (results.Any())
+            {
+                StatusBarModel.ShowProgressBar = false;
+                StatusBarModel.ShowDismissButton = true;
+                StatusBarModel.Errors = results;
+                StatusBarModel.StatusMessage = $"{results.Count()} {Application.Current.TryFindResource("LoadingMessageErrors")}";
+            }
+            else
+            {
+                StatusBarModel.Visible = false;
+            }
         }
 
         /// <summary>
@@ -530,8 +542,8 @@ namespace Rofl.UI.Main.ViewModels
 
             ExportReplayDataWindow exportDialog = new ExportReplayDataWindow()
             {
-                Top = System.Windows.Application.Current.MainWindow.Top + 50,
-                Left = System.Windows.Application.Current.MainWindow.Left + 50,
+                Top = Application.Current.MainWindow.Top + 50,
+                Left = Application.Current.MainWindow.Left + 50,
                 DataContext = exportContext,
             };
 
@@ -550,8 +562,8 @@ namespace Rofl.UI.Main.ViewModels
             _log.Information(welcomeFileFlag);
             WelcomeSetupWindow welcomeDialog = new WelcomeSetupWindow()
             {
-                Top = System.Windows.Application.Current.MainWindow.Top + 50,
-                Left = System.Windows.Application.Current.MainWindow.Left + 50,
+                Top = Application.Current.MainWindow.Top + 50,
+                Left = Application.Current.MainWindow.Left + 50,
                 DataContext = this
             };
 
@@ -569,7 +581,7 @@ namespace Rofl.UI.Main.ViewModels
             }
 
             _log.Information("Writing Welcome skip...");
-            File.WriteAllText(welcomeFileFlag, contents: (string)System.Windows.Application.Current.TryFindResource("EggEggEgg"));
+            File.WriteAllText(welcomeFileFlag, contents: (string)Application.Current.TryFindResource("EggEggEgg"));
         }
 
         public static void DeleteSkipWelcome()
@@ -625,12 +637,12 @@ namespace Rofl.UI.Main.ViewModels
             string[] missingPaths = SettingsManager.RemoveInvalidReplayPaths();
             if (missingPaths.Length > 0)
             {
-                string msg = (System.Windows.Application.Current.TryFindResource("MissingPathText") as string) + "\n\n";
+                string msg = (Application.Current.TryFindResource("MissingPathText") as string) + "\n\n";
                 msg += string.Join(",\n", missingPaths);
 
                 _ = MessageBox.Show(
                     msg,
-                    System.Windows.Application.Current.TryFindResource("MissingPathTitle") as string,
+                    Application.Current.TryFindResource("MissingPathTitle") as string,
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning
                 );
@@ -656,11 +668,11 @@ namespace Rofl.UI.Main.ViewModels
             // User entered nothing, change message
             if (error == "{EMPTY ERROR}")
             {
-                error = System.Windows.Application.Current.TryFindResource("RenameFlyoutEmptyError") as string;
+                error = Application.Current.TryFindResource("RenameFlyoutEmptyError") as string;
             }
             else if (error == "{NOT FOUND ERROR}")
             {
-                error = System.Windows.Application.Current.TryFindResource("RenameFlyoutNotFoundError") as string;
+                error = Application.Current.TryFindResource("RenameFlyoutNotFoundError") as string;
             }
             else // Success
             {

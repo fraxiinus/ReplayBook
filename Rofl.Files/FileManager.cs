@@ -42,43 +42,50 @@ namespace Rofl.Files
         /// <summary>
         /// This function is responsible for finding and loading in new replays
         /// </summary>
-        public async Task InitialLoadAsync()
+        public async Task<IEnumerable<FileErrorResult>> InitialLoadAsync()
         {
             _log.Information("Starting initial load of replays");
 
-            List<ReplayFileInfo> newFiles = new List<ReplayFileInfo>();
-            
+            //List<ReplayFileInfo> newFiles = new List<ReplayFileInfo>();
+
+            List<FileErrorResult> errorResults = new List<FileErrorResult>();
+            int newCount = 0;
+
             // Get all files from all defined replay folders
             IReadOnlyCollection<ReplayFileInfo> allFiles = _fileSystem.GetAllReplayFileInfo();
-            
+
             // Check if file exists in the database
-            foreach (var file in allFiles)
+            foreach (ReplayFileInfo file in allFiles)
             {
                 if (_db.GetFileResult(file.Path) == null)
                 {
-                    newFiles.Add(file);
+                    try
+                    {
+                        Reader.Models.ReplayFile parseResult = await _reader.ReadFile(file.Path).ConfigureAwait(false);
+
+                        FileResult newResult = new FileResult(file, parseResult)
+                        {
+                            IsNewFile = false
+                        };
+
+                        _db.AddFileResult(newResult);
+                        newCount++;
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.Warning($"Failed to parse file: {file.Path}");
+                        _log.Warning(ex.ToString());
+                        errorResults.Add(new FileErrorResult
+                        {
+                            FilePath = file.Path,
+                            Exception = ex
+                        });
+                    }
                 }
             }
 
-            _log.Information($"Discovered {newFiles.Count} new files");
-
-            // Files not in the database are parsed and added
-            foreach (var file in newFiles)
-            {
-                var parseResult = await _reader.ReadFile(file.Path).ConfigureAwait(false);
-
-                // skip file if invalid
-                if (parseResult is null) continue;
-
-                FileResult newResult = new FileResult(file, parseResult)
-                {
-                    IsNewFile = false
-                };
-
-                _db.AddFileResult(newResult);
-            }
-
             _log.Information("Initial load of replays complete");
+            return errorResults;
         }
 
         public async Task<FileResult> GetSingleFile(string path)

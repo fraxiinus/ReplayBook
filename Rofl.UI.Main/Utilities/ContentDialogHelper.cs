@@ -54,7 +54,7 @@ namespace Rofl.UI.Main.Utilities
                 Content = contentPanel,
                 IsPrimaryButtonEnabled = true,
                 IsSecondaryButtonEnabled = includeSecondaryButton,
-                Background = System.Windows.Application.Current.FindResource("TabBackground") as Brush
+                Background = Application.Current.FindResource("TabBackground") as Brush
             };
 
             _ = dialog.ApplyTemplate();

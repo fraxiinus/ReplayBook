@@ -36,7 +36,7 @@ namespace Rofl.UI.Main.Utilities
                 // replay file could not be read
                 await ShowExceptionDialog(
                     new NotSupportedException(
-                        System.Windows.Application.Current.TryFindResource("FailedToLoadReplayText").ToString()))
+                        Application.Current.TryFindResource("FailedToLoadReplayText").ToString()))
                     .ConfigureAwait(true);
 
                 return null;
@@ -98,13 +98,13 @@ namespace Rofl.UI.Main.Utilities
         {
             ExecutableSelectDialog dialog = new ExecutableSelectDialog
             {
-                Owner = System.Windows.Application.Current.MainWindow,
+                Owner = Application.Current.MainWindow,
                 DataContext = executables
             };
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
-            if (System.Windows.Application.Current.MainWindow is DialogHostWindow)
+            if (Application.Current.MainWindow is DialogHostWindow)
             {
                 // allows us to look at the visual tree before showing the dialog
                 _ = dialog.ApplyTemplate();
@@ -123,14 +123,14 @@ namespace Rofl.UI.Main.Utilities
             ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: true);
             dialog.DefaultButton = ContentDialogButton.Primary;
 
-            dialog.PrimaryButtonText = System.Windows.Application.Current.TryFindResource("YesText") as string;
-            dialog.SecondaryButtonText = System.Windows.Application.Current.TryFindResource("NoText") as string;
-            dialog.Title = System.Windows.Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string;
-            dialog.SetLabelText(System.Windows.Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string);
+            dialog.PrimaryButtonText = Application.Current.TryFindResource("YesText") as string;
+            dialog.SecondaryButtonText = Application.Current.TryFindResource("NoText") as string;
+            dialog.Title = Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string;
+            dialog.SetLabelText(Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string);
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
-            if (System.Windows.Application.Current.MainWindow is DialogHostWindow)
+            if (Application.Current.MainWindow is DialogHostWindow)
             {
                 dialog.SetBackgroundSmokeColor(Brushes.Transparent);
             }
@@ -144,13 +144,13 @@ namespace Rofl.UI.Main.Utilities
             ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
             dialog.DefaultButton = ContentDialogButton.Primary;
 
-            dialog.PrimaryButtonText = System.Windows.Application.Current.TryFindResource("OKButtonText") as string;
-            dialog.Title = System.Windows.Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as string;
-            dialog.SetLabelText((System.Windows.Application.Current.TryFindResource("ExecutableNotFoundErrorText") as string) + " " + version);
+            dialog.PrimaryButtonText = Application.Current.TryFindResource("OKButtonText") as string;
+            dialog.Title = Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as string;
+            dialog.SetLabelText((Application.Current.TryFindResource("ExecutableNotFoundErrorText") as string) + " " + version);
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
-            if (System.Windows.Application.Current.MainWindow is DialogHostWindow)
+            if (Application.Current.MainWindow is DialogHostWindow)
             {
                 dialog.SetBackgroundSmokeColor(Brushes.Transparent);
             }
@@ -164,8 +164,8 @@ namespace Rofl.UI.Main.Utilities
             ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
             dialog.DefaultButton = ContentDialogButton.Primary;
 
-            dialog.PrimaryButtonText = System.Windows.Application.Current.TryFindResource("OKButtonText") as string;
-            dialog.Title = System.Windows.Application.Current.TryFindResource("ReplayPlayExceptionTitle") as string;
+            dialog.PrimaryButtonText = Application.Current.TryFindResource("OKButtonText") as string;
+            dialog.Title = Application.Current.TryFindResource("ReplayPlayExceptionTitle") as string;
             dialog.SetLabelText(ex.ToString());
 
             // Make dialog as long as the exception
@@ -175,7 +175,7 @@ namespace Rofl.UI.Main.Utilities
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
-            if (System.Windows.Application.Current.MainWindow is DialogHostWindow)
+            if (Application.Current.MainWindow is DialogHostWindow)
             {
                 dialog.SetBackgroundSmokeColor(Brushes.Transparent);
             }
