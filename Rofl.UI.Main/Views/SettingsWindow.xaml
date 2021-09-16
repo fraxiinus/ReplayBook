@@ -1,70 +1,71 @@
 ﻿<Window x:Class="Rofl.UI.Main.Views.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Rofl.UI.Main.Views"
-        xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
-        mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
         Title="Settings"
-        MinWidth="600" MinHeight="200"
-        Width="600" Height="550"
-        SourceInitialized="SettingsWindow_OnSourceInitialized"
-        Loaded="Window_Loaded"
+        Width="600"
+        Height="550"
+        MinWidth="600"
+        MinHeight="200"
+        ui:WindowHelper.UseModernWindowStyle="True"
         Closing="Window_Closing"
-        ui:WindowHelper.UseModernWindowStyle="True">
+        Loaded="Window_Loaded"
+        SourceInitialized="SettingsWindow_OnSourceInitialized"
+        mc:Ignorable="d">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
+
         <ListBox x:Name="SettingsMenuListBox"
-                 SelectionChanged="SettingsMenuListBox_SelectionChanged"
+                 Grid.Column="0"
                  Background="{DynamicResource TabViewBackground}"
-                 Grid.Column="0">
-            
+                 SelectionChanged="SettingsMenuListBox_SelectionChanged">
+
             <ListBoxItem x:Name="GeneralSettingsListItem">
-                <TextBlock Text="{DynamicResource GeneralSettingsItemText}" FontSize="14"/>
+                <TextBlock FontSize="14" Text="{DynamicResource GeneralSettingsItemText}" />
             </ListBoxItem>
 
             <ListBoxItem x:Name="UpdatesSettingsListItem">
-                <TextBlock Text="{DynamicResource UpdatesSettingsItemText}" FontSize="14"/>
+                <TextBlock FontSize="14" Text="{DynamicResource UpdatesSettingsItemText}" />
             </ListBoxItem>
-            
+
             <ListBoxItem x:Name="AppearanceSettingsListItem">
-                <TextBlock Text="{DynamicResource AppearanceSettingsItemText}" FontSize="14"/>
+                <TextBlock FontSize="14" Text="{DynamicResource AppearanceSettingsItemText}" />
             </ListBoxItem>
 
             <ListBoxItem x:Name="ExecutablesSettingsListItem">
-                <TextBlock Text="{DynamicResource ExecutablesSettingsItemText}" FontSize="14"/>
+                <TextBlock FontSize="14" Text="{DynamicResource ExecutablesSettingsItemText}" />
             </ListBoxItem>
 
             <ListBoxItem x:Name="ReplaySettingsListItem">
-                <TextBlock Text="{DynamicResource ReplaySettingsItemText}" FontSize="14"/>
+                <TextBlock FontSize="14" Text="{DynamicResource ReplaySettingsItemText}" />
             </ListBoxItem>
 
             <ListBoxItem x:Name="RequestSettingsListItem">
-                <TextBlock Text="{DynamicResource RequestSettingsItemText}" FontSize="14"/>
+                <TextBlock FontSize="14" Text="{DynamicResource RequestSettingsItemText}" />
             </ListBoxItem>
 
             <ListBoxItem x:Name="AboutSettingsListItem">
-                <TextBlock Text="{DynamicResource AboutSettingsItemText}" FontSize="14"/>
+                <TextBlock FontSize="14" Text="{DynamicResource AboutSettingsItemText}" />
             </ListBoxItem>
 
         </ListBox>
-        
-        <Grid Grid.Column="1"
-              Background="{DynamicResource BaseBackground}">
+
+        <Grid Grid.Column="1" Background="{DynamicResource BaseBackground}">
 
             <TabControl x:Name="SettingsTabControl"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         ui:ThemeManager.HasThemeResources="True">
-                
-                <!--We are using the themeing functionality to remove the tab strip-->
+
+                <!--  We are using the themeing functionality to remove the tab strip  -->
                 <TabControl.Resources>
                     <ui:ResourceDictionaryEx>
                         <ui:ResourceDictionaryEx.ThemeDictionaries>
@@ -80,66 +81,67 @@
 
                 <TabItem x:Name="GeneralTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Orientation="Vertical"
-                                             Spacing="12"
-                                             Margin="15 0 20 12">
+                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                                             Orientation="Vertical"
+                                             Spacing="12">
 
-                            <TextBlock Text="{DynamicResource LanguageLabelText}" 
-                                       FontSize="16"/>
+                            <TextBlock FontSize="16" Text="{DynamicResource LanguageLabelText}" />
 
                             <ComboBox x:Name="LanguageComboBox"
                                       Width="200"
-                                      SelectionChanged="LanguageComboBox_SelectionChanged"/>
+                                      SelectionChanged="LanguageComboBox_SelectionChanged" />
 
-                            <TextBlock Text="{DynamicResource PlayerMarkerLabelText}" 
-                                       FontSize="16"/>
-                                
+                            <TextBlock FontSize="16" Text="{DynamicResource PlayerMarkerLabelText}" />
+
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <ListBox x:Name="KnownPlayersListBox"
+                                         Grid.Row="0"
+                                         Grid.Column="0"
                                          Height="150"
-                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          ItemsSource="{Binding Path=Settings.KnownPlayers}"
-                                         SelectionChanged="KnownPlayersListBox_SelectionChanged"
                                          MouseDoubleClick="EditKnownPlayerButton_Click"
-                                         Grid.Column="0" Grid.Row="0">
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         SelectionChanged="KnownPlayersListBox_SelectionChanged">
 
                                     <ListBox.ItemContainerStyle>
-                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                            <Setter Property="Padding" Value="10 8 10 8"/>
+                                        <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="10,8,10,8" />
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
-                                                <Rectangle Fill="{Binding Path=Color}"
-                                                           Stroke="Black" StrokeThickness="1"
-                                                           Width="15" Height="15" 
-                                                           Margin="0 0 5 0"
+                                                <Rectangle Grid.Column="0"
+                                                           Width="15"
+                                                           Height="15"
+                                                           Margin="0,0,5,0"
                                                            VerticalAlignment="Center"
-                                                           Grid.Column="0"/>
-                                                <TextBlock Text="{Binding Path=Name}" 
+                                                           Fill="{Binding Path=Color}"
+                                                           Stroke="Black"
+                                                           StrokeThickness="1" />
+                                                <TextBlock Grid.Column="1"
                                                            VerticalAlignment="Center"
                                                            FontSize="14"
-                                                           Grid.Column="1"/>
-                                                <TextBlock Text="{Binding Path=Note}"
-                                                           Margin="10 0 5 0"
-                                                           FontSize="14"
-                                                           TextAlignment="Right"
+                                                           Text="{Binding Path=Name}" />
+                                                <TextBlock Grid.Column="2"
+                                                           Margin="10,0,5,0"
                                                            VerticalAlignment="Center"
+                                                           FontSize="14"
                                                            Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
-                                                           TextWrapping="NoWrap"
+                                                           Text="{Binding Path=Note}"
+                                                           TextAlignment="Right"
                                                            TextTrimming="CharacterEllipsis"
-                                                           Grid.Column="2"/>
+                                                           TextWrapping="NoWrap" />
                                             </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
@@ -147,92 +149,85 @@
 
                                 <ui:CommandBar Grid.Row="1">
                                     <ui:AppBarButton x:Name="AddKnownPlayerButton"
-                                                     Label="{DynamicResource AddButtonText}"
-                                                     Click="AddKnownPlayerButton_Click">
+                                                     Click="AddKnownPlayerButton_Click"
+                                                     Label="{DynamicResource AddButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="EditKnownPlayerButton"
+                                                     Click="EditKnownPlayerButton_Click"
                                                      IsEnabled="False"
-                                                     Label="{DynamicResource EditButtonText}"
-                                                     Click="EditKnownPlayerButton_Click">
+                                                     Label="{DynamicResource EditButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource EditPathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="RemoveKnownPlayerButton"
+                                                     Click="RemoveKnownPlayerButton_Click"
                                                      IsEnabled="False"
-                                                     Label="{DynamicResource RemoveButtonText}"
-                                                     Click="RemoveKnownPlayerButton_Click">
+                                                     Label="{DynamicResource RemoveButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                 </ui:CommandBar>
                             </Grid>
 
                             <ui:RadioButtons x:Name="PlayerMarkerStyleOptions"
-                                             MaxColumns="2"
                                              Header="{DynamicResource PlayerMarkerStyleLabel}"
+                                             MaxColumns="2"
                                              SelectionChanged="PlayerMarkerStyleOptions_SelectionChanged">
                                 <ui:RadioButtons.Style>
                                     <Style TargetType="ui:RadioButtons">
-                                        <Setter Property="FontSize" Value="16"/>
+                                        <Setter Property="FontSize" Value="16" />
                                     </Style>
                                 </ui:RadioButtons.Style>
-                                <RadioButton Content="{DynamicResource PlayerMarkerStyleOption1}"
-                                             x:Name="PlayerMarkerStyleOption1"/>
-                                <RadioButton Content="{DynamicResource PlayerMarkerStyleOption2}"
-                                             x:Name="PlayerMarkerStyleOption2"/>
+                                <RadioButton x:Name="PlayerMarkerStyleOption1" Content="{DynamicResource PlayerMarkerStyleOption1}" />
+                                <RadioButton x:Name="PlayerMarkerStyleOption2" Content="{DynamicResource PlayerMarkerStyleOption2}" />
                             </ui:RadioButtons>
-                            
+
                             <ui:SimpleStackPanel Orientation="Horizontal">
-                                <TextBlock Text="{DynamicResource MatchHistoryUrlLabelText}" 
-                                           FontSize="16"/>
-                                <ui:PathIcon Data="{StaticResource InfoIcon}"
-                                             Width="16" Margin="5 2 0 0"
-                                             ToolTip="{DynamicResource MarchHistoryUrlInfoText}"/>
+                                <TextBlock FontSize="16" Text="{DynamicResource MatchHistoryUrlLabelText}" />
+                                <ui:PathIcon Width="16"
+                                             Margin="5,2,0,0"
+                                             Data="{StaticResource InfoIcon}"
+                                             ToolTip="{DynamicResource MarchHistoryUrlInfoText}" />
                             </ui:SimpleStackPanel>
-                            
-                            <TextBox x:Name="MatchHistoryUrlTextBox" 
-                                     Padding="2"
+
+                            <TextBox x:Name="MatchHistoryUrlTextBox"
                                      Height="25"
+                                     Padding="2"
                                      VerticalContentAlignment="Center"
-                                     Text="{Binding Path=Settings.MatchHistoryBaseUrl}"/>
+                                     Text="{Binding Path=Settings.MatchHistoryBaseUrl}" />
 
                             <ui:RadioButtons x:Name="FileActionOptions"
-                                             MaxColumns="2"
                                              Header="{DynamicResource FileAssociationLabelText}"
+                                             MaxColumns="2"
                                              SelectionChanged="FileActionOptions_SelectionChanged">
                                 <ui:RadioButtons.Style>
                                     <Style TargetType="ui:RadioButtons">
-                                        <Setter Property="FontSize" Value="16"/>
+                                        <Setter Property="FontSize" Value="16" />
                                     </Style>
                                 </ui:RadioButtons.Style>
-                                <RadioButton Content="{DynamicResource FileActionOption1}"
-                                             x:Name="FileActionOption1"/>
-                                <RadioButton Content="{DynamicResource FileActionOption2}"
-                                             x:Name="FileActionOption2"/>
+                                <RadioButton x:Name="FileActionOption1" Content="{DynamicResource FileActionOption1}" />
+                                <RadioButton x:Name="FileActionOption2" Content="{DynamicResource FileActionOption2}" />
                             </ui:RadioButtons>
 
                             <Button x:Name="SetFileAssocButton"
-                                    Height="30"
                                     Grid.Column="2"
-                                    Content="{DynamicResource FileAssociationButtonText}"
-                                    Padding="15 0 15 0"
+                                    Height="30"
+                                    Padding="15,0,15,0"
                                     HorizontalAlignment="Left"
-                                    Click="SetFileAssocButton_Click"/>
+                                    Click="SetFileAssocButton_Click"
+                                    Content="{DynamicResource FileAssociationButtonText}" />
 
-                            <TextBlock Text="{DynamicResource MiscBehaviorLabelText}" 
-                                       FontSize="16" />
+                            <TextBlock FontSize="16" Text="{DynamicResource MiscBehaviorLabelText}" />
 
                             <ui:SimpleStackPanel Orientation="Vertical">
-                                <CheckBox Content="{DynamicResource PlayConfirmCheckboxText}" 
-                                          IsChecked="{Binding Path=Settings.PlayConfirmation}"/>
+                                <CheckBox Content="{DynamicResource PlayConfirmCheckboxText}" IsChecked="{Binding Path=Settings.PlayConfirmation}" />
 
-                                <CheckBox Content="{DynamicResource ReplayRenameCheckboxText}" 
-                                          IsChecked="{Binding Path=Settings.SaveNamesToFile}"/>
+                                <CheckBox Content="{DynamicResource ReplayRenameCheckboxText}" IsChecked="{Binding Path=Settings.SaveNamesToFile}" />
                             </ui:SimpleStackPanel>
 
                         </ui:SimpleStackPanel>
@@ -241,520 +236,515 @@
 
                 <TabItem x:Name="UpdateTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Orientation="Vertical"
-                                             Spacing="12"
-                                             Margin="15 0 20 12">
-                            <TextBlock Text="{DynamicResource UpdatesLabelText}" 
-                                       FontSize="16"/>
+                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                                             Orientation="Vertical"
+                                             Spacing="12">
+                            <TextBlock FontSize="16" Text="{DynamicResource UpdatesLabelText}" />
 
-                            <CheckBox Content="{DynamicResource AutoUpdateCheckboxText}" 
-                                      IsChecked="{Binding Path=Settings.AutoUpdateCheck}"/>
-                            
+                            <CheckBox Content="{DynamicResource AutoUpdateCheckboxText}" IsChecked="{Binding Path=Settings.AutoUpdateCheck}" />
+
                             <Button x:Name="UpdateCheckButton"
+                                    Width="150"
+                                    Height="30"
                                     HorizontalAlignment="Left"
-                                    Content="{DynamicResource CheckUpdatesButtonText}"
-                                    Height="30" Width="150"
-                                    Click="UpdateCheckButton_Click"/>
+                                    Click="UpdateCheckButton_Click"
+                                    Content="{DynamicResource CheckUpdatesButtonText}" />
 
                             <ui:HyperlinkButton x:Name="UpdateAvailableButton"
-                                                Visibility="Collapsed"
                                                 Content="{DynamicResource UpdateAvailableText}"
                                                 Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
-                                                NavigateUri="{DynamicResource GitHubReleasesLink}"/>
+                                                NavigateUri="{DynamicResource GitHubReleasesLink}"
+                                                Visibility="Collapsed" />
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
                 </TabItem>
-                
+
                 <TabItem x:Name="AppearanceTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Orientation="Vertical"
-                                             Spacing="12"
-                                             Margin="15 0 20 12">
+                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                                             Orientation="Vertical"
+                                             Spacing="12">
 
                             <ui:RadioButtons x:Name="AppearanceThemeOptions"
-                                             MaxColumns="1"
                                              Header="{DynamicResource AppearanceThemeModeTitle}"
+                                             MaxColumns="1"
                                              SelectionChanged="AppearanceThemeOptions_SelectionChanged">
                                 <ui:RadioButtons.Style>
                                     <Style TargetType="ui:RadioButtons">
-                                        <Setter Property="FontSize" Value="16"/>
+                                        <Setter Property="FontSize" Value="16" />
                                     </Style>
                                 </ui:RadioButtons.Style>
-                                <RadioButton Content="{DynamicResource AppearanceThemeMode0}"
-                                             x:Name="AppearanceThemeOption1"/>
-                                <RadioButton Content="{DynamicResource AppearanceThemeMode1}"
-                                             x:Name="AppearanceThemeOption2"/>
-                                <RadioButton Content="{DynamicResource AppearanceThemeMode2}"
-                                             x:Name="AppearanceThemeOption3"/>
+                                <RadioButton x:Name="AppearanceThemeOption1" Content="{DynamicResource AppearanceThemeMode0}" />
+                                <RadioButton x:Name="AppearanceThemeOption2" Content="{DynamicResource AppearanceThemeMode1}" />
+                                <RadioButton x:Name="AppearanceThemeOption3" Content="{DynamicResource AppearanceThemeMode2}" />
                             </ui:RadioButtons>
 
-                            <TextBlock Text="{DynamicResource AppearanceThemeAccentTitle}"
-                                       FontSize="16"/>
+                            <TextBlock FontSize="16" Text="{DynamicResource AppearanceThemeAccentTitle}" />
 
-                            <ui:SimpleStackPanel Orientation="Horizontal"
-                                                 Spacing="12">
+                            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="12">
                                 <controls:ColorWrapper x:Name="AccentColorButton"
                                                        Width="200"
-                                                       HorizontalAlignment="Left"/>
+                                                       HorizontalAlignment="Left" />
                                 <Button x:Name="AccentColorResetButton"
-                                        Content="{DynamicResource AppearanceThemeResetColorText}"
-                                        Click="AccentColorResetButton_Click"/>
+                                        Click="AccentColorResetButton_Click"
+                                        Content="{DynamicResource AppearanceThemeResetColorText}" />
                             </ui:SimpleStackPanel>
 
                             <TextBlock x:Name="AccentColorNoteTextBlock"
-                                       Text="{DynamicResource AppearanceThemeDefaultAccentNote}"
-                                       Foreground="{DynamicResource SystemControlHighlightBaseMediumHighBrush}"/>
+                                       Foreground="{DynamicResource SystemControlHighlightBaseMediumHighBrush}"
+                                       Text="{DynamicResource AppearanceThemeDefaultAccentNote}" />
 
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
                 </TabItem>
-                
+
                 <TabItem x:Name="ExecutableTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Orientation="Vertical"
-                                             Spacing="12"
-                                             Margin="15 0 20 12">
+                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                                             Orientation="Vertical"
+                                             Spacing="12">
 
-                            <!--<TextBlock Text="{DynamicResource ExecutableDefaultLocaleLabelText}" 
+                            <!--<TextBlock Text="{DynamicResource ExecutableDefaultLocaleLabelText}"
                                        FontSize="16"/>
                             <ComboBox x:Name="ExecutableLocaleComboBox" Width="200"
                                       SelectionChanged="ExecutableLocaleComboBox_SelectionChanged"/>-->
 
                             <ui:SimpleStackPanel Orientation="Horizontal">
-                                <TextBlock Text="{DynamicResource ExecutableFoldersLabelText}" 
-                                           FontSize="16"/>
-                                <ui:PathIcon Data="{StaticResource InfoIcon}"
-                                             Width="16" Margin="5 2 0 0"
-                                             ToolTip="{DynamicResource ExecutableFoldersInfoText}"/>
+                                <TextBlock FontSize="16" Text="{DynamicResource ExecutableFoldersLabelText}" />
+                                <ui:PathIcon Width="16"
+                                             Margin="5,2,0,0"
+                                             Data="{StaticResource InfoIcon}"
+                                             ToolTip="{DynamicResource ExecutableFoldersInfoText}" />
                             </ui:SimpleStackPanel>
 
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                    <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
                                 <ListBox x:Name="ExecutableFoldersListBox"
+                                         Grid.Row="0"
+                                         Grid.Column="0"
                                          Height="150"
-                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         FontSize="14"
                                          ItemsSource="{Binding Path=Executables.Settings.SourceFolders}"
-                                         SelectionChanged="ExecutableFoldersListBox_SelectionChanged"
                                          MouseDoubleClick="EditExecutableFolderButton_Click"
-                                         Grid.Row="0" Grid.Column="0"
-                                         FontSize="14">
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         SelectionChanged="ExecutableFoldersListBox_SelectionChanged">
                                     <ListBox.ItemContainerStyle>
-                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
-                                            <Setter Property="Padding" Value="10 8 10 8"/>
+                                        <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                                            <Setter Property="Padding" Value="10,8,10,8" />
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                 </ListBox>
 
                                 <ui:CommandBar Grid.Row="1">
                                     <ui:AppBarButton x:Name="AddExecutableFolderButton"
-                                                     Label="{DynamicResource AddButtonText}"
-                                                     Click="AddExecutableFolderButton_Click">
+                                                     Click="AddExecutableFolderButton_Click"
+                                                     Label="{DynamicResource AddButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="EditExecutableFolderButton"
+                                                     Click="EditExecutableFolderButton_Click"
                                                      IsEnabled="False"
-                                                     Label="{DynamicResource EditButtonText}"
-                                                     Click="EditExecutableFolderButton_Click">
+                                                     Label="{DynamicResource EditButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource EditPathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="RemoveExecutableFolderButton"
+                                                     Click="RemoveExecutableFolderButton_Click"
                                                      IsEnabled="False"
-                                                     Label="{DynamicResource RemoveButtonText}"
-                                                     Click="RemoveExecutableFolderButton_Click">
+                                                     Label="{DynamicResource RemoveButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                 </ui:CommandBar>
                             </Grid>
 
                             <Button x:Name="SourceFoldersSearchButton"
-                                    Content="{DynamicResource ExecutableFoldersSearchButtonText}" 
-                                    HorizontalAlignment="Left"
-                                    Padding="10 0 10 0"
                                     Height="30"
-                                    Click="SourceFoldersSearchButton_Click"/>
+                                    Padding="10,0,10,0"
+                                    HorizontalAlignment="Left"
+                                    Click="SourceFoldersSearchButton_Click"
+                                    Content="{DynamicResource ExecutableFoldersSearchButtonText}" />
 
-                            <TextBlock Text="{DynamicResource ExecutablesLabelText}"
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="0"
                                        FontSize="16"
-                                       Grid.Row="2" Grid.Column="0"/>
+                                       Text="{DynamicResource ExecutablesLabelText}" />
 
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                    <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
                                 <ListBox x:Name="ExecutablesListBox"
+                                         Grid.Row="0"
+                                         Grid.Column="0"
                                          Height="150"
-                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                         ItemsSource="{Binding Path=Executables.Settings.Executables}"
                                          HorizontalContentAlignment="Stretch"
-                                         SelectionChanged="ExecutablesListBox_SelectionChanged"
+                                         ItemsSource="{Binding Path=Executables.Settings.Executables}"
                                          MouseDoubleClick="EditExecutableButton_Click"
-                                         Grid.Row="0" Grid.Column="0">
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         SelectionChanged="ExecutablesListBox_SelectionChanged">
                                     <ListBox.ItemContainerStyle>
-                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
-                                            <Setter Property="Padding" Value="10 8 10 8"/>
-                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                                            <Setter Property="Padding" Value="10,8,10,8" />
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
-                                                <TextBlock Text="{Binding Path=Name}"
-                                                           FontSize="14"
+                                                <TextBlock Grid.Column="0"
                                                            VerticalAlignment="Center"
-                                                           Grid.Column="0"/>
-                                                <TextBlock Text="{Binding Path=PatchNumber}"
                                                            FontSize="14"
-                                                           Grid.Column="1"
+                                                           Text="{Binding Path=Name}" />
+                                                <TextBlock Grid.Column="1"
+                                                           Margin="5,0,5,0"
                                                            VerticalAlignment="Center"
-                                                           TextAlignment="Right"
+                                                           FontSize="14"
                                                            Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
-                                                           Margin="5 0 5 0"/>
+                                                           Text="{Binding Path=PatchNumber}"
+                                                           TextAlignment="Right" />
                                             </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
-                                
+
                                 <ui:CommandBar Grid.Row="1">
                                     <ui:AppBarButton x:Name="AddExecutableButton"
-                                                     Label="{DynamicResource AddButtonText}"
-                                                     Click="AddExecutableButton_Click">
+                                                     Click="AddExecutableButton_Click"
+                                                     Label="{DynamicResource AddButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="EditExecutableButton"
+                                                     Click="EditExecutableButton_Click"
                                                      IsEnabled="False"
-                                                     Label="{DynamicResource EditButtonText}"
-                                                     Click="EditExecutableButton_Click">
+                                                     Label="{DynamicResource EditButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource EditPathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="RemoveExecutableButton"
+                                                     Click="RemoveExecutableButton_Click"
                                                      IsEnabled="False"
-                                                     Label="{DynamicResource RemoveButtonText}"
-                                                     Click="RemoveExecutableButton_Click">
+                                                     Label="{DynamicResource RemoveButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                 </ui:CommandBar>
-                                
+
                             </Grid>
 
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
                 </TabItem>
-                
+
                 <TabItem x:Name="ReplaysTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Orientation="Vertical"
-                                             Spacing="12"
-                                             Margin="15 0 20 12">
+                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                                             Orientation="Vertical"
+                                             Spacing="12">
                             <ui:SimpleStackPanel Orientation="Horizontal">
-                                <TextBlock Text="{DynamicResource SourceFoldersLabelText}" 
-                                           FontSize="16"/>
-                                <ui:PathIcon Data="{StaticResource InfoIcon}"
-                                             Width="16" Margin="5 2 0 0"
-                                             ToolTip="{DynamicResource SourceFoldersInfoText}"/>
+                                <TextBlock FontSize="16" Text="{DynamicResource SourceFoldersLabelText}" />
+                                <ui:PathIcon Width="16"
+                                             Margin="5,2,0,0"
+                                             Data="{StaticResource InfoIcon}"
+                                             ToolTip="{DynamicResource SourceFoldersInfoText}" />
                             </ui:SimpleStackPanel>
-                            
+
 
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                    <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
                                 <ListBox x:Name="SourceFoldersListBox"
+                                         Grid.Row="0"
+                                         Grid.Column="0"
                                          Height="150"
-                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          ItemsSource="{Binding Path=Settings.SourceFolders}"
-                                         SelectionChanged="SourceFoldersListBox_SelectionChanged"
                                          MouseDoubleClick="EditSourceFolderButton_Click"
-                                         Grid.Row="0" Grid.Column="0">
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         SelectionChanged="SourceFoldersListBox_SelectionChanged">
                                     <ListBox.ItemContainerStyle>
-                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
-                                            <Setter Property="Padding" Value="10 8 10 8"/>
+                                        <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                                            <Setter Property="Padding" Value="10,8,10,8" />
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding}" 
+                                            <TextBlock FontSize="14"
+                                                       Text="{Binding}"
                                                        TextTrimming="CharacterEllipsis"
-                                                       ToolTip="{Binding}"
-                                                       FontSize="14"/>
+                                                       ToolTip="{Binding}" />
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
-                                
+
                                 <ui:CommandBar Grid.Row="1">
                                     <ui:AppBarButton x:Name="AddSourceFolderButton"
-                                                     Label="{DynamicResource AddButtonText}"
-                                                     Click="AddSourceFolderButton_Click">
+                                                     Click="AddSourceFolderButton_Click"
+                                                     Label="{DynamicResource AddButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource AddPathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="EditSourceFolderButton"
+                                                     Click="EditSourceFolderButton_Click"
                                                      IsEnabled="False"
-                                                     Label="{DynamicResource EditButtonText}"
-                                                     Click="EditSourceFolderButton_Click">
+                                                     Label="{DynamicResource EditButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource EditPathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource EditPathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                     <ui:AppBarButton x:Name="RemoveSourceFolderButton"
+                                                     Click="RemoveSourceFolderButton_Click"
                                                      IsEnabled="False"
-                                                     Label="{DynamicResource RemoveButtonText}"
-                                                     Click="RemoveSourceFolderButton_Click">
+                                                     Label="{DynamicResource RemoveButtonText}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}"/>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
                                 </ui:CommandBar>
-                                
+
                             </Grid>
 
-                            <TextBlock Text="{DynamicResource ReplayItemsPerPage}" FontSize="16"/>
+                            <TextBlock FontSize="16" Text="{DynamicResource ReplayItemsPerPage}" />
                             <Grid VerticalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="25"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="25" />
                                 </Grid.ColumnDefinitions>
                                 <Slider x:Name="ItemCountSlider"
-                                        Minimum="10" 
-                                        Maximum="200" 
-                                        TickFrequency="10" 
-                                        TickPlacement="BottomRight"
-                                        IsSnapToTickEnabled="True"
-                                        Value="{Binding Path=Settings.ItemsPerPage}"
                                         Grid.Column="0"
-                                        Margin="0 0 10 0"/>
+                                        Margin="0,0,10,0"
+                                        IsSnapToTickEnabled="True"
+                                        Maximum="200"
+                                        Minimum="10"
+                                        TickFrequency="10"
+                                        TickPlacement="BottomRight"
+                                        Value="{Binding Path=Settings.ItemsPerPage}" />
 
                                 <TextBlock x:Name="ItemCountTextBox"
-                                           TextAlignment="Right"
+                                           Grid.Column="1"
                                            VerticalAlignment="Center"
                                            Text="{Binding ElementName=ItemCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
-                                           Grid.Column="1"/>
+                                           TextAlignment="Right" />
                             </Grid>
 
-                            <TextBlock Text="{DynamicResource ReplayDatabaseText}" FontSize="16"/>
-                            <Grid MinWidth="200"
-                                  HorizontalAlignment="Left">
+                            <TextBlock FontSize="16" Text="{DynamicResource ReplayDatabaseText}" />
+                            <Grid MinWidth="200" HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="{DynamicResource ReplayDatabaseSize}"
-                                           Grid.Column="0" Grid.Row="0"/>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Text="{DynamicResource ReplayDatabaseSize}" />
 
                                 <TextBlock x:Name="ReplayCacheSize"
-                                           Grid.Column="1" Grid.Row="0"/>
+                                           Grid.Row="0"
+                                           Grid.Column="1" />
                             </Grid>
                             <Button x:Name="DeleteReplayCacheButton"
-                                    Content="{DynamicResource ReplayDatabaseClearButton}"
+                                    Width="140"
                                     Click="DeleteReplayCacheButton_Click"
-                                    Width="140"/>
+                                    Content="{DynamicResource ReplayDatabaseClearButton}" />
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
                 </TabItem>
-                
+
                 <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Orientation="Vertical"
-                                             Spacing="12"
-                                             Margin="15 0 20 12">
-                            <TextBlock Text="{DynamicResource RequestsCacheLabel}" 
-                                       FontSize="16"/>
-                            <Grid MinWidth="400"
-                                  HorizontalAlignment="Left">
+                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                                             Orientation="Vertical"
+                                             Spacing="12">
+                            <TextBlock FontSize="16" Text="{DynamicResource RequestsCacheLabel}" />
+                            <Grid MinWidth="400" HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="{DynamicResource RequestsCacheItemsSize}"
-                                           Grid.Column="0" Grid.Row="0"/>
-                                <TextBlock Text="{DynamicResource RequestsCacheChampsSize}"
-                                           Grid.Column="0" Grid.Row="1"/>
-                                <TextBlock Text="{DynamicResource RequestsCacheRunesSize}"
-                                           Grid.Column="0" Grid.Row="2"/>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Text="{DynamicResource RequestsCacheItemsSize}" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="0"
+                                           Text="{DynamicResource RequestsCacheChampsSize}" />
+                                <TextBlock Grid.Row="2"
+                                           Grid.Column="0"
+                                           Text="{DynamicResource RequestsCacheRunesSize}" />
 
                                 <TextBlock x:Name="RequestsCacheItemSize"
-                                           Grid.Column="1" Grid.Row="0"/>
+                                           Grid.Row="0"
+                                           Grid.Column="1" />
                                 <TextBlock x:Name="RequestsCacheChampsSize"
-                                           Grid.Column="1" Grid.Row="1"/>
+                                           Grid.Row="1"
+                                           Grid.Column="1" />
                                 <TextBlock x:Name="RequestsCacheRunesSize"
-                                           Grid.Column="1" Grid.Row="2"/>
+                                           Grid.Row="2"
+                                           Grid.Column="1" />
                             </Grid>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Button x:Name="DeleteItemsButton"
-                                        Content="{DynamicResource RequestsCacheClearItemsButton}"
-                                        Click="DeleteItemsButton_Click"
                                         Grid.Column="0"
-                                        Margin="0 0 6 0"/>
+                                        Margin="0,0,6,0"
+                                        Click="DeleteItemsButton_Click"
+                                        Content="{DynamicResource RequestsCacheClearItemsButton}" />
                                 <Button x:Name="DeleteChampsButton"
-                                        Content="{DynamicResource RequestsCacheClearChampsButton}"
-                                        Click="DeleteChampsButton_Click"
                                         Grid.Column="1"
-                                        Margin="6 0 6 0"/>
+                                        Margin="6,0,6,0"
+                                        Click="DeleteChampsButton_Click"
+                                        Content="{DynamicResource RequestsCacheClearChampsButton}" />
                                 <Button x:Name="DeleteRunesButton"
-                                        Content="{DynamicResource RequestsCacheClearRunesButton}"
-                                        Click="DeleteRunesButton_Click"
                                         Grid.Column="2"
-                                        Margin="6 0 6 0"/>
+                                        Margin="6,0,6,0"
+                                        Click="DeleteRunesButton_Click"
+                                        Content="{DynamicResource RequestsCacheClearRunesButton}" />
                             </Grid>
 
-                            <TextBlock Text="{DynamicResource RequestsDownloadAllLabel}"
-                                       FontSize="16"/>
-                            
+                            <TextBlock FontSize="16" Text="{DynamicResource RequestsDownloadAllLabel}" />
+
                             <CheckBox x:Name="ChampionCheckBox">
                                 <CheckBox.Content>
-                                    <Grid Margin="5 0 0 0">
-                                        <TextBlock Text="{DynamicResource WswDownloadChampionsText}"/>
+                                    <Grid Margin="5,0,0,0">
+                                        <TextBlock Text="{DynamicResource WswDownloadChampionsText}" />
                                     </Grid>
                                 </CheckBox.Content>
                             </CheckBox>
 
-                            <CheckBox x:Name="ItemCheckBox"
-                                      Margin="0 -10 0 0">
+                            <CheckBox x:Name="ItemCheckBox" Margin="0,-10,0,0">
                                 <CheckBox.Content>
-                                    <Grid Margin="5 0 0 0">
-                                        <TextBlock Text="{DynamicResource WswDownloadItemsText}"/>
+                                    <Grid Margin="5,0,0,0">
+                                        <TextBlock Text="{DynamicResource WswDownloadItemsText}" />
                                     </Grid>
                                 </CheckBox.Content>
                             </CheckBox>
-                            
-                            <CheckBox x:Name="RunesCheckBox"
-                                      Margin="0 -10 0 0">
+
+                            <CheckBox x:Name="RunesCheckBox" Margin="0,-10,0,0">
                                 <CheckBox.Content>
-                                    <Grid Margin="5 0 0 0">
-                                        <TextBlock Text="{DynamicResource WswDownloadRunesText}"/>
+                                    <Grid Margin="5,0,0,0">
+                                        <TextBlock Text="{DynamicResource WswDownloadRunesText}" />
                                     </Grid>
                                 </CheckBox.Content>
                             </CheckBox>
 
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
                                 <Button x:Name="DownloadImageButton"
-                                        Click="DownloadImageButton_Click"
-                                        Content="{DynamicResource WswDownloadButton}"
+                                        Grid.Column="0"
                                         Width="100"
                                         HorizontalAlignment="Left"
-                                        Grid.Column="0"/>
+                                        Click="DownloadImageButton_Click"
+                                        Content="{DynamicResource WswDownloadButton}" />
 
                                 <TextBlock x:Name="DownloadImageErrorText"
-                                           FontSize="12"
+                                           Grid.Column="1"
+                                           Margin="10,0,0,0"
                                            VerticalAlignment="Center"
-                                           Margin="10 0 0 0"
-                                           Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
-                                           Grid.Column="1"/>
+                                           FontSize="12"
+                                           Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
                             </Grid>
-                            
+
 
                             <Grid x:Name="DownloadProgressGrid"
                                   Grid.Row="6"
+                                  Margin="0,0,0,0"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top"
-                                  Margin="0 0 0 0"
                                   Visibility="Collapsed">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
                                 <TextBlock x:Name="DownloadProgressText"
-                                           TextAlignment="Left"
-                                           Margin="25 0 0 0"
                                            Grid.Row="0"
-                                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+                                           Margin="25,0,0,0"
+                                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                                           TextAlignment="Left" />
 
                                 <ProgressBar x:Name="DownloadProgressBar"
+                                             Grid.Row="1"
                                              Height="25"
-                                             Margin="20 0 20 0"
-                                             ValueChanged="DownloadProgressBar_ValueChanged"
-                                             Grid.Row="1"/>
+                                             Margin="20,0,20,0"
+                                             ValueChanged="DownloadProgressBar_ValueChanged" />
                             </Grid>
 
-                            <Expander Header="{DynamicResource RequestsAdvancedLabel}"
+                            <Expander ExpandDirection="Down"
                                       FontSize="16"
-                                      ExpandDirection="Down">
-                                <ui:SimpleStackPanel Orientation="Vertical"
-                                                     Spacing="12">
-                                    <TextBlock Text="{DynamicResource DataDragonBaseUrlLabelText}" 
-                                               FontSize="16"/>
-                                    <TextBox Text="{Binding Settings.DataDragonBaseUrl}" 
-                                             Height="25"
+                                      Header="{DynamicResource RequestsAdvancedLabel}">
+                                <ui:SimpleStackPanel Orientation="Vertical" Spacing="12">
+                                    <TextBlock FontSize="16" Text="{DynamicResource DataDragonBaseUrlLabelText}" />
+                                    <TextBox Height="25"
+                                             Padding="2"
                                              VerticalContentAlignment="Center"
-                                             Padding="2"/>
-                                    <TextBlock Text="{DynamicResource DataDragonChampionUrlLabelText}" 
-                                               FontSize="16"/>
-                                    <TextBox Text="{Binding Settings.ChampionRelativeUrl}" 
-                                             Height="25"
+                                             Text="{Binding Settings.DataDragonBaseUrl}" />
+                                    <TextBlock FontSize="16" Text="{DynamicResource DataDragonChampionUrlLabelText}" />
+                                    <TextBox Height="25"
+                                             Padding="2"
                                              VerticalContentAlignment="Center"
-                                             Padding="2"/>
-                                    <TextBlock Text="{DynamicResource DataDragonMapUrlLabelText}" 
-                                               FontSize="16"/>
-                                    <TextBox Text="{Binding Settings.MapRelativeUrl}" 
-                                             Padding="2" 
-                                             Height="25"
-                                             VerticalContentAlignment="Center"/>
-                                    <TextBlock Text="{DynamicResource DataDragonItemUrlLabelText}"
-                                               FontSize="16"/>
-                                    <TextBox Text="{Binding Settings.ItemRelativeUrl}" 
-                                             Padding="2" 
-                                             Height="25"
-                                             VerticalContentAlignment="Center"/>
+                                             Text="{Binding Settings.ChampionRelativeUrl}" />
+                                    <TextBlock FontSize="16" Text="{DynamicResource DataDragonMapUrlLabelText}" />
+                                    <TextBox Height="25"
+                                             Padding="2"
+                                             VerticalContentAlignment="Center"
+                                             Text="{Binding Settings.MapRelativeUrl}" />
+                                    <TextBlock FontSize="16" Text="{DynamicResource DataDragonItemUrlLabelText}" />
+                                    <TextBox Height="25"
+                                             Padding="2"
+                                             VerticalContentAlignment="Center"
+                                             Text="{Binding Settings.ItemRelativeUrl}" />
                                 </ui:SimpleStackPanel>
                             </Expander>
                         </ui:SimpleStackPanel>
@@ -763,45 +753,50 @@
 
                 <TabItem x:Name="AboutTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Top"
-                                    Margin="0 0 0 0">
-                            <Image Source="/ReplayBook;component/Resources/icon_image.png"
-                                   Width="200"
+                        <StackPanel Margin="0,0,0,0"
+                                    VerticalAlignment="Top"
+                                    Orientation="Vertical">
+                            <Image Width="200"
                                    HorizontalAlignment="Center"
-                                   RenderOptions.BitmapScalingMode="HighQuality"/>
-                            <TextBlock Text="{DynamicResource Name}" FontSize="28" HorizontalAlignment="Center"/>
-                            <TextBlock x:Name="VersionTextBlock" FontSize="16" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{DynamicResource Author}" FontSize="14" HorizontalAlignment="Center"/>
-                            <ui:HyperlinkButton HorizontalAlignment="Center"
-                                                NavigateUri="{DynamicResource DiscordInviteLink}">
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="/ReplayBook;component/Resources/icon_image.png" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       FontSize="28"
+                                       Text="{DynamicResource Name}" />
+                            <TextBlock x:Name="VersionTextBlock"
+                                       HorizontalAlignment="Center"
+                                       FontSize="16" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       FontSize="14"
+                                       Text="{DynamicResource Author}" />
+                            <ui:HyperlinkButton HorizontalAlignment="Center" NavigateUri="{DynamicResource DiscordInviteLink}">
                                 <StackPanel Orientation="Vertical">
 
-                                    <TextBlock Text="{DynamicResource DiscordInviteButton}"
-                                               VerticalAlignment="Center"/>
+                                    <TextBlock VerticalAlignment="Center" Text="{DynamicResource DiscordInviteButton}" />
                                     <Grid>
-                                        <ui:PathIcon Data="{DynamicResource DiscordPart1}"
-                                                     Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}"
-                                                     Width="30"/>
-                                        <ui:PathIcon Data="{DynamicResource DiscordPart2}"
-                                                     Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}"
-                                                     Width="30"/>
+                                        <ui:PathIcon Width="30"
+                                                     Data="{DynamicResource DiscordPart1}"
+                                                     Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}" />
+                                        <ui:PathIcon Width="30"
+                                                     Data="{DynamicResource DiscordPart2}"
+                                                     Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}" />
                                     </Grid>
 
                                 </StackPanel>
                             </ui:HyperlinkButton>
                             <ui:HyperlinkButton HorizontalAlignment="Center"
-                                                NavigateUri="{DynamicResource LicenseLink}"
-                                                Content="{DynamicResource LicenseText}"/>
-                            <TextBlock Text="{DynamicResource AcknowledgementText}" 
-                                       FontSize="14" 
-                                       HorizontalAlignment="Center" 
-                                       Margin="0 10 0 5"/>
+                                                Content="{DynamicResource LicenseText}"
+                                                NavigateUri="{DynamicResource LicenseLink}" />
+                            <TextBlock Margin="0,10,0,5"
+                                       HorizontalAlignment="Center"
+                                       FontSize="14"
+                                       Text="{DynamicResource AcknowledgementText}" />
                             <Button x:Name="AcknowledgementsButton"
-                                    Content="{DynamicResource AcknowledgementButtonText}"
-                                    Height="30"
                                     Width="200"
+                                    Height="30"
+                                    HorizontalAlignment="Center"
                                     Click="AcknowledgementsButton_Click"
-                                    HorizontalAlignment="Center"/>
+                                    Content="{DynamicResource AcknowledgementButtonText}" />
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>

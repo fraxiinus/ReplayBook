@@ -1,14 +1,21 @@
 ﻿<UserControl x:Class="Rofl.UI.Main.Controls.akr.ColorPicker"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls.akr"
-             mc:Ignorable="d" 
-             d:DesignHeight="400" d:DesignWidth="236" Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}" d:DataContext="{x:Type local:ColorPicker}" Loaded="ColorPicker_Loaded">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DataContext="{x:Type local:ColorPicker}"
+             d:DesignHeight="400"
+             d:DesignWidth="236"
+             Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+             Loaded="ColorPicker_Loaded"
+             mc:Ignorable="d">
     <UserControl.Resources>
-        <local:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
-        <DrawingBrush  x:Key="CheckerBrush" Viewport="0,0,10,10" ViewportUnits="Absolute" TileMode="Tile">
+        <local:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
+        <DrawingBrush x:Key="CheckerBrush"
+                      TileMode="Tile"
+                      Viewport="0,0,10,10"
+                      ViewportUnits="Absolute">
             <DrawingBrush.Drawing>
                 <DrawingGroup>
                     <GeometryDrawing Brush="White">
@@ -29,131 +36,216 @@
         </DrawingBrush>
     </UserControl.Resources>
     <DockPanel Margin="8">
-        <Border DockPanel.Dock="Top" CornerRadius="5" Margin="0,7,2,0" Width="76" Height="24" BorderThickness="1" Background="{Binding SelectedColor, Converter={StaticResource ColorToSolidColorBrushConverter}}" HorizontalAlignment="Right"
-                BorderBrush="{DynamicResource SystemControlPageTextBaseHighBrush}"/>
-        <DockPanel DockPanel.Dock="Bottom" Margin="5,5,0,0">
-            <TextBox Text="#FFFF0000" Name="HexTextBox" Width="100" DockPanel.Dock="Right" LostFocus="HexTextBox_LostFocus" VerticalAlignment="Center"/>
-            <TextBlock Text="Hexadecimal" VerticalAlignment="Center"/>
+        <Border Width="76"
+                Height="24"
+                Margin="0 7 2 0"
+                HorizontalAlignment="Right"
+                Background="{Binding SelectedColor, Converter={StaticResource ColorToSolidColorBrushConverter}}"
+                BorderBrush="{DynamicResource SystemControlPageTextBaseHighBrush}"
+                BorderThickness="1"
+                CornerRadius="5"
+                DockPanel.Dock="Top" />
+        <DockPanel Margin="5 5 0 0" DockPanel.Dock="Bottom">
+            <TextBox Name="HexTextBox"
+                     Width="100"
+                     VerticalAlignment="Center"
+                     DockPanel.Dock="Right"
+                     LostFocus="HexTextBox_LostFocus"
+                     Text="#FFFF0000" />
+            <TextBlock VerticalAlignment="Center" Text="Hexadecimal" />
         </DockPanel>
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" Name="SliderStackPanel">
-            <DockPanel Margin="5,5,0,0">
-                <TextBlock Text="R" DockPanel.Dock="Left" VerticalAlignment="Center" Width="10"/>
-                <TextBox Text="{Binding R}" Width="45" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0" Name="RTextBox"/>
-                <Border Height="17" BorderThickness="1" BorderBrush="Gray" Margin="5,0,5,0">
+        <StackPanel Name="SliderStackPanel"
+                    DockPanel.Dock="Bottom"
+                    Orientation="Vertical">
+            <DockPanel Margin="5 5 0 0">
+                <TextBlock Width="10"
+                           VerticalAlignment="Center"
+                           DockPanel.Dock="Left"
+                           Text="R" />
+                <TextBox Name="RTextBox"
+                         Width="45"
+                         Padding="0"
+                         VerticalAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         DockPanel.Dock="Right"
+                         Text="{Binding R}" />
+                <Border Height="17"
+                        Margin="5 0 5 0"
+                        BorderBrush="Gray"
+                        BorderThickness="1">
                     <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0"
-                                             EndPoint="1,0">
-                            <GradientStop Offset="0"
-                                        Color="{Binding RDarkColor}" />
-                            <GradientStop Offset="1"
-                                        Color="{Binding RLightColor}" />
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Offset="0" Color="{Binding RDarkColor}" />
+                            <GradientStop Offset="1" Color="{Binding RLightColor}" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <Canvas Height="15" Name="RCanvas" MouseLeftButtonDown="SliderCanvas_MouseLeftButtonDown" MouseLeftButtonUp="SliderCanvas_MouseLeftButtonUp" MouseMove="SliderCanvas_MouseMove" SizeChanged="SliderCanvas_SizeChanged" Background="Transparent">
-                        <Border BorderThickness="0" Background="White" CornerRadius="2" Width="4" Height="15" Canvas.Left="0" Name="RSelector"/>
+                    <Canvas Name="RCanvas"
+                            Height="15"
+                            Background="Transparent"
+                            MouseLeftButtonDown="SliderCanvas_MouseLeftButtonDown"
+                            MouseLeftButtonUp="SliderCanvas_MouseLeftButtonUp"
+                            MouseMove="SliderCanvas_MouseMove"
+                            SizeChanged="SliderCanvas_SizeChanged">
+                        <Border Name="RSelector"
+                                Canvas.Left="0"
+                                Width="4"
+                                Height="15"
+                                Background="White"
+                                BorderThickness="0"
+                                CornerRadius="2" />
                     </Canvas>
                 </Border>
             </DockPanel>
-            <DockPanel Margin="5,5,0,0">
-                <TextBlock Text="G" DockPanel.Dock="Left" VerticalAlignment="Center" Width="10"/>
-                <TextBox Text="{Binding G}" Width="45" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0" Name="GTextBox"/>
-                <Border Height="17" BorderThickness="1" BorderBrush="Gray" Margin="5,0,5,0">
+            <DockPanel Margin="5 5 0 0">
+                <TextBlock Width="10"
+                           VerticalAlignment="Center"
+                           DockPanel.Dock="Left"
+                           Text="G" />
+                <TextBox Name="GTextBox"
+                         Width="45"
+                         Padding="0"
+                         VerticalAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         DockPanel.Dock="Right"
+                         Text="{Binding G}" />
+                <Border Height="17"
+                        Margin="5 0 5 0"
+                        BorderBrush="Gray"
+                        BorderThickness="1">
                     <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0"
-                                             EndPoint="1,0">
-                            <GradientStop Offset="0"
-                                        Color="{Binding GDarkColor}" />
-                            <GradientStop Offset="1"
-                                        Color="{Binding GLightColor}" />
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Offset="0" Color="{Binding GDarkColor}" />
+                            <GradientStop Offset="1" Color="{Binding GLightColor}" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <Canvas Height="15" Name="GCanvas" MouseLeftButtonDown="SliderCanvas_MouseLeftButtonDown" MouseLeftButtonUp="SliderCanvas_MouseLeftButtonUp" MouseMove="SliderCanvas_MouseMove" SizeChanged="SliderCanvas_SizeChanged" Background="Transparent">
-                        <Border BorderThickness="0" Background="White" CornerRadius="2" Width="4" Height="15" Name="GSelector"/>
+                    <Canvas Name="GCanvas"
+                            Height="15"
+                            Background="Transparent"
+                            MouseLeftButtonDown="SliderCanvas_MouseLeftButtonDown"
+                            MouseLeftButtonUp="SliderCanvas_MouseLeftButtonUp"
+                            MouseMove="SliderCanvas_MouseMove"
+                            SizeChanged="SliderCanvas_SizeChanged">
+                        <Border Name="GSelector"
+                                Width="4"
+                                Height="15"
+                                Background="White"
+                                BorderThickness="0"
+                                CornerRadius="2" />
                     </Canvas>
                 </Border>
             </DockPanel>
-            <DockPanel Margin="5,5,0,0">
-                <TextBlock Text="B" DockPanel.Dock="Left" VerticalAlignment="Center" Width="10"/>
-                <TextBox Text="{Binding B}" Width="45" DockPanel.Dock="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Padding="0" Name="BTextBox"/>
-                <Border Height="17" BorderThickness="1" BorderBrush="Gray" Margin="5,0,5,0">
+            <DockPanel Margin="5 5 0 0">
+                <TextBlock Width="10"
+                           VerticalAlignment="Center"
+                           DockPanel.Dock="Left"
+                           Text="B" />
+                <TextBox Name="BTextBox"
+                         Width="45"
+                         Padding="0"
+                         VerticalAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         DockPanel.Dock="Right"
+                         Text="{Binding B}" />
+                <Border Height="17"
+                        Margin="5 0 5 0"
+                        BorderBrush="Gray"
+                        BorderThickness="1">
                     <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0"
-                                             EndPoint="1,0">
-                            <GradientStop Offset="0"
-                                        Color="{Binding BDarkColor}" />
-                            <GradientStop Offset="1"
-                                        Color="{Binding BLightColor}" />
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Offset="0" Color="{Binding BDarkColor}" />
+                            <GradientStop Offset="1" Color="{Binding BLightColor}" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <Canvas Height="15" Name="BCanvas" MouseLeftButtonDown="SliderCanvas_MouseLeftButtonDown" MouseLeftButtonUp="SliderCanvas_MouseLeftButtonUp" MouseMove="SliderCanvas_MouseMove" SizeChanged="SliderCanvas_SizeChanged" Background="Transparent">
-                        <Border BorderThickness="0" Background="White" CornerRadius="2" Width="4" Height="15" Name="BSelector"/>
+                    <Canvas Name="BCanvas"
+                            Height="15"
+                            Background="Transparent"
+                            MouseLeftButtonDown="SliderCanvas_MouseLeftButtonDown"
+                            MouseLeftButtonUp="SliderCanvas_MouseLeftButtonUp"
+                            MouseMove="SliderCanvas_MouseMove"
+                            SizeChanged="SliderCanvas_SizeChanged">
+                        <Border Name="BSelector"
+                                Width="4"
+                                Height="15"
+                                Background="White"
+                                BorderThickness="0"
+                                CornerRadius="2" />
                     </Canvas>
                 </Border>
             </DockPanel>
         </StackPanel>
-        <Viewbox Margin="0,10,0,0">
+        <Viewbox Margin="0 10 0 0">
             <Grid Width="220" Height="220">
-                <Canvas Width="220" Height="220" Name="CircleCanvas" MouseLeftButtonDown="CircleCanvas_MouseLeftButtonDown" MouseMove="CircleCanvas_MouseMove" MouseLeftButtonUp="CircleCanvas_MouseLeftButtonUp" SizeChanged="CircleCanvas_SizeChanged">
-                    <local:CirclePanel x:Name="panel" Width="220" Height="220" />
+                <Canvas Name="CircleCanvas"
+                        Width="220"
+                        Height="220"
+                        MouseLeftButtonDown="CircleCanvas_MouseLeftButtonDown"
+                        MouseLeftButtonUp="CircleCanvas_MouseLeftButtonUp"
+                        MouseMove="CircleCanvas_MouseMove"
+                        SizeChanged="CircleCanvas_SizeChanged">
+                    <local:CirclePanel x:Name="panel"
+                                       Width="220"
+                                       Height="220" />
                     <Canvas Name="ColorCircleSelector"
+                            Canvas.Left="198"
+                            Canvas.Top="99"
                             Width="22"
                             Height="22"
-                            IsHitTestVisible="False" Canvas.Top="99" Canvas.Left="198">
+                            IsHitTestVisible="False">
                         <Ellipse Width="22"
-                               Height="22"
-                               StrokeThickness="2"
-                               Stroke="#FFF1F1F1"
-                               IsHitTestVisible="False" />
+                                 Height="22"
+                                 IsHitTestVisible="False"
+                                 Stroke="#FFF1F1F1"
+                                 StrokeThickness="2" />
                     </Canvas>
                 </Canvas>
-                <Border BorderThickness="1"
+                <Border HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{StaticResource CheckerBrush}"
                         BorderBrush="DarkGray"
-                        ClipToBounds="False"
-                        Background="{StaticResource CheckerBrush}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Canvas Name="ColorShadingCanvas" MouseLeftButtonDown="ColorShadingCanvas_MouseLeftButtonDown" MouseLeftButtonUp="ColorShadingCanvas_MouseLeftButtonUp" MouseMove="ColorShadingCanvas_MouseMove"
-                          Width="106"
-                          Height="106"
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top" ClipToBounds="False">
+                        BorderThickness="1"
+                        ClipToBounds="False">
+                    <Canvas Name="ColorShadingCanvas"
+                            Width="106"
+                            Height="106"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            ClipToBounds="False"
+                            MouseLeftButtonDown="ColorShadingCanvas_MouseLeftButtonDown"
+                            MouseLeftButtonUp="ColorShadingCanvas_MouseLeftButtonUp"
+                            MouseMove="ColorShadingCanvas_MouseMove">
                         <Rectangle Name="ColorShadingRectangle"
-                               Height="{Binding ElementName=ColorShadingCanvas, Path=Height}"
-                               Width="{Binding ElementName=ColorShadingCanvas, Path=Width}"
-                               Fill="{Binding ShadingBaseColor}" />
+                                   Width="{Binding ElementName=ColorShadingCanvas, Path=Width}"
+                                   Height="{Binding ElementName=ColorShadingCanvas, Path=Height}"
+                                   Fill="{Binding ShadingBaseColor}" />
                         <Rectangle x:Name="WhiteGradient"
-                               Width="{Binding ElementName=ColorShadingCanvas,Path=Width}"
-                               Height="{Binding ElementName=ColorShadingCanvas,Path=Height}">
+                                   Width="{Binding ElementName=ColorShadingCanvas, Path=Width}"
+                                   Height="{Binding ElementName=ColorShadingCanvas, Path=Height}">
                             <Rectangle.Fill>
-                                <LinearGradientBrush StartPoint="0,0"
-                                             EndPoint="1,0">
-                                    <GradientStop Offset="0"
-                                        Color="#ffffffff" />
-                                    <GradientStop Offset="1"
-                                        Color="Transparent" />
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Offset="0" Color="#ffffffff" />
+                                    <GradientStop Offset="1" Color="Transparent" />
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
                         <Rectangle x:Name="BlackGradient"
-                               Width="{Binding ElementName=ColorShadingCanvas,Path=Width}"
-                               Height="{Binding ElementName=ColorShadingCanvas,Path=Height}">
+                                   Width="{Binding ElementName=ColorShadingCanvas, Path=Width}"
+                                   Height="{Binding ElementName=ColorShadingCanvas, Path=Height}">
                             <Rectangle.Fill>
-                                <LinearGradientBrush StartPoint="0,1"
-                                             EndPoint="0, 0">
-                                    <GradientStop Offset="0"
-                                        Color="#ff000000" />
-                                    <GradientStop Offset="1"
-                                        Color="#00000000" />
+                                <LinearGradientBrush StartPoint="0,1" EndPoint="0, 0">
+                                    <GradientStop Offset="0" Color="#ff000000" />
+                                    <GradientStop Offset="1" Color="#00000000" />
                                 </LinearGradientBrush>
                             </Rectangle.Fill>
                         </Rectangle>
                         <Canvas x:Name="ColorShadeSelector"
-                            Width="13"
-                            Height="13"
-                            IsHitTestVisible="False">
+                                Width="13"
+                                Height="13"
+                                IsHitTestVisible="False">
                             <Ellipse Width="13"
-                               Height="13"
-                               StrokeThickness="1.5"
-                               Stroke="#FF444444"
-                               IsHitTestVisible="False" />
+                                     Height="13"
+                                     IsHitTestVisible="False"
+                                     Stroke="#FF444444"
+                                     StrokeThickness="1.5" />
                         </Canvas>
                     </Canvas>
                 </Border>

@@ -1,25 +1,25 @@
 ﻿<UserControl x:Class="Rofl.UI.Main.Controls.PlayerIconControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Rofl.UI.Main.Controls" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:settings="clr-namespace:Rofl.Settings.Models;assembly=Rofl.Settings"
              xmlns:ui="http://schemas.modernwpf.com/2019"
-             mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="30">
+             d:DesignHeight="30"
+             d:DesignWidth="30"
+             mc:Ignorable="d">
 
     <Grid>
 
-        <Border ToolTip="{Binding Path=CombinedName}"
-                CornerRadius="5">
+        <Border CornerRadius="5" ToolTip="{Binding Path=CombinedName}">
             <Border.Background>
-                <ImageBrush Stretch="Fill"
-                            x:Name="PlayerImage"
+                <ImageBrush x:Name="PlayerImage"
+                            ImageSource="{Binding Path=ImageSource, IsAsync=True}"
                             RenderOptions.BitmapScalingMode="HighQuality"
-                            ImageSource="{Binding Path=ImageSource, IsAsync=True}">
+                            Stretch="Fill">
                     <ImageBrush.RelativeTransform>
-                        <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.2" ScaleY="1.2"/>
+                        <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.2" ScaleY="1.2" />
                     </ImageBrush.RelativeTransform>
                 </ImageBrush>
             </Border.Background>
@@ -30,19 +30,19 @@
                         <Style.Triggers>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding Path=IsKnownPlayer}" Value="True"/>
-                                    <Condition Binding="{Binding Path=PlayerMarkerStyle}" Value="{x:Static settings:MarkerStyle.Border}"/>
+                                    <Condition Binding="{Binding Path=IsKnownPlayer}" Value="True" />
+                                    <Condition Binding="{Binding Path=PlayerMarkerStyle}" Value="{x:Static settings:MarkerStyle.Border}" />
                                 </MultiDataTrigger.Conditions>
-                                <Setter Property="BorderThickness" Value="2"/>
-                                <Setter Property="BorderBrush" Value="{Binding Path=Marker.Color}"/>
+                                <Setter Property="BorderThickness" Value="2" />
+                                <Setter Property="BorderBrush" Value="{Binding Path=Marker.Color}" />
                             </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
                 <Grid>
-                    <ui:PathIcon RenderOptions.BitmapScalingMode="HighQuality"
-                                 Data="{Binding Path=OverlayIcon}"
-                                 Visibility="{Binding Path=OverlayVisible}"/>
+                    <ui:PathIcon Data="{Binding Path=OverlayIcon}"
+                                 RenderOptions.BitmapScalingMode="HighQuality"
+                                 Visibility="{Binding Path=OverlayVisible}" />
                     <Rectangle x:Name="MarkerRectangle"
                                Width="8"
                                Height="8"
@@ -54,12 +54,12 @@
                                 <Style.Triggers>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Path=IsKnownPlayer}" Value="True"/>
-                                            <Condition Binding="{Binding Path=PlayerMarkerStyle}" Value="{x:Static settings:MarkerStyle.Square}"/>
+                                            <Condition Binding="{Binding Path=IsKnownPlayer}" Value="True" />
+                                            <Condition Binding="{Binding Path=PlayerMarkerStyle}" Value="{x:Static settings:MarkerStyle.Square}" />
                                         </MultiDataTrigger.Conditions>
-                                        <Setter Property="Fill" Value="{Binding Path=Marker.Color}"/>
-                                        <Setter Property="Stroke" Value="Black"/>
-                                        <Setter Property="StrokeThickness" Value="1"/>
+                                        <Setter Property="Fill" Value="{Binding Path=Marker.Color}" />
+                                        <Setter Property="Stroke" Value="Black" />
+                                        <Setter Property="StrokeThickness" Value="1" />
                                     </MultiDataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -68,9 +68,9 @@
                 </Grid>
 
             </Border>
-            
+
         </Border>
-        
+
     </Grid>
-    
+
 </UserControl>

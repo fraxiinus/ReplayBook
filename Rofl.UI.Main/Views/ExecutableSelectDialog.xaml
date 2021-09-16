@@ -2,42 +2,43 @@
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:ui="http://schemas.modernwpf.com/2019"
-                  mc:Ignorable="d"
                   Title="{DynamicResource ExecutableSelectWindowTitleText}"
-                  PrimaryButtonText="{DynamicResource SelectButtonText}"
-                  CloseButtonText="{DynamicResource CancelButtonText}"
-                  PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+                  Background="{DynamicResource TabBackground}"
                   CloseButtonClick="ContentDialog_CloseButtonClick"
+                  CloseButtonText="{DynamicResource CancelButtonText}"
                   DefaultButton="Primary"
-                  Background="{DynamicResource TabBackground}">
+                  PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+                  PrimaryButtonText="{DynamicResource SelectButtonText}"
+                  mc:Ignorable="d">
     <Grid>
         <ListBox x:Name="ExecutablesListBox"
+                 Width="300"
+                 Height="150"
                  HorizontalContentAlignment="Stretch"
-                 Height="150" Width="300"
-                 SelectedIndex="0"
                  ItemsSource="{Binding}"
-                 MouseDoubleClick="ExecutablesListBox_MouseDoubleClick">
+                 MouseDoubleClick="ExecutablesListBox_MouseDoubleClick"
+                 SelectedIndex="0">
             <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid ToolTip="{Binding Path=TargetPath}">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        
-                        <TextBlock Text="{Binding Path=Name}" Grid.Column="0"/>
-                        <TextBlock Text="{Binding Path=PatchNumber}" Grid.Column="1"/>
+
+                        <TextBlock Grid.Column="0" Text="{Binding Path=Name}" />
+                        <TextBlock Grid.Column="1" Text="{Binding Path=PatchNumber}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

@@ -1,175 +1,173 @@
 ﻿<Page x:Class="Rofl.UI.Main.Pages.WelcomeSetupExecutables"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:exemodels="clr-namespace:Rofl.Executables.Models;assembly=Rofl.Executables"
       xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:models="clr-namespace:Rofl.UI.Main.Models"
-      xmlns:exemodels="clr-namespace:Rofl.Executables.Models;assembly=Rofl.Executables" 
       xmlns:ui="clr-namespace:ModernWpf.Controls;assembly=ModernWpf"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="WelcomeSetupExecutables">
+      Title="WelcomeSetupExecutables"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      mc:Ignorable="d">
 
     <Border Padding="10">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{DynamicResource WswExecutablesTitle}"
-                           FontSize="24"
+                <TextBlock Grid.Row="0"
                            Margin="0 0 0 5"
-                           Grid.Row="0"
-                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+                           FontSize="24"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                           Text="{DynamicResource WswExecutablesTitle}" />
 
-                <TextBlock Text="{DynamicResource WswExecutablesBody}"
-                           FontSize="16"
-                           TextWrapping="Wrap"
-                           Grid.Row="1"
+                <TextBlock Grid.Row="1"
                            Margin="0 0 0 20"
-                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+                           FontSize="16"
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                           Text="{DynamicResource WswExecutablesBody}"
+                           TextWrapping="Wrap" />
 
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="BrowseExecutablesButton" 
-                            Content="{DynamicResource BrowseButtonText}"
-                            Click="BrowseExecutablesButton_OnClick"
+                    <Button x:Name="BrowseExecutablesButton"
+                            Grid.Row="0"
+                            Grid.Column="0"
                             Width="80"
                             HorizontalAlignment="Left"
-                            Grid.Column="0"
-                            Grid.Row="0"/>
+                            Click="BrowseExecutablesButton_OnClick"
+                            Content="{DynamicResource BrowseButtonText}" />
 
                     <TextBlock x:Name="BrowseButtonHintText"
-                               Text="{DynamicResource WswExecutablesHint}"
-                               FontStyle="Italic"
-                               VerticalAlignment="Center"
+                               Grid.Row="0"
+                               Grid.Column="1"
                                Margin="10 0 0 0"
-                               Grid.Row="0" Grid.Column="1"
-                               Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+                               VerticalAlignment="Center"
+                               FontStyle="Italic"
+                               Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                               Text="{DynamicResource WswExecutablesHint}" />
                 </Grid>
 
-                <Grid Margin="20 20 20 0"
-                      Grid.Row="3">
+                <Grid Grid.Row="3" Margin="20 20 20 0">
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <TextBlock Text="{DynamicResource WswExecutablesRegisterList}"
+                    <TextBlock Grid.Row="0"
                                Margin="0 0 0 5"
-                               Grid.Row="0"
-                               Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
-                    <ListBox Grid.Row="1"
-                             Name="ExecutablesPreviewListBox"
+                               Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                               Text="{DynamicResource WswExecutablesRegisterList}" />
+                    <ListBox Name="ExecutablesPreviewListBox"
+                             Grid.Row="1"
                              Height="100"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              ScrollViewer.VerticalScrollBarVisibility="Visible">
                         <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource DefaultListBoxItemStyle}">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Setter Property="Padding" Value="5"/>
+                            <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="Padding" Value="5" />
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="exemodels:LeagueExecutable">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding Path=PatchNumber}"
-                                               Grid.Column="0"/>
-                                    <TextBlock Text="{Binding Path=TargetPath}"
-                                               ToolTip="{Binding Path=TargetPath}"
+                                    <TextBlock Grid.Column="0" Text="{Binding Path=PatchNumber}" />
+                                    <TextBlock Grid.Column="2"
+                                               Text="{Binding Path=TargetPath}"
                                                TextTrimming="CharacterEllipsis"
-                                               Grid.Column="2"/>
+                                               ToolTip="{Binding Path=TargetPath}" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <TextBlock x:Name="ExecutablesEmptyTextBlock"
-                               Text="{DynamicResource WswExecutablesRegisterListEmpty}"
                                Grid.Row="1"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+                               Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                               Text="{DynamicResource WswExecutablesRegisterListEmpty}" />
                 </Grid>
             </Grid>
 
             <!--#region Navigation buttons-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Button x:Name="PreviousButton"
                         Grid.Column="0"
                         Width="100"
                         Margin="0 0 5 0"
-                        BorderThickness="1"
                         HorizontalContentAlignment="Stretch"
-                        ToolTipService.ShowOnDisabled="True"
-                        Click="PreviousButton_Click">
+                        BorderThickness="1"
+                        Click="PreviousButton_Click"
+                        ToolTipService.ShowOnDisabled="True">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                        <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}"
-                                             Value="False">
-                                    <Setter Property="ToolTip" Value="{DynamicResource WswPreviousDisabled}"/>
+                                <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}" Value="False">
+                                    <Setter Property="ToolTip" Value="{DynamicResource WswPreviousDisabled}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <ui:PathIcon Data="{StaticResource BackArrowPathIcon}"
-                                     Width="12" Height="12">
+                        <ui:PathIcon Width="12"
+                                     Height="12"
+                                     Data="{StaticResource BackArrowPathIcon}">
                             <ui:PathIcon.Style>
                                 <Style TargetType="ui:PathIcon">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}"
-                                                     Value="False">
-                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}" Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </ui:PathIcon.Style>
                         </ui:PathIcon>
                         <TextBlock Grid.Column="1"
-                                   VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   TextAlignment="Center"
-                                   Text="{DynamicResource WswPreviousText}">
+                                   VerticalAlignment="Center"
+                                   Text="{DynamicResource WswPreviousText}"
+                                   TextAlignment="Center">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}"
-                                                     Value="False">
-                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}" Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -182,15 +180,14 @@
                         Width="100"
                         Margin="0 0 5 0"
                         HorizontalContentAlignment="Stretch"
-                        IsDefault="True"
                         Click="NextButton_Click"
+                        IsDefault="True"
                         ToolTipService.ShowOnDisabled="True">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
+                        <Style BasedOn="{StaticResource AccentButtonStyle}" TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}"
-                                             Value="False">
-                                    <Setter Property="ToolTip" Value="{DynamicResource WswNextDisabled}"/>
+                                <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}" Value="False">
+                                    <Setter Property="ToolTip" Value="{DynamicResource WswNextDisabled}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -198,38 +195,37 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
-                                   VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
-                                   TextAlignment="Center"
-                                   Text="{DynamicResource WswNextText}">
+                                   VerticalAlignment="Center"
+                                   Text="{DynamicResource WswNextText}"
+                                   TextAlignment="Center">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}"
-                                                     Value="False">
-                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}" Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
                         </TextBlock>
-                        <ui:PathIcon Data="{StaticResource BackArrowPathIcon}"
-                                     Width="12" Height="12"
-                                     Grid.Column="1"
+                        <ui:PathIcon Grid.Column="1"
+                                     Width="12"
+                                     Height="12"
+                                     Data="{StaticResource BackArrowPathIcon}"
                                      RenderTransformOrigin="0.5,0.5">
                             <ui:PathIcon.RenderTransform>
-                                <ScaleTransform ScaleX="-1"/>
+                                <ScaleTransform ScaleX="-1" />
                             </ui:PathIcon.RenderTransform>
                             <ui:PathIcon.Style>
                                 <Style TargetType="ui:PathIcon">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}"
-                                                     Value="False">
-                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                        <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}" Value="False">
+                                            <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -240,16 +236,15 @@
                 <Button x:Name="SkipButton"
                         Grid.Column="3"
                         Width="100"
-                        Content="{DynamicResource WswSkipText}"
                         HorizontalContentAlignment="Center"
-                        ToolTipService.ShowOnDisabled="True"
-                        Click="SkipButton_Click">
+                        Click="SkipButton_Click"
+                        Content="{DynamicResource WswSkipText}"
+                        ToolTipService.ShowOnDisabled="True">
                     <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                        <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=SkipButton}"
-                                             Value="False">
-                                    <Setter Property="ToolTip" Value="{DynamicResource WswSkipDisabled}"/>
+                                <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=SkipButton}" Value="False">
+                                    <Setter Property="ToolTip" Value="{DynamicResource WswSkipDisabled}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -259,5 +254,5 @@
             <!--#endregion-->
         </Grid>
     </Border>
-    
+
 </Page>
