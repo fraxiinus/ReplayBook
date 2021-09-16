@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Rofl.Files.Models;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Rofl.UI.Main.Models
 {
@@ -12,6 +14,8 @@ namespace Rofl.UI.Main.Models
             _visible = false;
         }
 
+        public IEnumerable<FileErrorResult> Errors { get; set; }
+
         private string _statusMessage;
         public string StatusMessage
         {
@@ -23,18 +27,6 @@ namespace Rofl.UI.Main.Models
                     this, new PropertyChangedEventArgs(nameof(StatusMessage)));
             }
         }
-
-        //private Brush _color;
-        //public Brush Color
-        //{
-        //    get => _color;
-        //    set
-        //    {
-        //        _color = value;
-        //        PropertyChanged?.Invoke(
-        //            this, new PropertyChangedEventArgs(nameof(Color)));
-        //    }
-        //}
 
         private bool _visible;
         public bool Visible
@@ -57,6 +49,18 @@ namespace Rofl.UI.Main.Models
                 _showProgressBar = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(ShowProgressBar)));
+            }
+        }
+
+        private bool _showDismissButton;
+        public bool ShowDismissButton
+        {
+            get => _showDismissButton;
+            set
+            {
+                _showDismissButton = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ShowDismissButton)));
             }
         }
     }

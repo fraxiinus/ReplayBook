@@ -25,11 +25,13 @@ Check out the [troubleshooting guide](https://github.com/fraxiinus/ReplayBook/wi
 
 ## Features
 
-* Keep old League of Legends patches and ReplayBook will automatically detect and match compatible replay files
+* Effortlessly play replay files
+* Easily play expired replays by using League of Legends backups
 * Assign player markers to easily spot players in the replay list
-* View all information available in replay files
+* View all information available in replay files, including runes!
 * Export data to CSV or JSON file formats
-* Supports all regions!
+* Supports all League of Legends regions!
+* Community translated! Includes Chinese Simplified, Spanish, and German.
 * Windows 10 dark/light themes supported
 * [See more/screenshots...](https://github.com/fraxiinus/ReplayBook/wiki/Features-and-Screenshots)
 
