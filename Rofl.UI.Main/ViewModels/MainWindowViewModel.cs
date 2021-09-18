@@ -441,13 +441,18 @@ namespace Rofl.UI.Main.ViewModels
         {
             _log.Information($"Refreshing replay list...");
 
+            // Validate executables
+            StatusBarModel.Visible = true;
+            StatusBarModel.ShowProgressBar = true;
+            StatusBarModel.ShowDismissButton = false;
+            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageExecutables") as string;
+            await SettingsManager.Executables.VerifyRegisteredExecutables().ConfigureAwait(true);
+
+            // Clear previously loaded replays
             FileResults.Clear();
             PreviewReplays.Clear();
             ValidateReplayStorage();
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
-            StatusBarModel.Visible = true;
-            StatusBarModel.ShowProgressBar = true;
-            StatusBarModel.ShowDismissButton = false;
 
             // Discover and load replays into database
             IEnumerable<FileErrorResult> results = await _fileManager.InitialLoadAsync().ConfigureAwait(true);
@@ -455,6 +460,7 @@ namespace Rofl.UI.Main.ViewModels
             // Load from database into our viewmodel
             _ = LoadReplaysFromDatabase();
 
+            // Load thumbnails
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
             await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
 

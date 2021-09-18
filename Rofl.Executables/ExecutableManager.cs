@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Rofl.Executables
 {
@@ -46,24 +47,26 @@ namespace Rofl.Executables
                     Settings = new ExecutableSettings();
                 }
             }
+        }
 
-            // Refresh all known executables versions
-            foreach (var executable in Settings.Executables)
+        ~ExecutableManager()
+        {
+            Save();
+        }
+
+        public async Task VerifyRegisteredExecutables()
+        {
+            foreach (LeagueExecutable executable in Settings.Executables)
             {
                 if (File.Exists(executable.TargetPath))
                 {
-                    UpdateExecutableVersion(executable);
+                    await Task.Run(() => UpdateExecutableVersion(executable)).ConfigureAwait(true);
                 }
                 else
                 {
                     _log.Warning($"Target for executable '{executable.Name}' does not exist");
                 }
             }
-        }
-
-        ~ExecutableManager()
-        {
-            Save();
         }
 
         public (int, string[]) SearchAllFoldersForExecutablesAndAddThemAll()
