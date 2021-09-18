@@ -164,7 +164,7 @@ namespace Rofl.UI.Main.Controls
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
 
-            context.ValidateReplayStorage();
+            context.ValidateReplayStorage(closeOnComplete: true);
             await context.ReloadReplayList().ConfigureAwait(true);
         }
 

@@ -451,7 +451,7 @@ namespace Rofl.UI.Main.ViewModels
             // Clear previously loaded replays
             FileResults.Clear();
             PreviewReplays.Clear();
-            ValidateReplayStorage();
+            ValidateReplayStorage(closeOnComplete: false);
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
 
             // Discover and load replays into database
@@ -481,13 +481,13 @@ namespace Rofl.UI.Main.ViewModels
         /// Function checks if replays in storage are valid. Removes any that are invalid.
         /// </summary>
         /// <returns></returns>
-        public void ValidateReplayStorage()
+        public void ValidateReplayStorage(bool closeOnComplete)
         {
             StatusBarModel.StatusMessage = "Pruning storage...";
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
             _fileManager.PruneDatabaseEntries();
-            StatusBarModel.Visible = false;
+            StatusBarModel.Visible = !closeOnComplete;
         }
 
         public async Task<Process> PlayReplay(ReplayPreview preview)
