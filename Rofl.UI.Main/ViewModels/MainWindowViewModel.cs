@@ -451,8 +451,7 @@ namespace Rofl.UI.Main.ViewModels
             // Clear previously loaded replays
             FileResults.Clear();
             PreviewReplays.Clear();
-            ValidateReplayStorage();
-            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
+            ValidateReplayStorage(closeOnComplete: false);
 
             // Discover and load replays into database
             IEnumerable<FileErrorResult> results = await _fileManager.InitialLoadAsync().ConfigureAwait(true);
@@ -481,13 +480,13 @@ namespace Rofl.UI.Main.ViewModels
         /// Function checks if replays in storage are valid. Removes any that are invalid.
         /// </summary>
         /// <returns></returns>
-        public void ValidateReplayStorage()
+        public void ValidateReplayStorage(bool closeOnComplete)
         {
-            StatusBarModel.StatusMessage = "Pruning storage...";
+            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
             _fileManager.PruneDatabaseEntries();
-            StatusBarModel.Visible = false;
+            StatusBarModel.Visible = !closeOnComplete;
         }
 
         public async Task<Process> PlayReplay(ReplayPreview preview)
@@ -522,16 +521,6 @@ namespace Rofl.UI.Main.ViewModels
 
             string selectArg = $"/select, \"{location}\"";
             _ = Process.Start("explorer.exe", selectArg);
-        }
-
-        public void ViewOnlineMatchHistory(string matchid)
-        {
-            _log.Information($"Opening online match history for {matchid}");
-
-            if (string.IsNullOrEmpty(matchid)) { throw new ArgumentNullException(nameof(matchid)); }
-
-            string url = SettingsManager.Settings.MatchHistoryBaseUrl + matchid;
-            _ = Process.Start(url);
         }
 
         public void ShowExportReplayDataWindow(ReplayPreview preview)

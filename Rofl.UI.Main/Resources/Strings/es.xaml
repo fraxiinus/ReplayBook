@@ -65,9 +65,6 @@
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">Ya existe un marcador para el invocador &quot;$&quot;</string:String>
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Escribe un nombre de invocador</string:String>
 
-    <string:String x:Key="MatchHistoryUrlLabelText">Enlace de historial de partidas</string:String>
-    <string:String x:Key="MarchHistoryUrlInfoText">La función &quot;Ver en línea&quot; podría no funcionar si las repeticiones pertenecen a una región diferente a la de esta URL</string:String>
-
     <string:String x:Key="FileAssociationLabelText">Al abrir archivos asociados</string:String>
     <string:String x:Key="FileAssociationButtonText">Asociar archivos de tipo .ROFL</string:String>
     <string:String x:Key="FileAssociationMessageTitleText">Asociación exitosa</string:String>
@@ -309,7 +306,6 @@
 
     <!--  Replay Menu Item Text  -->
     <string:String x:Key="OpenContainingFolder">Abrir carpeta contenedora</string:String>
-    <string:String x:Key="ViewOnlinePage">Ver en línea...</string:String>
     <string:String x:Key="ExportReplayData">Exportar datos...</string:String>
     <string:String x:Key="RenameReplayFile">Renombrar</string:String>
     <string:String x:Key="DeleteReplayFile">Eliminar</string:String>

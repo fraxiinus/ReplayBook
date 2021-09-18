@@ -24,12 +24,6 @@
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Click="ViewOnlineMatchHistory_Click" Header="{DynamicResource ViewOnlinePage}">
-                    <MenuItem.Icon>
-                        <ui:PathIcon Data="{StaticResource GlobePathIcon}" />
-                    </MenuItem.Icon>
-                </MenuItem>
-
                 <MenuItem Click="ExportReplayData_OnClick" Header="{DynamicResource ExportReplayData}">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource ExportPathIcon}" />
@@ -308,14 +302,6 @@
                                   Header="{DynamicResource OpenContainingFolder}">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-
-                        <MenuItem x:Name="ViewOnlineMatchHistory"
-                                  Click="ViewOnlineMatchHistory_Click"
-                                  Header="{DynamicResource ViewOnlinePage}">
-                            <MenuItem.Icon>
-                                <ui:PathIcon Data="{StaticResource GlobePathIcon}" />
                             </MenuItem.Icon>
                         </MenuItem>
 

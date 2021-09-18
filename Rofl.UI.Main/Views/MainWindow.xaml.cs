@@ -278,7 +278,7 @@ namespace Rofl.UI.Main
             if (!(DataContext is MainWindowViewModel context)) { return; }
             if (string.IsNullOrEmpty(args.QueryText))
             {
-                context.ValidateReplayStorage();
+                context.ValidateReplayStorage(closeOnComplete: true);
                 await context.ReloadReplayList().ConfigureAwait(true);
             }
 

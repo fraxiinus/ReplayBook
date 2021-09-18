@@ -70,9 +70,6 @@
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">Marker for player name &quot;$&quot; already exists</string:String>
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Player name cannot be empty</string:String>
 
-    <string:String x:Key="MatchHistoryUrlLabelText">Match History URL</string:String>
-    <string:String x:Key="MarchHistoryUrlInfoText">The &quot;View Online&quot; feature may not work if replays are from a different region than this URL</string:String>
-
     <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
     <string:String x:Key="FileAssociationButtonText">Set .ROFL file association</string:String>
     <string:String x:Key="FileAssociationMessageTitleText">File Association Set</string:String>
@@ -314,7 +311,6 @@
 
     <!--  Replay Menu Item Text  -->
     <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
-    <string:String x:Key="ViewOnlinePage">View Online...</string:String>
     <string:String x:Key="ExportReplayData">Export Data...</string:String>
     <string:String x:Key="RenameReplayFile">Rename</string:String>
     <string:String x:Key="DeleteReplayFile">Delete</string:String>
