@@ -452,7 +452,6 @@ namespace Rofl.UI.Main.ViewModels
             FileResults.Clear();
             PreviewReplays.Clear();
             ValidateReplayStorage(closeOnComplete: false);
-            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
 
             // Discover and load replays into database
             IEnumerable<FileErrorResult> results = await _fileManager.InitialLoadAsync().ConfigureAwait(true);
@@ -483,7 +482,7 @@ namespace Rofl.UI.Main.ViewModels
         /// <returns></returns>
         public void ValidateReplayStorage(bool closeOnComplete)
         {
-            StatusBarModel.StatusMessage = "Pruning storage...";
+            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
             _fileManager.PruneDatabaseEntries();
