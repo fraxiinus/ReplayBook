@@ -81,7 +81,7 @@
 
                 <TabItem x:Name="GeneralTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                        <ui:SimpleStackPanel Margin="15 0 20 12"
                                              Orientation="Vertical"
                                              Spacing="12">
 
@@ -110,7 +110,7 @@
                                     <ListBox.ItemContainerStyle>
                                         <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                            <Setter Property="Padding" Value="10,8,10,8" />
+                                            <Setter Property="Padding" Value="10 8 10 8" />
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate>
@@ -124,7 +124,7 @@
                                                 <Rectangle Grid.Column="0"
                                                            Width="15"
                                                            Height="15"
-                                                           Margin="0,0,5,0"
+                                                           Margin="0 0 5 0"
                                                            VerticalAlignment="Center"
                                                            Fill="{Binding Path=Color}"
                                                            Stroke="Black"
@@ -134,7 +134,7 @@
                                                            FontSize="14"
                                                            Text="{Binding Path=Name}" />
                                                 <TextBlock Grid.Column="2"
-                                                           Margin="10,0,5,0"
+                                                           Margin="10 0 5 0"
                                                            VerticalAlignment="Center"
                                                            FontSize="14"
                                                            Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
@@ -190,7 +190,7 @@
                             <ui:SimpleStackPanel Orientation="Horizontal">
                                 <TextBlock FontSize="16" Text="{DynamicResource MatchHistoryUrlLabelText}" />
                                 <ui:PathIcon Width="16"
-                                             Margin="5,2,0,0"
+                                             Margin="5 2 0 0"
                                              Data="{StaticResource InfoIcon}"
                                              ToolTip="{DynamicResource MarchHistoryUrlInfoText}" />
                             </ui:SimpleStackPanel>
@@ -217,7 +217,7 @@
                             <Button x:Name="SetFileAssocButton"
                                     Grid.Column="2"
                                     Height="30"
-                                    Padding="15,0,15,0"
+                                    Padding="15 0 15 0"
                                     HorizontalAlignment="Left"
                                     Click="SetFileAssocButton_Click"
                                     Content="{DynamicResource FileAssociationButtonText}" />
@@ -236,7 +236,7 @@
 
                 <TabItem x:Name="UpdateTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                        <ui:SimpleStackPanel Margin="15 0 20 12"
                                              Orientation="Vertical"
                                              Spacing="12">
                             <TextBlock FontSize="16" Text="{DynamicResource UpdatesLabelText}" />
@@ -261,7 +261,7 @@
 
                 <TabItem x:Name="AppearanceTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                        <ui:SimpleStackPanel Margin="15 0 20 12"
                                              Orientation="Vertical"
                                              Spacing="12">
 
@@ -300,7 +300,7 @@
 
                 <TabItem x:Name="ExecutableTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                        <ui:SimpleStackPanel Margin="15 0 20 12"
                                              Orientation="Vertical"
                                              Spacing="12">
 
@@ -312,7 +312,7 @@
                             <ui:SimpleStackPanel Orientation="Horizontal">
                                 <TextBlock FontSize="16" Text="{DynamicResource ExecutableFoldersLabelText}" />
                                 <ui:PathIcon Width="16"
-                                             Margin="5,2,0,0"
+                                             Margin="5 2 0 0"
                                              Data="{StaticResource InfoIcon}"
                                              ToolTip="{DynamicResource ExecutableFoldersInfoText}" />
                             </ui:SimpleStackPanel>
@@ -338,7 +338,7 @@
                                          SelectionChanged="ExecutableFoldersListBox_SelectionChanged">
                                     <ListBox.ItemContainerStyle>
                                         <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
-                                            <Setter Property="Padding" Value="10,8,10,8" />
+                                            <Setter Property="Padding" Value="10 8 10 8" />
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                 </ListBox>
@@ -370,12 +370,15 @@
                                 </ui:CommandBar>
                             </Grid>
 
-                            <Button x:Name="SourceFoldersSearchButton"
-                                    Height="30"
-                                    Padding="10,0,10,0"
-                                    HorizontalAlignment="Left"
-                                    Click="SourceFoldersSearchButton_Click"
-                                    Content="{DynamicResource ExecutableFoldersSearchButtonText}" />
+                            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="12">
+                                <Button x:Name="SourceFoldersSearchButton"
+                                        Height="30"
+                                        Padding="10 0 10 0"
+                                        HorizontalAlignment="Left"
+                                        Click="SourceFoldersSearchButton_Click"
+                                        Content="{DynamicResource ExecutableFoldersSearchButtonText}" />
+                                <ui:ProgressRing x:Name="SourceFolderSearchProgress" IsActive="False" />
+                            </ui:SimpleStackPanel>
 
                             <TextBlock Grid.Row="2"
                                        Grid.Column="0"
@@ -403,7 +406,7 @@
                                          SelectionChanged="ExecutablesListBox_SelectionChanged">
                                     <ListBox.ItemContainerStyle>
                                         <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
-                                            <Setter Property="Padding" Value="10,8,10,8" />
+                                            <Setter Property="Padding" Value="10 8 10 8" />
                                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                                         </Style>
                                     </ListBox.ItemContainerStyle>
@@ -419,7 +422,7 @@
                                                            FontSize="14"
                                                            Text="{Binding Path=Name}" />
                                                 <TextBlock Grid.Column="1"
-                                                           Margin="5,0,5,0"
+                                                           Margin="5 0 5 0"
                                                            VerticalAlignment="Center"
                                                            FontSize="14"
                                                            Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
@@ -464,13 +467,13 @@
 
                 <TabItem x:Name="ReplaysTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                        <ui:SimpleStackPanel Margin="15 0 20 12"
                                              Orientation="Vertical"
                                              Spacing="12">
                             <ui:SimpleStackPanel Orientation="Horizontal">
                                 <TextBlock FontSize="16" Text="{DynamicResource SourceFoldersLabelText}" />
                                 <ui:PathIcon Width="16"
-                                             Margin="5,2,0,0"
+                                             Margin="5 2 0 0"
                                              Data="{StaticResource InfoIcon}"
                                              ToolTip="{DynamicResource SourceFoldersInfoText}" />
                             </ui:SimpleStackPanel>
@@ -496,7 +499,7 @@
                                          SelectionChanged="SourceFoldersListBox_SelectionChanged">
                                     <ListBox.ItemContainerStyle>
                                         <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
-                                            <Setter Property="Padding" Value="10,8,10,8" />
+                                            <Setter Property="Padding" Value="10 8 10 8" />
                                         </Style>
                                     </ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate>
@@ -545,7 +548,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Slider x:Name="ItemCountSlider"
                                         Grid.Column="0"
-                                        Margin="0,0,10,0"
+                                        Margin="0 0 10 0"
                                         IsSnapToTickEnabled="True"
                                         Maximum="200"
                                         Minimum="10"
@@ -588,7 +591,7 @@
 
                 <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                        <ui:SimpleStackPanel Margin="15 0 20 12"
                                              Orientation="Vertical"
                                              Spacing="12">
                             <TextBlock FontSize="16" Text="{DynamicResource RequestsCacheLabel}" />
@@ -631,17 +634,17 @@
                                 </Grid.ColumnDefinitions>
                                 <Button x:Name="DeleteItemsButton"
                                         Grid.Column="0"
-                                        Margin="0,0,6,0"
+                                        Margin="0 0 6 0"
                                         Click="DeleteItemsButton_Click"
                                         Content="{DynamicResource RequestsCacheClearItemsButton}" />
                                 <Button x:Name="DeleteChampsButton"
                                         Grid.Column="1"
-                                        Margin="6,0,6,0"
+                                        Margin="6 0 6 0"
                                         Click="DeleteChampsButton_Click"
                                         Content="{DynamicResource RequestsCacheClearChampsButton}" />
                                 <Button x:Name="DeleteRunesButton"
                                         Grid.Column="2"
-                                        Margin="6,0,6,0"
+                                        Margin="6 0 6 0"
                                         Click="DeleteRunesButton_Click"
                                         Content="{DynamicResource RequestsCacheClearRunesButton}" />
                             </Grid>
@@ -650,23 +653,23 @@
 
                             <CheckBox x:Name="ChampionCheckBox">
                                 <CheckBox.Content>
-                                    <Grid Margin="5,0,0,0">
+                                    <Grid Margin="5 0 0 0">
                                         <TextBlock Text="{DynamicResource WswDownloadChampionsText}" />
                                     </Grid>
                                 </CheckBox.Content>
                             </CheckBox>
 
-                            <CheckBox x:Name="ItemCheckBox" Margin="0,-10,0,0">
+                            <CheckBox x:Name="ItemCheckBox" Margin="0 -10 0 0">
                                 <CheckBox.Content>
-                                    <Grid Margin="5,0,0,0">
+                                    <Grid Margin="5 0 0 0">
                                         <TextBlock Text="{DynamicResource WswDownloadItemsText}" />
                                     </Grid>
                                 </CheckBox.Content>
                             </CheckBox>
 
-                            <CheckBox x:Name="RunesCheckBox" Margin="0,-10,0,0">
+                            <CheckBox x:Name="RunesCheckBox" Margin="0 -10 0 0">
                                 <CheckBox.Content>
-                                    <Grid Margin="5,0,0,0">
+                                    <Grid Margin="5 0 0 0">
                                         <TextBlock Text="{DynamicResource WswDownloadRunesText}" />
                                     </Grid>
                                 </CheckBox.Content>
@@ -687,7 +690,7 @@
 
                                 <TextBlock x:Name="DownloadImageErrorText"
                                            Grid.Column="1"
-                                           Margin="10,0,0,0"
+                                           Margin="10 0 0 0"
                                            VerticalAlignment="Center"
                                            FontSize="12"
                                            Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
@@ -696,7 +699,7 @@
 
                             <Grid x:Name="DownloadProgressGrid"
                                   Grid.Row="6"
-                                  Margin="0,0,0,0"
+                                  Margin="0 0 0 0"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Top"
                                   Visibility="Collapsed">
@@ -710,14 +713,14 @@
 
                                 <TextBlock x:Name="DownloadProgressText"
                                            Grid.Row="0"
-                                           Margin="25,0,0,0"
+                                           Margin="25 0 0 0"
                                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                                            TextAlignment="Left" />
 
                                 <ProgressBar x:Name="DownloadProgressBar"
                                              Grid.Row="1"
                                              Height="25"
-                                             Margin="20,0,20,0"
+                                             Margin="20 0 20 0"
                                              ValueChanged="DownloadProgressBar_ValueChanged" />
                             </Grid>
 
@@ -753,7 +756,7 @@
 
                 <TabItem x:Name="AboutTabItem" Visibility="Collapsed">
                     <ScrollViewer>
-                        <StackPanel Margin="0,0,0,0"
+                        <StackPanel Margin="0 0 0 0"
                                     VerticalAlignment="Top"
                                     Orientation="Vertical">
                             <Image Width="200"
@@ -787,7 +790,7 @@
                             <ui:HyperlinkButton HorizontalAlignment="Center"
                                                 Content="{DynamicResource LicenseText}"
                                                 NavigateUri="{DynamicResource LicenseLink}" />
-                            <TextBlock Margin="0,10,0,5"
+                            <TextBlock Margin="0 10 0 5"
                                        HorizontalAlignment="Center"
                                        FontSize="14"
                                        Text="{DynamicResource AcknowledgementText}" />

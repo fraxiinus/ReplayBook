@@ -487,11 +487,15 @@ namespace Rofl.UI.Main.Views
             confirmFlyout.ShowAt(RemoveExecutableFolderButton);
         }
 
-        private void SourceFoldersSearchButton_Click(object sender, RoutedEventArgs e)
+        private async void SourceFoldersSearchButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(DataContext is SettingsManager context)) { return; }
 
-            (int, string[]) results = context.Executables.SearchAllFoldersForExecutablesAndAddThemAll();
+            // stop button from being pressed and show progress
+            SourceFoldersSearchButton.IsEnabled = false;
+            SourceFolderSearchProgress.IsActive = true;
+
+            (int, string[]) results = await Task.Run(() => context.Executables.SearchAllFoldersForExecutablesAndAddThemAll()).ConfigureAwait(true);
             int addedCount = results.Item1;
             string[] skippedDirs = results.Item2;
 
@@ -516,7 +520,10 @@ namespace Rofl.UI.Main.Views
             msgDialog.SetMessage(labelText);
 
             // Show dialog
-            _ = msgDialog.ShowAsync(ContentDialogPlacement.Popup);
+            _ = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            // re-enable button and hide progress
+            SourceFoldersSearchButton.IsEnabled = true;
+            SourceFolderSearchProgress.IsActive = false;
         }
 
         private void ExecutablesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
