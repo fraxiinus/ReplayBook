@@ -10,6 +10,7 @@
     <string:String x:Key="LoadMoreButtonText">Load more...</string:String>
 
     <string:String x:Key="LoadingMessageReplay">Loading replays...</string:String>
+    <string:String x:Key="LoadingMessageExecutables">Verifying executables...</string:String>
     <string:String x:Key="LoadingMessageThumbnails">Loading thumbnails...</string:String>
     <string:String x:Key="LoadingMessageErrors">replay(s) failed to load</string:String>
     <string:String x:Key="LoadingFailureTitle">Replay Load Failure</string:String>
