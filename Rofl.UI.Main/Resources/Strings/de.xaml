@@ -3,7 +3,7 @@
                     xmlns:string="clr-namespace:System;assembly=mscorlib"
                     xmlns:system="clr-namespace:System;assembly=System">
 
-    <!--General UI Text-->
+    <!--  General UI Text  -->
     <string:String x:Key="ProgramName">ReplayBook</string:String>
     <string:String x:Key="SearchDefaultText">Suchen...</string:String>
     <string:String x:Key="MoreButtonText">Optionen</string:String>
@@ -41,7 +41,7 @@
     <string:String x:Key="MissingPathTitle">Replayordner nicht gefunden</string:String>
     <string:String x:Key="MissingPathText">Der folgende Pfad(e) wurde nicht gefunden oder wurde entfert:</string:String>
 
-    <!--Settings Window Text-->
+    <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">Allgemein</string:String>
     <string:String x:Key="UpdatesSettingsItemText">Updates</string:String>
     <string:String x:Key="AppearanceSettingsItemText">Erscheinung</string:String>
@@ -50,7 +50,7 @@
     <string:String x:Key="ExecutablesSettingsItemText">Ausführbare Dateien</string:String>
     <string:String x:Key="AboutSettingsItemText">Über</string:String>
 
-    <!--Settings : General-->
+    <!--  Settings : General  -->
     <string:String x:Key="LanguageLabelText">Sprache</string:String>
 
     <string:String x:Key="PlayerMarkerLabelText">Spielermarkierung</string:String>
@@ -61,13 +61,14 @@
     <string:String x:Key="PlayerMarkerNameLabelText">Spielername</string:String>
     <string:String x:Key="PlayerMarkerNoteLabelText">Notiz</string:String>
     <string:String x:Key="PlayerMarkerColorLabelText">Markierungsfarbe</string:String>
-    <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">Markierung für Spielername "$" existiert bereits</string:String>
+    <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">Markierung für Spielername &quot;$&quot; existiert bereits</string:String>
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Spielername kann nicht leer sein</string:String>
 
     <string:String x:Key="MatchHistoryUrlLabelText">Spielverlauf URL</string:String>
-    <string:String x:Key="MarchHistoryUrlInfoText">Die "Online Ansehen"-Funktion funktioniert nicht, wenn das Replay von einer anderen Region als die URL ist.</string:String>
+    <string:String x:Key="MarchHistoryUrlInfoText">Die &quot;Online Ansehen&quot;-Funktion funktioniert nicht, wenn das Replay von einer anderen Region als die URL ist.</string:String>
 
-    <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String> <!--TODO-->
+    <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
+    <!--  TODO  -->
     <string:String x:Key="FileAssociationButtonText">.rofl Dateizuordnung gesetzt</string:String>
     <string:String x:Key="FileAssociationMessageTitleText">Dateizuordnung gesetzt</string:String>
     <string:String x:Key="FileAssociationMessageBodyText">ReplayBook als Standartapplikation für .rofl Dateien gesetzt</string:String>
@@ -94,7 +95,7 @@
     <string:String x:Key="UpdateNewerTitleText">Neue Version verfügbar</string:String>
     <string:String x:Key="UpdateNewerBodyText">Neuere Version verfügbar. Klicke OK um auf die Downloadseite weitergeleitet zu werden.</string:String>
 
-    <!--Settings : Appearance-->
+    <!--  Settings : Appearance  -->
     <string:String x:Key="AppearanceThemeModeTitle">Theme</string:String>
     <string:String x:Key="AppearanceThemeMode0">System zugewiesen</string:String>
     <string:String x:Key="AppearanceThemeMode1">Dunkel</string:String>
@@ -124,7 +125,7 @@
     <string:String x:Key="ReplayPlayConfirmTitle">Replay abspielen?</string:String>
     <string:String x:Key="ReplayPlayConfirmOptOut">Du kannst diese Bestätigung im Einstellungsfenster deaktivieren</string:String>
 
-    <!--Executable Detail-->
+    <!--  Executable Detail  -->
     <string:String x:Key="ExecutableDetailTargetPath">Zielpfad</string:String>
     <string:String x:Key="ExecutableDetailName">Dateiname</string:String>
     <string:String x:Key="ExecutableDetailCustomLocale">Benutzerdefinierte Region</string:String>
@@ -173,7 +174,7 @@
     <string:String x:Key="AcknowledgementButtonText">Open Source Projects</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Open Source Acknowledgements</string:String>
 
-    <!--Generic button text-->
+    <!--  Generic button text  -->
     <string:String x:Key="OKButtonText">OK</string:String>
     <string:String x:Key="AddButtonText">Hinzufügen</string:String>
     <string:String x:Key="EditButtonText">Editieren</string:String>
@@ -183,7 +184,7 @@
     <string:String x:Key="BrowseButtonText">Durchsuchen...</string:String>
     <string:String x:Key="SelectButtonText">Auswählen</string:String>
 
-    <!--Stats Header Text-->
+    <!--  Stats Header Text  -->
     <string:String x:Key="CombatGroupHeaderText">Kampf</string:String>
     <string:String x:Key="ChampionsKilledHeaderText">Tötung</string:String>
     <string:String x:Key="DeathsHeaderText">Tode</string:String>
@@ -217,7 +218,8 @@
     <string:String x:Key="TotalHealingDoneHeaderText">Gesamte Heilung</string:String>
     <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Gesamte Heilung an Mitspieler</string:String>
     <string:String x:Key="TotalUnitsHealedHeaderText">Einheiten geheilt</string:String>
-    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded to Teammates</string:String> <!--TODO-->
+    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded to Teammates</string:String>
+    <!--  TODO  -->
     <string:String x:Key="TotalDamageTakenHeaderText">Gesamter genommener Schaden</string:String>
     <string:String x:Key="PhysicalDamageTakenHeaderText">Normaler Schaden genommen</string:String>
     <string:String x:Key="MagicDamageTakenHeaderText">Magischer Schaden genommen</string:String>
@@ -271,7 +273,7 @@
     <string:String x:Key="SummonerSpell2CastsHeaderText">Beschwörerzauber 2 Ausführungen</string:String>
     <string:String x:Key="IndividualPositionHeaderText">Individuelle Position</string:String>
 
-    <!--ToolTip Text-->
+    <!--  ToolTip Text  -->
     <string:String x:Key="SortToolTip">Sortieren</string:String>
     <string:String x:Key="RefreshToolTip">Erneuern</string:String>
     <string:String x:Key="SettingsToolTip">Einstellungen</string:String>
@@ -293,7 +295,7 @@
     <string:String x:Key="CreepScoreToolTip">Vasallen getötet</string:String>
     <string:String x:Key="GoldEarnedToolTip">Gold verdient</string:String>
 
-    <!--sort menu text-->
+    <!--  sort menu text  -->
     <string:String x:Key="NameAsc">Name aufsteigend</string:String>
     <string:String x:Key="NameDesc">Name absteigend</string:String>
 
@@ -303,7 +305,7 @@
     <string:String x:Key="SizeAsc">Grösse aufsteigend</string:String>
     <string:String x:Key="SizeDesc">Grösse absteigend</string:String>
 
-    <!--Replay Menu Item Text-->
+    <!--  Replay Menu Item Text  -->
     <string:String x:Key="OpenContainingFolder">Öffne beinhaltenden Ordner</string:String>
     <string:String x:Key="ViewOnlinePage">Online ansehen...</string:String>
     <string:String x:Key="ExportReplayData">Daten exportieren...</string:String>
@@ -311,7 +313,7 @@
     <string:String x:Key="DeleteReplayFile">Löschen</string:String>
     <string:String x:Key="RefreshReplayList">Liste erneuern</string:String>
 
-    <!--Replay Data Export-->
+    <!--  Replay Data Export  -->
     <string:String x:Key="ErdTitleText">Replaydaten exportieren</string:String>
     <string:String x:Key="ErdLevel1TitleText">Replayeigenschaften</string:String>
     <string:String x:Key="ErdLevel2TitleText">Spieler</string:String>
@@ -326,7 +328,7 @@
     <string:String x:Key="ErdFailedToSave">Speichern der Datei fehlgeschlagen</string:String>
     <string:String x:Key="ErdPreviewTitle">Datenvorschau</string:String>
 
-    <!--Welcome Setup-->
+    <!--  Welcome Setup  -->
     <string:String x:Key="WswWindowTitleText">ReplayBook Einrichtung</string:String>
     <string:String x:Key="WswPreviousText">Zurück</string:String>
     <string:String x:Key="WswPreviousDisabled">Kann nicht zur voherigen Seite gelangen</string:String>
@@ -337,7 +339,7 @@
     <string:String x:Key="WswDownloadMissingError">Kann nichts zum herunterladen finden - überprüfe deine Internetverbindung oder überspringe diesen Schritt</string:String>
     <string:String x:Key="WswDownloadNoSelectionError">Bitte mache eine Auswahl zum herunterladen</string:String>
 
-    <!--Welcome Setup : Introduction-->
+    <!--  Welcome Setup : Introduction  -->
     <string:String x:Key="WswIntroFrameTitle">Willkommen zu ReplayBook</string:String>
     <string:String x:Key="WswReplaysFrameTitle">Replayeinrichtung</string:String>
     <string:String x:Key="WswExecutablesFrameTitle">Dateieinrichtung</string:String>
@@ -346,12 +348,12 @@
     <string:String x:Key="WswFinishedFrameTitle">Komplett!</string:String>
 
     <string:String x:Key="WswIntroductionTitle">Danke, dass du ReplayBook heruntergeladen hast!</string:String>
-    <string:String x:Key="WswIntroductionBody">Als erstes machen wir einige initiale Einstellungen. Klicke den "Nächste" Button zum weiterfahren</string:String>
+    <string:String x:Key="WswIntroductionBody">Als erstes machen wir einige initiale Einstellungen. Klicke den &quot;Nächste&quot; Button zum weiterfahren</string:String>
 
     <string:String x:Key="WswRegionTitle">Setzte deine Standartsprache für League of Legends</string:String>
     <string:String x:Key="WswRegionBody">Wählen eine Sprache im Dropdownmenü aus. ReplayBook wird die ausführbaren Dateien mit dieser Sprache registrieren. Du kannst die Sprache einer Datei später auch manuell ändern.</string:String>
 
-    <string:String x:Key="WswExecutablesTitle">Wählen den "Riot Games"-Ordner aus</string:String>
+    <string:String x:Key="WswExecutablesTitle">Wählen den &quot;Riot Games&quot;-Ordner aus</string:String>
     <string:String x:Key="WswExecutablesBody">ReplayBook muss sich bei League of Legends registrieren, bevor es Replays abspielen kann. Wir werden diesen Ordner nach allen vorhandenen League of Legends versionen absuchen.</string:String>
     <string:String x:Key="WswExecutablesHint">Zum Beispiel: 'C:\Riot Games'</string:String>
     <string:String x:Key="WswExecutablesRegisterList">Gefundene Versionen:</string:String>
@@ -359,7 +361,7 @@
 
     <string:String x:Key="WswReplaysTitle">Wähle den Replayordner aus</string:String>
     <string:String x:Key="WswReplaysBody">ReplayBook wird nicht in der Lage sein Replays anzuzeigen, von denen es nicht weis, wo sich diese befinden. Verifiziere, dass dies der Ort ist, an dem deien Replays gespeichert werden. du kannst später auch noch zusätzliche Ordner hinzugefügen</string:String>
-    <string:String x:Key="WswReplaysHint">Standartmässig werden Replays in "Documents\League of Legends\Replays" gespeichert</string:String>
+    <string:String x:Key="WswReplaysHint">Standartmässig werden Replays in &quot;Documents\League of Legends\Replays&quot; gespeichert</string:String>
 
     <string:String x:Key="WswDownloadTitle">Symbole jetzt herunterladen?</string:String>
     <string:String x:Key="WswDownloadBody">Symbole herunterzuladen dauert einige Minutean, aber wird ReplayBook schneller machen. ReplayBook wird ansonsten Symbole bei Bedarf herunterladen, falls du diesen Schritt überspringst.</string:String>
@@ -369,14 +371,14 @@
     <string:String x:Key="WswDownloadFinished">Download fertig</string:String>
 
     <string:String x:Key="WswFinishTitle">Einrichtung komplett!</string:String>
-    <string:String x:Key="WswFinishBody">Klicke "Fertig" und ReplayBook wird automatisch mit deinen ausgewählten Einstellungen starten.</string:String>
+    <string:String x:Key="WswFinishBody">Klicke &quot;Fertig&quot; und ReplayBook wird automatisch mit deinen ausgewählten Einstellungen starten.</string:String>
     <string:String x:Key="WswFinishButton">Fertig</string:String>
 
-    <!--Rename dialog-->
+    <!--  Rename dialog  -->
     <string:String x:Key="RenameFlyoutEmptyError">Gib einen gütligen Dateinamen an</string:String>
     <string:String x:Key="RenameFlyoutNotFoundError">Replay ist nicht in einem Replayordner</string:String>
 
-    <!--Delete dialog-->
+    <!--  Delete dialog  -->
     <string:String x:Key="DeleteFlyoutLabel">Bist du sicher?</string:String>
 
 </ResourceDictionary>
