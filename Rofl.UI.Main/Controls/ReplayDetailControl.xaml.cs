@@ -149,12 +149,12 @@ namespace Rofl.UI.Main.Controls
             context.OpenReplayContainingFolder(replay.PreviewModel.Location);
         }
 
-        private void ViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(DataContext is ReplayDetail replay)) { return; }
-            context.ViewOnlineMatchHistory(replay.PreviewModel.MatchId);
-        }
+        //private void ViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
+        //    if (!(DataContext is ReplayDetail replay)) { return; }
+        //    context.ViewOnlineMatchHistory(replay.PreviewModel.MatchId);
+        //}
 
         private void ExportReplayData_OnClick(object sender, RoutedEventArgs e)
         {

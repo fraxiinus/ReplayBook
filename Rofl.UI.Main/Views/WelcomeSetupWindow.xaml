@@ -34,7 +34,7 @@
                        TextAlignment="Left" />
             <Grid x:Name="NavigationDotsPanel"
                   Grid.Column="1"
-                  Margin="0,0,10,0" />
+                  Margin="0 0 10 0" />
         </Grid>
         <!--<Border Grid.Row="1"
                 BorderBrush="Black"

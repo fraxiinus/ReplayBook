@@ -4,10 +4,6 @@ using System.ComponentModel;
 
 namespace Rofl.Settings.Models
 {
-    
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1056:Uri properties should not be strings", Justification = "<Pending>")]
-
     public class ObservableSettings : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -20,7 +16,6 @@ namespace Rofl.Settings.Models
             FileAction = FileAction.Open;
             PlayConfirmation = true;
             RenameAction = RenameAction.Database;
-            MatchHistoryBaseUrl = @"https://matchhistory.na.leagueoflegends.com/en/#match-details/NA1/";
             ItemsPerPage = 50;
             AutoUpdateCheck = true;
             ProgramLanguage = Language.En;
@@ -48,10 +43,9 @@ namespace Rofl.Settings.Models
             FileAction = settings.GeneralSettings.FileAction;
             PlayConfirmation = settings.GeneralSettings.PlayConfirmation;
             RenameAction = settings.GeneralSettings.RenameAction;
-            MatchHistoryBaseUrl = settings.GeneralSettings.MatchHistoryBaseUrl;
 
             ItemsPerPage = settings.GeneralSettings.ItemsPerPage;
-            if(ItemsPerPage < 10 || ItemsPerPage > 200)
+            if (ItemsPerPage < 10 || ItemsPerPage > 200)
             {
                 ItemsPerPage = 50;
             }
@@ -146,20 +140,8 @@ namespace Rofl.Settings.Models
             get => RenameAction == RenameAction.File;
         }
 
-        private string _matchHistoryBaseUrl;
-        public string MatchHistoryBaseUrl
-        {
-            get => _matchHistoryBaseUrl;
-            set
-            {
-                _matchHistoryBaseUrl = value;
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(MatchHistoryBaseUrl)));
-            }
-        }
-
         private int _itemsPerPage;
-        public int ItemsPerPage 
+        public int ItemsPerPage
         {
             get => _itemsPerPage;
             set

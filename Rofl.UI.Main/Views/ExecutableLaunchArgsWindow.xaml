@@ -28,7 +28,7 @@
         <TextBox x:Name="LaunchArgsBox"
                  Grid.Row="0"
                  Grid.ColumnSpan="3"
-                 Margin="0,0,0,10"
+                 Margin="0 0 0 10"
                  TextWrapping="Wrap" />
 
         <Button x:Name="SaveButton"
@@ -48,7 +48,7 @@
                 Grid.Row="1"
                 Grid.Column="2"
                 Height="30"
-                Margin="0,0,0,0"
+                Margin="0 0 0 0"
                 Click="CloseButton_Click"
                 Content="{DynamicResource CancelButtonText}">
             <Button.Style>

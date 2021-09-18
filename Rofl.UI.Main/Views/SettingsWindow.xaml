@@ -187,20 +187,6 @@
                                 <RadioButton x:Name="PlayerMarkerStyleOption2" Content="{DynamicResource PlayerMarkerStyleOption2}" />
                             </ui:RadioButtons>
 
-                            <ui:SimpleStackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="16" Text="{DynamicResource MatchHistoryUrlLabelText}" />
-                                <ui:PathIcon Width="16"
-                                             Margin="5 2 0 0"
-                                             Data="{StaticResource InfoIcon}"
-                                             ToolTip="{DynamicResource MarchHistoryUrlInfoText}" />
-                            </ui:SimpleStackPanel>
-
-                            <TextBox x:Name="MatchHistoryUrlTextBox"
-                                     Height="25"
-                                     Padding="2"
-                                     VerticalContentAlignment="Center"
-                                     Text="{Binding Path=Settings.MatchHistoryBaseUrl}" />
-
                             <ui:RadioButtons x:Name="FileActionOptions"
                                              Header="{DynamicResource FileAssociationLabelText}"
                                              MaxColumns="2"

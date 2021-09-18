@@ -523,16 +523,6 @@ namespace Rofl.UI.Main.ViewModels
             _ = Process.Start("explorer.exe", selectArg);
         }
 
-        public void ViewOnlineMatchHistory(string matchid)
-        {
-            _log.Information($"Opening online match history for {matchid}");
-
-            if (string.IsNullOrEmpty(matchid)) { throw new ArgumentNullException(nameof(matchid)); }
-
-            string url = SettingsManager.Settings.MatchHistoryBaseUrl + matchid;
-            _ = Process.Start(url);
-        }
-
         public void ShowExportReplayDataWindow(ReplayPreview preview)
         {
             _log.Information($"Showing Export Dialog...");

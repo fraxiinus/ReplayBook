@@ -64,9 +64,6 @@
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">Markierung für Spielername &quot;$&quot; existiert bereits</string:String>
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Spielername kann nicht leer sein</string:String>
 
-    <string:String x:Key="MatchHistoryUrlLabelText">Spielverlauf URL</string:String>
-    <string:String x:Key="MarchHistoryUrlInfoText">Die &quot;Online Ansehen&quot;-Funktion funktioniert nicht, wenn das Replay von einer anderen Region als die URL ist.</string:String>
-
     <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
     <!--  TODO  -->
     <string:String x:Key="FileAssociationButtonText">.rofl Dateizuordnung gesetzt</string:String>
@@ -307,7 +304,6 @@
 
     <!--  Replay Menu Item Text  -->
     <string:String x:Key="OpenContainingFolder">Öffne beinhaltenden Ordner</string:String>
-    <string:String x:Key="ViewOnlinePage">Online ansehen...</string:String>
     <string:String x:Key="ExportReplayData">Daten exportieren...</string:String>
     <string:String x:Key="RenameReplayFile">Umbenennen</string:String>
     <string:String x:Key="DeleteReplayFile">Löschen</string:String>

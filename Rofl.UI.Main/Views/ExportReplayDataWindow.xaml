@@ -38,7 +38,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0"
-                       Margin="0,0,0,12"
+                       Margin="0 0 0 12"
                        FontSize="16"
                        Text="{DynamicResource ErdLevel1TitleText}" />
 
@@ -66,7 +66,7 @@
                                       Content="{Binding Path=Name}"
                                       IsChecked="{Binding Path=Checked}"
                                       Unchecked="LevelOne_CheckChanged" />
-                            <TextBlock Padding="5,3,5,3"
+                            <TextBlock Padding="5 3 5 3"
                                        VerticalAlignment="Center"
                                        Background="{StaticResource AccentColorLight2}"
                                        FontSize="12"
@@ -90,7 +90,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0"
-                       Margin="0,0,0,12"
+                       Margin="0 0 0 12"
                        FontSize="16"
                        Text="{DynamicResource ErdLevel2TitleText}" />
 
@@ -128,8 +128,8 @@
                                 <TextBlock Text="{Binding Path=Name}" TextTrimming="CharacterEllipsis" />
                             </CheckBox>
                             <TextBlock Grid.Column="1"
-                                       Margin="12,0,12,0"
-                                       Padding="5,3,5,3"
+                                       Margin="12 0 12 0"
+                                       Padding="5 3 5 3"
                                        VerticalAlignment="Center"
                                        Background="{StaticResource AccentColorLight2}"
                                        FontSize="12"
@@ -154,14 +154,14 @@
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0"
-                       Margin="0,0,0,12"
+                       Margin="0 0 0 12"
                        FontSize="16"
                        Text="{DynamicResource ErdLevel3TitleText}" />
 
             <TextBox x:Name="FilterTextBox"
                      Grid.Row="1"
                      Height="25"
-                     Margin="0,0,0,8"
+                     Margin="0 0 0 8"
                      VerticalContentAlignment="Center"
                      ui:ControlHelper.PlaceholderText="{DynamicResource SearchDefaultText}"
                      FontSize="14"
@@ -204,8 +204,8 @@
                                            TextTrimming="CharacterEllipsis" />
                             </CheckBox>
                             <TextBlock Grid.Column="1"
-                                       Margin="12,0,12,0"
-                                       Padding="5,3,5,3"
+                                       Margin="12 0 12 0"
+                                       Padding="5 3 5 3"
                                        VerticalAlignment="Center"
                                        Background="{StaticResource AccentColorLight2}"
                                        FontSize="12"
@@ -225,13 +225,13 @@
 
         <Grid Grid.Row="2"
               Grid.ColumnSpan="5"
-              Margin="0,0,0,12">
+              Margin="0 0 0 12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
-                       Margin="0,0,0,12"
+                       Margin="0 0 0 12"
                        FontSize="16"
                        MouseLeftButtonUp="PreviewBlock_MouseLeftButtonUp"
                        Text="{DynamicResource ErdPreviewTitle}" />
@@ -267,7 +267,7 @@
                     Grid.Column="1"
                     Width="100"
                     Height="30"
-                    Margin="0,0,5,0"
+                    Margin="0 0 5 0"
                     Click="ExportButton_OnClick"
                     Content="{DynamicResource ErdExportButtonText}"
                     IsDefault="True"

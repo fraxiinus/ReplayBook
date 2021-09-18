@@ -32,7 +32,6 @@ namespace Rofl.Settings.Models
             GeneralSettings.FileAction = settings.FileAction;
             GeneralSettings.PlayConfirmation = settings.PlayConfirmation;
             GeneralSettings.RenameAction = settings.RenameAction;
-            GeneralSettings.MatchHistoryBaseUrl = settings.MatchHistoryBaseUrl;
             GeneralSettings.ItemsPerPage = settings.ItemsPerPage;
             GeneralSettings.AutoUpdateCheck = settings.AutoUpdateCheck;
             GeneralSettings.ProgramLanguage = settings.ProgramLanguage;

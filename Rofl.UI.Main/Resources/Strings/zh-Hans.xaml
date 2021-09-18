@@ -71,9 +71,6 @@
     <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">&quot;$&quot; 的标记已存在</string:String>
     <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">召唤师ID不能为空</string:String>
 
-    <string:String x:Key="MatchHistoryUrlLabelText">比赛记录的URL</string:String>
-    <string:String x:Key="MarchHistoryUrlInfoText">如果回放文件来自与此URL不同的区域，“联机查看”功能可能不起作用</string:String>
-
     <string:String x:Key="FileAssociationLabelText">ROFL文件默认打开样式</string:String>
     <string:String x:Key="FileAssociationButtonText">设置 .ROFL 文件关联</string:String>
     <string:String x:Key="FileAssociationMessageTitleText">文件关联设置</string:String>
@@ -315,7 +312,6 @@
 
     <!--  Replay Menu Item Text  -->
     <string:String x:Key="OpenContainingFolder">打开包含文件夹</string:String>
-    <string:String x:Key="ViewOnlinePage">在网络上查看</string:String>
     <string:String x:Key="ExportReplayData">导出数据...</string:String>
     <string:String x:Key="RenameReplayFile">重命名</string:String>
     <string:String x:Key="DeleteReplayFile">删除</string:String>
