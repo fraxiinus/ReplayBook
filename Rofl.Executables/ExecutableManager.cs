@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Rofl.Executables
 {
@@ -229,7 +230,11 @@ namespace Rofl.Executables
             // Will throw exception if executable is invalid
             newExecutable.Validate();
 
-            Settings.Executables.Add(newExecutable);
+            // Get the main UI thead to update the collection
+            Application.Current.Dispatcher.Invoke((Action)delegate
+            {
+                Settings.Executables.Add(newExecutable);
+            });
         }
 
         /// <summary>
@@ -248,6 +253,7 @@ namespace Rofl.Executables
 
             // Delete the executable
             _log.Information($"Deleting executable {target.Name}");
+
             Settings.Executables.Remove(target);
         }
 
