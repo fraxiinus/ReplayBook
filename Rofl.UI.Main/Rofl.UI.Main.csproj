@@ -88,6 +88,9 @@
     <Compile Include="Controls\ColorWrapper.xaml.cs">
       <DependentUpon>ColorWrapper.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ExportPresetSummary.xaml.cs">
+      <DependentUpon>ExportPresetSummary.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\RuneIconControl.xaml.cs">
       <DependentUpon>RuneIconControl.xaml</DependentUpon>
     </Compile>
@@ -103,11 +106,30 @@
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Extensions\StaticResourceExtension.cs" />
     <Compile Include="Models\ExportContext.cs" />
+    <Compile Include="Models\ExportDataContext.cs" />
+    <Compile Include="Models\ExportPlayerSelectItem.cs" />
+    <Compile Include="Models\ExportAttributeSelectItem.cs" />
+    <Compile Include="Models\ExportPreset.cs" />
     <Compile Include="Models\ExportSelectItem.cs" />
     <Compile Include="Models\RuneStat.cs" />
     <Compile Include="Models\StatusBar.cs" />
     <Compile Include="Models\WelcomeSetupSettings.cs" />
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="Pages\ExportWizardAdvanced.xaml.cs">
+      <DependentUpon>ExportWizardAdvanced.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExportWizardAttributes.xaml.cs">
+      <DependentUpon>ExportWizardAttributes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExportWizardFinish.xaml.cs">
+      <DependentUpon>ExportWizardFinish.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExportWizardLanding.xaml.cs">
+      <DependentUpon>ExportWizardLanding.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExportWizardPlayers.xaml.cs">
+      <DependentUpon>ExportWizardPlayers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\WelcomeSetupDownload.xaml.cs">
       <DependentUpon>WelcomeSetupDownload.xaml</DependentUpon>
     </Compile>
@@ -144,6 +166,15 @@
     <Compile Include="Views\DialogHostWindow.xaml.cs">
       <DependentUpon>DialogHostWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ExportDataWindow.xaml.cs">
+      <DependentUpon>ExportDataWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExportPresetLoadDialog.xaml.cs">
+      <DependentUpon>ExportPresetLoadDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExportPresetSaveDialog.xaml.cs">
+      <DependentUpon>ExportPresetSaveDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ReplayLoadErrorDialog.xaml.cs">
       <DependentUpon>ReplayLoadErrorDialog.xaml</DependentUpon>
     </Compile>
@@ -179,6 +210,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\ColorWrapper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ExportPresetSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -219,6 +254,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\StatisticsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ExportWizardAdvanced.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ExportWizardAttributes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ExportWizardFinish.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ExportWizardLanding.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ExportWizardPlayers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -283,6 +338,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DialogHostWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExportDataWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExportPresetLoadDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExportPresetSaveDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -399,7 +466,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rofl.Executables\Rofl.Executables.csproj">
-      <Project>{bf19585d-983d-4276-a5d0-c7a97dc28499}</Project>
+      <Project>{8b99a22b-0c52-46ea-ba73-762f4ae37ba8}</Project>
       <Name>Rofl.Executables</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rofl.Files\Rofl.Files.csproj">

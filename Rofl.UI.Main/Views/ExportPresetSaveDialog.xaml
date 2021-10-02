@@ -1,0 +1,31 @@
+﻿<ui:ContentDialog x:Class="Rofl.UI.Main.Views.ExportPresetSaveDialog"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:local="clr-namespace:Rofl.UI.Main.Views"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:models="clr-namespace:Rofl.UI.Main.Models"
+                  xmlns:ui="http://schemas.modernwpf.com/2019"
+                  Title="Save Preset"
+                  d:DataContext="{d:DesignInstance Type=models:ExportPreset}"
+                  d:DesignHeight="450"
+                  d:DesignWidth="350"
+                  DefaultButton="Primary"
+                  IsPrimaryButtonEnabled="True"
+                  IsSecondaryButtonEnabled="True"
+                  PrimaryButtonText="{DynamicResource SaveButtonText}"
+                  SecondaryButtonText="{DynamicResource CancelButtonText}"
+                  mc:Ignorable="d">
+    <Grid>
+        <ScrollViewer Height="300">
+            <ui:SimpleStackPanel Spacing="6">
+                <TextBlock FontSize="16" Text="Name" />
+                <TextBox x:Name="PresetNameBox"
+                         Focusable="True"
+                         Text="{Binding PresetName}" />
+                <controls:ExportPresetSummary />
+            </ui:SimpleStackPanel>
+        </ScrollViewer>
+    </Grid>
+</ui:ContentDialog>

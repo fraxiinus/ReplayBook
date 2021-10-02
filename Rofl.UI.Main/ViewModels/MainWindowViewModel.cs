@@ -8,6 +8,7 @@ using Rofl.Settings;
 using Rofl.Settings.Models;
 using Rofl.UI.Main.Extensions;
 using Rofl.UI.Main.Models;
+using Rofl.UI.Main.Pages;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
 using System;
@@ -529,20 +530,60 @@ namespace Rofl.UI.Main.ViewModels
 
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
 
-            ExportContext exportContext = new ExportContext()
+            // create transition collection
+            ModernWpf.Media.Animation.TransitionCollection contentTransitions = new ModernWpf.Media.Animation.TransitionCollection
             {
-                Replays = new ReplayFile[] { FileResults[preview.Location].ReplayFile },
-                Markers = KnownPlayers.ToList()
+                new ModernWpf.Media.Animation.NavigationThemeTransition()
+                {
+                    DefaultNavigationTransitionInfo = new ModernWpf.Media.Animation.SlideNavigationTransitionInfo()
+                    {
+                        Effect = ModernWpf.Media.Animation.SlideNavigationTransitionEffect.FromRight
+                    }
+                }
             };
 
-            ExportReplayDataWindow exportDialog = new ExportReplayDataWindow()
+            // create content frame
+            ModernWpf.Controls.Frame contentFrame = new ModernWpf.Controls.Frame()
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                ContentTransitions = contentTransitions
+            };
+
+            ExportDataContext exportDataContext = new ExportDataContext
+            {
+                AlwaysIncludeMarked = false,
+                ReplayPreview = preview,
+                Replay = FileResults[preview.Location].ReplayFile,
+                ContentFrame = contentFrame,
+                HideHeader = false,
+                WindowTitleText = "Export Data Wizard",
+                Log = _log
+            };
+
+            ExportDataWindow exportDialog = new ExportDataWindow()
             {
                 Top = Application.Current.MainWindow.Top + 50,
                 Left = Application.Current.MainWindow.Left + 50,
-                DataContext = exportContext,
+                DataContext = exportDataContext,
             };
 
             _ = exportDialog.ShowDialog();
+
+            //ExportContext exportContext = new ExportContext()
+            //{
+            //    Replays = new ReplayFile[] { FileResults[preview.Location].ReplayFile },
+            //    Markers = KnownPlayers.ToList()
+            //};
+
+            //ExportReplayDataWindow exportDialog = new ExportReplayDataWindow()
+            //{
+            //    Top = Application.Current.MainWindow.Top + 50,
+            //    Left = Application.Current.MainWindow.Left + 50,
+            //    DataContext = exportContext,
+            //};
+
+            //_ = exportDialog.ShowDialog();
         }
 
         public void ShowWelcomeWindow()

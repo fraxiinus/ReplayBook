@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Reader", "Rofl.Reader\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Requests", "Rofl.Requests\Rofl.Requests.csproj", "{6F3E0D23-5235-4333-BFB8-9E00996BDE12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Executables", "Rofl.Executables\Rofl.Executables.csproj", "{BF19585D-983D-4276-A5D0-C7A97DC28499}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rofl.UI.Main", "Rofl.UI.Main\Rofl.UI.Main.csproj", "{1C7F813A-4CD3-4F7D-A110-AB65608633FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Files", "Rofl.Files\Rofl.Files.csproj", "{0DE2B53B-F1A7-4CB4-BEB1-E95302D51597}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Settings", "Rofl.Settings\Rofl.Settings.csproj", "{4E958A1D-CEC7-457A-959A-934F88979DAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rofl.Executables", "Rofl.Executables\Rofl.Executables.csproj", "{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,6 @@ Global
 		{6F3E0D23-5235-4333-BFB8-9E00996BDE12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F3E0D23-5235-4333-BFB8-9E00996BDE12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F3E0D23-5235-4333-BFB8-9E00996BDE12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF19585D-983D-4276-A5D0-C7A97DC28499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF19585D-983D-4276-A5D0-C7A97DC28499}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF19585D-983D-4276-A5D0-C7A97DC28499}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF19585D-983D-4276-A5D0-C7A97DC28499}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1C7F813A-4CD3-4F7D-A110-AB65608633FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1C7F813A-4CD3-4F7D-A110-AB65608633FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C7F813A-4CD3-4F7D-A110-AB65608633FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{4E958A1D-CEC7-457A-959A-934F88979DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E958A1D-CEC7-457A-959A-934F88979DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E958A1D-CEC7-457A-959A-934F88979DAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

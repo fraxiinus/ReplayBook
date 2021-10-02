@@ -330,6 +330,9 @@
     <string:String x:Key="ErdCsvModeText">CSV Mode</string:String>
     <string:String x:Key="ErdFailedToSave">Failed to save file</string:String>
     <string:String x:Key="ErdPreviewTitle">Data Preview</string:String>
+    <string:String x:Key="ErdPresetOverwrite">Overwrite</string:String>
+    <string:String x:Key="ErdPresetExists">Preset with that name already exists. Overwrite?</string:String>
+    <string:String x:Key="ErdPresetFailed">Failed to load preset</string:String>
 
     <!--  Welcome Setup  -->
     <string:String x:Key="WswWindowTitleText">ReplayBook Setup</string:String>
