@@ -26,7 +26,7 @@
         <TextBlock Grid.Row="0"
                    Margin="12 12 0 0"
                    FontSize="24"
-                   Text="Export Data Wizard">
+                   Text="{DynamicResource ErdTitle}">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Style.Triggers>

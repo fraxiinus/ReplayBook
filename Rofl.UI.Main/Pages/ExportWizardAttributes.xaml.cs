@@ -1,21 +1,11 @@
-﻿using ModernWpf.Controls;
-using Rofl.Reader.Models;
+﻿using Rofl.Reader.Models;
 using Rofl.UI.Main.Models;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Rofl.UI.Main.Pages
 {
@@ -77,28 +67,6 @@ namespace Rofl.UI.Main.Pages
             else if (src != null && !src.Name.Contains(filterText.ToUpper(CultureInfo.InvariantCulture)))// here is FirstName a Property in my YourCollectionItem
             {
                 e.Accepted = false;
-            }
-        }
-
-        private void LoadAttributes()
-        {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            // do not reload attributes list if it has been loaded before (when navigating back to this page for example)
-            if (context.Attributes is null)
-            {
-                context.Attributes = typeof(Player)
-                    .GetProperties()
-                    .Where(x => !x.Name.Equals("Id", StringComparison.OrdinalIgnoreCase)) // ignore internal properties
-                    .Where(x => !x.Name.Equals("PlayerID", StringComparison.OrdinalIgnoreCase))
-                    .OrderBy(x => x.Name)
-                    .Select(x => new ExportAttributeSelectItem
-                    {
-                        Checked = false,
-                        Name = x.Name,
-                        Value = "N/A"
-                    })
-                    .ToList();
             }
         }
 

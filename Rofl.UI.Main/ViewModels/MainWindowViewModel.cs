@@ -1,14 +1,12 @@
 ﻿using Etirps.RiZhi;
 using Rofl.Files;
 using Rofl.Files.Models;
-using Rofl.Reader.Models;
 using Rofl.Requests;
 using Rofl.Requests.Models;
 using Rofl.Settings;
 using Rofl.Settings.Models;
 using Rofl.UI.Main.Extensions;
 using Rofl.UI.Main.Models;
-using Rofl.UI.Main.Pages;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
 using System;
@@ -557,7 +555,7 @@ namespace Rofl.UI.Main.ViewModels
                 Replay = FileResults[preview.Location].ReplayFile,
                 ContentFrame = contentFrame,
                 HideHeader = false,
-                WindowTitleText = "Export Data Wizard",
+                WindowTitleText = Application.Current.FindResource("ErdTitle") as string,
                 Log = _log
             };
 
@@ -569,21 +567,6 @@ namespace Rofl.UI.Main.ViewModels
             };
 
             _ = exportDialog.ShowDialog();
-
-            //ExportContext exportContext = new ExportContext()
-            //{
-            //    Replays = new ReplayFile[] { FileResults[preview.Location].ReplayFile },
-            //    Markers = KnownPlayers.ToList()
-            //};
-
-            //ExportReplayDataWindow exportDialog = new ExportReplayDataWindow()
-            //{
-            //    Top = Application.Current.MainWindow.Top + 50,
-            //    Left = Application.Current.MainWindow.Left + 50,
-            //    DataContext = exportContext,
-            //};
-
-            //_ = exportDialog.ShowDialog();
         }
 
         public void ShowWelcomeWindow()

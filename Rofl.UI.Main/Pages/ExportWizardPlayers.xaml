@@ -25,8 +25,8 @@
             <ui:SimpleStackPanel Grid.Row="0"
                                  Orientation="Vertical"
                                  Spacing="12">
-                <TextBlock FontSize="16" Text="Select players to include" />
-                <CheckBox Content="Include players with marks" IsChecked="{Binding AlwaysIncludeMarked}" />
+                <TextBlock FontSize="16" Text="{DynamicResource ErdPlayersSubtitle}" />
+                <CheckBox Content="{DynamicResource ErdPlayersMarkers}" IsChecked="{Binding AlwaysIncludeMarked}" />
             </ui:SimpleStackPanel>
 
             <ListBox x:Name="PlayerListBox"
@@ -65,7 +65,6 @@
                                     <TextBlock x:Name="PlayerNameTextBlock"
                                                VerticalAlignment="Top"
                                                Text="{Binding PlayerPreview.PlayerName}" />
-
                                 </ui:SimpleStackPanel>
                             </CheckBox>
                         </ListBoxItem>
@@ -78,7 +77,7 @@
                                  Orientation="Horizontal">
                 <Button Width="100"
                         Click="NextButton_Click"
-                        Content="Next"
+                        Content="{DynamicResource WswNextText}"
                         IsDefault="True"
                         Style="{StaticResource AccentButtonStyle}" />
             </ui:SimpleStackPanel>

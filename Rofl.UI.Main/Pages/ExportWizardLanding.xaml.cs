@@ -3,18 +3,7 @@ using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Rofl.UI.Main.Pages
 {
@@ -41,7 +30,7 @@ namespace Rofl.UI.Main.Pages
 
             Window window = Window.GetWindow(this);
             window.Width = 800;
-            window.MinWidth = 800;
+            window.MinWidth = 850;
 
             context.HideHeader = true;
 
@@ -104,10 +93,13 @@ namespace Rofl.UI.Main.Pages
                 _ = await errDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
             }
 
+            // Export button pressed
             if (result == ContentDialogResult.Primary)
             {
+                // Load preset
                 context.LoadPreset(dialog.DataContext as ExportPreset);
 
+                // try to export data to file, close the wizard if its done
                 if (ExportHelper.ExportToFile(context, Window.GetWindow(this)))
                 {
                     Window.GetWindow(this).Close();

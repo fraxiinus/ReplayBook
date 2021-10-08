@@ -25,13 +25,13 @@
             <ui:SimpleStackPanel Grid.Row="0"
                                  Orientation="Vertical"
                                  Spacing="12">
-                <TextBlock FontSize="16" Text="Select player attributes to include" />
+                <TextBlock FontSize="16" Text="{DynamicResource ErdAttributesSubtitle}" />
             </ui:SimpleStackPanel>
 
             <TextBox x:Name="AttributeFilterBox"
                      Grid.Row="1"
                      Margin="0 12 0 6"
-                     ui:ControlHelper.PlaceholderText="Filter attributes..."
+                     ui:ControlHelper.PlaceholderText="{DynamicResource ErdAttributesFilter}"
                      Text="{Binding AttributeFilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      TextChanged="AttributeFilterBox_TextChanged" />
 
@@ -90,11 +90,11 @@
 
                 <Button Width="100"
                         Click="BackButton_Click"
-                        Content="Back" />
+                        Content="{DynamicResource WswPreviousText}" />
 
                 <Button Width="100"
                         Click="NextButton_Click"
-                        Content="Next"
+                        Content="{DynamicResource WswNextText}"
                         IsDefault="True"
                         Style="{StaticResource AccentButtonStyle}" />
             </ui:SimpleStackPanel>

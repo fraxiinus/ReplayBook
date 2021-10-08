@@ -25,27 +25,27 @@
             <ui:SimpleStackPanel Grid.Row="0"
                                  Orientation="Vertical"
                                  Spacing="6">
-                <TextBlock FontSize="16" Text="Output format" />
+                <TextBlock FontSize="16" Text="{DynamicResource ErdFinishFormatHeading}" />
                 <CheckBox Click="PreviewBox_Update"
-                          Content="Export as CSV"
+                          Content="{DynamicResource ErdFinishFormatCsv}"
                           IsChecked="{Binding ExportAsCSV}" />
                 <CheckBox Click="PreviewBox_Update"
-                          Content="Normalize attribute names"
+                          Content="{DynamicResource ErdFinishFormatNormalize}"
                           IsChecked="{Binding NormalizeAttributeNames}" />
-                <TextBlock FontSize="16" Text="JSON specific options" />
+                <TextBlock FontSize="16" Text="{DynamicResource ErdFinishJsonHeading}" />
                 <CheckBox Click="PreviewBox_Update"
-                          Content="Include match ID"
+                          Content="{DynamicResource ErdFinishJsonMatchId}"
                           IsChecked="{Binding IncludeMatchID}"
                           IsEnabled="{Binding ExportAsCSV, Converter={c:BoolInvertConverter}}" />
                 <CheckBox Click="PreviewBox_Update"
-                          Content="Include match duration"
+                          Content="{DynamicResource ErdFinishJsonDuration}"
                           IsChecked="{Binding IncludeMatchDuration}"
                           IsEnabled="{Binding ExportAsCSV, Converter={c:BoolInvertConverter}}" />
                 <CheckBox Click="PreviewBox_Update"
-                          Content="Include patch version"
+                          Content="{DynamicResource ErdFinishJsonVersion}"
                           IsChecked="{Binding IncludePatchVersion}"
                           IsEnabled="{Binding ExportAsCSV, Converter={c:BoolInvertConverter}}" />
-                <TextBlock FontSize="16" Text="Preview" />
+                <TextBlock FontSize="16" Text="{DynamicResource ErdPreviewTitle}" />
             </ui:SimpleStackPanel>
 
             <TextBox x:Name="PreviewTextBox"
@@ -67,13 +67,13 @@
                         Width="110"
                         HorizontalAlignment="Left"
                         Click="PresetButton_Click"
-                        Content="Save as preset" />
+                        Content="{DynamicResource ErdPresetSave}" />
 
                 <Button Grid.Column="1"
                         Width="100"
                         Margin="0 0 6 0"
                         Click="BackButton_Click"
-                        Content="Back" />
+                        Content="{DynamicResource WswPreviousText}" />
 
                 <Button Grid.Column="2"
                         Width="100"

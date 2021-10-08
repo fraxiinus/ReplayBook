@@ -19,12 +19,12 @@
 
         <TextBlock Grid.Row="0"
                    FontSize="16"
-                   Text="Properties" />
+                   Text="{DynamicResource ErdPresetProperties}" />
         <ui:SimpleStackPanel Grid.Row="1"
                              Margin="12 6 0 0"
                              Orientation="Vertical"
                              Spacing="6">
-            <TextBlock FontSize="14" Text="Export as CSV">
+            <TextBlock FontSize="14" Text="{DynamicResource ErdFinishFormatCsv}">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
@@ -38,7 +38,7 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <TextBlock FontSize="14" Text="Normalize attribute names">
+            <TextBlock FontSize="14" Text="{DynamicResource ErdFinishFormatNormalize}">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
@@ -52,7 +52,7 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <TextBlock FontSize="14" Text="Include match ID">
+            <TextBlock FontSize="14" Text="{DynamicResource ErdFinishJsonMatchId}">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
@@ -66,7 +66,7 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <TextBlock FontSize="14" Text="Include match duration">
+            <TextBlock FontSize="14" Text="{DynamicResource ErdFinishJsonDuration}">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
@@ -80,7 +80,7 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-            <TextBlock FontSize="14" Text="Include patch version">
+            <TextBlock FontSize="14" Text="{DynamicResource ErdFinishJsonVersion}">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
@@ -100,7 +100,7 @@
                              Margin="0 12 0 0"
                              Spacing="6">
 
-            <TextBlock FontSize="16" Text="Selected Players" />
+            <TextBlock FontSize="16" Text="{DynamicResource ErdPresetPlayers}" />
             <ContentPresenter Content="{Binding}">
                 <ContentPresenter.ContentTemplate>
                     <DataTemplate>
@@ -139,7 +139,7 @@
                 </ContentPresenter.ContentTemplate>
             </ContentPresenter>
 
-            <TextBlock FontSize="16" Text="Selected Attributes" />
+            <TextBlock FontSize="16" Text="{DynamicResource ErdPresetAttributes}" />
 
             <ContentPresenter Content="{Binding}">
                 <ContentPresenter.ContentTemplate>

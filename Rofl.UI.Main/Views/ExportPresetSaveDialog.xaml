@@ -7,7 +7,7 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:models="clr-namespace:Rofl.UI.Main.Models"
                   xmlns:ui="http://schemas.modernwpf.com/2019"
-                  Title="Save Preset"
+                  Title="{DynamicResource ErdPresetSaveTitle}"
                   d:DataContext="{d:DesignInstance Type=models:ExportPreset}"
                   d:DesignHeight="450"
                   d:DesignWidth="350"
@@ -18,9 +18,9 @@
                   SecondaryButtonText="{DynamicResource CancelButtonText}"
                   mc:Ignorable="d">
     <Grid>
-        <ScrollViewer Height="300">
+        <ScrollViewer Width="300" Height="300">
             <ui:SimpleStackPanel Spacing="6">
-                <TextBlock FontSize="16" Text="Name" />
+                <TextBlock FontSize="16" Text="{DynamicResource ErdPresetName}" />
                 <TextBox x:Name="PresetNameBox"
                          Focusable="True"
                          Text="{Binding PresetName}" />

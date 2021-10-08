@@ -16,7 +16,7 @@
         <ui:SimpleStackPanel Grid.Row="0"
                              Orientation="Vertical"
                              Spacing="12">
-            <TextBlock FontSize="16" Text="Choose from the following options:" />
+            <TextBlock FontSize="16" Text="{DynamicResource ErdLandingSubtitle}" />
             <Grid HorizontalAlignment="Stretch">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -36,7 +36,7 @@
                         </Grid.RowDefinitions>
                         <ui:PathIcon Data="{StaticResource ExportPathIcon}" />
                         <TextBlock Grid.Row="1"
-                                   Text="Start wizard"
+                                   Text="{DynamicResource ErdLandingStart}"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap" />
                     </Grid>
@@ -48,7 +48,7 @@
                         Click="PresetButton_Click">
                     <Grid>
                         <TextBlock Grid.Row="1"
-                                   Text="Export using preset"
+                                   Text="{DynamicResource ErdLandingPreset}"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap" />
                     </Grid>
@@ -60,7 +60,7 @@
                         Click="AdvancedButton_Click">
                     <Grid>
                         <TextBlock Grid.Row="1"
-                                   Text="Show advanced mode"
+                                   Text="{DynamicResource ErdLandingAdvanced}"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap" />
                     </Grid>
@@ -72,7 +72,7 @@
                         Click="EverythingButton_Click">
                     <Grid>
                         <TextBlock Grid.Row="1"
-                                   Text="Export everything"
+                                   Text="{DynamicResource ErdLandingEverything}"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap" />
                     </Grid>

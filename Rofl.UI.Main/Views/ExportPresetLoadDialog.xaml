@@ -7,18 +7,18 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:models="clr-namespace:Rofl.UI.Main.Models"
                   xmlns:ui="http://schemas.modernwpf.com/2019"
-                  Title="Load Preset"
+                  Title="{DynamicResource ErdPresetLoadTitle}"
                   d:DataContext="{d:DesignInstance Type=models:ExportPreset}"
                   d:DesignHeight="450"
                   d:DesignWidth="350"
                   DefaultButton="Primary"
                   IsPrimaryButtonEnabled="True"
                   IsSecondaryButtonEnabled="True"
-                  PrimaryButtonText="{DynamicResource ErdExportButtonText}"
+                  PrimaryButtonText="{DynamicResource ErdPresetLoadbutton}"
                   SecondaryButtonText="{DynamicResource CancelButtonText}"
                   mc:Ignorable="d">
     <Grid>
-        <ScrollViewer Height="300">
+        <ScrollViewer Width="300" Height="300">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

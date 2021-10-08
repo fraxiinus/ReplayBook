@@ -105,12 +105,10 @@
     <Compile Include="Converters\FormatKbSizeConverter.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Extensions\StaticResourceExtension.cs" />
-    <Compile Include="Models\ExportContext.cs" />
     <Compile Include="Models\ExportDataContext.cs" />
     <Compile Include="Models\ExportPlayerSelectItem.cs" />
     <Compile Include="Models\ExportAttributeSelectItem.cs" />
     <Compile Include="Models\ExportPreset.cs" />
-    <Compile Include="Models\ExportSelectItem.cs" />
     <Compile Include="Models\RuneStat.cs" />
     <Compile Include="Models\StatusBar.cs" />
     <Compile Include="Models\WelcomeSetupSettings.cs" />
@@ -192,9 +190,6 @@
     </Compile>
     <Compile Include="Views\PlayerMarkerDialog.xaml.cs">
       <DependentUpon>PlayerMarkerDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExportReplayDataWindow.xaml.cs">
-      <DependentUpon>ExportReplayDataWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -415,10 +410,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\PlayerMarkerDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ExportReplayDataWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
