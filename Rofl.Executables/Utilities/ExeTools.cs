@@ -114,7 +114,7 @@ namespace Rofl.Executables.Utilities
                     return LeagueLocale.Korean;
                 case "pl_PL":
                     return LeagueLocale.Polish;
-                case "bt_BR":
+                case "pt_BR":
                     return LeagueLocale.Portuguese;
                 case "ro_RO":
                     return LeagueLocale.Romanian;
