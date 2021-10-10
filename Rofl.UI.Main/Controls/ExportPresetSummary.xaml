@@ -132,7 +132,10 @@
                                 <Setter TargetName="PlayerListEmptyText" Property="Visibility" Value="Visible" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding AlwaysIncludeMarked}" Value="True">
-                                <Setter TargetName="PlayerListEmptyText" Property="TextBlock.Text" Value="Only include marked players" />
+                                <Setter TargetName="PlayerListEmptyText" Property="TextBlock.Text" Value="{DynamicResource ErdPlayersMarkers}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IncludeAllPlayers}" Value="True">
+                                <Setter TargetName="PlayerListEmptyText" Property="TextBlock.Text" Value="{DynamicResource ErdPlayersAll}" />
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>

@@ -86,7 +86,7 @@
             <ui:SimpleStackPanel Grid.Row="3"
                                  HorizontalAlignment="Right"
                                  Orientation="Horizontal"
-                                 Spacing="6">
+                                 Spacing="4">
 
                 <Button Width="100"
                         Click="BackButton_Click"

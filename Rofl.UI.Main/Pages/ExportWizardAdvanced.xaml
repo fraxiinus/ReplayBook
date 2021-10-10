@@ -31,6 +31,8 @@
             <ui:SimpleStackPanel Grid.Column="0"
                                  Orientation="Horizontal"
                                  Spacing="12">
+                <TextBlock FontSize="25" Text="{DynamicResource ErdTitleAdvanced}" />
+                <TextBlock FontSize="25" Text="-" />
                 <TextBlock FontSize="25" Text="{Binding Replay.AlternativeName, FallbackValue=ReplayName}" />
 
             </ui:SimpleStackPanel>
@@ -127,14 +129,15 @@
                     </Grid.ColumnDefinitions>
                     <Button x:Name="ExportButton"
                             Grid.Column="0"
-                            Margin="0 0 6 0"
+                            Margin="0 0 2 0"
                             HorizontalAlignment="Stretch"
+                            Click="SaveButton_Click"
                             Content="{DynamicResource ErdExportButtonText}"
                             IsDefault="True"
                             Style="{StaticResource AccentButtonStyle}" />
                     <Button x:Name="CloseButton"
                             Grid.Column="1"
-                            Margin="6 0 0 0"
+                            Margin="2 0 0 0"
                             HorizontalAlignment="Stretch"
                             Content="{DynamicResource CloseText}"
                             IsCancel="True" />
@@ -154,12 +157,15 @@
                         <TextBlock FontSize="16" Text="{DynamicResource ErdPlayersSubtitle}" />
                         <ui:RadioButtons>
                             <RadioButton Width="250"
+                                         Click="PreviewBox_Update"
                                          Content="{DynamicResource ErdPlayersManual}"
                                          IsChecked="{Binding ManualPlayerSelection}" />
                             <RadioButton Width="250"
+                                         Click="PreviewBox_Update"
                                          Content="{DynamicResource ErdPlayersMarkers}"
                                          IsChecked="{Binding AlwaysIncludeMarked}" />
                             <RadioButton Width="250"
+                                         Click="PreviewBox_Update"
                                          Content="{DynamicResource ErdPlayersAll}"
                                          IsChecked="{Binding IncludeAllPlayers}" />
                         </ui:RadioButtons>

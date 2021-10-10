@@ -26,7 +26,7 @@ namespace Rofl.UI.Main.Pages
         {
             if (!(DataContext is ExportDataContext context)) { return; }
 
-            context.WindowTitleText = "Export Data Advanced Mode";
+            context.WindowTitleText = TryFindResource("ErdTitleAdvanced") as string;
 
             // for some reason the first item in the attribute list box
             // gets selected on load. Unselect it 
@@ -198,6 +198,9 @@ namespace Rofl.UI.Main.Pages
             {
                 // Load preset
                 context.LoadPreset(dialog.DataContext as ExportPreset);
+
+                // update preview
+                context.ExportPreview = ExportHelper.ConstructExportString(context);
             }
         }
 
@@ -270,6 +273,38 @@ namespace Rofl.UI.Main.Pages
 
                     _ = await errDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
                 }
+            }
+        }
+
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(DataContext is ExportDataContext context)) { return; }
+
+            bool exit = false;
+            try
+            {
+                exit = ExportHelper.ExportToFile(context, Window.GetWindow(this));
+            }
+            catch (Exception ex)
+            {
+                context.Log.Error(TryFindResource("ErdFailedToSave") as string);
+                context.Log.Error(ex.ToString());
+
+                ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+                dialog.DefaultButton = ContentDialogButton.Primary;
+                dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
+                dialog.Title = TryFindResource("ErdFailedToSave") as string;
+                dialog.SetLabelText(ex.ToString());
+                dialog.GetContentDialogLabel().TextWrapping = TextWrapping.Wrap;
+                dialog.GetContentDialogLabel().Width = 300;
+
+                _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            }
+
+            if (exit)
+            {
+                // close window
+                Window.GetWindow(this).Close();
             }
         }
     }

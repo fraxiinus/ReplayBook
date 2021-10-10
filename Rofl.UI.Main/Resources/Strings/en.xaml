@@ -318,6 +318,7 @@
 
     <!--  Export Data : Wizard  -->
     <string:String x:Key="ErdTitle">Export Data Wizard</string:String>
+    <string:String x:Key="ErdTitleAdvanced">Export Data Advanced Mode</string:String>
     <string:String x:Key="ErdLandingSubtitle">Choose from the following options</string:String>
     <string:String x:Key="ErdLandingStart">Start wizard</string:String>
     <string:String x:Key="ErdLandingPreset">Export using preset</string:String>

@@ -53,14 +53,15 @@
                                    TextWrapping="Wrap" />
                     </Grid>
                 </Button>
+
                 <Button Grid.Row="2"
                         Height="40"
                         Margin="0 6 0 6"
                         HorizontalAlignment="Stretch"
-                        Click="AdvancedButton_Click">
+                        Click="EverythingButton_Click">
                     <Grid>
                         <TextBlock Grid.Row="1"
-                                   Text="{DynamicResource ErdLandingAdvanced}"
+                                   Text="{DynamicResource ErdLandingEverything}"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap" />
                     </Grid>
@@ -69,10 +70,10 @@
                         Height="40"
                         Margin="0 6 0 0"
                         HorizontalAlignment="Stretch"
-                        Click="EverythingButton_Click">
+                        Click="AdvancedButton_Click">
                     <Grid>
                         <TextBlock Grid.Row="1"
-                                   Text="{DynamicResource ErdLandingEverything}"
+                                   Text="{DynamicResource ErdLandingAdvanced}"
                                    TextAlignment="Center"
                                    TextWrapping="Wrap" />
                     </Grid>
