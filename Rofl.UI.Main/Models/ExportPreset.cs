@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Rofl.UI.Main.Models
 {
     public class ExportPreset
     {
+
         public string PresetName { get; set; }
 
+        public bool ManualPlayerSelection { get; set; }
+
         public bool AlwaysIncludeMarked { get; set; }
+
+        public bool IncludeAllPlayers { get; set; }
 
         public bool ExportAsCSV { get; set; }
 

@@ -548,9 +548,13 @@ namespace Rofl.UI.Main.ViewModels
                 ContentTransitions = contentTransitions
             };
 
+            // create default context values
             ExportDataContext exportDataContext = new ExportDataContext
             {
+                PresetName = "unsavedPreset",
+                ManualPlayerSelection = true,
                 AlwaysIncludeMarked = false,
+                IncludeAllPlayers = false,
                 ReplayPreview = preview,
                 Replay = FileResults[preview.Location].ReplayFile,
                 ContentFrame = contentFrame,

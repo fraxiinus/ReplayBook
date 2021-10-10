@@ -56,7 +56,7 @@ namespace Rofl.UI.Main.Pages
             context.IncludeMatchID = true;
             context.IncludePatchVersion = true;
 
-            ExportHelper.ExportToFile(context, Window.GetWindow(this));
+            _ = ExportHelper.ExportToFile(context, Window.GetWindow(this));
         }
 
         private async void PresetButton_Click(object sender, RoutedEventArgs e)
@@ -64,7 +64,7 @@ namespace Rofl.UI.Main.Pages
             if (!(DataContext is ExportDataContext context)) { return; }
 
             // create an initial preset, it is probably empty
-            ExportPreset preview = context.CreatePreset("preview");
+            ExportPreset preview = context.CreatePreset();
 
             ExportPresetLoadDialog dialog = new ExportPresetLoadDialog
             {

@@ -105,6 +105,15 @@ namespace Rofl.UI.Main.Utilities
             return JsonConvert.DeserializeObject<ExportPreset>(jsonInput);
         }
 
+        public static void DeletePresetFile(string name)
+        {
+            string filePath = Path.Combine(_presetPath, name + ".json");
+
+            if (!File.Exists(filePath)) { throw new FileNotFoundException(); }
+
+            File.Delete(filePath);
+        }
+
         private static string ConstructJsonString(ExportDataContext context)
         {
             if (context is null || context.Players is null) { return "{}"; }

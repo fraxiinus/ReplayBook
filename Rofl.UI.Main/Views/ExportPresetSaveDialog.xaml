@@ -23,7 +23,12 @@
                 <TextBlock FontSize="16" Text="{DynamicResource ErdPresetName}" />
                 <TextBox x:Name="PresetNameBox"
                          Focusable="True"
-                         Text="{Binding PresetName}" />
+                         Text="{Binding PresetName}"
+                         TextChanged="PresetNameBox_TextChanged" />
+                <TextBlock x:Name="ExistsTextBlock"
+                           Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                           Text="{DynamicResource ErdPresetExistsNotify}"
+                           Visibility="Collapsed" />
                 <controls:ExportPresetSummary />
             </ui:SimpleStackPanel>
         </ScrollViewer>

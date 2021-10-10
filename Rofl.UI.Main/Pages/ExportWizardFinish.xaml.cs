@@ -34,7 +34,7 @@ namespace Rofl.UI.Main.Pages
             if (!(DataContext is ExportDataContext context)) { return; }
 
             // create preset preview object
-            ExportPreset preview = context.CreatePreset("preview");
+            ExportPreset preview = context.CreatePreset();
 
             ExportPresetSaveDialog dialog = new ExportPresetSaveDialog
             {
@@ -47,6 +47,7 @@ namespace Rofl.UI.Main.Pages
                 // attempt to save preset to file
                 try
                 {
+                    // file already exists
                     if (ExportHelper.PresetNameExists(preview.PresetName))
                     {
                         // create dialog to inform user of overwrite
@@ -65,9 +66,21 @@ namespace Rofl.UI.Main.Pages
                             ExportHelper.SavePresetToFile(preview);
                         }
                     }
-                    else
+                    else // save to file
                     {
                         ExportHelper.SavePresetToFile(preview);
+
+                        // create dialog to inform save succeeded
+                        ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+                        errDialog.DefaultButton = ContentDialogButton.Primary;
+                        errDialog.PrimaryButtonText = TryFindResource("CloseText") as string;
+                        errDialog.Title = TryFindResource("ErdPresetSavedTitle") as string;
+                        errDialog.SetLabelText(preview.PresetName);
+                        errDialog.GetContentDialogLabel().TextWrapping = TextWrapping.Wrap;
+                        errDialog.GetContentDialogLabel().Width = 300;
+                        
+                        // show confirmation
+                        _ = await errDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
                     }
                 }
                 catch (Exception ex)

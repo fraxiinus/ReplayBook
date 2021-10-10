@@ -324,7 +324,9 @@
     <string:String x:Key="ErdLandingAdvanced">Show advanced mode</string:String>
     <string:String x:Key="ErdLandingEverything">Export everything</string:String>
     <string:String x:Key="ErdPlayersSubtitle">Select players to include</string:String>
-    <string:String x:Key="ErdPlayersMarkers">Include players with markers</string:String>
+    <string:String x:Key="ErdPlayersManual">Manual selection</string:String>
+    <string:String x:Key="ErdPlayersMarkers">Players with markers</string:String>
+    <string:String x:Key="ErdPlayersAll">All players</string:String>
     <string:String x:Key="ErdAttributesSubtitle">Select player attributes to include</string:String>
     <string:String x:Key="ErdAttributesFilter">Filter attributes...</string:String>
     <string:String x:Key="ErdFinishFormatHeading">Output format</string:String>
@@ -353,7 +355,9 @@
     <string:String x:Key="ErdPresetAttributes">Selected Attributes</string:String>
     <string:String x:Key="ErdPresetOverwrite">Overwrite</string:String>
     <string:String x:Key="ErdPresetExists">Preset with that name already exists. Overwrite?</string:String>
+    <string:String x:Key="ErdPresetExistsNotify">Name already exists</string:String>
     <string:String x:Key="ErdPresetFailed">Failed to load preset</string:String>
+    <string:String x:Key="ErdPresetSavedTitle">Preset Saved</string:String>
 
     <!--  Welcome Setup  -->
     <string:String x:Key="WswWindowTitleText">ReplayBook Setup</string:String>

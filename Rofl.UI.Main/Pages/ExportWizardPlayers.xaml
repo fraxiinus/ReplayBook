@@ -26,7 +26,17 @@
                                  Orientation="Vertical"
                                  Spacing="12">
                 <TextBlock FontSize="16" Text="{DynamicResource ErdPlayersSubtitle}" />
-                <CheckBox Content="{DynamicResource ErdPlayersMarkers}" IsChecked="{Binding AlwaysIncludeMarked}" />
+                <ui:RadioButtons>
+                    <RadioButton Width="250"
+                                 Content="{DynamicResource ErdPlayersManual}"
+                                 IsChecked="{Binding ManualPlayerSelection}" />
+                    <RadioButton Width="250"
+                                 Content="{DynamicResource ErdPlayersMarkers}"
+                                 IsChecked="{Binding AlwaysIncludeMarked}" />
+                    <RadioButton Width="250"
+                                 Content="{DynamicResource ErdPlayersAll}"
+                                 IsChecked="{Binding IncludeAllPlayers}" />
+                </ui:RadioButtons>
             </ui:SimpleStackPanel>
 
             <ListBox x:Name="PlayerListBox"
@@ -34,6 +44,21 @@
                      Margin="0 12 0 12"
                      ItemsSource="{Binding Players}"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.Style>
+                    <Style BasedOn="{StaticResource DefaultListBoxStyle}" TargetType="ListBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ManualPlayerSelection}" Value="True">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding AlwaysIncludeMarked}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IncludeAllPlayers}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.Style>
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Click="SelectAllMenuItem_OnClick" Header="{DynamicResource ErdSelectAllItems}" />

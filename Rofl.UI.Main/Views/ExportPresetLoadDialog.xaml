@@ -24,10 +24,28 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <ComboBox x:Name="PresetNamesBox"
-                          Grid.Row="0"
-                          HorizontalAlignment="Stretch"
-                          SelectionChanged="PresetNamesBox_SelectionChanged" />
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="PresetNamesBox"
+                              Grid.Column="0"
+                              HorizontalAlignment="Stretch"
+                              SelectionChanged="PresetNamesBox_SelectionChanged" />
+                    <Button x:Name="DeleteButton"
+                            Grid.Column="1"
+                            Height="32"
+                            Margin="12 0 12 0"
+                            HorizontalAlignment="Stretch"
+                            Click="DeleteButton_Click"
+                            ToolTip="{DynamicResource DeleteReplayFile}">
+                        <ui:PathIcon Grid.Row="0"
+                                     Width="16"
+                                     Height="16"
+                                     Data="{StaticResource DeletePathIcon}" />
+                    </Button>
+                </Grid>
                 <controls:ExportPresetSummary Grid.Row="1" Margin="0 12 0 0" />
             </Grid>
         </ScrollViewer>

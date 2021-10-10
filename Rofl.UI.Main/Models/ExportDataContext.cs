@@ -94,6 +94,32 @@ namespace Rofl.UI.Main.Models
             }
         }
 
+        private string _presetName;
+        public string PresetName
+        {
+            get => _presetName;
+            set
+            {
+                _presetName = value;
+
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(PresetName)));
+            }
+        }
+
+        private bool _manualPlayerSelection;
+        public bool ManualPlayerSelection
+        {
+            get => _manualPlayerSelection;
+            set
+            {
+                _manualPlayerSelection = value;
+
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ManualPlayerSelection)));
+            }
+        }
+
         private bool _alwaysIncludeMarked;
         /// <summary>
         /// Check or uncheck players with marks
@@ -110,15 +136,43 @@ namespace Rofl.UI.Main.Models
                 {
                     foreach (ExportPlayerSelectItem playerSelect in Players)
                     {
-                        if (playerSelect.PlayerPreview.IsKnownPlayer)
+                        // if the player is known, check it, or uncheck it based on selection
+                        // do not uncheck if include all is chosen
+                        if (playerSelect.PlayerPreview.IsKnownPlayer && !IncludeAllPlayers)
                         {
                             playerSelect.Checked = _alwaysIncludeMarked;
+                        }
+                        else if (!IncludeAllPlayers) // if I don't know you and not including all characters
+                        {
+                            playerSelect.Checked = false;
                         }
                     }
                 }
 
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(AlwaysIncludeMarked)));
+            }
+        }
+
+        private bool _includeAllPlayers;
+        public bool IncludeAllPlayers
+        {
+            get => _includeAllPlayers;
+            set
+            {
+                _includeAllPlayers = value;
+
+                // Check or uncheck players
+                if (Players != null)
+                {
+                    foreach (ExportPlayerSelectItem playerSelect in Players)
+                    {
+                        playerSelect.Checked = _includeAllPlayers;
+                    }
+                }
+
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(IncludeAllPlayers)));
             }
         }
 
@@ -274,12 +328,14 @@ namespace Rofl.UI.Main.Models
 
         #region Methods
 
-        public ExportPreset CreatePreset(string name)
+        public ExportPreset CreatePreset()
         {
             return new ExportPreset
             {
-                PresetName = name,
+                PresetName = PresetName,
+                ManualPlayerSelection = ManualPlayerSelection,
                 AlwaysIncludeMarked = AlwaysIncludeMarked,
+                IncludeAllPlayers = IncludeAllPlayers,
                 ExportAsCSV = ExportAsCSV,
                 IncludeMatchDuration = !ExportAsCSV && IncludeMatchDuration,
                 IncludeMatchID = !ExportAsCSV && IncludeMatchID,
@@ -288,23 +344,27 @@ namespace Rofl.UI.Main.Models
                 SelectedAttributes = Attributes.Where(x => x.Checked)
                                                .Select(x => x.Name)
                                                .ToList(),
-                // do not save selected players if we are going by marks
-                SelectedPlayers = AlwaysIncludeMarked
-                    ? new List<string>()
-                    : Players.Where(x => x.Checked)
+                // only include players if manual selection is true
+                SelectedPlayers = ManualPlayerSelection
+                    ? Players.Where(x => x.Checked)
                              .Select(x => x.PlayerPreview.PlayerName)
-                             .ToList(),
+                             .ToList()
+                    : new List<string>()
             };
         }
 
         public void LoadPreset(ExportPreset preset)
         {
+            PresetName = preset.PresetName;
+            ManualPlayerSelection = preset.ManualPlayerSelection;
+            IncludeAllPlayers = preset.IncludeAllPlayers;
             AlwaysIncludeMarked = preset.AlwaysIncludeMarked;
             ExportAsCSV = preset.ExportAsCSV;
             IncludeMatchDuration = preset.IncludeMatchDuration;
             IncludeMatchID = preset.IncludeMatchID;
             IncludePatchVersion = preset.IncludePatchVersion;
             NormalizeAttributeNames = preset.NormalizeAttributeNames;
+            // check all attributes in presets
             foreach (string selectedAttributeName in preset.SelectedAttributes)
             {
                 ExportAttributeSelectItem attribute = Attributes.FirstOrDefault(x => x.Name == selectedAttributeName);
@@ -314,11 +374,12 @@ namespace Rofl.UI.Main.Models
                 }
             }
 
-            // only select players like this if we aren't selecting by marks
-            if (!preset.AlwaysIncludeMarked)
+            // only select players like this if we aren't selecting by marks/all
+            if (preset.ManualPlayerSelection)
             {
                 foreach (string selectedPlayerName in preset.SelectedPlayers)
                 {
+                    // find the player with the same name
                     ExportPlayerSelectItem player = Players.FirstOrDefault(x => x.PlayerPreview.PlayerName == selectedPlayerName);
                     if (player != null)
                     {
