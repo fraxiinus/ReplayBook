@@ -18,6 +18,8 @@ namespace Rofl.UI.Main.Views
 
         private void PresetNameBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
+            if (string.IsNullOrEmpty(PresetNameBox.Text)) { return; }
+
             // if preset already exists...
             ExistsTextBlock.Visibility = ExportHelper.PresetNameExists(PresetNameBox.Text)
                 ? Visibility.Visible

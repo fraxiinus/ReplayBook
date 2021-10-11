@@ -114,6 +114,9 @@ namespace Rofl.UI.Main.Pages
             {
                 playerSelect.Checked = true;
             }
+
+            // update preview
+            context.ExportPreview = ExportHelper.ConstructExportString(context);
         }
 
         private void DeselectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -124,6 +127,9 @@ namespace Rofl.UI.Main.Pages
             {
                 playerSelect.Checked = false;
             }
+
+            // update preview
+            context.ExportPreview = ExportHelper.ConstructExportString(context);
         }
 
         private void SelectAllAttributeMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -134,6 +140,9 @@ namespace Rofl.UI.Main.Pages
             {
                 attributeSelect.Checked = true;
             }
+
+            // update preview
+            context.ExportPreview = ExportHelper.ConstructExportString(context);
         }
 
         private void DeselectAllAttributeMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -144,6 +153,9 @@ namespace Rofl.UI.Main.Pages
             {
                 attributeSelect.Checked = false;
             }
+
+            // update preview
+            context.ExportPreview = ExportHelper.ConstructExportString(context);
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

@@ -35,6 +35,10 @@ namespace Rofl.UI.Main.Pages
                     attribute.Value = player.GetType().GetProperty(attribute.Name).GetValue(player)?.ToString() ?? "N/A";
                 }
             }
+
+            // for some reason the first item in the attribute list box
+            // gets selected on load. Unselect it 
+            AttributeListBox.UnselectAll();
         }
 
         private void AttributeFilterBox_TextChanged(object sender, TextChangedEventArgs e)
