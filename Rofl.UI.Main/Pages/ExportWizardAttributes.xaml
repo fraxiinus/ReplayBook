@@ -1,0 +1,103 @@
+﻿<ui:Page x:Class="Rofl.UI.Main.Pages.ExportWizardAttributes"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+         xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:models="clr-namespace:Rofl.UI.Main.Models"
+         xmlns:ui="http://schemas.modernwpf.com/2019"
+         Title="ExportWizardAttributes"
+         d:DataContext="{d:DesignInstance Type=models:ExportDataContext}"
+         d:DesignHeight="450"
+         d:DesignWidth="400"
+         Loaded="ExportWizardAttributes_Loaded"
+         mc:Ignorable="d">
+
+    <Border Padding="12">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ui:SimpleStackPanel Grid.Row="0"
+                                 Orientation="Vertical"
+                                 Spacing="12">
+                <TextBlock FontSize="16" Text="{DynamicResource ErdAttributesSubtitle}" />
+            </ui:SimpleStackPanel>
+
+            <TextBox x:Name="AttributeFilterBox"
+                     Grid.Row="1"
+                     Margin="0 12 0 6"
+                     ui:ControlHelper.PlaceholderText="{DynamicResource ErdAttributesFilter}"
+                     Text="{Binding AttributeFilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     TextChanged="AttributeFilterBox_TextChanged" />
+
+            <ListBox x:Name="AttributeListBox"
+                     Grid.Row="2"
+                     Margin="0 0 0 12"
+                     ItemsSource="{Binding AttributesView.View}">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Click="SelectAllMenuItem_OnClick" Header="{DynamicResource ErdSelectAllItems}" />
+                        <MenuItem Click="DeselectAllMenuItem_OnClick" Header="{DynamicResource ErdDeselectAllItems}" />
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                        <Setter Property="Height" Value="38" />
+                        <Setter Property="Padding" Value="8" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="models:ExportSelectItem">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Column="0"
+                                      HorizontalAlignment="Stretch"
+                                      IsChecked="{Binding Path=Checked}"
+                                      ToolTip="{Binding Path=Name}">
+                                <TextBlock MinWidth="50"
+                                           Text="{Binding Path=Name}"
+                                           TextTrimming="CharacterEllipsis" />
+                            </CheckBox>
+                            <TextBlock Grid.Column="1"
+                                       Margin="12 0 12 0"
+                                       Padding="5 3 5 3"
+                                       VerticalAlignment="Center"
+                                       Background="{StaticResource AccentColorLight2}"
+                                       FontSize="12"
+                                       Foreground="{StaticResource LightTextColor}"
+                                       Text="{Binding Path=Value}"
+                                       ToolTip="{Binding Path=Value}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
+            <ui:SimpleStackPanel Grid.Row="3"
+                                 HorizontalAlignment="Right"
+                                 Orientation="Horizontal"
+                                 Spacing="4">
+
+                <Button Width="100"
+                        Click="BackButton_Click"
+                        Content="{DynamicResource WswPreviousText}" />
+
+                <Button Width="100"
+                        Click="NextButton_Click"
+                        Content="{DynamicResource WswNextText}"
+                        IsDefault="True"
+                        Style="{StaticResource AccentButtonStyle}" />
+            </ui:SimpleStackPanel>
+        </Grid>
+    </Border>
+</ui:Page>

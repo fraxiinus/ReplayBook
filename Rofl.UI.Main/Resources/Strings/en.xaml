@@ -316,20 +316,49 @@
     <string:String x:Key="DeleteReplayFile">Delete</string:String>
     <string:String x:Key="RefreshReplayList">Refresh List</string:String>
 
-    <!--  Replay Data Export  -->
-    <string:String x:Key="ErdTitleText">Export Replay Data</string:String>
-    <string:String x:Key="ErdLevel1TitleText">Replay properties</string:String>
-    <string:String x:Key="ErdLevel2TitleText">Players</string:String>
-    <string:String x:Key="ErdLevel3TitleText">Player properties</string:String>
+    <!--  Export Data : Wizard  -->
+    <string:String x:Key="ErdTitle">Export Data Wizard</string:String>
+    <string:String x:Key="ErdTitleAdvanced">Export Data Advanced Mode</string:String>
+    <string:String x:Key="ErdLandingSubtitle">Choose from the following options</string:String>
+    <string:String x:Key="ErdLandingStart">Start wizard</string:String>
+    <string:String x:Key="ErdLandingPreset">Export using preset</string:String>
+    <string:String x:Key="ErdLandingAdvanced">Show advanced mode</string:String>
+    <string:String x:Key="ErdLandingEverything">Export everything</string:String>
+    <string:String x:Key="ErdPlayersSubtitle">Select players to include</string:String>
+    <string:String x:Key="ErdPlayersManual">Manual selection</string:String>
+    <string:String x:Key="ErdPlayersMarkers">Players with markers</string:String>
+    <string:String x:Key="ErdPlayersAll">All players</string:String>
+    <string:String x:Key="ErdAttributesSubtitle">Select player attributes to include</string:String>
+    <string:String x:Key="ErdAttributesFilter">Filter attributes...</string:String>
+    <string:String x:Key="ErdFinishFormatHeading">Output format</string:String>
+    <string:String x:Key="ErdFinishFormatCsv">Export as CSV</string:String>
+    <string:String x:Key="ErdFinishFormatNormalize">Normalize attribute names</string:String>
+    <string:String x:Key="ErdFinishJsonHeading">JSON specific options</string:String>
+    <string:String x:Key="ErdFinishJsonMatchId">Include match ID</string:String>
+    <string:String x:Key="ErdFinishJsonDuration">Include match duration</string:String>
+    <string:String x:Key="ErdFinishJsonVersion">Include patch version</string:String>
+    <string:String x:Key="ErdPreviewTitle">Data Preview</string:String>
+
+    <!--  Export Data : Common Items + Presets  -->
     <string:String x:Key="ErdSelectAllItems">Select all</string:String>
     <string:String x:Key="ErdDeselectAllItems">Deselect all</string:String>
     <string:String x:Key="ErdExportButtonText">Export...</string:String>
     <string:String x:Key="ErdExportDialogTitle">Choose Export Location</string:String>
-    <string:String x:Key="ErdExportNullTitle">Nothing Selected</string:String>
-    <string:String x:Key="ErdExportNullTest">Nothing selected to export</string:String>
-    <string:String x:Key="ErdCsvModeText">CSV Mode</string:String>
     <string:String x:Key="ErdFailedToSave">Failed to save file</string:String>
-    <string:String x:Key="ErdPreviewTitle">Data Preview</string:String>
+    <string:String x:Key="ErdPresetSave">Save as preset</string:String>
+    <string:String x:Key="ErdPresetLoad">Load a preset</string:String>
+    <string:String x:Key="ErdPresetLoadbutton">Load</string:String>
+    <string:String x:Key="ErdPresetLoadTitle">Load Preset</string:String>
+    <string:String x:Key="ErdPresetSaveTitle">Save Preset</string:String>
+    <string:String x:Key="ErdPresetName">Name</string:String>
+    <string:String x:Key="ErdPresetProperties">Properties</string:String>
+    <string:String x:Key="ErdPresetPlayers">Selected Players</string:String>
+    <string:String x:Key="ErdPresetAttributes">Selected Attributes</string:String>
+    <string:String x:Key="ErdPresetOverwrite">Overwrite</string:String>
+    <string:String x:Key="ErdPresetExists">Preset with that name already exists. Overwrite?</string:String>
+    <string:String x:Key="ErdPresetExistsNotify">Name already exists</string:String>
+    <string:String x:Key="ErdPresetFailed">Failed to load preset</string:String>
+    <string:String x:Key="ErdPresetSavedTitle">Preset Saved</string:String>
 
     <!--  Welcome Setup  -->
     <string:String x:Key="WswWindowTitleText">ReplayBook Setup</string:String>

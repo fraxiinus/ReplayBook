@@ -1,0 +1,84 @@
+﻿<ui:Page x:Class="Rofl.UI.Main.Pages.ExportWizardLanding"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+         xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:models="clr-namespace:Rofl.UI.Main.Models"
+         xmlns:ui="http://schemas.modernwpf.com/2019"
+         Title="ExportWizardLanding"
+         d:DataContext="{d:DesignInstance Type=models:ExportDataContext}"
+         d:DesignHeight="450"
+         d:DesignWidth="400"
+         mc:Ignorable="d">
+
+    <Border Padding="12">
+        <ui:SimpleStackPanel Grid.Row="0"
+                             Orientation="Vertical"
+                             Spacing="12">
+            <TextBlock FontSize="16" Text="{DynamicResource ErdLandingSubtitle}" />
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0"
+                        Height="80"
+                        Margin="0 0 0 6"
+                        HorizontalAlignment="Stretch"
+                        Click="StartButton_Click">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ui:PathIcon Data="{StaticResource ExportPathIcon}" />
+                        <TextBlock Grid.Row="1"
+                                   Text="{DynamicResource ErdLandingStart}"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </Grid>
+                </Button>
+                <Button Grid.Row="1"
+                        Height="40"
+                        Margin="0 6 0 6"
+                        HorizontalAlignment="Stretch"
+                        Click="PresetButton_Click">
+                    <Grid>
+                        <TextBlock Grid.Row="1"
+                                   Text="{DynamicResource ErdLandingPreset}"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </Grid>
+                </Button>
+
+                <Button Grid.Row="2"
+                        Height="40"
+                        Margin="0 6 0 6"
+                        HorizontalAlignment="Stretch"
+                        Click="EverythingButton_Click">
+                    <Grid>
+                        <TextBlock Grid.Row="1"
+                                   Text="{DynamicResource ErdLandingEverything}"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </Grid>
+                </Button>
+                <Button Grid.Row="3"
+                        Height="40"
+                        Margin="0 6 0 0"
+                        HorizontalAlignment="Stretch"
+                        Click="AdvancedButton_Click">
+                    <Grid>
+                        <TextBlock Grid.Row="1"
+                                   Text="{DynamicResource ErdLandingAdvanced}"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </Grid>
+                </Button>
+            </Grid>
+        </ui:SimpleStackPanel>
+    </Border>
+</ui:Page>

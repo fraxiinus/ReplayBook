@@ -2,7 +2,7 @@
 
 namespace Rofl.UI.Main.Models
 {
-    public class ExportSelectItem : INotifyPropertyChanged
+    public class ExportAttributeSelectItem : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -15,19 +15,6 @@ namespace Rofl.UI.Main.Models
             set
             {
                 _name = value;
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(Name)));
-            }
-        }
-
-        private string _internalString;
-        public string InternalString
-        {
-            get => _internalString;
-
-            set
-            {
-                _internalString = value;
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(Name)));
             }

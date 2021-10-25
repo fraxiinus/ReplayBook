@@ -1,0 +1,87 @@
+﻿<ui:Page x:Class="Rofl.UI.Main.Pages.ExportWizardFinish"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:c="clr-namespace:Rofl.UI.Main.Converters"
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+         xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:models="clr-namespace:Rofl.UI.Main.Models"
+         xmlns:ui="http://schemas.modernwpf.com/2019"
+         Title="ExportWizardFinish"
+         d:DataContext="{d:DesignInstance Type=models:ExportDataContext}"
+         d:DesignHeight="450"
+         d:DesignWidth="400"
+         Loaded="PreviewBox_Update"
+         mc:Ignorable="d">
+
+    <Border Padding="12">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ui:SimpleStackPanel Grid.Row="0"
+                                 Orientation="Vertical"
+                                 Spacing="6">
+                <TextBlock FontSize="16" Text="{DynamicResource ErdFinishFormatHeading}" />
+                <CheckBox Click="PreviewBox_Update"
+                          Content="{DynamicResource ErdFinishFormatCsv}"
+                          IsChecked="{Binding ExportAsCSV}" />
+                <CheckBox Click="PreviewBox_Update"
+                          Content="{DynamicResource ErdFinishFormatNormalize}"
+                          IsChecked="{Binding NormalizeAttributeNames}" />
+                <TextBlock FontSize="16" Text="{DynamicResource ErdFinishJsonHeading}" />
+                <CheckBox Click="PreviewBox_Update"
+                          Content="{DynamicResource ErdFinishJsonMatchId}"
+                          IsChecked="{Binding IncludeMatchID}"
+                          IsEnabled="{Binding ExportAsCSV, Converter={c:BoolInvertConverter}}" />
+                <CheckBox Click="PreviewBox_Update"
+                          Content="{DynamicResource ErdFinishJsonDuration}"
+                          IsChecked="{Binding IncludeMatchDuration}"
+                          IsEnabled="{Binding ExportAsCSV, Converter={c:BoolInvertConverter}}" />
+                <CheckBox Click="PreviewBox_Update"
+                          Content="{DynamicResource ErdFinishJsonVersion}"
+                          IsChecked="{Binding IncludePatchVersion}"
+                          IsEnabled="{Binding ExportAsCSV, Converter={c:BoolInvertConverter}}" />
+                <TextBlock FontSize="16" Text="{DynamicResource ErdPreviewTitle}" />
+            </ui:SimpleStackPanel>
+
+            <TextBox x:Name="PreviewTextBox"
+                     Grid.Row="1"
+                     Margin="0 12 0 12"
+                     FontFamily="Consolas"
+                     IsReadOnly="True"
+                     Text="{Binding ExportPreview, Mode=OneWay}"
+                     VerticalScrollBarVisibility="Auto" />
+
+            <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        Width="110"
+                        HorizontalAlignment="Left"
+                        Click="PresetButton_Click"
+                        Content="{DynamicResource ErdPresetSave}" />
+
+                <Button Grid.Column="1"
+                        Width="100"
+                        Margin="0 0 4 0"
+                        Click="BackButton_Click"
+                        Content="{DynamicResource WswPreviousText}" />
+
+                <Button Grid.Column="2"
+                        Width="100"
+                        Click="SaveButton_Click"
+                        Content="{DynamicResource ErdExportButtonText}"
+                        IsDefault="True"
+                        Style="{StaticResource AccentButtonStyle}" />
+            </Grid>
+        </Grid>
+    </Border>
+</ui:Page>
