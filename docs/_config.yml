@@ -1,2 +1,4 @@
 show_downloads: true
 theme: jekyll-theme-midnight
+github:
+  zip_url: https://github.com/fraxiinus/ReplayBook/releases/latest/download/ReplayBook.zip
