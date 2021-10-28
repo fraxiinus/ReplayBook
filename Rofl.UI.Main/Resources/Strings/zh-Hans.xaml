@@ -318,17 +318,10 @@
     <string:String x:Key="RefreshReplayList">刷新列表</string:String>
 
     <!--  Replay Data Export  -->
-    <string:String x:Key="ErdTitleText">导出回放文件数据</string:String>
-    <string:String x:Key="ErdLevel1TitleText">回放文件属性</string:String>
-    <string:String x:Key="ErdLevel2TitleText">召唤师</string:String>
-    <string:String x:Key="ErdLevel3TitleText">召唤师属性</string:String>
     <string:String x:Key="ErdSelectAllItems">全选</string:String>
     <string:String x:Key="ErdDeselectAllItems">取消全选</string:String>
     <string:String x:Key="ErdExportButtonText">导出...</string:String>
     <string:String x:Key="ErdExportDialogTitle">选择导出位置</string:String>
-    <string:String x:Key="ErdExportNullTitle">尚未选中任何数据</string:String>
-    <string:String x:Key="ErdExportNullTest">没有选择要导出的内容</string:String>
-    <string:String x:Key="ErdCsvModeText">CSV表格模式</string:String>
     <string:String x:Key="ErdFailedToSave">无法保存文件</string:String>
     <string:String x:Key="ErdPreviewTitle">数据预览</string:String>
 

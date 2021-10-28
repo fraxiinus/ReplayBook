@@ -310,17 +310,10 @@
     <string:String x:Key="RefreshReplayList">Liste erneuern</string:String>
 
     <!--  Replay Data Export  -->
-    <string:String x:Key="ErdTitleText">Replaydaten exportieren</string:String>
-    <string:String x:Key="ErdLevel1TitleText">Replayeigenschaften</string:String>
-    <string:String x:Key="ErdLevel2TitleText">Spieler</string:String>
-    <string:String x:Key="ErdLevel3TitleText">Spielereigenschaften</string:String>
     <string:String x:Key="ErdSelectAllItems">Alles auswählen</string:String>
     <string:String x:Key="ErdDeselectAllItems">Alles abwählen</string:String>
     <string:String x:Key="ErdExportButtonText">Exportieren...</string:String>
     <string:String x:Key="ErdExportDialogTitle">Exportstandort auswählen</string:String>
-    <string:String x:Key="ErdExportNullTitle">Nichts ausgewählt</string:String>
-    <string:String x:Key="ErdExportNullTest">Nichts zum exportieren ausgewählt</string:String>
-    <string:String x:Key="ErdCsvModeText">CSV Modus</string:String>
     <string:String x:Key="ErdFailedToSave">Speichern der Datei fehlgeschlagen</string:String>
     <string:String x:Key="ErdPreviewTitle">Datenvorschau</string:String>
 
