@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
+using ModernWpf.Controls;
 using Rofl.Requests.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
@@ -12,7 +14,7 @@ namespace Rofl.UI.Main.Pages
     /// <summary>
     /// Interaction logic for WelcomeSetupDownload.xaml
     /// </summary>
-    public partial class WelcomeSetupDownload : Page
+    public partial class WelcomeSetupDownload : System.Windows.Controls.Page
     {
         public WelcomeSetupDownload()
         {
@@ -39,6 +41,24 @@ namespace Rofl.UI.Main.Pages
             if (downloadChamps == false && downloadItems == false && downloadRunes == false)
             {
                 ErrorText.Text = (string)TryFindResource("WswDownloadNoSelectionError");
+                return;
+            }
+
+            // test internet by requesting latest version
+            try
+            {
+                _ = await context.RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
+            }
+            catch (HttpRequestException)
+            {
+                // tell user
+                ContentDialog dialog = ContentDialogHelper.CreateContentDialog();
+                dialog.SetLabelText((string)TryFindResource("WswDownloadMissingError"));
+                dialog.Title = (string)TryFindResource("ErrorTitle");
+                dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
+                dialog.DefaultButton = ContentDialogButton.Primary;
+                _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+
                 return;
             }
 
