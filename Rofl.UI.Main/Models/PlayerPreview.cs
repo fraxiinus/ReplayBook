@@ -1,5 +1,6 @@
 ﻿using Rofl.Reader.Models;
 using Rofl.Settings.Models;
+using Rofl.UI.Main.Utilities;
 using System;
 using System.ComponentModel;
 using System.Windows.Media;
@@ -17,6 +18,9 @@ namespace Rofl.UI.Main.Models
             PlayerMarkerStyle = markerStyle;
             marker = null;
             imgSrc = null;
+
+            // default to error icon
+            OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
