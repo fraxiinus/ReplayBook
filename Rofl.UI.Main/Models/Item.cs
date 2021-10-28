@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Rofl.UI.Main.Utilities;
+using System.ComponentModel;
 using System.Windows.Media;
 
 namespace Rofl.UI.Main.Models
@@ -9,6 +10,9 @@ namespace Rofl.UI.Main.Models
         {
             ItemId = itemId;
             ItemName = "Item";
+
+            // default to error icon
+            OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

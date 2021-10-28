@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -57,6 +58,9 @@ namespace Rofl.UI.Main.ViewModels
         public bool ClearRunesCacheOnClose { get; set; }
 
         public bool ClearReplayCacheOnClose { get; set; }
+
+        // flag to indicate something is wrong with internet connection
+        private bool InternetFailed { get; set; }
 
         // public string LatestDataDragonVersion { get; private set; }
 
@@ -166,7 +170,20 @@ namespace Rofl.UI.Main.ViewModels
             _log.Information("Loading/downloading thumbnails for items...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            string dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
+            // we already know the internet failed
+            if (InternetFailed) { return; }
+
+            string dataVersion;
+            try
+            {
+                dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
+            }
+            catch (HttpRequestException)
+            {
+                _log.Error("Could not load item thumbnails due to http exception");
+                InternetFailed = true;
+                return;
+            }
 
             List<Item> allItems = new List<Item>();
             List<Task> itemTasks = new List<Task>();
@@ -183,6 +200,9 @@ namespace Rofl.UI.Main.ViewModels
                     Application.Current.Dispatcher.Invoke(delegate
                     {
                         item.ShowBorder = true;
+
+                        // the default image is an error, so clear it out
+                        item.OverlayIcon = null;
                     });
                     continue;
                 }
@@ -249,7 +269,20 @@ namespace Rofl.UI.Main.ViewModels
         {
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            string dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
+            // we already know the internet failed
+            if (InternetFailed) { return; }
+
+            string dataVersion;
+            try
+            {
+                dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
+            }
+            catch (HttpRequestException)
+            {
+                _log.Error("Could not load player thumbnails due to http exception");
+                InternetFailed = true;
+                return;
+            }
 
             List<PlayerPreview> allPlayers = new List<PlayerPreview>();
             allPlayers.AddRange(replay.BluePreviewPlayers);

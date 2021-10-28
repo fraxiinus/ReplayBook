@@ -24,6 +24,9 @@ namespace Rofl.UI.Main.Models
             Value0 = int.TryParse(firstValue, out int parsedValue0) ? parsedValue0 : 0;
             Value1 = int.TryParse(secondValue, out int parsedValue1) ? parsedValue1 : 0;
             Value2 = int.TryParse(thirdValue, out int parsedValue2) ? parsedValue2 : 0;
+
+            // default to error icon
+            OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
         }
 
         private ImageSource _imgSrc;

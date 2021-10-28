@@ -101,11 +101,13 @@ namespace Rofl.Requests.Utilities
 
         public async Task<string> GetLatestDataDragonVersion()
         {
+            // check if we have a value cached already
             if (string.IsNullOrEmpty(LatestDataDragonVersion))
             {
-                var latest = (await GetDataDragonVersionStringsAsync().ConfigureAwait(true))
-                    .FirstOrDefault();
-                LatestDataDragonVersion = latest;
+                string[] versionList = await GetDataDragonVersionStringsAsync().ConfigureAwait(true);
+
+                // Cache the value and return
+                LatestDataDragonVersion = versionList.FirstOrDefault();
             }
 
             return LatestDataDragonVersion;
@@ -130,10 +132,10 @@ namespace Rofl.Requests.Utilities
                 {
                     response = await _httpClient.SendAsync(request).ConfigureAwait(true);
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    _log.Error($"Unable to send HTTP request to {url}");
-                    return null;
+                    _log.Error($"Unable to send HTTP request to {url}, Exception: {ex}");
+                    throw;
                 }
             }
 
@@ -147,15 +149,14 @@ namespace Rofl.Requests.Utilities
             }
             else
             {
-                _log.Error($"HTTP request failed {(int)response.StatusCode} {url}");
-                return null;
+                throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}");
             }
         }
 
         public async Task<IEnumerable<string>> GetAllChampionNames()
         {
             var version = await GetLatestDataDragonVersion().ConfigureAwait(true);
-            var url = @"http://ddragon.leagueoflegends.com/cdn/" + version + @"/data/en_US/champion.json";
+            var url = _settings.DataDragonBaseUrl + version + @"/data/en_US/champion.json";
 
             JObject responseObject;
 
@@ -170,10 +171,10 @@ namespace Rofl.Requests.Utilities
                 {
                     response = await _httpClient.SendAsync(request).ConfigureAwait(true);
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    _log.Error($"Unable to send HTTP request to {url}");
-                    return null;
+                    _log.Error($"Unable to send HTTP request to {url}, Exception: {ex}");
+                    throw;
                 }
             }
 
@@ -188,8 +189,7 @@ namespace Rofl.Requests.Utilities
             }
             else
             {
-                _log.Error($"HTTP request failed {(int)response.StatusCode} {url}");
-                return null;
+                throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}");
             }
 
             return (from JProperty champion in responseObject["data"] select champion.Name).ToList();
@@ -198,7 +198,7 @@ namespace Rofl.Requests.Utilities
         public async Task<IEnumerable<string>> GetAllItemNumbers()
         {
             var version = await GetLatestDataDragonVersion().ConfigureAwait(true);
-            var url = @"http://ddragon.leagueoflegends.com/cdn/" + version + @"/data/en_US/item.json";
+            var url = _settings.DataDragonBaseUrl + version + @"/data/en_US/item.json";
 
             JObject responseObject;
 
@@ -213,10 +213,10 @@ namespace Rofl.Requests.Utilities
                 {
                     response = await _httpClient.SendAsync(request).ConfigureAwait(true);
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    _log.Error($"Unable to send HTTP request to {url}");
-                    return null;
+                    _log.Error($"Unable to send HTTP request to {url}, Exception: {ex}");
+                    throw;
                 }
             }
 
@@ -231,8 +231,7 @@ namespace Rofl.Requests.Utilities
             }
             else
             {
-                _log.Error($"HTTP request failed {(int)response.StatusCode} {url}");
-                return null;
+                throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}");
             }
 
             return (from JProperty champion in responseObject["data"] select champion.Name).ToList();
@@ -338,10 +337,10 @@ namespace Rofl.Requests.Utilities
                 {
                     response = await _httpClient.SendAsync(request).ConfigureAwait(false);
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException ex)
                 {
-                    _log.Error($"Unable to send HTTP request to {url}");
-                    return null;
+                    _log.Error($"Unable to send HTTP request to {url}, Exception: {ex}");
+                    throw;
                 }
             }
 
@@ -362,8 +361,7 @@ namespace Rofl.Requests.Utilities
             }
             else
             {
-                _log.Warning($"HTTP request failed {(int) response.StatusCode} {url}");
-                return null;
+                throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}");
             }
         }
 

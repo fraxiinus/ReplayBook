@@ -124,23 +124,11 @@ namespace Rofl.Requests
         }
 
         /// <summary>
-        /// Given replay version string, returns appropriate DataDragon version.
-        /// Only compares first two numbers.
+        /// Returns latest data dragon version, useable in data dragon cdn
         /// </summary>
         public async Task<string> GetLatestDataDragonVersionAsync()
         {
-            // If we have a saved data dragon version, return that instead
-            if (!String.IsNullOrEmpty(_latestDataDragonVersion) && 
-                !String.IsNullOrEmpty(_latestDataDragonVersion.VersionSubstring()))
-            {
-                return _latestDataDragonVersion;
-            }
-
-            var allVersions = await _downloadClient.GetDataDragonVersionStringsAsync().ConfigureAwait(true);
-
-            _latestDataDragonVersion = allVersions.FirstOrDefault();
-
-            return _latestDataDragonVersion;
+            return await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
         }
 
         public async Task<IEnumerable<ChampionRequest>> GetAllChampionRequests()
