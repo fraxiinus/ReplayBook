@@ -30,13 +30,13 @@
     <string:String x:Key="RunesTabText">RUNES</string:String>
     <string:String x:Key="StatsTabText">STATS</string:String>
     <string:String x:Key="BlankDetailMessageText">Sélectionnez un replay à gauche pour commencer</string:String>
-    <string:String x:Key="FailedToLoadReplayText">Echec du chargement de la rediffusion</string:String>
+    <string:String x:Key="FailedToLoadReplayText">Échec du chargement de la rediffusion</string:String>
     <string:String x:Key="Victory">VICTOIRE</string:String>
     <string:String x:Key="BlueVictory">Victoire Bleue</string:String>
     <string:String x:Key="RedVictory">Victoire Rouge</string:String>
     <string:String x:Key="ErrorTitle">Erreur</string:String>
     <string:String x:Key="ConfirmTitle">Confirmez</string:String>
-    <string:String x:Key="ConfirmText">Etes-vous sûr?</string:String>
+    <string:String x:Key="ConfirmText">Êtes-vous sûr?</string:String>
 
     <string:String x:Key="ReplaySupported">Jouable</string:String>
     <string:String x:Key="ReplayUnsupported">Non supporté</string:String>
@@ -170,7 +170,7 @@
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
     <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
-    <string:String x:Key="DiscordInviteButton">Jeigner le Discord</string:String>
+    <string:String x:Key="DiscordInviteButton">Joigner le Discord</string:String>
     <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">Ce programme est sous la licence GPL-3.0</string:String>
@@ -257,18 +257,18 @@
     <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
     <string:String x:Key="LastHitNexusHeaderText">Last Hit Nexus</string:String>
 
-    <string:String x:Key="ToxicityGroupHeaderText">Toxicity</string:String>
-    <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>
-    <string:String x:Key="TimeOfLastDisconnectHeaderText">Time Of Last Disconnect</string:String>
-    <string:String x:Key="PlayersMutedHeaderText">Players Muted</string:String>
-    <string:String x:Key="MutedByPlayersHeaderText">Muted By Players</string:String>
+    <string:String x:Key="ToxicityGroupHeaderText">Toxicité</string:String>
+    <string:String x:Key="TimeSpentDisconnectedHeaderText">Temps passé déconnecté</string:String>
+    <string:String x:Key="TimeOfLastDisconnectHeaderText">Heure de la dernière déconnexion</string:String>
+    <string:String x:Key="PlayersMutedHeaderText">Joueurs en sourdine</string:String>
+    <string:String x:Key="MutedByPlayersHeaderText">Sourdinés par les joueurs</string:String>
     <string:String x:Key="PingHeaderText">Ping</string:String>
-    <string:String x:Key="TeamEarlySurrenderedHeaderText">Team Early Surrendered</string:String>
-    <string:String x:Key="WasAFKHeaderText">Was AFK</string:String>
-    <string:String x:Key="WasAFKAfterFailedSurrenderHeaderText">Was AFK After Failed Surrender</string:String>
-    <string:String x:Key="WasEarlySurrenderAccompliceHeaderText">Was Early Surrender Accomplice</string:String>
+    <string:String x:Key="TeamEarlySurrenderedHeaderText">L'équipe s'est soumis</string:String>
+    <string:String x:Key="WasAFKHeaderText">Était AFK</string:String>
+    <string:String x:Key="WasAFKAfterFailedSurrenderHeaderText">Était AFK après l'échec de la soumission</string:String>
+    <string:String x:Key="WasEarlySurrenderAccompliceHeaderText">A été complice à la soumission</string:String>
 
-    <string:String x:Key="MiscGroupHeaderText">Misc</string:String>
+    <string:String x:Key="MiscGroupHeaderText">Autres</string:String>
     <string:String x:Key="Spell1CastsHeaderText">Spell 1 Casts</string:String>
     <string:String x:Key="Spell2CastsHeaderText">Spell 2 Casts</string:String>
     <string:String x:Key="Spell3CastsHeaderText">Spell 3 Casts</string:String>
