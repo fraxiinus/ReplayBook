@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using ModernWpf.Controls;
 using Rofl.Requests.Models;
+using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
 using Rofl.UI.Main.Views;
@@ -14,20 +15,35 @@ namespace Rofl.UI.Main.Pages
     /// <summary>
     /// Interaction logic for WelcomeSetupDownload.xaml
     /// </summary>
-    public partial class WelcomeSetupDownload : System.Windows.Controls.Page
+    public partial class WelcomeSetupDownload : ModernWpf.Controls.Page, IWelcomePage
     {
         public WelcomeSetupDownload()
         {
             InitializeComponent();
 
-            NextButton.IsEnabled = false;
+            //NextButton.IsEnabled = false;
+        }
+
+        public string GetTitle()
+        {
+            return (string)TryFindResource("WswDownloadFrameTitle");
+        }
+
+        public Type GetNextPage()
+        {
+            return typeof(WelcomeSetupFinish);
+        }
+
+        public Type GetPreviousPage()
+        {
+            return typeof(WelcomeSetupReplays);
         }
 
         private async void DownloadButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(sender is Button)) { return; }
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-            if (!(parent.DataContext is MainWindowViewModel context)) { return; }
+            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+            if (!(Application.Current.MainWindow is MainWindow mainWindow)) { return; }
+            if (!(mainWindow.DataContext is MainWindowViewModel mainViewModel)) { return; }
 
             // Clear the error text box
             ErrorText.Text = string.Empty;
@@ -47,7 +63,7 @@ namespace Rofl.UI.Main.Pages
             // test internet by requesting latest version
             try
             {
-                _ = await context.RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
+                _ = await mainViewModel.RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
             }
             catch (HttpRequestException)
             {
@@ -66,17 +82,17 @@ namespace Rofl.UI.Main.Pages
             List<RequestBase> requests = new List<RequestBase>();
             if (downloadChamps)
             {
-                requests.AddRange(await context.RequestManager.GetAllChampionRequests()
+                requests.AddRange(await mainViewModel.RequestManager.GetAllChampionRequests()
                     .ConfigureAwait(true));
             }
             if (downloadItems)
             {
-                requests.AddRange(await context.RequestManager.GetAllItemRequests()
+                requests.AddRange(await mainViewModel.RequestManager.GetAllItemRequests()
                     .ConfigureAwait(true));
             }
             if (downloadRunes)
             {
-                requests.AddRange(await context.RequestManager.GetAllRuneRequests(RuneHelper.GetAllRunes())
+                requests.AddRange(await mainViewModel.RequestManager.GetAllRuneRequests(RuneHelper.GetAllRunes())
                     .ConfigureAwait(true));
             }
 
@@ -93,9 +109,9 @@ namespace Rofl.UI.Main.Pages
             ChampionCheckBox.IsEnabled = false;
             RunesCheckBox.IsEnabled = false;
 
-            NextButton.IsEnabled = false;
-            PreviousButton.IsEnabled = false;
-            SkipButton.IsEnabled = false;
+            context.DisableNextButton = true;
+            context.DisableBackButton = true;
+            context.DisableSkipButton = true;
 
             // Make progress elements visible
             DownloadProgressGrid.Visibility = Visibility.Visible;
@@ -106,7 +122,7 @@ namespace Rofl.UI.Main.Pages
 
             foreach (RequestBase request in requests)
             {
-                ResponseBase response = await context.RequestManager.MakeRequestAsync(request)
+                ResponseBase response = await mainViewModel.RequestManager.MakeRequestAsync(request)
                     .ConfigureAwait(true);
 
                 DownloadProgressText.Text = response.ResponsePath;
@@ -117,37 +133,18 @@ namespace Rofl.UI.Main.Pages
 
         private void DownloadProgressBar_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+
             if (Math.Abs(DownloadProgressBar.Value) < 0.1) { return; }
 
             if (Math.Abs(DownloadProgressBar.Value - DownloadProgressBar.Maximum) < 0.1)
             {
                 DownloadProgressText.Text = (string)TryFindResource("WswDownloadFinished");
 
-                NextButton.IsEnabled = true;
-                PreviousButton.IsEnabled = true;
-                SkipButton.IsEnabled = true;
+                context.DisableNextButton = false;
+                context.DisableBackButton = false;
+                context.DisableSkipButton = false;
             }
-        }
-
-        private void NextButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-
-            parent.MoveToNextPage();
-        }
-
-        private void PreviousButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-
-            parent.MoveToPreviousPage();
-        }
-
-        private void SkipButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-
-            parent.MoveToNextPage();
         }
     }
 }

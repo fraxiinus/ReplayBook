@@ -615,12 +615,42 @@ namespace Rofl.UI.Main.ViewModels
                 return;
             }
 
+            // create transition collection
+            ModernWpf.Media.Animation.TransitionCollection contentTransitions = new ModernWpf.Media.Animation.TransitionCollection
+            {
+                new ModernWpf.Media.Animation.NavigationThemeTransition()
+                {
+                    DefaultNavigationTransitionInfo = new ModernWpf.Media.Animation.SlideNavigationTransitionInfo()
+                    {
+                        Effect = ModernWpf.Media.Animation.SlideNavigationTransitionEffect.FromRight
+                    }
+                }
+            };
+
+            // create content frame
+            ModernWpf.Controls.Frame contentFrame = new ModernWpf.Controls.Frame()
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                ContentTransitions = contentTransitions
+            };
+
+            WelcomeSetupDataContext setupContext = new WelcomeSetupDataContext
+            {
+                ContentFrame = contentFrame,
+                PageIndex = 0,
+                PageCount = 5,
+                DisableBackButton = true,
+                RiotGamesPath = (string)Application.Current.TryFindResource("WswExecutablesHint"),
+                Language = Language.En
+            };
+
             _log.Information(welcomeFileFlag);
             WelcomeSetupWindow welcomeDialog = new WelcomeSetupWindow()
             {
                 Top = Application.Current.MainWindow.Top + 50,
                 Left = Application.Current.MainWindow.Left + 50,
-                DataContext = this
+                DataContext = setupContext
             };
 
             _ = welcomeDialog.ShowDialog();
@@ -650,11 +680,11 @@ namespace Rofl.UI.Main.ViewModels
             }
         }
 
-        public void ApplyInitialSettings(WelcomeSetupSettings initialSettings)
+        public void ApplyInitialSettings(WelcomeSetupDataContext initialSettings)
         {
             if (initialSettings == null) { throw new ArgumentNullException(nameof(initialSettings)); }
 
-            if (!string.IsNullOrEmpty(initialSettings.ReplayPath))
+            if (!string.IsNullOrEmpty(initialSettings.ReplayPath) && Directory.Exists(initialSettings.ReplayPath))
             {
                 // Only add the replay folder if it doesn't exist already. It really should be empty...
                 if (!SettingsManager.Settings.SourceFolders.Contains(initialSettings.ReplayPath))
@@ -663,7 +693,7 @@ namespace Rofl.UI.Main.ViewModels
                 }
             }
 
-            if (!string.IsNullOrEmpty(initialSettings.RiotGamesPath))
+            if (!string.IsNullOrEmpty(initialSettings.RiotGamesPath) && Directory.Exists(initialSettings.ReplayPath))
             {
                 // Only add the executable folder if it doesn't exist already. It really should be empty...
                 if (!SettingsManager.Executables.Settings.SourceFolders.Contains(initialSettings.RiotGamesPath))
@@ -680,8 +710,7 @@ namespace Rofl.UI.Main.ViewModels
                 }
             }
 
-            SettingsManager.Executables.Settings.DefaultLocale = initialSettings.DefaultRegionLocale;
-            SettingsManager.Settings.ProgramLanguage = initialSettings.SetupLanguage;
+            SettingsManager.Settings.ProgramLanguage = initialSettings.Language;
         }
 
         /// <summary>

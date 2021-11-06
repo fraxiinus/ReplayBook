@@ -4,19 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:Rofl.UI.Main.Models"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         Title="{DynamicResource WswWindowTitleText}"
         Width="800"
         Height="470"
+        d:DataContext="{d:DesignInstance Type=models:WelcomeSetupDataContext}"
         ui:WindowHelper.UseModernWindowStyle="True"
-        Closing="WelcomeSetupWindow_OnClosing"
-        Loaded="WelcomeSetupWindow_OnLoaded"
+        Loaded="WelcomeSetupWindow_Loaded"
         ResizeMode="NoResize"
+        WindowStyle="ToolWindow"
         mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
               HorizontalAlignment="Stretch"
@@ -30,18 +33,174 @@
                        Margin="10"
                        FontSize="18"
                        Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
-                       Text="PageName"
+                       Text="{Binding PageTitle}"
                        TextAlignment="Left" />
             <Grid x:Name="NavigationDotsPanel"
                   Grid.Column="1"
                   Margin="0 0 10 0" />
         </Grid>
-        <!--<Border Grid.Row="1"
-                BorderBrush="Black"
-                BorderThickness="0 1 0 0"/>-->
-        <Frame x:Name="SetupFrame"
-               Grid.Row="1"
-               Background="{DynamicResource BaseBackground}"
-               NavigationUIVisibility="Hidden" />
+
+        <UserControl Grid.Row="1" Content="{Binding ContentFrame}" />
+
+        <!--#region Navigation buttons-->
+        <Grid Grid.Row="2" Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="PreviousButton"
+                    Grid.Column="0"
+                    Width="100"
+                    Margin="0 0 5 0"
+                    HorizontalContentAlignment="Stretch"
+                    BorderThickness="1"
+                    Click="PreviousButton_Click"
+                    ToolTipService.ShowOnDisabled="True">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=DisableBackButton}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=DisableBackButton}" Value="False">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}" Value="False">
+                                <Setter Property="ToolTip" Value="{DynamicResource WswPreviousDisabled}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ui:PathIcon Width="12"
+                                 Height="12"
+                                 Data="{StaticResource BackArrowPathIcon}">
+                        <ui:PathIcon.Style>
+                            <Style TargetType="ui:PathIcon">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}" Value="False">
+                                        <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ui:PathIcon.Style>
+                    </ui:PathIcon>
+                    <TextBlock Grid.Column="1"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="{DynamicResource WswPreviousText}"
+                               TextAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=PreviousButton}" Value="False">
+                                        <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </Button>
+            <Button x:Name="NextButton"
+                    Grid.Column="1"
+                    Width="100"
+                    Margin="0 0 5 0"
+                    HorizontalContentAlignment="Stretch"
+                    Click="NextButton_Click"
+                    IsDefault="True"
+                    ToolTipService.ShowOnDisabled="True">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource AccentButtonStyle}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=DisableNextButton}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=DisableNextButton}" Value="False">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}" Value="False">
+                                <Setter Property="ToolTip" Value="{DynamicResource WswNextDisabled}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SwapFinishButton}" Value="True">
+                                        <Setter Property="Text" Value="{DynamicResource WswFinishButton}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SwapFinishButton}" Value="False">
+                                        <Setter Property="Text" Value="{DynamicResource WswNextText}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}" Value="False">
+                                        <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <ui:PathIcon Grid.Column="1"
+                                 Width="12"
+                                 Height="12"
+                                 Data="{StaticResource BackArrowPathIcon}"
+                                 RenderTransformOrigin="0.5,0.5">
+                        <ui:PathIcon.RenderTransform>
+                            <ScaleTransform ScaleX="-1" />
+                        </ui:PathIcon.RenderTransform>
+                        <ui:PathIcon.Style>
+                            <Style TargetType="ui:PathIcon">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=NextButton}" Value="False">
+                                        <Setter Property="Foreground" Value="{DynamicResource SystemControlDisabledBaseMediumLowBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ui:PathIcon.Style>
+                    </ui:PathIcon>
+                </Grid>
+            </Button>
+            <Button x:Name="SkipButton"
+                    Grid.Column="3"
+                    MinWidth="100"
+                    HorizontalContentAlignment="Center"
+                    Click="SkipButton_Click"
+                    Content="{DynamicResource WswSkipText}"
+                    ToolTipService.ShowOnDisabled="True">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=DisableSkipButton}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=DisableSkipButton}" Value="False">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsEnabled, ElementName=SkipButton}" Value="False">
+                                <Setter Property="ToolTip" Value="{DynamicResource WswSkipDisabled}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+        <!--#endregion-->
     </Grid>
 </Window>

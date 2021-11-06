@@ -102,7 +102,6 @@
     <string:String x:Key="AppearanceThemeDefaultAccentNote">Color secundario definido por tu sistema</string:String>
     <string:String x:Key="AppearanceThemeCustomAccentNote">Color secundario personalizado</string:String>
 
-    <string:String x:Key="ExecutableDefaultLocaleLabelText">Idioma por defecto</string:String>
     <string:String x:Key="ExecutableFoldersLabelText">Carpetas raíz</string:String>
     <string:String x:Key="ExecutableFoldersInfoText">Incluye subcarpetas</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Buscar ejecutables</string:String>

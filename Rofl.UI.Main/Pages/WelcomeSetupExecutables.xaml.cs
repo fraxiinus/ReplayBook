@@ -1,9 +1,11 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using Rofl.Executables.Models;
+using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
 using Rofl.UI.Main.Views;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,24 +14,50 @@ namespace Rofl.UI.Main.Pages
     /// <summary>
     /// Interaction logic for WelcomeSetupExecutables.xaml
     /// </summary>
-    public partial class WelcomeSetupExecutables : Page
+    public partial class WelcomeSetupExecutables : ModernWpf.Controls.Page, IWelcomePage
     {
-
-        private string _riotParentPath;
-        private IList<LeagueExecutable> _executables;
-
         public WelcomeSetupExecutables()
         {
             InitializeComponent();
-
-            NextButton.IsEnabled = false;
         }
 
-        private void BrowseExecutablesButton_OnClick(object sender, RoutedEventArgs e)
+        public string GetTitle()
         {
-            if (!(sender is Button)) { return; }
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-            if (!(parent.DataContext is MainWindowViewModel context)) { return; }
+            return (string)TryFindResource("WswExecutablesFrameTitle");
+        }
+
+        public Type GetNextPage()
+        {
+            return typeof(WelcomeSetupReplays);
+        }
+
+        public Type GetPreviousPage()
+        {
+            return typeof(WelcomeSetupIntroduction);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+
+            // check if anything is already loaded
+            if (context.Executables?.Count > 0)
+            {
+                ExecutablesPreviewListBox.ItemsSource = context.Executables;
+                ExecutablesEmptyTextBlock.Visibility = Visibility.Collapsed;
+                context.DisableNextButton = false;
+            }
+            else
+            {
+                context.DisableNextButton = true;
+            }
+        }
+
+        private async void BrowseExecutablesButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+            if (!(Application.Current.MainWindow is MainWindow mainWindow)) { return; }
+            if (!(mainWindow.DataContext is MainWindowViewModel mainViewModel)) { return; }
 
             using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
             {
@@ -50,45 +78,39 @@ namespace Rofl.UI.Main.Pages
                 // Only continue if user presses "OK"
                 if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) { return; }
 
+                // reset previews
                 string selectedFolder = folderDialog.FileName;
+                ExecutablesPreviewListBox.ItemsSource = null;
+                ExecutablesEmptyTextBlock.Visibility = Visibility.Visible;
+
+                // Show updating text
+                ExecutablesEmptyTextBlock.Text = (string)TryFindResource("LoadingMessageExecutables");
+                SourceFolderSearchProgress.IsActive = true;
+                context.RiotGamesPath = selectedFolder;
 
                 // Search for executables
-                IList<LeagueExecutable> results = context.SettingsManager.Executables.SearchFolderForExecutables(selectedFolder);
+                IList<LeagueExecutable> results = await Task.Run(() => mainViewModel.SettingsManager.Executables.SearchFolderForExecutables(selectedFolder));
 
-                // Show results in preview box
-                ExecutablesEmptyTextBlock.Visibility = results.Count < 1 ? Visibility.Visible : Visibility.Collapsed;
-                ExecutablesPreviewListBox.ItemsSource = results;
-                BrowseButtonHintText.Text = selectedFolder;
+                // Reset text
+                ExecutablesEmptyTextBlock.Text = (string)TryFindResource("WswExecutablesRegisterListEmpty");
+                SourceFolderSearchProgress.IsActive = false;
 
-                // Save settings
-                _riotParentPath = selectedFolder;
-                _executables = results;
+                // only allow next button if executable found
+                if (results.Count > 0)
+                {
+                    ExecutablesPreviewListBox.ItemsSource = results;
+                    ExecutablesEmptyTextBlock.Visibility = Visibility.Collapsed;
 
-                NextButton.IsEnabled = true;
+                    context.Executables = results as List<LeagueExecutable>;
+
+                    context.DisableNextButton = false;
+                }
+                else
+                {
+                    ExecutablesEmptyTextBlock.Visibility = Visibility.Visible;
+                    context.DisableNextButton = true;
+                }
             }
-        }
-
-        private void PreviousButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-
-            parent.MoveToPreviousPage();
-        }
-
-        private void NextButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-
-            parent.SetupSettings.RiotGamesPath = _riotParentPath;
-            parent.SetupSettings.Executables = _executables;
-
-            parent.MoveToNextPage();
-        }
-
-        private void SkipButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-            parent.MoveToNextPage();
         }
     }
 }

@@ -290,11 +290,6 @@
                                              Orientation="Vertical"
                                              Spacing="12">
 
-                            <!--<TextBlock Text="{DynamicResource ExecutableDefaultLocaleLabelText}"
-                                       FontSize="16"/>
-                            <ComboBox x:Name="ExecutableLocaleComboBox" Width="200"
-                                      SelectionChanged="ExecutableLocaleComboBox_SelectionChanged"/>-->
-
                             <ui:SimpleStackPanel Orientation="Horizontal">
                                 <TextBlock FontSize="16" Text="{DynamicResource ExecutableFoldersLabelText}" />
                                 <ui:PathIcon Width="16"

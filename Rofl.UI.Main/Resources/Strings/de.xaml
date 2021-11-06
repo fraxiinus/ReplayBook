@@ -102,7 +102,6 @@
     <string:String x:Key="AppearanceThemeDefaultAccentNote">Systemdefinierte Farbbetonung nutzen</string:String>
     <string:String x:Key="AppearanceThemeCustomAccentNote">Benutzerdefinierte Fabbetonung nutzen</string:String>
 
-    <string:String x:Key="ExecutableDefaultLocaleLabelText">Standardregion</string:String>
     <string:String x:Key="ExecutableFoldersLabelText">Order für ausführbare Dateien</string:String>
     <string:String x:Key="ExecutableFoldersInfoText">Alle Unterordner sind eingeschlossen</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Ordner nach ausführbaren Dateien scannen</string:String>
