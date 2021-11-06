@@ -9,13 +9,9 @@ namespace Rofl.Executables.Models
     {
         public ExecutableSettings()
         {
-            DefaultLocale = LeagueLocale.EnglishUS;
             Executables = new ObservableCollection<LeagueExecutable>();
             SourceFolders = new ObservableCollection<string>();
         }
-
-        [JsonProperty("defaultLocale")]
-        public LeagueLocale DefaultLocale { get; set; }
 
         [JsonProperty("executables")]
         public ObservableCollection<LeagueExecutable> Executables { get; private set; }

@@ -1,6 +1,8 @@
 ﻿using Rofl.Settings.Models;
+using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,34 +11,44 @@ namespace Rofl.UI.Main.Pages
     /// <summary>
     /// Interaction logic for WelcomeSetupIntroduction.xaml
     /// </summary>
-    public partial class WelcomeSetupIntroduction : Page
+    public partial class WelcomeSetupIntroduction : ModernWpf.Controls.Page, IWelcomePage
     {
         public WelcomeSetupIntroduction()
         {
             InitializeComponent();
 
-            // Disable buttons
-            PreviousButton.IsEnabled = false;
-            SkipButton.IsEnabled = false;
-
             // Load radio buttons
             LanguageRadioButtons.ItemsSource = LanguageHelper.GetFriendlyLanguageNames();
-            LanguageRadioButtons.SelectedIndex = 0;
         }
 
-        private void NextButton_Click(object sender, RoutedEventArgs e)
+        public string GetTitle()
         {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
+            return (string)TryFindResource("WswIntroFrameTitle");
+        }
 
-            parent.MoveToNextPage();
+        public Type GetNextPage()
+        {
+            return typeof(WelcomeSetupExecutables);
+        }
+
+        public Type GetPreviousPage()
+        {
+            throw new NotSupportedException();
         }
 
         private void LanguageRadioButtons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-            parent.SetupSettings.SetupLanguage = (Language)LanguageRadioButtons.SelectedIndex;
+            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
 
-            LanguageHelper.SetProgramLanguage(parent.SetupSettings.SetupLanguage);
+            LanguageHelper.SetProgramLanguage(context.Language);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+
+            // select initial language after page is loaded
+            LanguageRadioButtons.SelectedIndex = (int)context.Language;
         }
     }
 }

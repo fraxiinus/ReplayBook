@@ -85,13 +85,6 @@ namespace Rofl.UI.Main.Views
             LanguageComboBox.ItemsSource = LanguageHelper.GetFriendlyLanguageNames();
             LanguageComboBox.SelectedIndex = (int)context.Settings.ProgramLanguage;
 
-            // Load default locale drop down
-            //var allLocales = Enum.GetNames(typeof(LeagueLocale))
-            //    .Where(x => !string.Equals(x, LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase))
-            //    .Select(x => x + " (" + ExeTools.GetLocaleCode(x) + ")");
-            //ExecutableLocaleComboBox.ItemsSource = allLocales;
-            //ExecutableLocaleComboBox.SelectedIndex = (int) context.Executables.Settings.DefaultLocale;
-
             // See if an update exists
             if (context.TemporaryValues.TryGetBool("UpdateAvailable", out bool update))
             {
@@ -955,13 +948,6 @@ namespace Rofl.UI.Main.Views
 
             _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
-
-        //private void ExecutableLocaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (!(this.DataContext is SettingsManager context)) { return; }
-
-        //    context.Executables.Settings.DefaultLocale = (LeagueLocale) ExecutableLocaleComboBox.SelectedIndex;
-        //}
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

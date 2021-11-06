@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Rofl.UI.Main.Models;
 using Rofl.UI.Main.ViewModels;
 using Rofl.UI.Main.Views;
 using System;
@@ -10,22 +11,38 @@ namespace Rofl.UI.Main.Pages
     /// <summary>
     /// Interaction logic for WelcomeSetupReplays.xaml
     /// </summary>
-    public partial class WelcomeSetupReplays : Page
+    public partial class WelcomeSetupReplays : ModernWpf.Controls.Page, IWelcomePage
     {
-        private string _replayFolder;
-
         public WelcomeSetupReplays()
         {
             InitializeComponent();
+        }
 
-            NextButton.IsEnabled = false;
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+
+            context.DisableNextButton = string.IsNullOrEmpty(context.ReplayPath);
+        }
+
+        public string GetTitle()
+        {
+            return (string)TryFindResource("WswReplaysFrameTitle");
+        }
+
+        public Type GetNextPage()
+        {
+            return typeof(WelcomeSetupDownload);
+        }
+
+        public Type GetPreviousPage()
+        {
+            return typeof(WelcomeSetupExecutables);
         }
 
         private void BrowseReplayFolderButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(sender is Button)) { return; }
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-            if (!(parent.DataContext is MainWindowViewModel)) { return; }
+            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
 
             using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
             {
@@ -46,35 +63,9 @@ namespace Rofl.UI.Main.Pages
                 // Only continue if user presses "OK"
                 if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) { return; }
 
-                _replayFolder = folderDialog.FileName;
-
-                // display path
-                BrowseReplayFolderBox.Text = _replayFolder;
-                NextButton.IsEnabled = true;
+                context.ReplayPath = folderDialog.FileName;
+                context.DisableNextButton = false;
             }
-        }
-
-        private void PreviousButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-
-            parent.MoveToPreviousPage();
-        }
-
-        private void NextButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-
-            parent.SetupSettings.ReplayPath = _replayFolder;
-
-            parent.MoveToNextPage();
-        }
-
-        private void SkipButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-
-            parent.MoveToNextPage();
         }
     }
 }

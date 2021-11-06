@@ -108,7 +108,6 @@
     <string:String x:Key="AppearanceThemeDefaultAccentNote">当前跟随系统颜色</string:String>
     <string:String x:Key="AppearanceThemeCustomAccentNote">当前使用自定义的配色</string:String>
 
-    <string:String x:Key="ExecutableDefaultLocaleLabelText">播放回放文件时默认使用语言</string:String>
     <string:String x:Key="ExecutableFoldersLabelText">游戏客户端目录列表</string:String>
     <string:String x:Key="ExecutableFoldersInfoText">包括所有子文件夹</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">扫描列表文件夹中的游戏客户端</string:String>

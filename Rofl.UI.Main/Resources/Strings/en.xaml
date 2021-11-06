@@ -107,7 +107,6 @@
     <string:String x:Key="AppearanceThemeDefaultAccentNote">Using system defined accent color</string:String>
     <string:String x:Key="AppearanceThemeCustomAccentNote">Using custom accent color</string:String>
 
-    <string:String x:Key="ExecutableDefaultLocaleLabelText">Default Locale</string:String>
     <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
     <string:String x:Key="ExecutableFoldersInfoText">Any subfolders are included</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Scan Folders for Executables</string:String>

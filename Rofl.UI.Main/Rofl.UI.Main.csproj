@@ -111,7 +111,7 @@
     <Compile Include="Models\ExportPreset.cs" />
     <Compile Include="Models\RuneStat.cs" />
     <Compile Include="Models\StatusBar.cs" />
-    <Compile Include="Models\WelcomeSetupSettings.cs" />
+    <Compile Include="Models\WelcomeSetupDataContext.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Pages\ExportWizardAdvanced.xaml.cs">
       <DependentUpon>ExportWizardAdvanced.xaml</DependentUpon>
@@ -128,6 +128,7 @@
     <Compile Include="Pages\ExportWizardPlayers.xaml.cs">
       <DependentUpon>ExportWizardPlayers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\IWelcomePage.cs" />
     <Compile Include="Pages\WelcomeSetupDownload.xaml.cs">
       <DependentUpon>WelcomeSetupDownload.xaml</DependentUpon>
     </Compile>
@@ -139,9 +140,6 @@
     </Compile>
     <Compile Include="Pages\WelcomeSetupIntroduction.xaml.cs">
       <DependentUpon>WelcomeSetupIntroduction.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\WelcomeSetupRegion.xaml.cs">
-      <DependentUpon>WelcomeSetupRegion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\WelcomeSetupReplays.xaml.cs">
       <DependentUpon>WelcomeSetupReplays.xaml</DependentUpon>
@@ -285,10 +283,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\WelcomeSetupIntroduction.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\WelcomeSetupRegion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,42 +1,45 @@
-﻿using Rofl.UI.Main.ViewModels;
+﻿using Rofl.UI.Main.Models;
+using Rofl.UI.Main.ViewModels;
 using Rofl.UI.Main.Views;
+using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Rofl.UI.Main.Pages
 {
     /// <summary>
     /// Interaction logic for WelcomeSetupFinish.xaml
     /// </summary>
-    public partial class WelcomeSetupFinish : Page
+    public partial class WelcomeSetupFinish : ModernWpf.Controls.Page, IWelcomePage
     {
         public WelcomeSetupFinish()
         {
             InitializeComponent();
 
-            SkipButton.IsEnabled = false;
+            //SkipButton.IsEnabled = false;
         }
 
-        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        public string GetTitle()
         {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-
-            parent.MoveToPreviousPage();
+            return (string)TryFindResource("WswFinishedFrameTitle");
         }
 
-        private void NextButton_Click(object sender, RoutedEventArgs e)
+        public Type GetNextPage()
         {
-            if (!(DataContext is WelcomeSetupWindow parent)) { return; }
-            if (!(parent.DataContext is MainWindowViewModel context)) { return; }
-
-            context.ApplyInitialSettings(parent.SetupSettings);
-
-            parent.Close();
+            throw new NotSupportedException();
         }
 
-        private void SkipButton_Click(object sender, RoutedEventArgs e)
+        public Type GetPreviousPage()
         {
-            if (!(DataContext is WelcomeSetupWindow)) { return; }
+            return typeof(WelcomeSetupDownload);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+
+            context.DisableNextButton = false;
+            context.DisableSkipButton = true;
+            context.SwapFinishButton = true;
         }
     }
 }
