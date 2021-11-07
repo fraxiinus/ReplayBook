@@ -124,7 +124,11 @@ namespace Rofl.UI.Main.ViewModels
                 PreviewReplays.Add(previewModel);
             });
 
-            FileResults.Add(file.FileInfo.Path, file);
+            // skip if file already exists
+            if (!FileResults.ContainsKey(file.FileInfo.Path))
+            {
+                FileResults.Add(file.FileInfo.Path, file);
+            }
 
             return previewModel;
         }
@@ -540,6 +544,18 @@ namespace Rofl.UI.Main.ViewModels
             }
 
             return process;
+        }
+
+        public void OpenNewWindow(string replayPath)
+        {
+            _log.Information("Opening new window...");
+
+            SingleReplayWindow singleWindow = new SingleReplayWindow(_log, SettingsManager, RequestManager, _fileManager, _player, true)
+            {
+                ReplayFileLocation = replayPath
+            };
+            singleWindow.DataContext = this;
+            singleWindow.Show();
         }
 
         public void OpenReplayContainingFolder(string location)

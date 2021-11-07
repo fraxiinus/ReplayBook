@@ -309,6 +309,7 @@
     <string:String x:Key="SizeDesc">Size descending</string:String>
 
     <!--  Replay Menu Item Text  -->
+    <string:String x:Key="OpenNewWindow">Open in a New Window</string:String>
     <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
     <string:String x:Key="ExportReplayData">Export Data...</string:String>
     <string:String x:Key="RenameReplayFile">Rename</string:String>

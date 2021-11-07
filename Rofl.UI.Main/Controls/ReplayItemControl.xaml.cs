@@ -1,6 +1,7 @@
 ﻿using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
+using Rofl.UI.Main.Views;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -52,6 +53,13 @@ namespace Rofl.UI.Main.Controls
         {
             DockPanelReplayContextMenu.Placement = PlacementMode.MousePoint;
             DockPanelReplayContextMenu.IsOpen = true;
+        }
+
+        private void OpenNewWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
+            if (!(DataContext is ReplayPreview replay)) { return; }
+            context.OpenNewWindow(replay.Location);
         }
 
         private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)

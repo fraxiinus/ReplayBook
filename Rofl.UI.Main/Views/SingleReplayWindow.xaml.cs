@@ -24,7 +24,7 @@ namespace Rofl.UI.Main.Views
 
         public string ReplayFileLocation { get; set; }
 
-        public SingleReplayWindow(RiZhi log, SettingsManager settingsManager, RequestManager requests, FileManager files, ReplayPlayer player)
+        public SingleReplayWindow(RiZhi log, SettingsManager settingsManager, RequestManager requests, FileManager files, ReplayPlayer player, bool subWindow = false)
         {
             InitializeComponent();
 
@@ -34,17 +34,22 @@ namespace Rofl.UI.Main.Views
             _files = files;
             _player = player;
 
-            Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
+            // things to only do if launching by itself
+            if (!subWindow)
             {
-                _log.Error(e.Exception.ToString());
-                _log.WriteLog();
-            };
+                Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
+                {
+                    _log.Error(e.Exception.ToString());
+                    _log.WriteLog();
+                };
 
-            MainWindowViewModel context = new MainWindowViewModel(_files, _requests, _settingsManager, _player, _log);
-            DataContext = context;
+                MainWindowViewModel context = new MainWindowViewModel(_files, _requests, _settingsManager, _player, _log);
 
-            // Decide to show welcome window
-            context.ShowWelcomeWindow();
+                DataContext = context;
+
+                // Decide to show welcome window
+                context.ShowWelcomeWindow();
+            }
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)

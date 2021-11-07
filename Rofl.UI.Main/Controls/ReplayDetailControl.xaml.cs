@@ -23,10 +23,11 @@ namespace Rofl.UI.Main.Controls
 
         private void ReplayDetailControlElement_Loaded(object sender, RoutedEventArgs e)
         {
-            // Disable delete menu option in single replay mode,
+            // Disable some menu options in single replay mode,
             if (Window.GetWindow(this) is SingleReplayWindow)
             {
                 DeleteReplayFile.Visibility = Visibility.Collapsed;
+                OpenNewWindow.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -142,19 +143,20 @@ namespace Rofl.UI.Main.Controls
         }
 
         #region Context menu item handlers
+        private void OpenNewWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
+            if (!(DataContext is ReplayDetail replay)) { return; }
+
+            context.OpenNewWindow(replay.PreviewModel.Location);
+        }
+
         private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
             if (!(DataContext is ReplayDetail replay)) { return; }
             context.OpenReplayContainingFolder(replay.PreviewModel.Location);
         }
-
-        //private void ViewOnlineMatchHistory_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-        //    if (!(DataContext is ReplayDetail replay)) { return; }
-        //    context.ViewOnlineMatchHistory(replay.PreviewModel.MatchId);
-        //}
 
         private void ExportReplayData_OnClick(object sender, RoutedEventArgs e)
         {
