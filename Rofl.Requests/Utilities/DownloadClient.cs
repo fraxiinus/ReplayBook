@@ -69,7 +69,26 @@ namespace Rofl.Requests.Utilities
                 };
             }
 
-            byte[] bytes = await DownloadImage(downloadUrl, downloadLocation).ConfigureAwait(false);
+            byte[] bytes;
+            try
+            {
+                bytes = await DownloadImage(downloadUrl, downloadLocation).ConfigureAwait(false);
+            }
+            catch (HttpRequestException)
+            {
+                return new ResponseBase()
+                {
+                    DataVersion = request.DataDragonVersion,
+                    Request = request,
+                    IsFaulted = true,
+                    FromCache = false,
+                    RequestUrl = downloadUrl,
+                    ResponseDate = DateTime.Now,
+                    ResponsePath = null,
+                    ResponseBytes = null
+                };
+            }
+
             // failed to download an image!
             if (bytes == null)
             {
@@ -361,7 +380,9 @@ namespace Rofl.Requests.Utilities
             }
             else
             {
-                throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}");
+                string errorMsg = $"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}";
+                _log.Error(errorMsg);
+                throw new HttpRequestException(errorMsg);
             }
         }
 

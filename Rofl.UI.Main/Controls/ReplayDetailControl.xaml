@@ -131,6 +131,14 @@
 
                             <Button.ContextMenu>
                                 <ContextMenu x:Name="ReplayContextMenu" Placement="Bottom">
+                                    <MenuItem x:Name="OpenNewWindow"
+                                              Click="OpenNewWindow_Click"
+                                              Header="{DynamicResource OpenNewWindow}">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource NewWindow}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+
                                     <MenuItem x:Name="OpenContainingFolder"
                                               Click="OpenContainingFolder_Click"
                                               Header="{DynamicResource OpenContainingFolder}">
