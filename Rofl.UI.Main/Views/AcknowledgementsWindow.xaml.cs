@@ -43,13 +43,13 @@ namespace Rofl.UI.Main.Views
 
         private void AcknowledgementsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = AcknowledgementsListBox.SelectedIndex;
-            TitleText.Text = FindResource($"AckTitle{index + 1}") as string;
-            AuthorText.Text = FindResource($"AckAuthor{index + 1}") as string;
-            HyperlinkButton.NavigateUri = new Uri(FindResource($"AckLink{index + 1}") as string);
-            HyperlinkText.Text = FindResource($"AckLink{index + 1}") as string;
+            string index = $"{AcknowledgementsListBox.SelectedIndex + 1:D2}";
+            TitleText.Text = FindResource($"AckTitle{index}") as string;
+            AuthorText.Text = FindResource($"AckAuthor{index}") as string;
+            HyperlinkButton.NavigateUri = new Uri(FindResource($"AckLink{index}") as string);
+            HyperlinkText.Text = FindResource($"AckLink{index}") as string;
             //LinkText.Text = FindResource($"AckLink{index + 1}") as string;
-            LicenseText.Text = FindResource($"AckLicense{index + 1}") as string;
+            LicenseText.Text = FindResource($"AckLicense{index}") as string;
         }
     }
 }

@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:string="clr-namespace:System;assembly=mscorlib">
 
-    <string:String x:Key="AckTitle1">LiteDB</string:String>
-    <string:String x:Key="AckAuthor1">Mauricio David</string:String>
-    <string:String x:Key="AckLink1">https://github.com/mbdavid/LiteDB</string:String>
-    <string:String x:Key="AckLicense1" xml:space="preserve">The MIT License (MIT)
+    <string:String x:Key="AckTitle01">LiteDB</string:String>
+    <string:String x:Key="AckAuthor01">Mauricio David</string:String>
+    <string:String x:Key="AckLink01">https://github.com/mbdavid/LiteDB</string:String>
+    <string:String x:Key="AckLicense01" xml:space="preserve">The MIT License (MIT)
 
 Copyright (c) 2014-2020 Mauricio David
 
@@ -29,10 +29,10 @@ SOFTWARE.
     </string:String>
 
 
-    <string:String x:Key="AckTitle2">Roslyn Analyzers</string:String>
-    <string:String x:Key="AckAuthor2">Microsoft</string:String>
-    <string:String x:Key="AckLink2">https://github.com/dotnet/roslyn-analyzers</string:String>
-    <string:String x:Key="AckLicense2" xml:space="preserve">                                 Apache License
+    <string:String x:Key="AckTitle02">Roslyn Analyzers</string:String>
+    <string:String x:Key="AckAuthor02">Microsoft</string:String>
+    <string:String x:Key="AckLink02">https://github.com/dotnet/roslyn-analyzers</string:String>
+    <string:String x:Key="AckLicense02" xml:space="preserve">                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -236,10 +236,10 @@ SOFTWARE.
     </string:String>
 
 
-    <string:String x:Key="AckTitle3">.NET Extensions</string:String>
-    <string:String x:Key="AckAuthor3">.NET Foundation and Contributors</string:String>
-    <string:String x:Key="AckLink3">https://github.com/dotnet/extensions</string:String>
-    <string:String x:Key="AckLicense3" xml:space="preserve">The MIT License (MIT)
+    <string:String x:Key="AckTitle03">.NET Extensions</string:String>
+    <string:String x:Key="AckAuthor03">.NET Foundation and Contributors</string:String>
+    <string:String x:Key="AckLink03">https://github.com/dotnet/extensions</string:String>
+    <string:String x:Key="AckLicense03" xml:space="preserve">The MIT License (MIT)
 
 Copyright (c) .NET Foundation and Contributors
 
@@ -265,10 +265,10 @@ SOFTWARE.
     </string:String>
 
 
-    <string:String x:Key="AckTitle4">.NET Standard</string:String>
-    <string:String x:Key="AckAuthor4">.NET Foundation and Contributors</string:String>
-    <string:String x:Key="AckLink4">https://github.com/dotnet/standard/</string:String>
-    <string:String x:Key="AckLicense4" xml:space="preserve">The MIT License (MIT)
+    <string:String x:Key="AckTitle04">.NET Standard</string:String>
+    <string:String x:Key="AckAuthor04">.NET Foundation and Contributors</string:String>
+    <string:String x:Key="AckLink04">https://github.com/dotnet/standard/</string:String>
+    <string:String x:Key="AckLicense04" xml:space="preserve">The MIT License (MIT)
 
 Copyright (c) .NET Foundation and Contributors
 
@@ -294,10 +294,10 @@ SOFTWARE.
 </string:String>
 
 
-    <string:String x:Key="AckTitle5">Json.NET</string:String>
-    <string:String x:Key="AckAuthor5">James Newton-King</string:String>
-    <string:String x:Key="AckLink5">https://github.com/JamesNK/Newtonsoft.Json</string:String>
-    <string:String x:Key="AckLicense5" xml:space="preserve">The MIT License (MIT)
+    <string:String x:Key="AckTitle05">Json.NET</string:String>
+    <string:String x:Key="AckAuthor05">James Newton-King</string:String>
+    <string:String x:Key="AckLink05">https://github.com/JamesNK/Newtonsoft.Json</string:String>
+    <string:String x:Key="AckLicense05" xml:space="preserve">The MIT License (MIT)
 
 Copyright (c) 2007 James Newton-King
 
@@ -320,10 +320,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </string:String>
 
 
-    <string:String x:Key="AckTitle6">Windows API Code Pack</string:String>
-    <string:String x:Key="AckAuthor6">Microsoft</string:String>
-    <string:String x:Key="AckLink6">https://github.com/aybe/Windows-API-Code-Pack-1.1</string:String>
-    <string:String x:Key="AckLicense6" xml:space="preserve">License: Custom License
+    <string:String x:Key="AckTitle06">Windows API Code Pack</string:String>
+    <string:String x:Key="AckAuthor06">Microsoft</string:String>
+    <string:String x:Key="AckLink06">https://github.com/aybe/Windows-API-Code-Pack-1.1</string:String>
+    <string:String x:Key="AckLicense06" xml:space="preserve">License: Custom License
 MICROSOFT SOFTWARE LICENSE TERMS
 MICROSOFT WINDOWS API CODE PACK FOR MICROSOFT .NET FRAMEWORK
 ___________________________________________________
@@ -378,10 +378,10 @@ Elle s’applique également, même si Microsoft connaissait ou devrait connaît
 EFFET JURIDIQUE. Le présent contrat décrit certains droits juridiques. Vous pourriez avoir d’autres droits prévus par les lois de votre pays. Le présent contrat ne modifie pas les droits que vous confèrent les lois de votre pays si celles-ci ne le permettent pas.</string:String>
 
 
-    <string:String x:Key="AckTitle7">ColorPickerWPF</string:String>
-    <string:String x:Key="AckAuthor7">sh_akira</string:String>
-    <string:String x:Key="AckLink7">https://github.com/sh-akira/ColorPickerWPF/</string:String>
-    <string:String x:Key="AckLicense7" xml:space="preserve">MIT License
+    <string:String x:Key="AckTitle07">ColorPickerWPF</string:String>
+    <string:String x:Key="AckAuthor07">sh_akira</string:String>
+    <string:String x:Key="AckLink07">https://github.com/sh-akira/ColorPickerWPF/</string:String>
+    <string:String x:Key="AckLicense07" xml:space="preserve">MIT License
 
 Copyright (c) 2019 sh_akira
 
@@ -403,10 +403,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 </string:String>
-    <string:String x:Key="AckTitle8">ModernWPF</string:String>
-    <string:String x:Key="AckAuthor8">Yimeng Wu</string:String>
-    <string:String x:Key="AckLink8">https://github.com/Kinnara/ModernWpf</string:String>
-    <string:String x:Key="AckLicense8" xml:space="preserve">MIT License
+    <string:String x:Key="AckTitle08">ModernWPF</string:String>
+    <string:String x:Key="AckAuthor08">Yimeng Wu</string:String>
+    <string:String x:Key="AckLink08">https://github.com/Kinnara/ModernWpf</string:String>
+    <string:String x:Key="AckLicense08" xml:space="preserve">MIT License
 
 Copyright (c) 2019 Yimeng Wu
 
@@ -428,10 +428,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 </string:String>
-    <string:String x:Key="AckTitle9">RiZhi 日誌</string:String>
-    <string:String x:Key="AckAuthor9">Fraxinus</string:String>
-    <string:String x:Key="AckLink9">https://github.com/fraxiinus/RiZhi</string:String>
-    <string:String x:Key="AckLicense9" xml:space="preserve">MIT License
+    <string:String x:Key="AckTitle09">RiZhi 日誌</string:String>
+    <string:String x:Key="AckAuthor09">Fraxinus</string:String>
+    <string:String x:Key="AckLink09">https://github.com/fraxiinus/RiZhi</string:String>
+    <string:String x:Key="AckLicense09" xml:space="preserve">MIT License
 
 Copyright (c) 2020 ETIRPS
 
@@ -453,4 +453,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 </string:String>
+    <string:String x:Key="AckTitle10">Community Dragon</string:String>
+    <string:String x:Key="AckAuthor10">N/A</string:String>
+    <string:String x:Key="AckLink10">https://www.communitydragon.org</string:String>
+    <string:String x:Key="AckLicense10" xml:space="preserve">Big thanks to Community Dragon for providing information missing from Data Dragon!</string:String>
+
+    <string:String x:Key="AckTitle11">Translation Contributors</string:String>
+    <string:String x:Key="AckAuthor11">N/A</string:String>
+    <string:String x:Key="AckLink11">https://github.com/fraxiinus/ReplayBook/wiki/Translating</string:String>
+    <string:String x:Key="AckLicense11" xml:space="preserve">Thanks to these people for contributing translations!
+- Chinese Simplified by ASTWY, awter
+- Spanish by Catinaxo
+- German by FlorianHugCH
+    </string:String>
 </ResourceDictionary>
