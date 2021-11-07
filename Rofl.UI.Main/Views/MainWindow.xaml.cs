@@ -326,6 +326,9 @@ namespace Rofl.UI.Main
         {
             if (!(DataContext is MainWindowViewModel context)) { return; }
 
+            // do not show error dialog if there are no errors
+            if (context.StatusBarModel.Errors == null) { return; }
+
             ReplayLoadErrorDialog errorDialog = new ReplayLoadErrorDialog
             {
                 DataContext = context.StatusBarModel
