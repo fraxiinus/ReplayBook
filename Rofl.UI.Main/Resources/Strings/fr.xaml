@@ -107,7 +107,6 @@
     <string:String x:Key="AppearanceThemeDefaultAccentNote">Utilisation du couleur d'accentuation définie par le système</string:String>
     <string:String x:Key="AppearanceThemeCustomAccentNote">Utilisation d'une couleur d'accentuation personnalisée</string:String>
 
-    <string:String x:Key="ExecutableDefaultLocaleLabelText">Locale Défaut</string:String>
     <string:String x:Key="ExecutableFoldersLabelText">Dossiers des sources des exécutables</string:String>
     <string:String x:Key="ExecutableFoldersInfoText">Tous les sous-dossiers sont inclus</string:String>
     <string:String x:Key="ExecutableFoldersSearchButtonText">Rechercher les exécutables dans les dossiers</string:String>
@@ -116,7 +115,7 @@
     <string:String x:Key="ExecutableFoldersSearchResultErrorText">Le(s) dossier(s) suivant(s) n'ont pu être recherchés:</string:String>
     <string:String x:Key="ExecutablesLabelText">Exécutables enregistrés</string:String>
     <string:String x:Key="ExecutableSelectFolderDialogText">Sélectionner le dossier source de l'exécutable</string:String>
-    <string:String x:Key="ExecutableDetailWindowText">Exécutable/string:String>
+    <string:String x:Key="ExecutableDetailWindowText">Exécutable</string:String>
     <string:String x:Key="ExecutableSelectDialogText">Sélectionner League of Legends.exe</string:String>
     <string:String x:Key="ExecutableSelectInvalidErrorText">Choisir un exécutable valide</string:String>
     <string:String x:Key="ExecutableSelectInvalidErrorTitle">Exécutable non valide</string:String>
@@ -148,7 +147,7 @@
     <string:String x:Key="ReplayItemsPerPage">Éléments par page</string:String>
 
     <string:String x:Key="ReplayDatabaseText">Cache de données de rediffusions</string:String>
-    <string:String x:Key="ReplayDatabaseSize">Taille:</string:String>
+    <string:String x:Key="ReplayDatabaseSize">Taille</string:String>
     <string:String x:Key="ReplayDatabaseClearButton">Effacer le cache</string:String>
 
     <string:String x:Key="RequestsDownloadAllLabel">Télécharger les images</string:String>
@@ -248,7 +247,7 @@
 
     <string:String x:Key="ObjectivesGroupHeaderText">Objectifs</string:String>
     <string:String x:Key="TotalExperienceHeaderText">Expérience Totale</string:String>
-    <string:String x:Key="TurretsKilledHeaderText">Tourelles Détruites/string:String>
+    <string:String x:Key="TurretsKilledHeaderText">Tourelles Détruites</string:String>
     <string:String x:Key="InhibitorsKilledHeaderText">Inhibiteurs Détruits</string:String>
     <string:String x:Key="ObjectivesStolenHeaderText">Objectifs Volés</string:String>
     <string:String x:Key="BaronsKilledHeaderText">Barons Tués</string:String>
@@ -310,6 +309,7 @@
     <string:String x:Key="SizeDesc">Taille décroissante</string:String>
 
     <!--  Replay Menu Item Text  -->
+    <string:String x:Key="OpenNewWindow">Ouvrir dans une nouvelle fenêtre</string:String>
     <string:String x:Key="OpenContainingFolder">Ouvrir le dossier contenant</string:String>
     <string:String x:Key="ExportReplayData">Exporter les données...</string:String>
     <string:String x:Key="RenameReplayFile">Renommer</string:String>
@@ -334,7 +334,7 @@
     <string:String x:Key="ErdFinishFormatCsv">Exporter en tant que CSV</string:String>
     <string:String x:Key="ErdFinishFormatNormalize">Normaliser les noms d'attributs</string:String>
     <string:String x:Key="ErdFinishJsonHeading">Option spécifique à JSON</string:String>
-    <string:String x:Key="ErdFinishJsonMatchId">Inclure l'identifiant du match</string:String>
+    <string:String x:Key="ErdFinishJsonMatchId">Inclure l'ID du match</string:String>
     <string:String x:Key="ErdFinishJsonDuration">Inclure la durée du match</string:String>
     <string:String x:Key="ErdFinishJsonVersion">Inclure la version du patch</string:String>
     <string:String x:Key="ErdPreviewTitle">Aperçu des données</string:String>
@@ -373,7 +373,7 @@
 
     <!--  Welcome Setup : Introduction  -->
     <string:String x:Key="WswIntroFrameTitle">Bienvenue sur ReplayBook</string:String>
-    <string:String x:Key="WswReplaysFrameTitle">Configuration des rediffusions/string:String>
+    <string:String x:Key="WswReplaysFrameTitle">Configuration des rediffusions</string:String>
     <string:String x:Key="WswExecutablesFrameTitle">Configuration de l'exécutable</string:String>
     <string:String x:Key="WswRegionFrameTitle">Configuration du langage</string:String>
     <string:String x:Key="WswDownloadFrameTitle">Télécharger les actifs</string:String>
@@ -409,7 +409,7 @@
 
     <!--  Rename dialog  -->
     <string:String x:Key="RenameFlyoutEmptyError">Entrez un nom de fichier valide</string:String>
-    <string:String x:Key="RenameFlyoutNotFoundError">La rediffusion n'est pas dans un dossier de rediffusion/string:String>
+    <string:String x:Key="RenameFlyoutNotFoundError">La rediffusion n'est pas dans un dossier de rediffusion</string:String>
 
     <!--  Delete dialog  -->
     <string:String x:Key="DeleteFlyoutLabel">Êtes-vous sûr?</string:String>
