@@ -1,0 +1,417 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:string="clr-namespace:System;assembly=mscorlib"
+                    xmlns:system="clr-namespace:System;assembly=System">
+
+    <!--  General UI Text  -->
+    <string:String x:Key="ProgramName">ReplayBook</string:String>
+    <string:String x:Key="SearchDefaultText">Search...</string:String>
+    <string:String x:Key="MoreButtonText">Options</string:String>
+    <string:String x:Key="LoadMoreButtonText">Load more...</string:String>
+
+    <string:String x:Key="LoadingMessageReplay">Loading replays...</string:String>
+    <string:String x:Key="LoadingMessageExecutables">Verifying executables...</string:String>
+    <string:String x:Key="LoadingMessageThumbnails">Loading thumbnails...</string:String>
+    <string:String x:Key="LoadingMessageErrors">replay(s) failed to load</string:String>
+    <string:String x:Key="LoadingFailureTitle">Replay Load Failure</string:String>
+    <string:String x:Key="LoadingFailureSubtitle">Fix or remove the following file(s):</string:String>
+
+    <string:String x:Key="CloseText">Close</string:String>
+    <string:String x:Key="YesText">Yes</string:String>
+    <string:String x:Key="NoText">No</string:String>
+
+    <string:String x:Key="CopyText">Copy</string:String>
+
+    <string:String x:Key="CheckText">✔</string:String>
+    <string:String x:Key="CrossText">❌</string:String>
+    <string:String x:Key="BlueTeamText">Blue Team</string:String>
+    <string:String x:Key="RedTeamText">Red Team</string:String>
+    <string:String x:Key="ScoreboardTabText">SCOREBOARD</string:String>
+    <string:String x:Key="RunesTabText">RUNES</string:String>
+    <string:String x:Key="StatsTabText">STATS</string:String>
+    <string:String x:Key="BlankDetailMessageText">Select a replay on the left to begin</string:String>
+    <string:String x:Key="FailedToLoadReplayText">Failed to load replay</string:String>
+    <string:String x:Key="Victory">VICTORY</string:String>
+    <string:String x:Key="BlueVictory">Blue Victory</string:String>
+    <string:String x:Key="RedVictory">Red Victory</string:String>
+    <string:String x:Key="ErrorTitle">Error</string:String>
+    <string:String x:Key="ConfirmTitle">Confirmation</string:String>
+    <string:String x:Key="ConfirmText">Are you sure?</string:String>
+
+    <string:String x:Key="ReplaySupported">Playable</string:String>
+    <string:String x:Key="ReplayUnsupported">Unsupported</string:String>
+    <string:String x:Key="ReplayPlayExceptionTitle">Exception Occured</string:String>
+
+    <string:String x:Key="NoReplaysFoundTitle">No more results</string:String>
+
+    <string:String x:Key="MissingPathTitle">Replay folder not found</string:String>
+    <string:String x:Key="MissingPathText">The following path(s) could not be found are were removed:</string:String>
+
+    <!--  Settings Window Text  -->
+    <string:String x:Key="GeneralSettingsItemText">General</string:String>
+    <string:String x:Key="UpdatesSettingsItemText">Updates</string:String>
+    <string:String x:Key="AppearanceSettingsItemText">Appearance</string:String>
+    <string:String x:Key="ReplaySettingsItemText">Replays</string:String>
+    <string:String x:Key="RequestSettingsItemText">Downloads</string:String>
+    <string:String x:Key="ExecutablesSettingsItemText">Executables</string:String>
+    <string:String x:Key="AboutSettingsItemText">About</string:String>
+
+    <!--  Settings : General  -->
+    <string:String x:Key="LanguageLabelText">Language</string:String>
+
+    <string:String x:Key="PlayerMarkerLabelText">Player Markers</string:String>
+    <string:String x:Key="PlayerMarkerStyleLabel">Player Marker Style</string:String>
+    <string:String x:Key="PlayerMarkerStyleOption1">Border around</string:String>
+    <string:String x:Key="PlayerMarkerStyleOption2">Square inside</string:String>
+    <string:String x:Key="PlayerMarkerWindowText">Player Marker</string:String>
+    <string:String x:Key="PlayerMarkerNameLabelText">Player Name</string:String>
+    <string:String x:Key="PlayerMarkerNoteLabelText">Note</string:String>
+    <string:String x:Key="PlayerMarkerColorLabelText">Marker Color</string:String>
+    <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">Marker for player name &quot;$&quot; already exists</string:String>
+    <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Player name cannot be empty</string:String>
+
+    <string:String x:Key="FileAssociationLabelText">Explorer Open File Behavior</string:String>
+    <string:String x:Key="FileAssociationButtonText">Set .ROFL file association</string:String>
+    <string:String x:Key="FileAssociationMessageTitleText">File Association Set</string:String>
+    <string:String x:Key="FileAssociationMessageBodyText">ReplayBook set as default application for .rofl files</string:String>
+    <string:String x:Key="FileActionOption1">Play replay</string:String>
+    <string:String x:Key="FileActionOption2">Show stats</string:String>
+
+    <string:String x:Key="MiscBehaviorLabelText">Miscellaneous Behaviors</string:String>
+    <string:String x:Key="PlayConfirmCheckboxText">Show confirmation before playing replays</string:String>
+    <string:String x:Key="ReplayRenameCheckboxText">Rename file when renaming replays</string:String>
+
+    <string:String x:Key="UpdatesLabelText">Check for Updates</string:String>
+    <string:String x:Key="AutoUpdateCheckboxText">Automatically check for updates</string:String>
+    <string:String x:Key="CheckUpdatesButtonText">Check now</string:String>
+    <string:String x:Key="UpdateAvailableText">Update is available! Download the new version here</string:String>
+    <string:String x:Key="UpdateAvailableNotifText">New version available!</string:String>
+    <string:String x:Key="UpdateAvailableNotifButton">Download</string:String>
+    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
+    <string:String x:Key="OpenGitHubButtonText">View project on GitHub</string:String>
+    <string:String x:Key="UpdateExceptionTitleText">Unable to check for updates</string:String>
+    <string:String x:Key="UpdateHTTPExceptionBodyText">Failed to connect to GitHub. Check your connection and try again.</string:String>
+    <string:String x:Key="UpdateGitHubErrorBodyText">GitHub returned an error response. Manually check for updates by going to https://github.com/fraxiinus/ReplayBook</string:String>
+    <string:String x:Key="UpdateMostRecentTitleText">Already updated</string:String>
+    <string:String x:Key="UpdateMostRecentBodyText">You are using the latest version of ReplayBook.</string:String>
+    <string:String x:Key="UpdateNewerTitleText">New version available</string:String>
+    <string:String x:Key="UpdateNewerBodyText">Newer version of ReplayBook is available. Press OK to be taken to the download page.</string:String>
+
+    <!--  Settings : Appearance  -->
+    <string:String x:Key="AppearanceThemeModeTitle">Theme</string:String>
+    <string:String x:Key="AppearanceThemeMode0">System assigned</string:String>
+    <string:String x:Key="AppearanceThemeMode1">Dark</string:String>
+    <string:String x:Key="AppearanceThemeMode2">Light</string:String>
+    <string:String x:Key="AppearanceThemeAccentTitle">Accent Color</string:String>
+    <string:String x:Key="AppearanceThemeResetColorText">Reset</string:String>
+    <string:String x:Key="AppearanceThemeDefaultAccentNote">Using system defined accent color</string:String>
+    <string:String x:Key="AppearanceThemeCustomAccentNote">Using custom accent color</string:String>
+
+    <string:String x:Key="ExecutableFoldersLabelText">Executable Source Folders</string:String>
+    <string:String x:Key="ExecutableFoldersInfoText">Any subfolders are included</string:String>
+    <string:String x:Key="ExecutableFoldersSearchButtonText">Scan Folders for Executables</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultTitleText">Search results</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultLabelText">Registered $ new executable(s)</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultErrorText">The following folder(s) could not be searched:</string:String>
+    <string:String x:Key="ExecutablesLabelText">Registered Executables</string:String>
+    <string:String x:Key="ExecutableSelectFolderDialogText">Select Executable Source Folder</string:String>
+    <string:String x:Key="ExecutableDetailWindowText">Executable</string:String>
+    <string:String x:Key="ExecutableSelectDialogText">Select League of Legends.exe</string:String>
+    <string:String x:Key="ExecutableSelectInvalidErrorText">Select a valid executable</string:String>
+    <string:String x:Key="ExecutableSelectInvalidErrorTitle">Invalid Executable</string:String>
+    <string:String x:Key="ExecutableSaveNullText">Required fields are not filled out</string:String>
+    <string:String x:Key="ExecutableSaveNullTitle">Error while saving</string:String>
+    <string:String x:Key="ExecutableSelectWindowTitleText">Select Executable</string:String>
+    <string:String x:Key="ExecutableNotFoundErrorTitle">Unsupported Replay</string:String>
+    <string:String x:Key="ExecutableNotFoundErrorText">No matching executable found for patch</string:String>
+    <string:String x:Key="ReplayPlayConfirmTitle">Play replay?</string:String>
+    <string:String x:Key="ReplayPlayConfirmOptOut">You can turn off this confirmation in the settings window</string:String>
+
+    <!--  Executable Detail  -->
+    <string:String x:Key="ExecutableDetailTargetPath">Target Path</string:String>
+    <string:String x:Key="ExecutableDetailName">Executable Name</string:String>
+    <string:String x:Key="ExecutableDetailCustomLocale">Custom Locale</string:String>
+    <string:String x:Key="ExecutableDetailLocale">Locale</string:String>
+    <string:String x:Key="ExecutableDetailLocaleInfo">Replays may bugsplat if this value does not match the executable</string:String>
+    <string:String x:Key="ExecutableDetailLaunchArgs">Other Launch Arguments</string:String>
+    <string:String x:Key="ExecutableDetailPropertyStartPath">Start Path</string:String>
+    <string:String x:Key="ExecutableDetailPropertyPatch">Patch Number</string:String>
+    <string:String x:Key="ExecutableDetailPropertyModified">Modified Date</string:String>
+
+    <string:String x:Key="SourceFoldersLabelText">Replay Source Folders</string:String>
+    <string:String x:Key="SourceFoldersInfoText">Any subfolders are included</string:String>
+    <string:String x:Key="SourceFoldersWindowText">Select Replay Source Folder</string:String>
+    <string:String x:Key="SourceFoldersAlreadyExistsErrorText">Selected folder is already added, please select another folder</string:String>
+    <string:String x:Key="SourceFoldersAlreadyExistsErrorTitle">Folder already added</string:String>
+
+    <string:String x:Key="ReplayItemsPerPage">Items Per Page</string:String>
+
+    <string:String x:Key="ReplayDatabaseText">Replay Data Cache</string:String>
+    <string:String x:Key="ReplayDatabaseSize">Size:</string:String>
+    <string:String x:Key="ReplayDatabaseClearButton">Clear cache</string:String>
+
+    <string:String x:Key="RequestsDownloadAllLabel">Download Images</string:String>
+    <string:String x:Key="RequestsCacheLabel">Downloaded Images Cache</string:String>
+    <string:String x:Key="RequestsCacheItemsSize">Items cache size:</string:String>
+    <string:String x:Key="RequestsCacheChampsSize">Champions cache size:</string:String>
+    <string:String x:Key="RequestsCacheRunesSize">Runes cache size:</string:String>
+    <string:String x:Key="RequestsCacheClearItemsButton">Delete Items</string:String>
+    <string:String x:Key="RequestsCacheClearChampsButton">Delete Champions</string:String>
+    <string:String x:Key="RequestsCacheClearRunesButton">Delete Runes</string:String>
+    <string:String x:Key="RequestsCacheCloseToDeleteTitle">Close ReplayBook</string:String>
+    <string:String x:Key="RequestsCacheCloseToDelete">Cache will be deleted when ReplayBook is closed</string:String>
+    <string:String x:Key="RequestsAdvancedLabel">Advanced Options</string:String>
+    <string:String x:Key="DataDragonBaseUrlLabelText">Data Dragon Base URL</string:String>
+    <string:String x:Key="DataDragonChampionUrlLabelText">Champion Image Relative URL</string:String>
+    <string:String x:Key="DataDragonItemUrlLabelText">Item Image Relative URL</string:String>
+    <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
+
+    <string:String x:Key="Name">ReplayBook</string:String>
+    <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
+    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
+    <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
+    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
+    <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
+    <string:String x:Key="LicenseText">This program is licensed under GPL-3.0</string:String>
+    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
+    <string:String x:Key="AcknowledgementText">ReplayBook is only possible thanks to the following:</string:String>
+    <string:String x:Key="AcknowledgementButtonText">Open Source Projects</string:String>
+    <string:String x:Key="AcknowledgementWindowTitleText">Open Source Acknowledgements</string:String>
+
+    <!--  Generic button text  -->
+    <string:String x:Key="OKButtonText">OK</string:String>
+    <string:String x:Key="AddButtonText">Add</string:String>
+    <string:String x:Key="EditButtonText">Edit</string:String>
+    <string:String x:Key="RemoveButtonText">Remove</string:String>
+    <string:String x:Key="SaveButtonText">Save</string:String>
+    <string:String x:Key="CancelButtonText">Cancel</string:String>
+    <string:String x:Key="BrowseButtonText">Browse...</string:String>
+    <string:String x:Key="SelectButtonText">Select</string:String>
+
+    <!--  Stats Header Text  -->
+    <string:String x:Key="CombatGroupHeaderText">Combat</string:String>
+    <string:String x:Key="ChampionsKilledHeaderText">Kills</string:String>
+    <string:String x:Key="DeathsHeaderText">Deaths</string:String>
+    <string:String x:Key="AssistsHeaderText">Assists</string:String>
+    <string:String x:Key="LargestKillingSpreeHeaderText">Largest Killing Spree</string:String>
+    <string:String x:Key="KillingSpreesHeaderText">Killing Sprees</string:String>
+    <string:String x:Key="LargestMultiKillHeaderText">Largest Multi Kill</string:String>
+    <string:String x:Key="BountyLevelHeaderText">Bounty Level</string:String>
+    <string:String x:Key="DoubleKillsHeaderText">Double Kills</string:String>
+    <string:String x:Key="TripleKillsHeaderText">Triple Kills</string:String>
+    <string:String x:Key="QuadraKillsHeaderText">Quadra Kills</string:String>
+    <string:String x:Key="PentaKillsHeaderText">Penta Kills</string:String>
+    <string:String x:Key="UnrealKillsHeaderText">Unreal Kills</string:String>
+    <string:String x:Key="CrowdControlScoreHeaderText">Crowd Control Score</string:String>
+    <string:String x:Key="TotalTimeCrowdControlDealtHeaderText">Crowd Control Time</string:String>
+
+    <string:String x:Key="DamageDealtGroupHeaderText">Damage Dealt</string:String>
+    <string:String x:Key="TotalDamageDealtToChampionsHeaderText">Total Damage to Champions</string:String>
+    <string:String x:Key="PhysicalDamageDealtToChampionsHeaderText">Physical Damage to Champions</string:String>
+    <string:String x:Key="MagicDamageDealtToChampionsHeaderText">Magic Damage to Champions</string:String>
+    <string:String x:Key="TrueDamageDealtToChampionsHeaderText">True Damage to Champions</string:String>
+    <string:String x:Key="TotalDamageDealtHeaderText">Total Damage Dealt</string:String>
+    <string:String x:Key="PhysicalDamageDealtHeaderText">Physical Damage Dealt</string:String>
+    <string:String x:Key="MagicDamageDealtHeaderText">Magic Damage Dealt</string:String>
+    <string:String x:Key="TrueDamageDealtHeaderText">True Damage Dealt</string:String>
+    <string:String x:Key="LargestCriticalStrikeHeaderText">Largest Critical Strike</string:String>
+    <string:String x:Key="TotalDamageToTurretsHeaderText">Total Damage to Turrets</string:String>
+    <string:String x:Key="TotalDamageToObjectivesHeaderText">Total Damage to Objectives</string:String>
+
+    <string:String x:Key="DamageTakenAndHealedGroupHeaderText">Damage Taken and Healed</string:String>
+    <string:String x:Key="TotalHealingDoneHeaderText">Total Healing Done</string:String>
+    <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Total Healing Done to Teammates</string:String>
+    <string:String x:Key="TotalUnitsHealedHeaderText">Total Units Healed</string:String>
+    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded to Teammates</string:String>
+    <string:String x:Key="TotalDamageTakenHeaderText">Total Damage Taken</string:String>
+    <string:String x:Key="PhysicalDamageTakenHeaderText">Physical Damage Taken</string:String>
+    <string:String x:Key="MagicDamageTakenHeaderText">Magic Damage Taken</string:String>
+    <string:String x:Key="TrueDamageTakenHeaderText">True Damage Taken</string:String>
+    <string:String x:Key="TotalDamageSelfMitigatedHeaderText">Total Damage Self Mitigated</string:String>
+
+    <string:String x:Key="VisionGroupHeaderText">Vision</string:String>
+    <string:String x:Key="VisionScoreHeaderText">Vision Score</string:String>
+    <string:String x:Key="WardsPlacedHeaderText">Wards Placed</string:String>
+    <string:String x:Key="WardsKilledHeaderText">Wards Destroyed</string:String>
+    <string:String x:Key="VisionWardsPurchasedHeaderText">Control Wards Purchased</string:String>
+
+    <string:String x:Key="IncomeGroupHeaderText">Income</string:String>
+    <string:String x:Key="GoldEarnedHeaderText">Gold Earned</string:String>
+    <string:String x:Key="GoldSpentHeaderText">Gold Spent</string:String>
+    <string:String x:Key="ItemsPurchasedHeaderText">Items Purchased</string:String>
+    <string:String x:Key="ConsumablesPurchasedHeaderText">Consumables Purchased</string:String>
+    <string:String x:Key="MinionsKilledHeaderText">Minions Killed</string:String>
+    <string:String x:Key="NeutralMinionsKilledHeaderText">Neutral Minions Killed</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Own Jungle Minion Kills</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Other Jungle Minion Kills</string:String>
+
+    <string:String x:Key="ObjectivesGroupHeaderText">Objectives</string:String>
+    <string:String x:Key="TotalExperienceHeaderText">Total Experience</string:String>
+    <string:String x:Key="TurretsKilledHeaderText">Turrets Killed</string:String>
+    <string:String x:Key="InhibitorsKilledHeaderText">Inhibitors Killed</string:String>
+    <string:String x:Key="ObjectivesStolenHeaderText">Objectives Stolen</string:String>
+    <string:String x:Key="BaronsKilledHeaderText">Barons Killed</string:String>
+    <string:String x:Key="DragonsKilledHeaderText">Dragons Killed</string:String>
+    <string:String x:Key="LongestTimeSpentAliveHeaderText">Longest Time Spent Alive</string:String>
+    <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
+    <string:String x:Key="LastHitNexusHeaderText">Last Hit Nexus</string:String>
+
+    <string:String x:Key="ToxicityGroupHeaderText">Toxicity</string:String>
+    <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>
+    <string:String x:Key="TimeOfLastDisconnectHeaderText">Time Of Last Disconnect</string:String>
+    <string:String x:Key="PlayersMutedHeaderText">Players Muted</string:String>
+    <string:String x:Key="MutedByPlayersHeaderText">Muted By Players</string:String>
+    <string:String x:Key="PingHeaderText">Ping</string:String>
+    <string:String x:Key="TeamEarlySurrenderedHeaderText">Team Early Surrendered</string:String>
+    <string:String x:Key="WasAFKHeaderText">Was AFK</string:String>
+    <string:String x:Key="WasAFKAfterFailedSurrenderHeaderText">Was AFK After Failed Surrender</string:String>
+    <string:String x:Key="WasEarlySurrenderAccompliceHeaderText">Was Early Surrender Accomplice</string:String>
+
+    <string:String x:Key="MiscGroupHeaderText">Misc</string:String>
+    <string:String x:Key="Spell1CastsHeaderText">Spell 1 Casts</string:String>
+    <string:String x:Key="Spell2CastsHeaderText">Spell 2 Casts</string:String>
+    <string:String x:Key="Spell3CastsHeaderText">Spell 3 Casts</string:String>
+    <string:String x:Key="Spell4CastsHeaderText">Spell 4 Casts</string:String>
+    <string:String x:Key="SummonerSpell1CastsHeaderText">Summoner Spell 1 Casts</string:String>
+    <string:String x:Key="SummonerSpell2CastsHeaderText">Summoner Spell 2 Casts</string:String>
+    <string:String x:Key="IndividualPositionHeaderText">Individual Position</string:String>
+
+    <!--  ToolTip Text  -->
+    <string:String x:Key="SortToolTip">Sort</string:String>
+    <string:String x:Key="RefreshToolTip">Refresh</string:String>
+    <string:String x:Key="SettingsToolTip">Settings</string:String>
+    <string:String x:Key="PlayReplayToolTip">Play Replay</string:String>
+    <string:String x:Key="AlreadyPlayingToolTip">Already playing...</string:String>
+    <string:String x:Key="CannotPlayToolTip">Cannot play this replay</string:String>
+    <string:String x:Key="MoreToolTip">More...</string:String>
+
+    <string:String x:Key="FileDateToolTip">File creation date</string:String>
+    <string:String x:Key="MatchIdToolTip">Match ID</string:String>
+    <string:String x:Key="FileSizeToolTip">File size</string:String>
+    <string:String x:Key="MapNameToolTip">Map (best guess)</string:String>
+    <string:String x:Key="GameVersionToolTip">Game version</string:String>
+
+    <string:String x:Key="LevelToolTip">Level</string:String>
+    <string:String x:Key="KillsToolTip">Kills</string:String>
+    <string:String x:Key="DeathsToolTip">Deaths</string:String>
+    <string:String x:Key="AssistsToolTip">Assists</string:String>
+    <string:String x:Key="CreepScoreToolTip">Minion kills</string:String>
+    <string:String x:Key="GoldEarnedToolTip">Gold earned</string:String>
+
+    <!--  sort menu text  -->
+    <string:String x:Key="NameAsc">Name ascending</string:String>
+    <string:String x:Key="NameDesc">Name descending</string:String>
+
+    <string:String x:Key="DateAsc">Date created ascending</string:String>
+    <string:String x:Key="DateDesc">Date created descending</string:String>
+
+    <string:String x:Key="SizeAsc">Size ascending</string:String>
+    <string:String x:Key="SizeDesc">Size descending</string:String>
+
+    <!--  Replay Menu Item Text  -->
+    <string:String x:Key="OpenNewWindow">Open in a New Window</string:String>
+    <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
+    <string:String x:Key="ExportReplayData">Export Data...</string:String>
+    <string:String x:Key="RenameReplayFile">Rename</string:String>
+    <string:String x:Key="DeleteReplayFile">Delete</string:String>
+    <string:String x:Key="RefreshReplayList">Refresh List</string:String>
+
+    <!--  Export Data : Wizard  -->
+    <string:String x:Key="ErdTitle">Export Data Wizard</string:String>
+    <string:String x:Key="ErdTitleAdvanced">Export Data Advanced Mode</string:String>
+    <string:String x:Key="ErdLandingSubtitle">Choose from the following options</string:String>
+    <string:String x:Key="ErdLandingStart">Start wizard</string:String>
+    <string:String x:Key="ErdLandingPreset">Export using preset</string:String>
+    <string:String x:Key="ErdLandingAdvanced">Show advanced mode</string:String>
+    <string:String x:Key="ErdLandingEverything">Export everything</string:String>
+    <string:String x:Key="ErdPlayersSubtitle">Select players to include</string:String>
+    <string:String x:Key="ErdPlayersManual">Manual selection</string:String>
+    <string:String x:Key="ErdPlayersMarkers">Players with markers</string:String>
+    <string:String x:Key="ErdPlayersAll">All players</string:String>
+    <string:String x:Key="ErdAttributesSubtitle">Select player attributes to include</string:String>
+    <string:String x:Key="ErdAttributesFilter">Filter attributes...</string:String>
+    <string:String x:Key="ErdFinishFormatHeading">Output format</string:String>
+    <string:String x:Key="ErdFinishFormatCsv">Export as CSV</string:String>
+    <string:String x:Key="ErdFinishFormatNormalize">Normalize attribute names</string:String>
+    <string:String x:Key="ErdFinishJsonHeading">JSON specific options</string:String>
+    <string:String x:Key="ErdFinishJsonMatchId">Include match ID</string:String>
+    <string:String x:Key="ErdFinishJsonDuration">Include match duration</string:String>
+    <string:String x:Key="ErdFinishJsonVersion">Include patch version</string:String>
+    <string:String x:Key="ErdPreviewTitle">Data Preview</string:String>
+
+    <!--  Export Data : Common Items + Presets  -->
+    <string:String x:Key="ErdSelectAllItems">Select all</string:String>
+    <string:String x:Key="ErdDeselectAllItems">Deselect all</string:String>
+    <string:String x:Key="ErdExportButtonText">Export...</string:String>
+    <string:String x:Key="ErdExportDialogTitle">Choose Export Location</string:String>
+    <string:String x:Key="ErdFailedToSave">Failed to save file</string:String>
+    <string:String x:Key="ErdPresetSave">Save as preset</string:String>
+    <string:String x:Key="ErdPresetLoad">Load a preset</string:String>
+    <string:String x:Key="ErdPresetLoadbutton">Load</string:String>
+    <string:String x:Key="ErdPresetLoadTitle">Load Preset</string:String>
+    <string:String x:Key="ErdPresetSaveTitle">Save Preset</string:String>
+    <string:String x:Key="ErdPresetName">Name</string:String>
+    <string:String x:Key="ErdPresetProperties">Properties</string:String>
+    <string:String x:Key="ErdPresetPlayers">Selected Players</string:String>
+    <string:String x:Key="ErdPresetAttributes">Selected Attributes</string:String>
+    <string:String x:Key="ErdPresetOverwrite">Overwrite</string:String>
+    <string:String x:Key="ErdPresetExists">Preset with that name already exists. Overwrite?</string:String>
+    <string:String x:Key="ErdPresetExistsNotify">Name already exists</string:String>
+    <string:String x:Key="ErdPresetFailed">Failed to load preset</string:String>
+    <string:String x:Key="ErdPresetSavedTitle">Preset Saved</string:String>
+
+    <!--  Welcome Setup  -->
+    <string:String x:Key="WswWindowTitleText">ReplayBook Setup</string:String>
+    <string:String x:Key="WswPreviousText">Back</string:String>
+    <string:String x:Key="WswPreviousDisabled">Cannot go to previous page</string:String>
+    <string:String x:Key="WswNextText">Next</string:String>
+    <string:String x:Key="WswNextDisabled">Cannot go to next page</string:String>
+    <string:String x:Key="WswSkipText">Skip</string:String>
+    <string:String x:Key="WswSkipDisabled">Cannot skip page</string:String>
+    <string:String x:Key="WswDownloadMissingError">Could not find anything to download - check your internet connection or skip this step</string:String>
+    <string:String x:Key="WswDownloadNoSelectionError">Please make a download selection</string:String>
+
+    <!--  Welcome Setup : Introduction  -->
+    <string:String x:Key="WswIntroFrameTitle">Welcome to ReplayBook</string:String>
+    <string:String x:Key="WswReplaysFrameTitle">Replay Setup</string:String>
+    <string:String x:Key="WswExecutablesFrameTitle">Executable Setup</string:String>
+    <string:String x:Key="WswRegionFrameTitle">Language Setup</string:String>
+    <string:String x:Key="WswDownloadFrameTitle">Download Assets</string:String>
+    <string:String x:Key="WswFinishedFrameTitle">Complete!</string:String>
+
+    <string:String x:Key="WswIntroductionTitle">Thank you for downloading ReplayBook!</string:String>
+    <string:String x:Key="WswIntroductionBody">First, lets do some initial setup. Click the 'Next' button below to continue.</string:String>
+
+    <string:String x:Key="WswRegionTitle">Set your default League of Legends language</string:String>
+    <string:String x:Key="WswRegionBody">Choose a language with the drop down menu. ReplayBook will register your executables using this language. You can manually edit an executable's language later.</string:String>
+
+    <string:String x:Key="WswExecutablesTitle">Select the Riot Games folder</string:String>
+    <string:String x:Key="WswExecutablesBody">ReplayBook needs to register League of Legends before it is able to play replays. We will search this folder for all versions of League of Legends that exist.</string:String>
+    <string:String x:Key="WswExecutablesHint">For example: 'C:\Riot Games'</string:String>
+    <string:String x:Key="WswExecutablesRegisterList">Detected versions:</string:String>
+    <string:String x:Key="WswExecutablesRegisterListEmpty">Nothing found...</string:String>
+
+    <string:String x:Key="WswReplaysTitle">Select the replay folder</string:String>
+    <string:String x:Key="WswReplaysBody">ReplayBook won't be able to show any replays if it doesn't know where they are. Verify that this is where your replays are stored. You can add additional folders later.</string:String>
+    <string:String x:Key="WswReplaysHint">By default, replays are stored in &quot;Documents\League of Legends\Replays&quot;</string:String>
+
+    <string:String x:Key="WswDownloadTitle">Download icons now?</string:String>
+    <string:String x:Key="WswDownloadBody">Downloading icons will take a few minutes, but will make ReplayBook run faster. ReplayBook will download icons on demand if you skip this step.</string:String>
+    <string:String x:Key="WswDownloadChampionsText">Download champion thumbnails</string:String>
+    <string:String x:Key="WswDownloadItemsText">Download item thumbnails</string:String>
+    <string:String x:Key="WswDownloadRunesText">Download rune thumbnails</string:String>
+    <string:String x:Key="WswDownloadButton">Download</string:String>
+    <string:String x:Key="WswDownloadFinished">Download Finished</string:String>
+
+    <string:String x:Key="WswFinishTitle">Setup complete!</string:String>
+    <string:String x:Key="WswFinishBody">Click &quot;Finish&quot; and ReplayBook will automatically start with your chosen settings.</string:String>
+    <string:String x:Key="WswFinishButton">Finish</string:String>
+
+    <!--  Rename dialog  -->
+    <string:String x:Key="RenameFlyoutEmptyError">Enter valid file name</string:String>
+    <string:String x:Key="RenameFlyoutNotFoundError">Replay is not in a replay folder</string:String>
+
+    <!--  Delete dialog  -->
+    <string:String x:Key="DeleteFlyoutLabel">Are you sure?</string:String>
+
+</ResourceDictionary>
