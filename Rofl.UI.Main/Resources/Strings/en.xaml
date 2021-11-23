@@ -29,7 +29,7 @@
     <string:String x:Key="ScoreboardTabText">TABLEAU</string:String>
     <string:String x:Key="RunesTabText">RUNES</string:String>
     <string:String x:Key="StatsTabText">STATS</string:String>
-    <string:String x:Key="BlankDetailMessageText">Sélectionnez un replay à gauche pour commencer</string:String>
+    <string:String x:Key="BlankDetailMessageText">Sélectionnez une rediffusion à gauche pour commencer</string:String>
     <string:String x:Key="FailedToLoadReplayText">Échec du chargement de la rediffusion</string:String>
     <string:String x:Key="Victory">VICTOIRE</string:String>
     <string:String x:Key="BlueVictory">Victoire Bleue</string:String>
@@ -44,7 +44,7 @@
 
     <string:String x:Key="NoReplaysFoundTitle">Aucun résultat</string:String>
 
-    <string:String x:Key="MissingPathTitle">Dossier des rediffusions non trouvé</string:String>
+    <string:String x:Key="MissingPathTitle">Dossier de rediffusions non trouvé</string:String>
     <string:String x:Key="MissingPathText">Le(s) chemin(s) suivant(s) n'ont pas pu être trouvés et ont été supprimés.:</string:String>
 
     <!--  Settings Window Text  -->
@@ -194,68 +194,68 @@
     <string:String x:Key="ChampionsKilledHeaderText">Tués</string:String>
     <string:String x:Key="DeathsHeaderText">Morts</string:String>
     <string:String x:Key="AssistsHeaderText">Assistances</string:String>
-    <string:String x:Key="LargestKillingSpreeHeaderText">Largest Killing Spree</string:String>
-    <string:String x:Key="KillingSpreesHeaderText">Killing Sprees</string:String>
-    <string:String x:Key="LargestMultiKillHeaderText">Largest Multi Kill</string:String>
-    <string:String x:Key="BountyLevelHeaderText">Bounty Level</string:String>
-    <string:String x:Key="DoubleKillsHeaderText">Double Kills</string:String>
-    <string:String x:Key="TripleKillsHeaderText">Triple Kills</string:String>
-    <string:String x:Key="QuadraKillsHeaderText">Quadra Kills</string:String>
-    <string:String x:Key="PentaKillsHeaderText">Penta Kills</string:String>
-    <string:String x:Key="UnrealKillsHeaderText">Unreal Kills</string:String>
-    <string:String x:Key="CrowdControlScoreHeaderText">Crowd Control Score</string:String>
-    <string:String x:Key="TotalTimeCrowdControlDealtHeaderText">Crowd Control Time</string:String>
+    <string:String x:Key="LargestKillingSpreeHeaderText">Plus Longue Série Meurtrière</string:String>
+    <string:String x:Key="KillingSpreesHeaderText">Séries Meurtrières</string:String>
+    <string:String x:Key="LargestMultiKillHeaderText">Tués Simultanés Max</string:String>
+    <string:String x:Key="BountyLevelHeaderText">Niveau de la Prime</string:String>
+    <string:String x:Key="DoubleKillsHeaderText">Doublés</string:String>
+    <string:String x:Key="TripleKillsHeaderText">Triplés</string:String>
+    <string:String x:Key="QuadraKillsHeaderText">Quadruplés</string:String>
+    <string:String x:Key="PentaKillsHeaderText">Quatuplés</string:String>
+    <string:String x:Key="UnrealKillsHeaderText">Sextuplés</string:String>
+    <string:String x:Key="CrowdControlScoreHeaderText">Score de Contrôle De Foules</string:String>
+    <string:String x:Key="TotalTimeCrowdControlDealtHeaderText">Temps de Contrôle De Foules</string:String>
 
-    <string:String x:Key="DamageDealtGroupHeaderText">Damage Dealt</string:String>
-    <string:String x:Key="TotalDamageDealtToChampionsHeaderText">Total Damage to Champions</string:String>
-    <string:String x:Key="PhysicalDamageDealtToChampionsHeaderText">Physical Damage to Champions</string:String>
-    <string:String x:Key="MagicDamageDealtToChampionsHeaderText">Magic Damage to Champions</string:String>
-    <string:String x:Key="TrueDamageDealtToChampionsHeaderText">True Damage to Champions</string:String>
-    <string:String x:Key="TotalDamageDealtHeaderText">Total Damage Dealt</string:String>
-    <string:String x:Key="PhysicalDamageDealtHeaderText">Physical Damage Dealt</string:String>
-    <string:String x:Key="MagicDamageDealtHeaderText">Magic Damage Dealt</string:String>
-    <string:String x:Key="TrueDamageDealtHeaderText">True Damage Dealt</string:String>
-    <string:String x:Key="LargestCriticalStrikeHeaderText">Largest Critical Strike</string:String>
-    <string:String x:Key="TotalDamageToTurretsHeaderText">Total Damage to Turrets</string:String>
-    <string:String x:Key="TotalDamageToObjectivesHeaderText">Total Damage to Objectives</string:String>
+    <string:String x:Key="DamageDealtGroupHeaderText">Dégâts Infligés</string:String>
+    <string:String x:Key="TotalDamageDealtToChampionsHeaderText">Dégâts Totaux aux Champions</string:String>
+    <string:String x:Key="PhysicalDamageDealtToChampionsHeaderText">Dégâts Physiques aux Champions</string:String>
+    <string:String x:Key="MagicDamageDealtToChampionsHeaderText">Dégâts Magiques aux Champions</string:String>
+    <string:String x:Key="TrueDamageDealtToChampionsHeaderText">Dégâts Bruts aux Champions</string:String>
+    <string:String x:Key="TotalDamageDealtHeaderText">Dégâts Infligés</string:String>
+    <string:String x:Key="PhysicalDamageDealtHeaderText">Dégâts Physiques Infligés</string:String>
+    <string:String x:Key="MagicDamageDealtHeaderText">Dégâts Magiques Infligés</string:String>
+    <string:String x:Key="TrueDamageDealtHeaderText">Dégâts Bruts Infligés</string:String>
+    <string:String x:Key="LargestCriticalStrikeHeaderText">Coup Critique Max</string:String>
+    <string:String x:Key="TotalDamageToTurretsHeaderText">Dégâts Totaux aux Tourelles </string:String>
+    <string:String x:Key="TotalDamageToObjectivesHeaderText">Dégâts Totaux aux Objectifs</string:String>
 
-    <string:String x:Key="DamageTakenAndHealedGroupHeaderText">Damage Taken and Healed</string:String>
-    <string:String x:Key="TotalHealingDoneHeaderText">Total Healing Done</string:String>
-    <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Total Healing Done to Teammates</string:String>
-    <string:String x:Key="TotalUnitsHealedHeaderText">Total Units Healed</string:String>
-    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Total Damage Shielded to Teammates</string:String>
-    <string:String x:Key="TotalDamageTakenHeaderText">Total Damage Taken</string:String>
-    <string:String x:Key="PhysicalDamageTakenHeaderText">Physical Damage Taken</string:String>
-    <string:String x:Key="MagicDamageTakenHeaderText">Magic Damage Taken</string:String>
-    <string:String x:Key="TrueDamageTakenHeaderText">True Damage Taken</string:String>
-    <string:String x:Key="TotalDamageSelfMitigatedHeaderText">Total Damage Self Mitigated</string:String>
+    <string:String x:Key="DamageTakenAndHealedGroupHeaderText">Dommages Subis et Guéris</string:String>
+    <string:String x:Key="TotalHealingDoneHeaderText">Guérison Totale Effectuée</string:String>
+    <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Guérisons Totale Faite aux Coéquipiers</string:String>
+    <string:String x:Key="TotalUnitsHealedHeaderText">Unités Totales Guéries</string:String>
+    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Dégâts Subis Protégé des Coéquipiers</string:String>
+    <string:String x:Key="TotalDamageTakenHeaderText">Dégâts Subis</string:String>
+    <string:String x:Key="PhysicalDamageTakenHeaderText">Dégâts Physiques Subis</string:String>
+    <string:String x:Key="MagicDamageTakenHeaderText">Dégâts Magiques Subis</string:String>
+    <string:String x:Key="TrueDamageTakenHeaderText">Dégâts Bruts Subis</string:String>
+    <string:String x:Key="TotalDamageSelfMitigatedHeaderText">Dégâts Réduits sur Soi</string:String>
 
     <string:String x:Key="VisionGroupHeaderText">Vision</string:String>
-    <string:String x:Key="VisionScoreHeaderText">Vision Score</string:String>
-    <string:String x:Key="WardsPlacedHeaderText">Wards Placed</string:String>
-    <string:String x:Key="WardsKilledHeaderText">Wards Destroyed</string:String>
-    <string:String x:Key="VisionWardsPurchasedHeaderText">Control Wards Purchased</string:String>
+    <string:String x:Key="VisionScoreHeaderText">Score de Vision</string:String>
+    <string:String x:Key="WardsPlacedHeaderText">Balises Placés</string:String>
+    <string:String x:Key="WardsKilledHeaderText">Balises Détruits</string:String>
+    <string:String x:Key="VisionWardsPurchasedHeaderText">Balises de Contrôle Achetéss</string:String>
 
-    <string:String x:Key="IncomeGroupHeaderText">Income</string:String>
-    <string:String x:Key="GoldEarnedHeaderText">Gold Earned</string:String>
-    <string:String x:Key="GoldSpentHeaderText">Gold Spent</string:String>
-    <string:String x:Key="ItemsPurchasedHeaderText">Items Purchased</string:String>
-    <string:String x:Key="ConsumablesPurchasedHeaderText">Consumables Purchased</string:String>
-    <string:String x:Key="MinionsKilledHeaderText">Minions Killed</string:String>
-    <string:String x:Key="NeutralMinionsKilledHeaderText">Neutral Minions Killed</string:String>
-    <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Own Jungle Minion Kills</string:String>
-    <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Other Jungle Minion Kills</string:String>
+    <string:String x:Key="IncomeGroupHeaderText">Revenu</string:String>
+    <string:String x:Key="GoldEarnedHeaderText">Or Gagné</string:String>
+    <string:String x:Key="GoldSpentHeaderText">Or Dépensé</string:String>
+    <string:String x:Key="ItemsPurchasedHeaderText">Articles Achetés</string:String>
+    <string:String x:Key="ConsumablesPurchasedHeaderText">Consommables Achetés</string:String>
+    <string:String x:Key="MinionsKilledHeaderText">Sbires Tués</string:String>
+    <string:String x:Key="NeutralMinionsKilledHeaderText">Sbires Neutres Tués</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Propre Sbires de la Jungle Tués</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Autres Sbires de la Jungle Tués</string:String>
 
-    <string:String x:Key="ObjectivesGroupHeaderText">Objectives</string:String>
-    <string:String x:Key="TotalExperienceHeaderText">Total Experience</string:String>
-    <string:String x:Key="TurretsKilledHeaderText">Turrets Killed</string:String>
-    <string:String x:Key="InhibitorsKilledHeaderText">Inhibitors Killed</string:String>
-    <string:String x:Key="ObjectivesStolenHeaderText">Objectives Stolen</string:String>
-    <string:String x:Key="BaronsKilledHeaderText">Barons Killed</string:String>
-    <string:String x:Key="DragonsKilledHeaderText">Dragons Killed</string:String>
-    <string:String x:Key="LongestTimeSpentAliveHeaderText">Longest Time Spent Alive</string:String>
-    <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
-    <string:String x:Key="LastHitNexusHeaderText">Last Hit Nexus</string:String>
+    <string:String x:Key="ObjectivesGroupHeaderText">Objectifs</string:String>
+    <string:String x:Key="TotalExperienceHeaderText">Expérience Totale</string:String>
+    <string:String x:Key="TurretsKilledHeaderText">Tourelles Détruites/string:String>
+    <string:String x:Key="InhibitorsKilledHeaderText">Inhibiteurs Détruits</string:String>
+    <string:String x:Key="ObjectivesStolenHeaderText">Objectifs Volés</string:String>
+    <string:String x:Key="BaronsKilledHeaderText">Barons Tués</string:String>
+    <string:String x:Key="DragonsKilledHeaderText">Dragons Tués</string:String>
+    <string:String x:Key="LongestTimeSpentAliveHeaderText">Plus Long Séjour En Vie</string:String>
+    <string:String x:Key="TotalTimeSpentDeadHeaderText">Durée Totale Mort</string:String>
+    <string:String x:Key="LastHitNexusHeaderText">Dernier Coup Nexus</string:String>
 
     <string:String x:Key="ToxicityGroupHeaderText">Toxicité</string:String>
     <string:String x:Key="TimeSpentDisconnectedHeaderText">Temps passé déconnecté</string:String>
@@ -269,149 +269,149 @@
     <string:String x:Key="WasEarlySurrenderAccompliceHeaderText">A été complice à la soumission</string:String>
 
     <string:String x:Key="MiscGroupHeaderText">Autres</string:String>
-    <string:String x:Key="Spell1CastsHeaderText">Spell 1 Casts</string:String>
-    <string:String x:Key="Spell2CastsHeaderText">Spell 2 Casts</string:String>
-    <string:String x:Key="Spell3CastsHeaderText">Spell 3 Casts</string:String>
-    <string:String x:Key="Spell4CastsHeaderText">Spell 4 Casts</string:String>
-    <string:String x:Key="SummonerSpell1CastsHeaderText">Summoner Spell 1 Casts</string:String>
-    <string:String x:Key="SummonerSpell2CastsHeaderText">Summoner Spell 2 Casts</string:String>
-    <string:String x:Key="IndividualPositionHeaderText">Individual Position</string:String>
+    <string:String x:Key="Spell1CastsHeaderText">Sort 1 Lancés</string:String>
+    <string:String x:Key="Spell2CastsHeaderText">Sort 2 Lancés</string:String>
+    <string:String x:Key="Spell3CastsHeaderText">Sort 3 Lancés</string:String>
+    <string:String x:Key="Spell4CastsHeaderText">Sort 4 Lancés</string:String>
+    <string:String x:Key="SummonerSpell1CastsHeaderText">Sort d'invocateur 1 Lancés</string:String>
+    <string:String x:Key="SummonerSpell2CastsHeaderText">Sort d'invocateur 2 Lancés</string:String>
+    <string:String x:Key="IndividualPositionHeaderText">Position individuelle</string:String>
 
     <!--  ToolTip Text  -->
-    <string:String x:Key="SortToolTip">Sort</string:String>
-    <string:String x:Key="RefreshToolTip">Refresh</string:String>
-    <string:String x:Key="SettingsToolTip">Settings</string:String>
-    <string:String x:Key="PlayReplayToolTip">Play Replay</string:String>
-    <string:String x:Key="AlreadyPlayingToolTip">Already playing...</string:String>
-    <string:String x:Key="CannotPlayToolTip">Cannot play this replay</string:String>
-    <string:String x:Key="MoreToolTip">More...</string:String>
+    <string:String x:Key="SortToolTip">Trier</string:String>
+    <string:String x:Key="RefreshToolTip">Rafraîchir</string:String>
+    <string:String x:Key="SettingsToolTip">Paramètres</string:String>
+    <string:String x:Key="PlayReplayToolTip">Jouer la rediffusion</string:String>
+    <string:String x:Key="AlreadyPlayingToolTip">Déjà en jeu...</string:String>
+    <string:String x:Key="CannotPlayToolTip">Impossible de lire ce rediffusion</string:String>
+    <string:String x:Key="MoreToolTip">Plus...</string:String>
 
-    <string:String x:Key="FileDateToolTip">File creation date</string:String>
-    <string:String x:Key="MatchIdToolTip">Match ID</string:String>
-    <string:String x:Key="FileSizeToolTip">File size</string:String>
-    <string:String x:Key="MapNameToolTip">Map (best guess)</string:String>
-    <string:String x:Key="GameVersionToolTip">Game version</string:String>
+    <string:String x:Key="FileDateToolTip">Date de création du fichier</string:String>
+    <string:String x:Key="MatchIdToolTip">ID du match</string:String>
+    <string:String x:Key="FileSizeToolTip">Taille du fichier</string:String>
+    <string:String x:Key="MapNameToolTip">Plan (meilleure estimation)</string:String>
+    <string:String x:Key="GameVersionToolTip">Version du jeu</string:String>
 
-    <string:String x:Key="LevelToolTip">Level</string:String>
-    <string:String x:Key="KillsToolTip">Kills</string:String>
-    <string:String x:Key="DeathsToolTip">Deaths</string:String>
-    <string:String x:Key="AssistsToolTip">Assists</string:String>
-    <string:String x:Key="CreepScoreToolTip">Minion kills</string:String>
-    <string:String x:Key="GoldEarnedToolTip">Gold earned</string:String>
+    <string:String x:Key="LevelToolTip">Niveau</string:String>
+    <string:String x:Key="KillsToolTip">Tués</string:String>
+    <string:String x:Key="DeathsToolTip">Morts</string:String>
+    <string:String x:Key="AssistsToolTip">Assistances</string:String>
+    <string:String x:Key="CreepScoreToolTip">Sbires tués</string:String>
+    <string:String x:Key="GoldEarnedToolTip">Or gagné</string:String>
 
     <!--  sort menu text  -->
-    <string:String x:Key="NameAsc">Name ascending</string:String>
-    <string:String x:Key="NameDesc">Name descending</string:String>
+    <string:String x:Key="NameAsc">Nom en ascendant</string:String>
+    <string:String x:Key="NameDesc">Nom en descendant</string:String>
 
-    <string:String x:Key="DateAsc">Date created ascending</string:String>
-    <string:String x:Key="DateDesc">Date created descending</string:String>
+    <string:String x:Key="DateAsc">Date de création en ascendante</string:String>
+    <string:String x:Key="DateDesc">Date de création en descendant</string:String>
 
-    <string:String x:Key="SizeAsc">Size ascending</string:String>
-    <string:String x:Key="SizeDesc">Size descending</string:String>
+    <string:String x:Key="SizeAsc">Taille ascendante</string:String>
+    <string:String x:Key="SizeDesc">Taille décroissante</string:String>
 
     <!--  Replay Menu Item Text  -->
-    <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
-    <string:String x:Key="ExportReplayData">Export Data...</string:String>
-    <string:String x:Key="RenameReplayFile">Rename</string:String>
-    <string:String x:Key="DeleteReplayFile">Delete</string:String>
-    <string:String x:Key="RefreshReplayList">Refresh List</string:String>
+    <string:String x:Key="OpenContainingFolder">Ouvrir le dossier contenant</string:String>
+    <string:String x:Key="ExportReplayData">Exporter les données...</string:String>
+    <string:String x:Key="RenameReplayFile">Renommer</string:String>
+    <string:String x:Key="DeleteReplayFile">Supprimer</string:String>
+    <string:String x:Key="RefreshReplayList">Rafraîchir la liste</string:String>
 
     <!--  Export Data : Wizard  -->
-    <string:String x:Key="ErdTitle">Export Data Wizard</string:String>
-    <string:String x:Key="ErdTitleAdvanced">Export Data Advanced Mode</string:String>
-    <string:String x:Key="ErdLandingSubtitle">Choose from the following options</string:String>
-    <string:String x:Key="ErdLandingStart">Start wizard</string:String>
-    <string:String x:Key="ErdLandingPreset">Export using preset</string:String>
-    <string:String x:Key="ErdLandingAdvanced">Show advanced mode</string:String>
-    <string:String x:Key="ErdLandingEverything">Export everything</string:String>
-    <string:String x:Key="ErdPlayersSubtitle">Select players to include</string:String>
-    <string:String x:Key="ErdPlayersManual">Manual selection</string:String>
-    <string:String x:Key="ErdPlayersMarkers">Players with markers</string:String>
-    <string:String x:Key="ErdPlayersAll">All players</string:String>
-    <string:String x:Key="ErdAttributesSubtitle">Select player attributes to include</string:String>
-    <string:String x:Key="ErdAttributesFilter">Filter attributes...</string:String>
-    <string:String x:Key="ErdFinishFormatHeading">Output format</string:String>
-    <string:String x:Key="ErdFinishFormatCsv">Export as CSV</string:String>
-    <string:String x:Key="ErdFinishFormatNormalize">Normalize attribute names</string:String>
-    <string:String x:Key="ErdFinishJsonHeading">JSON specific options</string:String>
-    <string:String x:Key="ErdFinishJsonMatchId">Include match ID</string:String>
-    <string:String x:Key="ErdFinishJsonDuration">Include match duration</string:String>
-    <string:String x:Key="ErdFinishJsonVersion">Include patch version</string:String>
-    <string:String x:Key="ErdPreviewTitle">Data Preview</string:String>
+    <string:String x:Key="ErdTitle">Exportez l'assistant de données</string:String>
+    <string:String x:Key="ErdTitleAdvanced">Mode avancé d'exportation des données</string:String>
+    <string:String x:Key="ErdLandingSubtitle">Choisissez parmi les options suivantes</string:String>
+    <string:String x:Key="ErdLandingStart">Démarrez l'assistant de démarrage</string:String>
+    <string:String x:Key="ErdLandingPreset">Exportation à l'aide d'un préréglage</string:String>
+    <string:String x:Key="ErdLandingAdvanced">Afficher le mode avancé</string:String>
+    <string:String x:Key="ErdLandingEverything">Exporter tout</string:String>
+    <string:String x:Key="ErdPlayersSubtitle">Sélectionner les joueurs à inclure</string:String>
+    <string:String x:Key="ErdPlayersManual">Sélection manuelle</string:String>
+    <string:String x:Key="ErdPlayersMarkers">Joueurs avec des marqueurs</string:String>
+    <string:String x:Key="ErdPlayersAll">Tous les joueurs</string:String>
+    <string:String x:Key="ErdAttributesSubtitle">Sélectionnez les attributs du joueur à inclure</string:String>
+    <string:String x:Key="ErdAttributesFilter">Filtrer les attributs...</string:String>
+    <string:String x:Key="ErdFinishFormatHeading">Format de la sortie</string:String>
+    <string:String x:Key="ErdFinishFormatCsv">Exporter en tant que CSV</string:String>
+    <string:String x:Key="ErdFinishFormatNormalize">Normaliser les noms d'attributs</string:String>
+    <string:String x:Key="ErdFinishJsonHeading">Option spécifique à JSON</string:String>
+    <string:String x:Key="ErdFinishJsonMatchId">Inclure l'identifiant du match</string:String>
+    <string:String x:Key="ErdFinishJsonDuration">Inclure la durée du match</string:String>
+    <string:String x:Key="ErdFinishJsonVersion">Inclure la version du patch</string:String>
+    <string:String x:Key="ErdPreviewTitle">Aperçu des données</string:String>
 
     <!--  Export Data : Common Items + Presets  -->
-    <string:String x:Key="ErdSelectAllItems">Select all</string:String>
-    <string:String x:Key="ErdDeselectAllItems">Deselect all</string:String>
-    <string:String x:Key="ErdExportButtonText">Export...</string:String>
-    <string:String x:Key="ErdExportDialogTitle">Choose Export Location</string:String>
-    <string:String x:Key="ErdFailedToSave">Failed to save file</string:String>
-    <string:String x:Key="ErdPresetSave">Save as preset</string:String>
-    <string:String x:Key="ErdPresetLoad">Load a preset</string:String>
-    <string:String x:Key="ErdPresetLoadbutton">Load</string:String>
-    <string:String x:Key="ErdPresetLoadTitle">Load Preset</string:String>
-    <string:String x:Key="ErdPresetSaveTitle">Save Preset</string:String>
-    <string:String x:Key="ErdPresetName">Name</string:String>
-    <string:String x:Key="ErdPresetProperties">Properties</string:String>
-    <string:String x:Key="ErdPresetPlayers">Selected Players</string:String>
-    <string:String x:Key="ErdPresetAttributes">Selected Attributes</string:String>
-    <string:String x:Key="ErdPresetOverwrite">Overwrite</string:String>
-    <string:String x:Key="ErdPresetExists">Preset with that name already exists. Overwrite?</string:String>
-    <string:String x:Key="ErdPresetExistsNotify">Name already exists</string:String>
-    <string:String x:Key="ErdPresetFailed">Failed to load preset</string:String>
-    <string:String x:Key="ErdPresetSavedTitle">Preset Saved</string:String>
+    <string:String x:Key="ErdSelectAllItems">Sélectionner tout</string:String>
+    <string:String x:Key="ErdDeselectAllItems">Désélectionner tout</string:String>
+    <string:String x:Key="ErdExportButtonText">Exporter...</string:String>
+    <string:String x:Key="ErdExportDialogTitle">Choisissez l'emplacement d'exportation</string:String>
+    <string:String x:Key="ErdFailedToSave">Échec de l'enregistrement du fichier</string:String>
+    <string:String x:Key="ErdPresetSave">Sauvegarder comme préréglage</string:String>
+    <string:String x:Key="ErdPresetLoad">Chargement d'un préréglage</string:String>
+    <string:String x:Key="ErdPresetLoadbutton">Charger</string:String>
+    <string:String x:Key="ErdPresetLoadTitle">Chargement du préréglage</string:String>
+    <string:String x:Key="ErdPresetSaveTitle">Sauvegarder le préréglage</string:String>
+    <string:String x:Key="ErdPresetName">Nom</string:String>
+    <string:String x:Key="ErdPresetProperties">Propriétés</string:String>
+    <string:String x:Key="ErdPresetPlayers">Joueurs sélectionnés</string:String>
+    <string:String x:Key="ErdPresetAttributes">Attributs sélectionnés</string:String>
+    <string:String x:Key="ErdPresetOverwrite">Remplacer</string:String>
+    <string:String x:Key="ErdPresetExists">Le préréglage avec ce nom existe déjà. Remplacer?</string:String>
+    <string:String x:Key="ErdPresetExistsNotify">Nom déjà existants</string:String>
+    <string:String x:Key="ErdPresetFailed">Échec du chargement du préréglage</string:String>
+    <string:String x:Key="ErdPresetSavedTitle">Préréglage sauvegardé</string:String>
 
     <!--  Welcome Setup  -->
-    <string:String x:Key="WswWindowTitleText">ReplayBook Setup</string:String>
-    <string:String x:Key="WswPreviousText">Back</string:String>
-    <string:String x:Key="WswPreviousDisabled">Cannot go to previous page</string:String>
-    <string:String x:Key="WswNextText">Next</string:String>
-    <string:String x:Key="WswNextDisabled">Cannot go to next page</string:String>
-    <string:String x:Key="WswSkipText">Skip</string:String>
-    <string:String x:Key="WswSkipDisabled">Cannot skip page</string:String>
-    <string:String x:Key="WswDownloadMissingError">Could not find anything to download - check your internet connection or skip this step</string:String>
-    <string:String x:Key="WswDownloadNoSelectionError">Please make a download selection</string:String>
+    <string:String x:Key="WswWindowTitleText">Installation de ReplayBook</string:String>
+    <string:String x:Key="WswPreviousText">Retour</string:String>
+    <string:String x:Key="WswPreviousDisabled">Impossible d'aller à la page précédente</string:String>
+    <string:String x:Key="WswNextText">Suivant</string:String>
+    <string:String x:Key="WswNextDisabled">Impossible d'aller à la page suivante</string:String>
+    <string:String x:Key="WswSkipText">Sauter</string:String>
+    <string:String x:Key="WswSkipDisabled">Impossible de sauter la page</string:String>
+    <string:String x:Key="WswDownloadMissingError">Impossible de trouver quelque chose à télécharger - vérifiez votre connexion Internet ou passez cette étape.</string:String>
+    <string:String x:Key="WswDownloadNoSelectionError">Veuillez faire une sélection de téléchargement</string:String>
 
     <!--  Welcome Setup : Introduction  -->
-    <string:String x:Key="WswIntroFrameTitle">Welcome to ReplayBook</string:String>
-    <string:String x:Key="WswReplaysFrameTitle">Replay Setup</string:String>
-    <string:String x:Key="WswExecutablesFrameTitle">Executable Setup</string:String>
-    <string:String x:Key="WswRegionFrameTitle">Language Setup</string:String>
-    <string:String x:Key="WswDownloadFrameTitle">Download Assets</string:String>
-    <string:String x:Key="WswFinishedFrameTitle">Complete!</string:String>
+    <string:String x:Key="WswIntroFrameTitle">Bienvenue sur ReplayBook</string:String>
+    <string:String x:Key="WswReplaysFrameTitle">Configuration des rediffusions/string:String>
+    <string:String x:Key="WswExecutablesFrameTitle">Configuration de l'exécutable</string:String>
+    <string:String x:Key="WswRegionFrameTitle">Configuration du langage</string:String>
+    <string:String x:Key="WswDownloadFrameTitle">Télécharger les actifs</string:String>
+    <string:String x:Key="WswFinishedFrameTitle">Terminé!</string:String>
 
-    <string:String x:Key="WswIntroductionTitle">Thank you for downloading ReplayBook!</string:String>
-    <string:String x:Key="WswIntroductionBody">First, lets do some initial setup. Click the 'Next' button below to continue.</string:String>
+    <string:String x:Key="WswIntroductionTitle">Merci d'avoir téléchargé ReplayBook!</string:String>
+    <string:String x:Key="WswIntroductionBody">Tout d'abord, procédons à la configuration initiale. Cliquez sur le bouton "Suivant" ci-dessous pour continuer.</string:String>
 
-    <string:String x:Key="WswRegionTitle">Set your default League of Legends language</string:String>
-    <string:String x:Key="WswRegionBody">Choose a language with the drop down menu. ReplayBook will register your executables using this language. You can manually edit an executable's language later.</string:String>
+    <string:String x:Key="WswRegionTitle">Définissez votre langue League of Legends par défaut</string:String>
+    <string:String x:Key="WswRegionBody">Choisissez une langue à l'aide du menu déroulant. ReplayBook enregistrera vos exécutables en utilisant cette langue. Vous pourrez modifier manuellement la langue d'un exécutable ultérieurement.</string:String>
 
-    <string:String x:Key="WswExecutablesTitle">Select the Riot Games folder</string:String>
-    <string:String x:Key="WswExecutablesBody">ReplayBook needs to register League of Legends before it is able to play replays. We will search this folder for all versions of League of Legends that exist.</string:String>
-    <string:String x:Key="WswExecutablesHint">For example: 'C:\Riot Games'</string:String>
-    <string:String x:Key="WswExecutablesRegisterList">Detected versions:</string:String>
-    <string:String x:Key="WswExecutablesRegisterListEmpty">Nothing found...</string:String>
+    <string:String x:Key="WswExecutablesTitle">Sélectionnez le dossier Riot Games</string:String>
+    <string:String x:Key="WswExecutablesBody">ReplayBook doit enregistrer League of Legends avant de pouvoir lire les rediffusions. Nous allons rechercher dans ce dossier toutes les versions de League of Legends qui existent.</string:String>
+    <string:String x:Key="WswExecutablesHint">Par example: 'C:\Riot Games'</string:String>
+    <string:String x:Key="WswExecutablesRegisterList">Versions détectées:</string:String>
+    <string:String x:Key="WswExecutablesRegisterListEmpty">Rien trouvé...</string:String>
 
-    <string:String x:Key="WswReplaysTitle">Select the replay folder</string:String>
-    <string:String x:Key="WswReplaysBody">ReplayBook won't be able to show any replays if it doesn't know where they are. Verify that this is where your replays are stored. You can add additional folders later.</string:String>
-    <string:String x:Key="WswReplaysHint">By default, replays are stored in &quot;Documents\League of Legends\Replays&quot;</string:String>
+    <string:String x:Key="WswReplaysTitle">Sélectionnez le dossier de rediffusion</string:String>
+    <string:String x:Key="WswReplaysBody">ReplayBook ne pourra pas afficher des rediffusions s'il ne sait pas où ils se trouvent. Vérifiez que c'est bien l'endroit où vos rediffusions sont stockés. Vous pourrez ajouter des dossiers supplémentaires plus tard.</string:String>
+    <string:String x:Key="WswReplaysHint">Par défaut, les replays sont stockés dans &quot;Documents\League of Legends\Replays&quot;</string:String>
 
-    <string:String x:Key="WswDownloadTitle">Download icons now?</string:String>
-    <string:String x:Key="WswDownloadBody">Downloading icons will take a few minutes, but will make ReplayBook run faster. ReplayBook will download icons on demand if you skip this step.</string:String>
-    <string:String x:Key="WswDownloadChampionsText">Download champion thumbnails</string:String>
-    <string:String x:Key="WswDownloadItemsText">Download item thumbnails</string:String>
-    <string:String x:Key="WswDownloadRunesText">Download rune thumbnails</string:String>
-    <string:String x:Key="WswDownloadButton">Download</string:String>
-    <string:String x:Key="WswDownloadFinished">Download Finished</string:String>
+    <string:String x:Key="WswDownloadTitle">Téléchargez les icônes maintenant?</string:String>
+    <string:String x:Key="WswDownloadBody">Le téléchargement des icônes prendra quelques minutes, mais permettra à ReplayBook de fonctionner plus rapidement. ReplayBook téléchargera les icônes à la demande si vous sautez cette étape.</string:String>
+    <string:String x:Key="WswDownloadChampionsText">Télécharger les vignettes des champions</string:String>
+    <string:String x:Key="WswDownloadItemsText">Télécharger les vignettes des objets</string:String>
+    <string:String x:Key="WswDownloadRunesText">Télécharger les vignettes des runes</string:String>
+    <string:String x:Key="WswDownloadButton">Télécharger</string:String>
+    <string:String x:Key="WswDownloadFinished">Téléchargement terminé</string:String>
 
-    <string:String x:Key="WswFinishTitle">Setup complete!</string:String>
-    <string:String x:Key="WswFinishBody">Click &quot;Finish&quot; and ReplayBook will automatically start with your chosen settings.</string:String>
-    <string:String x:Key="WswFinishButton">Finish</string:String>
+    <string:String x:Key="WswFinishTitle">Installation terminée!</string:String>
+    <string:String x:Key="WswFinishBody">Cliquez&quot;Terminer&quot; et ReplayBook démarrera automatiquement avec les paramètres que vous avez choisis.</string:String>
+    <string:String x:Key="WswFinishButton">Terminer</string:String>
 
     <!--  Rename dialog  -->
-    <string:String x:Key="RenameFlyoutEmptyError">Enter valid file name</string:String>
-    <string:String x:Key="RenameFlyoutNotFoundError">Replay is not in a replay folder</string:String>
+    <string:String x:Key="RenameFlyoutEmptyError">Entrez un nom de fichier valide</string:String>
+    <string:String x:Key="RenameFlyoutNotFoundError">La rediffusion n'est pas dans un dossier de rediffusion/string:String>
 
     <!--  Delete dialog  -->
-    <string:String x:Key="DeleteFlyoutLabel">Are you sure?</string:String>
+    <string:String x:Key="DeleteFlyoutLabel">Êtes-vous sûr?</string:String>
 
 </ResourceDictionary>
