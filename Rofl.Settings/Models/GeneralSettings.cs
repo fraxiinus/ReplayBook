@@ -45,7 +45,7 @@ namespace Rofl.Settings.Models
 
     public enum Language
     {
-        En, ZhHans, De, Es
+        En, ZhHans, De, Es, Fr
     }
 
     public class GeneralSettings
