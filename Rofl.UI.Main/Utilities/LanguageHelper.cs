@@ -29,7 +29,8 @@ namespace Rofl.UI.Main.Utilities
                 case Language.Es:
                     dict.Source = new Uri("..\\Resources\\Strings\\es.xaml", UriKind.Relative);
                     break;
-                default:
+                case Language.Pt:
+                    dict.Source = new Uri("..\\Resources\\Strings\\pt.xaml", UriKind.Relative);
                     break;
             }
 
@@ -75,7 +76,8 @@ namespace Rofl.UI.Main.Utilities
                     case Language.Es:
                         languages.Add("Español");
                         break;
-                    default:
+                    case Language.Pt:
+                        languages.Add("Português (Brasil)");
                         break;
                 }
             }
@@ -99,6 +101,8 @@ namespace Rofl.UI.Main.Utilities
                     return "de_DE";
                 case Language.Es:
                     return "es_ES";
+                case Language.Pt:
+                    return "pt_BR";
                 default:
                     return "en_US";
             }
