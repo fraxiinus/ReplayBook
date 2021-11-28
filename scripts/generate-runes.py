@@ -6,7 +6,7 @@ import json
 
 # add additional languages here:
 # see https://ddragon.leagueoflegends.com/cdn/languages.json for valid languages
-languages = ["en_US", "de_DE", "zh_CN", "es_ES"]
+languages = ["en_US", "de_DE", "zh_CN", "es_ES", "pt_BR"]
 
 # stats runes are not included in Riot's rune list, code them here
 # these are found in the CDragon rune list, search for 'statmods'
