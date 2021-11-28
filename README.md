@@ -4,7 +4,7 @@
 </a>
 </p>
 
-![DarkMode](.github/screenshots/0_overview.png "Window Overview Image")
+![DarkMode](.github/screenshots/0_banner_image.png "Window Overview Image")
 
 [![Build](https://img.shields.io/github/workflow/status/fraxiinus/ReplayBook/Build?style=flat-square)](https://github.com/fraxiinus/ReplayBook/actions?query=workflow%3ABuild)
 [![License](https://img.shields.io/github/license/fraxiinus/ReplayBook?style=flat-square)](https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE)
@@ -31,8 +31,8 @@ Check out the [troubleshooting guide](https://github.com/fraxiinus/ReplayBook/wi
 * View all information available in replay files, including runes!
 * Export data to CSV or JSON file formats
 * Supports all League of Legends regions!
-* Community translated! Includes Chinese Simplified, Spanish, and German.
-* Windows 10 dark/light themes supported
+* Community translated! Includes Simplified Chinese, French, German, Portuguese, and Spanish
+* Windows 10 dark/light themes with accent color supported
 * [See more/screenshots...](https://github.com/fraxiinus/ReplayBook/wiki/Features-and-Screenshots)
 
 ## Getting Started
