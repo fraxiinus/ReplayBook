@@ -29,8 +29,13 @@ namespace Rofl.UI.Main.Utilities
                 case Language.Es:
                     dict.Source = new Uri("..\\Resources\\Strings\\es.xaml", UriKind.Relative);
                     break;
+                case Language.Fr:
+                    dict.Source = new Uri("..\\Resources\\Strings\\fr.xaml", UriKind.Relative);
+                    break;
                 case Language.Pt:
                     dict.Source = new Uri("..\\Resources\\Strings\\pt.xaml", UriKind.Relative);
+                    break;
+                default:
                     break;
             }
 
@@ -41,11 +46,11 @@ namespace Rofl.UI.Main.Utilities
                 {
                     Source = new Uri("..\\Resources\\Strings\\en.xaml", UriKind.Relative)
                 };
-                System.Windows.Application.Current.Resources.MergedDictionaries.Add(backupDict);
+                Application.Current.Resources.MergedDictionaries.Add(backupDict);
             }
 
             // Load selected language
-            System.Windows.Application.Current.Resources.MergedDictionaries.Add(dict);
+            Application.Current.Resources.MergedDictionaries.Add(dict);
 
             CurrentLanguage = target;
 
@@ -76,8 +81,13 @@ namespace Rofl.UI.Main.Utilities
                     case Language.Es:
                         languages.Add("Español");
                         break;
+                    case Language.Fr:
+                        languages.Add("Français");
+                        break;
                     case Language.Pt:
                         languages.Add("Português (Brasil)");
+                        break;
+                    default:
                         break;
                 }
             }
@@ -101,6 +111,8 @@ namespace Rofl.UI.Main.Utilities
                     return "de_DE";
                 case Language.Es:
                     return "es_ES";
+                case Language.Fr:
+                    return "fr_FR";
                 case Language.Pt:
                     return "pt_BR";
                 default:
