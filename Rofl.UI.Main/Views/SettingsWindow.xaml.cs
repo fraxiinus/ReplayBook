@@ -597,6 +597,7 @@ namespace Rofl.UI.Main.Views
         private async void UpdateCheckButton_Click(object sender, RoutedEventArgs e)
         {
             if (!(DataContext is SettingsManager context)) { return; }
+            UpdateCheckButton.IsEnabled = false;
 
             string latestVersion;
             try
@@ -616,6 +617,7 @@ namespace Rofl.UI.Main.Views
 
                 // Show dialog
                 _ = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                UpdateCheckButton.IsEnabled = true;
                 return;
             }
 
@@ -633,6 +635,7 @@ namespace Rofl.UI.Main.Views
 
                 // Show dialog
                 _ = await msgDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                UpdateCheckButton.IsEnabled = true;
                 return;
             }
 
@@ -672,6 +675,7 @@ namespace Rofl.UI.Main.Views
                 }
             }
 
+            UpdateCheckButton.IsEnabled = true;
             return;
         }
 
