@@ -3,6 +3,7 @@
     作者：ASTWY
     日期：2021/03/14
     更新：awter 2021/08/03
+    更新: JerryLyu 2021/11/29
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,7 +17,13 @@
     <string:String x:Key="LoadMoreButtonText">装载更多...</string:String>
 
     <string:String x:Key="LoadingMessageReplay">正在载入回放文件...</string:String>
+    <string:String x:Key="LoadingMessageExecutables">正在验证可执行文件...</string:String>
     <string:String x:Key="LoadingMessageThumbnails">正在加载缩略图...</string:String>
+    <string:String x:Key="LoadingMessageErrors">加载回放文件失败</string:String>
+    <string:String x:Key="LoadingFailureTitle">回放加载失败</string:String>
+    <string:String x:Key="LoadingFailureSubtitle">修复或移除以下文件:</string:String>
+    <string:String x:Key="CloseText">关闭</string:String>
+
 
     <string:String x:Key="YesText">是</string:String>
     <string:String x:Key="NoText">否</string:String>
@@ -310,19 +317,56 @@
     <string:String x:Key="SizeDesc">文件大小降序</string:String>
 
     <!--  Replay Menu Item Text  -->
+    <string:String x:Key="OpenNewWindow">在新窗口打开</string:String>
     <string:String x:Key="OpenContainingFolder">打开包含文件夹</string:String>
     <string:String x:Key="ExportReplayData">导出数据...</string:String>
     <string:String x:Key="RenameReplayFile">重命名</string:String>
     <string:String x:Key="DeleteReplayFile">删除</string:String>
     <string:String x:Key="RefreshReplayList">刷新列表</string:String>
 
-    <!--  Replay Data Export  -->
+    <!--  Export Data : Wizard  -->
+    <string:String x:Key="ErdTitle">数据导出向导</string:String>
+    <string:String x:Key="ErdTitleAdvanced">数据导出高级模式</string:String>
+    <string:String x:Key="ErdLandingSubtitle">从以下选项中选择</string:String>
+    <string:String x:Key="ErdLandingStart">开始向导</string:String>
+    <string:String x:Key="ErdLandingPreset">使用预设导出</string:String>
+    <string:String x:Key="ErdLandingAdvanced">显示高级模式</string:String>
+    <string:String x:Key="ErdLandingEverything">导出所有</string:String>
+    <string:String x:Key="ErdPlayersSubtitle">选择要包含的玩家</string:String>
+    <string:String x:Key="ErdPlayersManual">手动选择</string:String>
+    <string:String x:Key="ErdPlayersMarkers">标记的玩家</string:String>
+    <string:String x:Key="ErdPlayersAll">所有玩家</string:String>
+    <string:String x:Key="ErdAttributesSubtitle">选择要包含的玩家属性</string:String>
+    <string:String x:Key="ErdAttributesFilter">过滤属性...</string:String>
+    <string:String x:Key="ErdFinishFormatHeading">输出格式</string:String>
+    <string:String x:Key="ErdFinishFormatCsv">导出为 CSV</string:String>
+    <string:String x:Key="ErdFinishFormatNormalize">规范化属性名称</string:String>
+    <string:String x:Key="ErdFinishJsonHeading">特定于JSON的选项</string:String>
+    <string:String x:Key="ErdFinishJsonMatchId">包含匹配ID</string:String>
+    <string:String x:Key="ErdFinishJsonDuration">包含比赛时长</string:String>
+    <string:String x:Key="ErdFinishJsonVersion">包含游戏(补丁)版本</string:String>
+    <string:String x:Key="ErdPreviewTitle">数据预览</string:String>
+    
+    <!--  Export Data : Common Items + Presets  -->
     <string:String x:Key="ErdSelectAllItems">全选</string:String>
     <string:String x:Key="ErdDeselectAllItems">取消全选</string:String>
     <string:String x:Key="ErdExportButtonText">导出...</string:String>
     <string:String x:Key="ErdExportDialogTitle">选择导出位置</string:String>
     <string:String x:Key="ErdFailedToSave">无法保存文件</string:String>
-    <string:String x:Key="ErdPreviewTitle">数据预览</string:String>
+    <string:String x:Key="ErdPresetSave">保存为预设</string:String> -
+    <string:String x:Key="ErdPresetLoad">加载一个预设</string:String> -
+    <string:String x:Key="ErdPresetLoadbutton">加载</string:String> -
+    <string:String x:Key="ErdPresetLoadTitle">加载预设</string:String>-
+    <string:String x:Key="ErdPresetSaveTitle">保存预设</string:String>-
+    <string:String x:Key="ErdPresetName">名称</string:String>-
+    <string:String x:Key="ErdPresetProperties">属性</string:String>-
+    <string:String x:Key="ErdPresetPlayers">已选择的玩家</string:String>-
+    <string:String x:Key="ErdPresetAttributes">已选择的属性</string:String>-
+    <string:String x:Key="ErdPresetOverwrite">覆盖</string:String>-
+    <string:String x:Key="ErdPresetExists">已存在同名的预设. 覆盖之?</string:String>-
+    <string:String x:Key="ErdPresetExistsNotify">该名称已经存在</string:String>-
+    <string:String x:Key="ErdPresetFailed">加载预设失败</string:String>-
+    <string:String x:Key="ErdPresetSavedTitle">预设已保存</string:String>-
 
     <!--  Welcome Setup  -->
     <string:String x:Key="WswWindowTitleText">ReplayBook 安装</string:String>
@@ -363,6 +407,7 @@
     <string:String x:Key="WswDownloadBody">下载图标将花费几分钟，但会使ReplayBook运行更快。如果您跳过此步骤，ReplayBook将按需下载图标。</string:String>
     <string:String x:Key="WswDownloadChampionsText">下载英雄缩略图</string:String>
     <string:String x:Key="WswDownloadItemsText">下载装备缩略图</string:String>
+    <string:String x:Key="WswDownloadRunesText">下载符文缩略图</string:String>
     <string:String x:Key="WswDownloadButton">下载</string:String>
     <string:String x:Key="WswDownloadFinished">下载完成</string:String>
 
