@@ -353,20 +353,20 @@
     <string:String x:Key="ErdExportButtonText">导出...</string:String>
     <string:String x:Key="ErdExportDialogTitle">选择导出位置</string:String>
     <string:String x:Key="ErdFailedToSave">无法保存文件</string:String>
-    <string:String x:Key="ErdPresetSave">保存为预设</string:String> -
-    <string:String x:Key="ErdPresetLoad">加载一个预设</string:String> -
-    <string:String x:Key="ErdPresetLoadbutton">加载</string:String> -
-    <string:String x:Key="ErdPresetLoadTitle">加载预设</string:String>-
-    <string:String x:Key="ErdPresetSaveTitle">保存预设</string:String>-
-    <string:String x:Key="ErdPresetName">名称</string:String>-
-    <string:String x:Key="ErdPresetProperties">属性</string:String>-
-    <string:String x:Key="ErdPresetPlayers">已选择的玩家</string:String>-
-    <string:String x:Key="ErdPresetAttributes">已选择的属性</string:String>-
-    <string:String x:Key="ErdPresetOverwrite">覆盖</string:String>-
-    <string:String x:Key="ErdPresetExists">已存在同名的预设. 覆盖之?</string:String>-
-    <string:String x:Key="ErdPresetExistsNotify">该名称已经存在</string:String>-
-    <string:String x:Key="ErdPresetFailed">加载预设失败</string:String>-
-    <string:String x:Key="ErdPresetSavedTitle">预设已保存</string:String>-
+    <string:String x:Key="ErdPresetSave">保存为预设</string:String> 
+    <string:String x:Key="ErdPresetLoad">加载一个预设</string:String> 
+    <string:String x:Key="ErdPresetLoadbutton">加载</string:String> 
+    <string:String x:Key="ErdPresetLoadTitle">加载预设</string:String>
+    <string:String x:Key="ErdPresetSaveTitle">保存预设</string:String>
+    <string:String x:Key="ErdPresetName">名称</string:String>
+    <string:String x:Key="ErdPresetProperties">属性</string:String>
+    <string:String x:Key="ErdPresetPlayers">已选择的玩家</string:String>
+    <string:String x:Key="ErdPresetAttributes">已选择的属性</string:String>
+    <string:String x:Key="ErdPresetOverwrite">覆盖</string:String>
+    <string:String x:Key="ErdPresetExists">已存在同名的预设. 覆盖之?</string:String>
+    <string:String x:Key="ErdPresetExistsNotify">该名称已经存在</string:String>
+    <string:String x:Key="ErdPresetFailed">加载预设失败</string:String>
+    <string:String x:Key="ErdPresetSavedTitle">预设已保存</string:String>
 
     <!--  Welcome Setup  -->
     <string:String x:Key="WswWindowTitleText">ReplayBook 安装</string:String>
