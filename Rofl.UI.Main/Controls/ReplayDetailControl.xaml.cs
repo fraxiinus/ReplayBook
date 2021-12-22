@@ -2,6 +2,7 @@
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
 using Rofl.UI.Main.Views;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,7 +51,7 @@ namespace Rofl.UI.Main.Controls
             PlayerIconsGrid.Children.Clear();
             PlayerIconsGrid.ColumnDefinitions.Clear();
 
-            if (DetailTabControl.SelectedIndex == 1)
+            if (DetailTabControl.SelectedIndex == 2)
             {
                 int counter = 0;
                 foreach (PlayerDetail player in replay.AllPlayers)
