@@ -2,7 +2,6 @@
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
 using Rofl.UI.Main.Views;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
