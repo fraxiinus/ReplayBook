@@ -50,7 +50,7 @@ namespace Rofl.UI.Main.Controls
             PlayerIconsGrid.Children.Clear();
             PlayerIconsGrid.ColumnDefinitions.Clear();
 
-            if (DetailTabControl.SelectedIndex == 1)
+            if (DetailTabControl.SelectedIndex == 2)
             {
                 int counter = 0;
                 foreach (PlayerDetail player in replay.AllPlayers)
