@@ -39,12 +39,12 @@ jobs:
     
     - name: Copy runes to release
       run: |
-        Copy-Item -Path "./runes" -Destination "./Rofl.UI.Main/bin/Release/lib" -Recurse
+        Copy-Item -Path "./runes" -Destination "./src/Rofl.UI.Main/bin/Release/lib" -Recurse
       shell: pwsh
 
     - name: Package release
       run: |
-        Compress-Archive ./Rofl.UI.Main/bin/Release ./ReplayBook.zip
+        Compress-Archive ./src/Rofl.UI.Main/bin/Release ./ReplayBook.zip
       shell: pwsh
 
     - name: Create Release
