@@ -39,7 +39,7 @@ jobs:
       run: msbuild ReplayBook.sln -p:Configuration="Release" -p:Platform="Any CPU"
 
     - name: Run runes packaging script
-      run: python ./scripts/generate-runes.py
+      run: python ./src/scripts/generate-runes.py
     
     - name: Copy runes to release
       run: |
