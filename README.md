@@ -4,7 +4,7 @@
 </a>
 </p>
 
-![DarkMode](.github/screenshots/0_banner_image.png "Window Overview Image")
+![DarkMode](docs/images/0_banner_image.png "Window Overview Image")
 
 [![Build](https://img.shields.io/github/workflow/status/fraxiinus/ReplayBook/Build?style=flat-square)](https://github.com/fraxiinus/ReplayBook/actions?query=workflow%3ABuild)
 [![License](https://img.shields.io/github/license/fraxiinus/ReplayBook?style=flat-square)](https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE)

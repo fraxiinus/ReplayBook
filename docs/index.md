@@ -1,19 +1,35 @@
-# ReplayBook
+![Banner Image](images/0_banner_image.png "Window Overview Image")
 
-test 2
+ReplayBook is a free open-source tool that helps you organize and manage your downloaded replay files.
 
-## Test
+### [Download ReplayBook](https://github.com/fraxiinus/ReplayBook/releases/latest)
 
-test **test** *test*
+### [Getting Started Tutorial](tutorial/0_landing.md)
 
-### one
+<br>
 
-nice
+## Key Features
 
-### two
+* Associates .ROFL files to view replays shared by other players
+* Easily play expired replays by using League of Legends backups
+* Assign player markers to easily spot players in the replay list
+* View all information available in replay files, including runes!
+* Export data to CSV or JSON file formats
+* Supports all League of Legends regions!
+* Windows 10 dark/light themes with accent color supported
 
-nice
+[See more features and screenshots](features_screenshots.md)
 
-## TEst
+<br>
 
-what
+## Supported Languages
+
+ReplayBook has been community translated to the following languages:
+
+* Chinese Simplified - 简体中文
+* French - Français
+* German - Deutsch
+* Portuguese - Português
+* Spanish - Español
+
+[Learn more about community translations](https://github.com/fraxiinus/ReplayBook/wiki/Translating)
