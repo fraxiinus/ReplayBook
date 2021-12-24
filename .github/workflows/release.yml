@@ -1,10 +1,12 @@
 name: Release
 
-on: create
+on:
+  create:
+    branches:
+      - 'releases/**'
 
 jobs:
   build:
-    if: ${{ contains(github.ref, 'refs/heads/releases/') }}
     runs-on: [windows-latest]
     steps:
     - name: Checkout files
