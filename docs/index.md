@@ -6,8 +6,6 @@ ReplayBook is a free open-source tool that helps you organize and manage your do
 
 ### [Getting Started Tutorial](tutorial/0_landing.md)
 
-<br>
-
 ## Key Features
 
 * Associates .ROFL files to view replays shared by other players
@@ -19,8 +17,6 @@ ReplayBook is a free open-source tool that helps you organize and manage your do
 * Windows 10 dark/light themes with accent color supported
 
 [See more features and screenshots](features_screenshots.md)
-
-<br>
 
 ## Supported Languages
 
