@@ -2,7 +2,7 @@
 
 ReplayBook is a free open-source tool that helps you organize and manage your downloaded replay files.
 
-### [Download ReplayBook](https://github.com/fraxiinus/ReplayBook/releases/latest)
+### [Download ReplayBook](downloads.md)
 
 ### [Getting Started Tutorial](tutorial/0_landing.md)
 
