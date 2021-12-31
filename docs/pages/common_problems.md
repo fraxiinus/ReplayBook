@@ -1,8 +1,8 @@
-# Common Problems and Their Solutions
+# Common Problems and Solutions
 
 ## Table of Contents
 
-- [Common Problems and Their Solutions](#common-problems-and-their-solutions)
+- [Common Problems and Solutions](#common-problems-and-solutions)
   - [Table of Contents](#table-of-contents)
   - [Play button is disabled/Cannot play this replay](#play-button-is-disabledcannot-play-this-replay)
   - [ReplayBook is not loading any replays](#replaybook-is-not-loading-any-replays)
