@@ -16,8 +16,6 @@ ReplayBook is a free open-source tool that helps you organize and manage your do
 * Supports all League of Legends regions!
 * Windows 10 dark/light themes with accent color supported
 
-[See more features and screenshots](features_screenshots.md)
-
 ## Supported Languages
 
 ReplayBook has been community translated to the following languages:
