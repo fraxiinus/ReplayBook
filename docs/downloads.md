@@ -10,3 +10,5 @@ Thank you for downloading ReplayBook!
 4. Move the 'ReplayBook' folder somewhere safe, like 'Documents\Tools\ReplayBook'
 5. Run 'ReplayBook.exe' and follow the on-screen prompts
    ![Run Program](images/downloads_2.png)
+
+Check out the [Getting Started](images/tutorial_0.png) page!
