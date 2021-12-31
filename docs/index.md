@@ -27,3 +27,13 @@ ReplayBook has been community translated to the following languages:
 * Spanish - Español
 
 [Learn more about community translations](https://github.com/fraxiinus/ReplayBook/wiki/Translating)
+
+## Have a Problem?
+
+Check out the [Common Problems and Solutions](pages/common_problems.md) page, it might have a solution.
+
+Otherwise,
+
+[Ask about it in the GitHub Discussions page](https://github.com/fraxiinus/ReplayBook/discussions),  
+[Or ask in the developer Discord](https://discord.gg/c33Rc5J).  
+[Report an issue with this site](https://github.com/fraxiinus/ReplayBook/issues/new/choose).

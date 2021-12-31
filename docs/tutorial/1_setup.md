@@ -2,6 +2,8 @@
 
 Previous Page << [Table of Contents](0_landing.md)
 
+## First Time Setup
+
 The first time you launch ReplayBook, you will be greeted with the **Welcome Setup Window**. Choose your preferred language and click 'Next'.
 
 ![Setup Screen 1](../images/tutorial_0.png)
@@ -32,8 +34,19 @@ That is it! With that, the basic setup for ReplayBook is complete. Click 'Finish
 
 ![Setup Screen 5](../images/tutorial_4.png)
 
+## How to Associate .ROFL Files with ReplayBook
+
+By default, you need to manually enable .ROFL file associations.
+
+1. Go to **Settings** (gear icon) -> **General** page
+2. Click the **Set .ROFL file association** button
+3. Verify the association by double-clicking a .ROFL file in Explorer
+
+> You can also choose the default behavior for opening .ROFL files in Explorer. ReplayBook can either play the replay immediately, or show the replay's information.
+
 ## Need Additional Help?
 
+[Check out the Common Problems and Solutions page](pages/common_problems.md),  
 [Ask about it in the GitHub Discussions page](https://github.com/fraxiinus/ReplayBook/discussions),  
 [Or ask in the developer Discord](https://discord.gg/c33Rc5J).  
 [Report an issue with this page](https://github.com/fraxiinus/ReplayBook/issues/new/choose).
