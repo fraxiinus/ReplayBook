@@ -30,13 +30,13 @@ Whenever you add a new backup, you have to come back here and hit the **Scan** b
 
 ## Useful Tools and Websites
 
-* [league-vcs](https://github.com/preyneyv/league-vcs) is a version control system for League of Legends. It automatically creates backups, and saves storage space by only saving the difference between patches.  
+* [league-vcs](https://github.com/preyneyv/league-vcs) is a version control system for League of Legends. It automatically creates backups and saves storage space by only saving the difference between patches.  
 Direct integration with ReplayBook is currently planned. ([#119](https://github.com/fraxiinus/ReplayBook/discussions/119))
 * [replays.xyz](https://replays.xyz/old-clients) offers online backups of League of Legends patches. Be sure to follow the important instructions!
 
 ## Need Additional Help?
 
-[Check out the Common Problems and Solutions page](pages/common_problems.md),  
+[Check out the Common Problems and Solutions page](../pages/common_problems.md),  
 [Ask about it in the GitHub Discussions page](https://github.com/fraxiinus/ReplayBook/discussions),  
 [Or ask in the developer Discord](https://discord.gg/c33Rc5J).  
 [Report an issue with this page](https://github.com/fraxiinus/ReplayBook/issues/new/choose).

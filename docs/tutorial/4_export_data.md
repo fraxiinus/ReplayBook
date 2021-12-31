@@ -52,7 +52,7 @@ The Export Data Wizard includes an **Advanced Mode**. This mode shows all export
 
 ## Need Additional Help?
 
-[Check out the Common Problems and Solutions page](pages/common_problems.md),  
+[Check out the Common Problems and Solutions page](../pages/common_problems.md),  
 [Ask about it in the GitHub Discussions page](https://github.com/fraxiinus/ReplayBook/discussions),  
 [Or ask in the developer Discord](https://discord.gg/c33Rc5J).  
 [Report an issue with this page](https://github.com/fraxiinus/ReplayBook/issues/new/choose).
