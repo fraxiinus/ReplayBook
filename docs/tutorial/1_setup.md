@@ -38,4 +38,4 @@ That is it! With that, the basic setup for ReplayBook is complete. Click 'Finish
 [Or ask in the developer Discord](https://discord.gg/c33Rc5J).  
 [Report an issue with this page](https://github.com/fraxiinus/ReplayBook/issues/new/choose).
 
-Next Page >> [Getting Around](2_markers.md)
+Next Page >> [Using Player Markers](2_markers.md)

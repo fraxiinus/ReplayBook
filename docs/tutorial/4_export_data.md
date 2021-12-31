@@ -44,7 +44,7 @@ To use a preset, select the **Export using preset** option when exporting. A sel
 
 ## Using the Advanced Mode
 
-The Export Data Wizard includes an **Advanced Mode**. This mode shows all exporter options on a single screen, making it ideal for power users. It also includes a live data preview if the window is resized wider accommodate.
+The Export Data Wizard includes an **Advanced Mode**. This mode shows all exporter options on a single screen, making it ideal for power users. It also includes a live data preview if the window is resized wider to accommodate.
 
 > Loading a preset while in **Advanced Mode** does not immediately export the data. It simply applies the saved options.
 

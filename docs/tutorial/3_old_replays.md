@@ -40,4 +40,4 @@ Direct integration with ReplayBook is currently planned. ([#119](https://github.
 [Or ask in the developer Discord](https://discord.gg/c33Rc5J).  
 [Report an issue with this page](https://github.com/fraxiinus/ReplayBook/issues/new/choose).
 
-Next Page >> Exporting Player Data
+Next Page >> [Exporting Player Data](4_export_data.md)
