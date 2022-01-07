@@ -9,6 +9,8 @@
     - [How to add a replay folder](#how-to-add-a-replay-folder)
   - [Settings are not saving](#settings-are-not-saving)
   - [ReplayBook will not open](#replaybook-will-not-open)
+  - [ReplayBook launches, but crashes when loading thumbnails](#replaybook-launches-but-crashes-when-loading-thumbnails)
+  - [ReplayBook crashes in Welcome Setup when trying to download images](#replaybook-crashes-in-welcome-setup-when-trying-to-download-images)
   - [Playing replays causes a Bugsplat/Language is not showing properly](#playing-replays-causes-a-bugsplatlanguage-is-not-showing-properly)
     - [How to change an executable's locale](#how-to-change-an-executables-locale)
   - [Playing replays crashes with missing stub.dll](#playing-replays-crashes-with-missing-stubdll)
@@ -51,6 +53,18 @@ Check if the ReplayBook folder is read-only. ReplayBook needs to be able to crea
 Go to where you saved ReplayBook and delete the **cache** folder. If that doesn't work try deleting **appsettings.json** and **executablesettings.json**. You will lose your settings, but it may fix the problem.
 
 ![Delete temporary files](../images/troubleshooting/2_delete_temporary.png)
+
+## ReplayBook launches, but crashes when loading thumbnails
+
+Check if you have some kind of ransomware protection enabled on your system. That feature prevents unauthorized applications from saving files in certain folders.
+
+You can get around this by keeping ReplayBook in a folder that is not restricted, or adding ReplayBook as an allowed app in the ransomware protection settings.
+
+[How to see which folders are protected in Windows Security](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/controlled-folders?view=o365-worldwide#view-or-change-the-list-of-protected-folders)
+
+## ReplayBook crashes in Welcome Setup when trying to download images
+
+[See above](#replaybook-launches-but-crashes-when-loading-thumbnails)
 
 ## Playing replays causes a Bugsplat/Language is not showing properly
 
