@@ -122,38 +122,38 @@ namespace Rofl.Files
         /// <returns></returns>
         public void PruneDatabaseEntries()
         {
-            //_log.Information($"Pruning database...");
+            _log.Information($"Pruning database...");
 
-            //var entries = _db.GetReplayFiles();
+            var entries = _db.GetReplayFiles();
 
-            //foreach(var entry in entries)
-            //{
-            //    // Files does not exist! (Technically this is the same as id, but it's more clear)
-            //    // or File is not part of the current source folder collection 
-            //    if (!File.Exists(entry.FileInfo.Path) || !_fileSystem.IsPathInSourceFolders(entry.FileInfo.Path))
-            //    {
-            //        _log.Information($"File {entry.Id} is no longer valid, removing from database...");
-            //        _db.RemoveFileResult(entry.Id);
-            //    }
-            //}
+            if (!entries.Any()) return;
 
-            //_log.Information($"Pruning complete");
+            foreach (var entry in entries)
+            {
+                // Files does not exist! (Technically this is the same as id, but it's more clear)
+                // or File is not part of the current source folder collection 
+                if (!File.Exists(entry.FileInfo.Path) || !_fileSystem.IsPathInSourceFolders(entry.FileInfo.Path))
+                {
+                    _log.Information($"File {entry.Id} is no longer valid, removing from database...");
+                    _db.RemoveFileResult(entry.Id);
+                }
+            }
+
+            _log.Information($"Pruning complete");
         }
 
         public IReadOnlyCollection<FileResult> GetReplays(QueryProperties sort, int maxEntries, int skip)
         {
             if (sort == null) { throw new ArgumentNullException(nameof(sort)); }
 
-            return new List<FileResult>();
+            var keywords = sort.SearchTerm.Split('"')       // split the string by quotes
+                .Select((element, index) => // select the substring, and the index of the substring
+                    index % 2 == 0  // If the index is even (after a close quote)
+                    ? element.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries) // split by space
+                    : new string[] { element }) // return the string enclosed by quotes
+                .SelectMany(element => element).ToArray();
 
-            //var keywords = sort.SearchTerm.Split('"')       // split the string by quotes
-            //    .Select((element, index) => // select the substring, and the index of the substring
-            //        index % 2 == 0  // If the index is even (after a close quote)
-            //        ? element.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries) // split by space
-            //        : new string[] { element }) // return the string enclosed by quotes
-            //    .SelectMany(element => element).ToArray();
-
-            //return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
+            return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
         }
 
         public string RenameReplay(FileResult file, string newName)

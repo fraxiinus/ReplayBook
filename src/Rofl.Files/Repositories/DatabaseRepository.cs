@@ -145,27 +145,37 @@ namespace Rofl.Files.Repositories
         {
             if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException(id); }
 
-            return null;
+            using (var db = new LiteDatabase(_filePath))
+            {
+                // var fileResults = db.GetCollection<FileResult>("fileResults");
 
-            //using (var db = new LiteDatabase(_filePath))
-            //{
-            //    var fileResults = db.GetCollection<FileResult>("fileResults");
+                return db.GetCollection<FileResult>("fileResults").Include("$.ReplayFileInfo")
+                    .Include("$.ReplayFile")
+                    .Include("$.ReplayFile.Players[*]")
+                    .Include("$.ReplayFile.BluePlayers[*]")
+                    .Include("$.ReplayFile.RedPlayers[*]")
+                    .FindById(id);
 
-            //    var result = fileResults
-            //        .IncludeAll()
-            //        .FindById(id);
+                //var result = fileResults
+                //    .IncludeAll()
+                //    .FindById(id);
 
-            //    return result;
-            //}
+                //return result;
+            }
         }
 
         public IEnumerable<FileResult> GetReplayFiles()
         {
             using (var db = new LiteDatabase(_filePath))
             {
-                var fileResults = db.GetCollection<FileResult>("fileResults");
+                var fileResults = db.GetCollection<FileResult>("fileResults").Include("$.ReplayFileInfo")
+                    .Include("$.ReplayFile")
+                    .Include("$.ReplayFile.Players[*]")
+                    .Include("$.ReplayFile.BluePlayers[*]")
+                    .Include("$.ReplayFile.RedPlayers[*]");
 
-                return fileResults.FindAll();
+                var what = fileResults.FindAll().ToList();
+                return what;
             }
         }
 
@@ -173,7 +183,17 @@ namespace Rofl.Files.Repositories
         {
             if (keywords == null) { throw new ArgumentNullException(nameof(keywords)); }
 
-            return new List<FileResult>();
+            using (var db = new LiteDatabase(_filePath))
+            {
+                var fileResults = db.GetCollection<FileResult>("fileResults").Include("$.ReplayFileInfo")
+                    .Include("$.ReplayFile")
+                    .Include("$.ReplayFile.Players[*]")
+                    .Include("$.ReplayFile.BluePlayers[*]")
+                    .Include("$.ReplayFile.RedPlayers[*]");
+
+                var what = fileResults.FindAll().ToList();
+                return what;
+            }
 
             //Query sortQuery;
             //switch (sort)
@@ -208,7 +228,7 @@ namespace Rofl.Files.Repositories
             //        Query.Where("SearchKeywords", fileKeywords => fileKeywords.AsString.Contains(word.ToUpper(CultureInfo.InvariantCulture)))
             //    );
             //}
-            
+
             //// Comebine all keyword queries using AND keyword, then AND by sort query
             //Query endQuery;
             //if (queries.Any())
@@ -241,35 +261,35 @@ namespace Rofl.Files.Repositories
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(id);
 
-            //using (var db = new LiteDatabase(_filePath))
-            //{
-            //    var fileResults = db.GetCollection<FileResult>("fileResults");
+            using (var db = new LiteDatabase(_filePath))
+            {
+                var fileResults = db.GetCollection<FileResult>("fileResults").Include("$.ReplayFileInfo")
+                    .Include("$.ReplayFile")
+                    .Include("$.ReplayFile.Players[*]")
+                    .Include("$.ReplayFile.BluePlayers[*]")
+                    .Include("$.ReplayFile.RedPlayers[*]");
 
-            //    var result = fileResults
-            //        .IncludeAll()
-            //        .FindById(id);
+                var result = fileResults.FindById(id);
 
-            //    if (result == null)
-            //    {
-            //        throw new KeyNotFoundException($"Could not find FileResult by id {id}");
-            //    }
-            //    else
-            //    {
-            //        _log.Information($"Db updating {result.AlternativeName} to {newName}");
+                if (result == null)
+                {
+                    throw new KeyNotFoundException($"Could not find FileResult by id {id}");
+                }
+                else
+                {
+                    _log.Information($"Db updating {result.AlternativeName} to {newName}");
 
-            //        // Update the file results (for indexing/search)
-            //        result.AlternativeName = newName;
-            //        fileResults.Update(result);
+                    // Update the file results (for indexing/search)
+                    result.AlternativeName = newName;
+                    fileResults.Update(result);
 
-            //        // Update the replay entry
-            //        var replays = db.GetCollection<ReplayFile>("replayFiles");
-            //        var replayEntry = replays
-            //            .IncludeAll()
-            //            .FindById(id);
-            //        replayEntry.AlternativeName = newName;
-            //        replays.Update(replayEntry);
-            //    }
-            //}
+                    // Update the replay entry
+                    var replays = db.GetCollection<ReplayFile>("replayFiles");
+                    var replayEntry = replays.FindById(id);
+                    replayEntry.AlternativeName = newName;
+                    replays.Update(replayEntry);
+                }
+            }
         }
     }
 }
