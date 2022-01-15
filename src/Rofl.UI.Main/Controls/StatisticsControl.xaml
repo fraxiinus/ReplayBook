@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:b="clr-namespace:Rofl.UI.Main.Behaviors"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -11,9 +11,9 @@
              d:DesignWidth="800"
              mc:Ignorable="d">
 
-    <i:Interaction.Behaviors>
+    <Behaviors:Interaction.Behaviors>
         <b:BubbleScrollEvent />
-    </i:Interaction.Behaviors>
+    </Behaviors:Interaction.Behaviors>
 
     <DataGrid x:Name="StatsDataGrid"
               Width="2530"
@@ -94,43 +94,43 @@
         </DataGrid.RowStyle>
         <DataGrid.Columns>
 
-            <DataGridTextColumn Binding="{Binding Path=SummonerSpell2Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=SummonerSpell2Casts, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource SummonerSpell2CastsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=SummonerSpell1Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=SummonerSpell1Casts, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource SummonerSpell1CastsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=Spell4Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=Spell4Casts, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource Spell4CastsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=Spell3Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=Spell3Casts, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource Spell3CastsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=Spell2Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=Spell2Casts, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource Spell2CastsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=Spell1Casts, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=Spell1Casts, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource Spell1CastsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=IndividualPosition, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=IndividualPosition, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource IndividualPositionHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
@@ -205,19 +205,19 @@
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=Ping, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=Ping, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource PingHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=MutedByPlayers, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=MutedByPlayers, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource MutedByPlayersHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=PlayersMuted, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=PlayersMuted, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource PlayersMutedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
@@ -241,13 +241,13 @@
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TimeOfLastDisconnect, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TimeOfLastDisconnect, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TimeOfLastDisconnectHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TimeSpentDisconnected, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TimeSpentDisconnected, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TimeSpentDisconnectedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
@@ -282,49 +282,49 @@
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TotalTimeSpentDead, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalTimeSpentDead, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalTimeSpentDeadHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=LongestTimeSpentAlive, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=LongestTimeSpentAlive, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource LongestTimeSpentAliveHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=DragonsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=DragonsKilled, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource DragonsKilledHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=BaronsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=BaronsKilled, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource BaronsKilledHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=ObjectivesStolen, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=ObjectivesStolen, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource ObjectivesStolenHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=InhibitorsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=InhibitorsKilled, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource InhibitorsKilledHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TurretsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TurretsKilled, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TurretsKilledHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TotalExperience, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalExperience, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalExperienceHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
@@ -341,49 +341,49 @@
 
             <!--    -->
 
-            <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilledFromEnemyJungle, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilledFromEnemyJungle, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource NeutralMinionsKilledFromEnemyJungleHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilledFromOwnJungle, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilledFromOwnJungle, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource NeutralMinionsKilledFromOwnJungleHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=NeutralMinionsKilled, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource NeutralMinionsKilledHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=MinionsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=MinionsKilled, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource MinionsKilledHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=ConsumablesPurchased, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=ConsumablesPurchased, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource ConsumablesPurchasedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=ItemsPurchased, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=ItemsPurchased, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource ItemsPurchasedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=GoldSpent, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=GoldSpent, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource GoldSpentHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=GoldEarned, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=GoldEarned, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource GoldEarnedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
@@ -400,25 +400,25 @@
 
             <!--    -->
 
-            <DataGridTextColumn Binding="{Binding Path=VisionWardsPurchased, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=VisionWardsPurchased, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource VisionWardsPurchasedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=WardsKilled, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=WardsKilled, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource WardsKilledHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=WardsPlaced, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=WardsPlaced, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource WardsPlacedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=VisionScore, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=VisionScore, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource VisionScoreHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
@@ -435,37 +435,37 @@
 
             <!--    -->
 
-            <DataGridTextColumn Binding="{Binding Path=TotalDamageSelfMitigated, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalDamageSelfMitigated, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalDamageSelfMitigatedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TrueDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TrueDamageTaken, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TrueDamageTakenHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=MagicDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=MagicDamageTaken, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource MagicDamageTakenHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=PhysicalDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=PhysicalDamageTaken, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource PhysicalDamageTakenHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TotalDamageTaken, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalDamageTaken, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalDamageTakenHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TotalDamageShieldedToTeammates, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalDamageShieldedToTeammates, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalDamageShieldedToTeammatesHeaderText}"
                                TextTrimming="CharacterEllipsis"
@@ -473,13 +473,13 @@
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TotalUnitsHealed, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalUnitsHealed, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalUnitsHealedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TotalHealingDoneToTeammates, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalHealingDoneToTeammates, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalHealingDoneToTeammatesHeaderText}"
                                TextTrimming="CharacterEllipsis"
@@ -487,7 +487,7 @@
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TotalHealingDone, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalHealingDone, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalHealingDoneHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
@@ -504,61 +504,61 @@
 
             <!--    -->
 
-            <DataGridTextColumn Binding="{Binding Path=TotalDamageToObjectives, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalDamageToObjectives, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalDamageToObjectivesHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TotalDamageToTurrets, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalDamageToTurrets, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalDamageToTurretsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=LargestCriticalStrike, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=LargestCriticalStrike, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource LargestCriticalStrikeHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TrueDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TrueDamageDealt, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TrueDamageDealtHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=MagicDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=MagicDamageDealt, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource MagicDamageDealtHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=PhysicalDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=PhysicalDamageDealt, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource PhysicalDamageDealtHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TotalDamageDealt, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalDamageDealt, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalDamageDealtHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TrueDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TrueDamageDealtToChampions, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TrueDamageDealtToChampionsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=MagicDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=MagicDamageDealtToChampions, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource MagicDamageDealtToChampionsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=PhysicalDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=PhysicalDamageDealtToChampions, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource PhysicalDamageDealtToChampionsHeaderText}"
                                TextTrimming="CharacterEllipsis"
@@ -566,7 +566,7 @@
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
-            <DataGridTextColumn Binding="{Binding Path=TotalDamageDealtToChampions, Mode=OneWay, StringFormat={}{0:#,0}}">
+            <DataGridTextColumn Binding="{Binding Path=TotalDamageDealtToChampions, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource TotalDamageDealtToChampionsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>

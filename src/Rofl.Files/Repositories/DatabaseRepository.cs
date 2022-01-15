@@ -54,7 +54,7 @@ namespace Rofl.Files.Repositories
             using (LiteDatabase db = new LiteDatabase(_filePath))
             {
                 // Create and verify file results collection
-                LiteCollection<FileResult> fileResults = db.GetCollection<FileResult>("fileResults");
+                ILiteCollection<FileResult> fileResults = db.GetCollection<FileResult>("fileResults");
 
                 _ = BsonMapper.Global.Entity<FileResult>()
                     .Id(r => r.Id)
@@ -145,16 +145,18 @@ namespace Rofl.Files.Repositories
         {
             if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException(id); }
 
-            using (var db = new LiteDatabase(_filePath))
-            {
-                var fileResults = db.GetCollection<FileResult>("fileResults");
+            return null;
 
-                var result = fileResults
-                    .IncludeAll()
-                    .FindById(id);
+            //using (var db = new LiteDatabase(_filePath))
+            //{
+            //    var fileResults = db.GetCollection<FileResult>("fileResults");
 
-                return result;
-            }
+            //    var result = fileResults
+            //        .IncludeAll()
+            //        .FindById(id);
+
+            //    return result;
+            //}
         }
 
         public IEnumerable<FileResult> GetReplayFiles()
@@ -171,101 +173,103 @@ namespace Rofl.Files.Repositories
         {
             if (keywords == null) { throw new ArgumentNullException(nameof(keywords)); }
 
-            Query sortQuery;
-            switch (sort)
-            {
-                default:
-                    sortQuery = Query.All("FileCreationTime", Query.Ascending);
-                    break;
-                case SortMethod.DateDesc:
-                    sortQuery = Query.All("FileCreationTime", Query.Descending);
-                    break;
-                case SortMethod.SizeAsc:
-                    sortQuery = Query.All("FileSizeBytes", Query.Ascending);
-                    break;
-                case SortMethod.SizeDesc:
-                    sortQuery = Query.All("FileSizeBytes", Query.Descending);
-                    break;
-                case SortMethod.NameAsc:
-                    // Query either filename or alternative name
-                    sortQuery = Query.All(_settings.RenameAction == RenameAction.File ? "FileName" : "AlternativeName", Query.Ascending);
-                    break;
-                case SortMethod.NameDesc:
-                    sortQuery = Query.All(_settings.RenameAction == RenameAction.File ? "FileName" : "AlternativeName", Query.Descending);
-                    break;
-            }
+            return new List<FileResult>();
 
-            // Create queries trying to match keywords into search string
-            List<Query> queries = new List<Query>();
-            foreach (var word in keywords)
-            {
-                queries.Add
-                (
-                    Query.Where("SearchKeywords", fileKeywords => fileKeywords.AsString.Contains(word.ToUpper(CultureInfo.InvariantCulture)))
-                );
-            }
+            //Query sortQuery;
+            //switch (sort)
+            //{
+            //    default:
+            //        sortQuery = Query.All("FileCreationTime", Query.Ascending);
+            //        break;
+            //    case SortMethod.DateDesc:
+            //        sortQuery = Query.All("FileCreationTime", Query.Descending);
+            //        break;
+            //    case SortMethod.SizeAsc:
+            //        sortQuery = Query.All("FileSizeBytes", Query.Ascending);
+            //        break;
+            //    case SortMethod.SizeDesc:
+            //        sortQuery = Query.All("FileSizeBytes", Query.Descending);
+            //        break;
+            //    case SortMethod.NameAsc:
+            //        // Query either filename or alternative name
+            //        sortQuery = Query.All(_settings.RenameAction == RenameAction.File ? "FileName" : "AlternativeName", Query.Ascending);
+            //        break;
+            //    case SortMethod.NameDesc:
+            //        sortQuery = Query.All(_settings.RenameAction == RenameAction.File ? "FileName" : "AlternativeName", Query.Descending);
+            //        break;
+            //}
+
+            //// Create queries trying to match keywords into search string
+            //List<Query> queries = new List<Query>();
+            //foreach (var word in keywords)
+            //{
+            //    queries.Add
+            //    (
+            //        Query.Where("SearchKeywords", fileKeywords => fileKeywords.AsString.Contains(word.ToUpper(CultureInfo.InvariantCulture)))
+            //    );
+            //}
             
-            // Comebine all keyword queries using AND keyword, then AND by sort query
-            Query endQuery;
-            if (queries.Any())
-            {
-                if (queries.Count == 1)
-                {
-                    endQuery = Query.And(sortQuery, queries[0]);
-                }
-                else
-                {
-                    var combinedPlayerQuery = Query.And(queries.ToArray());
-                    endQuery = Query.And(sortQuery, combinedPlayerQuery);
-                }
-            }
-            else
-            {
-                endQuery = sortQuery;
-            }
+            //// Comebine all keyword queries using AND keyword, then AND by sort query
+            //Query endQuery;
+            //if (queries.Any())
+            //{
+            //    if (queries.Count == 1)
+            //    {
+            //        endQuery = Query.And(sortQuery, queries[0]);
+            //    }
+            //    else
+            //    {
+            //        var combinedPlayerQuery = Query.And(queries.ToArray());
+            //        endQuery = Query.And(sortQuery, combinedPlayerQuery);
+            //    }
+            //}
+            //else
+            //{
+            //    endQuery = sortQuery;
+            //}
 
-            // Query the database
-            using (var db = new LiteDatabase(_filePath))
-            {
-                var fileResults = db.GetCollection<FileResult>("fileResults");
+            //// Query the database
+            //using (var db = new LiteDatabase(_filePath))
+            //{
+            //    var fileResults = db.GetCollection<FileResult>("fileResults");
 
-                return fileResults.IncludeAll().Find(endQuery, limit: maxEntries, skip: skip).ToList();
-            }
+            //    return fileResults.IncludeAll().Find(endQuery, limit: maxEntries, skip: skip).ToList();
+            //}
         }
 
         public void UpdateAlternativeName(string id, string newName)
         {
             if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(id);
 
-            using (var db = new LiteDatabase(_filePath))
-            {
-                var fileResults = db.GetCollection<FileResult>("fileResults");
+            //using (var db = new LiteDatabase(_filePath))
+            //{
+            //    var fileResults = db.GetCollection<FileResult>("fileResults");
 
-                var result = fileResults
-                    .IncludeAll()
-                    .FindById(id);
+            //    var result = fileResults
+            //        .IncludeAll()
+            //        .FindById(id);
 
-                if (result == null)
-                {
-                    throw new KeyNotFoundException($"Could not find FileResult by id {id}");
-                }
-                else
-                {
-                    _log.Information($"Db updating {result.AlternativeName} to {newName}");
+            //    if (result == null)
+            //    {
+            //        throw new KeyNotFoundException($"Could not find FileResult by id {id}");
+            //    }
+            //    else
+            //    {
+            //        _log.Information($"Db updating {result.AlternativeName} to {newName}");
 
-                    // Update the file results (for indexing/search)
-                    result.AlternativeName = newName;
-                    fileResults.Update(result);
+            //        // Update the file results (for indexing/search)
+            //        result.AlternativeName = newName;
+            //        fileResults.Update(result);
 
-                    // Update the replay entry
-                    var replays = db.GetCollection<ReplayFile>("replayFiles");
-                    var replayEntry = replays
-                        .IncludeAll()
-                        .FindById(id);
-                    replayEntry.AlternativeName = newName;
-                    replays.Update(replayEntry);
-                }
-            }
+            //        // Update the replay entry
+            //        var replays = db.GetCollection<ReplayFile>("replayFiles");
+            //        var replayEntry = replays
+            //            .IncludeAll()
+            //            .FindById(id);
+            //        replayEntry.AlternativeName = newName;
+            //        replays.Update(replayEntry);
+            //    }
+            //}
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rofl.Executables.Utilities
+namespace Rofl.Executables.Old.Utilities
 {
     public static class StringExtensions
     {

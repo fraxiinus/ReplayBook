@@ -720,7 +720,7 @@ namespace Rofl.UI.Main.ViewModels
 
             if (initialSettings.Executables != null)
             {
-                foreach (Executables.Models.LeagueExecutable executable in initialSettings.Executables)
+                foreach (Executables.Old.Models.LeagueExecutable executable in initialSettings.Executables)
                 {
                     SettingsManager.Executables.AddExecutable(executable);
                 }

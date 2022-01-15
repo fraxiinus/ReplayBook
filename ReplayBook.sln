@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Files", "src\Rofl.File
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Settings", "src\Rofl.Settings\Rofl.Settings.csproj", "{4E958A1D-CEC7-457A-959A-934F88979DAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rofl.Executables", "src\Rofl.Executables\Rofl.Executables.csproj", "{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rofl.Executables.Old", "src\Rofl.Executables\Rofl.Executables.Old.csproj", "{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

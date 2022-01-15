@@ -1,21 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1C7F813A-4CD3-4F7D-A110-AB65608633FE}</ProjectGuid>
+    <TargetFramework>net6.0-windows10.0.18362.0</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Rofl.UI.Main</RootNamespace>
     <AssemblyName>ReplayBook</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -31,453 +18,32 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\program_icon.ico</ApplicationIcon>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
+  <!-- <ItemGroup>
     <Reference Include="netstandard" />
     <Reference Include="PresentationFramework.Aero" />
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="UIAutomationProvider" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>
+  </ItemGroup> -->
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Controls\akr\CirclePanel.cs" />
-    <Compile Include="Controls\akr\ColorPicker.xaml.cs" />
-    <Compile Include="Controls\akr\ColorToSolidColorBrushConverter.cs" />
-    <Compile Include="Controls\akr\ColorUtilities.cs" />
-    <Compile Include="Controls\akr\HsvColor.cs" />
-    <Compile Include="Controls\ColorWrapper.xaml.cs">
-      <DependentUpon>ColorWrapper.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ExportPresetSummary.xaml.cs">
-      <DependentUpon>ExportPresetSummary.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RuneIconControl.xaml.cs">
-      <DependentUpon>RuneIconControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PlayerRunesControl.xaml.cs">
-      <DependentUpon>PlayerRunesControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RunesDetailControl.xaml.cs">
-      <DependentUpon>RunesDetailControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converters\BoolInvertConverter.cs" />
-    <Compile Include="Converters\ColorBrushConverter.cs" />
-    <Compile Include="Converters\FormatKbSizeConverter.cs" />
-    <Compile Include="Extensions\ByteArrayExtensions.cs" />
-    <Compile Include="Extensions\StaticResourceExtension.cs" />
-    <Compile Include="Models\ExportDataContext.cs" />
-    <Compile Include="Models\ExportPlayerSelectItem.cs" />
-    <Compile Include="Models\ExportAttributeSelectItem.cs" />
-    <Compile Include="Models\ExportPreset.cs" />
-    <Compile Include="Models\RuneStat.cs" />
-    <Compile Include="Models\StatusBar.cs" />
-    <Compile Include="Models\WelcomeSetupDataContext.cs" />
-    <Compile Include="NativeMethods.cs" />
-    <Compile Include="Pages\ExportWizardAdvanced.xaml.cs">
-      <DependentUpon>ExportWizardAdvanced.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ExportWizardAttributes.xaml.cs">
-      <DependentUpon>ExportWizardAttributes.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ExportWizardFinish.xaml.cs">
-      <DependentUpon>ExportWizardFinish.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ExportWizardLanding.xaml.cs">
-      <DependentUpon>ExportWizardLanding.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\ExportWizardPlayers.xaml.cs">
-      <DependentUpon>ExportWizardPlayers.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\IWelcomePage.cs" />
-    <Compile Include="Pages\WelcomeSetupDownload.xaml.cs">
-      <DependentUpon>WelcomeSetupDownload.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\WelcomeSetupExecutables.xaml.cs">
-      <DependentUpon>WelcomeSetupExecutables.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\WelcomeSetupFinish.xaml.cs">
-      <DependentUpon>WelcomeSetupFinish.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\WelcomeSetupIntroduction.xaml.cs">
-      <DependentUpon>WelcomeSetupIntroduction.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\WelcomeSetupReplays.xaml.cs">
-      <DependentUpon>WelcomeSetupReplays.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Utilities\ApplicationHelper.cs" />
-    <Compile Include="Utilities\ContentDialogHelper.cs" />
-    <Compile Include="Utilities\DictionaryExtensions.cs" />
-    <Compile Include="Utilities\ExportHelper.cs" />
-    <Compile Include="Utilities\FileAssociations.cs" />
-    <Compile Include="Utilities\FlyoutHelper.cs" />
-    <Compile Include="Utilities\GithubConnection.cs" />
-    <Compile Include="Utilities\LanguageHelper.cs" />
-    <Compile Include="Utilities\ReplayPlayer.cs" />
-    <Compile Include="Utilities\ResourceTools.cs" />
-    <Compile Include="Utilities\RuneHelper.cs" />
-    <Compile Include="Utilities\WindowHelper.cs" />
-    <Compile Include="Views\AcknowledgementsWindow.xaml.cs">
-      <DependentUpon>AcknowledgementsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DialogHostWindow.xaml.cs">
-      <DependentUpon>DialogHostWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExportDataWindow.xaml.cs">
-      <DependentUpon>ExportDataWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExportPresetLoadDialog.xaml.cs">
-      <DependentUpon>ExportPresetLoadDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExportPresetSaveDialog.xaml.cs">
-      <DependentUpon>ExportPresetSaveDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ReplayLoadErrorDialog.xaml.cs">
-      <DependentUpon>ReplayLoadErrorDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExecutableDetailDialog.xaml.cs">
-      <DependentUpon>ExecutableDetailDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExecutableLaunchArgsWindow.xaml.cs">
-      <DependentUpon>ExecutableLaunchArgsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExecutableSelectDialog.xaml.cs">
-      <DependentUpon>ExecutableSelectDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\GenericMessageDialog.xaml.cs">
-      <DependentUpon>GenericMessageDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PlayerMarkerDialog.xaml.cs">
-      <DependentUpon>PlayerMarkerDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SingleReplayWindow.xaml.cs">
-      <DependentUpon>SingleReplayWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WelcomeSetupWindow.xaml.cs">
-      <DependentUpon>WelcomeSetupWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Controls\akr\ColorPicker.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\ColorWrapper.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ExportPresetSummary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\RuneIconControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\ItemIconControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PlayerIconControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PlayerRunesControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PlayerSummaryControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ReplayDetailControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ReplayItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\RunesDetailControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ScoreboardControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\StatisticsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\ExportWizardAdvanced.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\ExportWizardAttributes.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\ExportWizardFinish.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\ExportWizardLanding.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\ExportWizardPlayers.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\WelcomeSetupDownload.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\WelcomeSetupExecutables.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\WelcomeSetupFinish.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\WelcomeSetupIntroduction.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\WelcomeSetupReplays.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Colors.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Icons.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Acknowledgements.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Strings\de.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Strings\en.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\Strings\es.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Strings\fr.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Strings\zh-Hans.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Strings\pt.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AcknowledgementsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\DialogHostWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ExportDataWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ExportPresetLoadDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ExportPresetSaveDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ReplayLoadErrorDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ExecutableDetailDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ExecutableLaunchArgsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ExecutableSelectDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\GenericMessageDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Behaviors\BubbleScrollEvent.cs" />
-    <Compile Include="Controls\ItemIconControl.xaml.cs">
-      <DependentUpon>ItemIconControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PlayerIconControl.xaml.cs">
-      <DependentUpon>PlayerIconControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\PlayerSummaryControl.xaml.cs">
-      <DependentUpon>PlayerSummaryControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ReplayDetailControl.xaml.cs">
-      <DependentUpon>ReplayDetailControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ReplayItemControl.xaml.cs">
-      <DependentUpon>ReplayItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ScoreboardControl.xaml.cs">
-      <DependentUpon>ScoreboardControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\StatisticsControl.xaml.cs">
-      <DependentUpon>StatisticsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\PlayerDetail.cs" />
-    <Compile Include="Models\PlayerPreview.cs" />
-    <Compile Include="Models\ReplayDetail.cs" />
-    <Compile Include="Models\ReplayPreview.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Views\PlayerMarkerDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SingleReplayWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WelcomeSetupWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="appsettings.json">
+    <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Properties\Settings.settings">
+    <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Rofl.Executables\Rofl.Executables.csproj">
-      <Project>{8b99a22b-0c52-46ea-ba73-762f4ae37ba8}</Project>
-      <Name>Rofl.Executables</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Rofl.Files\Rofl.Files.csproj">
-      <Project>{0de2b53b-f1a7-4cb4-beb1-e95302d51597}</Project>
-      <Name>Rofl.Files</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj">
-      <Project>{b4369113-5a5c-4bf7-b0e5-577776d8fc35}</Project>
-      <Name>Rofl.Reader</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Rofl.Requests\Rofl.Requests.csproj">
-      <Project>{6f3e0d23-5235-4333-bfb8-9e00996bde12}</Project>
-      <Name>Rofl.Requests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Rofl.Settings\Rofl.Settings.csproj">
-      <Project>{4E958A1D-CEC7-457A-959A-934F88979DAB}</Project>
-      <Name>Rofl.Settings</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\Rofl.Executables\Rofl.Executables.Old.csproj" />
+    <ProjectReference Include="..\Rofl.Files\Rofl.Files.csproj" />
+    <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj" />
+    <ProjectReference Include="..\Rofl.Requests\Rofl.Requests.csproj" />
+    <ProjectReference Include="..\Rofl.Settings\Rofl.Settings.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\scoreboardicon_champion.png">
@@ -496,7 +62,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup>
+  <!-- <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -507,39 +73,25 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
+  </ItemGroup> -->
   <ItemGroup>
-    <PackageReference Include="Etirps.RiZhi">
-      <Version>1.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="Expression.Blend.Sdk">
-      <Version>1.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="LiteDB">
-      <Version>4.1.4</Version>
-    </PackageReference>
+    <PackageReference Include="Microsoft-WindowsAPICodePack-Core" Version="1.1.4" />
+    <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.4" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers">
-      <Version>5.0.3</Version>
+      <Version>6.0.0</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="ModernWpfUI">
       <Version>0.9.4</Version>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="System.Memory">
-      <Version>4.5.4</Version>
-    </PackageReference>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions">
       <Version>4.5.4</Version>
     </PackageReference>
-    <PackageReference Include="WindowsAPICodePack-Core">
-      <Version>1.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="WindowsAPICodePack-Shell">
-      <Version>1.1.1</Version>
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.261602">
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -548,10 +100,16 @@
   <ItemGroup>
     <Resource Include="Resources\icon_image.png" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>; Move all assemblies and related files to lib folder
-ROBOCOPY "$(TargetDir) " "$(TargetDir)lib\ " /XF *.exe *.config *.manifest *.json /XD lib logs data cache execs /E /IS /MOVE
-if %25errorlevel%25 leq 4 exit 0 else exit %25errorlevel%25</PostBuildEvent>
-  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Views\ExecutableDetailWindow.xaml.cs" />
+    <Page Remove="Views\ExecutableDetailWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <PropertyGroup />
 </Project>

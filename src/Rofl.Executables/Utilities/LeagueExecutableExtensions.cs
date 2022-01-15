@@ -1,11 +1,11 @@
-﻿using Rofl.Executables.Models;
+﻿using Rofl.Executables.Old.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace Rofl.Executables.Utilities
+namespace Rofl.Executables.Old.Utilities
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public static class LeagueExecutableExtensions

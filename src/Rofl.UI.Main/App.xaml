@@ -10,7 +10,7 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="Resources/Strings/en.xaml"/>-->
+                <ResourceDictionary Source="Resources/Strings/en.xaml"/>
                 <ResourceDictionary Source="Resources/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Icons.xaml" />
                 <ResourceDictionary Source="Resources/Styles.xaml" />
@@ -39,7 +39,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Load icon images  -->
-            <BitmapImage x:Key="ProgramIcon" UriSource="Resources/program_icon.ico" />
+            <BitmapImage x:Key="ProgramIcon" UriSource="Resources/program_icon.ico"/>
 
         </ResourceDictionary>
     </Application.Resources>
