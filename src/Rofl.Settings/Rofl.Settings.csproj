@@ -12,6 +12,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rofl.Executables\Rofl.Executables.Old.csproj" />
+    <ProjectReference Include="..\Rofl.Executables.Old\Rofl.Executables.Old.csproj" />
   </ItemGroup>
 </Project>

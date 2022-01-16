@@ -39,7 +39,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rofl.Executables\Rofl.Executables.Old.csproj" />
+    <ProjectReference Include="..\Rofl.Executables.Old\Rofl.Executables.Old.csproj" />
     <ProjectReference Include="..\Rofl.Files\Rofl.Files.csproj" />
     <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj" />
     <ProjectReference Include="..\Rofl.Requests\Rofl.Requests.csproj" />
@@ -111,5 +111,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
   </ItemGroup>
-  <PropertyGroup />
+  <PropertyGroup>
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
 </Project>
