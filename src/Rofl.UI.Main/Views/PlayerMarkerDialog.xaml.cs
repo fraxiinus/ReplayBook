@@ -25,7 +25,7 @@ namespace Rofl.UI.Main.Views
             _blockClose = false;
             InitializeComponent();
 
-            Title = (TryFindResource("AddButtonText") as string) + " " + Title;
+            Title = $"{TryFindResource("AddButtonText") as string} {Title}";
             MarkerColorPicker.SelectedColor = Colors.White;
         }
 
@@ -39,7 +39,7 @@ namespace Rofl.UI.Main.Views
                 _marker = marker;
                 _oldName = _marker.Name;
 
-                Title = TryFindResource("EditButtonText") as string + " " + Title;
+                Title = $"{TryFindResource("EditButtonText") as string} {Title}";
                 NameTextBox.Text = _marker.Name;
 
                 NoteTextBox.Text = _marker.Note;
@@ -48,7 +48,7 @@ namespace Rofl.UI.Main.Views
             }
             else
             {
-                Title = TryFindResource("AddButtonText") as string + " " + Title;
+                Title = $"{TryFindResource("AddButtonText") as string} {Title}";
                 _isEditMode = false;
             }
         }
