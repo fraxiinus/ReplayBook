@@ -42,7 +42,7 @@ jobs:
     
     - name: Copy runes to release
       run: |
-        Copy-Item -Path "./runes" -Destination "./publish/data" -Recurse
+        Copy-Item -Path "./runes" -Destination "./publish/data/runes" -Recurse
       shell: pwsh
 
     - name: Package release
