@@ -126,7 +126,9 @@ namespace Rofl.Files
 
             var entries = _db.GetReplayFiles();
 
-            foreach(var entry in entries)
+            if (!entries.Any()) return;
+
+            foreach (var entry in entries)
             {
                 // Files does not exist! (Technically this is the same as id, but it's more clear)
                 // or File is not part of the current source folder collection 

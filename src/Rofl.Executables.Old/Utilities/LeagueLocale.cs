@@ -1,4 +1,4 @@
-﻿namespace Rofl.Executables.Utilities
+﻿namespace Rofl.Executables.Old.Utilities
 {
     // When adding a new locale, insert it at the end of the list, but before 'Custom'
     public enum LeagueLocale

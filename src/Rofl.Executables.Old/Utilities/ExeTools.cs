@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
-using Rofl.Executables.Models;
+using Rofl.Executables.Old.Models;
 using System.Linq;
 
-namespace Rofl.Executables.Utilities
+namespace Rofl.Executables.Old.Utilities
 {
     public static class ExeTools
     {

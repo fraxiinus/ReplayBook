@@ -48,7 +48,7 @@ namespace Rofl.UI.Main.Utilities
         public static void LoadRunes(Language language)
         {
             string targetFile = LanguageHelper.GetRiotRegionCode(language) + ".data.json";
-            string runeFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lib", "runes", targetFile);
+            string runeFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "runes", targetFile);
 
             using (StreamReader r = new StreamReader(runeFile))
             {

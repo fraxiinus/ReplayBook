@@ -1,7 +1,7 @@
 ﻿using Etirps.RiZhi;
 using Newtonsoft.Json;
-using Rofl.Executables.Models;
-using Rofl.Executables.Utilities;
+using Rofl.Executables.Old.Models;
+using Rofl.Executables.Old.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Rofl.Executables
+namespace Rofl.Executables.Old
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class ExecutableManager

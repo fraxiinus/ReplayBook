@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Rofl.Executables.Utilities;
+using Rofl.Executables.Old.Utilities;
 using System;
 using System.ComponentModel;
 
-namespace Rofl.Executables.Models
+namespace Rofl.Executables.Old.Models
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class LeagueExecutable : INotifyPropertyChanged

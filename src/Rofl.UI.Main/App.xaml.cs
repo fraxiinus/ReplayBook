@@ -7,9 +7,11 @@ using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
 using System;
 using System.Reflection;
+using System.Runtime.Versioning;
 using System.Windows;
 using System.Windows.Media;
 
+[assembly: SupportedOSPlatform("windows10.0.18362.0")]
 namespace Rofl.UI.Main
 {
     /// <summary>

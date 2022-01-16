@@ -236,9 +236,9 @@ SOFTWARE.
     </string:String>
 
 
-    <string:String x:Key="AckTitle03">.NET Extensions</string:String>
+    <string:String x:Key="AckTitle03">.NET Runtime</string:String>
     <string:String x:Key="AckAuthor03">.NET Foundation and Contributors</string:String>
-    <string:String x:Key="AckLink03">https://github.com/dotnet/extensions</string:String>
+    <string:String x:Key="AckLink03">https://github.com/dotnet/runtime</string:String>
     <string:String x:Key="AckLicense03" xml:space="preserve">The MIT License (MIT)
 
 Copyright (c) .NET Foundation and Contributors
@@ -265,39 +265,10 @@ SOFTWARE.
     </string:String>
 
 
-    <string:String x:Key="AckTitle04">.NET Standard</string:String>
-    <string:String x:Key="AckAuthor04">.NET Foundation and Contributors</string:String>
-    <string:String x:Key="AckLink04">https://github.com/dotnet/standard/</string:String>
+    <string:String x:Key="AckTitle04">Json.NET</string:String>
+    <string:String x:Key="AckAuthor04">James Newton-King</string:String>
+    <string:String x:Key="AckLink04">https://github.com/JamesNK/Newtonsoft.Json</string:String>
     <string:String x:Key="AckLicense04" xml:space="preserve">The MIT License (MIT)
-
-Copyright (c) .NET Foundation and Contributors
-
-All rights reserved.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the &quot;Software&quot;), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-</string:String>
-
-
-    <string:String x:Key="AckTitle05">Json.NET</string:String>
-    <string:String x:Key="AckAuthor05">James Newton-King</string:String>
-    <string:String x:Key="AckLink05">https://github.com/JamesNK/Newtonsoft.Json</string:String>
-    <string:String x:Key="AckLicense05" xml:space="preserve">The MIT License (MIT)
 
 Copyright (c) 2007 James Newton-King
 
@@ -320,10 +291,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </string:String>
 
 
-    <string:String x:Key="AckTitle06">Windows API Code Pack</string:String>
-    <string:String x:Key="AckAuthor06">Microsoft</string:String>
-    <string:String x:Key="AckLink06">https://github.com/aybe/Windows-API-Code-Pack-1.1</string:String>
-    <string:String x:Key="AckLicense06" xml:space="preserve">License: Custom License
+    <string:String x:Key="AckTitle05">Windows API Code Pack</string:String>
+    <string:String x:Key="AckAuthor05">Microsoft and Contributors</string:String>
+    <string:String x:Key="AckLink05">https://github.com/contre/Windows-API-Code-Pack-1.1</string:String>
+    <string:String x:Key="AckLicense05" xml:space="preserve">License: Custom License
 MICROSOFT SOFTWARE LICENSE TERMS
 MICROSOFT WINDOWS API CODE PACK FOR MICROSOFT .NET FRAMEWORK
 ___________________________________________________
@@ -378,10 +349,10 @@ Elle s’applique également, même si Microsoft connaissait ou devrait connaît
 EFFET JURIDIQUE. Le présent contrat décrit certains droits juridiques. Vous pourriez avoir d’autres droits prévus par les lois de votre pays. Le présent contrat ne modifie pas les droits que vous confèrent les lois de votre pays si celles-ci ne le permettent pas.</string:String>
 
 
-    <string:String x:Key="AckTitle07">ColorPickerWPF</string:String>
-    <string:String x:Key="AckAuthor07">sh_akira</string:String>
-    <string:String x:Key="AckLink07">https://github.com/sh-akira/ColorPickerWPF/</string:String>
-    <string:String x:Key="AckLicense07" xml:space="preserve">MIT License
+    <string:String x:Key="AckTitle06">ColorPickerWPF</string:String>
+    <string:String x:Key="AckAuthor06">sh_akira</string:String>
+    <string:String x:Key="AckLink06">https://github.com/sh-akira/ColorPickerWPF/</string:String>
+    <string:String x:Key="AckLicense06" xml:space="preserve">MIT License
 
 Copyright (c) 2019 sh_akira
 
@@ -403,10 +374,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 </string:String>
-    <string:String x:Key="AckTitle08">ModernWPF</string:String>
-    <string:String x:Key="AckAuthor08">Yimeng Wu</string:String>
-    <string:String x:Key="AckLink08">https://github.com/Kinnara/ModernWpf</string:String>
-    <string:String x:Key="AckLicense08" xml:space="preserve">MIT License
+
+
+    <string:String x:Key="AckTitle07">ModernWPF</string:String>
+    <string:String x:Key="AckAuthor07">Yimeng Wu</string:String>
+    <string:String x:Key="AckLink07">https://github.com/Kinnara/ModernWpf</string:String>
+    <string:String x:Key="AckLicense07" xml:space="preserve">MIT License
 
 Copyright (c) 2019 Yimeng Wu
 
@@ -428,8 +401,38 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 </string:String>
+
+
+    <string:String x:Key="AckTitle08">XamlBehaviorsWpf</string:String>
+    <string:String x:Key="AckAuthor08">Microsoft</string:String>
+    <string:String x:Key="AckLink08">https://github.com/microsoft/XamlBehaviorsWpf</string:String>
+    <string:String x:Key="AckLicense08" xml:space="preserve">The MIT License (MIT)
+
+Copyright (c) 2015 Microsoft
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+    </string:String>
+
+
     <string:String x:Key="AckTitle09">RiZhi 日誌</string:String>
-    <string:String x:Key="AckAuthor09">Fraxinus</string:String>
+    <string:String x:Key="AckAuthor09">Fraxiinus</string:String>
     <string:String x:Key="AckLink09">https://github.com/fraxiinus/RiZhi</string:String>
     <string:String x:Key="AckLicense09" xml:space="preserve">MIT License
 
@@ -453,6 +456,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 </string:String>
+
+
     <string:String x:Key="AckTitle10">Community Dragon</string:String>
     <string:String x:Key="AckAuthor10">N/A</string:String>
     <string:String x:Key="AckLink10">https://www.communitydragon.org</string:String>
@@ -462,7 +467,7 @@ SOFTWARE.
     <string:String x:Key="AckAuthor11">N/A</string:String>
     <string:String x:Key="AckLink11">https://github.com/fraxiinus/ReplayBook/wiki/Translating</string:String>
     <string:String x:Key="AckLicense11" xml:space="preserve">Thanks to these people for contributing translations!
-- Chinese Simplified by ASTWY, awter
+- Chinese Simplified by ASTWY, awter, Jerry Liew
 - Spanish by Catinaxo
 - German by FlorianHugCH
 - French by grog12
