@@ -4,7 +4,9 @@ on:
   push:
     branches: 
       - master
-    paths: 'src/**'
+    paths: 
+      - 'src/**'
+      - '.github/workflows/build.yml'
 
 jobs:
   build:
