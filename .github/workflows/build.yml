@@ -18,37 +18,36 @@ jobs:
       with:
         python-version: '3.x'
 
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+
     - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
         pip install requests
 
-    - name: Add msbuild.exe to PATH
-      uses: microsoft/setup-msbuild@v1.1
-      
-    # - name: Add nuget.exe to PATH
-    #   uses: nuget/setup-nuget@v1
-      
-    # - name: Restore NuGet packages
-    #   run: nuget restore ReplayBook.sln
+    - name: Publish ReplayBook
+      run: |
+        dotnet publish -p:PublishProfile=FolderProfile
 
-    - name: Restore NuGet packages
-      run: msbuild -t:restore
-      
-    - name: Build solution
-      run: msbuild ReplayBook.sln -p:Configuration="Release" -p:Platform="Any CPU"
+        # remove debugging files
+        Remove-Item ./publish/*.pdb
+        Remove-Item ./publish/sni.dll
+      shell: pwsh
 
     - name: Run runes packaging script
       run: python ./src/scripts/generate-runes.py
     
     - name: Copy runes to release
       run: |
-        Copy-Item -Path "./runes" -Destination "./src/Rofl.UI.Main/bin/Release/lib" -Recurse
+        Copy-Item -Path "./runes" -Destination "./publish/data" -Recurse
       shell: pwsh
 
     - name: Package release
       run: |
-        Compress-Archive ./src/Rofl.UI.Main/bin/Release ./ReplayBook.zip
+        Compress-Archive ./publish ./ReplayBook.zip
       shell: pwsh
 
     - name: Create Artifact
