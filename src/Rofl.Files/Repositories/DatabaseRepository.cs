@@ -145,7 +145,7 @@ namespace Rofl.Files.Repositories
             using var db = new LiteDatabase(_filePath);
 
             return db.GetCollection<FileResult>("fileResults")
-                .Include("$.ReplayFileInfo")
+                .Include("$.FileInfo")
                 .Include("$.ReplayFile")
                 .Include("$.ReplayFile.Players[*]")
                 .Include("$.ReplayFile.BluePlayers[*]")
@@ -157,7 +157,7 @@ namespace Rofl.Files.Repositories
         {
             using var db = new LiteDatabase(_filePath);
             var fileResults = db.GetCollection<FileResult>("fileResults")
-                .Include("$.ReplayFileInfo")
+                .Include("$.FileInfo")
                 .Include("$.ReplayFile")
                 .Include("$.ReplayFile.Players[*]")
                 .Include("$.ReplayFile.BluePlayers[*]")
@@ -174,7 +174,7 @@ namespace Rofl.Files.Repositories
 
             // include all references
             var fileResultsQueryable = db.GetCollection<FileResult>("fileResults")
-                .Include("$.ReplayFileInfo")
+                .Include("$.FileInfo")
                 .Include("$.ReplayFile")
                 .Include("$.ReplayFile.Players[*]")
                 .Include("$.ReplayFile.BluePlayers[*]")
@@ -212,7 +212,7 @@ namespace Rofl.Files.Repositories
             using var db = new LiteDatabase(_filePath);
 
             var fileResults = db.GetCollection<FileResult>("fileResults")
-                .Include("$.ReplayFileInfo")
+                .Include("$.FileInfo")
                 .Include("$.ReplayFile")
                 .Include("$.ReplayFile.Players[*]")
                 .Include("$.ReplayFile.BluePlayers[*]")
