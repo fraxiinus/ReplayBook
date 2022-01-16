@@ -26,9 +26,6 @@ namespace Rofl.Requests
         // Used to keep track of current tasks
         private readonly ConcurrentDictionary<string, Task<ResponseBase>> _inProgressTasks;
 
-        // Prevent unnecessary calls for data dragon version
-        private string _latestDataDragonVersion;
-
         public RequestManager(ObservableSettings settings, string userAgent, RiZhi log)
         {
             _settings = settings;

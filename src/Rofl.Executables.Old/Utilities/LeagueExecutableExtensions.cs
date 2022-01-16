@@ -48,15 +48,13 @@ namespace Rofl.Executables.Old.Utilities
             // patch version must pass versionsubstring
             // allowupdates...
             // isdefault...
-            // ModifiedDate must not be null
 
             // Check all properties if they are null
             if (executable == null ||
                 String.IsNullOrEmpty(executable.Name) ||
                 String.IsNullOrEmpty(executable.TargetPath) ||
                 String.IsNullOrEmpty(executable.StartFolder) ||
-                String.IsNullOrEmpty(executable.PatchNumber) ||
-                executable.ModifiedDate == null)
+                String.IsNullOrEmpty(executable.PatchNumber))
             {
                 throw new ArgumentNullException(nameof(executable));
             }

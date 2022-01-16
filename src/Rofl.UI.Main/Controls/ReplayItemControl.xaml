@@ -70,17 +70,17 @@
         <ui:SimpleStackPanel Grid.Row="0"
                              Grid.Column="0"
                              Grid.ColumnSpan="2"
-                             Margin="0 5 0 2"
+                             Margin="0,5,0,2"
                              Orientation="Horizontal" />
 
         <!--  Left side stats  -->
         <StackPanel Grid.Row="1"
                     Grid.Column="0"
-                    Margin="0 0 5 0"
+                    Margin="0,0,5,0"
                     Orientation="Vertical">
 
-            <Border Margin="0 2 0 2"
-                    Padding="3 1 3 1"
+            <Border Margin="0,2,0,2"
+                    Padding="3,1,3,1"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     CornerRadius="3">
@@ -114,7 +114,7 @@
                 </TextBlock>
             </Border>
 
-            <Border Padding="3 1 5 1"
+            <Border Padding="3,1,5,1"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Background="{DynamicResource BadgeBackground}"
@@ -161,43 +161,45 @@
                     VerticalAlignment="Top"
                     Orientation="Vertical">
 
-            <TextBlock x:Name="FilenameText"
-                       FontSize="14"
-                       FontWeight="Bold"
-                       Text="{Binding Path=DisplayName, FallbackValue=Filename}"
-                       ToolTip="{Binding Path=DisplayName}" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="FilenameText"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Text="{Binding Path=DisplayName, FallbackValue=Filename}"
+                           ToolTip="{Binding Path=DisplayName}" />
 
-            <ui:PathIcon Width="12"
-                         Margin="5 2 2 0"
-                         Data="{StaticResource CirclePathIcon}"
-                         Foreground="Red">
-                <ui:PathIcon.Style>
-                    <Style TargetType="ui:PathIcon">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
-                                <Setter Property="Visibility" Value="Visible" />
-                                <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
-                                <Setter Property="Visibility" Value="Hidden" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ui:PathIcon.Style>
-            </ui:PathIcon>
+                <ui:PathIcon Width="12"
+                             Margin="5,2,0,0"
+                             Data="{StaticResource CirclePathIcon}"
+                             Foreground="Red">
+                    <ui:PathIcon.Style>
+                        <Style TargetType="ui:PathIcon">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ui:PathIcon.Style>
+                </ui:PathIcon>
+            </StackPanel>
 
-            <StackPanel Margin="2 -13 0 0">
+            <StackPanel Margin="2,0,0,0">
                 <ItemsControl ItemsSource="{Binding Path=BluePreviewPlayers}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Margin="0 2 0 2" Orientation="Horizontal" />
+                            <StackPanel Margin="0,2,0,2" Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:PlayerIconControl Width="30"
                                                      Height="30"
-                                                     Margin="0 0 4 0" />
+                                                     Margin="0,0,4,0" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -205,14 +207,14 @@
                 <ItemsControl ItemsSource="{Binding Path=RedPreviewPlayers}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Margin="0 2 0 1" Orientation="Horizontal" />
+                            <StackPanel Margin="0,2,0,1" Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <local:PlayerIconControl Width="30"
                                                      Height="30"
-                                                     Margin="0 0 4 0" />
+                                                     Margin="0,0,4,0" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -264,7 +266,7 @@
 
             <Button x:Name="PlayButton"
                     Width="37"
-                    Margin="0 0 0 5"
+                    Margin="0,0,0,5"
                     Click="PlayButton_Click"
                     ToolTipService.ShowOnDisabled="True">
                 <Button.Style>

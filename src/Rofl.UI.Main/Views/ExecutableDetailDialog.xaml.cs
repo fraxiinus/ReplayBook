@@ -34,7 +34,7 @@ namespace Rofl.UI.Main.Views
             InitializeComponent();
             _isEditMode = false;
 
-            Title = TryFindResource("AddButtonText") as string + " " + Title;
+            Title = $"{TryFindResource("AddButtonText") as string} {Title}";
         }
 
         public ExecutableDetailDialog(LeagueExecutable executable)
@@ -51,7 +51,7 @@ namespace Rofl.UI.Main.Views
 
             LoadLeagueExecutable(executable);
             _isEditMode = true;
-            Title = TryFindResource("EditButtonText") as string + " " + Title;
+            Title = $"{TryFindResource("EditButtonText") as string} {Title}";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

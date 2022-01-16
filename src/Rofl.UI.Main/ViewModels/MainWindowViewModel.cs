@@ -137,7 +137,7 @@ namespace Rofl.UI.Main.ViewModels
         {
             if (file == null) { throw new ArgumentNullException(nameof(file)); }
 
-            ReplayPreview previewModel = new ReplayPreview(file.ReplayFile,
+            var previewModel = new ReplayPreview(file.ReplayFile,
                 file.FileInfo.CreationTime,
                 SettingsManager.Settings.PlayerMarkerStyle,
                 SettingsManager.Settings.RenameAction,
