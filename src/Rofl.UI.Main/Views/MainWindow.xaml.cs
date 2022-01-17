@@ -162,7 +162,7 @@ namespace Rofl.UI.Main
             (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
             (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
-            await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail).ConfigureAwait(true);
+            (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
 
             // See if tab control needs to update runes:
             if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)
@@ -257,7 +257,7 @@ namespace Rofl.UI.Main
 
             // Hide the button bar once we've loaded more
             ReplayPageBar.Visibility = Visibility.Collapsed;
-            await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+            context.LoadPreviewPlayerThumbnails();
         }
 
         private async void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -270,7 +270,7 @@ namespace Rofl.UI.Main
 
             context.ClearReplays();
             _ = context.LoadReplaysFromDatabase();
-            await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+            context.LoadPreviewPlayerThumbnails();
         }
 
         private async void SearchBox_QuerySubmitted(AutoSuggestBox auto, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -286,7 +286,7 @@ namespace Rofl.UI.Main
 
             context.ClearReplays();
             _ = context.LoadReplaysFromDatabase();
-            await context.LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+            context.LoadPreviewPlayerThumbnails();
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)

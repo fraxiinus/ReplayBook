@@ -13,11 +13,10 @@ namespace Rofl.UI.Main.Models
         {
             if (player == null) { throw new ArgumentNullException(nameof(player)); }
 
-            ChampionName = player.SKIN;
+            ChampionId = player.SKIN;
             PlayerName = player.NAME;
             PlayerMarkerStyle = markerStyle;
             marker = null;
-            imgSrc = null;
 
             // default to error icon
             OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
@@ -25,7 +24,9 @@ namespace Rofl.UI.Main.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string ChampionName { get; private set; }
+        public string ChampionId { get; private set; }
+
+        public string ChampionName { get; set; }
 
         public string PlayerName { get; private set; }
 
@@ -47,15 +48,15 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        private ImageSource imgSrc;
-        public ImageSource ImageSource
+        private ImageBrush _image;
+        public ImageBrush Image
         {
-            get => imgSrc;
+            get => _image;
             set
             {
-                imgSrc = value;
+                _image = value;
                 PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(ImageSource)));
+                    this, new PropertyChangedEventArgs(nameof(Image)));
             }
         }
 

@@ -6,6 +6,10 @@ namespace Rofl.UI.Main.Models
 {
     public class Item : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Represents an item from the replay file
+        /// </summary>
+        /// <param name="itemId"></param>
         public Item(string itemId)
         {
             ItemId = itemId;
@@ -19,7 +23,7 @@ namespace Rofl.UI.Main.Models
 
         public string ItemId { get; set; }
 
-        public string ItemName { get; set; } // currently unused
+        public string ItemName { get; set; }
 
         private bool _showBorder;
         public bool ShowBorder
@@ -33,17 +37,29 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        private ImageSource _imgSrc;
-        public ImageSource ImageSource
+        private ImageBrush _image;
+        public ImageBrush Image
         {
-            get => _imgSrc;
+            get => _image;
             set
             {
-                _imgSrc = value;
+                _image = value;
                 PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(ImageSource)));
+                    this, new PropertyChangedEventArgs(nameof(Image)));
             }
         }
+
+        //private ImageSource _imgSrc;
+        //public ImageSource ImageSource
+        //{
+        //    get => _imgSrc;
+        //    set
+        //    {
+        //        _imgSrc = value;
+        //        PropertyChanged?.Invoke(
+        //            this, new PropertyChangedEventArgs(nameof(ImageSource)));
+        //    }
+        //}
 
         private Geometry _overlayIcon;
         public Geometry OverlayIcon
