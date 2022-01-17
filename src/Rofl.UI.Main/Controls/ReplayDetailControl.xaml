@@ -43,11 +43,11 @@
 
             <!--  The header information  -->
             <StackPanel Grid.Row="0"
-                        Margin="0 0 0 0"
+                        Margin="0,0,0,0"
                         Background="{DynamicResource TabViewBackground}"
                         Orientation="Vertical">
 
-                <Border BorderThickness="0 0 0 2">
+                <Border BorderThickness="0,0,0,2">
 
                     <Grid>
 
@@ -64,11 +64,12 @@
                                  BorderThickness="0"
                                  FontSize="25"
                                  IsReadOnly="True"
+                                 MouseDoubleClick="ReplayFileName_MouseDoubleClick"
                                  Text="{Binding Path=PreviewModel.DisplayName, FallbackValue=FileName, Mode=OneWay}" />
 
                         <ui:PathIcon Grid.Column="1"
                                      Width="20"
-                                     Margin="5 2 2 0"
+                                     Margin="5,2,2,0"
                                      Data="{StaticResource CirclePathIcon}"
                                      Foreground="Red">
                             <ui:PathIcon.Style>
@@ -90,7 +91,7 @@
                                 Grid.Column="4"
                                 Width="80"
                                 Height="32"
-                                Margin="5 12 12 0"
+                                Margin="5,12,12,0"
                                 Click="PlayButton_Click"
                                 ToolTipService.ShowOnDisabled="True">
                             <Button.Style>
@@ -124,7 +125,7 @@
                         <Button x:Name="MoreButton"
                                 Grid.Column="3"
                                 Width="37"
-                                Margin="0 12 0 0"
+                                Margin="0,12,0,0"
                                 Click="MoreButton_Click"
                                 ToolTip="{DynamicResource MoreToolTip}">
                             <ui:PathIcon Data="{StaticResource MorePathIcon}" RenderOptions.BitmapScalingMode="HighQuality" />
@@ -177,11 +178,11 @@
 
                 </Border>
 
-                <StackPanel Margin="10 0 0 0"
+                <StackPanel Margin="10,0,0,0"
                             VerticalAlignment="Center"
                             Orientation="Horizontal">
 
-                    <TextBlock Margin="0 0 15 0"
+                    <TextBlock Margin="0,0,15,0"
                                VerticalAlignment="Center"
                                Background="Transparent"
                                FontSize="14"
@@ -189,35 +190,35 @@
                                Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"
                                ToolTip="{DynamicResource MapNameToolTip}" />
 
-                    <TextBlock Margin="0 0 15 0"
+                    <TextBlock Margin="0,0,15,0"
                                VerticalAlignment="Center"
                                Background="Transparent"
                                FontSize="14"
                                Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"
                                ToolTip="{Binding Path=PreviewModel.GameDuration}" />
 
-                    <TextBlock Margin="0 0 15 0"
+                    <TextBlock Margin="0,0,15,0"
                                VerticalAlignment="Center"
                                Background="Transparent"
                                FontSize="14"
                                Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"
                                ToolTip="{DynamicResource MatchIdToolTip}" />
 
-                    <TextBlock Margin="0 0 15 0"
+                    <TextBlock Margin="0,0,15,0"
                                VerticalAlignment="Center"
                                Background="Transparent"
                                FontSize="14"
                                Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"
                                ToolTip="{DynamicResource GameVersionToolTip}" />
 
-                    <TextBlock Margin="0 0 15 0"
+                    <TextBlock Margin="0,0,15,0"
                                VerticalAlignment="Center"
                                Background="Transparent"
                                FontSize="14"
                                Text="{Binding Path=FileInfo.FileSizeBytes, FallbackValue=FileSize, Mode=OneWay, Converter={StaticResource FormatKbSizeConverter}}"
                                ToolTip="{DynamicResource FileSizeToolTip}" />
 
-                    <TextBlock Margin="0 0 15 0"
+                    <TextBlock Margin="0,0,15,0"
                                VerticalAlignment="Center"
                                Background="Transparent"
                                FontSize="14"
@@ -229,7 +230,7 @@
 
             <TabControl x:Name="DetailTabControl"
                         Grid.Row="1"
-                        BorderThickness="0 0 0 0"
+                        BorderThickness="0,0,0,0"
                         SelectionChanged="TabControl_SelectionChanged">
                 <TabControl.Style>
                     <Style BasedOn="{StaticResource DefaultTabControlStyle}" TargetType="TabControl" />
@@ -238,7 +239,7 @@
                          Header="{DynamicResource ScoreboardTabText}"
                          Style="{StaticResource AlteredTabItemStyle}">
                     <Border Background="{DynamicResource BaseBackground}">
-                        <local:ScoreboardControl Margin="10 10 5 0" />
+                        <local:ScoreboardControl Margin="10,10,5,0" />
                     </Border>
                 </TabItem>
 
@@ -246,7 +247,7 @@
                          Header="{DynamicResource RunesTabText}"
                          Style="{StaticResource AlteredTabItemStyle}">
                     <Border Background="{DynamicResource BaseBackground}">
-                        <local:RunesDetailControl Margin="0 5 0 0" />
+                        <local:RunesDetailControl Margin="0,5,0,0" />
                     </Border>
                 </TabItem>
 
@@ -261,7 +262,7 @@
 
                         <Grid x:Name="PlayerIconsGrid"
                               Grid.Row="0"
-                              Margin="165 10 8 0">
+                              Margin="165,10,8,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
@@ -269,7 +270,7 @@
 
                         <ScrollViewer x:Name="StatsScrollViewer"
                                       Grid.Row="1"
-                                      Margin="0 5 0 0"
+                                      Margin="0,5,0,0"
                                       Loaded="StatsScrollViewer_Loaded"
                                       VerticalScrollBarVisibility="Visible">
                             <local:StatisticsControl x:Name="StatsControl" />

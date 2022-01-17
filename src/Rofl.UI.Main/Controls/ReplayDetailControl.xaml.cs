@@ -142,6 +142,11 @@ namespace Rofl.UI.Main.Controls
             contextMenu.IsOpen = true;
         }
 
+        private void ReplayFileName_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            RenameReplayFile_OnClick(null, null);
+        }
+
         #region Context menu item handlers
         private void OpenNewWindow_Click(object sender, RoutedEventArgs e)
         {
@@ -215,6 +220,7 @@ namespace Rofl.UI.Main.Controls
             fileNameBox.SelectAll();
             _ = fileNameBox.Focus();
         }
+
         private void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
             if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
@@ -244,5 +250,6 @@ namespace Rofl.UI.Main.Controls
             _ = flyout.GetFlyoutButton().Focus();
         }
         #endregion
+
     }
 }
