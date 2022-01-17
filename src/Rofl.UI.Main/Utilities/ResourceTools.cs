@@ -16,7 +16,12 @@ namespace Rofl.UI.Main.Utilities
             return System.Windows.Application.Current.TryFindResource(resourceName) as ImageSource;
         }
 
-        internal static ImageSource GetImageSourceFromPath(string path)
+        /// <summary>
+        /// Given file path, loads image into BitmapFrame (ImageSource)
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        internal static BitmapFrame GetImageSourceFromPath(string path)
         {
             return BitmapFrame.Create(new Uri(path), BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
         }

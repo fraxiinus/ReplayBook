@@ -250,3 +250,4 @@ ModelManifest.xml
 *.data.json
 
 MigrationBackup
+*.png

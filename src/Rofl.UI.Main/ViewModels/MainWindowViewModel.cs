@@ -169,94 +169,41 @@ namespace Rofl.UI.Main.ViewModels
             FileResults.Clear();
         }
 
-        public async Task LoadItemThumbnails(ReplayDetail replay)
+        public void LoadItemThumbnails(ReplayDetail replay)
         {
             _log.Information("Loading/downloading thumbnails for items...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            // we already know the internet failed
-            if (InternetFailed) { return; }
+            var allItems = new List<Item>();
 
-            string dataVersion;
-            try
+            allItems.AddRange(replay.AllPlayers.SelectMany(x => x.Items));
+
+            foreach (var item in allItems)
             {
-                dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
-            }
-            catch (HttpRequestException)
-            {
-                _log.Error("Could not load item thumbnails due to http exception");
-                InternetFailed = true;
-                return;
-            }
-
-            List<Item> allItems = new List<Item>();
-            List<Task> itemTasks = new List<Task>();
-
-            allItems.AddRange(replay.BluePlayers.SelectMany(x => x.Items));
-            allItems.AddRange(replay.RedPlayers.SelectMany(x => x.Items));
-
-            _log.Information($"Processing {allItems.Count} item thumbnail requests");
-            foreach (Item item in allItems)
-            {
-                // If an item does not exist, set it to nothing!
-                if (item.ItemId == "0")
+                var staticItem = ItemHelper.GetItemData(item.ItemId);
+                if (staticItem.Name == null)
                 {
-                    Application.Current.Dispatcher.Invoke(delegate
+                    // no item, show empty space with border
+                    if (staticItem.Id == "0")
                     {
-                        item.ShowBorder = true;
-
-                        // the default image is an error, so clear it out
                         item.OverlayIcon = null;
-                    });
-                    continue;
+                        item.ShowBorder = true;
+                    }
+                    // item id was either not found, or invalid (null? empty?)
+                    // error overlay will be visible and tooltip will show item id
+                    else if (staticItem.Name == null)
+                    {
+                        item.ItemName = staticItem.Id;
+                    }
                 }
-
-                // Set default item image, to be replaced
-                Application.Current.Dispatcher.Invoke(delegate
+                else
                 {
-                    item.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
-                });
-
-                itemTasks.Add(Task.Run(async () =>
-                {
-                    ResponseBase response = await RequestManager.MakeRequestAsync(new ItemRequest
-                    {
-                        DataDragonVersion = dataVersion,
-                        ItemID = item.ItemId
-                    }).ConfigureAwait(true);
-
-                    if (response.IsFaulted)
-                    {
-                        _log.Warning($"Failed to load image for {(response.Request as ItemRequest).ItemID}");
-                        Application.Current.Dispatcher.Invoke(delegate
-                        {
-                            item.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
-                        });
-                    }
-                    else
-                    {
-                        if (response.FromCache)
-                        {
-                            Application.Current.Dispatcher.Invoke(delegate
-                            {
-                                item.OverlayIcon = null; // hide overlay icons, if any
-                                item.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
-                            });
-                        }
-                        else
-                        {
-                            Application.Current.Dispatcher.Invoke(delegate
-                            {
-                                item.OverlayIcon = null; // hide overlay icons, if any
-                                item.ImageSource = response.ResponseBytes.ToBitmapImage();
-                            });
-                        }
-                    }
-
-                }));
+                    // hide overlay, show apply item image and add name
+                    item.OverlayIcon = null;
+                    item.ItemName = staticItem.Name;
+                    item.Image = ItemHelper.GetItemImage(item.ItemId);
+                }
             }
-
-            await Task.WhenAll(itemTasks).ConfigureAwait(true);
         }
 
         public async Task LoadPreviewPlayerThumbnails()
@@ -356,8 +303,8 @@ namespace Rofl.UI.Main.ViewModels
 
             string dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
 
-            List<RuneStat> allRunes = new List<RuneStat>();
-            List<Task> allTasks = new List<Task>();
+            var allRunes = new List<RuneStat>();
+            var allTasks = new List<Task>();
 
             allRunes.AddRange(replay.AllPlayers.Select(x => x.KeystoneRune));
             allRunes.AddRange(replay.AllPlayers.SelectMany(x => x.Runes));
@@ -452,7 +399,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task ShowSettingsDialog()
         {
-            SettingsWindow settingsDialog = new SettingsWindow
+            var settingsDialog = new SettingsWindow
             {
                 Top = Application.Current.MainWindow.Top + 50,
                 Left = Application.Current.MainWindow.Left + 50,
@@ -550,7 +497,7 @@ namespace Rofl.UI.Main.ViewModels
         {
             _log.Information("Opening new window...");
 
-            SingleReplayWindow singleWindow = new SingleReplayWindow(_log, SettingsManager, RequestManager, _fileManager, _player, true)
+            var singleWindow = new SingleReplayWindow(_log, SettingsManager, RequestManager, _fileManager, _player, true)
             {
                 ReplayFileLocation = replayPath
             };
@@ -578,7 +525,7 @@ namespace Rofl.UI.Main.ViewModels
             if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
 
             // create transition collection
-            ModernWpf.Media.Animation.TransitionCollection contentTransitions = new ModernWpf.Media.Animation.TransitionCollection
+            var contentTransitions = new ModernWpf.Media.Animation.TransitionCollection
             {
                 new ModernWpf.Media.Animation.NavigationThemeTransition()
                 {
@@ -590,7 +537,7 @@ namespace Rofl.UI.Main.ViewModels
             };
 
             // create content frame
-            ModernWpf.Controls.Frame contentFrame = new ModernWpf.Controls.Frame()
+            var contentFrame = new ModernWpf.Controls.Frame()
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
@@ -598,7 +545,7 @@ namespace Rofl.UI.Main.ViewModels
             };
 
             // create default context values
-            ExportDataContext exportDataContext = new ExportDataContext
+            var exportDataContext = new ExportDataContext
             {
                 PresetName = "unsavedPreset",
                 ManualPlayerSelection = true,
@@ -612,7 +559,7 @@ namespace Rofl.UI.Main.ViewModels
                 Log = _log
             };
 
-            ExportDataWindow exportDialog = new ExportDataWindow()
+            var exportDialog = new ExportDataWindow()
             {
                 Top = Application.Current.MainWindow.Top + 50,
                 Left = Application.Current.MainWindow.Left + 50,
@@ -632,7 +579,7 @@ namespace Rofl.UI.Main.ViewModels
             }
 
             // create transition collection
-            ModernWpf.Media.Animation.TransitionCollection contentTransitions = new ModernWpf.Media.Animation.TransitionCollection
+            var contentTransitions = new ModernWpf.Media.Animation.TransitionCollection
             {
                 new ModernWpf.Media.Animation.NavigationThemeTransition()
                 {
@@ -644,14 +591,14 @@ namespace Rofl.UI.Main.ViewModels
             };
 
             // create content frame
-            ModernWpf.Controls.Frame contentFrame = new ModernWpf.Controls.Frame()
+            var contentFrame = new ModernWpf.Controls.Frame()
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
                 ContentTransitions = contentTransitions
             };
 
-            WelcomeSetupDataContext setupContext = new WelcomeSetupDataContext
+            var setupContext = new WelcomeSetupDataContext
             {
                 ContentFrame = contentFrame,
                 PageIndex = 0,
@@ -662,7 +609,7 @@ namespace Rofl.UI.Main.ViewModels
             };
 
             _log.Information(welcomeFileFlag);
-            WelcomeSetupWindow welcomeDialog = new WelcomeSetupWindow()
+            var welcomeDialog = new WelcomeSetupWindow()
             {
                 Top = Application.Current.MainWindow.Top + 50,
                 Left = Application.Current.MainWindow.Left + 50,
@@ -800,13 +747,13 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task<(long ItemsTotalSize, long ChampsTotalSize, long RunesTotalSize)> CalculateCacheSizes()
         {
-            DirectoryInfo itemsInfo = new DirectoryInfo(RequestManager.GetItemCachePath());
+            var itemsInfo = new DirectoryInfo(RequestManager.GetItemCachePath());
             long itemsTotal = !itemsInfo.Exists ? 0L : await Task.Run(() => itemsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
-            DirectoryInfo champsInfo = new DirectoryInfo(RequestManager.GetChampionCachePath());
+            var champsInfo = new DirectoryInfo(RequestManager.GetChampionCachePath());
             long champsTotal = !champsInfo.Exists ? 0L : await Task.Run(() => champsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
-            DirectoryInfo runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
+            var runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
             long runesTotal = !runesInfo.Exists ? 0L : await Task.Run(() => runesInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
             return (itemsTotal, champsTotal, runesTotal);
@@ -814,7 +761,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public long CalculateReplayCacheSize()
         {
-            FileInfo databaseInfo = new FileInfo(_fileManager.DatabasePath);
+            var databaseInfo = new FileInfo(_fileManager.DatabasePath);
             return databaseInfo.Length;
         }
 

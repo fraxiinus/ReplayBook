@@ -162,7 +162,7 @@ namespace Rofl.UI.Main
             (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
             (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
-            await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail).ConfigureAwait(true);
+            (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
 
             // See if tab control needs to update runes:
             if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)

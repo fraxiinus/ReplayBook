@@ -14,7 +14,7 @@ namespace Rofl.UI.Main.Utilities
 
         public static void SetProgramLanguage(Language target)
         {
-            ResourceDictionary dict = new ResourceDictionary();
+            var dict = new ResourceDictionary();
             switch (target)
             {
                 case Language.En:
@@ -42,7 +42,7 @@ namespace Rofl.UI.Main.Utilities
             // Load english data in for backup
             if (target != Language.En)
             {
-                ResourceDictionary backupDict = new ResourceDictionary
+                var backupDict = new ResourceDictionary
                 {
                     Source = new Uri("..\\Resources\\Strings\\en.xaml", UriKind.Relative)
                 };
@@ -54,8 +54,9 @@ namespace Rofl.UI.Main.Utilities
 
             CurrentLanguage = target;
 
-            // Re-load static rune data
+            // Re-load static data
             RuneHelper.LoadRunes(target);
+            ItemHelper.LoadItems(target);
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace Rofl.UI.Main.Utilities
         /// <returns></returns>
         public static string[] GetFriendlyLanguageNames()
         {
-            List<string> languages = new List<string>();
+            var languages = new List<string>();
             foreach (Language lang in (Language[])Enum.GetValues(typeof(Language)))
             {
                 switch (lang)
@@ -101,23 +102,16 @@ namespace Rofl.UI.Main.Utilities
         /// <returns></returns>
         public static string GetRiotRegionCode(Language language)
         {
-            switch (language)
+            return language switch
             {
-                case Language.En:
-                    return "en_US";
-                case Language.ZhHans:
-                    return "zh_CN";
-                case Language.De:
-                    return "de_DE";
-                case Language.Es:
-                    return "es_ES";
-                case Language.Fr:
-                    return "fr_FR";
-                case Language.Pt:
-                    return "pt_BR";
-                default:
-                    return "en_US";
-            }
+                Language.En => "en_US",
+                Language.ZhHans => "zh_CN",
+                Language.De => "de_DE",
+                Language.Es => "es_ES",
+                Language.Fr => "fr_FR",
+                Language.Pt => "pt_BR",
+                _ => "en_US",
+            };
         }
     }
 }
