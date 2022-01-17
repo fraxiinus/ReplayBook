@@ -59,11 +59,6 @@ namespace Rofl.UI.Main.ViewModels
 
         public bool ClearReplayCacheOnClose { get; set; }
 
-        // flag to indicate something is wrong with internet connection
-        private bool InternetFailed { get; set; }
-
-        // public string LatestDataDragonVersion { get; private set; }
-
         public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, ReplayPlayer player, RiZhi log)
         {
             SettingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
