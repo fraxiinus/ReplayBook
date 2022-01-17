@@ -4,9 +4,6 @@ using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -95,6 +92,8 @@ namespace Rofl.UI.Main.Utilities
         /// </summary>
         private static void LoadImageAtlases()
         {
+            if (ItemAtlases is null) { throw new Exception("run LoadItems() method first"); }
+
             for (int i = 0; i < AtlasCount; i++)
             {
                 var atlasName = $"item{i}.png";
@@ -115,7 +114,7 @@ namespace Rofl.UI.Main.Utilities
                 return new ItemData("-1");
             }
 
-            if (ItemDictionary is null) { throw new Exception("run LoadRunes() method first"); }
+            if (ItemDictionary is null) { throw new Exception("run LoadItems() method first"); }
 
             if (ItemDictionary.TryGetValue(id, out var item))
             {
@@ -129,9 +128,12 @@ namespace Rofl.UI.Main.Utilities
 
         public static ImageBrush GetItemImage(string id)
         {
+            if (ItemAtlases is null) { throw new Exception("run LoadItems() method first"); }
+
             var item = GetItemData(id);
             var itemAtlas = ItemAtlases[item.ImageData.Source];
 
+            // multiply by 96 (magic number?) and divide by dpi to convert pixels to px
             var viewBox = new Rect(item.ImageData.X * 96 / itemAtlas.DpiX,
                                    item.ImageData.Y * 96 / itemAtlas.DpiY,
                                    item.ImageData.Width * 96 / itemAtlas.DpiX,

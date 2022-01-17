@@ -171,7 +171,7 @@ namespace Rofl.UI.Main.ViewModels
 
         public void LoadItemThumbnails(ReplayDetail replay)
         {
-            _log.Information("Loading/downloading thumbnails for items...");
+            _log.Information("Loading thumbnails for items...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
             var allItems = new List<Item>();
@@ -206,94 +206,40 @@ namespace Rofl.UI.Main.ViewModels
             }
         }
 
-        public async Task LoadPreviewPlayerThumbnails()
+        public void LoadPreviewPlayerThumbnails()
         {
-            _log.Information("Loading/downloading thumbnails for champions...");
-
             foreach (ReplayPreview replay in PreviewReplays)
             {
-                await LoadSinglePreviewPlayerThumbnails(replay).ConfigureAwait(true);
+                LoadSinglePreviewPlayerThumbnails(replay);
             }
         }
 
-        public async Task LoadSinglePreviewPlayerThumbnails(ReplayPreview replay)
+        public void LoadSinglePreviewPlayerThumbnails(ReplayPreview replay)
         {
+            _log.Information("Loading thumbnails for players...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            // we already know the internet failed
-            if (InternetFailed) { return; }
+            var allPlayers = new List<PlayerPreview>();
 
-            string dataVersion;
-            try
-            {
-                dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
-            }
-            catch (HttpRequestException)
-            {
-                _log.Error("Could not load player thumbnails due to http exception");
-                InternetFailed = true;
-                return;
-            }
-
-            List<PlayerPreview> allPlayers = new List<PlayerPreview>();
-            allPlayers.AddRange(replay.BluePreviewPlayers);
             allPlayers.AddRange(replay.RedPreviewPlayers);
+            allPlayers.AddRange(replay.BluePreviewPlayers);
 
-            _log.Information($"Processing {allPlayers.Count} champion thumbnail requests");
-            List<dynamic> allRequests = new List<dynamic>(allPlayers.Select(x =>
-                new
-                {
-                    Player = x,
-                    Request = new ChampionRequest()
-                    {
-                        ChampionName = x.ChampionName,
-                        DataDragonVersion = dataVersion
-                    }
-                }));
-
-            List<Task> allTasks = new List<Task>();
-
-            foreach (dynamic request in allRequests)
+            foreach (var player in allPlayers)
             {
-                Application.Current.Dispatcher.Invoke(delegate
+                var staticItem = ChampionHelper.GetChampionData(player.ChampionId);
+                if (staticItem.Name == null)
                 {
-                    request.Player.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
-                });
-
-                allTasks.Add(Task.Run(async () =>
+                    // no champion data was found, load id as the name
+                    player.ChampionName = staticItem.Id;
+                }
+                else
                 {
-                    ResponseBase response = await RequestManager.MakeRequestAsync(request.Request as RequestBase)
-                        .ConfigureAwait(true);
-
-                    if (response.IsFaulted)
-                    {
-                        _log.Warning($"Failed to load image for {(response.Request as ChampionRequest).ChampionName}");
-                        Application.Current.Dispatcher.Invoke(delegate
-                        {
-                            request.Player.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
-                        });
-                    }
-
-                    if (response.FromCache)
-                    {
-                        Application.Current.Dispatcher.Invoke(delegate
-                        {
-                            request.Player.OverlayIcon = null; // hide overlay icons, if any
-                            request.Player.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
-                        });
-                    }
-                    else
-                    {
-                        Application.Current.Dispatcher.Invoke(delegate
-                        {
-                            request.Player.OverlayIcon = null; // hide overlay icons, if any
-                            request.Player.ImageSource = response.ResponseBytes.ToBitmapImage();
-                        });
-                    }
-                }));
+                    // hide overlay, show apply item image and add name
+                    player.OverlayIcon = null;
+                    player.ChampionName = staticItem.Name;
+                    player.Image = ChampionHelper.GetChampionImage(player.ChampionId);
+                }
             }
-
-            await Task.WhenAll(allTasks).ConfigureAwait(true);
         }
 
         public async Task LoadRuneThumbnails(ReplayDetail replay)
@@ -444,7 +390,7 @@ namespace Rofl.UI.Main.ViewModels
 
             // Load thumbnails
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
-            await LoadPreviewPlayerThumbnails().ConfigureAwait(true);
+            LoadPreviewPlayerThumbnails();
 
             if (results.Any())
             {

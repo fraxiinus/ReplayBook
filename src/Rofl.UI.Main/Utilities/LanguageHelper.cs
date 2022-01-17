@@ -57,6 +57,7 @@ namespace Rofl.UI.Main.Utilities
             // Re-load static data
             RuneHelper.LoadRunes(target);
             ItemHelper.LoadItems(target);
+            ChampionHelper.LoadChampions(target);
         }
 
         /// <summary>

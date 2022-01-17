@@ -14,12 +14,6 @@
         <Border Background="{Binding Image, IsAsync=True}"
                 BorderBrush="{DynamicResource TextControlBorderBrush}"
                 CornerRadius="5">
-            <!--<Border.Background>
-                <ImageBrush x:Name="ItemImage"
-                            ImageSource="{Binding Path=ImageSource, IsAsync=True}"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            Stretch="Fill" />
-            </Border.Background>-->
             <Border.Style>
                 <Style TargetType="Border">
                     <Style.Triggers>

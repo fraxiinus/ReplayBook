@@ -78,7 +78,7 @@ namespace Rofl.UI.Main.Views
                 (DetailView.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
                 context.LoadItemThumbnails(replayDetail);
-                await context.LoadSinglePreviewPlayerThumbnails(previewReplay).ConfigureAwait(true);
+                context.LoadSinglePreviewPlayerThumbnails(previewReplay);
             }
         }
     }
