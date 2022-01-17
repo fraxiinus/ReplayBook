@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
@@ -83,7 +84,8 @@ namespace Rofl.UI.Main.Utilities
             // load all items to the dictionary
             foreach (var champData in champJson["data"])
             {
-                ChampionDictionary.Add((string)champData["id"], champData.ToObject<ChampionData>());
+                // keep key uppercase
+                ChampionDictionary.Add(((string)champData["id"]).ToUpper(CultureInfo.InvariantCulture), champData.ToObject<ChampionData>());
             }
         }
 
@@ -116,7 +118,7 @@ namespace Rofl.UI.Main.Utilities
 
             if (ChampionDictionary is null) { throw new Exception("run LoadChampions() method first"); }
 
-            if (ChampionDictionary.TryGetValue(id, out var champion))
+            if (ChampionDictionary.TryGetValue(id.ToUpper(CultureInfo.InvariantCulture), out var champion))
             {
                 return champion;
             }

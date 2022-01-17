@@ -41,20 +41,18 @@ namespace Rofl.UI.Main.Pages
 
         private async void DownloadButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
-            if (!(Application.Current.MainWindow is MainWindow mainWindow)) { return; }
-            if (!(mainWindow.DataContext is MainWindowViewModel mainViewModel)) { return; }
+            if (DataContext is not WelcomeSetupDataContext context) { return; }
+            if (Application.Current.MainWindow is not MainWindow mainWindow) { return; }
+            if (mainWindow.DataContext is not MainWindowViewModel mainViewModel) { return; }
 
             // Clear the error text box
             ErrorText.Text = string.Empty;
 
             // What do we download?
-            bool downloadChamps = ChampionCheckBox.IsChecked ?? false;
-            bool downloadItems = ItemCheckBox.IsChecked ?? false;
             bool downloadRunes = RunesCheckBox.IsChecked ?? false;
 
             // Nothing was selected, do nothing
-            if (downloadChamps == false && downloadItems == false && downloadRunes == false)
+            if (downloadRunes == false)
             {
                 ErrorText.Text = (string)TryFindResource("WswDownloadNoSelectionError");
                 return;
@@ -79,17 +77,7 @@ namespace Rofl.UI.Main.Pages
             }
 
             // Create all the requests we need
-            List<RequestBase> requests = new List<RequestBase>();
-            if (downloadChamps)
-            {
-                requests.AddRange(await mainViewModel.RequestManager.GetAllChampionRequests()
-                    .ConfigureAwait(true));
-            }
-            if (downloadItems)
-            {
-                requests.AddRange(await mainViewModel.RequestManager.GetAllItemRequests()
-                    .ConfigureAwait(true));
-            }
+            var requests = new List<RequestBase>();
             if (downloadRunes)
             {
                 requests.AddRange(await mainViewModel.RequestManager.GetAllRuneRequests(RuneHelper.GetAllRunes())
@@ -105,8 +93,6 @@ namespace Rofl.UI.Main.Pages
 
             // Disable buttons while download happens
             DownloadButton.IsEnabled = false;
-            ItemCheckBox.IsEnabled = false;
-            ChampionCheckBox.IsEnabled = false;
             RunesCheckBox.IsEnabled = false;
 
             context.DisableNextButton = true;
@@ -133,7 +119,7 @@ namespace Rofl.UI.Main.Pages
 
         private void DownloadProgressBar_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+            if (DataContext is not WelcomeSetupDataContext context) { return; }
 
             if (Math.Abs(DownloadProgressBar.Value) < 0.1) { return; }
 

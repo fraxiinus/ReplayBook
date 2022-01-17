@@ -686,18 +686,12 @@ namespace Rofl.UI.Main.ViewModels
             _fileManager.ClearDeletedFiles();
         }
 
-        public async Task<(long ItemsTotalSize, long ChampsTotalSize, long RunesTotalSize)> CalculateCacheSizes()
+        public async Task<long> CalculateCacheSizes()
         {
-            var itemsInfo = new DirectoryInfo(RequestManager.GetItemCachePath());
-            long itemsTotal = !itemsInfo.Exists ? 0L : await Task.Run(() => itemsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
-
-            var champsInfo = new DirectoryInfo(RequestManager.GetChampionCachePath());
-            long champsTotal = !champsInfo.Exists ? 0L : await Task.Run(() => champsInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
-
             var runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
             long runesTotal = !runesInfo.Exists ? 0L : await Task.Run(() => runesInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
-            return (itemsTotal, champsTotal, runesTotal);
+            return runesTotal;
         }
 
         public long CalculateReplayCacheSize()
@@ -711,8 +705,6 @@ namespace Rofl.UI.Main.ViewModels
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            if (ClearItemsCacheOnClose) { await RequestManager.ClearItemCache().ConfigureAwait(true); }
-            if (ClearChampsCacheOnClose) { await RequestManager.ClearChampionCache().ConfigureAwait(true); }
             if (ClearRunesCacheOnClose) { await RequestManager.ClearRunesCache().ConfigureAwait(true); }
 
             if (ClearReplayCacheOnClose)

@@ -128,30 +128,6 @@ namespace Rofl.Requests
             return await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
         }
 
-        public async Task<IEnumerable<ChampionRequest>> GetAllChampionRequests()
-        {
-            IEnumerable<string> championNames = await _downloadClient.GetAllChampionNames().ConfigureAwait(true);
-            string latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
-
-            return championNames.Select(x => new ChampionRequest
-            {
-                ChampionName = x,
-                DataDragonVersion = latestVersion
-            });
-        }
-
-        public async Task<IEnumerable<ItemRequest>> GetAllItemRequests()
-        {
-            IEnumerable<string> itemNumbers = await _downloadClient.GetAllItemNumbers().ConfigureAwait(true);
-            string latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
-
-            return itemNumbers.Select(x => new ItemRequest
-            {
-                ItemID = x,
-                DataDragonVersion = latestVersion
-            });
-        }
-
         public async Task<IEnumerable<RuneRequest>> GetAllRuneRequests((string key, string target)[] runes)
         {
             string latestVersion = await _downloadClient.GetLatestDataDragonVersion().ConfigureAwait(true);
@@ -169,29 +145,9 @@ namespace Rofl.Requests
             return _cachePath;
         }
 
-        public string GetChampionCachePath()
-        {
-            return Path.Combine(_cachePath, "champs");
-        }
-
-        public string GetItemCachePath()
-        {
-            return Path.Combine(_cachePath, "items");
-        }
-
         public string GetRuneCachePath()
         {
             return Path.Combine(_cachePath, "runes");
-        }
-
-        public async Task ClearItemCache()
-        {
-            await _cacheClient.ClearImageCache(GetItemCachePath()).ConfigureAwait(true);
-        }
-
-        public async Task ClearChampionCache()
-        {
-            await _cacheClient.ClearImageCache(GetChampionCachePath()).ConfigureAwait(true);
         }
 
         public async Task ClearRunesCache()
