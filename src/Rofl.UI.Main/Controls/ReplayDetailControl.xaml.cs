@@ -45,7 +45,7 @@ namespace Rofl.UI.Main.Controls
 
         private void ReplayDetailControlElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if (!(DataContext is ReplayDetail replay)) { return; }
+            if (DataContext is not ReplayDetail replay) { return; }
 
             PlayerIconsGrid.Children.Clear();
             PlayerIconsGrid.ColumnDefinitions.Clear();
@@ -56,13 +56,13 @@ namespace Rofl.UI.Main.Controls
                 foreach (PlayerDetail player in replay.AllPlayers)
                 {
                     // Add a column
-                    ColumnDefinition newColumn = new ColumnDefinition
+                    var newColumn = new ColumnDefinition
                     {
                         Width = GridLength.Auto
                     };
                     PlayerIconsGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
-                    PlayerIconControl newImage = new PlayerIconControl
+                    var newImage = new PlayerIconControl
                     {
                         DataContext = player.PreviewModel,
                         Width = 50,
@@ -79,17 +79,17 @@ namespace Rofl.UI.Main.Controls
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(DataContext is ReplayDetail replay)) { return; }
+            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
+            if (DataContext is not ReplayDetail replay) { return; }
 
             _ = await context.PlayReplay(replay.PreviewModel).ConfigureAwait(true);
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(sender is TabControl tabControl)) { return; }
-            if (!(DataContext is ReplayDetail replay)) { return; }
+            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
+            if (sender is not TabControl tabControl) { return; }
+            if (DataContext is not ReplayDetail replay) { return; }
 
             StatsScrollViewer.ScrollToVerticalOffset(0);
 
@@ -104,13 +104,13 @@ namespace Rofl.UI.Main.Controls
                 foreach (PlayerDetail player in replay.AllPlayers)
                 {
                     // Add a column
-                    ColumnDefinition newColumn = new ColumnDefinition
+                    var newColumn = new ColumnDefinition
                     {
                         Width = GridLength.Auto
                     };
                     PlayerIconsGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
-                    PlayerIconControl newImage = new PlayerIconControl
+                    var newImage = new PlayerIconControl
                     {
                         DataContext = player.PreviewModel,
                         Width = 50,
@@ -132,7 +132,7 @@ namespace Rofl.UI.Main.Controls
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(sender is Button moreButton)) { return; }
+            if (sender is not Button moreButton) { return; }
 
             // Get the button and menu
             ContextMenu contextMenu = moreButton.ContextMenu;
@@ -142,41 +142,46 @@ namespace Rofl.UI.Main.Controls
             contextMenu.IsOpen = true;
         }
 
+        private void ReplayFileName_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            RenameReplayFile_OnClick(null, null);
+        }
+
         #region Context menu item handlers
         private void OpenNewWindow_Click(object sender, RoutedEventArgs e)
         {
-            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(DataContext is ReplayDetail replay)) { return; }
+            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
+            if (DataContext is not ReplayDetail replay) { return; }
 
             context.OpenNewWindow(replay.PreviewModel.Location);
         }
 
         private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
         {
-            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(DataContext is ReplayDetail replay)) { return; }
+            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
+            if (DataContext is not ReplayDetail replay) { return; }
             context.OpenReplayContainingFolder(replay.PreviewModel.Location);
         }
 
         private void ExportReplayData_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(DataContext is ReplayDetail replay)) { return; }
+            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
+            if (DataContext is not ReplayDetail replay) { return; }
 
             context.ShowExportReplayDataWindow(replay.PreviewModel);
         }
 
         private void RenameReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(DataContext is ReplayDetail replay)) { return; }
+            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
+            if (DataContext is not ReplayDetail replay) { return; }
 
             ModernWpf.Controls.Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: true);
             flyout.GetFlyoutLabel().Visibility = Visibility.Collapsed;
             flyout.SetFlyoutButtonText(TryFindResource("RenameReplayFile") as string);
 
             // Create textbox to add as flyout custom element
-            TextBox fileNameBox = new TextBox
+            var fileNameBox = new TextBox
             {
                 Text = replay.PreviewModel.DisplayName,
                 IsReadOnly = false,
@@ -215,10 +220,11 @@ namespace Rofl.UI.Main.Controls
             fileNameBox.SelectAll();
             _ = fileNameBox.Focus();
         }
+
         private void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(Window.GetWindow(this)?.DataContext is MainWindowViewModel context)) { return; }
-            if (!(DataContext is ReplayDetail replay)) { return; }
+            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
+            if (DataContext is not ReplayDetail replay) { return; }
 
             // create the flyout
             ModernWpf.Controls.Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: false);
@@ -244,5 +250,6 @@ namespace Rofl.UI.Main.Controls
             _ = flyout.GetFlyoutButton().Focus();
         }
         #endregion
+
     }
 }
