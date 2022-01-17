@@ -33,13 +33,14 @@ ReplayBook is currently looking for translators! [View the wiki for more informa
 
 ### Requirements
 
-* Visual Studio 2019
-* .NET Framework v4.7.2
+* Visual Studio 2022
+* .NET 6 SDK
 * Python 3+
 
 ### Steps
 
 1. Open the provided solution file. Set **Rofl.UI.Main** as the startup project. Build the solution, but running it now will crash.
-2. Run the provided `scripts/generate-runes.py` python script. This script will create the required rune data files in a new `runes` folder.
-3. Copy the `runes` folder and all the contents to `Rofl.UI.Main\bin\Debug\lib`.
-4. The solution will run successfully now.
+2. Run the provided `scripts\generate-runes.py` python script. This script will create the required rune data files in a new `runes` folder.
+3. Repeat step 2 with `generate-items.py` and `generate-champions.py`. Folders `items` and `champions` will be created.
+4. Copy the created folders and all the contents to `Rofl.UI.Main\bin\Debug\net6.0-windows10.0.18362.0\data\`. So you should have folders `data\runes`, `data\items`, and `data\champions`.
+5. The solution will run successfully now.
