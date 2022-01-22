@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Rofl.Executables.Old.Utilities;
+using Rofl.Configuration.Models;
 
 namespace Rofl.UI.Main.Models
 {
@@ -15,13 +16,13 @@ namespace Rofl.UI.Main.Models
 
         public ReplayPreview(ReplayFile replayFile,
                              DateTimeOffset creationDate,
-                             Settings.Models.MarkerStyle markerStyle,
-                             Settings.Models.RenameAction nameSource,
+                             MarkerStyle markerStyle,
+                             bool renameFile,
                              bool newFile = false)
         {
             if (replayFile == null) { throw new ArgumentNullException(nameof(replayFile)); }
 
-            _showRealName = nameSource == Settings.Models.RenameAction.File;
+            _showRealName = renameFile;
 
             // Copy all the replay file fields
             Name = replayFile.Name;

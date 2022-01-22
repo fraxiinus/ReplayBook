@@ -13,6 +13,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Rofl.Configuration\Rofl.Configuration.csproj" />
     <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj" />
     <ProjectReference Include="..\Rofl.Settings\Rofl.Settings.csproj" />
   </ItemGroup>

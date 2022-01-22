@@ -1,5 +1,7 @@
 ﻿using Etirps.RiZhi;
 using ModernWpf.Controls;
+using Rofl.Configuration.Models;
+using Rofl.Executables.Old;
 using Rofl.Executables.Old.Models;
 using Rofl.Executables.Old.Utilities;
 using Rofl.Files;
@@ -18,13 +20,15 @@ namespace Rofl.UI.Main.Utilities
     public class ReplayPlayer
     {
         private readonly FileManager _files;
-        private readonly SettingsManager _settingsManager;
+        private readonly ObservableConfiguration _config;
         private readonly RiZhi _log;
+        private readonly ExecutableManager _executables;
 
-        public ReplayPlayer(FileManager files, SettingsManager settings, RiZhi log)
+        public ReplayPlayer(FileManager files, ObservableConfiguration config, ExecutableManager executables, RiZhi log)
         {
             _files = files;
-            _settingsManager = settings;
+            _config = config;
+            _executables = executables;
             _log = log;
         }
 
@@ -42,7 +46,7 @@ namespace Rofl.UI.Main.Utilities
                 return null;
             }
 
-            IReadOnlyCollection<LeagueExecutable> executables = _settingsManager.Executables.GetExecutablesByPatch(replay.ReplayFile.GameVersion);
+            IReadOnlyCollection<LeagueExecutable> executables = _executables.GetExecutablesByPatch(replay.ReplayFile.GameVersion);
             if (!executables.Any())
             {
                 _log.Information($"No executables found to play replay");
@@ -66,7 +70,7 @@ namespace Rofl.UI.Main.Utilities
                 target = executables.First();
             }
 
-            if (_settingsManager.Settings.PlayConfirmation)
+            if (_config.PlayConfirm)
             {
                 _log.Information($"Asking user for confirmation");
 
@@ -96,7 +100,7 @@ namespace Rofl.UI.Main.Utilities
 
         private static async Task<LeagueExecutable> ShowChooseReplayDialog(IReadOnlyCollection<LeagueExecutable> executables)
         {
-            ExecutableSelectDialog dialog = new ExecutableSelectDialog
+            var dialog = new ExecutableSelectDialog
             {
                 Owner = Application.Current.MainWindow,
                 DataContext = executables

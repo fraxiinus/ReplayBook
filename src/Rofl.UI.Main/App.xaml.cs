@@ -1,8 +1,11 @@
 ﻿using Etirps.RiZhi;
+using Microsoft.Extensions.Configuration;
 using ModernWpf;
+using Rofl.Configuration.Models;
+using Rofl.Executables.Old;
 using Rofl.Files;
 using Rofl.Requests;
-using Rofl.Settings;
+using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
 using System;
@@ -21,72 +24,59 @@ namespace Rofl.UI.Main
     {
         private FileManager _files;
         private RequestManager _requests;
-        private SettingsManager _settingsManager;
         private RiZhi _log;
         private ReplayPlayer _player;
+        private ObservableConfiguration _configuration;
+        private ExecutableManager _executables;
 
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
+            // load settings
+            var config = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json").Build()
+                .Get<ConfigurationFile>();
+            _configuration = new ObservableConfiguration(config);
+
             CreateCommonObjects();
 
             // Apply appearence theme
             ApplyThemeSetting();
 
-            // Apply language setting
-            LanguageHelper.SetProgramLanguage(_settingsManager.Settings.ProgramLanguage);
-
-            // Load data
-            RuneHelper.LoadRunes(_settingsManager.Settings.ProgramLanguage);
-            ItemHelper.LoadItems(_settingsManager.Settings.ProgramLanguage);
-            ChampionHelper.LoadChampions(_settingsManager.Settings.ProgramLanguage);
+            // Apply language setting, also loads static data for the language
+            LanguageHelper.SetProgramLanguage(_configuration.Language);
 
 #if DEBUG
             _log.Error("Debug mode, writing log");
 #endif
 
+            // there is a launch argument
             if (e.Args.Length == 1)
             {
                 string selectedFile = e.Args[0];
                 // 0 = directly play, 1 = open in replaybook
-                if (_settingsManager.Settings.FileAction == Settings.Models.FileAction.Play)
+                if (_configuration.FileAction == FileAction.Play)
                 {
-                    StartDialogHost();
+                    // Start a blank/invisible window that will host dialogs, otherwise dialogs are invisible
+                    var host = new DialogHostWindow();
+                    host.Show();
                     await _player.PlayReplay(selectedFile).ConfigureAwait(true);
                     Current.Shutdown();
                 }
-                else if (_settingsManager.Settings.FileAction == Settings.Models.FileAction.Open)
+                else if (_configuration.FileAction == FileAction.Open)
                 {
-                    StartSingleReplayWindow(selectedFile);
+                    var singleWindow = new SingleReplayWindow(_log, _configuration, _requests, _executables, _files, _player)
+                    {
+                        ReplayFileLocation = selectedFile
+                    };
+                    singleWindow.Show();
                 }
-                else { }
-
             }
             else
             {
-                StartMainWindow();
+                var mainWindow = new MainWindow(_log, _configuration, _requests, _executables, _files, _player);
+                mainWindow.Show();
             }
-        }
-
-        private static void StartDialogHost()
-        {
-            // Start a blank/invisible window that will host dialogs, otherwise dialogs are invisible
-            DialogHostWindow host = new DialogHostWindow();
-            host.Show();
-        }
-
-        private void StartMainWindow()
-        {
-            MainWindow mainWindow = new MainWindow(_log, _settingsManager, _requests, _files, _player);
-            mainWindow.Show();
-        }
-
-        private void StartSingleReplayWindow(string path)
-        {
-            SingleReplayWindow singleWindow = new SingleReplayWindow(_log, _settingsManager, _requests, _files, _player)
-            {
-                ReplayFileLocation = path
-            };
-            singleWindow.Show();
         }
 
         private void CreateCommonObjects()
@@ -103,10 +93,10 @@ namespace Rofl.UI.Main
 
             try
             {
-                _settingsManager = new SettingsManager(_log);
-                _files = new FileManager(_settingsManager.Settings, _log);
-                _requests = new RequestManager(_settingsManager.Settings, ApplicationHelper.GetUserAgent(), _log);
-                _player = new ReplayPlayer(_files, _settingsManager, _log);
+                _executables = new ExecutableManager(_log);
+                _files = new FileManager(_configuration, _log);
+                _requests = new RequestManager(_configuration, ApplicationHelper.GetUserAgent(), _log);
+                _player = new ReplayPlayer(_files, _configuration, _executables, _log);
             }
             catch (Exception ex)
             {
@@ -119,27 +109,31 @@ namespace Rofl.UI.Main
         private void ApplyThemeSetting()
         {
             // Set theme mode
-            switch (_settingsManager.Settings.ThemeMode)
+            switch (_configuration.ThemeMode)
             {
-                case 0: // system default
+                case Theme.SystemAssigned:
+                    // null defaults to system assignment
                     ThemeManager.Current.ApplicationTheme = null;
                     break;
-                case 1: // 
-                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
-                    break;
-                case 2: // light
+                case Theme.Light:
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
                     break;
-                default:
+                case Theme.Dark:
+                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
                     break;
             }
 
             // Set accent color
-            ThemeManager.Current.AccentColor = _settingsManager.Settings.AccentColor == null
+            ThemeManager.Current.AccentColor = string.IsNullOrEmpty(_configuration.AccentColor)
                 ? null
-                : (Color?)(Color)ColorConverter.ConvertFromString(_settingsManager.Settings.AccentColor);
+                : (Color)ColorConverter.ConvertFromString(_configuration.AccentColor);
         }
 
+        /// <summary>
+        /// Handles writing logs when the program closes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             if (_log.ErrorFlag)

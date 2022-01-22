@@ -1,6 +1,6 @@
 ﻿using Etirps.RiZhi;
+using Rofl.Configuration.Models;
 using Rofl.Files.Models;
-using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,12 +17,12 @@ namespace Rofl.Files.Repositories
     public class FolderRepository
     {
 
-        private readonly ObservableSettings _settings;
+        private readonly ObservableConfiguration _config;
         private readonly RiZhi _log;
 
-        public FolderRepository(ObservableSettings settings, RiZhi log)
+        public FolderRepository(ObservableConfiguration config, RiZhi log)
         {
-            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+            _config = config ?? throw new ArgumentNullException(nameof(config));
             _log = log ?? throw new ArgumentNullException(nameof(log));
         }
 
@@ -32,12 +32,12 @@ namespace Rofl.Files.Repositories
         /// <returns></returns>
         public ReplayFileInfo[] GetAllReplayFileInfo()
         {
-            List<ReplayFileInfo> returnList = new List<ReplayFileInfo>();
+            var returnList = new List<ReplayFileInfo>();
 
-            foreach (string folder in _settings.SourceFolders)
+            foreach (string folder in _config.ReplayFolders)
             {
                 // Grab the contents of the folder
-                DirectoryInfo dirInfo = new DirectoryInfo(folder);
+                var dirInfo = new DirectoryInfo(folder);
                 var innerFiles = dirInfo.EnumerateFiles("*", SearchOption.AllDirectories);
 
                 foreach (var file in innerFiles)
@@ -83,7 +83,7 @@ namespace Rofl.Files.Repositories
 
         public bool IsPathInSourceFolders(string path)
         {
-            return _settings.SourceFolders.Any(x => path.StartsWith(x, StringComparison.OrdinalIgnoreCase));
+            return _config.ReplayFolders.Any(x => path.StartsWith(x, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

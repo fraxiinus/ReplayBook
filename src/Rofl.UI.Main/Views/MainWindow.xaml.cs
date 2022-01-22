@@ -1,9 +1,11 @@
 ﻿using Etirps.RiZhi;
 using ModernWpf.Controls;
+using Rofl.Configuration;
+using Rofl.Configuration.Models;
+using Rofl.Executables.Old;
 using Rofl.Files;
 using Rofl.Files.Models;
 using Rofl.Requests;
-using Rofl.Settings;
 using Rofl.UI.Main.Controls;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
@@ -27,33 +29,34 @@ namespace Rofl.UI.Main
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly FileManager _files;
-        private readonly RequestManager _requests;
-        private readonly SettingsManager _settingsManager;
+        //private readonly FileManager _files;
+        //private readonly RequestManager _requests;
+        private readonly ObservableConfiguration _config;
         private readonly RiZhi _log;
-        private readonly ReplayPlayer _player;
+        //private readonly ReplayPlayer _player;
 
+        // TODO what does this do again?
         private ReplayPreview _lastSelection;
 
-        public MainWindow(RiZhi log, SettingsManager settingsManager, RequestManager requests, FileManager files, ReplayPlayer player)
+        public MainWindow(RiZhi log, ObservableConfiguration config, RequestManager requests, ExecutableManager executables, FileManager files, ReplayPlayer player)
         {
             InitializeComponent();
 
             _log = log;
-            _settingsManager = settingsManager;
-            _requests = requests;
-            _files = files;
-            _player = player;
+            _config = config;
+            //_requests = requests;
+            //_files = files;
+            //_player = player;
 
             _lastSelection = null;
 
             Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
             {
-                _log.Error(e.Exception.ToString());
-                _log.WriteLog();
+                log.Error(e.Exception.ToString());
+                log.WriteLog();
             };
 
-            MainWindowViewModel context = new MainWindowViewModel(_files, _requests, _settingsManager, _player, _log);
+            var context = new MainWindowViewModel(files, requests, config, executables, player, log);
             DataContext = context;
 
             // Decide to show welcome window
@@ -64,7 +67,7 @@ namespace Rofl.UI.Main
         // Window is loaded and ready to be shown on screen
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            Dictionary<string, object> values = _settingsManager.TemporaryValues;
+            Dictionary<string, object> values = _config.Stash;
 
             if (values.TryGetDouble("WindowHeight", out double savedHeight) &&
                 values.TryGetDouble("WindowWidth", out double savedWidth) &&
@@ -86,7 +89,7 @@ namespace Rofl.UI.Main
         // Window has been rendered to the screen
         private async void Window_ContentRendered(object sender, EventArgs e)
         {
-            if (!_settingsManager.Settings.AutoUpdateCheck) { return; }
+            if (!_config.AutoUpdateCheck) { return; }
 
             string latestVersion;
             try
@@ -111,11 +114,11 @@ namespace Rofl.UI.Main
 
             if (latestVersion.Equals(assemblyVersion, StringComparison.OrdinalIgnoreCase))
             {
-                _settingsManager.TemporaryValues["UpdateAvailable"] = false;
+                _config.Stash["UpdateAvailable"] = false;
             }
             else
             {
-                _settingsManager.TemporaryValues["UpdateAvailable"] = true;
+                _config.Stash["UpdateAvailable"] = true;
 
                 Flyout updateNotif = FlyoutHelper.CreateFlyout(true, true);
                 updateNotif.SetFlyoutLabelText(TryFindResource("UpdateAvailableNotifText") as string);
@@ -135,16 +138,16 @@ namespace Rofl.UI.Main
 
         private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
 
             await context.ReloadReplayList().ConfigureAwait(true);
         }
 
         private async void ReplayListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
-            if (!(sender is System.Windows.Controls.ListView replayList)) { return; }
-            if (!(replayList.SelectedItem is ReplayPreview previewModel)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
+            if (sender is not System.Windows.Controls.ListView replayList) { return; }
+            if (replayList.SelectedItem is not ReplayPreview previewModel) { return; }
 
             // Deselect the last selected item
             if (_lastSelection != null && _lastSelection.IsSelected) { _lastSelection.IsSelected = false; }
@@ -154,7 +157,7 @@ namespace Rofl.UI.Main
 
             FileResult replayFile = context.FileResults[previewModel.Location];
 
-            ReplayDetail replayDetail = new ReplayDetail(replayFile, previewModel);
+            var replayDetail = new ReplayDetail(replayFile, previewModel);
 
             ReplayDetailControl detailControl = FindName("DetailView") as ReplayDetailControl;
             detailControl.DataContext = replayDetail;
@@ -173,8 +176,8 @@ namespace Rofl.UI.Main
 
         private void SortButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
-            if (!(sender is Button sortButton)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
+            if (sender is not Button sortButton) { return; }
 
             // Get the button and menu
             ContextMenu contextMenu = sortButton.ContextMenu;
@@ -198,8 +201,8 @@ namespace Rofl.UI.Main
         /// <param name="e"></param>
         private async void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
-            if (!(sender is RadioMenuItem selectedItem)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
+            if (sender is not RadioMenuItem selectedItem) { return; }
 
             if (Enum.TryParse(selectedItem.Name, out SortMethod selectSort))
             {
@@ -211,7 +214,7 @@ namespace Rofl.UI.Main
 
         private async void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
 
             await context.ShowSettingsDialog().ConfigureAwait(true);
         }
@@ -223,7 +226,7 @@ namespace Rofl.UI.Main
         /// <param name="e"></param>
         private void ReplayListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel)) { return; }
+            if (DataContext is not MainWindowViewModel) { return; }
 
             // If we scrolled at all...
             if (Math.Abs(e.VerticalChange) > 0)
@@ -240,9 +243,9 @@ namespace Rofl.UI.Main
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void LoadMoreButton_Click(object sender, RoutedEventArgs e)
+        private void LoadMoreButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
 
             if (context.LoadReplaysFromDatabase() == 0)
             {
@@ -260,11 +263,11 @@ namespace Rofl.UI.Main
             context.LoadPreviewPlayerThumbnails();
         }
 
-        private async void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        private void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
             if (e.Key != System.Windows.Input.Key.Enter) { return; }
-            if (!(sender is AutoSuggestBox searchBox)) { return; }
+            if (sender is not AutoSuggestBox searchBox) { return; }
 
             context.SortParameters.SearchTerm = searchBox.Text;
 
@@ -275,7 +278,7 @@ namespace Rofl.UI.Main
 
         private async void SearchBox_QuerySubmitted(AutoSuggestBox auto, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
             if (string.IsNullOrEmpty(args.QueryText))
             {
                 context.ValidateReplayStorage(closeOnComplete: true);
@@ -289,23 +292,24 @@ namespace Rofl.UI.Main
             context.LoadPreviewPlayerThumbnails();
         }
 
-        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        private async void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
 
             context.ClearDeletedReplays();
 
-            _settingsManager.TemporaryValues["WindowHeight"] = Height;
-            _settingsManager.TemporaryValues["WindowWidth"] = Width;
-            _settingsManager.TemporaryValues["WindowLeft"] = Left;
-            _settingsManager.TemporaryValues["WindowTop"] = Top;
-            _settingsManager.TemporaryValues["WindowMaximized"] = WindowState == WindowState.Maximized;
-            _settingsManager.SaveTemporaryValues();
+            _config.Stash["WindowHeight"] = Height;
+            _config.Stash["WindowWidth"] = Width;
+            _config.Stash["WindowLeft"] = Left;
+            _config.Stash["WindowTop"] = Top;
+            _config.Stash["WindowMaximized"] = WindowState == WindowState.Maximized;
+
+            await _config.ToConfigurationFile().SaveConfigurationFile();
         }
 
         private async void Window_Closed(object sender, EventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
 
             await context.ClearCache().ConfigureAwait(true);
         }
@@ -317,19 +321,19 @@ namespace Rofl.UI.Main
 
         private void ReplayStatusBarDismissButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
 
             context.StatusBarModel.Visible = false;
         }
 
         private async void ReplayStatusBar_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
 
             // do not show error dialog if there are no errors
             if (context.StatusBarModel.Errors == null) { return; }
 
-            ReplayLoadErrorDialog errorDialog = new ReplayLoadErrorDialog
+            var errorDialog = new ReplayLoadErrorDialog
             {
                 DataContext = context.StatusBarModel
             };

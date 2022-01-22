@@ -1,8 +1,8 @@
 ﻿using Etirps.RiZhi;
 using LiteDB;
+using Rofl.Configuration.Models;
 using Rofl.Files.Models;
 using Rofl.Reader.Models;
-using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,11 +15,11 @@ namespace Rofl.Files.Repositories
     {
         private readonly RiZhi _log;
         private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "replayCache.db");
-        private readonly ObservableSettings _settings;
+        private readonly ObservableConfiguration _config;
 
-        public DatabaseRepository(ObservableSettings settings, RiZhi log)
+        public DatabaseRepository(ObservableConfiguration config, RiZhi log)
         {
-            _settings = settings;
+            _config = config;
             _log = log;
 
             try
@@ -185,8 +185,8 @@ namespace Rofl.Files.Repositories
             fileResultsQueryable = sort switch
             {
                 // sort by name depends on if we are using file names, or alternative names
-                SortMethod.NameAsc => fileResultsQueryable.OrderBy(x => _settings.RenameAction == RenameAction.File ? x.FileName : x.AlternativeName),
-                SortMethod.NameDesc => fileResultsQueryable.OrderByDescending(x => _settings.RenameAction == RenameAction.File ? x.FileName : x.AlternativeName),
+                SortMethod.NameAsc => fileResultsQueryable.OrderBy(x => _config.RenameFile ? x.FileName : x.AlternativeName),
+                SortMethod.NameDesc => fileResultsQueryable.OrderByDescending(x => _config.RenameFile ? x.FileName : x.AlternativeName),
                 SortMethod.DateAsc => fileResultsQueryable.OrderBy(x => x.FileCreationTime),
                 SortMethod.DateDesc => fileResultsQueryable.OrderByDescending(x => x.FileCreationTime),
                 SortMethod.SizeAsc => fileResultsQueryable.OrderBy(x => x.FileSizeBytes),

@@ -5,12 +5,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:Rofl.UI.Main.Models"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         Title="Settings"
         Width="600"
         Height="550"
         MinWidth="600"
         MinHeight="200"
+        d:DataContext="{d:DesignInstance Type=models:SettingsWindowDataContext}"
         ui:WindowHelper.UseModernWindowStyle="True"
         Closing="Window_Closing"
         Loaded="Window_Loaded"
@@ -102,7 +104,7 @@
                                          Grid.Row="0"
                                          Grid.Column="0"
                                          Height="150"
-                                         ItemsSource="{Binding Path=Settings.KnownPlayers}"
+                                         ItemsSource="{Binding Path=Configuration.PlayerMarkers}"
                                          MouseDoubleClick="EditKnownPlayerButton_Click"
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          SelectionChanged="KnownPlayersListBox_SelectionChanged">
@@ -211,9 +213,9 @@
                             <TextBlock FontSize="16" Text="{DynamicResource MiscBehaviorLabelText}" />
 
                             <ui:SimpleStackPanel Orientation="Vertical">
-                                <CheckBox Content="{DynamicResource PlayConfirmCheckboxText}" IsChecked="{Binding Path=Settings.PlayConfirmation}" />
+                                <CheckBox Content="{DynamicResource PlayConfirmCheckboxText}" IsChecked="{Binding Path=Configuration.PlayConfirm}" />
 
-                                <CheckBox Content="{DynamicResource ReplayRenameCheckboxText}" IsChecked="{Binding Path=Settings.SaveNamesToFile}" />
+                                <CheckBox Content="{DynamicResource ReplayRenameCheckboxText}" IsChecked="{Binding Path=Configuration.RenameFile}" />
                             </ui:SimpleStackPanel>
 
                         </ui:SimpleStackPanel>
@@ -227,7 +229,7 @@
                                              Spacing="12">
                             <TextBlock FontSize="16" Text="{DynamicResource UpdatesLabelText}" />
 
-                            <CheckBox Content="{DynamicResource AutoUpdateCheckboxText}" IsChecked="{Binding Path=Settings.AutoUpdateCheck}" />
+                            <CheckBox Content="{DynamicResource AutoUpdateCheckboxText}" IsChecked="{Binding Path=Configuration.AutoUpdateCheck}" />
 
                             <Button x:Name="UpdateCheckButton"
                                     Width="150"
@@ -474,7 +476,7 @@
                                          Grid.Row="0"
                                          Grid.Column="0"
                                          Height="150"
-                                         ItemsSource="{Binding Path=Settings.SourceFolders}"
+                                         ItemsSource="{Binding Path=Configuration.ReplayFolders}"
                                          MouseDoubleClick="EditSourceFolderButton_Click"
                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                          SelectionChanged="SourceFoldersListBox_SelectionChanged">
@@ -535,7 +537,7 @@
                                         Minimum="10"
                                         TickFrequency="10"
                                         TickPlacement="BottomRight"
-                                        Value="{Binding Path=Settings.ItemsPerPage}" />
+                                        Value="{Binding Path=Configuration.ItemsPerPage}" />
 
                                 <TextBlock x:Name="ItemCountTextBox"
                                            Grid.Column="1"
@@ -675,22 +677,7 @@
                                     <TextBox Height="25"
                                              Padding="2"
                                              VerticalContentAlignment="Center"
-                                             Text="{Binding Settings.DataDragonBaseUrl}" />
-                                    <TextBlock FontSize="16" Text="{DynamicResource DataDragonChampionUrlLabelText}" />
-                                    <TextBox Height="25"
-                                             Padding="2"
-                                             VerticalContentAlignment="Center"
-                                             Text="{Binding Settings.ChampionRelativeUrl}" />
-                                    <TextBlock FontSize="16" Text="{DynamicResource DataDragonMapUrlLabelText}" />
-                                    <TextBox Height="25"
-                                             Padding="2"
-                                             VerticalContentAlignment="Center"
-                                             Text="{Binding Settings.MapRelativeUrl}" />
-                                    <TextBlock FontSize="16" Text="{DynamicResource DataDragonItemUrlLabelText}" />
-                                    <TextBox Height="25"
-                                             Padding="2"
-                                             VerticalContentAlignment="Center"
-                                             Text="{Binding Settings.ItemRelativeUrl}" />
+                                             Text="{Binding Configuration.DataDragonBaseUrl}" />
                                 </ui:SimpleStackPanel>
                             </Expander>
                         </ui:SimpleStackPanel>

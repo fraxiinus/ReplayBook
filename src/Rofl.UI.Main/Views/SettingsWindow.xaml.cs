@@ -1,11 +1,13 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using ModernWpf;
 using ModernWpf.Controls;
+using Rofl.Configuration;
+using Rofl.Configuration.Models;
+using Rofl.Executables.Old;
 using Rofl.Executables.Old.Models;
 using Rofl.Requests.Models;
-using Rofl.Settings;
-using Rofl.Settings.Models;
 using Rofl.UI.Main.Converters;
+using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;
 using System;
@@ -48,10 +50,10 @@ namespace Rofl.UI.Main.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             // Set color picker note
-            if (context.Settings.AccentColor != null)
+            if (context.Configuration.AccentColor != null)
             {
                 AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as string;
             }
@@ -69,35 +71,35 @@ namespace Rofl.UI.Main.Views
             //
 
             // Set player marker style radio
-            PlayerMarkerStyleOption1.IsChecked = context.Settings.PlayerMarkerStyle == MarkerStyle.Border;
-            PlayerMarkerStyleOption2.IsChecked = context.Settings.PlayerMarkerStyle == MarkerStyle.Square;
+            PlayerMarkerStyleOption1.IsChecked = context.Configuration.MarkerStyle == MarkerStyle.Border;
+            PlayerMarkerStyleOption2.IsChecked = context.Configuration.MarkerStyle == MarkerStyle.Square;
 
             // Set file action radio
-            FileActionOption1.IsChecked = context.Settings.FileAction == FileAction.Play;
-            FileActionOption2.IsChecked = context.Settings.FileAction == FileAction.Open;
+            FileActionOption1.IsChecked = context.Configuration.FileAction == FileAction.Play;
+            FileActionOption2.IsChecked = context.Configuration.FileAction == FileAction.Open;
 
             // Set theme mode radio
-            AppearanceThemeOption1.IsChecked = context.Settings.ThemeMode == 0;
-            AppearanceThemeOption2.IsChecked = context.Settings.ThemeMode == 1;
-            AppearanceThemeOption3.IsChecked = context.Settings.ThemeMode == 2;
+            AppearanceThemeOption1.IsChecked = context.Configuration.ThemeMode == Theme.SystemAssigned;
+            AppearanceThemeOption2.IsChecked = context.Configuration.ThemeMode == Theme.Dark;
+            AppearanceThemeOption3.IsChecked = context.Configuration.ThemeMode == Theme.Light;
 
             // Load language drop down
             LanguageComboBox.ItemsSource = LanguageHelper.GetFriendlyLanguageNames();
-            LanguageComboBox.SelectedIndex = (int)context.Settings.ProgramLanguage;
+            LanguageComboBox.SelectedIndex = (int)context.Configuration.Language;
 
             // See if an update exists
-            if (context.TemporaryValues.TryGetBool("UpdateAvailable", out bool update))
+            if (context.Configuration.Stash.TryGetBool("UpdateAvailable", out bool update))
             {
                 UpdateAvailableButton.Visibility = update ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
-            context.SaveConfigFile();
-            DialogResult = true;
+            await context.Configuration.ToConfigurationFile().SaveConfigurationFile();
+            context.Executables.Save();
         }
 
         private async void SettingsMenuListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -137,12 +139,12 @@ namespace Rofl.UI.Main.Views
 
         private void AddKnownPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             var addDialog = new PlayerMarkerDialog
             {
                 Owner = this,
-                DataContext = context.Settings.KnownPlayers
+                DataContext = context.Configuration.PlayerMarkers
             };
 
             _ = addDialog.ShowAsync(ContentDialogPlacement.Popup);
@@ -150,13 +152,13 @@ namespace Rofl.UI.Main.Views
 
         private void EditKnownPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
-            if (KnownPlayersListBox.SelectedItem is not PlayerMarker selectedPlayer) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
+            if (KnownPlayersListBox.SelectedItem is not PlayerMarkerConfiguration selectedPlayer) { return; }
 
             var editDialog = new PlayerMarkerDialog(selectedPlayer)
             {
                 Owner = this,
-                DataContext = context.Settings.KnownPlayers
+                DataContext = context.Configuration.PlayerMarkers
             };
 
             _ = editDialog.ShowAsync(ContentDialogPlacement.Popup);
@@ -164,8 +166,8 @@ namespace Rofl.UI.Main.Views
 
         private void RemoveKnownPlayerButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
-            if (KnownPlayersListBox.SelectedItem is not PlayerMarker selectedPlayer) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
+            if (KnownPlayersListBox.SelectedItem is not PlayerMarkerConfiguration selectedPlayer) { return; }
 
             // Create confirmation flyout
             Flyout confirmFlyout = FlyoutHelper.CreateFlyout();
@@ -174,7 +176,7 @@ namespace Rofl.UI.Main.Views
 
             confirmFlyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
-                _ = context.Settings.KnownPlayers.Remove(selectedPlayer);
+                _ = context.Configuration.PlayerMarkers.Remove(selectedPlayer);
 
                 EditKnownPlayerButton.IsEnabled = false;
                 RemoveKnownPlayerButton.IsEnabled = false;
@@ -187,7 +189,7 @@ namespace Rofl.UI.Main.Views
 
         private void KnownPlayersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (((sender as ListBox).SelectedItem as PlayerMarker) == null) { return; };
+            if (((sender as ListBox).SelectedItem as PlayerMarkerConfiguration) == null) { return; };
 
             EditKnownPlayerButton.IsEnabled = true;
             RemoveKnownPlayerButton.IsEnabled = true;
@@ -203,7 +205,7 @@ namespace Rofl.UI.Main.Views
 
         private async void AddSourceFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             using var folderDialog = new CommonOpenFileDialog();
             folderDialog.Title = TryFindResource("SourceFoldersWindowText") as string;
@@ -224,7 +226,7 @@ namespace Rofl.UI.Main.Views
             {
                 string selectedFolder = folderDialog.FileName;
 
-                if (context.Settings.SourceFolders.Contains(selectedFolder))
+                if (context.Configuration.ReplayFolders.Contains(selectedFolder))
                 {
                     // Create Dialog with error message
                     var msgDialog = new GenericMessageDialog()
@@ -249,7 +251,7 @@ namespace Rofl.UI.Main.Views
                 }
                 else
                 {
-                    context.Settings.SourceFolders.Add(selectedFolder);
+                    context.Configuration.ReplayFolders.Add(selectedFolder);
                 }
             }
 
@@ -257,7 +259,7 @@ namespace Rofl.UI.Main.Views
 
         private async void EditSourceFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
             if (SourceFoldersListBox.SelectedItem is not string selectedFolder) { return; }
 
             using var folderDialog = new CommonOpenFileDialog();
@@ -279,7 +281,7 @@ namespace Rofl.UI.Main.Views
             {
                 string newSelectedFolder = folderDialog.FileName;
 
-                if (context.Settings.SourceFolders.Contains(newSelectedFolder))
+                if (context.Configuration.ReplayFolders.Contains(newSelectedFolder))
                 {
                     // Create Dialog with error message
                     var msgDialog = new GenericMessageDialog()
@@ -304,15 +306,15 @@ namespace Rofl.UI.Main.Views
                 }
                 else
                 {
-                    _ = context.Settings.SourceFolders.Remove(selectedFolder);
-                    context.Settings.SourceFolders.Add(newSelectedFolder);
+                    _ = context.Configuration.ReplayFolders.Remove(selectedFolder);
+                    context.Configuration.ReplayFolders.Add(newSelectedFolder);
                 }
             }
         }
 
         private void RemoveSourceFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
             if (SourceFoldersListBox.SelectedItem is not string selectedFolder) { return; }
 
             // Create confirmation flyout
@@ -322,7 +324,7 @@ namespace Rofl.UI.Main.Views
 
             confirmFlyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
-                _ = context.Settings.SourceFolders.Remove(selectedFolder);
+                _ = context.Configuration.ReplayFolders.Remove(selectedFolder);
 
                 EditSourceFolderButton.IsEnabled = false;
                 RemoveSourceFolderButton.IsEnabled = false;
@@ -343,7 +345,7 @@ namespace Rofl.UI.Main.Views
 
         private async void AddExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             using var folderDialog = new CommonOpenFileDialog();
             folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as string;
@@ -396,7 +398,7 @@ namespace Rofl.UI.Main.Views
 
         private async void EditExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
             if (ExecutableFoldersListBox.SelectedItem is not string selectedFolder) { return; }
 
             using var folderDialog = new CommonOpenFileDialog();
@@ -451,7 +453,7 @@ namespace Rofl.UI.Main.Views
 
         private void RemoveExecutableFolderButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
             if (ExecutableFoldersListBox.SelectedItem is not string selectedFolder) { return; }
 
             // Create confirmation flyout
@@ -474,7 +476,7 @@ namespace Rofl.UI.Main.Views
 
         private async void SourceFoldersSearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             // stop button from being pressed and show progress
             SourceFoldersSearchButton.IsEnabled = false;
@@ -521,7 +523,7 @@ namespace Rofl.UI.Main.Views
 
         private void AddExecutableButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             var addDialog = new ExecutableDetailDialog
             {
@@ -534,7 +536,7 @@ namespace Rofl.UI.Main.Views
 
         private void EditExecutableButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
             if (ExecutablesListBox.SelectedItem is not LeagueExecutable selectedExecutable) { return; };
 
             var editDialog = new ExecutableDetailDialog(selectedExecutable)
@@ -548,7 +550,7 @@ namespace Rofl.UI.Main.Views
 
         private void RemoveExecutableButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
             if (ExecutablesListBox.SelectedItem is not LeagueExecutable selectedExecutable) { return; };
 
             // Create confirmation flyout
@@ -571,8 +573,6 @@ namespace Rofl.UI.Main.Views
 
         private async void SetFileAssocButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager) { return; }
-
             FileAssociations.SetRoflToSelf();
 
             var msgDialog = new GenericMessageDialog()
@@ -588,7 +588,7 @@ namespace Rofl.UI.Main.Views
 
         private async void UpdateCheckButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
             UpdateCheckButton.IsEnabled = false;
 
             string latestVersion;
@@ -635,7 +635,7 @@ namespace Rofl.UI.Main.Views
 
             if (latestVersion.Equals(assemblyVersion, StringComparison.OrdinalIgnoreCase))
             {
-                context.TemporaryValues["UpdateAvailable"] = false;
+                context.Configuration.Stash["UpdateAvailable"] = false;
                 UpdateAvailableButton.Visibility = Visibility.Collapsed;
 
                 var msgDialog = new GenericMessageDialog()
@@ -648,7 +648,7 @@ namespace Rofl.UI.Main.Views
             }
             else
             {
-                context.TemporaryValues["UpdateAvailable"] = true;
+                context.Configuration.Stash["UpdateAvailable"] = true;
                 UpdateAvailableButton.Visibility = Visibility.Visible;
 
                 var msgDialog = new GenericMessageDialog()
@@ -684,21 +684,21 @@ namespace Rofl.UI.Main.Views
 
         private void AppearanceThemeOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             switch (AppearanceThemeOptions.SelectedIndex)
             {
                 case 0: // system default
                     ThemeManager.Current.ApplicationTheme = null;
-                    context.Settings.ThemeMode = 0;
+                    context.Configuration.ThemeMode = Theme.SystemAssigned;
                     break;
                 case 1: // dark
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
-                    context.Settings.ThemeMode = 1;
+                    context.Configuration.ThemeMode = Theme.Dark;
                     break;
                 case 2: // light
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
-                    context.Settings.ThemeMode = 2;
+                    context.Configuration.ThemeMode = Theme.Light;
                     break;
                 default:
                     break;
@@ -707,13 +707,13 @@ namespace Rofl.UI.Main.Views
 
         private void AccentColorResetButton_Click(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             // Setting accent color as null resets the color
             ThemeManager.Current.AccentColor = null;
 
             // Save the null here
-            context.Settings.AccentColor = null;
+            context.Configuration.AccentColor = null;
 
             // Update the button
             AccentColorButton.SelectedColor = ThemeManager.Current.ActualAccentColor;
@@ -724,13 +724,13 @@ namespace Rofl.UI.Main.Views
 
         private void AccentColorPickerPopup_Closed(object sender, EventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             // Set accent color to picker color
             ThemeManager.Current.AccentColor = AccentColorButton.SelectedColor;
 
             // Update the settings value
-            context.Settings.AccentColor = AccentColorButton.SelectedColorHex;
+            context.Configuration.AccentColor = AccentColorButton.SelectedColorHex;
 
             // Update the note
             AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as string;
@@ -766,29 +766,29 @@ namespace Rofl.UI.Main.Views
 
         private void PlayerMarkerStyleOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             if (PlayerMarkerStyleOptions.SelectedIndex == 0)
             {
-                context.Settings.PlayerMarkerStyle = MarkerStyle.Border;
+                context.Configuration.MarkerStyle = MarkerStyle.Border;
             }
             else if (PlayerMarkerStyleOptions.SelectedIndex == 1)
             {
-                context.Settings.PlayerMarkerStyle = MarkerStyle.Square;
+                context.Configuration.MarkerStyle = MarkerStyle.Square;
             }
         }
 
         private void FileActionOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
             if (FileActionOptions.SelectedIndex == 0)
             {
-                context.Settings.FileAction = FileAction.Play;
+                context.Configuration.FileAction = FileAction.Play;
             }
             else if (FileActionOptions.SelectedIndex == 1)
             {
-                context.Settings.FileAction = FileAction.Open;
+                context.Configuration.FileAction = FileAction.Open;
             }
         }
 
@@ -893,10 +893,10 @@ namespace Rofl.UI.Main.Views
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DataContext is not SettingsManager context) { return; }
+            if (DataContext is not SettingsWindowDataContext context) { return; }
 
-            context.Settings.ProgramLanguage = (Language)LanguageComboBox.SelectedIndex;
-            LanguageHelper.SetProgramLanguage(context.Settings.ProgramLanguage);
+            context.Configuration.Language = (Language)LanguageComboBox.SelectedIndex;
+            LanguageHelper.SetProgramLanguage(context.Configuration.Language);
         }
     }
 }

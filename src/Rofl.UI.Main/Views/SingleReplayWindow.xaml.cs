@@ -1,4 +1,6 @@
 ﻿using Etirps.RiZhi;
+using Rofl.Configuration.Models;
+using Rofl.Executables.Old;
 using Rofl.Files;
 using Rofl.Requests;
 using Rofl.Settings;
@@ -17,33 +19,27 @@ namespace Rofl.UI.Main.Views
     public partial class SingleReplayWindow : Window
     {
         private readonly FileManager _files;
-        private readonly RequestManager _requests;
-        private readonly SettingsManager _settingsManager;
         private readonly RiZhi _log;
-        private readonly ReplayPlayer _player;
 
         public string ReplayFileLocation { get; set; }
 
-        public SingleReplayWindow(RiZhi log, SettingsManager settingsManager, RequestManager requests, FileManager files, ReplayPlayer player, bool subWindow = false)
+        public SingleReplayWindow(RiZhi log, ObservableConfiguration config, RequestManager requests, ExecutableManager executables, FileManager files, ReplayPlayer player, bool subWindow = false)
         {
             InitializeComponent();
-
+            
             _log = log;
-            _settingsManager = settingsManager;
-            _requests = requests;
             _files = files;
-            _player = player;
 
             // things to only do if launching by itself
             if (!subWindow)
             {
                 Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
                 {
-                    _log.Error(e.Exception.ToString());
-                    _log.WriteLog();
+                    log.Error(e.Exception.ToString());
+                    log.WriteLog();
                 };
 
-                MainWindowViewModel context = new MainWindowViewModel(_files, _requests, _settingsManager, _player, _log);
+                var context = new MainWindowViewModel(files, requests, config, executables, player, log);
 
                 DataContext = context;
 
@@ -54,7 +50,7 @@ namespace Rofl.UI.Main.Views
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (DataContext is not MainWindowViewModel context) { return; }
 
             Files.Models.FileResult replay = await _files.GetSingleFile(ReplayFileLocation).ConfigureAwait(true);
 
@@ -72,7 +68,7 @@ namespace Rofl.UI.Main.Views
             {
                 // Let the view model know about the replay
                 ReplayPreview previewReplay = context.AddReplay(replay);
-                ReplayDetail replayDetail = new ReplayDetail(replay, previewReplay);
+                var replayDetail = new ReplayDetail(replay, previewReplay);
                 DetailView.DataContext = replayDetail;
                 (DetailView.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
                 (DetailView.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;

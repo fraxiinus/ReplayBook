@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Settings", "src\Rofl.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rofl.Executables.Old", "src\Rofl.Executables.Old\Rofl.Executables.Old.csproj", "{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rofl.Configuration", "Rofl.Configuration\Rofl.Configuration.csproj", "{724C1166-4270-4EE1-8F7E-212489914D99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{724C1166-4270-4EE1-8F7E-212489914D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724C1166-4270-4EE1-8F7E-212489914D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724C1166-4270-4EE1-8F7E-212489914D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724C1166-4270-4EE1-8F7E-212489914D99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

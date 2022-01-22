@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Rofl.Requests.Utilities;
 using Rofl.Requests.Models;
 using System.IO;
-using Rofl.Settings.Models;
+using Rofl.Configuration.Models;
 
 namespace Rofl.Requests
 {
@@ -18,7 +18,7 @@ namespace Rofl.Requests
         private readonly CacheClient _cacheClient;
 
         private readonly RiZhi _log;
-        private readonly ObservableSettings _settings;
+        private readonly ObservableConfiguration _config;
 
         // The cache directory
         private readonly string _cachePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache");
@@ -26,12 +26,12 @@ namespace Rofl.Requests
         // Used to keep track of current tasks
         private readonly ConcurrentDictionary<string, Task<ResponseBase>> _inProgressTasks;
 
-        public RequestManager(ObservableSettings settings, string userAgent, RiZhi log)
+        public RequestManager(ObservableConfiguration config, string userAgent, RiZhi log)
         {
-            _settings = settings;
+            _config = config;
             _log = log ?? throw new ArgumentNullException(nameof(log));
 
-            _downloadClient = new DownloadClient(_cachePath, userAgent, _settings, _log);
+            _downloadClient = new DownloadClient(_cachePath, userAgent, _config, _log);
             _cacheClient = new CacheClient(_cachePath, _log);
 
             _inProgressTasks = new ConcurrentDictionary<string, Task<ResponseBase>>();
