@@ -38,7 +38,8 @@ namespace Rofl.Configuration
                 {
                     ThemeMode = config.ThemeMode,
                     AccentColor = config.AccentColor
-                }
+                },
+                Stash = config.Stash
             };
         }
 

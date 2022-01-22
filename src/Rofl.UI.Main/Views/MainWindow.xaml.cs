@@ -126,7 +126,7 @@ namespace Rofl.UI.Main
 
                 updateNotif.GetFlyoutButton().Click += (object e1, RoutedEventArgs a) =>
                 {
-                    _ = Process.Start((TryFindResource("GitHubReleasesLink") as Uri).ToString());
+                    _ = Process.Start("explorer", (TryFindResource("GitHubReleasesLink") as Uri).ToString());
                 };
 
                 updateNotif.Placement = ModernWpf.Controls.Primitives.FlyoutPlacementMode.Bottom;
