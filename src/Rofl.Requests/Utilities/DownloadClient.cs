@@ -2,7 +2,6 @@
 using Newtonsoft.Json.Linq;
 using Rofl.Configuration.Models;
 using Rofl.Requests.Models;
-using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;

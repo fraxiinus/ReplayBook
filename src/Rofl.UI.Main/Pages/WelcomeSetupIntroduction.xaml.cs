@@ -1,5 +1,4 @@
-﻿using Rofl.Settings.Models;
-using Rofl.UI.Main.Models;
+﻿using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
 using System;

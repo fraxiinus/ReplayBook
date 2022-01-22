@@ -3,7 +3,6 @@ using Rofl.Configuration.Models;
 using Rofl.Executables.Old;
 using Rofl.Files;
 using Rofl.Requests;
-using Rofl.Settings;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.ViewModels;

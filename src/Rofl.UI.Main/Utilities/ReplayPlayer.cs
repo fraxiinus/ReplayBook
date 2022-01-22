@@ -5,7 +5,6 @@ using Rofl.Executables.Old;
 using Rofl.Executables.Old.Models;
 using Rofl.Executables.Old.Utilities;
 using Rofl.Files;
-using Rofl.Settings;
 using Rofl.UI.Main.Views;
 using System;
 using System.Collections.Generic;

@@ -39,12 +39,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Rofl.Configuration\Rofl.Configuration.csproj" />
+    <ProjectReference Include="..\Rofl.Configuration\Rofl.Configuration.csproj" />
     <ProjectReference Include="..\Rofl.Executables.Old\Rofl.Executables.Old.csproj" />
     <ProjectReference Include="..\Rofl.Files\Rofl.Files.csproj" />
     <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj" />
     <ProjectReference Include="..\Rofl.Requests\Rofl.Requests.csproj" />
-    <ProjectReference Include="..\Rofl.Settings\Rofl.Settings.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\scoreboardicon_champion.png">
