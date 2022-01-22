@@ -1,5 +1,5 @@
 ﻿using ModernWpf.Controls;
-using Rofl.Settings.Models;
+using Rofl.Configuration.Models;
 using Rofl.UI.Main.Utilities;
 using System;
 using System.Collections.ObjectModel;
@@ -13,7 +13,7 @@ namespace Rofl.UI.Main.Views
     /// </summary>
     public partial class PlayerMarkerDialog : ContentDialog
     {
-        private readonly PlayerMarker _marker;
+        private readonly PlayerMarkerConfiguration _marker;
         private readonly string _oldName;
         private readonly bool _isEditMode;
 
@@ -29,7 +29,7 @@ namespace Rofl.UI.Main.Views
             MarkerColorPicker.SelectedColor = Colors.White;
         }
 
-        public PlayerMarkerDialog(PlayerMarker marker)
+        public PlayerMarkerDialog(PlayerMarkerConfiguration marker)
         {
             InitializeComponent();
 
@@ -55,7 +55,7 @@ namespace Rofl.UI.Main.Views
 
         private void SaveButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (!(DataContext is ObservableCollection<PlayerMarker> context)) { return; }
+            if (DataContext is not ObservableCollection<PlayerMarkerConfiguration> context) { return; }
 
             string inputName = NameTextBox.Text;
             string noteText = NoteTextBox.Text;
@@ -80,7 +80,7 @@ namespace Rofl.UI.Main.Views
             // Check if name already exists
             if (!_isEditMode)   // If we are creating a new item, no need to check old name collision
             {
-                PlayerMarker existingItem = context.FirstOrDefault(x => x.Name.Equals(inputName, StringComparison.OrdinalIgnoreCase));
+                PlayerMarkerConfiguration existingItem = context.FirstOrDefault(x => x.Name.Equals(inputName, StringComparison.OrdinalIgnoreCase));
 
                 // Name already exists
                 if (existingItem != null)
@@ -98,7 +98,7 @@ namespace Rofl.UI.Main.Views
                 }
 
                 // New one, add it!!!!!
-                PlayerMarker newMarker = new PlayerMarker
+                var newMarker = new PlayerMarkerConfiguration
                 {
                     Name = inputName,
                     Color = colorText,
@@ -110,7 +110,7 @@ namespace Rofl.UI.Main.Views
             else
             {
                 // Make sure you aren't changing the name to another marker
-                PlayerMarker existingItem = context.FirstOrDefault(x => x.Name.Equals(inputName, StringComparison.OrdinalIgnoreCase)
+                PlayerMarkerConfiguration existingItem = context.FirstOrDefault(x => x.Name.Equals(inputName, StringComparison.OrdinalIgnoreCase)
                                                                     && !x.Name.Equals(_oldName, StringComparison.OrdinalIgnoreCase));
 
                 // Name already exists

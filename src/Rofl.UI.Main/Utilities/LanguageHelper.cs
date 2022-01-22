@@ -1,4 +1,4 @@
-﻿using Rofl.Settings.Models;
+﻿using Rofl.Configuration.Models;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -12,6 +12,11 @@ namespace Rofl.UI.Main.Utilities
         /// </summary>
         public static Language CurrentLanguage { get; private set; }
 
+        /// <summary>
+        /// Updates resource dictionary to target language (English loaded as secondary always).
+        /// Loads static data in target language.
+        /// </summary>
+        /// <param name="target"></param>
         public static void SetProgramLanguage(Language target)
         {
             var dict = new ResourceDictionary();

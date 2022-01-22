@@ -1,16 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Configuration;
 using System.ComponentModel;
 
-namespace Rofl.Settings.Models
+namespace Rofl.Configuration.Models
 {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class PlayerMarker : INotifyPropertyChanged
+    public class PlayerMarkerConfiguration : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        private string _name;
-        [JsonProperty("name")]
-        public string Name 
+        // this will never be in a situation where it is null
+        // be quiet
+        private string _name = default!;
+        [ConfigurationKeyName("name")]
+        public string Name
         {
             get { return _name; }
             set
@@ -21,9 +22,9 @@ namespace Rofl.Settings.Models
             }
         }
 
-        private string _color;
-        [JsonProperty("color")]
-        public string Color 
+        private string _color = default!;
+        [ConfigurationKeyName("color")]
+        public string Color
         {
             get { return _color; }
             set
@@ -34,10 +35,10 @@ namespace Rofl.Settings.Models
             }
         }
 
-        private string _note;
-        [JsonProperty("note")]
-        public string Note 
-        { 
+        private string _note = default!;
+        [ConfigurationKeyName("note")]
+        public string Note
+        {
             get { return _note; }
             set
             {

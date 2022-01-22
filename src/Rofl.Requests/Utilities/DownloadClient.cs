@@ -1,7 +1,7 @@
 ﻿using Etirps.RiZhi;
 using Newtonsoft.Json.Linq;
+using Rofl.Configuration.Models;
 using Rofl.Requests.Models;
-using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,21 +14,21 @@ namespace Rofl.Requests.Utilities
     public class DownloadClient
     {
         private readonly string _downloadRootFolder;
-        private readonly ObservableSettings _settings;
+        private readonly ObservableConfiguration _config;
         private readonly RiZhi _log;
         private readonly HttpClient _httpClient;
         private readonly string _userAgent;
 
         private string LatestDataDragonVersion;
 
-        public DownloadClient(string downloadPath, string userAgent, ObservableSettings settings, RiZhi log)
+        public DownloadClient(string downloadPath, string userAgent, ObservableConfiguration config, RiZhi log)
         {
             if (string.IsNullOrEmpty(downloadPath))
             {
                 throw new ArgumentNullException(nameof(downloadPath));
             }
 
-            _settings = settings;
+            _config = config;
             _log = log;
             _downloadRootFolder = downloadPath;
             _userAgent = userAgent;
@@ -175,7 +175,7 @@ namespace Rofl.Requests.Utilities
         public async Task<IEnumerable<string>> GetAllChampionNames()
         {
             var version = await GetLatestDataDragonVersion().ConfigureAwait(true);
-            var url = _settings.DataDragonBaseUrl + version + @"/data/en_US/champion.json";
+            var url = _config.DataDragonBaseUrl + version + @"/data/en_US/champion.json";
 
             JObject responseObject;
 
@@ -217,7 +217,7 @@ namespace Rofl.Requests.Utilities
         public async Task<IEnumerable<string>> GetAllItemNumbers()
         {
             var version = await GetLatestDataDragonVersion().ConfigureAwait(true);
-            var url = _settings.DataDragonBaseUrl + version + @"/data/en_US/item.json";
+            var url = _config.DataDragonBaseUrl + version + @"/data/en_US/item.json";
 
             JObject responseObject;
 
@@ -275,21 +275,21 @@ namespace Rofl.Requests.Utilities
                         c.ChampionName = "Fiddlesticks";
                     }
 
-                    downloadUrl = _settings.DataDragonBaseUrl + c.DataDragonVersion + _settings.ChampionRelativeUrl + c.ChampionName + ".png";
+                    downloadUrl = _config.DataDragonBaseUrl + c.DataDragonVersion + "/img/champion/" + c.ChampionName + ".png";
                     break;
                 case ItemRequest i:
                     // make sure we aren't downloading item 0
                     if (!i.ItemID.Equals("0", StringComparison.OrdinalIgnoreCase))
                     {
-                        downloadUrl = _settings.DataDragonBaseUrl + i.DataDragonVersion + _settings.ItemRelativeUrl + i.ItemID + ".png";
+                        downloadUrl = _config.DataDragonBaseUrl + i.DataDragonVersion + "/img/item/" + i.ItemID + ".png";
                     }
 
                     break;
                 case MapRequest m:
-                    downloadUrl = _settings.DataDragonBaseUrl + m.DataDragonVersion + _settings.MapRelativeUrl + m.MapID + ".png";
+                    downloadUrl = _config.DataDragonBaseUrl + m.DataDragonVersion + "/img/map/map" + m.MapID + ".png";
                     break;
                 case RuneRequest r:
-                    downloadUrl = _settings.DataDragonBaseUrl + "img/" + r.TargetPath;
+                    downloadUrl = _config.DataDragonBaseUrl + "img/" + r.TargetPath;
                     break;
                 default:
                     throw new NotSupportedException($"unsupported request type: {request.GetType()}");

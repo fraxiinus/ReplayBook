@@ -1,8 +1,8 @@
 ﻿using Etirps.RiZhi;
+using Rofl.Configuration.Models;
 using Rofl.Files.Models;
 using Rofl.Files.Repositories;
 using Rofl.Reader;
-using Rofl.Settings.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,15 +20,15 @@ namespace Rofl.Files
         private readonly RiZhi _log;
         private readonly ReplayReader _reader;
         private List<string> _deletedFiles;
-        private ObservableSettings _settings;
+        private ObservableConfiguration _config;
 
-        public FileManager(ObservableSettings settings, RiZhi log)
+        public FileManager(ObservableConfiguration config, RiZhi log)
         {
             _log = log ?? throw new ArgumentNullException(nameof(log));
 
-            _settings = settings;
-            _fileSystem = new FolderRepository(settings, log);
-            _db = new DatabaseRepository(settings, log);
+            _config = config;
+            _fileSystem = new FolderRepository(config, log);
+            _db = new DatabaseRepository(config, log);
 
             _reader = new ReplayReader(log);
 
@@ -158,14 +158,13 @@ namespace Rofl.Files
 
         public string RenameReplay(FileResult file, string newName)
         {
-            switch (_settings.RenameAction)
+            if (_config.RenameFile)
             {
-                case RenameAction.Database:
-                    return RenameAlternative(file, newName);
-                case RenameAction.File:
-                    return RenameFile(file, newName);
-                default:
-                    throw new InvalidOperationException("Invalid rename action");
+                return RenameFile(file, newName);
+            }
+            else
+            {
+                return RenameAlternative(file, newName);
             }
         }
 

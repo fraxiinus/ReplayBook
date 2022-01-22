@@ -1,5 +1,4 @@
-﻿using Rofl.Settings.Models;
-using Rofl.UI.Main.Models;
+﻿using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
 using System;
@@ -38,14 +37,14 @@ namespace Rofl.UI.Main.Pages
 
         private void LanguageRadioButtons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+            if (DataContext is not WelcomeSetupDataContext context) { return; }
 
             LanguageHelper.SetProgramLanguage(context.Language);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+            if (DataContext is not WelcomeSetupDataContext context) { return; }
 
             // select initial language after page is loaded
             LanguageRadioButtons.SelectedIndex = (int)context.Language;

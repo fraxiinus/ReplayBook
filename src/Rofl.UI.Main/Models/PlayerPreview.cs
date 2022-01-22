@@ -1,5 +1,5 @@
-﻿using Rofl.Reader.Models;
-using Rofl.Settings.Models;
+﻿using Rofl.Configuration.Models;
+using Rofl.Reader.Models;
 using Rofl.UI.Main.Utilities;
 using System;
 using System.ComponentModel;
@@ -34,8 +34,8 @@ namespace Rofl.UI.Main.Models
 
         public bool IsKnownPlayer => marker != null;
 
-        private PlayerMarker marker;
-        public PlayerMarker Marker
+        private PlayerMarkerConfiguration marker;
+        public PlayerMarkerConfiguration Marker
         {
             get => marker;
             set

@@ -1,10 +1,10 @@
 ﻿<UserControl x:Class="Rofl.UI.Main.Controls.PlayerIconControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:config="clr-namespace:Rofl.Configuration.Models;assembly=Rofl.Configuration"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:Rofl.UI.Main.Models"
-             xmlns:settings="clr-namespace:Rofl.Settings.Models;assembly=Rofl.Settings"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              d:DataContext="{d:DesignInstance Type=models:PlayerPreview}"
              d:DesignHeight="30"
@@ -34,7 +34,7 @@
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
                                     <Condition Binding="{Binding Path=IsKnownPlayer}" Value="True" />
-                                    <Condition Binding="{Binding Path=PlayerMarkerStyle}" Value="{x:Static settings:MarkerStyle.Border}" />
+                                    <Condition Binding="{Binding Path=PlayerMarkerStyle}" Value="{x:Static config:MarkerStyle.Border}" />
                                 </MultiDataTrigger.Conditions>
                                 <Setter Property="BorderThickness" Value="2" />
                                 <Setter Property="BorderBrush" Value="{Binding Path=Marker.Color}" />
@@ -58,7 +58,7 @@
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
                                             <Condition Binding="{Binding Path=IsKnownPlayer}" Value="True" />
-                                            <Condition Binding="{Binding Path=PlayerMarkerStyle}" Value="{x:Static settings:MarkerStyle.Square}" />
+                                            <Condition Binding="{Binding Path=PlayerMarkerStyle}" Value="{x:Static config:MarkerStyle.Square}" />
                                         </MultiDataTrigger.Conditions>
                                         <Setter Property="Fill" Value="{Binding Path=Marker.Color}" />
                                         <Setter Property="Stroke" Value="Black" />

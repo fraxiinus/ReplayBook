@@ -1,10 +1,11 @@
 ﻿using Etirps.RiZhi;
+using Rofl.Configuration;
+using Rofl.Configuration.Models;
+using Rofl.Executables.Old;
 using Rofl.Files;
 using Rofl.Files.Models;
 using Rofl.Requests;
 using Rofl.Requests.Models;
-using Rofl.Settings;
-using Rofl.Settings.Models;
 using Rofl.UI.Main.Extensions;
 using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
@@ -46,9 +47,11 @@ namespace Rofl.UI.Main.ViewModels
         /// </summary>
         public Dictionary<string, FileResult> FileResults { get; private set; }
 
-        public ObservableCollection<PlayerMarker> KnownPlayers { get; private set; }
+        public ObservableCollection<PlayerMarkerConfiguration> KnownPlayers { get; private set; }
 
-        public SettingsManager SettingsManager { get; private set; }
+        public ObservableConfiguration Configuration { get; private set; }
+
+        public ExecutableManager ExecutableManager { get; private set; }
 
         public StatusBar StatusBarModel { get; private set; }
 
@@ -59,16 +62,17 @@ namespace Rofl.UI.Main.ViewModels
 
         public bool ClearReplayCacheOnClose { get; set; }
 
-        public MainWindowViewModel(FileManager files, RequestManager requests, SettingsManager settingsManager, ReplayPlayer player, RiZhi log)
+        public MainWindowViewModel(FileManager files, RequestManager requests, ObservableConfiguration config, ExecutableManager executables, ReplayPlayer player, RiZhi log)
         {
-            SettingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
+            Configuration = config ?? throw new ArgumentNullException(nameof(config));
+            ExecutableManager = executables ?? throw new ArgumentNullException(nameof(executables));
             _fileManager = files ?? throw new ArgumentNullException(nameof(files));
             _log = log ?? throw new ArgumentNullException(nameof(log));
             _player = player ?? throw new ArgumentNullException(nameof(player));
 
             RequestManager = requests ?? throw new ArgumentNullException(nameof(requests));
 
-            KnownPlayers = SettingsManager.Settings.KnownPlayers;
+            KnownPlayers = config.PlayerMarkers;
 
             PreviewReplays = new ObservableCollection<ReplayPreview>();
             FileResults = new Dictionary<string, FileResult>();
@@ -94,7 +98,7 @@ namespace Rofl.UI.Main.ViewModels
         public int LoadReplaysFromDatabase()
         {
             _log.Information("Loading replays from database...");
-            IReadOnlyCollection<FileResult> databaseResults = _fileManager.GetReplays(SortParameters, SettingsManager.Settings.ItemsPerPage, PreviewReplays.Count);
+            IReadOnlyCollection<FileResult> databaseResults = _fileManager.GetReplays(SortParameters, Configuration.ItemsPerPage, PreviewReplays.Count);
 
             _log.Information($"Retrieved {databaseResults.Count} replays");
 
@@ -134,11 +138,11 @@ namespace Rofl.UI.Main.ViewModels
 
             var previewModel = new ReplayPreview(file.ReplayFile,
                 file.FileInfo.CreationTime,
-                SettingsManager.Settings.PlayerMarkerStyle,
-                SettingsManager.Settings.RenameAction,
+                Configuration.MarkerStyle,
+                Configuration.RenameFile,
                 file.IsNewFile);
 
-            previewModel.IsSupported = SettingsManager.Executables.DoesVersionExist(previewModel.GameVersion);
+            previewModel.IsSupported = ExecutableManager.DoesVersionExist(previewModel.GameVersion);
 
             foreach (PlayerPreview bluePlayer in previewModel.BluePreviewPlayers)
             {
@@ -328,7 +332,7 @@ namespace Rofl.UI.Main.ViewModels
 
                 foreach (PlayerPreview player in allPlayers)
                 {
-                    PlayerMarker matchedMarker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(player.PlayerName, StringComparison.OrdinalIgnoreCase));
+                    PlayerMarkerConfiguration matchedMarker = KnownPlayers.FirstOrDefault(x => x.Name.Equals(player.PlayerName, StringComparison.OrdinalIgnoreCase));
 
                     if (matchedMarker != null)
                     {
@@ -340,21 +344,24 @@ namespace Rofl.UI.Main.ViewModels
 
         public async Task ShowSettingsDialog()
         {
-            var settingsDialog = new SettingsWindow
+            var settingsDialog = new SettingsWindow()
             {
                 Top = Application.Current.MainWindow.Top + 50,
                 Left = Application.Current.MainWindow.Left + 50,
-                DataContext = SettingsManager,
+                DataContext = new SettingsWindowDataContext
+                {
+                    Configuration = Configuration,
+                    Executables = ExecutableManager
+                }
             };
 
-            if (settingsDialog.ShowDialog().Equals(true))
-            {
-                // Refresh markers
-                ReloadPlayerMarkers();
+            settingsDialog.ShowDialog();
 
-                // Refresh all replays
-                await ReloadReplayList().ConfigureAwait(true);
-            }
+            // Refresh markers
+            ReloadPlayerMarkers();
+
+            // Refresh all replays
+            await ReloadReplayList().ConfigureAwait(true);
         }
 
         /// <summary>
@@ -370,7 +377,7 @@ namespace Rofl.UI.Main.ViewModels
             StatusBarModel.ShowProgressBar = true;
             StatusBarModel.ShowDismissButton = false;
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageExecutables") as string;
-            await SettingsManager.Executables.VerifyRegisteredExecutables().ConfigureAwait(true);
+            await ExecutableManager.VerifyRegisteredExecutables().ConfigureAwait(true);
 
             // Clear previously loaded replays
             FileResults.Clear();
@@ -438,7 +445,7 @@ namespace Rofl.UI.Main.ViewModels
         {
             _log.Information("Opening new window...");
 
-            var singleWindow = new SingleReplayWindow(_log, SettingsManager, RequestManager, _fileManager, _player, true)
+            var singleWindow = new SingleReplayWindow(_log, Configuration, RequestManager, ExecutableManager, _fileManager, _player, true)
             {
                 ReplayFileLocation = replayPath
             };
@@ -591,18 +598,18 @@ namespace Rofl.UI.Main.ViewModels
             if (!string.IsNullOrEmpty(initialSettings.ReplayPath) && Directory.Exists(initialSettings.ReplayPath))
             {
                 // Only add the replay folder if it doesn't exist already. It really should be empty...
-                if (!SettingsManager.Settings.SourceFolders.Contains(initialSettings.ReplayPath))
+                if (!Configuration.ReplayFolders.Contains(initialSettings.ReplayPath))
                 {
-                    SettingsManager.Settings.SourceFolders.Add(initialSettings.ReplayPath);
+                    Configuration.ReplayFolders.Add(initialSettings.ReplayPath);
                 }
             }
 
             if (!string.IsNullOrEmpty(initialSettings.RiotGamesPath) && Directory.Exists(initialSettings.ReplayPath))
             {
                 // Only add the executable folder if it doesn't exist already. It really should be empty...
-                if (!SettingsManager.Executables.Settings.SourceFolders.Contains(initialSettings.RiotGamesPath))
+                if (!Configuration.ReplayFolders.Contains(initialSettings.RiotGamesPath))
                 {
-                    SettingsManager.Executables.Settings.SourceFolders.Add(initialSettings.RiotGamesPath);
+                    Configuration.ReplayFolders.Add(initialSettings.RiotGamesPath);
                 }
             }
 
@@ -610,11 +617,11 @@ namespace Rofl.UI.Main.ViewModels
             {
                 foreach (Executables.Old.Models.LeagueExecutable executable in initialSettings.Executables)
                 {
-                    SettingsManager.Executables.AddExecutable(executable);
+                    ExecutableManager.AddExecutable(executable);
                 }
             }
 
-            SettingsManager.Settings.ProgramLanguage = initialSettings.Language;
+            Configuration.Language = initialSettings.Language;
         }
 
         /// <summary>
@@ -623,7 +630,7 @@ namespace Rofl.UI.Main.ViewModels
         public void ShowMissingReplayFoldersMessageBox()
         {
             // Check if replay paths are missing, if so remove them
-            string[] missingPaths = SettingsManager.RemoveInvalidReplayPaths();
+            string[] missingPaths = Configuration.RemoveInvalidReplayPaths(_log);
             if (missingPaths.Length > 0)
             {
                 string msg = (Application.Current.TryFindResource("MissingPathText") as string) + "\n\n";

@@ -39,11 +39,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rofl.Configuration\Rofl.Configuration.csproj" />
     <ProjectReference Include="..\Rofl.Executables.Old\Rofl.Executables.Old.csproj" />
     <ProjectReference Include="..\Rofl.Files\Rofl.Files.csproj" />
     <ProjectReference Include="..\Rofl.Reader\Rofl.Reader.csproj" />
     <ProjectReference Include="..\Rofl.Requests\Rofl.Requests.csproj" />
-    <ProjectReference Include="..\Rofl.Settings\Rofl.Settings.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\scoreboardicon_champion.png">
@@ -82,6 +82,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="ModernWpfUI">
       <Version>0.9.4</Version>

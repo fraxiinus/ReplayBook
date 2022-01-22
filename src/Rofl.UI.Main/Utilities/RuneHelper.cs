@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Rofl.Settings.Models;
+using Rofl.Configuration.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
