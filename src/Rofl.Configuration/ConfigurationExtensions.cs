@@ -1,6 +1,7 @@
 ﻿using Etirps.RiZhi;
 using Rofl.Configuration.Models;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Rofl.Configuration
 {
@@ -50,10 +51,19 @@ namespace Rofl.Configuration
         /// <returns></returns>
         public static async Task SaveConfigurationFile(this ConfigurationFile config)
         {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Converters =
+                {
+                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+                }
+            };
+
             var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
             // creates or overwrites old file
             using FileStream stream = File.Create(path);
-            await JsonSerializer.SerializeAsync(stream, config);
+            await JsonSerializer.SerializeAsync(stream, config, options);
             await stream.DisposeAsync();
         }
 

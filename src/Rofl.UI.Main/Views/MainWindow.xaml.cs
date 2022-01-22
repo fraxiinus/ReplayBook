@@ -29,13 +29,9 @@ namespace Rofl.UI.Main
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private readonly FileManager _files;
-        //private readonly RequestManager _requests;
         private readonly ObservableConfiguration _config;
         private readonly RiZhi _log;
-        //private readonly ReplayPlayer _player;
 
-        // TODO what does this do again?
         private ReplayPreview _lastSelection;
 
         public MainWindow(RiZhi log, ObservableConfiguration config, RequestManager requests, ExecutableManager executables, FileManager files, ReplayPlayer player)
