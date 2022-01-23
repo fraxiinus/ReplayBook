@@ -136,7 +136,7 @@ namespace Rofl.UI.Main
         {
             if (DataContext is not MainWindowViewModel context) { return; }
 
-            await context.ReloadReplayList().ConfigureAwait(true);
+            await context.ReloadReplayList(false).ConfigureAwait(true);
         }
 
         private async void ReplayListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -205,7 +205,7 @@ namespace Rofl.UI.Main
                 context.SortParameters.SortMethod = selectSort;
             }
 
-            await context.ReloadReplayList().ConfigureAwait(false);
+            await context.ReloadReplayList(false).ConfigureAwait(false);
         }
 
         private async void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -277,8 +277,7 @@ namespace Rofl.UI.Main
             if (DataContext is not MainWindowViewModel context) { return; }
             if (string.IsNullOrEmpty(args.QueryText))
             {
-                context.ValidateReplayStorage(closeOnComplete: true);
-                await context.ReloadReplayList().ConfigureAwait(true);
+                await context.ReloadReplayList(false).ConfigureAwait(true);
             }
 
             context.SortParameters.SearchTerm = args.QueryText;
