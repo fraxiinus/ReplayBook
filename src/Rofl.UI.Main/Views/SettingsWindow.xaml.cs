@@ -3,7 +3,6 @@ using ModernWpf;
 using ModernWpf.Controls;
 using Rofl.Configuration;
 using Rofl.Configuration.Models;
-using Rofl.Executables.Old;
 using Rofl.Executables.Old.Models;
 using Rofl.Requests.Models;
 using Rofl.UI.Main.Converters;
@@ -27,8 +26,15 @@ namespace Rofl.UI.Main.Views
     /// </summary>
     public partial class SettingsWindow : Window
     {
+        /// <summary>
+        /// We need to update executables if executables were changed
+        /// </summary>
+        public bool UpdateExecutablesOnClose { get; private set; }
+
         public SettingsWindow()
         {
+            UpdateExecutablesOnClose = false;
+
             InitializeComponent();
 
             // This window should open as a dialog, so set owner
@@ -392,6 +398,9 @@ namespace Rofl.UI.Main.Views
                 else
                 {
                     context.Executables.Settings.SourceFolders.Add(selectedFolder);
+                    
+                    // executables have been changed, need to update
+                    UpdateExecutablesOnClose = true;
                 }
             }
         }
@@ -447,6 +456,9 @@ namespace Rofl.UI.Main.Views
                 {
                     _ = context.Executables.Settings.SourceFolders.Remove(selectedFolder);
                     context.Executables.Settings.SourceFolders.Add(newSelectedFolder);
+
+                    // executables have been changed, need to update
+                    UpdateExecutablesOnClose = true;
                 }
             }
         }
@@ -468,6 +480,9 @@ namespace Rofl.UI.Main.Views
                 EditExecutableFolderButton.IsEnabled = false;
                 RemoveExecutableFolderButton.IsEnabled = false;
                 confirmFlyout.Hide();
+
+                // executables have been changed, need to update
+                UpdateExecutablesOnClose = true;
             };
 
             // Show the flyout
@@ -488,6 +503,12 @@ namespace Rofl.UI.Main.Views
 
             string labelText = TryFindResource("ExecutableFoldersSearchResultLabelText") as string;
             labelText = labelText.Replace("$", addedCount.ToString(CultureInfo.InvariantCulture));
+
+            if (addedCount > 0)
+            {
+                // executables have been changed, need to update
+                UpdateExecutablesOnClose = true;
+            }
 
             if (skippedDirs.Length > 0)
             {
@@ -532,6 +553,9 @@ namespace Rofl.UI.Main.Views
             };
 
             _ = addDialog.ShowAsync(ContentDialogPlacement.Popup);
+
+            // executables have been changed, need to update
+            UpdateExecutablesOnClose = true;
         }
 
         private void EditExecutableButton_Click(object sender, RoutedEventArgs e)
@@ -546,6 +570,9 @@ namespace Rofl.UI.Main.Views
             };
 
             _ = editDialog.ShowAsync(ContentDialogPlacement.Popup);
+
+            // executables have been changed, need to update
+            UpdateExecutablesOnClose = true;
         }
 
         private void RemoveExecutableButton_Click(object sender, RoutedEventArgs e)
@@ -565,6 +592,9 @@ namespace Rofl.UI.Main.Views
                 EditExecutableButton.IsEnabled = false;
                 RemoveExecutableButton.IsEnabled = false;
                 confirmFlyout.Hide();
+
+                // executables have been changed, need to update
+                UpdateExecutablesOnClose = true;
             };
 
             // Show the flyout

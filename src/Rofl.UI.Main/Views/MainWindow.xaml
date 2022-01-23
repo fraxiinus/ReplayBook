@@ -3,16 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:Rofl.UI.Main"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:viewmodels="clr-namespace:Rofl.UI.Main.ViewModels"
         Title="{DynamicResource ProgramName}"
         Width="1150"
         Height="670"
         MinWidth="1150"
         MinHeight="670"
+        d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
         ui:TitleBar.IsIconVisible="True"
         ui:WindowHelper.UseModernWindowStyle="True"
         Closed="Window_Closed"
@@ -30,10 +29,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Padding="0 0 0 0"
+        <Border Padding="0,0,0,0"
                 Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
                 BorderBrush="{DynamicResource BaseBackground}"
-                BorderThickness="0 0 1 0">
+                BorderThickness="0,0,1,0">
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -54,7 +53,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Border Grid.Column="0"
-                            Margin="10 10 5 10"
+                            Margin="10,10,5,10"
                             BorderThickness="1">
                         <ui:AutoSuggestBox x:Name="SearchBox"
                                            FontSize="14"
@@ -100,7 +99,7 @@
                     <Button x:Name="SettingsButton"
                             Grid.Column="3"
                             Width="37"
-                            Margin="0 5 5 5"
+                            Margin="0,5,5,5"
                             Background="Transparent"
                             Click="SettingsButton_Click"
                             ToolTip="{DynamicResource SettingsToolTip}">
@@ -155,7 +154,7 @@
                     <TextBlock x:Name="ReplayStatusBarMessage"
                                Grid.Row="1"
                                Grid.Column="0"
-                               Margin="0 3 0 3"
+                               Margin="0,3,0,3"
                                VerticalAlignment="Center"
                                FontSize="16"
                                Text="{Binding Path=StatusBarModel.StatusMessage, FallbackValue=Status}"
@@ -194,7 +193,7 @@
                     <ListView.ItemContainerStyle>
                         <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="{x:Type ListViewItem}">
                             <Setter Property="BorderBrush" Value="{DynamicResource BaseBackground}" />
-                            <Setter Property="BorderThickness" Value="0 0 0 1" />
+                            <Setter Property="BorderThickness" Value="0,0,0,1" />
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>

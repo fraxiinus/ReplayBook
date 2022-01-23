@@ -26,7 +26,19 @@ namespace Rofl.UI.Main.Models
 
         public string ChampionId { get; private set; }
 
-        public string ChampionName { get; set; }
+        private string _championName;
+        public string ChampionName
+        {
+            get => _championName;
+            set
+            {
+                _championName = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ChampionName)));
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(CombinedName)));
+            }
+        }
 
         public string PlayerName { get; private set; }
 

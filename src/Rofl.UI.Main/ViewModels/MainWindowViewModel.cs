@@ -16,7 +16,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -361,38 +360,43 @@ namespace Rofl.UI.Main.ViewModels
             ReloadPlayerMarkers();
 
             // Refresh all replays
-            await ReloadReplayList().ConfigureAwait(true);
+            await ReloadReplayList(settingsDialog.UpdateExecutablesOnClose).ConfigureAwait(true);
         }
 
         /// <summary>
         /// The function to call to refresh the list
         /// </summary>
         /// <returns></returns>
-        public async Task ReloadReplayList()
+        public async Task ReloadReplayList(bool scanExecutables)
         {
             _log.Information($"Refreshing replay list...");
-
-            // Validate executables
-            StatusBarModel.Visible = true;
-            StatusBarModel.ShowProgressBar = true;
-            StatusBarModel.ShowDismissButton = false;
-            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageExecutables") as string;
-            await ExecutableManager.VerifyRegisteredExecutables().ConfigureAwait(true);
 
             // Clear previously loaded replays
             FileResults.Clear();
             PreviewReplays.Clear();
-            ValidateReplayStorage(closeOnComplete: false);
+            // await ValidateReplayStorage(closeOnComplete: false);
+
+            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
+            StatusBarModel.Visible = true;
+            StatusBarModel.ShowProgressBar = true;
+            await Task.Run(() => _fileManager.PruneDatabaseEntries());
 
             // Discover and load replays into database
             IEnumerable<FileErrorResult> results = await _fileManager.InitialLoadAsync().ConfigureAwait(true);
 
             // Load from database into our viewmodel
-            _ = LoadReplaysFromDatabase();
+            await Task.Run(() => LoadReplaysFromDatabase());
 
             // Load thumbnails
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
             LoadPreviewPlayerThumbnails();
+
+            // Validate executables
+            if (scanExecutables)
+            {
+                StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageExecutables") as string;
+                await ExecutableManager.VerifyRegisteredExecutables().ConfigureAwait(true);
+            }
 
             if (results.Any())
             {
@@ -405,19 +409,6 @@ namespace Rofl.UI.Main.ViewModels
             {
                 StatusBarModel.Visible = false;
             }
-        }
-
-        /// <summary>
-        /// Function checks if replays in storage are valid. Removes any that are invalid.
-        /// </summary>
-        /// <returns></returns>
-        public void ValidateReplayStorage(bool closeOnComplete)
-        {
-            StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
-            StatusBarModel.Visible = true;
-            StatusBarModel.ShowProgressBar = true;
-            _fileManager.PruneDatabaseEntries();
-            StatusBarModel.Visible = !closeOnComplete;
         }
 
         public async Task<Process> PlayReplay(ReplayPreview preview)
@@ -685,7 +676,7 @@ namespace Rofl.UI.Main.ViewModels
 
             _ = _fileManager.DeleteFile(FileResults[preview.Location]);
 
-            await ReloadReplayList().ConfigureAwait(false);
+            await ReloadReplayList(false).ConfigureAwait(false);
         }
 
         public void ClearDeletedReplays()
