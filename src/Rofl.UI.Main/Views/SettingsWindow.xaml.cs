@@ -59,7 +59,7 @@ namespace Rofl.UI.Main.Views
             if (DataContext is not SettingsWindowDataContext context) { return; }
 
             // Set color picker note
-            if (context.Configuration.AccentColor != null)
+            if (!string.IsNullOrEmpty(context.Configuration.AccentColor))
             {
                 AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as string;
             }
