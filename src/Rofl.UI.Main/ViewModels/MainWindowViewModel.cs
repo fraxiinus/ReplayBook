@@ -54,6 +54,8 @@ namespace Rofl.UI.Main.ViewModels
 
         public StatusBar StatusBarModel { get; private set; }
 
+        public StaticDataProvider StaticDataProvider { get; private set; }
+
         // Flags used to clear cache when closing
         public bool ClearItemsCacheOnClose { get; set; }
         public bool ClearChampsCacheOnClose { get; set; }
@@ -83,6 +85,7 @@ namespace Rofl.UI.Main.ViewModels
             };
 
             StatusBarModel = new StatusBar();
+            StaticDataProvider = new StaticDataProvider(LanguageHelper.CurrentLanguage);
 
             // By default we do not want to delete our cache
             ClearItemsCacheOnClose = false;
@@ -178,19 +181,24 @@ namespace Rofl.UI.Main.ViewModels
 
             foreach (var item in allItems)
             {
-                var staticItem = ItemHelper.GetItemData(item.ItemId);
-                if (staticItem.Name == null)
+                var staticItem = StaticDataProvider.GetItem(item.ItemId);
+                // given id was invalid
+                if (staticItem.ImageData == null)
                 {
-                    // no item, show empty space with border
                     if (staticItem.Id == "0")
                     {
+                        // no item, show empty space with border
                         item.OverlayIcon = null;
                         item.ShowBorder = true;
                     }
-                    // item id was either not found, or invalid (null? empty?)
-                    // error overlay will be visible and tooltip will show item id
-                    else if (staticItem.Name == null)
+                    else if (staticItem.Id == "-1")
                     {
+                        // item id was invalid, keep error visible, show N/A
+                        item.ItemName = staticItem.DisplayName;
+                    }
+                    else
+                    {
+                        // item id was valid, maybe? show id
                         item.ItemName = staticItem.Id;
                     }
                 }
@@ -198,8 +206,8 @@ namespace Rofl.UI.Main.ViewModels
                 {
                     // hide overlay, show apply item image and add name
                     item.OverlayIcon = null;
-                    item.ItemName = staticItem.Name;
-                    item.Image = ItemHelper.GetItemImage(item.ItemId);
+                    item.ItemName = staticItem.DisplayName;
+                    item.Image = StaticDataProvider.GetItemImage(item.ItemId);
                 }
             }
         }
@@ -224,18 +232,18 @@ namespace Rofl.UI.Main.ViewModels
 
             foreach (var player in allPlayers)
             {
-                var staticItem = ChampionHelper.GetChampionData(player.ChampionId);
-                if (staticItem.Name == null)
+                var staticChamp = StaticDataProvider.GetChampion(player.ChampionId);
+                if (staticChamp.DisplayName == "N/A")
                 {
                     // no champion data was found, load id as the name
-                    player.ChampionName = staticItem.Id;
+                    player.ChampionName = staticChamp.Id;
                 }
                 else
                 {
                     // hide overlay, show apply item image and add name
                     player.OverlayIcon = null;
-                    player.ChampionName = staticItem.Name;
-                    player.Image = ChampionHelper.GetChampionImage(player.ChampionId);
+                    player.ChampionName = staticChamp.DisplayName;
+                    player.Image = StaticDataProvider.GetChampionImage(player.ChampionId);
                 }
             }
         }
@@ -257,7 +265,7 @@ namespace Rofl.UI.Main.ViewModels
             _log.Information($"Processing {allRunes.Count} rune thumbnail requests");
             foreach (RuneStat rune in allRunes)
             {
-                Rune runeData = RuneHelper.GetRune(rune.RuneId);
+                var runeData = StaticDataProvider.GetRune(rune.RuneId);
                 // If an item does not exist, set it to nothing!
                 if (string.IsNullOrEmpty(runeData.Icon))
                 {
@@ -374,11 +382,11 @@ namespace Rofl.UI.Main.ViewModels
             // Clear previously loaded replays
             FileResults.Clear();
             PreviewReplays.Clear();
-            // await ValidateReplayStorage(closeOnComplete: false);
 
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageReplay") as string;
             StatusBarModel.Visible = true;
             StatusBarModel.ShowProgressBar = true;
+
             await Task.Run(() => _fileManager.PruneDatabaseEntries());
 
             // Discover and load replays into database

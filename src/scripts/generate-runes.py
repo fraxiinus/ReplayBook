@@ -42,7 +42,7 @@ for lang in languages:
         for s in p["slots"]:
             for r in s["runes"]:
                 x = {
-                    "id": r["id"],
+                    "id": str(r["id"]),
                     "name": r["name"],
                     "key": r["key"],
                     "icon": r["icon"]
@@ -65,7 +65,7 @@ for lang in languages:
     for eogData in eogJson:
         if str(eogData["id"]) in statsRunes:
             x = {
-                "id": eogData["id"],
+                "id": str(eogData["id"]),
                 "key": eogData["name"],     # key is set as the same as name
                 "icon": eogData["iconPath"].replace("/lol-game-data/assets/v1/", ""),
                 "endOfGameStatDescs": []
@@ -81,7 +81,11 @@ for lang in languages:
 
             runes.append(x)
 
+    outputJson = {
+        "data": runes
+    }
+
     if not os.path.exists("runes"):
         os.makedirs("runes")
     with open("runes/"+lang+".data.json", 'w', encoding="utf-8") as outfile:
-        json.dump(runes, outfile, indent=4, ensure_ascii=False)
+        json.dump(outputJson, outfile, indent=4, ensure_ascii=False)

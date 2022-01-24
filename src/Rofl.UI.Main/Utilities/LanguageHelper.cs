@@ -58,11 +58,6 @@ namespace Rofl.UI.Main.Utilities
             Application.Current.Resources.MergedDictionaries.Add(dict);
 
             CurrentLanguage = target;
-
-            // Re-load static data
-            RuneHelper.LoadRunes(target);
-            ItemHelper.LoadItems(target);
-            ChampionHelper.LoadChampions(target);
         }
 
         /// <summary>

@@ -9,16 +9,16 @@ namespace Rofl.UI.Main.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public RuneStat(string id, string firstValue, string secondValue, string thirdValue)
-        {
+        public RuneStat(StaticDataProvider staticDataProvider, string id, string firstValue, string secondValue, string thirdValue)
+        { 
             RuneId = id;
 
-            Rune staticData = RuneHelper.GetRune(id);
-            RuneName = staticData.Name;
+            RuneStaticData staticData = staticDataProvider.GetRune(id);
+            RuneName = staticData.DisplayName;
             Descriptions = new List<string>();
-            for (int i = 0; i < staticData.EndOfGameStatDescs.Count; i++)
+            for (int i = 0; i < staticData.EndOfGameStatDescs.Length; i++)
             {
-                Descriptions.Add(RuneHelper.FillInDescriptions(staticData.EndOfGameStatDescs[i], firstValue, secondValue, thirdValue));
+                Descriptions.Add(StaticDataProvider.FillInDescriptions(staticData.EndOfGameStatDescs[i], firstValue, secondValue, thirdValue));
             }
 
             Value0 = int.TryParse(firstValue, out int parsedValue0) ? parsedValue0 : 0;

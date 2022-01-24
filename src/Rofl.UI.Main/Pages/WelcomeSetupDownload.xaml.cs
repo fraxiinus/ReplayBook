@@ -80,7 +80,7 @@ namespace Rofl.UI.Main.Pages
             var requests = new List<RequestBase>();
             if (downloadRunes)
             {
-                requests.AddRange(await mainViewModel.RequestManager.GetAllRuneRequests(RuneHelper.GetAllRunes())
+                requests.AddRange(await mainViewModel.RequestManager.GetAllRuneRequests(mainViewModel.StaticDataProvider.GetAllRunes())
                     .ConfigureAwait(true));
             }
 

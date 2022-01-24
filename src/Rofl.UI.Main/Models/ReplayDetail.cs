@@ -1,4 +1,5 @@
 ﻿using Rofl.Files.Models;
+using Rofl.UI.Main.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ namespace Rofl.UI.Main.Models
 {
     public class ReplayDetail
     {
-        public ReplayDetail(FileResult replay, ReplayPreview previewModel)
+        public ReplayDetail(StaticDataProvider staticDataProvider, FileResult replay, ReplayPreview previewModel)
         {
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
@@ -20,7 +21,7 @@ namespace Rofl.UI.Main.Models
             var combinedBluePlayers = replay.ReplayFile.BluePlayers.Zip(previewModel.BluePreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var bPlayer in combinedBluePlayers)
             {
-                PlayerDetail newPlayer = new PlayerDetail(bPlayer.Player, bPlayer.Preview, true);
+                var newPlayer = new PlayerDetail(staticDataProvider, bPlayer.Player, bPlayer.Preview, true);
                 BlueKills += newPlayer.ChampionsKilled;
                 BlueDeaths += newPlayer.Deaths;
                 BlueAssists += newPlayer.Assists;
@@ -37,7 +38,7 @@ namespace Rofl.UI.Main.Models
             var combinedRedPlayers = replay.ReplayFile.RedPlayers.Zip(previewModel.RedPreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var rPlayer in combinedRedPlayers)
             {
-                PlayerDetail newPlayer = new PlayerDetail(rPlayer.Player, rPlayer.Preview, false);
+                var newPlayer = new PlayerDetail(staticDataProvider, rPlayer.Player, rPlayer.Preview, false);
                 RedKills += newPlayer.ChampionsKilled;
                 RedDeaths += newPlayer.Deaths;
                 RedAssists += newPlayer.Assists;
