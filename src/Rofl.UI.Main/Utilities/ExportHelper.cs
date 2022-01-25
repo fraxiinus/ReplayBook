@@ -32,36 +32,34 @@ namespace Rofl.UI.Main.Utilities
         {
             string results = ConstructExportString(context);
 
-            using (CommonSaveFileDialog saveDialog = new CommonSaveFileDialog())
-            {
-                saveDialog.Title = Application.Current.FindResource("ErdExportDialogTitle") as string;
-                saveDialog.AddToMostRecentlyUsedList = false;
-                saveDialog.EnsureFileExists = true;
-                saveDialog.EnsurePathExists = true;
-                saveDialog.EnsureReadOnly = false;
-                saveDialog.EnsureValidNames = true;
-                saveDialog.ShowPlacesList = true;
+            using var saveDialog = new CommonSaveFileDialog();
+            saveDialog.Title = Application.Current.FindResource("ErdExportDialogTitle") as string;
+            saveDialog.AddToMostRecentlyUsedList = false;
+            saveDialog.EnsureFileExists = true;
+            saveDialog.EnsurePathExists = true;
+            saveDialog.EnsureReadOnly = false;
+            saveDialog.EnsureValidNames = true;
+            saveDialog.ShowPlacesList = true;
 
-                saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                saveDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                saveDialog.DefaultFileName = context.Replay.MatchId + (context.ExportAsCSV ? ".csv" : ".json");
+            saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            saveDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            saveDialog.DefaultFileName = context.Replay.MatchId + (context.ExportAsCSV ? ".csv" : ".json");
 
-                saveDialog.Filters.Add(context.ExportAsCSV
-                    ? new CommonFileDialogFilter("CSV Files", "*.csv")
-                    : new CommonFileDialogFilter("JSON Files", "*.json"));
+            saveDialog.Filters.Add(context.ExportAsCSV
+                ? new CommonFileDialogFilter("CSV Files", "*.csv")
+                : new CommonFileDialogFilter("JSON Files", "*.json"));
 
-                // if the dialog did not return ok, return to calling window
-                // send parent window as parameter, otherwise it will misplace the popup
-                if (saveDialog.ShowDialog(parent) != CommonFileDialogResult.Ok) { return false; }
+            // if the dialog did not return ok, return to calling window
+            // send parent window as parameter, otherwise it will misplace the popup
+            if (saveDialog.ShowDialog(parent) != CommonFileDialogResult.Ok) { return false; }
 
-                string targetFile = saveDialog.FileName;
-                File.WriteAllText(targetFile, results);
+            string targetFile = saveDialog.FileName;
+            File.WriteAllText(targetFile, results);
 
-                // Open the folder and select the file that was made
-                _ = Process.Start("explorer.exe", $"/select, \"{targetFile}\"");
+            // Open the folder and select the file that was made
+            _ = Process.Start("explorer.exe", $"/select, \"{targetFile}\"");
 
-                return true;
-            }
+            return true;
         }
 
         public static List<string> FindAllPresets()
@@ -118,7 +116,7 @@ namespace Rofl.UI.Main.Utilities
         {
             if (context is null || context.Players is null) { return "{}"; }
 
-            JObject result = new JObject();
+            var result = new JObject();
 
             // add root level properties. Property names based off Riot API
             if (context.IncludeMatchID)
@@ -145,7 +143,7 @@ namespace Rofl.UI.Main.Utilities
                         result["participants"] = new JArray();
                     }
 
-                    JObject playerAttributes = new JObject();
+                    var playerAttributes = new JObject();
 
                     // get the player model
                     Player player = context.Replay.Players.First(x => x.NAME.Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
@@ -179,7 +177,7 @@ namespace Rofl.UI.Main.Utilities
             string index = context.NormalizeAttributeNames ? "player" : "PLAYER";
 
             // Create dictionary for players, where the key is the player name
-            Dictionary<string, string> playerLines = new Dictionary<string, string>();
+            var playerLines = new Dictionary<string, string>();
 
             foreach (ExportAttributeSelectItem attributeSelect in context.Attributes)
             {

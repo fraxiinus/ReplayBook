@@ -14,6 +14,13 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class ExportWizardAttributes : ModernWpf.Controls.Page
     {
+        private ExportDataContext Context
+        {
+            get => (DataContext is ExportDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
+
         public ExportWizardAttributes()
         {
             InitializeComponent();
@@ -21,16 +28,14 @@ namespace Rofl.UI.Main.Pages
 
         private void ExportWizardAttributes_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
             // get first checked player
-            string playerName = context.Players.FirstOrDefault(x => x.Checked)?.PlayerPreview.PlayerName;
-            Player player = context.Replay.Players.FirstOrDefault(x => x.NAME.Equals(playerName, StringComparison.OrdinalIgnoreCase));
+            string playerName = Context.Players.FirstOrDefault(x => x.Checked)?.PlayerPreview.PlayerName;
+            Player player = Context.Replay.Players.FirstOrDefault(x => x.NAME.Equals(playerName, StringComparison.OrdinalIgnoreCase));
 
             if (player != null)
             {
                 // loop over all attributes and set preview value
-                foreach (ExportAttributeSelectItem attribute in context.Attributes)
+                foreach (ExportAttributeSelectItem attribute in Context.Attributes)
                 {
                     attribute.Value = player.GetType().GetProperty(attribute.Name).GetValue(player)?.ToString() ?? "N/A";
                 }
@@ -43,28 +48,25 @@ namespace Rofl.UI.Main.Pages
 
         private void AttributeFilterBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-            if (!(sender is TextBox textbox)) { return; }
+            if (sender is not TextBox textbox) { return; }
 
             if (string.IsNullOrEmpty(textbox.Text))
             {
-                context.AttributesView.Filter -= new FilterEventHandler(AttributeFilter);
+                Context.AttributesView.Filter -= new FilterEventHandler(AttributeFilter);
                 return;
             }
 
-            context.AttributesView.Filter -= new FilterEventHandler(AttributeFilter);
-            context.AttributesView.Filter += new FilterEventHandler(AttributeFilter);
+            Context.AttributesView.Filter -= new FilterEventHandler(AttributeFilter);
+            Context.AttributesView.Filter += new FilterEventHandler(AttributeFilter);
 
-            context.AttributesView.View.Refresh();
+            Context.AttributesView.View.Refresh();
         }
 
         private void AttributeFilter(object sender, FilterEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
+            string filterText = Context.AttributeFilterText;
 
-            string filterText = context.AttributeFilterText;
-
-            if (!(e.Item is ExportAttributeSelectItem src))
+            if (e.Item is not ExportAttributeSelectItem src)
             {
                 e.Accepted = false;
             }
@@ -76,23 +78,17 @@ namespace Rofl.UI.Main.Pages
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            context.ContentFrame.GoBack();
+            Context.ContentFrame.GoBack();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            _ = context.ContentFrame.Navigate(typeof(ExportWizardFinish));
+            _ = Context.ContentFrame.Navigate(typeof(ExportWizardFinish));
         }
 
         private void SelectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            foreach (ExportAttributeSelectItem attributeSelect in context.Attributes)
+            foreach (ExportAttributeSelectItem attributeSelect in Context.Attributes)
             {
                 attributeSelect.Checked = true;
             }
@@ -100,9 +96,7 @@ namespace Rofl.UI.Main.Pages
 
         private void DeselectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            foreach (ExportAttributeSelectItem attributeSelect in context.Attributes)
+            foreach (ExportAttributeSelectItem attributeSelect in Context.Attributes)
             {
                 attributeSelect.Checked = true;
             }

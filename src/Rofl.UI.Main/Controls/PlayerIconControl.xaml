@@ -16,16 +16,6 @@
         <Border Background="{Binding Image, IsAsync=True}"
                 CornerRadius="5"
                 ToolTip="{Binding Path=CombinedName}">
-            <!--<Border.Background>
-                <ImageBrush x:Name="PlayerImage"
-                            ImageSource="{Binding Path=Image, IsAsync=True}"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            Stretch="Fill">
-                    <ImageBrush.RelativeTransform>
-                        <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.2" ScaleY="1.2" />
-                    </ImageBrush.RelativeTransform>
-                </ImageBrush>
-            </Border.Background>-->
 
             <Border CornerRadius="3">
                 <Border.Style>

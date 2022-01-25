@@ -13,6 +13,13 @@ namespace Rofl.UI.Main.Views
     /// </summary>
     public partial class WelcomeSetupWindow : Window
     {
+        private WelcomeSetupDataContext Context
+        {
+            get => (DataContext is WelcomeSetupDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
+
         public WelcomeSetupWindow()
         {
             InitializeComponent();
@@ -20,55 +27,47 @@ namespace Rofl.UI.Main.Views
 
         private void WelcomeSetupWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+            Context.ContentFrame.ContentRendered += ContentFrame_ContentRendered;
 
-            context.ContentFrame.ContentRendered += ContentFrame_ContentRendered;
+            _ = Context.ContentFrame.Navigate(typeof(Pages.WelcomeSetupIntroduction));
 
-            _ = context.ContentFrame.Navigate(typeof(Pages.WelcomeSetupIntroduction));
-
-            context.PageTitle = (string)TryFindResource("WswIntroFrameTitle");
+            Context.PageTitle = (string)TryFindResource("WswIntroFrameTitle");
 
             InitializeNavigationDots();
         }
 
         private void ContentFrame_ContentRendered(object sender, EventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
-
             // Content doesn't seem to be immediately updated after calling a navigate function,
             // so we update the page title here
-            context.PageTitle = ((Pages.IWelcomePage)(sender as ModernWpf.Controls.Frame).Content).GetTitle();
+            Context.PageTitle = ((Pages.IWelcomePage)(sender as ModernWpf.Controls.Frame).Content).GetTitle();
         }
 
         private void WelcomeSetupWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            if (!(DataContext is MainWindowViewModel context)) { return; }
+            if (Application.Current.MainWindow is not MainWindow mainWindow) { return; }
+            if (mainWindow.DataContext is not MainWindowViewModel mainViewModel) { return; }
 
-            context.WriteSkipWelcome();
+            mainViewModel.WriteSkipWelcome();
         }
 
         private void PreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
-
-            Type currentPage = context.ContentFrame.Content.GetType();
-
             GoToPreviousPage();
         }
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
-            if (!(Application.Current.MainWindow is MainWindow mainWindow)) { return; }
-            if (!(mainWindow.DataContext is MainWindowViewModel mainViewModel)) { return; }
+            if (Application.Current.MainWindow is not MainWindow mainWindow) { return; }
+            if (mainWindow.DataContext is not MainWindowViewModel mainViewModel) { return; }
 
-            Type currentPage = context.ContentFrame.Content.GetType();
+            Type currentPage = Context.ContentFrame.Content.GetType();
 
             // we are on the last page
             if (currentPage == typeof(Pages.WelcomeSetupFinish))
             {
                 mainViewModel.WriteSkipWelcome();
-                mainViewModel.ApplyInitialSettings(context);
+                mainViewModel.ApplyInitialSettings(Context);
                 Close();
             }
 
@@ -77,27 +76,23 @@ namespace Rofl.UI.Main.Views
 
         private void SkipButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
-
             GoToNextPage();
         }
 
         private void InitializeNavigationDots()
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
-
             // dots are contained in a grid
             Grid markerPanel = NavigationDotsPanel;
 
             // add as many dots as there are pages
-            for (int i = 0; i < context.PageCount; i++)
+            for (int i = 0; i < Context.PageCount; i++)
             {
                 markerPanel.ColumnDefinitions.Add(new ColumnDefinition()
                 {
                     Width = new GridLength(20)
                 });
 
-                ModernWpf.Controls.PathIcon dotIcon = new ModernWpf.Controls.PathIcon()
+                var dotIcon = new ModernWpf.Controls.PathIcon()
                 {
                     Data = (Geometry)TryFindResource("CirclePathIcon"),
                     Width = 5,
@@ -114,59 +109,59 @@ namespace Rofl.UI.Main.Views
 
         private void GoToPreviousPage()
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
-
             // update progress dots, buttons based on page index
-            if (context.PageIndex > 0)
+            if (Context.PageIndex > 0)
             {
+                // In case the page needed to do anything
+                Pages.IWelcomePage currentPage = (Pages.IWelcomePage)Context.ContentFrame.Content;
+                _ = currentPage.GetPreviousPage();
+
                 // go up the stack (previous page)
-                context.ContentFrame.GoBack();
+                Context.ContentFrame.GoBack();
 
                 // Cannot update title here since content value is still outdated
                 // context.PageTitle = ((Pages.IWelcomePage)context.ContentFrame.Content).GetTitle();
 
-                ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[context.PageIndex]).Width = 5;
+                ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[Context.PageIndex]).Width = 5;
 
-                context.PageIndex -= 1;
+                Context.PageIndex -= 1;
 
-                ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[context.PageIndex]).Width = 8;
+                ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[Context.PageIndex]).Width = 8;
 
-                context.DisableBackButton = false;
+                Context.DisableBackButton = false;
             }
 
-            if (context.PageIndex == 0)
+            if (Context.PageIndex == 0)
             {
-                context.DisableBackButton = true;
+                Context.DisableBackButton = true;
             }
 
-            if (context.PageIndex < context.PageCount)
+            if (Context.PageIndex < Context.PageCount)
             {
-                context.DisableNextButton = false;
+                Context.DisableNextButton = false;
             }
         }
 
         private void GoToNextPage()
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
-
-            Pages.IWelcomePage currentPage = (Pages.IWelcomePage)context.ContentFrame.Content;
+            Pages.IWelcomePage currentPage = (Pages.IWelcomePage)Context.ContentFrame.Content;
 
             // update progress dots, buttons based on page index
-            if (context.PageIndex + 1 < context.PageCount)
+            if (Context.PageIndex + 1 < Context.PageCount)
             {
-                _ = context.ContentFrame.Navigate(currentPage.GetNextPage());
+                _ = Context.ContentFrame.Navigate(currentPage.GetNextPage());
 
-                ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[context.PageIndex]).Width = 5;
+                ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[Context.PageIndex]).Width = 5;
 
-                context.PageIndex++;
+                Context.PageIndex++;
 
-                ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[context.PageIndex]).Width = 8;
+                ((ModernWpf.Controls.PathIcon)NavigationDotsPanel.Children[Context.PageIndex]).Width = 8;
 
             }
 
-            if (context.PageIndex > 0)
+            if (Context.PageIndex > 0)
             {
-                context.DisableBackButton = false;
+                Context.DisableBackButton = false;
             }
         }
     }

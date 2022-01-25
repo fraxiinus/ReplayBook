@@ -59,7 +59,7 @@ namespace Rofl.UI.Main.Views
             if (DataContext is not SettingsWindowDataContext context) { return; }
 
             // Set color picker note
-            if (context.Configuration.AccentColor != null)
+            if (!string.IsNullOrEmpty(context.Configuration.AccentColor))
             {
                 AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as string;
             }
@@ -136,7 +136,7 @@ namespace Rofl.UI.Main.Views
                     break;
                 case "AboutSettingsListItem":
                     SettingsTabControl.SelectedIndex = 6;
-                    VersionTextBlock.Text = "Release " + ApplicationHelper.GetVersion();
+                    VersionTextBlock.Text = "Release " + ApplicationProperties.Version;
                     break;
                 default:
                     break;
@@ -661,7 +661,7 @@ namespace Rofl.UI.Main.Views
                 return;
             }
 
-            string assemblyVersion = ApplicationHelper.GetVersion();
+            string assemblyVersion = ApplicationProperties.Version;
 
             if (latestVersion.Equals(assemblyVersion, StringComparison.OrdinalIgnoreCase))
             {
@@ -843,7 +843,7 @@ namespace Rofl.UI.Main.Views
             var requests = new List<RequestBase>();
             if (downloadRunes)
             {
-                requests.AddRange(await context.RequestManager.GetAllRuneRequests(RuneHelper.GetAllRunes())
+                requests.AddRange(await context.RequestManager.GetAllRuneRequests(context.StaticDataProvider.GetAllRunes())
                     .ConfigureAwait(true));
             }
 
@@ -921,12 +921,14 @@ namespace Rofl.UI.Main.Views
             _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
-        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DataContext is not SettingsWindowDataContext context) { return; }
+            if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
 
             context.Configuration.Language = (Language)LanguageComboBox.SelectedIndex;
             LanguageHelper.SetProgramLanguage(context.Configuration.Language);
+            await viewModel.StaticDataProvider.Reload(context.Configuration.Language);
         }
     }
 }

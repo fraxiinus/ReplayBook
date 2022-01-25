@@ -15,32 +15,28 @@ namespace Rofl.UI.Main.Utilities
         /// <returns></returns>
         public static async Task<string> GetLatestVersion()
         {
-            using (HttpClient client = new HttpClient())
+            using var client = new HttpClient();
+            using var request = new HttpRequestMessage
             {
-                using (HttpRequestMessage request = new HttpRequestMessage
-                {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri(GithubUrl)
-                })
-                {
-                    request.Headers.UserAgent.ParseAdd(ApplicationHelper.GetUserAgent());
-                    request.Headers.Accept.ParseAdd(@"application/vnd.github.v3+json");
+                Method = HttpMethod.Get,
+                RequestUri = new Uri(GithubUrl)
+            };
+            request.Headers.UserAgent.ParseAdd(ApplicationProperties.UserAgent);
+            request.Headers.Accept.ParseAdd(@"application/vnd.github.v3+json");
 
-                    // Send request
-                    HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(true);
+            // Send request
+            HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(true);
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string json = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
 
-                        JObject responseObject = JObject.Parse(json);
-                        return responseObject.ContainsKey("tag_name") ? responseObject["tag_name"].ToString() : null;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
+                JObject responseObject = JObject.Parse(json);
+                return responseObject.ContainsKey("tag_name") ? responseObject["tag_name"].ToString() : null;
+            }
+            else
+            {
+                return null;
             }
         }
     }

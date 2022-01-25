@@ -76,7 +76,7 @@ namespace Rofl.UI.Main.Views
 
         private void SaveButton_Click(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (!(DataContext is ExecutableManager context)) { return; }
+            if (DataContext is not ExecutableManager context) { return; }
 
             // Reset error
             _blockClose = false;
@@ -147,57 +147,46 @@ namespace Rofl.UI.Main.Views
                 ? Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.System))
                 : Path.GetDirectoryName(initialDirectory);
 
-            using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
+            using var folderDialog = new CommonOpenFileDialog();
+            folderDialog.Title = TryFindResource("ExecutableSelectDialogText") as string;
+            folderDialog.IsFolderPicker = false;
+            folderDialog.AddToMostRecentlyUsedList = false;
+            folderDialog.AllowNonFileSystemItems = false;
+            folderDialog.EnsureFileExists = true;
+            folderDialog.EnsurePathExists = true;
+            folderDialog.EnsureReadOnly = false;
+            folderDialog.EnsureValidNames = true;
+            folderDialog.Multiselect = false;
+            folderDialog.ShowPlacesList = true;
+
+            folderDialog.InitialDirectory = initialDirectory;
+            folderDialog.DefaultDirectory = initialDirectory;
+
+            if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                folderDialog.Title = TryFindResource("ExecutableSelectDialogText") as string;
-                folderDialog.IsFolderPicker = false;
-                folderDialog.AddToMostRecentlyUsedList = false;
-                folderDialog.AllowNonFileSystemItems = false;
-                folderDialog.EnsureFileExists = true;
-                folderDialog.EnsurePathExists = true;
-                folderDialog.EnsureReadOnly = false;
-                folderDialog.EnsureValidNames = true;
-                folderDialog.Multiselect = false;
-                folderDialog.ShowPlacesList = true;
+                string selectedExe = folderDialog.FileName;
 
-                folderDialog.InitialDirectory = initialDirectory;
-                folderDialog.DefaultDirectory = initialDirectory;
-
-                if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+                if (ExeTools.CheckExecutableFile(selectedExe))
                 {
-                    string selectedExe = folderDialog.FileName;
+                    LeagueExecutable newExe = null;
 
-                    if (ExeTools.CheckExecutableFile(selectedExe))
+                    try
                     {
-                        LeagueExecutable newExe = null;
+                        newExe = ExeTools.CreateNewLeagueExecutable(selectedExe);
 
                         try
                         {
-                            newExe = ExeTools.CreateNewLeagueExecutable(selectedExe);
-
-                            try
-                            {
-                                newExe.Locale = ExeTools.DetectExecutableLocale(selectedExe);
-                            }
-                            catch (Exception)
-                            {
-                                newExe.Locale = LeagueLocale.EnglishUS;
-                                // do not stop operation
-                            }
-
-                            LoadLeagueExecutable(newExe);
+                            newExe.Locale = ExeTools.DetectExecutableLocale(selectedExe);
                         }
                         catch (Exception)
                         {
-                            _blockClose = true;
-
-                            // show fly out
-                            Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false);
-                            flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as string);
-                            flyout.ShowAt(TargetButton);
+                            newExe.Locale = LeagueLocale.EnglishUS;
+                            // do not stop operation
                         }
+
+                        LoadLeagueExecutable(newExe);
                     }
-                    else
+                    catch (Exception)
                     {
                         _blockClose = true;
 
@@ -206,6 +195,15 @@ namespace Rofl.UI.Main.Views
                         flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as string);
                         flyout.ShowAt(TargetButton);
                     }
+                }
+                else
+                {
+                    _blockClose = true;
+
+                    // show fly out
+                    Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false);
+                    flyout.SetFlyoutLabelText(TryFindResource("ExecutableSelectInvalidErrorText") as string);
+                    flyout.ShowAt(TargetButton);
                 }
             }
         }
@@ -224,7 +222,7 @@ namespace Rofl.UI.Main.Views
 
             Window parent = Window.GetWindow(this);
 
-            ExecutableLaunchArgsWindow editDialog = new ExecutableLaunchArgsWindow(_executable)
+            var editDialog = new ExecutableLaunchArgsWindow(_executable)
             {
                 Top = parent.Top + 50,
                 Left = parent.Left + 50,

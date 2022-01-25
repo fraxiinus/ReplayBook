@@ -95,6 +95,9 @@ namespace Rofl.UI.Main.Models
         }
 
         private string _presetName;
+        /// <summary>
+        /// The preset name of the current configuration
+        /// </summary>
         public string PresetName
         {
             get => _presetName;
@@ -108,6 +111,9 @@ namespace Rofl.UI.Main.Models
         }
 
         private bool _manualPlayerSelection;
+        /// <summary>
+        /// Players will be selected manually (save names in preset)
+        /// </summary>
         public bool ManualPlayerSelection
         {
             get => _manualPlayerSelection;
@@ -155,6 +161,9 @@ namespace Rofl.UI.Main.Models
         }
 
         private bool _includeAllPlayers;
+        /// <summary>
+        /// Always select all players
+        /// </summary>
         public bool IncludeAllPlayers
         {
             get => _includeAllPlayers;
@@ -192,6 +201,9 @@ namespace Rofl.UI.Main.Models
         }
 
         private bool _normalizeAttributeNames;
+        /// <summary>
+        /// Try to convert attribute names to camel case
+        /// </summary>
         public bool NormalizeAttributeNames
         {
             get => _normalizeAttributeNames;
@@ -204,6 +216,9 @@ namespace Rofl.UI.Main.Models
         }
 
         private bool _includeMatchID;
+        /// <summary>
+        /// Include match id as a root json element
+        /// </summary>
         public bool IncludeMatchID
         {
             get => _includeMatchID;
@@ -216,6 +231,9 @@ namespace Rofl.UI.Main.Models
         }
 
         private bool _includeMatchDuration;
+        /// <summary>
+        /// Include match duration (in ms) as root json element
+        /// </summary>
         public bool IncludeMatchDuration
         {
             get => _includeMatchDuration;
@@ -228,6 +246,9 @@ namespace Rofl.UI.Main.Models
         }
 
         private bool _includePatchVersion;
+        /// <summary>
+        /// Include patch version as root json element
+        /// </summary>
         public bool IncludePatchVersion
         {
             get => _includePatchVersion;
@@ -328,6 +349,10 @@ namespace Rofl.UI.Main.Models
 
         #region Methods
 
+        /// <summary>
+        /// Create preset object based on current configuration
+        /// </summary>
+        /// <returns></returns>
         public ExportPreset CreatePreset()
         {
             return new ExportPreset
@@ -353,6 +378,10 @@ namespace Rofl.UI.Main.Models
             };
         }
 
+        /// <summary>
+        /// Load configuration saved in a preset
+        /// </summary>
+        /// <param name="preset"></param>
         public void LoadPreset(ExportPreset preset)
         {
             PresetName = preset.PresetName;

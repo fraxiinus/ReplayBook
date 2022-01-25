@@ -2,7 +2,6 @@
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-         xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          xmlns:models="clr-namespace:Rofl.UI.Main.Models"
          xmlns:ui="http://schemas.modernwpf.com/2019"
@@ -32,13 +31,13 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0"
-                           Margin="0 0 0 5"
+                           Margin="0,0,0,5"
                            FontSize="24"
                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            Text="{DynamicResource WswReplaysTitle}" />
 
                 <TextBlock Grid.Row="1"
-                           Margin="0 0 0 20"
+                           Margin="0,0,0,20"
                            FontSize="16"
                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            Text="{DynamicResource WswReplaysBody}"
@@ -52,7 +51,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <TextBox Margin="0 0 10 0"
+                    <TextBox Margin="0,0,10,0"
                              VerticalContentAlignment="Center"
                              IsReadOnly="True"
                              Text="{Binding ReplayPath}" />
@@ -66,7 +65,7 @@
                 </Grid>
 
                 <TextBlock Grid.Row="3"
-                           Margin="0 5 0 0"
+                           Margin="0,5,0,0"
                            FontStyle="Italic"
                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            Text="{DynamicResource WswReplaysHint}" />

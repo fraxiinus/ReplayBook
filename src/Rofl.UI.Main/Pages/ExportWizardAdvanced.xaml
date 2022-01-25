@@ -4,7 +4,6 @@
          xmlns:c="clr-namespace:Rofl.UI.Main.Converters"
          xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-         xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          xmlns:models="clr-namespace:Rofl.UI.Main.Models"
          xmlns:ui="http://schemas.modernwpf.com/2019"
@@ -46,7 +45,7 @@
                 <ColumnDefinition x:Name="PreviewColumn" Width="0" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" Margin="12 0 12 0">
+            <Grid Grid.Column="0" Margin="12,0,12,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -57,7 +56,7 @@
                                      Orientation="Vertical"
                                      Spacing="6">
 
-                    <Button Margin="0 0 0 6"
+                    <Button Margin="0,0,0,6"
                             HorizontalAlignment="Stretch"
                             HorizontalContentAlignment="Stretch"
                             Click="PresetLoadButton_Click">
@@ -71,7 +70,7 @@
                                          Height="16"
                                          Data="{StaticResource ExplorerFolderPathIcon}" />
                             <TextBlock Grid.Column="1"
-                                       Margin="12 0 0 0"
+                                       Margin="12,0,0,0"
                                        VerticalAlignment="Center"
                                        Text="{DynamicResource ErdPresetLoad}" />
                         </Grid>
@@ -90,7 +89,7 @@
                                          Height="16"
                                          Data="{StaticResource SaveIcon}" />
                             <TextBlock Grid.Column="1"
-                                       Margin="12 0 0 0"
+                                       Margin="12,0,0,0"
                                        VerticalAlignment="Center"
                                        Text="{DynamicResource ErdPresetSave}" />
                         </Grid>
@@ -122,14 +121,14 @@
                               IsEnabled="{Binding ExportAsCSV, Converter={c:BoolInvertConverter}}" />
                 </ui:SimpleStackPanel>
 
-                <Grid Grid.Row="2" Margin="0 12 0 12">
+                <Grid Grid.Row="2" Margin="0,12,0,12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Button x:Name="ExportButton"
                             Grid.Column="0"
-                            Margin="0 0 2 0"
+                            Margin="0,0,2,0"
                             HorizontalAlignment="Stretch"
                             Click="SaveButton_Click"
                             Content="{DynamicResource ErdExportButtonText}"
@@ -137,7 +136,7 @@
                             Style="{StaticResource AccentButtonStyle}" />
                     <Button x:Name="CloseButton"
                             Grid.Column="1"
-                            Margin="2 0 0 0"
+                            Margin="2,0,0,0"
                             HorizontalAlignment="Stretch"
                             Content="{DynamicResource CloseText}"
                             IsCancel="True" />
@@ -145,7 +144,7 @@
             </Grid>
 
             <Border Grid.Column="1" Background="{DynamicResource TabBackgroundHack}">
-                <Grid Margin="12 12 12 12">
+                <Grid Margin="12,12,12,12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -173,7 +172,7 @@
 
                     <ListBox x:Name="PlayerListBox"
                              Grid.Row="1"
-                             Margin="0 12 0 0"
+                             Margin="0,12,0,0"
                              ItemsSource="{Binding Players}"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListBox.Style>
@@ -207,7 +206,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="models:ExportPlayerSelectItem">
                                 <ListBoxItem Margin="0"
-                                             Padding="5 4 0 0"
+                                             Padding="5,4,0,0"
                                              HorizontalContentAlignment="Stretch"
                                              IsSelected="{Binding Checked}"
                                              ToolTip="{Binding Path=PlayerPreview.CombinedName}">
@@ -218,7 +217,7 @@
                                         <ui:SimpleStackPanel Orientation="Horizontal">
                                             <controls:PlayerIconControl Width="30"
                                                                         Height="30"
-                                                                        Margin="0 -4 6 0"
+                                                                        Margin="0,-4,6,0"
                                                                         DataContext="{Binding PlayerPreview}" />
                                             <TextBlock x:Name="PlayerNameTextBlock"
                                                        VerticalAlignment="Top"
@@ -237,7 +236,7 @@
             <Border Grid.Column="2"
                     Background="{DynamicResource TabBackgroundHack}"
                     BorderBrush="{DynamicResource BaseBackground}"
-                    BorderThickness="1 0 0 0">
+                    BorderThickness="1,0,0,0">
                 <Grid Margin="12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -249,7 +248,7 @@
                                          Spacing="12">
                         <TextBlock FontSize="16" Text="{DynamicResource ErdAttributesSubtitle}" />
                         <TextBox x:Name="AttributeFilterBox"
-                                 Margin="0 0 0 6"
+                                 Margin="0,0,0,6"
                                  ui:ControlHelper.PlaceholderText="{DynamicResource ErdAttributesFilter}"
                                  Text="{Binding AttributeFilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  TextChanged="AttributeFilterBox_TextChanged" />
@@ -275,7 +274,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="models:ExportAttributeSelectItem">
                                 <ListBoxItem Margin="0"
-                                             Padding="5 0 0 0"
+                                             Padding="5,0,0,0"
                                              HorizontalContentAlignment="Stretch"
                                              IsSelected="{Binding Checked}"
                                              ToolTip="{Binding Name}">
@@ -295,8 +294,8 @@
                                             <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
                                         </CheckBox>
                                         <TextBlock Grid.Column="1"
-                                                   Margin="12 0 12 0"
-                                                   Padding="5 3 5 3"
+                                                   Margin="12,0,12,0"
+                                                   Padding="5,3,5,3"
                                                    VerticalAlignment="Center"
                                                    Background="{StaticResource AccentColorLight2}"
                                                    FontSize="12"
@@ -314,14 +313,14 @@
             <Border Grid.Column="3"
                     Background="{DynamicResource TabBackgroundHack}"
                     BorderBrush="{DynamicResource BaseBackground}"
-                    BorderThickness="1 0 0 0">
+                    BorderThickness="1,0,0,0">
                 <Grid Margin="12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0"
-                               Margin="0 0 0 12"
+                               Margin="0,0,0,12"
                                FontSize="16"
                                Text="{DynamicResource ErdPreviewTitle}" />
                     <TextBox Grid.Row="1"

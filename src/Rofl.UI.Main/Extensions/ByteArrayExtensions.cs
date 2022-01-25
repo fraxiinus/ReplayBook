@@ -9,9 +9,9 @@ namespace Rofl.UI.Main.Extensions
         {
             if (bytes == null || bytes.Length == 0) { return null; }
 
-            BitmapImage image = new BitmapImage();
+            var image = new BitmapImage();
 
-            using (MemoryStream mem = new MemoryStream(bytes))
+            using (var mem = new MemoryStream(bytes))
             {
                 mem.Position = 0;
                 image.BeginInit();

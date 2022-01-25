@@ -1,6 +1,4 @@
 ﻿using Rofl.UI.Main.Models;
-using Rofl.UI.Main.ViewModels;
-using Rofl.UI.Main.Views;
 using System;
 using System.Windows;
 
@@ -11,6 +9,13 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class WelcomeSetupFinish : ModernWpf.Controls.Page, IWelcomePage
     {
+        private WelcomeSetupDataContext Context
+        {
+            get => (DataContext is WelcomeSetupDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
+
         public WelcomeSetupFinish()
         {
             InitializeComponent();
@@ -30,16 +35,16 @@ namespace Rofl.UI.Main.Pages
 
         public Type GetPreviousPage()
         {
-            return typeof(WelcomeSetupDownload);
+            Context.SwapFinishButton = false;
+            Context.DisableSkipButton = false;
+            return typeof(WelcomeSetupReplays);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
-
-            context.DisableNextButton = false;
-            context.DisableSkipButton = true;
-            context.SwapFinishButton = true;
+            Context.DisableNextButton = false;
+            Context.DisableSkipButton = true;
+            Context.SwapFinishButton = true;
         }
     }
 }

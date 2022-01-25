@@ -17,6 +17,13 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
     {
+        private ExportDataContext Context
+        {
+            get => (DataContext is ExportDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
+
         public ExportWizardAdvanced()
         {
             InitializeComponent();
@@ -24,9 +31,7 @@ namespace Rofl.UI.Main.Pages
 
         private void ExportWizardAdvanced_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            context.WindowTitleText = TryFindResource("ErdTitleAdvanced") as string;
+            Context.WindowTitleText = TryFindResource("ErdTitleAdvanced") as string;
 
             // for some reason the first item in the attribute list box
             // gets selected on load. Unselect it 
@@ -40,63 +45,55 @@ namespace Rofl.UI.Main.Pages
         /// <param name="e"></param>
         private void PreviewBox_Update(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            context.ExportPreview = ExportHelper.ConstructExportString(context);
+            Context.ExportPreview = ExportHelper.ConstructExportString(Context);
         }
 
         private void AttributeFilterBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-            if (!(sender is TextBox textbox)) { return; }
+            if (sender is not TextBox textbox) { return; }
 
             if (string.IsNullOrEmpty(textbox.Text))
             {
-                context.AttributesView.Filter -= new FilterEventHandler(AttributeFilter);
+                Context.AttributesView.Filter -= new FilterEventHandler(AttributeFilter);
                 return;
             }
 
-            context.AttributesView.Filter -= new FilterEventHandler(AttributeFilter);
-            context.AttributesView.Filter += new FilterEventHandler(AttributeFilter);
+            Context.AttributesView.Filter -= new FilterEventHandler(AttributeFilter);
+            Context.AttributesView.Filter += new FilterEventHandler(AttributeFilter);
 
-            context.AttributesView.View.Refresh();
+            Context.AttributesView.View.Refresh();
         }
 
         private void PlayerCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-            if (!(sender is CheckBox checkbox)) { return; }
+            if (sender is not CheckBox checkbox) { return; }
 
             // get name of the player we just selected
             string playerName = (((SimpleStackPanel)checkbox.Content).Children[1] as TextBlock).Text;
 
             // get the player object
-            Player player = context.Replay.Players.First(x => x.NAME.Equals(playerName, StringComparison.OrdinalIgnoreCase));
+            Player player = Context.Replay.Players.First(x => x.NAME.Equals(playerName, StringComparison.OrdinalIgnoreCase));
 
             // loop over all attributes and set preview value
-            foreach (ExportAttributeSelectItem attribute in context.Attributes)
+            foreach (ExportAttributeSelectItem attribute in Context.Attributes)
             {
                 attribute.Value = player.GetType().GetProperty(attribute.Name).GetValue(player)?.ToString() ?? "N/A";
             }
 
             // regeneratee export preview
-            context.ExportPreview = ExportHelper.ConstructExportString(context);
+            Context.ExportPreview = ExportHelper.ConstructExportString(Context);
         }
 
         private void AttributeCheckBox_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            context.ExportPreview = ExportHelper.ConstructExportString(context);
+            Context.ExportPreview = ExportHelper.ConstructExportString(Context);
         }
 
         private void AttributeFilter(object sender, FilterEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
+            string filterText = Context.AttributeFilterText;
 
-            string filterText = context.AttributeFilterText;
-
-            if (!(e.Item is ExportAttributeSelectItem src))
+            if (e.Item is not ExportAttributeSelectItem src)
             {
                 e.Accepted = false;
             }
@@ -108,54 +105,46 @@ namespace Rofl.UI.Main.Pages
 
         private void SelectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            foreach (ExportPlayerSelectItem playerSelect in context.Players)
+            foreach (ExportPlayerSelectItem playerSelect in Context.Players)
             {
                 playerSelect.Checked = true;
             }
 
             // update preview
-            context.ExportPreview = ExportHelper.ConstructExportString(context);
+            Context.ExportPreview = ExportHelper.ConstructExportString(Context);
         }
 
         private void DeselectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            foreach (ExportPlayerSelectItem playerSelect in context.Players)
+            foreach (ExportPlayerSelectItem playerSelect in Context.Players)
             {
                 playerSelect.Checked = false;
             }
 
             // update preview
-            context.ExportPreview = ExportHelper.ConstructExportString(context);
+            Context.ExportPreview = ExportHelper.ConstructExportString(Context);
         }
 
         private void SelectAllAttributeMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            foreach (ExportAttributeSelectItem attributeSelect in context.Attributes)
+            foreach (ExportAttributeSelectItem attributeSelect in Context.Attributes)
             {
                 attributeSelect.Checked = true;
             }
 
             // update preview
-            context.ExportPreview = ExportHelper.ConstructExportString(context);
+            Context.ExportPreview = ExportHelper.ConstructExportString(Context);
         }
 
         private void DeselectAllAttributeMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            foreach (ExportAttributeSelectItem attributeSelect in context.Attributes)
+            foreach (ExportAttributeSelectItem attributeSelect in Context.Attributes)
             {
                 attributeSelect.Checked = false;
             }
 
             // update preview
-            context.ExportPreview = ExportHelper.ConstructExportString(context);
+            Context.ExportPreview = ExportHelper.ConstructExportString(Context);
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -173,12 +162,10 @@ namespace Rofl.UI.Main.Pages
 
         private async void PresetLoadButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
             // create an initial preset, it is probably empty
-            ExportPreset preview = context.CreatePreset();
+            ExportPreset preview = Context.CreatePreset();
 
-            ExportPresetLoadDialog dialog = new ExportPresetLoadDialog
+            var dialog = new ExportPresetLoadDialog
             {
                 DataContext = preview
             };
@@ -191,8 +178,8 @@ namespace Rofl.UI.Main.Pages
             }
             catch (Exception ex)
             {
-                context.Log.Error(TryFindResource("ErdFailedToSave") as string);
-                context.Log.Error(ex.ToString());
+                Context.Log.Error(TryFindResource("ErdFailedToSave") as string);
+                Context.Log.Error(ex.ToString());
 
                 ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
                 errDialog.DefaultButton = ContentDialogButton.Primary;
@@ -209,21 +196,19 @@ namespace Rofl.UI.Main.Pages
             if (result == ContentDialogResult.Primary)
             {
                 // Load preset
-                context.LoadPreset(dialog.DataContext as ExportPreset);
+                Context.LoadPreset(dialog.DataContext as ExportPreset);
 
                 // update preview
-                context.ExportPreview = ExportHelper.ConstructExportString(context);
+                Context.ExportPreview = ExportHelper.ConstructExportString(Context);
             }
         }
 
         private async void PresetSaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
             // create preset preview object
-            ExportPreset preview = context.CreatePreset();
+            ExportPreset preview = Context.CreatePreset();
 
-            ExportPresetSaveDialog dialog = new ExportPresetSaveDialog
+            var dialog = new ExportPresetSaveDialog
             {
                 DataContext = preview
             };
@@ -272,8 +257,8 @@ namespace Rofl.UI.Main.Pages
                 }
                 catch (Exception ex)
                 {
-                    context.Log.Error(TryFindResource("ErdFailedToSave") as string);
-                    context.Log.Error(ex.ToString());
+                    Context.Log.Error(TryFindResource("ErdFailedToSave") as string);
+                    Context.Log.Error(ex.ToString());
 
                     ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
                     errDialog.DefaultButton = ContentDialogButton.Primary;
@@ -290,17 +275,15 @@ namespace Rofl.UI.Main.Pages
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
             bool exit = false;
             try
             {
-                exit = ExportHelper.ExportToFile(context, Window.GetWindow(this));
+                exit = ExportHelper.ExportToFile(Context, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                context.Log.Error(TryFindResource("ErdFailedToSave") as string);
-                context.Log.Error(ex.ToString());
+                Context.Log.Error(TryFindResource("ErdFailedToSave") as string);
+                Context.Log.Error(ex.ToString());
 
                 ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
                 dialog.DefaultButton = ContentDialogButton.Primary;

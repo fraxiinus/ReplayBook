@@ -67,7 +67,7 @@ namespace Rofl.UI.Main.Views
             {
                 // Let the view model know about the replay
                 ReplayPreview previewReplay = context.AddReplay(replay);
-                var replayDetail = new ReplayDetail(replay, previewReplay);
+                var replayDetail = new ReplayDetail(context.StaticDataProvider, replay, previewReplay);
                 DetailView.DataContext = replayDetail;
                 (DetailView.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
                 (DetailView.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;

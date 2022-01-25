@@ -17,14 +17,14 @@ namespace Rofl.UI.Main.Views
 
         private void ContentDialog_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (!(DataContext is StatusBar context)) { return; }
+            if (DataContext is not StatusBar context) { return; }
 
-            FlowDocument errorDetails = new FlowDocument();
+            var errorDetails = new FlowDocument();
             foreach (FileErrorResult error in context.Errors)
             {
-                Bold filePath = new Bold(new Run(error.FilePath + "\n"));
+                var filePath = new Bold(new Run(error.FilePath + "\n"));
 
-                Paragraph errorParagraph = new Paragraph();
+                var errorParagraph = new Paragraph();
                 errorParagraph.Inlines.Add(filePath);
                 errorParagraph.Inlines.Add(new Run(error.Exception.Message));
                 errorDetails.Blocks.Add(errorParagraph);

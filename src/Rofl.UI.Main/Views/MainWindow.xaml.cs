@@ -61,8 +61,12 @@ namespace Rofl.UI.Main
         }
 
         // Window is loaded and ready to be shown on screen
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+            if (DataContext is not MainWindowViewModel context) { return; }
+
+            await context.StaticDataProvider.LoadStaticData();
+
             Dictionary<string, object> values = _config.Stash;
 
             if (values.TryGetDouble("WindowHeight", out double savedHeight) &&
@@ -153,7 +157,7 @@ namespace Rofl.UI.Main
 
             FileResult replayFile = context.FileResults[previewModel.Location];
 
-            var replayDetail = new ReplayDetail(replayFile, previewModel);
+            var replayDetail = new ReplayDetail(context.StaticDataProvider, replayFile, previewModel);
 
             ReplayDetailControl detailControl = FindName("DetailView") as ReplayDetailControl;
             detailControl.DataContext = replayDetail;
@@ -259,7 +263,7 @@ namespace Rofl.UI.Main
             context.LoadPreviewPlayerThumbnails();
         }
 
-        private void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        private async void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (DataContext is not MainWindowViewModel context) { return; }
             if (e.Key != System.Windows.Input.Key.Enter) { return; }
@@ -267,9 +271,7 @@ namespace Rofl.UI.Main
 
             context.SortParameters.SearchTerm = searchBox.Text;
 
-            context.ClearReplays();
-            _ = context.LoadReplaysFromDatabase();
-            context.LoadPreviewPlayerThumbnails();
+            await context.ReloadReplayList(false);
         }
 
         private async void SearchBox_QuerySubmitted(AutoSuggestBox auto, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -282,9 +284,7 @@ namespace Rofl.UI.Main
 
             context.SortParameters.SearchTerm = args.QueryText;
 
-            context.ClearReplays();
-            _ = context.LoadReplaysFromDatabase();
-            context.LoadPreviewPlayerThumbnails();
+            await context.ReloadReplayList(false);
         }
 
         private async void MainWindow_OnClosing(object sender, CancelEventArgs e)

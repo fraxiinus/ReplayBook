@@ -16,6 +16,13 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class WelcomeSetupExecutables : ModernWpf.Controls.Page, IWelcomePage
     {
+        private WelcomeSetupDataContext Context
+        {
+            get => (DataContext is WelcomeSetupDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
+
         public WelcomeSetupExecutables()
         {
             InitializeComponent();
@@ -38,24 +45,21 @@ namespace Rofl.UI.Main.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not WelcomeSetupDataContext context) { return; }
-
             // check if anything is already loaded
-            if (context.Executables?.Count > 0)
+            if (Context.Executables?.Count > 0)
             {
-                ExecutablesPreviewListBox.ItemsSource = context.Executables;
+                ExecutablesPreviewListBox.ItemsSource = Context.Executables;
                 ExecutablesEmptyTextBlock.Visibility = Visibility.Collapsed;
-                context.DisableNextButton = false;
+                Context.DisableNextButton = false;
             }
             else
             {
-                context.DisableNextButton = true;
+                Context.DisableNextButton = true;
             }
         }
 
         private async void BrowseExecutablesButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (DataContext is not WelcomeSetupDataContext context) { return; }
             if (Application.Current.MainWindow is not MainWindow mainWindow) { return; }
             if (mainWindow.DataContext is not MainWindowViewModel mainViewModel) { return; }
 
@@ -85,7 +89,7 @@ namespace Rofl.UI.Main.Pages
             // Show updating text
             ExecutablesEmptyTextBlock.Text = (string)TryFindResource("LoadingMessageExecutables");
             SourceFolderSearchProgress.IsActive = true;
-            context.RiotGamesPath = selectedFolder;
+            Context.RiotGamesPath = selectedFolder;
 
             // Search for executables
             IList<LeagueExecutable> results = await Task.Run(() => mainViewModel.ExecutableManager.SearchFolderForExecutables(selectedFolder));
@@ -100,14 +104,14 @@ namespace Rofl.UI.Main.Pages
                 ExecutablesPreviewListBox.ItemsSource = results;
                 ExecutablesEmptyTextBlock.Visibility = Visibility.Collapsed;
 
-                context.Executables = results as List<LeagueExecutable>;
+                Context.Executables = results as List<LeagueExecutable>;
 
-                context.DisableNextButton = false;
+                Context.DisableNextButton = false;
             }
             else
             {
                 ExecutablesEmptyTextBlock.Visibility = Visibility.Visible;
-                context.DisableNextButton = true;
+                Context.DisableNextButton = true;
             }
         }
     }

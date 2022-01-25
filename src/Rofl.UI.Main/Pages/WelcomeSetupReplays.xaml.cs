@@ -1,10 +1,7 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using Rofl.UI.Main.Models;
-using Rofl.UI.Main.ViewModels;
-using Rofl.UI.Main.Views;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Rofl.UI.Main.Pages
 {
@@ -13,6 +10,13 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class WelcomeSetupReplays : ModernWpf.Controls.Page, IWelcomePage
     {
+        private WelcomeSetupDataContext Context
+        {
+            get => (DataContext is WelcomeSetupDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
+
         public WelcomeSetupReplays()
         {
             InitializeComponent();
@@ -20,9 +24,7 @@ namespace Rofl.UI.Main.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
-
-            context.DisableNextButton = string.IsNullOrEmpty(context.ReplayPath);
+            Context.DisableNextButton = string.IsNullOrEmpty(Context.ReplayPath);
         }
 
         public string GetTitle()
@@ -32,7 +34,7 @@ namespace Rofl.UI.Main.Pages
 
         public Type GetNextPage()
         {
-            return typeof(WelcomeSetupDownload);
+            return typeof(WelcomeSetupFinish);
         }
 
         public Type GetPreviousPage()
@@ -42,30 +44,26 @@ namespace Rofl.UI.Main.Pages
 
         private void BrowseReplayFolderButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is WelcomeSetupDataContext context)) { return; }
+            using var folderDialog = new CommonOpenFileDialog();
+            folderDialog.Title = TryFindResource("SourceFoldersWindowText") as string;
+            folderDialog.IsFolderPicker = true;
+            folderDialog.AddToMostRecentlyUsedList = false;
+            folderDialog.AllowNonFileSystemItems = false;
+            folderDialog.EnsureFileExists = true;
+            folderDialog.EnsurePathExists = true;
+            folderDialog.EnsureReadOnly = false;
+            folderDialog.EnsureValidNames = true;
+            folderDialog.Multiselect = false;
+            folderDialog.ShowPlacesList = true;
 
-            using (CommonOpenFileDialog folderDialog = new CommonOpenFileDialog())
-            {
-                folderDialog.Title = TryFindResource("SourceFoldersWindowText") as string;
-                folderDialog.IsFolderPicker = true;
-                folderDialog.AddToMostRecentlyUsedList = false;
-                folderDialog.AllowNonFileSystemItems = false;
-                folderDialog.EnsureFileExists = true;
-                folderDialog.EnsurePathExists = true;
-                folderDialog.EnsureReadOnly = false;
-                folderDialog.EnsureValidNames = true;
-                folderDialog.Multiselect = false;
-                folderDialog.ShowPlacesList = true;
+            folderDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            folderDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-                folderDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                folderDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            // Only continue if user presses "OK"
+            if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) { return; }
 
-                // Only continue if user presses "OK"
-                if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) { return; }
-
-                context.ReplayPath = folderDialog.FileName;
-                context.DisableNextButton = false;
-            }
+            Context.ReplayPath = folderDialog.FileName;
+            Context.DisableNextButton = false;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Rofl.Reader.Models;
 using Rofl.UI.Main.Extensions;
+using Rofl.UI.Main.Utilities;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,7 @@ namespace Rofl.UI.Main.Models
 {
     public class PlayerDetail
     {
-        public PlayerDetail(Player player, PlayerPreview previewModel, bool isBlueTeamMember)
+        public PlayerDetail(StaticDataProvider staticDataProvider, Player player, PlayerPreview previewModel, bool isBlueTeamMember)
         {
             if (player == null) { throw new ArgumentNullException(nameof(player)); }
 
@@ -98,10 +99,7 @@ namespace Rofl.UI.Main.Models
             Ping = player.PING.ToInt();
 
             // Only capitalize first letter of position name JUNGLE -> Jungle
-#pragma warning disable CA1308 // Normalize strings to uppercase
-            IndividualPosition = player.INDIVIDUAL_POSITION == null ? "N/A" : player.INDIVIDUAL_POSITION[0] + player.INDIVIDUAL_POSITION.Substring(1).ToLowerInvariant();
-#pragma warning restore CA1308 // Normalize strings to uppercase
-
+            IndividualPosition = player.INDIVIDUAL_POSITION == null ? "N/A" : player.INDIVIDUAL_POSITION[0] + player.INDIVIDUAL_POSITION[1..].ToLowerInvariant();
             TeamEarlySurrendered = Convert.ToBoolean(player.TEAM_EARLY_SURRENDERED.ToInt());
             TimeOfLastDisconnect = player.TIME_OF_FROM_LAST_DISCONNECT.ToInt();
             WasAFK = Convert.ToBoolean(player.WAS_AFK.ToInt());
@@ -121,20 +119,20 @@ namespace Rofl.UI.Main.Models
             };
 
             // Runes
-            KeystoneRune = new RuneStat(player.PERK0, player.PERK0_VAR1, player.PERK0_VAR2, player.PERK0_VAR3);
+            KeystoneRune = new RuneStat(staticDataProvider, player.PERK0, player.PERK0_VAR1, player.PERK0_VAR2, player.PERK0_VAR3);
             Runes = new List<RuneStat>
             {
-                new RuneStat(player.PERK1, player.PERK1_VAR1, player.PERK1_VAR2, player.PERK1_VAR3),
-                new RuneStat(player.PERK2, player.PERK2_VAR1, player.PERK2_VAR2, player.PERK2_VAR3),
-                new RuneStat(player.PERK3, player.PERK3_VAR1, player.PERK3_VAR2, player.PERK3_VAR3),
-                new RuneStat(player.PERK4, player.PERK4_VAR1, player.PERK4_VAR2, player.PERK4_VAR3),
-                new RuneStat(player.PERK5, player.PERK5_VAR1, player.PERK5_VAR2, player.PERK5_VAR3)
+                new RuneStat(staticDataProvider, player.PERK1, player.PERK1_VAR1, player.PERK1_VAR2, player.PERK1_VAR3),
+                new RuneStat(staticDataProvider, player.PERK2, player.PERK2_VAR1, player.PERK2_VAR2, player.PERK2_VAR3),
+                new RuneStat(staticDataProvider, player.PERK3, player.PERK3_VAR1, player.PERK3_VAR2, player.PERK3_VAR3),
+                new RuneStat(staticDataProvider, player.PERK4, player.PERK4_VAR1, player.PERK4_VAR2, player.PERK4_VAR3),
+                new RuneStat(staticDataProvider, player.PERK5, player.PERK5_VAR1, player.PERK5_VAR2, player.PERK5_VAR3)
             };
             StatsRunes = new List<RuneStat>
             {
-                new RuneStat(player.STAT_PERK_0, "", "", ""),
-                new RuneStat(player.STAT_PERK_1, "", "", ""),
-                new RuneStat(player.STAT_PERK_2, "", "", "")
+                new RuneStat(staticDataProvider, player.STAT_PERK_0, "", "", ""),
+                new RuneStat(staticDataProvider, player.STAT_PERK_1, "", "", ""),
+                new RuneStat(staticDataProvider, player.STAT_PERK_2, "", "", "")
             };
         }
 

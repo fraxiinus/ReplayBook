@@ -49,18 +49,6 @@ namespace Rofl.UI.Main.Models
             }
         }
 
-        //private ImageSource _imgSrc;
-        //public ImageSource ImageSource
-        //{
-        //    get => _imgSrc;
-        //    set
-        //    {
-        //        _imgSrc = value;
-        //        PropertyChanged?.Invoke(
-        //            this, new PropertyChangedEventArgs(nameof(ImageSource)));
-        //    }
-        //}
-
         private Geometry _overlayIcon;
         public Geometry OverlayIcon
         {

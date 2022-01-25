@@ -5,7 +5,6 @@ using Rofl.Configuration.Models;
 using Rofl.Executables.Old;
 using Rofl.Files;
 using Rofl.Requests;
-using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
 using Rofl.UI.Main.Views;
 using System;
@@ -95,7 +94,7 @@ namespace Rofl.UI.Main
             {
                 _executables = new ExecutableManager(_log);
                 _files = new FileManager(_configuration, _log);
-                _requests = new RequestManager(_configuration, ApplicationHelper.GetUserAgent(), _log);
+                _requests = new RequestManager(_configuration, ApplicationProperties.UserAgent, _log);
                 _player = new ReplayPlayer(_files, _configuration, _executables, _log);
             }
             catch (Exception ex)

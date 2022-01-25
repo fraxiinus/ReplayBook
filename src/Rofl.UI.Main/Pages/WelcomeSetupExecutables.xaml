@@ -3,7 +3,6 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
          xmlns:exemodels="clr-namespace:Rofl.Executables.Old.Models;assembly=Rofl.Executables.Old"
-         xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          xmlns:models="clr-namespace:Rofl.UI.Main.Models"
          xmlns:ui="http://schemas.modernwpf.com/2019"
@@ -33,13 +32,13 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0"
-                           Margin="0 0 0 5"
+                           Margin="0,0,0,5"
                            FontSize="24"
                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            Text="{DynamicResource WswExecutablesTitle}" />
 
                 <TextBlock Grid.Row="1"
-                           Margin="0 0 0 20"
+                           Margin="0,0,0,20"
                            FontSize="16"
                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            Text="{DynamicResource WswExecutablesBody}"
@@ -63,20 +62,20 @@
 
                     <TextBlock Grid.Row="0"
                                Grid.Column="1"
-                               Margin="10 0 0 0"
+                               Margin="10,0,0,0"
                                VerticalAlignment="Center"
                                FontStyle="Italic"
                                Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                                Text="{Binding RiotGamesPath}" />
                 </Grid>
 
-                <Grid Grid.Row="3" Margin="20 20 20 0">
+                <Grid Grid.Row="3" Margin="20,20,20,0">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0"
-                               Margin="0 0 0 5"
+                               Margin="0,0,0,5"
                                Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                                Text="{DynamicResource WswExecutablesRegisterList}" />
                     <ListBox Name="ExecutablesPreviewListBox"
@@ -109,7 +108,7 @@
                     </ListBox>
 
                     <ui:SimpleStackPanel Grid.Row="1"
-                                         Margin="0 12 0 0"
+                                         Margin="0,12,0,0"
                                          Orientation="Vertical">
                         <ui:ProgressRing x:Name="SourceFolderSearchProgress" IsActive="False" />
 

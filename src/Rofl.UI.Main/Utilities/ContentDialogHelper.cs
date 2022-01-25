@@ -17,18 +17,18 @@ namespace Rofl.UI.Main.Utilities
         public static ContentDialog CreateContentDialog(bool includeSecondaryButton = false)
         {
             #region Grid Definitions
-            Grid contentPanel = new Grid();
+            var contentPanel = new Grid();
 
-            ColumnDefinition columnOne = new ColumnDefinition
+            var columnOne = new ColumnDefinition
             {
                 Width = new GridLength(1, GridUnitType.Star)
             };
 
-            RowDefinition rowOne = new RowDefinition
+            var rowOne = new RowDefinition
             {
                 Height = new GridLength(1, GridUnitType.Auto)
             };
-            RowDefinition rowTwo = new RowDefinition
+            var rowTwo = new RowDefinition
             {
                 Height = new GridLength(1, GridUnitType.Star)
             };
@@ -38,7 +38,7 @@ namespace Rofl.UI.Main.Utilities
             contentPanel.RowDefinitions.Add(rowTwo);
             #endregion
 
-            TextBlock label = new TextBlock
+            var label = new TextBlock
             {
                 Name = "LabelTextBlock",
                 VerticalAlignment = VerticalAlignment.Center,
@@ -49,7 +49,7 @@ namespace Rofl.UI.Main.Utilities
 
             _ = contentPanel.Children.Add(label);
 
-            ContentDialog dialog = new ContentDialog
+            var dialog = new ContentDialog
             {
                 Content = contentPanel,
                 IsPrimaryButtonEnabled = true,
@@ -70,7 +70,7 @@ namespace Rofl.UI.Main.Utilities
         {
             return dialog == null
                 ? throw new ArgumentNullException(nameof(dialog))
-                : !(dialog.Content is Grid content)
+                : dialog.Content is not Grid content
                     ? null
                     : LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock;
         }
@@ -83,7 +83,7 @@ namespace Rofl.UI.Main.Utilities
         public static void SetLabelText(this ContentDialog dialog, string text)
         {
             if (dialog == null) { throw new ArgumentNullException(nameof(dialog)); }
-            if (!(dialog.Content is Grid content)) { throw new ArgumentException("ContentDialog content is not as expected"); }
+            if (dialog.Content is not Grid content) { throw new ArgumentException("ContentDialog content is not as expected"); }
 
             (LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock).Text = text;
         }

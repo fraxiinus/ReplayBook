@@ -13,9 +13,9 @@ namespace Rofl.UI.Main.Controls
             InitializeComponent();
         }
 
-        private void CopyTextBlock_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void CopyTextBlock_Click(object sender, RoutedEventArgs e)
         {
-            if (!(sender is MenuItem context)) { return; }
+            if (sender is not MenuItem context) { return; }
 
             // Navigate upward to get the textblock that was right clicked
             // MenuItem -> ContextMenu -> TextBlock
