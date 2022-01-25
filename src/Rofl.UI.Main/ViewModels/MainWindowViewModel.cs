@@ -549,7 +549,7 @@ namespace Rofl.UI.Main.ViewModels
             {
                 ContentFrame = contentFrame,
                 PageIndex = 0,
-                PageCount = 5,
+                PageCount = 4,
                 DisableBackButton = true,
                 RiotGamesPath = (string)Application.Current.TryFindResource("WswExecutablesHint"),
                 Language = Language.En

@@ -30,13 +30,13 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="0"
-                           Margin="0 0 0 5"
+                           Margin="0,0,0,5"
                            FontSize="24"
                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            Text="{DynamicResource WswIntroductionTitle}" />
 
                 <TextBlock Grid.Row="1"
-                           Margin="0 0 0 20"
+                           Margin="0,0,0,20"
                            FontSize="16"
                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            Text="{DynamicResource WswIntroductionBody}"
@@ -47,10 +47,12 @@
                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            Text="{DynamicResource LanguageLabelText}" />
 
-                <ui:RadioButtons x:Name="LanguageRadioButtons"
-                                 Grid.Row="3"
-                                 SelectedIndex="{Binding Language}"
-                                 SelectionChanged="LanguageRadioButtons_SelectionChanged" />
+                <ComboBox x:Name="LanguageComboBox"
+                          Grid.Row="3"
+                          Width="200"
+                          Margin="0,12,0,0"
+                          SelectedIndex="{Binding Language}"
+                          SelectionChanged="LanguageComboBox_SelectionChanged" />
 
             </Grid>
         </Grid>
