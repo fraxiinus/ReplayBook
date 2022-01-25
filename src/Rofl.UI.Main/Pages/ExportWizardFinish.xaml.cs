@@ -12,6 +12,13 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class ExportWizardFinish : Page
     {
+        private ExportDataContext Context
+        {
+            get => (DataContext is ExportDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
+
         public ExportWizardFinish()
         {
             InitializeComponent();
@@ -24,19 +31,15 @@ namespace Rofl.UI.Main.Pages
         /// <param name="e"></param>
         private void PreviewBox_Update(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            context.ExportPreview = ExportHelper.ConstructExportString(context);
+            Context.ExportPreview = ExportHelper.ConstructExportString(Context);
         }
 
         private async void PresetButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
             // create preset preview object
-            ExportPreset preview = context.CreatePreset();
+            ExportPreset preview = Context.CreatePreset();
 
-            ExportPresetSaveDialog dialog = new ExportPresetSaveDialog
+            var dialog = new ExportPresetSaveDialog
             {
                 DataContext = preview
             };
@@ -85,8 +88,8 @@ namespace Rofl.UI.Main.Pages
                 }
                 catch (Exception ex)
                 {
-                    context.Log.Error(TryFindResource("ErdFailedToSave") as string);
-                    context.Log.Error(ex.ToString());
+                    Context.Log.Error(TryFindResource("ErdFailedToSave") as string);
+                    Context.Log.Error(ex.ToString());
 
                     ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
                     errDialog.DefaultButton = ContentDialogButton.Primary;
@@ -103,24 +106,20 @@ namespace Rofl.UI.Main.Pages
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            context.ContentFrame.GoBack();
+            Context.ContentFrame.GoBack();
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
             bool exit = false;
             try
             {
-                exit = ExportHelper.ExportToFile(context, Window.GetWindow(this));
+                exit = ExportHelper.ExportToFile(Context, Window.GetWindow(this));
             }
             catch (Exception ex)
             {
-                context.Log.Error(TryFindResource("ErdFailedToSave") as string);
-                context.Log.Error(ex.ToString());
+                Context.Log.Error(TryFindResource("ErdFailedToSave") as string);
+                Context.Log.Error(ex.ToString());
 
                 ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
                 dialog.DefaultButton = ContentDialogButton.Primary;

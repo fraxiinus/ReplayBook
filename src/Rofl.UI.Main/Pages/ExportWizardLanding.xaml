@@ -2,7 +2,6 @@
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-         xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          xmlns:models="clr-namespace:Rofl.UI.Main.Models"
          xmlns:ui="http://schemas.modernwpf.com/2019"
@@ -26,7 +25,7 @@
                 </Grid.RowDefinitions>
                 <Button Grid.Row="0"
                         Height="80"
-                        Margin="0 0 0 6"
+                        Margin="0,0,0,6"
                         HorizontalAlignment="Stretch"
                         Click="StartButton_Click"
                         IsDefault="True"
@@ -45,7 +44,7 @@
                 </Button>
                 <Button Grid.Row="1"
                         Height="40"
-                        Margin="0 6 0 6"
+                        Margin="0,6,0,6"
                         HorizontalAlignment="Stretch"
                         Click="PresetButton_Click">
                     <Grid>
@@ -58,7 +57,7 @@
 
                 <Button Grid.Row="2"
                         Height="40"
-                        Margin="0 6 0 6"
+                        Margin="0,6,0,6"
                         HorizontalAlignment="Stretch"
                         Click="EverythingButton_Click">
                     <Grid>
@@ -70,7 +69,7 @@
                 </Button>
                 <Button Grid.Row="3"
                         Height="40"
-                        Margin="0 6 0 0"
+                        Margin="0,6,0,0"
                         HorizontalAlignment="Stretch"
                         Click="AdvancedButton_Click">
                     <Grid>

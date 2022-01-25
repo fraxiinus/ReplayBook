@@ -1,9 +1,7 @@
 ﻿<Window x:Class="Rofl.UI.Main.Views.ExportDataWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="clr-namespace:Rofl.UI.Main.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:Rofl.UI.Main.Views"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:Rofl.UI.Main.Models"
         xmlns:ui="http://schemas.modernwpf.com/2019"
@@ -24,7 +22,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                   Margin="12 12 0 0"
+                   Margin="12,12,0,0"
                    FontSize="24"
                    Text="{DynamicResource ErdTitle}">
             <TextBlock.Style>

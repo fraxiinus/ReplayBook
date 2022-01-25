@@ -3,7 +3,6 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:c="clr-namespace:Rofl.UI.Main.Converters"
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-         xmlns:local="clr-namespace:Rofl.UI.Main.Pages"
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
          xmlns:models="clr-namespace:Rofl.UI.Main.Models"
          xmlns:ui="http://schemas.modernwpf.com/2019"
@@ -50,7 +49,7 @@
 
             <TextBox x:Name="PreviewTextBox"
                      Grid.Row="1"
-                     Margin="0 12 0 12"
+                     Margin="0,12,0,12"
                      FontFamily="Consolas"
                      IsReadOnly="True"
                      Text="{Binding ExportPreview, Mode=OneWay}"
@@ -71,7 +70,7 @@
 
                 <Button Grid.Column="1"
                         Width="100"
-                        Margin="0 0 4 0"
+                        Margin="0,0,4,0"
                         Click="BackButton_Click"
                         Content="{DynamicResource WswPreviousText}" />
 

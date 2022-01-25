@@ -1,5 +1,6 @@
 ﻿using ModernWpf.Controls;
 using Rofl.UI.Main.Models;
+using System;
 using System.Windows;
 
 namespace Rofl.UI.Main.Pages
@@ -9,6 +10,13 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class ExportWizardPlayers : Page
     {
+        private ExportDataContext Context
+        {
+            get => (DataContext is ExportDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
+
         public ExportWizardPlayers()
         {
             InitializeComponent();
@@ -16,18 +24,12 @@ namespace Rofl.UI.Main.Pages
 
         private void NextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            // check if they checked any players
-
-            _ = context.ContentFrame.Navigate(typeof(ExportWizardAttributes));
+            _ = Context.ContentFrame.Navigate(typeof(ExportWizardAttributes));
         }
 
         private void SelectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            foreach (ExportPlayerSelectItem playerSelect in context.Players)
+            foreach (ExportPlayerSelectItem playerSelect in Context.Players)
             {
                 playerSelect.Checked = true;
             }
@@ -35,9 +37,7 @@ namespace Rofl.UI.Main.Pages
 
         private void DeselectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            foreach (ExportPlayerSelectItem playerSelect in context.Players)
+            foreach (ExportPlayerSelectItem playerSelect in Context.Players)
             {
                 playerSelect.Checked = false;
             }

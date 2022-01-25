@@ -12,6 +12,13 @@ namespace Rofl.UI.Main.Pages
     /// </summary>
     public partial class ExportWizardLanding : Page
     {
+        private ExportDataContext Context
+        {
+            get => (DataContext is ExportDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
+
         public ExportWizardLanding()
         {
             InitializeComponent();
@@ -19,54 +26,46 @@ namespace Rofl.UI.Main.Pages
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
-            _ = context.ContentFrame.Navigate(typeof(ExportWizardPlayers));
+            _ = Context.ContentFrame.Navigate(typeof(ExportWizardPlayers));
         }
 
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
             Window window = Window.GetWindow(this);
             window.Width = 800;
             window.MinWidth = 850;
 
-            context.HideHeader = true;
+            Context.HideHeader = true;
 
-            _ = context.ContentFrame.Navigate(typeof(ExportWizardAdvanced));
+            _ = Context.ContentFrame.Navigate(typeof(ExportWizardAdvanced));
         }
 
         private void EverythingButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
             // select everything
-            foreach (ExportPlayerSelectItem playerSelect in context.Players)
+            foreach (ExportPlayerSelectItem playerSelect in Context.Players)
             {
                 playerSelect.Checked = true;
             }
 
-            foreach (ExportAttributeSelectItem attributeSelect in context.Attributes)
+            foreach (ExportAttributeSelectItem attributeSelect in Context.Attributes)
             {
                 attributeSelect.Checked = true;
             }
 
-            context.IncludeMatchDuration = true;
-            context.IncludeMatchID = true;
-            context.IncludePatchVersion = true;
+            Context.IncludeMatchDuration = true;
+            Context.IncludeMatchID = true;
+            Context.IncludePatchVersion = true;
 
-            _ = ExportHelper.ExportToFile(context, Window.GetWindow(this));
+            _ = ExportHelper.ExportToFile(Context, Window.GetWindow(this));
         }
 
         private async void PresetButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!(DataContext is ExportDataContext context)) { return; }
-
             // create an initial preset, it is probably empty
-            ExportPreset preview = context.CreatePreset();
+            ExportPreset preview = Context.CreatePreset();
 
-            ExportPresetLoadDialog dialog = new ExportPresetLoadDialog
+            var dialog = new ExportPresetLoadDialog
             {
                 DataContext = preview
             };
@@ -79,8 +78,8 @@ namespace Rofl.UI.Main.Pages
             }
             catch (Exception ex)
             {
-                context.Log.Error(TryFindResource("ErdFailedToSave") as string);
-                context.Log.Error(ex.ToString());
+                Context.Log.Error(TryFindResource("ErdFailedToSave") as string);
+                Context.Log.Error(ex.ToString());
 
                 ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
                 errDialog.DefaultButton = ContentDialogButton.Primary;
@@ -97,10 +96,10 @@ namespace Rofl.UI.Main.Pages
             if (result == ContentDialogResult.Primary)
             {
                 // Load preset
-                context.LoadPreset(dialog.DataContext as ExportPreset);
+                Context.LoadPreset(dialog.DataContext as ExportPreset);
 
                 // try to export data to file, close the wizard if its done
-                if (ExportHelper.ExportToFile(context, Window.GetWindow(this)))
+                if (ExportHelper.ExportToFile(Context, Window.GetWindow(this)))
                 {
                     Window.GetWindow(this).Close();
                 }
