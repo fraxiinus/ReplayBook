@@ -21,7 +21,7 @@ namespace Rofl.UI.Main.Utilities
 
         public static void SetRoflToSelf()
         {
-            string filePath = Process.GetCurrentProcess().MainModule.FileName;
+            string filePath = Environment.ProcessPath;
 
             ClearExplorerKeys();
 

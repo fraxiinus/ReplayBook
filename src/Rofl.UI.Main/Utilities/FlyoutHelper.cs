@@ -17,22 +17,22 @@ namespace Rofl.UI.Main.Utilities
                                           bool includeCustom = false)
         {
             #region Grid Definitions
-            Grid contentPanel = new Grid();
+            var contentPanel = new Grid();
 
-            ColumnDefinition columnOne = new ColumnDefinition
+            var columnOne = new ColumnDefinition
             {
                 Width = new GridLength(1, GridUnitType.Star)
             };
-            ColumnDefinition columnTwo = new ColumnDefinition
+            var columnTwo = new ColumnDefinition
             {
                 Width = new GridLength(1, GridUnitType.Auto)
             };
 
-            RowDefinition rowOne = new RowDefinition
+            var rowOne = new RowDefinition
             {
                 Height = new GridLength(1, GridUnitType.Auto)
             };
-            RowDefinition rowTwo = new RowDefinition
+            var rowTwo = new RowDefinition
             {
                 Height = new GridLength(1, GridUnitType.Star)
             };
@@ -43,7 +43,7 @@ namespace Rofl.UI.Main.Utilities
             contentPanel.RowDefinitions.Add(rowTwo);
             #endregion
 
-            TextBlock label = new TextBlock
+            var label = new TextBlock
             {
                 Name = "LabelTextBlock",
                 VerticalAlignment = VerticalAlignment.Center,
@@ -59,7 +59,7 @@ namespace Rofl.UI.Main.Utilities
                 Grid.SetColumnSpan(label, 2);
             }
 
-            Button button = new Button
+            var button = new Button
             {
                 Name = "PrimaryButton",
                 Margin = new Thickness(12, 0, 0, 0),
@@ -91,7 +91,7 @@ namespace Rofl.UI.Main.Utilities
         {
             return flyout == null
                 ? throw new ArgumentNullException(nameof(flyout))
-                : !(flyout.Content is Grid content)
+                : flyout.Content is not Grid content
                     ? null
                     : LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock;
         }
@@ -105,7 +105,7 @@ namespace Rofl.UI.Main.Utilities
         {
             if (flyout == null) { throw new ArgumentNullException(nameof(flyout)); }
 
-            if (!(flyout.Content is Grid content)) { throw new ArgumentException("Flyout content is not as expected"); }
+            if (flyout.Content is not Grid content) { throw new ArgumentException("Flyout content is not as expected"); }
 
             (LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock).Text = text;
         }
@@ -119,7 +119,7 @@ namespace Rofl.UI.Main.Utilities
         {
             return flyout == null
                 ? throw new ArgumentNullException(nameof(flyout))
-                : !(flyout.Content is Grid content)
+                : flyout.Content is not Grid content
                     ? null
                     : LogicalTreeHelper.FindLogicalNode(content, "PrimaryButton") as Button;
         }
@@ -132,37 +132,9 @@ namespace Rofl.UI.Main.Utilities
         public static void SetFlyoutButtonText(this Flyout flyout, string text)
         {
             if (flyout == null) { throw new ArgumentNullException(nameof(flyout)); }
-            if (!(flyout.Content is Grid content)) { throw new ArgumentException("Flyout content is not as expected"); }
+            if (flyout.Content is not Grid content) { throw new ArgumentException("Flyout content is not as expected"); }
 
             (LogicalTreeHelper.FindLogicalNode(content, "PrimaryButton") as Button).Content = text;
         }
-
-        //public Flyout Flyout { get; private set; }
-        //public Button Button { get; private set; }
-        //public TextBlock TextBlock { get; private set; }
-
-        //public FlyoutHelper(bool includeButton = true)
-        //{
-        //    // Create the primary button
-        //    Button = new Button();
-
-        //    // Create textblock
-        //    TextBlock = new TextBlock();
-
-        //    // Add items to a panel
-        //    var contentPanel = new SimpleStackPanel
-        //    {
-        //        Spacing = 12
-        //    };
-        //    contentPanel.Children.Add(TextBlock);
-
-        //    if (includeButton) contentPanel.Children.Add(Button);
-
-        //    // Add the grid into a flyout
-        //    Flyout = new Flyout
-        //    {
-        //        Content = contentPanel
-        //    };
-        //}
     }
 }

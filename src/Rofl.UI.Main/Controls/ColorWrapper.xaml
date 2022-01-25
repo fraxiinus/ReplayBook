@@ -4,7 +4,6 @@
              xmlns:akr="clr-namespace:Rofl.UI.Main.Controls.akr"
              xmlns:converters="clr-namespace:Rofl.UI.Main.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:Rofl.UI.Main.Controls"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="25"
              d:DesignWidth="280"
@@ -12,7 +11,7 @@
     <StackPanel Orientation="Vertical">
         <Grid>
             <ToggleButton x:Name="ColorPickerButton"
-                          Margin="0 0 0 0"
+                          Margin="0,0,0,0"
                           VerticalContentAlignment="Stretch"
                           IsHitTestVisible="{Binding ElementName=ColorPickerPopup, Path=IsOpen, Mode=OneWay, Converter={converters:BoolInvertConverter}}">
 
@@ -34,7 +33,7 @@
 
                     <TextBlock x:Name="ButtonColorName"
                                Grid.Column="2"
-                               Margin="5 0 0 0"
+                               Margin="5,0,0,0"
                                VerticalAlignment="Center"
                                Text="{Binding ElementName=ColorPickerContent, Path=SelectedColor, Mode=OneWay}" />
                 </Grid>

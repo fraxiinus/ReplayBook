@@ -18,7 +18,7 @@ namespace Rofl.UI.Main.Views
 
         private void ContentDialog_PrimaryButtonClick(object sender, ContentDialogButtonClickEventArgs args)
         {
-            if (!(ExecutablesListBox.SelectedItem is LeagueExecutable selectedExecutable)) { return; };
+            if (ExecutablesListBox.SelectedItem is not LeagueExecutable selectedExecutable) { return; };
 
             Selection = selectedExecutable;
 

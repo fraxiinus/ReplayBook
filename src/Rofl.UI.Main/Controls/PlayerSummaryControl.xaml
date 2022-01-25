@@ -9,7 +9,7 @@
              d:DesignWidth="500"
              mc:Ignorable="d">
 
-    <Grid Margin="0 2 0 2">
+    <Grid Margin="0,2,0,2">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*" />
@@ -33,7 +33,7 @@
                        TextAlignment="Center"
                        ToolTip="{DynamicResource LevelToolTip}" />
 
-            <ui:SimpleStackPanel Margin="3 0 0 0" Orientation="Vertical">
+            <ui:SimpleStackPanel Margin="3,0,0,0" Orientation="Vertical">
 
                 <TextBlock FontSize="14"
                            FontWeight="Bold"
@@ -57,7 +57,7 @@
         </ui:SimpleStackPanel>
 
         <ui:SimpleStackPanel Grid.Column="1"
-                             Margin="20 0 0 0"
+                             Margin="20,0,0,0"
                              Orientation="Horizontal">
 
             <TextBlock Width="25"
@@ -113,7 +113,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:ItemIconControl Width="30" Margin="0 0 3 0" />
+                        <local:ItemIconControl Width="30" Margin="0,0,3,0" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -123,7 +123,7 @@
                              HorizontalAlignment="Center"
                              Orientation="Horizontal">
             <TextBlock Width="40"
-                       Margin="20 0 0 0"
+                       Margin="20,0,0,0"
                        VerticalAlignment="Center"
                        Background="Transparent"
                        FontSize="15"
@@ -146,7 +146,7 @@
                              HorizontalAlignment="Right"
                              Orientation="Horizontal">
             <TextBlock Width="60"
-                       Margin="0 0 0 0"
+                       Margin="0,0,0,0"
                        VerticalAlignment="Center"
                        Background="Transparent"
                        FontSize="15"
