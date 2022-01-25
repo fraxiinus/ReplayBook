@@ -136,7 +136,7 @@ namespace Rofl.UI.Main.Views
                     break;
                 case "AboutSettingsListItem":
                     SettingsTabControl.SelectedIndex = 6;
-                    VersionTextBlock.Text = "Release " + ApplicationHelper.GetVersion();
+                    VersionTextBlock.Text = "Release " + ApplicationProperties.Version;
                     break;
                 default:
                     break;
@@ -661,7 +661,7 @@ namespace Rofl.UI.Main.Views
                 return;
             }
 
-            string assemblyVersion = ApplicationHelper.GetVersion();
+            string assemblyVersion = ApplicationProperties.Version;
 
             if (latestVersion.Equals(assemblyVersion, StringComparison.OrdinalIgnoreCase))
             {
