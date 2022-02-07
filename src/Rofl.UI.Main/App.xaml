@@ -38,7 +38,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Load icon images  -->
-            <BitmapImage x:Key="ProgramIcon" UriSource="Resources/program_icon.ico"/>
+            <BitmapImage x:Key="ProgramIcon" UriSource="Resources/program_icon.ico" />
 
         </ResourceDictionary>
     </Application.Resources>
