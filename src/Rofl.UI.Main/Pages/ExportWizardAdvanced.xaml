@@ -143,7 +143,7 @@
                 </Grid>
             </Grid>
 
-            <Border Grid.Column="1" Background="{DynamicResource TabBackgroundHack}">
+            <Border Grid.Column="1" Background="{DynamicResource TabBackground}">
                 <Grid Margin="12,12,12,12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -234,7 +234,7 @@
             </Border>
 
             <Border Grid.Column="2"
-                    Background="{DynamicResource TabBackgroundHack}"
+                    Background="{DynamicResource TabBackground}"
                     BorderBrush="{DynamicResource BaseBackground}"
                     BorderThickness="1,0,0,0">
                 <Grid Margin="12">
@@ -311,7 +311,7 @@
             </Border>
 
             <Border Grid.Column="3"
-                    Background="{DynamicResource TabBackgroundHack}"
+                    Background="{DynamicResource TabBackground}"
                     BorderBrush="{DynamicResource BaseBackground}"
                     BorderThickness="1,0,0,0">
                 <Grid Margin="12">
