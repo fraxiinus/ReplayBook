@@ -32,7 +32,8 @@ namespace Rofl.UI.Main.Pages
         private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
             Window window = Window.GetWindow(this);
-            window.Width = 800;
+            window.Width = 1150;
+            window.Height = 670;
             window.MinWidth = 850;
 
             Context.HideHeader = true;
