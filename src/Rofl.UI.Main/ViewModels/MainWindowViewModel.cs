@@ -606,9 +606,9 @@ namespace Rofl.UI.Main.ViewModels
             if (!string.IsNullOrEmpty(initialSettings.RiotGamesPath) && Directory.Exists(initialSettings.ReplayPath))
             {
                 // Only add the executable folder if it doesn't exist already. It really should be empty...
-                if (!Configuration.ReplayFolders.Contains(initialSettings.RiotGamesPath))
+                if (!ExecutableManager.Settings.SourceFolders.Contains(initialSettings.RiotGamesPath))
                 {
-                    Configuration.ReplayFolders.Add(initialSettings.RiotGamesPath);
+                    ExecutableManager.Settings.SourceFolders.Add(initialSettings.RiotGamesPath);
                 }
             }
 
