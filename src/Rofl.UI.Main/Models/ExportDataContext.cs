@@ -19,6 +19,8 @@ namespace Rofl.UI.Main.Models
 
         public RiZhi Log { get; set; }
 
+        public string LastPreset { get; set; }
+
         private Frame _contentFrame;
         /// <summary>
         /// Navigate to different exporter pages using this property
