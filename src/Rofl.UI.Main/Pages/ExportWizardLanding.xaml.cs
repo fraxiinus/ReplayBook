@@ -66,7 +66,8 @@ namespace Rofl.UI.Main.Pages
             // create an initial preset, it is probably empty
             ExportPreset preview = Context.CreatePreset();
 
-            var dialog = new ExportPresetLoadDialog
+            // pass in last preset, to auto-load
+            var dialog = new ExportPresetLoadDialog(Context.LastPreset)
             {
                 DataContext = preview
             };
@@ -98,6 +99,9 @@ namespace Rofl.UI.Main.Pages
             {
                 // Load preset
                 Context.LoadPreset(dialog.DataContext as ExportPreset);
+
+                // Save the preset that is currently loaded as the last preset
+                Context.LastPreset = Context.PresetName;
 
                 // try to export data to file, close the wizard if its done
                 if (ExportHelper.ExportToFile(Context, Window.GetWindow(this)))

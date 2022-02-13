@@ -357,6 +357,7 @@
     <string:String x:Key="ErdPresetOverwrite">Overwrite</string:String>
     <string:String x:Key="ErdPresetExists">Preset with that name already exists. Overwrite?</string:String>
     <string:String x:Key="ErdPresetExistsNotify">Name already exists</string:String>
+    <string:String x:Key="ErdPresetInvalidNotify">Name contains invalid characters</string:String>
     <string:String x:Key="ErdPresetFailed">Failed to load preset</string:String>
     <string:String x:Key="ErdPresetSavedTitle">Preset Saved</string:String>
 

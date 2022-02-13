@@ -494,7 +494,9 @@ namespace Rofl.UI.Main.ViewModels
             // create default context values
             var exportDataContext = new ExportDataContext
             {
-                PresetName = "unsavedPreset",
+                PresetName = "< Unsaved Preset >",
+                // attempt to get last saved preset name
+                LastPreset = Configuration.Stash.TryGetString("LastExportPreset", out string lastPreset) ? lastPreset : string.Empty,
                 ManualPlayerSelection = true,
                 AlwaysIncludeMarked = false,
                 IncludeAllPlayers = false,
@@ -514,6 +516,12 @@ namespace Rofl.UI.Main.ViewModels
             };
 
             _ = exportDialog.ShowDialog();
+
+            // save last preset to stash
+            if (!string.IsNullOrEmpty((exportDialog.DataContext as ExportDataContext).LastPreset))
+            {
+                Configuration.Stash["LastExportPreset"] = (exportDialog.DataContext as ExportDataContext).LastPreset;
+            }
         }
 
         public void ShowWelcomeWindow()

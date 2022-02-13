@@ -40,9 +40,6 @@ namespace Rofl.UI.Main
 
             _log = log;
             _config = config;
-            //_requests = requests;
-            //_files = files;
-            //_player = player;
 
             _lastSelection = null;
 
@@ -60,13 +57,16 @@ namespace Rofl.UI.Main
             context.ShowMissingReplayFoldersMessageBox();
         }
 
-        // Window is loaded and ready to be shown on screen
-        private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        public void SelectReplayItem(ReplayPreview replay)
         {
-            if (DataContext is not MainWindowViewModel context) { return; }
+            ReplayListView.SelectedItem = replay;
+        }
 
-            await context.StaticDataProvider.LoadStaticData();
-
+        /// <summary>
+        /// Applies saved window position, size, and maximization state
+        /// </summary>
+        public void RestoreSavedWindowState()
+        {
             Dictionary<string, object> values = _config.Stash;
 
             if (values.TryGetDouble("WindowHeight", out double savedHeight) &&
@@ -84,6 +84,14 @@ namespace Rofl.UI.Main
                     WindowState = WindowState.Maximized;
                 }
             }
+        }
+
+        // Window is loaded and ready to be shown on screen
+        private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is not MainWindowViewModel context) { return; }
+
+            await context.StaticDataProvider.LoadStaticData();
         }
 
         // Window has been rendered to the screen
@@ -309,11 +317,6 @@ namespace Rofl.UI.Main
             await context.ClearCache().ConfigureAwait(true);
         }
 
-        public void SelectReplayItem(ReplayPreview replay)
-        {
-            ReplayListView.SelectedItem = replay;
-        }
-
         private void ReplayStatusBarDismissButton_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is not MainWindowViewModel context) { return; }
@@ -334,5 +337,6 @@ namespace Rofl.UI.Main
             };
             _ = await errorDialog.ShowAsync().ConfigureAwait(true);
         }
+
     }
 }

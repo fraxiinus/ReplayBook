@@ -165,7 +165,7 @@ namespace Rofl.UI.Main.Pages
             // create an initial preset, it is probably empty
             ExportPreset preview = Context.CreatePreset();
 
-            var dialog = new ExportPresetLoadDialog
+            var dialog = new ExportPresetLoadDialog(Context.LastPreset)
             {
                 DataContext = preview
             };
@@ -278,6 +278,9 @@ namespace Rofl.UI.Main.Pages
             bool exit = false;
             try
             {
+                // Save the preset as the last loaded
+                Context.LastPreset = Context.PresetName;
+
                 exit = ExportHelper.ExportToFile(Context, Window.GetWindow(this));
             }
             catch (Exception ex)

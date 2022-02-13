@@ -12,11 +12,24 @@ namespace Rofl.UI.Main.Views
     /// </summary>
     public partial class ExportPresetLoadDialog : ContentDialog
     {
-        public ExportPresetLoadDialog()
+        private readonly string _lastPreset;
+
+        public ExportPresetLoadDialog(string lastPreset)
         {
             InitializeComponent();
 
             PresetNamesBox.ItemsSource = ExportHelper.FindAllPresets();
+
+            _lastPreset = lastPreset;
+        }
+
+        private void ContentDialog_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_lastPreset))
+            {
+                // load last preset
+                PresetNamesBox.SelectedItem = _lastPreset;
+            }
         }
 
         private void PresetNamesBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

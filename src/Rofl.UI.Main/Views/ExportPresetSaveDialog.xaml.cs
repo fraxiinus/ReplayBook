@@ -1,7 +1,6 @@
 ﻿using ModernWpf.Controls;
-using Rofl.UI.Main.Models;
 using Rofl.UI.Main.Utilities;
-using System.Windows.Media;
+using System;
 using System.Windows;
 
 namespace Rofl.UI.Main.Views
@@ -20,10 +19,28 @@ namespace Rofl.UI.Main.Views
         {
             if (string.IsNullOrEmpty(PresetNameBox.Text)) { return; }
 
-            // if preset already exists...
-            ExistsTextBlock.Visibility = ExportHelper.PresetNameExists(PresetNameBox.Text)
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+            try
+            {
+                if (ExportHelper.PresetNameExists(PresetNameBox.Text))
+                {
+                    ErrorTextBlock.Visibility = Visibility.Visible;
+                    ErrorTextBlock.Text = TryFindResource("ErdPresetExistsNotify") as string;
+                }
+                else
+                {
+                    ErrorTextBlock.Visibility = Visibility.Collapsed;
+                }
+
+                // button might have been disabled by exception, always enable
+                IsPrimaryButtonEnabled = true;
+            }
+            catch (ArgumentException)
+            {
+                // input name contains invalid characters, show error and disable primary button
+                ErrorTextBlock.Visibility = Visibility.Visible;
+                ErrorTextBlock.Text = TryFindResource("ErdPresetInvalidNotify") as string;
+                IsPrimaryButtonEnabled = false;
+            }
         }
     }
 }

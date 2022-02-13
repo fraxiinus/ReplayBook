@@ -13,6 +13,7 @@
                   DefaultButton="Primary"
                   IsPrimaryButtonEnabled="True"
                   IsSecondaryButtonEnabled="True"
+                  Loaded="ContentDialog_Loaded"
                   PrimaryButtonText="{DynamicResource ErdPresetLoadbutton}"
                   SecondaryButtonText="{DynamicResource CancelButtonText}"
                   mc:Ignorable="d">
