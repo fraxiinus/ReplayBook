@@ -24,7 +24,7 @@
                          Focusable="True"
                          Text="{Binding PresetName}"
                          TextChanged="PresetNameBox_TextChanged" />
-                <TextBlock x:Name="ExistsTextBlock"
+                <TextBlock x:Name="ErrorTextBlock"
                            Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
                            Text="{DynamicResource ErdPresetExistsNotify}"
                            Visibility="Collapsed" />
