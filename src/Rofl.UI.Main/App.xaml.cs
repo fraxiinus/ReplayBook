@@ -74,6 +74,7 @@ namespace Rofl.UI.Main
             else
             {
                 var mainWindow = new MainWindow(_log, _configuration, _requests, _executables, _files, _player);
+                mainWindow.RestoreSavedWindowState();
                 mainWindow.Show();
             }
         }
