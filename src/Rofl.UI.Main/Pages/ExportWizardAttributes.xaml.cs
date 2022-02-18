@@ -98,7 +98,7 @@ namespace Rofl.UI.Main.Pages
         {
             foreach (ExportAttributeSelectItem attributeSelect in Context.Attributes)
             {
-                attributeSelect.Checked = true;
+                attributeSelect.Checked = false;
             }
         }
     }
