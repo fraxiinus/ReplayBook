@@ -1,0 +1,364 @@
+﻿<UserControl x:Class="Fraxiinus.ReplayBook.UI.Main.Controls.ReplayItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Fraxiinus.ReplayBook.UI.Main.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:Fraxiinus.ReplayBook.UI.Main.Models"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             d:DataContext="{d:DesignInstance Type=models:ReplayPreview}"
+             d:DesignHeight="100"
+             d:DesignWidth="350"
+             mc:Ignorable="d">
+
+    <Grid Width="350"
+          Height="100"
+          Background="Transparent"
+          MouseEnter="Grid_MouseEnter"
+          MouseLeave="Grid_MouseLeave"
+          MouseRightButtonUp="UIElement_OnMouseRightButtonUp">
+
+        <Grid.ContextMenu>
+            <ContextMenu x:Name="DockPanelReplayContextMenu" Placement="Bottom">
+
+                <MenuItem Click="OpenNewWindow_Click" Header="{DynamicResource OpenNewWindow}">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource NewWindow}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Click="OpenContainingFolder_Click" Header="{DynamicResource OpenContainingFolder}">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Click="ExportReplayData_OnClick" Header="{DynamicResource ExportReplayData}">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource ExportPathIcon}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Click="RenameReplayFile_OnClick" Header="{DynamicResource RenameReplayFile}">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource RenamePathIcon}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Click="DeleteReplayFile_OnClick" Header="{DynamicResource DeleteReplayFile}">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Click="RefreshReplayList_Click" Header="{DynamicResource RefreshReplayList}">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource RefreshPathIcon}" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </ContextMenu>
+        </Grid.ContextMenu>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ui:SimpleStackPanel Grid.Row="0"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Margin="0,5,0,2"
+                             Orientation="Horizontal" />
+
+        <!--  Left side stats  -->
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0,0,5,0"
+                    Orientation="Vertical">
+
+            <Border Margin="0,2,0,2"
+                    Padding="3,1,3,1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    CornerRadius="3">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource BlueTeamAccent}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
+                                <Setter Property="Background" Value="{DynamicResource RedTeamAccent}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="12"
+                           Foreground="{DynamicResource SystemControlForegroundChromeWhiteBrush}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="True">
+                                    <Setter Property="Text" Value="{DynamicResource BlueVictory}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
+                                    <Setter Property="Text" Value="{DynamicResource RedVictory}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+
+            <Border Padding="3,1,5,1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource BadgeBackground}"
+                    CornerRadius="3">
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="12"
+                           Text="{Binding GameVersionShort}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSupported}" Value="True">
+                                    <Setter Property="ToolTip" Value="{DynamicResource ReplaySupported}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsSupported}" Value="False">
+                                    <Setter Property="ToolTip" Value="{DynamicResource ReplayUnsupported}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Border>
+
+            <TextBlock x:Name="MapNameText"
+                       FontSize="12"
+                       Text="{Binding Path=MapName, FallbackValue=Map name}" />
+
+            <TextBlock x:Name="GameLengthText"
+                       FontSize="12"
+                       Text="{Binding Path=GameLengthString, FallbackValue=Game duration}"
+                       ToolTip="{Binding Path=GameDuration}" />
+
+            <TextBlock x:Name="CreationDateText"
+                       FontSize="12"
+                       Text="{Binding Path=CreationDate, StringFormat=yyyy-MM-dd, FallbackValue=Creation date}"
+                       ToolTip="{DynamicResource FileDateToolTip}" />
+
+        </StackPanel>
+
+        <!--  Player icons  -->
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    VerticalAlignment="Top"
+                    Orientation="Vertical">
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="FilenameText"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Text="{Binding Path=DisplayName, FallbackValue=Filename}"
+                           ToolTip="{Binding Path=DisplayName}" />
+
+                <ui:PathIcon Width="12"
+                             Margin="5,2,0,0"
+                             Data="{StaticResource CirclePathIcon}"
+                             Foreground="Red">
+                    <ui:PathIcon.Style>
+                        <Style TargetType="ui:PathIcon">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ui:PathIcon.Style>
+                </ui:PathIcon>
+            </StackPanel>
+
+            <StackPanel Margin="2,0,0,0">
+                <ItemsControl ItemsSource="{Binding Path=BluePreviewPlayers}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Margin="0,2,0,2" Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:PlayerIconControl Width="30"
+                                                     Height="30"
+                                                     Margin="0,0,4,0" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <ItemsControl ItemsSource="{Binding Path=RedPreviewPlayers}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Margin="0,2,0,1" Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:PlayerIconControl Width="30"
+                                                     Height="30"
+                                                     Margin="0,0,4,0" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            </StackPanel>
+
+            <!--</Border>-->
+
+        </StackPanel>
+
+        <!--  Right side buttons  -->
+        <StackPanel x:Name="ButtonPanel"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsHovered}" Value="true" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Visible" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsHovered}" Value="false" />
+                                <Condition Binding="{Binding Path=IsSelected}" Value="false" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsSelected}" Value="true" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Visibility" Value="Visible" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+
+            <Button x:Name="PlayButton"
+                    Width="37"
+                    Margin="0,0,0,5"
+                    Click="PlayButton_Click"
+                    ToolTipService.ShowOnDisabled="True">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource AccentButtonStyle}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="false">
+                                <Setter Property="ToolTip" Value="{DynamicResource PlayReplayToolTip}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsPlaying}" Value="true">
+                                <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}" />
+                                <Setter Property="IsEnabled" Value="false" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsSupported}" Value="false">
+                                <Setter Property="IsEnabled" Value="false" />
+                                <Setter Property="ToolTip" Value="{DynamicResource CannotPlayToolTip}" />
+                            </DataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=IsPlaying}" Value="false" />
+                                    <Condition Binding="{Binding Path=IsSupported}" Value="true" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <ui:PathIcon Data="{StaticResource PlayPathIcon}" RenderOptions.BitmapScalingMode="HighQuality" />
+            </Button>
+
+            <Button x:Name="MoreButton"
+                    Width="37"
+                    Margin="0"
+                    Click="MoreButton_Click"
+                    ToolTip="{DynamicResource MoreToolTip}">
+                <ui:PathIcon Data="{StaticResource MorePathIcon}" RenderOptions.BitmapScalingMode="HighQuality" />
+
+                <Button.ContextMenu>
+                    <ContextMenu x:Name="ReplayContextMenu" Placement="Bottom">
+                        <MenuItem Click="OpenNewWindow_Click" Header="{DynamicResource OpenNewWindow}">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource NewWindow}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem x:Name="OpenContainingFolder"
+                                  Click="OpenContainingFolder_Click"
+                                  Header="{DynamicResource OpenContainingFolder}">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem x:Name="ExportReplayData"
+                                  Click="ExportReplayData_OnClick"
+                                  Header="{DynamicResource ExportReplayData}">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource ExportPathIcon}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem x:Name="RenameReplayFile"
+                                  Click="RenameReplayFile_OnClick"
+                                  Header="{DynamicResource RenameReplayFile}">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource RenamePathIcon}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem x:Name="DeleteReplayFile"
+                                  Click="DeleteReplayFile_OnClick"
+                                  Header="{DynamicResource DeleteReplayFile}">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem x:Name="RefreshReplayList"
+                                  Click="RefreshReplayList_Click"
+                                  Header="{DynamicResource RefreshReplayList}">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource RefreshPathIcon}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>
