@@ -1,0 +1,288 @@
+﻿<UserControl x:Class="Fraxiinus.ReplayBook.UI.Main.Controls.ReplayDetailControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:Fraxiinus.ReplayBook.UI.Main.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Fraxiinus.ReplayBook.UI.Main.Controls"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             x:Name="ReplayDetailControlElement"
+             HorizontalAlignment="Left"
+             VerticalAlignment="Top"
+             d:DesignHeight="650"
+             d:DesignWidth="760"
+             DataContextChanged="ReplayDetailControlElement_DataContextChanged"
+             Loaded="ReplayDetailControlElement_Loaded"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:FormatKbSizeConverter x:Key="FormatKbSizeConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--  Blank content to show when nothing is selected  -->
+        <Grid x:Name="BlankContent"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Background="{DynamicResource TabViewBackground}">
+
+            <TextBlock VerticalAlignment="Center"
+                       Foreground="{DynamicResource SystemControlPageTextBaseMediumBrush}"
+                       Text="{DynamicResource BlankDetailMessageText}"
+                       TextAlignment="Center" />
+        </Grid>
+
+        <!--  The actual replay content  -->
+        <Grid x:Name="ReplayContent" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  The header information  -->
+            <StackPanel Grid.Row="0"
+                        Margin="0,0,0,0"
+                        Background="{DynamicResource TabViewBackground}"
+                        Orientation="Vertical">
+
+                <Border BorderThickness="0,0,0,2">
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="ReplayFileName"
+                                 Grid.Column="0"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 FontSize="25"
+                                 IsReadOnly="True"
+                                 MouseDoubleClick="ReplayFileName_MouseDoubleClick"
+                                 Text="{Binding Path=PreviewModel.DisplayName, FallbackValue=FileName, Mode=OneWay}" />
+
+                        <ui:PathIcon Grid.Column="1"
+                                     Width="20"
+                                     Margin="5,2,2,0"
+                                     Data="{StaticResource CirclePathIcon}"
+                                     Foreground="Red">
+                            <ui:PathIcon.Style>
+                                <Style TargetType="ui:PathIcon">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="true">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false">
+                                            <Setter Property="Visibility" Value="Hidden" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ui:PathIcon.Style>
+                        </ui:PathIcon>
+
+                        <Button x:Name="PlayButton"
+                                Grid.Column="4"
+                                Width="80"
+                                Height="32"
+                                Margin="5,12,12,0"
+                                Click="PlayButton_Click"
+                                ToolTipService.ShowOnDisabled="True">
+                            <Button.Style>
+                                <Style BasedOn="{StaticResource AccentButtonStyle}" TargetType="Button">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false">
+                                            <Setter Property="ToolTip" Value="{DynamicResource PlayReplayToolTip}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsPlaying}" Value="true">
+                                            <Setter Property="ToolTip" Value="{DynamicResource AlreadyPlayingToolTip}" />
+                                            <Setter Property="IsEnabled" Value="false" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=PreviewModel.IsSupported}" Value="false">
+                                            <Setter Property="IsEnabled" Value="false" />
+                                            <Setter Property="ToolTip" Value="{DynamicResource CannotPlayToolTip}" />
+                                        </DataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Path=PreviewModel.IsPlaying}" Value="false" />
+                                                <Condition Binding="{Binding Path=PreviewModel.IsSupported}" Value="true" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="IsEnabled" Value="true" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <ui:PathIcon Data="{StaticResource PlayPathIcon}" RenderOptions.BitmapScalingMode="HighQuality" />
+                        </Button>
+
+                        <Button x:Name="MoreButton"
+                                Grid.Column="3"
+                                Width="37"
+                                Margin="0,12,0,0"
+                                Click="MoreButton_Click"
+                                ToolTip="{DynamicResource MoreToolTip}">
+                            <ui:PathIcon Data="{StaticResource MorePathIcon}" RenderOptions.BitmapScalingMode="HighQuality" />
+
+                            <Button.ContextMenu>
+                                <ContextMenu x:Name="ReplayContextMenu" Placement="Bottom">
+                                    <MenuItem x:Name="OpenNewWindow"
+                                              Click="OpenNewWindow_Click"
+                                              Header="{DynamicResource OpenNewWindow}">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource NewWindow}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+
+                                    <MenuItem x:Name="OpenContainingFolder"
+                                              Click="OpenContainingFolder_Click"
+                                              Header="{DynamicResource OpenContainingFolder}">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource ExplorerFolderPathIcon}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+
+                                    <MenuItem x:Name="ExportReplayData"
+                                              Click="ExportReplayData_OnClick"
+                                              Header="{DynamicResource ExportReplayData}">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource ExportPathIcon}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+
+                                    <MenuItem x:Name="RenameReplayFile"
+                                              Click="RenameReplayFile_OnClick"
+                                              Header="{DynamicResource RenameReplayFile}">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource RenamePathIcon}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+
+                                    <MenuItem x:Name="DeleteReplayFile"
+                                              Click="DeleteReplayFile_OnClick"
+                                              Header="{DynamicResource DeleteReplayFile}">
+                                        <MenuItem.Icon>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+                    </Grid>
+
+                </Border>
+
+                <StackPanel Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+
+                    <TextBlock Margin="0,0,15,0"
+                               VerticalAlignment="Center"
+                               Background="Transparent"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Text="{Binding Path=PreviewModel.MapName, FallbackValue=MapName, Mode=OneWay}"
+                               ToolTip="{DynamicResource MapNameToolTip}" />
+
+                    <TextBlock Margin="0,0,15,0"
+                               VerticalAlignment="Center"
+                               Background="Transparent"
+                               FontSize="14"
+                               Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"
+                               ToolTip="{Binding Path=PreviewModel.GameDuration}" />
+
+                    <TextBlock Margin="0,0,15,0"
+                               VerticalAlignment="Center"
+                               Background="Transparent"
+                               FontSize="14"
+                               Text="{Binding Path=PreviewModel.MatchId, FallbackValue=MatchId, Mode=OneWay}"
+                               ToolTip="{DynamicResource MatchIdToolTip}" />
+
+                    <TextBlock Margin="0,0,15,0"
+                               VerticalAlignment="Center"
+                               Background="Transparent"
+                               FontSize="14"
+                               Text="{Binding Path=PreviewModel.GameVersion, FallbackValue=GameVersion, Mode=OneWay}"
+                               ToolTip="{DynamicResource GameVersionToolTip}" />
+
+                    <TextBlock Margin="0,0,15,0"
+                               VerticalAlignment="Center"
+                               Background="Transparent"
+                               FontSize="14"
+                               Text="{Binding Path=FileInfo.FileSizeBytes, FallbackValue=FileSize, Mode=OneWay, Converter={StaticResource FormatKbSizeConverter}}"
+                               ToolTip="{DynamicResource FileSizeToolTip}" />
+
+                    <TextBlock Margin="0,0,15,0"
+                               VerticalAlignment="Center"
+                               Background="Transparent"
+                               FontSize="14"
+                               Text="{Binding Path=PreviewModel.CreationDate, StringFormat=yyyy-MM-dd  hh:mm tt, FallbackValue=GameVersion, Mode=OneWay}"
+                               ToolTip="{DynamicResource FileDateToolTip}" />
+                </StackPanel>
+
+            </StackPanel>
+
+            <TabControl x:Name="DetailTabControl"
+                        Grid.Row="1"
+                        BorderThickness="0,0,0,0"
+                        SelectionChanged="TabControl_SelectionChanged">
+                <TabControl.Style>
+                    <Style BasedOn="{StaticResource DefaultTabControlStyle}" TargetType="TabControl" />
+                </TabControl.Style>
+                <TabItem FontSize="12"
+                         Header="{DynamicResource ScoreboardTabText}"
+                         Style="{StaticResource AlteredTabItemStyle}">
+                    <Border Background="{DynamicResource BaseBackground}">
+                        <local:ScoreboardControl Margin="10,10,5,0" />
+                    </Border>
+                </TabItem>
+
+                <TabItem FontSize="12"
+                         Header="{DynamicResource RunesTabText}"
+                         Style="{StaticResource AlteredTabItemStyle}">
+                    <Border Background="{DynamicResource BaseBackground}">
+                        <local:RunesDetailControl Margin="0,5,0,0" />
+                    </Border>
+                </TabItem>
+
+                <TabItem FontSize="12"
+                         Header="{DynamicResource StatsTabText}"
+                         Style="{StaticResource AlteredTabItemStyle}">
+                    <Grid Background="{DynamicResource BaseBackground}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid x:Name="PlayerIconsGrid"
+                              Grid.Row="0"
+                              Margin="165,10,8,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                        </Grid>
+
+                        <ScrollViewer x:Name="StatsScrollViewer"
+                                      Grid.Row="1"
+                                      Margin="0,5,0,0"
+                                      Loaded="StatsScrollViewer_Loaded"
+                                      VerticalScrollBarVisibility="Visible">
+                            <local:StatisticsControl x:Name="StatsControl" />
+                        </ScrollViewer>
+                    </Grid>
+
+                </TabItem>
+            </TabControl>
+
+
+        </Grid>
+    </Grid>
+
+
+</UserControl>
