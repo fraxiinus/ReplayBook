@@ -10,8 +10,13 @@
     <string:String x:Key="LoadMoreButtonText">Mehr laden...</string:String>
 
     <string:String x:Key="LoadingMessageReplay">Replays laden...</string:String>
+    <string:String x:Key="LoadingMessageExecutables">Verifiziere ausführbare Dateien...</string:String>
     <string:String x:Key="LoadingMessageThumbnails">Vorschau laden...</string:String>
+    <string:String x:Key="LoadingMessageErrors">Laden des/r Replays ist gescheitert</string:String>
+    <string:String x:Key="LoadingFailureTitle">Replay Ladefehler</string:String>
+    <string:String x:Key="LoadingFailureSubtitle">Bereinige oder lösche die folgende(n) Datei(en):</string:String>
 
+    <string:String x:Key="CloseText">Close</string:String>
     <string:String x:Key="YesText">Ja</string:String>
     <string:String x:Key="NoText">Nein</string:String>
 
@@ -21,7 +26,8 @@
     <string:String x:Key="CrossText">❌</string:String>
     <string:String x:Key="BlueTeamText">Blaues Team</string:String>
     <string:String x:Key="RedTeamText">Rotes Team</string:String>
-    <string:String x:Key="ScoreboardTabText">SCOREBOARD</string:String>
+    <string:String x:Key="ScoreboardTabText">SCOREBOARD</string:String>  
+    <string:String x:Key="RunesTabText">RUNEN</string:String>
     <string:String x:Key="StatsTabText">STATISTIKEN</string:String>
     <string:String x:Key="BlankDetailMessageText">Wähle ein Replay aus, um anzufangen</string:String>
     <string:String x:Key="FailedToLoadReplayText">Fehler beim laden des Replays</string:String>
@@ -107,8 +113,9 @@
     <string:String x:Key="ExecutableFoldersSearchButtonText">Ordner nach ausführbaren Dateien scannen</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultTitleText">Suchresultate</string:String>
     <string:String x:Key="ExecutableFoldersSearchResultLabelText">$ neue ausführbare Dateien registriert</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultErrorText">Die folgenden Ordner konnten nicht durchsucht werden:</string:String>
     <string:String x:Key="ExecutablesLabelText">Registrierte ausführbare Dateien</string:String>
-    <string:String x:Key="ExecutableSelectFolderDialogText">Wähle den Order für die ausführbare Dateien aus</string:String>
+    <string:String x:Key="ExecutableSelectFolderDialogText">Wähle den Ordner für die ausführbare Dateien aus</string:String>
     <string:String x:Key="ExecutableDetailWindowText">Ausführbare Datei</string:String>
     <string:String x:Key="ExecutableSelectDialogText">Wähle League of Legends.exe aus</string:String>
     <string:String x:Key="ExecutableSelectInvalidErrorText">Wähle eine valide ausführbare Datei aus</string:String>
@@ -148,8 +155,10 @@
     <string:String x:Key="RequestsCacheLabel">Bildercache herunterladen</string:String>
     <string:String x:Key="RequestsCacheItemsSize">Itemcachegrösse:</string:String>
     <string:String x:Key="RequestsCacheChampsSize">Championcachegrösse:</string:String>
+    <string:String x:Key="RequestsCacheRunesSize">Runencachegrösse:</string:String>
     <string:String x:Key="RequestsCacheClearItemsButton">Items löschen</string:String>
     <string:String x:Key="RequestsCacheClearChampsButton">Champions löschen</string:String>
+    <string:String x:Key="RequestsCacheClearRunesButton">Runen löschen</string:String>
     <string:String x:Key="RequestsCacheCloseToDeleteTitle">ReplayBook schliessen</string:String>
     <string:String x:Key="RequestsCacheCloseToDelete">Cache wird gelöscht, wenn ReplayBook geschlossen wird</string:String>
     <string:String x:Key="RequestsAdvancedLabel">Erweiterte Einstellungen</string:String>
@@ -301,21 +310,59 @@
     <string:String x:Key="SizeAsc">Grösse aufsteigend</string:String>
     <string:String x:Key="SizeDesc">Grösse absteigend</string:String>
 
-    <!--  Replay Menu Item Text  -->
+    <!--  Replay Menu Item Text  -->  
+    <string:String x:Key="OpenNewWindow">In neuem Fenster öffnen</string:String>
     <string:String x:Key="OpenContainingFolder">Öffne beinhaltenden Ordner</string:String>
     <string:String x:Key="ExportReplayData">Daten exportieren...</string:String>
     <string:String x:Key="RenameReplayFile">Umbenennen</string:String>
     <string:String x:Key="DeleteReplayFile">Löschen</string:String>
     <string:String x:Key="RefreshReplayList">Liste erneuern</string:String>
 
-    <!--  Replay Data Export  -->
+    <!--  Export Data : Wizard  -->
+    <string:String x:Key="ErdTitle">Datenexportassistent</string:String>
+    <string:String x:Key="ErdTitleAdvanced">Exportiere Daten im erweiterten Modus</string:String>
+    <string:String x:Key="ErdLandingSubtitle">Wähle von den folgenden Optionen</string:String>
+    <string:String x:Key="ErdLandingStart">Starte Assistenten</string:String>
+    <string:String x:Key="ErdLandingPreset">Exportiere mit Vorlage</string:String>
+    <string:String x:Key="ErdLandingAdvanced">Zeige erweiterten Modus</string:String>
+    <string:String x:Key="ErdLandingEverything">Exportiere alles</string:String>
+    <string:String x:Key="ErdPlayersSubtitle">Wähle Spieler für den Export</string:String>
+    <string:String x:Key="ErdPlayersManual">Manuelle Auswahl</string:String>
+    <string:String x:Key="ErdPlayersMarkers">Spiele mit Markierungen</string:String>
+    <string:String x:Key="ErdPlayersAll">Alle Spieler</string:String>
+    <string:String x:Key="ErdAttributesSubtitle">Wähle Spielerattribute für den Export</string:String>
+    <string:String x:Key="ErdAttributesFilter">Filter Attribute...</string:String>
+    <string:String x:Key="ErdFinishFormatHeading">Ausgabeformat</string:String>
+    <string:String x:Key="ErdFinishFormatCsv">Exportiere als CSV</string:String>
+    <string:String x:Key="ErdFinishFormatNormalize">Normalisiere Attributnamen</string:String>
+    <string:String x:Key="ErdFinishJsonHeading">JSON spezifische Optionen</string:String>
+    <string:String x:Key="ErdFinishJsonMatchId">Beinhalte Spiel-ID</string:String>
+    <string:String x:Key="ErdFinishJsonDuration">Beinhalte Spieldauer</string:String>
+    <string:String x:Key="ErdFinishJsonVersion">Beinhalte Patchversion</string:String>
+    <string:String x:Key="ErdPreviewTitle">Datenvorschau</string:String>
+  
+    <!--  Export Data : Common Items + Presets  -->
     <string:String x:Key="ErdSelectAllItems">Alles auswählen</string:String>
     <string:String x:Key="ErdDeselectAllItems">Alles abwählen</string:String>
     <string:String x:Key="ErdExportButtonText">Exportieren...</string:String>
     <string:String x:Key="ErdExportDialogTitle">Exportstandort auswählen</string:String>
     <string:String x:Key="ErdFailedToSave">Speichern der Datei fehlgeschlagen</string:String>
-    <string:String x:Key="ErdPreviewTitle">Datenvorschau</string:String>
-
+    <string:String x:Key="ErdPresetSave">Als Vorlage speichern</string:String>
+    <string:String x:Key="ErdPresetLoad">Vorlage laden</string:String>
+    <string:String x:Key="ErdPresetLoadbutton">Laden</string:String>
+    <string:String x:Key="ErdPresetLoadTitle">Lade Vorlage</string:String>
+    <string:String x:Key="ErdPresetSaveTitle">Speichere Vorlage</string:String>
+    <string:String x:Key="ErdPresetName">Name</string:String>
+    <string:String x:Key="ErdPresetProperties">Eigenschaften</string:String>
+    <string:String x:Key="ErdPresetPlayers">Wähle Spieler</string:String>
+    <string:String x:Key="ErdPresetAttributes">Ausgewählte Attribute</string:String>
+    <string:String x:Key="ErdPresetOverwrite">Überschreiben</string:String>
+    <string:String x:Key="ErdPresetExists">Vorlage mit diesen Namen existiert bereits. Überschreiben?</string:String>
+    <string:String x:Key="ErdPresetExistsNotify">Name existiert bereits</string:String>
+    <string:String x:Key="ErdPresetInvalidNotify">Name beinhaltet invalide Zeichen</string:String>
+    <string:String x:Key="ErdPresetFailed">Laden der Vorlage gescheitert</string:String>
+    <string:String x:Key="ErdPresetSavedTitle">Vorlage gespeichert</string:String>
+  
     <!--  Welcome Setup  -->
     <string:String x:Key="WswWindowTitleText">ReplayBook Einrichtung</string:String>
     <string:String x:Key="WswPreviousText">Zurück</string:String>
@@ -355,6 +402,7 @@
     <string:String x:Key="WswDownloadBody">Symbole herunterzuladen dauert einige Minutean, aber wird ReplayBook schneller machen. ReplayBook wird ansonsten Symbole bei Bedarf herunterladen, falls du diesen Schritt überspringst.</string:String>
     <string:String x:Key="WswDownloadChampionsText">Championvorschau herunterladen</string:String>
     <string:String x:Key="WswDownloadItemsText">Itemvorschau herunterladen</string:String>
+    <string:String x:Key="WswDownloadRunesText">Runenvorschau herunterladen</string:String>
     <string:String x:Key="WswDownloadButton">Download</string:String>
     <string:String x:Key="WswDownloadFinished">Download fertig</string:String>
 
