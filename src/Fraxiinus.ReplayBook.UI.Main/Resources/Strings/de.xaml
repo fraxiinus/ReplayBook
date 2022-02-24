@@ -26,7 +26,7 @@
     <string:String x:Key="CrossText">❌</string:String>
     <string:String x:Key="BlueTeamText">Blaues Team</string:String>
     <string:String x:Key="RedTeamText">Rotes Team</string:String>
-    <string:String x:Key="ScoreboardTabText">SCOREBOARD</string:String>  
+    <string:String x:Key="ScoreboardTabText">SCOREBOARD</string:String>
     <string:String x:Key="RunesTabText">RUNEN</string:String>
     <string:String x:Key="StatsTabText">STATISTIKEN</string:String>
     <string:String x:Key="BlankDetailMessageText">Wähle ein Replay aus, um anzufangen</string:String>
