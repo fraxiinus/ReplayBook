@@ -28,6 +28,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
                 case Language.ZhHans:
                     dict.Source = new Uri("..\\Resources\\Strings\\zh-Hans.xaml", UriKind.Relative);
                     break;
+                case Language.ZhHant:
+                    dict.Source = new Uri("..\\Resources\\Strings\\zh-Hant.xaml", UriKind.Relative);
+                    break;
                 case Language.De:
                     dict.Source = new Uri("..\\Resources\\Strings\\de.xaml", UriKind.Relative);
                     break;
@@ -61,43 +64,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
         }
 
         /// <summary>
-        /// Returns friendly names for all supported languages
-        /// </summary>
-        /// <returns></returns>
-        public static string[] GetFriendlyLanguageNames()
-        {
-            var languages = new List<string>();
-            foreach (Language lang in (Language[])Enum.GetValues(typeof(Language)))
-            {
-                switch (lang)
-                {
-                    case Language.En:
-                        languages.Add("English");
-                        break;
-                    case Language.ZhHans:
-                        languages.Add("简体中文");
-                        break;
-                    case Language.De:
-                        languages.Add("Deutsch");
-                        break;
-                    case Language.Es:
-                        languages.Add("Español");
-                        break;
-                    case Language.Fr:
-                        languages.Add("Français");
-                        break;
-                    case Language.Pt:
-                        languages.Add("Português (Brasil)");
-                        break;
-                    default:
-                        break;
-                }
-            }
-            return languages.ToArray();
-        }
-
-        /// <summary>
-        /// Returns language code used by Riot
+        /// Returns language code used by Riot, used mainly to load static data
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
@@ -107,6 +74,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
             {
                 Language.En => "en_US",
                 Language.ZhHans => "zh_CN",
+                Language.ZhHant => "zh_TW",
                 Language.De => "de_DE",
                 Language.Es => "es_ES",
                 Language.Fr => "fr_FR",

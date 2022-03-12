@@ -35,6 +35,23 @@
 
     public enum Language
     {
-        En, ZhHans, De, Es, Fr, Pt
+        En, ZhHans, De, Es, Fr, Pt, ZhHant
+    }
+
+    public class StaticConfigurationDefinitions
+    {
+        /// <summary>
+        /// Dictionary items matches <see cref="Language"/> order. Number values are used for reverse lookup.
+        /// </summary>
+        public static readonly Dictionary<string, int> LanguageDisplayNames = new()
+        {
+            { "English", 0 },
+            { "简体中文", 1 },
+            { "Deutsch", 2 },
+            { "Español", 3 },
+            { "Français", 4 },
+            { "Português (Brasil)", 5 },
+            { "繁體中文", 6 }
+        };
     }
 }

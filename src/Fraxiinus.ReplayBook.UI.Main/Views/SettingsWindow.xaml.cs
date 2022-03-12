@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using System.Linq;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Views
 {
@@ -90,8 +91,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             AppearanceThemeOption3.IsChecked = context.Configuration.ThemeMode == Theme.Light;
 
             // Load language drop down
-            LanguageComboBox.ItemsSource = LanguageHelper.GetFriendlyLanguageNames();
-            LanguageComboBox.SelectedIndex = (int)context.Configuration.Language;
+            LanguageComboBox.ItemsSource = StaticConfigurationDefinitions.LanguageDisplayNames.Keys
+                .OrderBy(x => x);
+
+            // select initial language after page is loaded
+            var languageNames = StaticConfigurationDefinitions.LanguageDisplayNames.Keys.ToArray();
+            LanguageComboBox.SelectedItem = languageNames[(int)context.Configuration.Language];
 
             // See if an update exists
             if (context.Configuration.Stash.TryGetBool("UpdateAvailable", out bool update))
@@ -926,8 +931,14 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             if (DataContext is not SettingsWindowDataContext context) { return; }
             if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
 
-            context.Configuration.Language = (Language)LanguageComboBox.SelectedIndex;
+            // convert sorted combobox item to actual code
+            var languageCode = StaticConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
+
+            // save language to configuration
+            context.Configuration.Language = (Language)languageCode;
+            // load language strings in application
             LanguageHelper.SetProgramLanguage(context.Configuration.Language);
+            // load static data in new language
             await viewModel.StaticDataProvider.Reload(context.Configuration.Language);
         }
     }

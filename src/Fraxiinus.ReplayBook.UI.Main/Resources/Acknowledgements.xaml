@@ -468,6 +468,7 @@ SOFTWARE.
     <string:String x:Key="AckLink11">https://github.com/fraxiinus/ReplayBook/wiki/Translating</string:String>
     <string:String x:Key="AckLicense11" xml:space="preserve">Thanks to these people for contributing translations!
 - Chinese Simplified by ASTWY, awter, Jerry Liew
+- Chinese Traditional by N/A
 - Spanish by Catinaxo
 - German by FlorianHugCH, xXLaokoonXx
 - French by grog12
