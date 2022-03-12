@@ -66,7 +66,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             // we are on the last page
             if (currentPage == typeof(Pages.WelcomeSetupFinish))
             {
-                mainViewModel.WriteSkipWelcome();
+                // mainViewModel.WriteSkipWelcome();
                 mainViewModel.ApplyInitialSettings(Context);
                 Close();
             }

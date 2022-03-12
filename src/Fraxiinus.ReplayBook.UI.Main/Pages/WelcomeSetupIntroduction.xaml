@@ -47,11 +47,11 @@
                            Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
                            Text="{DynamicResource LanguageLabelText}" />
 
+                <!--  Not bound to context due to language order being different from Enum , see code behind  -->
                 <ComboBox x:Name="LanguageComboBox"
                           Grid.Row="3"
                           Width="200"
                           Margin="0,12,0,0"
-                          SelectedIndex="{Binding Language}"
                           SelectionChanged="LanguageComboBox_SelectionChanged" />
 
             </Grid>

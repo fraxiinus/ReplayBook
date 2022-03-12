@@ -8,7 +8,7 @@ import shutil
 
 # add additional languages here:
 # see https://ddragon.leagueoflegends.com/cdn/languages.json for valid languages
-languages = ["en_US", "de_DE", "zh_CN", "es_ES", "fr_FR", "pt_BR"]
+languages = ["en_US", "de_DE", "zh_CN", "zh_TW", "es_ES", "fr_FR", "pt_BR"]
 
 dataDragonBaseUrl = "http://ddragon.leagueoflegends.com/"
 

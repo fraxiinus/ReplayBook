@@ -10,6 +10,7 @@
         Height="470"
         d:DataContext="{d:DesignInstance Type=models:WelcomeSetupDataContext}"
         ui:WindowHelper.UseModernWindowStyle="True"
+        Closing="WelcomeSetupWindow_OnClosing"
         Loaded="WelcomeSetupWindow_Loaded"
         ResizeMode="NoResize"
         WindowStyle="ToolWindow"
