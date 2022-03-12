@@ -24,13 +24,6 @@ jobs:
       with:
         dotnet-version: '6.0.x'
 
-    - name: Update Translation Status
-      run: |
-        ls
-        python ./src/scripts/compare-strings.py -format workflow ./src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings/en.xaml
-        ls
-      shell: pwsh
-
     - name: Run ReplayBook Publish Profile
       run: |
         dotnet publish -p:PublishProfile=FolderProfile

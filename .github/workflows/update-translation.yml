@@ -1,0 +1,24 @@
+name: Update Translation Pages
+
+on: workflow_call
+
+jobs:
+  build:
+    runs-on: [windows-latest]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v1
+    - name: Checkout wiki
+      uses: actions/checkout@v2
+      with:
+        repository: ${{github.repository}}.wiki
+        path: markdown
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Run Compare Strings Script
+      run: |
+        python ./src/scripts/compare-strings.py -format workflow -verbose ./src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings/en.xaml
+        ls
+      shell: pwsh

@@ -9,5 +9,7 @@ on:
       - '.github/workflows/**'
 
 jobs:
+  call-update-translation-workflow:
+    uses: ./.github/workflows/update-translations.yml
   call-build-workflow:
     uses: ./.github/workflows/build.yml
