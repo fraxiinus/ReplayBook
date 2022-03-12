@@ -12,7 +12,8 @@ def dir_path(string):
 parser = argparse.ArgumentParser(prog="compare-strings.py", description="Compares strings from a main resource file to others")
 parser.add_argument("directory", metavar="<resource directory>", type=dir_path, help="directory where all resource files are")
 parser.add_argument("main", metavar="<reference file>", help="file to compare all other files to")
-parser.add_argument("-format", metavar="<choice>", choices=["summary", "json", "csv"], default="summary", help="result format choices: 'summary', 'json', 'csv' (default: 'summary')")
+parser.add_argument("-format", metavar="<choice>", choices=["summary", "json", "csv", "workflow"], default="summary", help="result format choices: 'summary', 'json', 'csv', 'workflow' (default: 'summary')")
+parser.add_argument("-verbose", action="store_true")
 
 args = parser.parse_args()
 
@@ -22,15 +23,16 @@ if not os.path.exists(args.main):
     parser.print_help()
     exit()
 
-# raw strings from reference file
+# load raw strings from reference file
 allStringRes = []
 mainRoot = ET.parse(args.main).getroot()
 for stringRes in mainRoot:
     allStringRes.append(stringRes)
 
-print(f"loaded {len(allStringRes)} strings from main file")
+if args.verbose:
+    print(f"loaded {len(allStringRes)} strings from main file")
 
-# store results
+# dictionary store results
 results = {}
 # get all files in resource directory
 for fileName in os.listdir(args.directory):
@@ -38,8 +40,10 @@ for fileName in os.listdir(args.directory):
     # skip reference file
     if resFile == args.main:
         continue
+    if args.verbose:
+        print(f"reading {fileName}...")
 
-    print(f"reading {fileName}...")
+    # list of lines in file
     results[fileName] = []
 
     # start comparing strings
@@ -51,26 +55,64 @@ for fileName in os.listdir(args.directory):
         xpath = ".//*[@{http://schemas.microsoft.com/winfx/2006/xaml}Key='" + stringKey + "']"
         # if reference key does not exist in file
         if resRoot.find(xpath) is None:
+            # add as missing line
             results[fileName].append(stringKey)
-            #print(f"{stringKey} is missing from {fileName}")
-print("- - - - - - - - - - - - - - -")
+
+# output data
+if args.verbose:
+    print("- - - - - - - - - - - - - - -")
 if args.format == "summary":
     # output percentages
-    print("")
-    print("Current strings status:")
     totalStringCount = len(allStringRes)
-    columnKey = os.path.basename(args.main)
-    columnData = str(totalStringCount) + "/" + str(totalStringCount)
+    columnKey = ""
+    missingData = ""
+    percentData = ""
     for resFile in results:
         missingCount = len(results[resFile])
-        columnKey += "\t" + resFile
-        columnData += "\t" + str(totalStringCount - missingCount) + "/" + str(totalStringCount)
+        columnKey += resFile.replace(".xaml", "") + "\t"
+        missingData += str(missingCount) + "\t"
+        percentData += f"{((totalStringCount - missingCount) / totalStringCount) * 100:.1f}" + "\t"
     print(columnKey)
-    print(columnData)
+    print(missingData)
+    print(percentData)
 elif args.format == "json":
     # output json
     json_object = json.dumps(results, indent=4)
     print(json_object)
+elif args.format == "workflow":
+    # generate status output file
+    statusDict = {}
+    for resFile in results:
+        langName = resFile.replace(".xaml", "")
+        statusDict[langName] = len(results[resFile])
+    with open("translationStatus.json", "w") as outfile:
+        json.dump(statusDict, outfile)
+    # generate complete md table
+    mdLines = []
+    firstLine = "| key "
+    seperatorLine = "|-----"
+    for fileName in results:
+        firstLine += "| " + fileName.replace(".xaml", "") + " "
+        seperatorLine += "|-----"
+    mdLines.append(firstLine + "|")
+    mdLines.append(seperatorLine + "|")
+
+    for refString in allStringRes:
+        # add the key to the first column
+        key = refString.attrib['{http://schemas.microsoft.com/winfx/2006/xaml}Key']
+        newLine = "| " + key + " "
+        # loop over all files
+        for resFile in results:
+            missingStrings = results[resFile]
+            if key in missingStrings:
+                newLine += "| ❌ "
+            else:
+                newLine += "| ✔ "
+        mdLines.append(newLine + "|")
+
+    with open("translationTable.md", "w", encoding="utf-8") as outfile:
+        outfile.write('\n'.join(mdLines))
+
 elif args.format == "csv":
     # output csv
     csvLines = []
