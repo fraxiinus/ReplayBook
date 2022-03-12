@@ -1,0 +1,13 @@
+name: Main Branch Trigger
+
+on:
+  push:
+    branches: 
+      - master
+    paths: 
+      - 'src/**'
+      - '.github/workflows/**'
+
+jobs:
+  call-build-workflow:
+    uses: fraxiinus/ReplayBook/.github/workflows/build.yml
