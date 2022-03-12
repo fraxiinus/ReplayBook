@@ -10,6 +10,6 @@ on:
 
 jobs:
   call-update-translation-workflow:
-    uses: ./.github/workflows/update-translations.yml
+    uses: ./.github/workflows/update-translation.yml
   call-build-workflow:
     uses: ./.github/workflows/build.yml
