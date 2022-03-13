@@ -24,7 +24,7 @@ jobs:
       with:
         dotnet-version: '6.0.x'
 
-    - name: Run ReplayBook Publish Profile
+    - name: Run ReplayBook publish profile
       run: |
         dotnet publish -p:PublishProfile=FolderProfile
 

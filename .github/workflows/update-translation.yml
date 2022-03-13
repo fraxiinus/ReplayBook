@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
-    - name: Run Compare Strings Script
+    - name: Run Compare Strings script
       run: |
         python ./src/scripts/compare-strings.py -format workflow -verbose ./src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings/en.xaml
         ls
@@ -31,6 +31,7 @@ jobs:
         cd wiki
         git config --local user.email "actions@github.com"
         git config --local user.name "GitHub Actions"
+        # Will only pick up changes
         git add .
         git diff-index --quiet HEAD || git commit -m "Translation status updated by $GITHUB_RUN_ID" && git push
       shell: pwsh
