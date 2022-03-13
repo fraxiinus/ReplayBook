@@ -9,5 +9,6 @@ jobs:
     uses: ./.github/workflows/build.yml
   call-release-workflow:
     name: Release
+    needs: call-build-workflow
     if: ${{ contains(github.ref, 'refs/heads/releases/') }}
     uses: ./.github/workflows/release.yml
