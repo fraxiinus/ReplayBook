@@ -116,5 +116,6 @@
   <PropertyGroup>
     <PlatformTarget>x64</PlatformTarget>
     <DebugType>portable</DebugType>
+    <RootNamespace>Fraxiinus.ReplayBook.UI.Main</RootNamespace>
   </PropertyGroup>
 </Project>
