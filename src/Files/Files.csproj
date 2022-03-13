@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyName>Fraxiinus.ReplayBook.Files</AssemblyName>
+    <RootNamespace>Fraxiinus.ReplayBook.Files</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="5.0.11" />
@@ -13,7 +15,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fraxiinus.ReplayBook.Configuration\Fraxiinus.ReplayBook.Configuration.csproj" />
-    <ProjectReference Include="..\Fraxiinus.ReplayBook.Reader\Fraxiinus.ReplayBook.Reader.csproj" />
+    <ProjectReference Include="..\Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\Reader\Reader.csproj" />
   </ItemGroup>
 </Project>

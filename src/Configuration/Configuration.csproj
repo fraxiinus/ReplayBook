@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <AssemblyName>Fraxiinus.ReplayBook.Configuration</AssemblyName>
+    <RootNamespace>Fraxiinus.ReplayBook.Configuration</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
