@@ -10,34 +10,36 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: ReplayBook-Build
-    - name: Test
-      run: |
-        # what
-        ls
-      shell: pwsh
-    # - name: Create Release
-    #   id: create_release
-    #   uses: actions/create-release@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     tag_name: ${{ github.ref }}
-    #     release_name: Release ${{ github.ref }}
-    #     body: |
-    #       ### Patch Notes
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          ## X Monthly Release
 
-    #       **[New]** Item
-    #       **[Fix]** Item
-    #       **[Enhancement]** Item
-    #     draft: true
-    #     prerelease: false
+          ### Installation Instructions
 
-    # - name: Upload Release Asset
-    #   uses: actions/upload-release-asset@v1.0.1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-    #     asset_path: ./ReplayBook.zip
-    #     asset_name: ReplayBook.zip
-    #     asset_content_type: application/zip
+          Install New: Simply extract the zip file and run ReplayBook.exe. A guided setup sequence will help you get started.
+          Update from Release X: Replace the previous ReplayBook.exe with the new version.
+
+          ### Patch Notes
+
+          **[New]** Item
+          **[Fix]** Item
+          **[Enhancement]** Item
+        draft: true
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./ReplayBook.zip
+        asset_name: ReplayBook.zip
+        asset_content_type: application/zip
