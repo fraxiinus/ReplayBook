@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <AssemblyName>Rofl.Reader</AssemblyName>
-    <RootNamespace>Rofl.Reader</RootNamespace>
+    <AssemblyName>Fraxiinus.ReplayBook.Reader</AssemblyName>
+    <RootNamespace>Fraxiinus.ReplayBook.Reader</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

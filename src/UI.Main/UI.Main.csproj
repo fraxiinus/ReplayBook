@@ -39,11 +39,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fraxiinus.ReplayBook.Configuration\Fraxiinus.ReplayBook.Configuration.csproj" />
-    <ProjectReference Include="..\Fraxiinus.ReplayBook.Executables.Old\Fraxiinus.ReplayBook.Executables.Old.csproj" />
-    <ProjectReference Include="..\Fraxiinus.ReplayBook.Files\Fraxiinus.ReplayBook.Files.csproj" />
-    <ProjectReference Include="..\Fraxiinus.ReplayBook.Reader\Fraxiinus.ReplayBook.Reader.csproj" />
-    <ProjectReference Include="..\Fraxiinus.ReplayBook.Requests\Fraxiinus.ReplayBook.Requests.csproj" />
+    <ProjectReference Include="..\Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\Executables.Old\Executables.Old.csproj" />
+    <ProjectReference Include="..\Files\Files.csproj" />
+    <ProjectReference Include="..\Reader\Reader.csproj" />
+    <ProjectReference Include="..\Requests\Requests.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\scoreboardicon_champion.png">

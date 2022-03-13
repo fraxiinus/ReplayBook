@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fraxiinus.ReplayBook.Reader", "src\Fraxiinus.ReplayBook.Reader\Fraxiinus.ReplayBook.Reader.csproj", "{B4369113-5A5C-4BF7-B0E5-577776D8FC35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reader", "src\Reader\Reader.csproj", "{B4369113-5A5C-4BF7-B0E5-577776D8FC35}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fraxiinus.ReplayBook.Requests", "src\Fraxiinus.ReplayBook.Requests\Fraxiinus.ReplayBook.Requests.csproj", "{6F3E0D23-5235-4333-BFB8-9E00996BDE12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Requests", "src\Requests\Requests.csproj", "{6F3E0D23-5235-4333-BFB8-9E00996BDE12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fraxiinus.ReplayBook.UI.Main", "src\Fraxiinus.ReplayBook.UI.Main\Fraxiinus.ReplayBook.UI.Main.csproj", "{1C7F813A-4CD3-4F7D-A110-AB65608633FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI.Main", "src\UI.Main\UI.Main.csproj", "{1C7F813A-4CD3-4F7D-A110-AB65608633FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fraxiinus.ReplayBook.Files", "src\Fraxiinus.ReplayBook.Files\Fraxiinus.ReplayBook.Files.csproj", "{0DE2B53B-F1A7-4CB4-BEB1-E95302D51597}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Files", "src\Files\Files.csproj", "{0DE2B53B-F1A7-4CB4-BEB1-E95302D51597}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fraxiinus.ReplayBook.Executables.Old", "src\Fraxiinus.ReplayBook.Executables.Old\Fraxiinus.ReplayBook.Executables.Old.csproj", "{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Executables.Old", "src\Executables.Old\Executables.Old.csproj", "{8B99A22B-0C52-46EA-BA73-762F4AE37BA8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fraxiinus.ReplayBook.Configuration", "src\Fraxiinus.ReplayBook.Configuration\Fraxiinus.ReplayBook.Configuration.csproj", "{724C1166-4270-4EE1-8F7E-212489914D99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration", "src\Configuration\Configuration.csproj", "{724C1166-4270-4EE1-8F7E-212489914D99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
