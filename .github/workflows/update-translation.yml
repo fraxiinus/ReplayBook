@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: ${{github.repository}}.wiki
-        path: markdown
+        path: wiki
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
@@ -21,4 +21,16 @@ jobs:
       run: |
         python ./src/scripts/compare-strings.py -format workflow -verbose ./src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings/en.xaml
         ls
+      shell: pwsh
+    - name: Apply wiki changes
+      run: |
+        # Overwrite existing wiki translation table
+        Copy-Item translationTable.md -Destination ./wiki/Translation-Status.md
+
+        # Configure git, commit, and push
+        cd wiki
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git diff-index --quiet HEAD || git commit -m "Add changes" && git push
       shell: pwsh
