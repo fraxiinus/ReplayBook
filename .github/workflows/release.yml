@@ -8,6 +8,7 @@ jobs:
     steps:
     - name: Test
       run: |
+        # what
         ls
       shell: pwsh
     # - name: Create Release
