@@ -30,7 +30,7 @@ jobs:
         # Configure git, commit, and push
         cd wiki
         git config --local user.email "actions@github.com"
-        git config --local user.name "GitHub Action"
+        git config --local user.name "GitHub Actions"
         git add .
-        git diff-index --quiet HEAD || git commit -m "Add changes" && git push
+        git diff-index --quiet HEAD || git commit -m "Translation status updated by $GITHUB_RUN_ID" && git push
       shell: pwsh
