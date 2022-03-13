@@ -5,11 +5,11 @@ on: workflow_call
 jobs:
   release:
     runs-on: [windows-latest]
-      steps:
-      - name: Test
-        run: |
-          ls
-        shell: pwsh
+    steps:
+    - name: Test
+      run: |
+        ls
+      shell: pwsh
     # - name: Create Release
     #   id: create_release
     #   uses: actions/create-release@v1
