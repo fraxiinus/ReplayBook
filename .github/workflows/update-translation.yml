@@ -19,13 +19,15 @@ jobs:
         python-version: '3.x'
     - name: Run Compare Strings script
       run: |
-        python ./src/scripts/compare-strings.py -format workflow -verbose ./src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings/en.xaml
+        python ./src/scripts/compare-strings.py -format workflow -verbose ./src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings ./src/Fraxiinus.ReplayBook.UI.Main/Resources/Strings/en.xaml
+        python ./src/scripts/update-translation-summary.py translationStatus.json ./wiki/Translating.md
         ls
       shell: pwsh
     - name: Apply wiki changes
       run: |
         # Overwrite existing wiki translation table
         Copy-Item translationTable.md -Destination ./wiki/Translation-Status.md
+        Copy-Item translationUpdatedSummary.md -Destination ./wiki/Translating.md
 
         # Configure git, commit, and push
         cd wiki
