@@ -35,5 +35,5 @@ jobs:
         git config --local user.name "GitHub Actions"
         # Will only pick up changes
         git add .
-        git diff-index --quiet HEAD || git commit -m "Translation status updated by $GITHUB_RUN_ID" && git push
+        git diff-index --quiet HEAD || git commit -m "Translation status updated by $env:GITHUB_RUN_ID" && git push
       shell: pwsh
