@@ -6,6 +6,10 @@ jobs:
   release:
     runs-on: [windows-latest]
     steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: ReplayBook-Build
     - name: Test
       run: |
         # what
