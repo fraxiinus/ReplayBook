@@ -1,16 +1,17 @@
 ﻿using Etirps.RiZhi;
-using ModernWpf.Controls;
 using Fraxiinus.ReplayBook.Configuration;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.Requests;
+using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Controls;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
+using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +35,13 @@ namespace Fraxiinus.ReplayBook.UI.Main
 
         private ReplayPreview _lastSelection;
 
-        public MainWindow(RiZhi log, ObservableConfiguration config, RequestManager requests, ExecutableManager executables, FileManager files, ReplayPlayer player)
+        public MainWindow(RiZhi log,
+            ObservableConfiguration config,
+            RequestManager requests,
+            StaticDataManager staticData,
+            ExecutableManager executables,
+            FileManager files,
+            ReplayPlayer player)
         {
             InitializeComponent();
 
@@ -49,7 +56,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
                 log.WriteLog();
             };
 
-            var context = new MainWindowViewModel(files, requests, config, executables, player, log);
+            var context = new MainWindowViewModel(files, requests, staticData, config, executables, player, log);
             DataContext = context;
 
             // Decide to show welcome window

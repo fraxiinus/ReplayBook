@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Executables.Old", "src\Exec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Configuration", "src\Configuration\Configuration.csproj", "{724C1166-4270-4EE1-8F7E-212489914D99}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticData", "src\StaticData\StaticData.csproj", "{2E780194-0A66-499D-9D4A-1FB537B2D8EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{724C1166-4270-4EE1-8F7E-212489914D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{724C1166-4270-4EE1-8F7E-212489914D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{724C1166-4270-4EE1-8F7E-212489914D99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E780194-0A66-499D-9D4A-1FB537B2D8EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E780194-0A66-499D-9D4A-1FB537B2D8EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E780194-0A66-499D-9D4A-1FB537B2D8EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E780194-0A66-499D-9D4A-1FB537B2D8EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

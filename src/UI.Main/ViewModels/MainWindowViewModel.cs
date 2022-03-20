@@ -6,6 +6,7 @@ using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.Requests;
 using Fraxiinus.ReplayBook.Requests.Models;
+using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Extensions;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
@@ -30,6 +31,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
         // private readonly string _myName;
 
         public RequestManager RequestManager { get; private set; }
+
+        public StaticDataManager StaticDataManager { get; private set; }
 
         /// <summary>
         /// 
@@ -60,10 +63,15 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
         public bool ClearItemsCacheOnClose { get; set; }
         public bool ClearChampsCacheOnClose { get; set; }
         public bool ClearRunesCacheOnClose { get; set; }
-
         public bool ClearReplayCacheOnClose { get; set; }
 
-        public MainWindowViewModel(FileManager files, RequestManager requests, ObservableConfiguration config, ExecutableManager executables, ReplayPlayer player, RiZhi log)
+        public MainWindowViewModel(FileManager files,
+            RequestManager requests,
+            StaticDataManager staticData,
+            ObservableConfiguration config,
+            ExecutableManager executables,
+            ReplayPlayer player, 
+            RiZhi log)
         {
             Configuration = config ?? throw new ArgumentNullException(nameof(config));
             ExecutableManager = executables ?? throw new ArgumentNullException(nameof(executables));
@@ -71,6 +79,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             _log = log ?? throw new ArgumentNullException(nameof(log));
             _player = player ?? throw new ArgumentNullException(nameof(player));
 
+            StaticDataManager = staticData ?? throw new ArgumentNullException(nameof(staticData));
             RequestManager = requests ?? throw new ArgumentNullException(nameof(requests));
 
             KnownPlayers = config.PlayerMarkers;
@@ -444,7 +453,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
         {
             _log.Information("Opening new window...");
 
-            var singleWindow = new SingleReplayWindow(_log, Configuration, RequestManager, ExecutableManager, _fileManager, _player, true)
+            var singleWindow = new SingleReplayWindow(_log, Configuration, RequestManager, StaticDataManager, ExecutableManager, _fileManager, _player, true)
             {
                 ReplayFileLocation = replayPath
             };

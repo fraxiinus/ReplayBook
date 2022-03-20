@@ -44,6 +44,7 @@
     <ProjectReference Include="..\Files\Files.csproj" />
     <ProjectReference Include="..\Reader\Reader.csproj" />
     <ProjectReference Include="..\Requests\Requests.csproj" />
+    <ProjectReference Include="..\StaticData\StaticData.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\scoreboardicon_champion.png">

@@ -14,17 +14,17 @@ using System.Windows.Media.Imaging;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Utilities
 {
-    public class ChampionStaticData : StaticData
+    public class ChampionStaticData : StaticDataBaseClass
     {
         public ChampionStaticData(string id) : base(id) { }
     }
 
-    public class ItemStaticData : StaticData
+    public class ItemStaticData : StaticDataBaseClass
     {
         public ItemStaticData(string id) : base(id) { }
     }
 
-    public class RuneStaticData : StaticData
+    public class RuneStaticData : StaticDataBaseClass
     {
         public RuneStaticData(string id) : base(id) 
         {
@@ -248,7 +248,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
         #endregion
 
         #region Internal functions
-        private async Task LoadFileData<T>() where T : StaticData
+        private async Task LoadFileData<T>() where T : StaticDataBaseClass
         {
             string fileName = _riotLanguageCode + ".data.json";
             string targetFile = Path.Combine(_currentDirectory, "data");
@@ -297,7 +297,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
             }
         }
 
-        private void LoadImageData<T>(int atlasCount) where T: StaticData
+        private void LoadImageData<T>(int atlasCount) where T: StaticDataBaseClass
         {
             string atlasKey = "champion";
             string targetFile = Path.Combine(_currentDirectory, "data");

@@ -1,15 +1,17 @@
 ﻿using Etirps.RiZhi;
-using Microsoft.Extensions.Configuration;
-using ModernWpf;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Requests;
+using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.Views;
+using Microsoft.Extensions.Configuration;
+using ModernWpf;
 using System;
 using System.Reflection;
 using System.Runtime.Versioning;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
@@ -23,6 +25,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
     {
         private FileManager _files;
         private RequestManager _requests;
+        private StaticDataManager _staticDataManager;
         private RiZhi _log;
         private ReplayPlayer _player;
         private ObservableConfiguration _configuration;
@@ -37,7 +40,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
                 .Get<ConfigurationFile>();
             _configuration = new ObservableConfiguration(config);
 
-            CreateCommonObjects();
+            await CreateCommonObjects();
 
             // Apply appearence theme
             ApplyThemeSetting();
@@ -64,7 +67,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
                 }
                 else if (_configuration.FileAction == FileAction.Open)
                 {
-                    var singleWindow = new SingleReplayWindow(_log, _configuration, _requests, _executables, _files, _player)
+                    var singleWindow = new SingleReplayWindow(_log, _configuration, _requests, _staticDataManager, _executables, _files, _player)
                     {
                         ReplayFileLocation = selectedFile
                     };
@@ -73,13 +76,13 @@ namespace Fraxiinus.ReplayBook.UI.Main
             }
             else
             {
-                var mainWindow = new MainWindow(_log, _configuration, _requests, _executables, _files, _player);
+                var mainWindow = new MainWindow(_log, _configuration, _requests, _staticDataManager, _executables, _files, _player);
                 mainWindow.RestoreSavedWindowState();
                 mainWindow.Show();
             }
         }
 
-        private void CreateCommonObjects()
+        private async Task CreateCommonObjects()
         {
             // Create common objects
             AssemblyName assemblyName = Assembly.GetEntryAssembly()?.GetName();
@@ -96,6 +99,9 @@ namespace Fraxiinus.ReplayBook.UI.Main
                 _executables = new ExecutableManager(_log);
                 _files = new FileManager(_configuration, _log);
                 _requests = new RequestManager(_configuration, ApplicationProperties.UserAgent, _log);
+                _staticDataManager = new StaticDataManager(_configuration, ApplicationProperties.UserAgent, _log);
+                await _staticDataManager.LoadIndexAsync();
+
                 _player = new ReplayPlayer(_files, _configuration, _executables, _log);
             }
             catch (Exception ex)

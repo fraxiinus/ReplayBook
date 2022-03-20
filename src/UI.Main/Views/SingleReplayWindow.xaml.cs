@@ -3,6 +3,7 @@ using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Requests;
+using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
@@ -22,7 +23,14 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
         public string ReplayFileLocation { get; set; }
 
-        public SingleReplayWindow(RiZhi log, ObservableConfiguration config, RequestManager requests, ExecutableManager executables, FileManager files, ReplayPlayer player, bool subWindow = false)
+        public SingleReplayWindow(RiZhi log,
+            ObservableConfiguration config,
+            RequestManager requests,
+            StaticDataManager staticData,
+            ExecutableManager executables,
+            FileManager files,
+            ReplayPlayer player,
+            bool subWindow = false)
         {
             InitializeComponent();
             
@@ -38,7 +46,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                     log.WriteLog();
                 };
 
-                var context = new MainWindowViewModel(files, requests, config, executables, player, log);
+                var context = new MainWindowViewModel(files, requests, staticData, config, executables, player, log);
 
                 DataContext = context;
 

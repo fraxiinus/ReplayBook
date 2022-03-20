@@ -108,7 +108,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (DataContext is not SettingsWindowDataContext context) { return; }
+            if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
 
+            await viewModel.StaticDataManager.SaveIndexAsync();
             await context.Configuration.ToConfigurationFile().SaveConfigurationFile();
             context.Executables.Save();
         }
@@ -831,60 +833,62 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         {
             if (Application.Current.MainWindow.DataContext is not MainWindowViewModel context) { return; }
 
-            // Clear the error text box
-            DownloadImageErrorText.Text = string.Empty;
+            await context.StaticDataManager.DownloadData("12.5.1", StaticData.Models.StaticDataType.Champion);
 
-            // What do we download?
-            bool downloadRunes = RunesCheckBox.IsChecked ?? false;
+            //// Clear the error text box
+            //DownloadImageErrorText.Text = string.Empty;
 
-            // Nothing was selected, do nothing
-            if (downloadRunes == false)
-            {
-                DownloadImageErrorText.Text = (string)TryFindResource("WswDownloadNoSelectionError");
-                return;
-            }
+            //// What do we download?
+            //bool downloadRunes = RunesCheckBox.IsChecked ?? false;
 
-            // Create all the requests we need
-            var requests = new List<RequestBase>();
-            if (downloadRunes)
-            {
-                requests.AddRange(await context.RequestManager.GetAllRuneRequests(context.StaticDataProvider.GetAllRunes())
-                    .ConfigureAwait(true));
-            }
+            //// Nothing was selected, do nothing
+            //if (downloadRunes == false)
+            //{
+            //    DownloadImageErrorText.Text = (string)TryFindResource("WswDownloadNoSelectionError");
+            //    return;
+            //}
 
-            // No requests? nothing to do
-            if (requests.Count < 1)
-            {
-                DownloadImageErrorText.Text = (string)TryFindResource("WswDownloadMissingError");
-                return;
-            }
+            //// Create all the requests we need
+            //var requests = new List<RequestBase>();
+            //if (downloadRunes)
+            //{
+            //    requests.AddRange(await context.RequestManager.GetAllRuneRequests(context.StaticDataProvider.GetAllRunes())
+            //        .ConfigureAwait(true));
+            //}
 
-            // Disable buttons while download happens
-            DownloadImageButton.IsEnabled = false;
-            RunesCheckBox.IsChecked = false;
+            //// No requests? nothing to do
+            //if (requests.Count < 1)
+            //{
+            //    DownloadImageErrorText.Text = (string)TryFindResource("WswDownloadMissingError");
+            //    return;
+            //}
 
-            // Make progress elements visible
-            DownloadProgressGrid.Visibility = Visibility.Visible;
+            //// Disable buttons while download happens
+            //DownloadImageButton.IsEnabled = false;
+            //RunesCheckBox.IsChecked = false;
 
-            DownloadProgressBar.Value = 0;
-            DownloadProgressBar.Minimum = 0;
-            DownloadProgressBar.Maximum = requests.Count;
+            //// Make progress elements visible
+            //DownloadProgressGrid.Visibility = Visibility.Visible;
 
-            foreach (RequestBase request in requests)
-            {
-                ResponseBase response = await context.RequestManager.MakeRequestAsync(request)
-                    .ConfigureAwait(true);
+            //DownloadProgressBar.Value = 0;
+            //DownloadProgressBar.Minimum = 0;
+            //DownloadProgressBar.Maximum = requests.Count;
 
-                string splitSubstring = response.ResponsePath;
-                if (splitSubstring.Length > 50)
-                {
-                    splitSubstring = string.Concat(response.ResponsePath.AsSpan(0, 35), "...", response.ResponsePath.AsSpan(response.ResponsePath.Length - 15));
-                }
+            //foreach (RequestBase request in requests)
+            //{
+            //    ResponseBase response = await context.RequestManager.MakeRequestAsync(request)
+            //        .ConfigureAwait(true);
 
-                DownloadProgressText.Text = splitSubstring;
+            //    string splitSubstring = response.ResponsePath;
+            //    if (splitSubstring.Length > 50)
+            //    {
+            //        splitSubstring = string.Concat(response.ResponsePath.AsSpan(0, 35), "...", response.ResponsePath.AsSpan(response.ResponsePath.Length - 15));
+            //    }
 
-                DownloadProgressBar.Value++;
-            }
+            //    DownloadProgressText.Text = splitSubstring;
+
+            //    DownloadProgressBar.Value++;
+            //}
         }
 
         private void DownloadProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

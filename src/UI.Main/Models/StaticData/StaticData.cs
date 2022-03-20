@@ -2,9 +2,9 @@
 
 namespace Fraxiinus.ReplayBook.UI.Main.Models.StaticData
 {
-    public abstract class StaticData
+    public abstract class StaticDataBaseClass
     {
-        public StaticData(string id)
+        public StaticDataBaseClass(string id)
         {
             Id = id;
             DisplayName = "N/A";
