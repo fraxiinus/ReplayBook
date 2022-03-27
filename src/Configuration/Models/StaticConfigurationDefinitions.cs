@@ -51,13 +51,13 @@
         /// </summary>
         public static readonly Dictionary<string, int> LanguageDisplayNames = new()
         {
-            { "English", 0 },
-            { "简体中文", 1 },
-            { "Deutsch", 2 },
-            { "Español", 3 },
-            { "Français", 4 },
-            { "Português (Brasil)", 5 },
-            { "繁體中文", 6 }
+            { "English", 1 },
+            { "简体中文", 2 },
+            { "Deutsch", 4 },
+            { "Español", 8 },
+            { "Français", 16 },
+            { "Português (Brasil)", 32 },
+            { "繁體中文", 64 }
         };
     }
 }
