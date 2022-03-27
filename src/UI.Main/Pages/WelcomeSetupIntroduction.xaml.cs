@@ -58,7 +58,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
             {
                 var languageCode = StaticConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
 
-                LanguageHelper.SetProgramLanguage((Language)languageCode);
+                LanguageHelper.SetProgramLanguage((ProgramLanguage)languageCode);
             }
             catch (Exception)
             {

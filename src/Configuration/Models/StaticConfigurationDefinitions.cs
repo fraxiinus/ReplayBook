@@ -33,15 +33,21 @@
         Dark = 2
     }
 
-    public enum Language
+    public enum ProgramLanguage
     {
-        En, ZhHans, De, Es, Fr, Pt, ZhHant
+        En = 1,
+        ZhHans = 2,
+        De = 4,
+        Es = 8,
+        Fr = 16,
+        Pt = 32,
+        ZhHant = 64
     }
 
     public class StaticConfigurationDefinitions
     {
         /// <summary>
-        /// Dictionary items matches <see cref="Language"/> order. Number values are used for reverse lookup.
+        /// Dictionary items matches <see cref="ProgramLanguage"/> order. Number values are used for reverse lookup.
         /// </summary>
         public static readonly Dictionary<string, int> LanguageDisplayNames = new()
         {

@@ -569,7 +569,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
                 PageCount = 4,
                 DisableBackButton = true,
                 RiotGamesPath = (string)Application.Current.TryFindResource("WswExecutablesHint"),
-                Language = Language.En
+                Language = ProgramLanguage.En
             };
 
             _log.Information(welcomeFileFlag);

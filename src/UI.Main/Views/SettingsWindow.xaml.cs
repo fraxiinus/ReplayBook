@@ -19,6 +19,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Linq;
+using Fraxiinus.ReplayBook.StaticData.Models;
+using Fraxiinus.ReplayBook.StaticData.Extensions;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Views
 {
@@ -833,7 +835,10 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         {
             if (Application.Current.MainWindow.DataContext is not MainWindowViewModel context) { return; }
 
-            await context.StaticDataManager.DownloadData("12.5.1", StaticData.Models.StaticDataType.Champion);
+            await context.StaticDataManager.DownloadImageData("12.4.1", StaticDataType.Item | StaticDataType.Champion);
+            await context.StaticDataManager.DownloadProperties("12.4.1", StaticDataType.Rune | StaticDataType.Item | StaticDataType.Champion, ProgramLanguage.ZhHant.GetRiotRegionCode());
+
+            //await context.StaticDataManager.DownloadImageData("12.5.1", StaticDataType.Champion | StaticDataType.Item);
 
             //// Clear the error text box
             //DownloadImageErrorText.Text = string.Empty;
@@ -939,7 +944,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             var languageCode = StaticConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
 
             // save language to configuration
-            context.Configuration.Language = (Language)languageCode;
+            context.Configuration.Language = (ProgramLanguage)languageCode;
             // load language strings in application
             LanguageHelper.SetProgramLanguage(context.Configuration.Language);
             // load static data in new language

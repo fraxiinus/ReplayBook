@@ -57,7 +57,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
 
         private readonly Dictionary<string, RuneStaticData> _runeData;
 
-        public StaticDataProvider(Language language)
+        public StaticDataProvider(ProgramLanguage language)
         {
             _riotLanguageCode = LanguageHelper.GetRiotRegionCode(language);
             _currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -86,7 +86,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
         /// </summary>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task Reload(Language language)
+        public async Task Reload(ProgramLanguage language)
         {
             _riotLanguageCode = LanguageHelper.GetRiotRegionCode(language);
 

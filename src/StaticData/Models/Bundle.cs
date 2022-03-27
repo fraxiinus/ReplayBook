@@ -9,24 +9,24 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         public string Patch { get; set; } = string.Empty;
 
         [JsonPropertyName("download_date")]
-        public DateTimeOffset DownloadDate { get; set; }
+        public DateTimeOffset LastDownloadDate { get; set; }
 
         [JsonPropertyName("included_languages")]
-        public List<Language> IncludedLanguages { get; set; } = new List<Language>();
+        public List<ProgramLanguage> IncludedLanguages { get; set; } = new List<ProgramLanguage>();
 
         [JsonPropertyName("champion_image_files")]
         public List<string> ChampionImageFiles { get; set; } = new List<string>();
 
         [JsonPropertyName("champion_data_files")]
-        public List<string> ChampionDataFiles { get; set; } = new List<string>();
+        public Dictionary<string, string> ChampionDataFiles { get; set; } = new Dictionary<string, string>();
 
         [JsonPropertyName("item_image_files")]
         public List<string> ItemImageFiles { get; set; } = new List<string>();
 
         [JsonPropertyName("item_data_files")]
-        public List<string> ItemDataFiles { get; set; } = new List<string>();
+        public Dictionary<string, string> ItemDataFiles { get; set; } = new Dictionary<string, string>();
 
         [JsonPropertyName("rune_data_files")]
-        public List<string> RuneDataFiles { get; set; } = new List<string>();
+        public Dictionary<string, string> RuneDataFiles { get; set; } = new Dictionary<string, string>();
     }
 }
