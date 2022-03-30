@@ -630,7 +630,7 @@
                                         Width="100"
                                         HorizontalAlignment="Left"
                                         Click="DownloadImageButton_Click"
-                                        Content="{DynamicResource WswDownloadButton}" />
+                                        Content="{DynamicResource General__DownloadButton}" />
 
                                 <TextBlock x:Name="DownloadImageErrorText"
                                            Grid.Column="1"
@@ -668,6 +668,85 @@
                                              ValueChanged="DownloadProgressBar_ValueChanged" />
                             </Grid>
 
+                            <TextBlock FontSize="16" Text="{DynamicResource Settings__StaticData__BundleHeader}" />
+
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <ListBox x:Name="BundlesListBox"
+                                         Grid.Row="0"
+                                         Grid.Column="0"
+                                         Height="150"
+                                         ItemsSource="{Binding Path=Configuration.PlayerMarkers}"
+                                         MouseDoubleClick="EditKnownPlayerButton_Click"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         SelectionChanged="KnownPlayersListBox_SelectionChanged">
+
+                                    <ListBox.ItemContainerStyle>
+                                        <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="10,8,10,8" />
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Rectangle Grid.Column="0"
+                                                           Width="15"
+                                                           Height="15"
+                                                           Margin="0,0,5,0"
+                                                           VerticalAlignment="Center"
+                                                           Fill="{Binding Path=Color}"
+                                                           Stroke="Black"
+                                                           StrokeThickness="1" />
+                                                <TextBlock Grid.Column="1"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="{Binding Path=Name}" />
+                                                <TextBlock Grid.Column="2"
+                                                           Margin="10,0,5,0"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="14"
+                                                           Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
+                                                           Text="{Binding Path=Note}"
+                                                           TextAlignment="Right"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           TextWrapping="NoWrap" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+
+                                <ui:CommandBar Grid.Row="1">
+                                    <ui:AppBarButton x:Name="AddBundleButton" Label="{DynamicResource AddButtonText}">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}" />
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="EditBundleButton"
+                                                     IsEnabled="False"
+                                                     Label="{DynamicResource EditButtonText}">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource EditPathIcon}" />
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="RemoveBundleButton"
+                                                     IsEnabled="False"
+                                                     Label="{DynamicResource RemoveButtonText}">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                </ui:CommandBar>
+                            </Grid>
+
                             <Expander ExpandDirection="Down"
                                       FontSize="16"
                                       Header="{DynamicResource RequestsAdvancedLabel}">
@@ -677,6 +756,11 @@
                                              Padding="2"
                                              VerticalContentAlignment="Center"
                                              Text="{Binding Configuration.DataDragonBaseUrl}" />
+                                    <TextBlock FontSize="16" Text="{DynamicResource CommunityDragonBaseUrlLabelText}" />
+                                    <TextBox Height="25"
+                                             Padding="2"
+                                             VerticalContentAlignment="Center"
+                                             Text="{Binding Configuration.CommunityDragonBaseUrl}" />
                                 </ui:SimpleStackPanel>
                             </Expander>
                         </ui:SimpleStackPanel>

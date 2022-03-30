@@ -1,5 +1,6 @@
 ﻿using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
+using Fraxiinus.ReplayBook.StaticData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
         public ObservableConfiguration Configuration { get; set; }
 
         public ExecutableManager Executables { get; set; }
+
+        public StaticDataManager StaticData { get; set; }
     }
 }

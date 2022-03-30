@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Json\" />
+  </ItemGroup>
+
 </Project>

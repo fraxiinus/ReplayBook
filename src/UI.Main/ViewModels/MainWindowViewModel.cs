@@ -367,7 +367,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
                 DataContext = new SettingsWindowDataContext
                 {
                     Configuration = Configuration,
-                    Executables = ExecutableManager
+                    Executables = ExecutableManager,
+                    StaticData = StaticDataManager
                 }
             };
 

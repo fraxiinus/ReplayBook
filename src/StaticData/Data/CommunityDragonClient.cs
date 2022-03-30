@@ -1,12 +1,7 @@
 ﻿using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.StaticData.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Fraxiinus.ReplayBook.StaticData.Data
 {
@@ -41,7 +36,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             var cDragonLanguage = language.ToLower() == "en_us" ? "default" : language.ToLower();
 
             var url = _config.CommunityDragonBaseUrl
-                + version[..^2]
+                + GetCommunityDragonVersion(version)
                 + "/plugins/rcp-be-lol-game-data/global/"
                 + cDragonLanguage
                 + "/v1/perks.json";
@@ -119,5 +114,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
 
             return response;
         }
+
+        private string GetCommunityDragonVersion(string version) => version[..^2];
     }
 }

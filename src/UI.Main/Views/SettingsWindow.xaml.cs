@@ -93,12 +93,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             AppearanceThemeOption3.IsChecked = context.Configuration.ThemeMode == Theme.Light;
 
             // Load language drop down
-            LanguageComboBox.ItemsSource = StaticConfigurationDefinitions.LanguageDisplayNames.Keys
+            LanguageComboBox.ItemsSource = ConfigurationDefinitions.LanguageDisplayNames.Keys
                 .OrderBy(x => x);
 
             // select initial language after page is loaded
-            var languageNames = StaticConfigurationDefinitions.LanguageDisplayNames.Keys.ToArray();
-            LanguageComboBox.SelectedItem = languageNames[(int)context.Configuration.Language];
+            var languageNames = ConfigurationDefinitions.LanguageDisplayNames.Keys.ToArray();
+            LanguageComboBox.SelectedItem = languageNames[context.Configuration.Language.GetListIndex()];
 
             // See if an update exists
             if (context.Configuration.Stash.TryGetBool("UpdateAvailable", out bool update))
@@ -835,7 +835,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         {
             if (Application.Current.MainWindow.DataContext is not MainWindowViewModel context) { return; }
 
-            await context.StaticDataManager.DownloadImageData("12.4.1", StaticDataType.Item | StaticDataType.Champion);
+            await context.StaticDataManager.DownloadImages("12.4.1", StaticDataType.Item | StaticDataType.Champion);
             await context.StaticDataManager.DownloadProperties("12.4.1", StaticDataType.Rune | StaticDataType.Item | StaticDataType.Champion, ProgramLanguage.ZhHant.GetRiotRegionCode());
 
             //await context.StaticDataManager.DownloadImageData("12.5.1", StaticDataType.Champion | StaticDataType.Item);
@@ -941,7 +941,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
 
             // convert sorted combobox item to actual code
-            var languageCode = StaticConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
+            var languageCode = ConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
 
             // save language to configuration
             context.Configuration.Language = (ProgramLanguage)languageCode;

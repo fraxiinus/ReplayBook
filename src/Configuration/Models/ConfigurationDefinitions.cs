@@ -44,7 +44,7 @@
         ZhHant = 64
     }
 
-    public class StaticConfigurationDefinitions
+    public static class ConfigurationDefinitions
     {
         /// <summary>
         /// Dictionary items matches <see cref="ProgramLanguage"/> order. Number values are used for reverse lookup.
@@ -59,5 +59,20 @@
             { "Português (Brasil)", 32 },
             { "繁體中文", 64 }
         };
+
+        public static int GetListIndex(this ProgramLanguage language)
+        {
+            return language switch
+            {
+                ProgramLanguage.En => 0,
+                ProgramLanguage.ZhHans => 1,
+                ProgramLanguage.De => 2,
+                ProgramLanguage.Es => 3,
+                ProgramLanguage.Fr => 4,
+                ProgramLanguage.Pt => 5,
+                ProgramLanguage.ZhHant => 6,
+                _ => throw new NotImplementedException()
+            };
+        }
     }
 }

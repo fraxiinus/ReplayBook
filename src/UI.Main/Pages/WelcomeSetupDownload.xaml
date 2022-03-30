@@ -64,7 +64,7 @@
                             Width="100"
                             HorizontalAlignment="Left"
                             Click="DownloadButton_OnClick"
-                            Content="{DynamicResource WswDownloadButton}" />
+                            Content="{DynamicResource General__DownloadButton}" />
 
                     <TextBlock x:Name="ErrorText"
                                Grid.Column="1"

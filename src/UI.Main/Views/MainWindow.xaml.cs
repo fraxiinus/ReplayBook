@@ -137,7 +137,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
 
                 Flyout updateNotif = FlyoutHelper.CreateFlyout(true, true);
                 updateNotif.SetFlyoutLabelText(TryFindResource("UpdateAvailableNotifText") as string);
-                updateNotif.SetFlyoutButtonText(TryFindResource("UpdateAvailableNotifButton") as string);
+                updateNotif.SetFlyoutButtonText(TryFindResource("General__DownloadButton") as string);
 
                 updateNotif.GetFlyoutButton().Click += (object e1, RoutedEventArgs a) =>
                 {

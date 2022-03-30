@@ -1,6 +1,7 @@
 ﻿using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.StaticData.Data;
+using Fraxiinus.ReplayBook.StaticData.Extensions;
 using Fraxiinus.ReplayBook.StaticData.Models;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -14,34 +15,25 @@ namespace Fraxiinus.ReplayBook.StaticData
         private readonly ObservableConfiguration _config;
         private readonly string _dataPath;
 
-        private BundleIndex _bundleIndex;
-
-        private readonly Dictionary<string, Bundle> _bundles;
-
         private readonly DataDragonClient _dataDragonClient;
         private readonly CommunityDragonClient _communityDragonClient;
+
+        public ObservableStaticDataContext Context;
 
         public StaticDataManager(ObservableConfiguration config, string userAgent, RiZhi log)
         {
             _dataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
-            _bundleIndex = new BundleIndex
-            {
-                DownloadedBundles = new Dictionary<string, string>()
-            };
-            _bundles = new Dictionary<string, Bundle>();
             _config = config;
             _log = log;
 
             _dataDragonClient = new DataDragonClient(_dataPath, config, userAgent, log);
             _communityDragonClient = new CommunityDragonClient(_dataPath, config, userAgent, log);
+
+            Context = new ObservableStaticDataContext();
         }
 
         public async Task LoadIndexAsync()
         {
-            // clear any loaded index data
-            _bundleIndex.DownloadedBundles.Clear();
-            _bundles.Clear();
-
             // check if index file exists
             if (!File.Exists(Path.Combine(_dataPath, "index.json")))
             {
@@ -51,112 +43,85 @@ namespace Fraxiinus.ReplayBook.StaticData
                 foreach (var existingBundle in Directory.EnumerateFiles(_dataPath, "bundle.json", SearchOption.AllDirectories))
                 {
                     // load bundle data
-                    await using FileStream bundleFile = File.OpenRead(Path.Combine(_dataPath, existingBundle));
-                    var bundleData = await JsonSerializer.DeserializeAsync<Bundle>(bundleFile) ?? throw new Exception("bundle load null");
-                    _log.Information($"Discovered bundle {bundleData.Patch}");
-                    // add discovered bundle to bundle index
-                    _bundleIndex.DownloadedBundles.Add(bundleData.Patch, existingBundle);
-                    // add loaded bundle to bundle data
-                    _bundles.Add(existingBundle, bundleData);
+                    _log.Information($"Discovered bundle {existingBundle}");
+
+                    var newBundle = await ObservableBundle.CreateFromJson(existingBundle);
+
+                    // add bundle to new index
+                    Context.Bundles.Add(newBundle);
                 }
 
-                _log.Information($"Found and loaded {_bundles.Count} bundles");
+                _log.Information($"Found and loaded {Context.Bundles.Count} existing bundles");
 
                 return;
             }
 
             // load index data to _bundleIndex
-            await using FileStream indexFile = File.OpenRead(Path.Combine(_dataPath, "index.json"));
-            _bundleIndex = await JsonSerializer.DeserializeAsync<BundleIndex>(indexFile)
-                ?? throw new Exception("index.json load null");
-            _log.Information($"Index claims {_bundleIndex.DownloadedBundles.Count} bundles");
-
-            // load bundles defined in index
-            var deleteFromIndex = new List<string>();
-            foreach (var bundleKeyValue in _bundleIndex.DownloadedBundles)
-            {
-                // check if index file exists
-                if (!File.Exists(Path.Combine(_dataPath, bundleKeyValue.Value)))
-                {
-                    // mark key for deletion
-                    _log.Information($"bundle {bundleKeyValue.Key} is missing: {bundleKeyValue.Value}");
-                    deleteFromIndex.Add(bundleKeyValue.Key);
-                    continue;
-                }
-
-                // load bundle data
-                await using FileStream bundleFile = File.OpenRead(Path.Combine(_dataPath, bundleKeyValue.Value));
-                _bundles[bundleKeyValue.Key] = await JsonSerializer.DeserializeAsync<Bundle>(bundleFile)
-                    ?? throw new Exception("bundle load null");
-                _log.Information($"Loaded bundle {bundleKeyValue.Key}");
-            }
-
-            foreach (var deletedBundle in deleteFromIndex)
-            {
-                _bundleIndex.DownloadedBundles.Remove(deletedBundle);
-            }
+            Context = await ObservableStaticDataContext.CreateFromJson(_dataPath, _log);
+            _log.Information($"Found index, loaded {Context.Bundles.Count} bundles");
         }
 
         public async Task SaveIndexAsync()
         {
-            var serializerOptions = new JsonSerializerOptions
-            {
-                WriteIndented = true,
-                Converters =
-                {
-                    new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
-                }
-            };
-
-            // create or overwrite index
-            await using FileStream indexFile = File.Create(Path.Combine(_dataPath, "index.json"));
-            await JsonSerializer.SerializeAsync(indexFile, _bundleIndex, serializerOptions);
-
-            // create or overwrite bundles
-            foreach (var bundleKeyValue in _bundleIndex.DownloadedBundles)
-            {
-                // if a bundle exists, then the folder should already exist (data downloaded)
-                await using FileStream bundleFile = File.Create(Path.Combine(_dataPath, bundleKeyValue.Value));
-                await JsonSerializer.SerializeAsync(bundleFile, _bundles[bundleKeyValue.Key], serializerOptions);
-            }
+            await Context.SaveToJson(_dataPath);
         }
 
-        public async Task DownloadImageData(string version, StaticDataType types)
+        public async Task DownloadImages(string patchVersion, StaticDataType types)
         {
-            Bundle targetBundle = GetBundle(version);
+            var targetBundle = Context.GetBundle(patchVersion);
 
             // download items
             if (types.HasFlag(StaticDataType.Item))
             {
-                var paths = await _dataDragonClient.DownloadSpriteImages(version, StaticDataDefinitions.Item);
+                var paths = await _dataDragonClient.DownloadSpriteImages(patchVersion, StaticDataDefinitions.Item);
                 targetBundle.ItemImageFiles.Clear();
-                targetBundle.ItemImageFiles.AddRange(paths);
+                foreach (var path in paths)
+                {
+                    targetBundle.ItemImageFiles.Add(path);
+                }
+
+                // update last download date
+                targetBundle.LastDownloadDate = DateTime.Now;
             }
             if (types.HasFlag(StaticDataType.Champion))
             {
-                var paths = await _dataDragonClient.DownloadSpriteImages(version, StaticDataDefinitions.Champion);
+                var paths = await _dataDragonClient.DownloadSpriteImages(patchVersion, StaticDataDefinitions.Champion);
                 targetBundle.ChampionImageFiles.Clear();
-                targetBundle.ChampionImageFiles.AddRange(paths);
+                foreach (var path in paths)
+                {
+                    targetBundle.ChampionImageFiles.Add(path);
+                }
+
+                // update last download date
+                targetBundle.LastDownloadDate = DateTime.Now;
             }
             if (types.HasFlag(StaticDataType.Rune))
             {
-                // TODO
+                // Cannot download runes here,
+                // we need runes property set!
+                _log.Warning("Runes cannot be downloaded with this function, use rune specific function");
             }
+        }
 
-            // update last download date
+        public async Task DownloadRuneImages(string patchVersion, IEnumerable<RuneData> runeData)
+        {
+            var targetBundle = Context.GetBundle(patchVersion);
+
+            await _dataDragonClient.DownloadRuneImages(patchVersion, runeData);
+
             targetBundle.LastDownloadDate = DateTime.Now;
         }
 
-        public async Task DownloadProperties(string version, StaticDataType types, string language)
+        public async Task DownloadProperties(string patchVersion, StaticDataType types, string language)
         {
-            Bundle targetBundle = GetBundle(version);
+            var targetBundle = Context.GetBundle(patchVersion);
 
             // download items
             if (types.HasFlag(StaticDataType.Item))
             {
-                var properties = await _dataDragonClient.DownloadPropertySet(version, StaticDataDefinitions.Item, language);
-                var savedFile = await SavePropertySet(properties, version, StaticDataDefinitions.Item, language);
-                var result = targetBundle.ItemDataFiles.TryAdd(language, savedFile);
+                var properties = await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Item, language);
+                var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Item, language);
+                var result = targetBundle.ItemDataFiles.TryAdd(patchVersion, savedFile);
                 
                 if (!result)
                 {
@@ -165,8 +130,8 @@ namespace Fraxiinus.ReplayBook.StaticData
             }
             if (types.HasFlag(StaticDataType.Champion))
             {
-                var properties = await _dataDragonClient.DownloadPropertySet(version, StaticDataDefinitions.Champion, language);
-                var savedFile = await SavePropertySet(properties, version, StaticDataDefinitions.Champion, language);
+                var properties = await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Champion, language);
+                var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Champion, language);
                 var result = targetBundle.ChampionDataFiles.TryAdd(language, savedFile);
 
                 if (!result)
@@ -176,9 +141,9 @@ namespace Fraxiinus.ReplayBook.StaticData
             }
             if (types.HasFlag(StaticDataType.Rune))
             {
-                var properties = (List<RuneData>) await _dataDragonClient.DownloadPropertySet(version, StaticDataDefinitions.Rune, language);
-                await _communityDragonClient.GetRuneStatDescriptions(properties, version, language);
-                var savedFile = await SavePropertySet(properties, version, StaticDataDefinitions.Rune, language);
+                var properties = (List<RuneData>) await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Rune, language);
+                await _communityDragonClient.GetRuneStatDescriptions(properties, patchVersion, language);
+                var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Rune, language);
                 var result = targetBundle.RuneDataFiles.TryAdd(language, savedFile);
                 
                 if (!result)
@@ -191,30 +156,7 @@ namespace Fraxiinus.ReplayBook.StaticData
             targetBundle.LastDownloadDate = DateTime.Now;
         }
 
-        /// <summary>
-        /// Creates or returns existing Bundle
-        /// </summary>
-        /// <param name="version"></param>
-        /// <returns></returns>
-        private Bundle GetBundle(string version)
-        {
-            // try to get an existing bundle, create new otherwise
-            if (!_bundles.TryGetValue(version, out var targetBundle))
-            {
-                targetBundle = new Bundle
-                {
-                    Patch = version
-                };
-                // save bundle to bundle lookup
-                _bundles[version] = targetBundle;
-                // save bundle to index (for saving/loading to file)
-                _bundleIndex.DownloadedBundles[version] = Path.Combine(version, "bundle.json");
-            }
-
-            return targetBundle;
-        }
-
-        private async Task<string> SavePropertySet(IEnumerable<BaseStaticData> data, string version, string dataType, string language)
+        private async Task<string> SavePropertySet(IEnumerable<BaseStaticData> data, string patchVersion, string dataType, string language)
         {
             var serializerOptions = new JsonSerializerOptions
             {
@@ -228,7 +170,7 @@ namespace Fraxiinus.ReplayBook.StaticData
             };
 
             // Make sure destination exists
-            var relativeDestination = Path.Combine(version, dataType.ToLower());
+            var relativeDestination = Path.Combine(patchVersion, dataType.ToLower());
             var destinationFolder = Path.Combine(_dataPath, relativeDestination);
             Directory.CreateDirectory(destinationFolder);
 

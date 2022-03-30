@@ -47,6 +47,8 @@
     <string:String x:Key="MissingPathTitle">Replay folder not found</string:String>
     <string:String x:Key="MissingPathText">The following path(s) could not be found are were removed:</string:String>
 
+    <string:String x:Key="General__DownloadButton">Download</string:String>
+
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
     <string:String x:Key="UpdatesSettingsItemText">Updates</string:String>
@@ -86,7 +88,6 @@
     <string:String x:Key="CheckUpdatesButtonText">Check now</string:String>
     <string:String x:Key="UpdateAvailableText">Update is available! Download the new version here</string:String>
     <string:String x:Key="UpdateAvailableNotifText">New version available!</string:String>
-    <string:String x:Key="UpdateAvailableNotifButton">Download</string:String>
     <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
     <string:String x:Key="OpenGitHubButtonText">View project on GitHub</string:String>
     <string:String x:Key="UpdateExceptionTitleText">Unable to check for updates</string:String>
@@ -150,6 +151,8 @@
     <string:String x:Key="ReplayDatabaseSize">Size:</string:String>
     <string:String x:Key="ReplayDatabaseClearButton">Clear cache</string:String>
 
+    <string:String x:Key="Settings__StaticData__BundleHeader">Downloaded Bundles</string:String>
+
     <string:String x:Key="RequestsDownloadAllLabel">Download Images</string:String>
     <string:String x:Key="RequestsCacheLabel">Downloaded Images Cache</string:String>
     <string:String x:Key="RequestsCacheItemsSize">Items cache size:</string:String>
@@ -162,6 +165,7 @@
     <string:String x:Key="RequestsCacheCloseToDelete">Cache will be deleted when ReplayBook is closed</string:String>
     <string:String x:Key="RequestsAdvancedLabel">Advanced Options</string:String>
     <string:String x:Key="DataDragonBaseUrlLabelText">Data Dragon Base URL</string:String>
+    <string:String x:Key="CommunityDragonBaseUrlLabelText">Community Dragon Base URL</string:String>
     <string:String x:Key="DataDragonChampionUrlLabelText">Champion Image Relative URL</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">Item Image Relative URL</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
@@ -401,7 +405,6 @@
     <string:String x:Key="WswDownloadChampionsText">Download champion thumbnails</string:String>
     <string:String x:Key="WswDownloadItemsText">Download item thumbnails</string:String>
     <string:String x:Key="WswDownloadRunesText">Download rune thumbnails</string:String>
-    <string:String x:Key="WswDownloadButton">Download</string:String>
     <string:String x:Key="WswDownloadFinished">Download Finished</string:String>
 
     <string:String x:Key="WswFinishTitle">Setup complete!</string:String>

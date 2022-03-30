@@ -11,17 +11,14 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         [JsonPropertyName("download_date")]
         public DateTimeOffset LastDownloadDate { get; set; }
 
-        [JsonPropertyName("included_languages")]
-        public List<ProgramLanguage> IncludedLanguages { get; set; } = new List<ProgramLanguage>();
-
         [JsonPropertyName("champion_image_files")]
         public List<string> ChampionImageFiles { get; set; } = new List<string>();
 
-        [JsonPropertyName("champion_data_files")]
-        public Dictionary<string, string> ChampionDataFiles { get; set; } = new Dictionary<string, string>();
-
         [JsonPropertyName("item_image_files")]
         public List<string> ItemImageFiles { get; set; } = new List<string>();
+
+        [JsonPropertyName("champion_data_files")]
+        public Dictionary<string, string> ChampionDataFiles { get; set; } = new Dictionary<string, string>();
 
         [JsonPropertyName("item_data_files")]
         public Dictionary<string, string> ItemDataFiles { get; set; } = new Dictionary<string, string>();

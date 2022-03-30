@@ -1,13 +1,7 @@
 ﻿using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
-using Fraxiinus.ReplayBook.StaticData.Extensions;
 using Fraxiinus.ReplayBook.StaticData.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Fraxiinus.ReplayBook.StaticData.Data
 {
@@ -133,6 +127,33 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return resultFiles;
         }
 
+        public async Task DownloadRuneImages(string patchVersion, IEnumerable<RuneData> runeData)
+        {
+            foreach (var rune in runeData)
+            {
+                if (rune.Key == null)
+                {
+                    _log.Information("encountered null rune");
+                    continue;
+                }
+
+                var url = _config.DataDragonBaseUrl
+                    + "img/"
+                    + rune.IconUrl;
+
+                var response = await SendGetRequestAsync(url, "image/*");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    _log.Information($"Made successful HTTP request {url}");
+
+                    var destinationFile = await SaveImageToFile(await response.Content.ReadAsStreamAsync(), patchVersion, rune.Key);
+
+                    _log.Information($"Saved rune to ${destinationFile}");
+                }
+            }
+        }
+
         /// <summary>
         /// Downloads Data Dragon properties for a given patch, type, and language
         /// </summary>
@@ -143,6 +164,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
         /// <exception cref="HttpRequestException"></exception>
         public async Task<IEnumerable<BaseStaticData>> DownloadPropertySet(string patchVersion, string dataType, string language)
         {
+            // catch and rename rune data type
             var fileName = dataType == StaticDataDefinitions.Rune ? "runesReforged" : dataType.ToLower();
 
             var url = _config.DataDragonBaseUrl
@@ -159,6 +181,8 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             {
                 if (dataType == StaticDataDefinitions.Rune)
                 {
+                    _log.Information($"Made successful HTTP request {url}");
+
                     return await ParseRunePropertySet(response.Content.ReadAsStream());
                 }
                 else
@@ -299,7 +323,20 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             using var fileStream = new FileStream(destinationFile, FileMode.Create, FileAccess.Write);
             await imageStream.CopyToAsync(fileStream);
 
-            return relativeDestination + $"{count}.png";
+            return Path.Combine(relativeDestination, $"{count}.png");
+        }
+
+        private async Task<string> SaveImageToFile(Stream imageStream, string relDestFolder, string destinationFileName)
+        {
+            var destinationFolder = Path.Combine(_dataPath, relDestFolder, "rune");
+
+            Directory.CreateDirectory(destinationFolder);
+
+            var destinationFile = Path.Combine(destinationFolder, destinationFileName);
+            using var filestream = new FileStream(destinationFile, FileMode.Create, FileAccess.Write);
+            await imageStream.CopyToAsync(filestream);
+
+            return Path.Combine(relDestFolder, "rune", destinationFileName);
         }
     }
 }
