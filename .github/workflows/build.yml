@@ -22,15 +22,12 @@ jobs:
     - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '6.0.0'
 
     - name: Run ReplayBook publish profile
       run: |
-        dotnet publish -p:PublishProfile=FolderProfile
+        dotnet publish -p:PublishProfile=FolderProfile -p:Configuration=Release -p:DebugSymbols=false -p:DebugType=None
 
-        # remove debugging files
-        Remove-Item ./publish/*.pdb
-        Remove-Item ./publish/sni.dll
       shell: pwsh
 
     - name: Run runes packaging script
