@@ -26,11 +26,8 @@ jobs:
 
     - name: Run ReplayBook publish profile
       run: |
-        dotnet publish -p:PublishProfile=FolderProfile
+        dotnet publish -p:PublishProfile=FolderProfile -p:Configuration=Release -p:DebugSymbols=false -p:DebugType=None
 
-        # remove debugging files
-        Remove-Item ./publish/*.pdb
-        Remove-Item ./publish/sni.dll
       shell: pwsh
 
     - name: Run runes packaging script
