@@ -3,9 +3,12 @@ using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.StaticData.Data;
 using Fraxiinus.ReplayBook.StaticData.Extensions;
 using Fraxiinus.ReplayBook.StaticData.Models;
+using System.Drawing;
+using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Windows.Media.Imaging;
 
 namespace Fraxiinus.ReplayBook.StaticData
 {
@@ -18,7 +21,7 @@ namespace Fraxiinus.ReplayBook.StaticData
         private readonly DataDragonClient _dataDragonClient;
         private readonly CommunityDragonClient _communityDragonClient;
 
-        public ObservableStaticDataContext Context;
+        public ObservableStaticDataContext Context { get; set; }
 
         public StaticDataManager(ObservableConfiguration config, string userAgent, RiZhi log)
         {
@@ -66,6 +69,92 @@ namespace Fraxiinus.ReplayBook.StaticData
             await Context.SaveToJson(_dataPath);
         }
 
+        public async Task GetPatchesIfOutdated()
+        {
+            if (!Context.KnownPatchNumbers.Any())
+            {
+                await RefreshPatches();
+            }
+        }
+
+        public async Task RefreshPatches()
+        {
+            Context.KnownPatchNumbers.Clear();
+
+            var allVersions = await _dataDragonClient.GetPatchesAsync();
+
+            foreach (var version in allVersions)
+            {
+                Context.KnownPatchNumbers.Add(version);
+
+                // no data past before this patch can be loaded.
+                if (version == "7.22.1") break;
+            }
+
+            Context.LastPatchFetch = DateTime.Now;
+        }
+
+        public async Task<ItemData?> GetItemData(string itemId, ProgramLanguage language, string patchVersion)
+        {
+            var bundle = Context.GetBundle(patchVersion);
+            try
+            {
+                return await bundle.GetItemData(language.GetRiotRegionCode(), itemId, _dataPath);
+            }
+            catch (Exception ex)
+            {
+                _log.Error($"{ex}\ncould not load data for item: {itemId} - {patchVersion} - {language.GetRiotRegionCode()}");
+                return null;
+            }
+        }
+
+        public async Task<ChampionData?> GetChampionData(string championId, ProgramLanguage language, string patchVersion)
+        {
+            var bundle = Context.GetBundle(patchVersion);
+            try
+            {
+                return await bundle.GetChampionData(language.GetRiotRegionCode(), championId, _dataPath);
+            }
+            catch (Exception ex)
+            {
+                _log.Error($"{ex}\ncould not load data for champion: {championId} - {patchVersion} - {language.GetRiotRegionCode()}");
+                return null;
+            }
+        }
+
+        public async Task<RuneData?> GetRuneData(string runeId, ProgramLanguage language, string patchVersion)
+        {
+            var bundle = Context.GetBundle(patchVersion);
+            try
+            {
+                return await bundle.GetRuneData(language.GetRiotRegionCode(), runeId, _dataPath);
+            }
+            catch (Exception ex)
+            {
+                _log.Error($"{ex}\ncould not load data for rune: {runeId} - {patchVersion} - {language.GetRiotRegionCode()}");
+                return null;
+            }
+        }
+
+        public BitmapFrame? GetAtlasImage(string source, string patchVersion)
+        {
+            var bundle = Context.GetBundle(patchVersion);
+            try
+            {
+                return bundle.GetAtlasImage(source, _dataPath);
+            }
+            catch (Exception ex)
+            {
+                _log.Error($"{ex}\ncould not load image for: {source} - {patchVersion}");
+                return null;
+            }
+        }
+
+        public void DeleteBundle(string patchVersion)
+        {
+            Context.DeleteBundle(_dataPath, patchVersion);
+        }
+
         public async Task DownloadImages(string patchVersion, StaticDataType types)
         {
             var targetBundle = Context.GetBundle(patchVersion);
@@ -74,10 +163,10 @@ namespace Fraxiinus.ReplayBook.StaticData
             if (types.HasFlag(StaticDataType.Item))
             {
                 var paths = await _dataDragonClient.DownloadSpriteImages(patchVersion, StaticDataDefinitions.Item);
-                targetBundle.ItemImageFiles.Clear();
+                targetBundle.ItemImagePaths.Clear();
                 foreach (var path in paths)
                 {
-                    targetBundle.ItemImageFiles.Add(path);
+                    targetBundle.ItemImagePaths.Add(path);
                 }
 
                 // update last download date
@@ -86,10 +175,10 @@ namespace Fraxiinus.ReplayBook.StaticData
             if (types.HasFlag(StaticDataType.Champion))
             {
                 var paths = await _dataDragonClient.DownloadSpriteImages(patchVersion, StaticDataDefinitions.Champion);
-                targetBundle.ChampionImageFiles.Clear();
+                targetBundle.ChampionImagePaths.Clear();
                 foreach (var path in paths)
                 {
-                    targetBundle.ChampionImageFiles.Add(path);
+                    targetBundle.ChampionImagePaths.Add(path);
                 }
 
                 // update last download date
@@ -107,9 +196,30 @@ namespace Fraxiinus.ReplayBook.StaticData
         {
             var targetBundle = Context.GetBundle(patchVersion);
 
-            await _dataDragonClient.DownloadRuneImages(patchVersion, runeData);
+            var paths = await _dataDragonClient.DownloadRuneImages(patchVersion, runeData);
+            targetBundle.RuneImageFiles.Clear();
+            foreach (var path in paths)
+            {
+                targetBundle.RuneImageFiles.Add(path);
+            }
 
             targetBundle.LastDownloadDate = DateTime.Now;
+        }
+
+        public async Task DownloadRuneImages(string patchVersion, string language)
+        {
+            // get bundle for patch version
+            var targetBundle = Context.GetBundle(patchVersion);
+
+            // see if bundle has rune data already
+            var (_, filePath) = targetBundle.RuneDataFiles.First(x => x.language == language);
+
+            // read the rune data
+            await using FileStream fileStream = File.OpenRead(Path.Combine(_dataPath, filePath));
+            var runeData = JsonSerializer.Deserialize<IEnumerable<RuneData>>(fileStream)
+                ?? throw new Exception("rune data load null");
+
+            await DownloadRuneImages(patchVersion, runeData);
         }
 
         public async Task DownloadProperties(string patchVersion, StaticDataType types, string language)
@@ -121,7 +231,7 @@ namespace Fraxiinus.ReplayBook.StaticData
             {
                 var properties = await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Item, language);
                 var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Item, language);
-                var result = targetBundle.ItemDataFiles.TryAdd(patchVersion, savedFile);
+                var result = targetBundle.ItemDataFiles.TryAdd(language, savedFile);
                 
                 if (!result)
                 {
@@ -156,6 +266,28 @@ namespace Fraxiinus.ReplayBook.StaticData
             targetBundle.LastDownloadDate = DateTime.Now;
         }
 
+        public async Task<long> CalculateDiskUsage(string? patchVersion = null)
+        {
+            string targetPath = _dataPath;
+            if (string.IsNullOrEmpty(patchVersion))
+            {
+                // do nothing
+            }
+            else if (Context.Bundles.FirstOrDefault(x => x.Patch == patchVersion) != null)
+            {
+                targetPath = Path.Combine(_dataPath, patchVersion);
+            }
+            else
+            {
+                _log.Error($"Failed to calculate disk usage for patch: {patchVersion}");
+                return -1;
+            }
+
+            var dataInfo = new DirectoryInfo(targetPath);
+            long dataTotal = !dataInfo.Exists ? 0L : await Task.Run(() => dataInfo.EnumerateFiles("", SearchOption.AllDirectories).Sum(file => file.Length)).ConfigureAwait(true);
+            return dataTotal;
+        }
+
         private async Task<string> SavePropertySet(IEnumerable<BaseStaticData> data, string patchVersion, string dataType, string language)
         {
             var serializerOptions = new JsonSerializerOptions
@@ -188,5 +320,6 @@ namespace Fraxiinus.ReplayBook.StaticData
 
             return Path.Combine(relativeDestination, $"{language}.data.json");
         }
+    
     }
 }

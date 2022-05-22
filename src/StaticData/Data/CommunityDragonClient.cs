@@ -1,6 +1,7 @@
 ﻿using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.StaticData.Models;
+using System.Net.Http;
 using System.Text.Json;
 
 namespace Fraxiinus.ReplayBook.StaticData.Data
@@ -32,9 +33,12 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
 
         public async Task GetRuneStatDescriptions(List<RuneData> runes, string version, string language)
         {
+            // ID's of stat runes
             var statRuneIds = new string[6] { "5001", "5002", "5003", "5005", "5007", "5008"};
+            // "default" is "en_us" in cdragon
             var cDragonLanguage = language.ToLower() == "en_us" ? "default" : language.ToLower();
 
+            // construct cdragon url
             var url = _config.CommunityDragonBaseUrl
                 + GetCommunityDragonVersion(version)
                 + "/plugins/rcp-be-lol-game-data/global/"
@@ -50,6 +54,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
 
             using var document = await JsonDocument.ParseAsync(response.Content.ReadAsStream());
 
+            // parse cdragon rune response
             foreach (var cDragonRune in document.RootElement.EnumerateArray())
             {
                 var id = cDragonRune.GetProperty("id").GetInt32().ToString();
@@ -73,6 +78,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                     });
                 }
 
+                // look for rune in our list
                 var rune = runes.FirstOrDefault(x => x.Id == id);
                 if (rune == null)
                 {
@@ -115,6 +121,10 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return response;
         }
 
-        private string GetCommunityDragonVersion(string version) => version[..^2];
+        private static string GetCommunityDragonVersion(string version)
+        {
+            var lastIndex = version.LastIndexOf('.');
+            return version[..lastIndex];
+        }
     }
 }

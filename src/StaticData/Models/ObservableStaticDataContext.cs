@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -45,7 +46,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         public ObservableBundle GetBundle(string version)
         {
             // try to get an existing bundle, create new otherwise
-            var result = Bundles.FirstOrDefault(x => x.Patch == version);
+            var result = Bundles.FirstOrDefault(x => x.Patch.StartsWith(version));
 
             if (result == null)
             {
@@ -57,6 +58,16 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             }
 
             return result;
+        }
+
+        public void DeleteBundle(string dataPath, string patchVersion)
+        {
+            Directory.Delete(Path.Combine(dataPath, patchVersion), true);
+
+            var deletedBundle = Bundles.First(x => x.Patch == patchVersion)
+                ?? throw new Exception($"cannot find bundle to delete: {patchVersion}");
+
+            Bundles.Remove(deletedBundle);
         }
 
         public async Task SaveToJson(string dataPath)

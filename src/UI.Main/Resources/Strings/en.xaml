@@ -48,6 +48,8 @@
     <string:String x:Key="MissingPathText">The following path(s) could not be found are were removed:</string:String>
 
     <string:String x:Key="General__DownloadButton">Download</string:String>
+    <string:String x:Key="General__Downloading">Downloading...</string:String>
+    <string:String x:Key="General__ViewButton">View</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
@@ -57,6 +59,7 @@
     <string:String x:Key="RequestSettingsItemText">Downloads</string:String>
     <string:String x:Key="ExecutablesSettingsItemText">Executables</string:String>
     <string:String x:Key="AboutSettingsItemText">About</string:String>
+    <string:String x:Key="Settings__Menu__StaticDataHeader">Static Data</string:String>
 
     <!--  Settings : General  -->
     <string:String x:Key="LanguageLabelText">Language</string:String>
@@ -145,13 +148,28 @@
     <string:String x:Key="SourceFoldersAlreadyExistsErrorText">Selected folder is already added, please select another folder</string:String>
     <string:String x:Key="SourceFoldersAlreadyExistsErrorTitle">Folder already added</string:String>
 
+    <!--  Settings: Static Data  -->
+    <string:String x:Key="Settings__StaticData__DiskUsage__Header">Disk Usage</string:String>
+    <string:String x:Key="Settings__StaticData__DiskUsage__SizeLabel">Total size:</string:String>
+    <string:String x:Key="Settings__StaticData__BundleList__Header">Downloaded Bundles</string:String>
+    <string:String x:Key="Settings__StaticData__BundleList__Info">Bundles include images and text data for champions, items, and runes</string:String>
+    <string:String x:Key="Settings__StaticData__AddBundle__Title">Download Static Data Bundle</string:String>
+    <string:String x:Key="Settings__StaticData__AddBundle__PatchComboBox__Header">Select Patch</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__Title">Patch $ Bundle</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__DateLabel">Downloaded date</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__SizeLabel">Size</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ChampImageLabel">Champion images</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ItemImageLabel">Item images</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__RuneImageLabel">Rune images</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ChampLanguageLabel">Champion data</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ItemLanguageLabel">Item data</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__RuneLanguageLabel">Rune data</string:String>
+
     <string:String x:Key="ReplayItemsPerPage">Items Per Page</string:String>
 
     <string:String x:Key="ReplayDatabaseText">Replay Data Cache</string:String>
     <string:String x:Key="ReplayDatabaseSize">Size:</string:String>
     <string:String x:Key="ReplayDatabaseClearButton">Clear cache</string:String>
-
-    <string:String x:Key="Settings__StaticData__BundleHeader">Downloaded Bundles</string:String>
 
     <string:String x:Key="RequestsDownloadAllLabel">Download Images</string:String>
     <string:String x:Key="RequestsCacheLabel">Downloaded Images Cache</string:String>

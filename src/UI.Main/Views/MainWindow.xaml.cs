@@ -98,7 +98,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
         {
             if (DataContext is not MainWindowViewModel context) { return; }
 
-            await context.StaticDataProvider.LoadStaticData();
+            // await context.StaticDataProvider.LoadStaticData();
         }
 
         // Window has been rendered to the screen
@@ -172,7 +172,8 @@ namespace Fraxiinus.ReplayBook.UI.Main
 
             FileResult replayFile = context.FileResults[previewModel.Location];
 
-            var replayDetail = new ReplayDetail(context.StaticDataProvider, replayFile, previewModel);
+            var replayDetail = new ReplayDetail(context.StaticDataManager, replayFile, previewModel);
+            await replayDetail.LoadRunes();
 
             ReplayDetailControl detailControl = FindName("DetailView") as ReplayDetailControl;
             detailControl.DataContext = replayDetail;
@@ -180,7 +181,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
             (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
             (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
-            (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
+            await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
 
             // See if tab control needs to update runes:
             if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)

@@ -1,16 +1,27 @@
-﻿using Fraxiinus.ReplayBook.Reader.Models;
+﻿using Fraxiinus.ReplayBook.Executables.Old.Utilities;
+using Fraxiinus.ReplayBook.Reader.Models;
+using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Extensions;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Models
 {
     public class PlayerDetail
     {
-        public PlayerDetail(StaticDataProvider staticDataProvider, Player player, PlayerPreview previewModel, bool isBlueTeamMember)
+        private readonly StaticDataManager _staticDataManager;
+        private readonly string _patchVersion;
+        private readonly Player _player;
+
+        public PlayerDetail(StaticDataManager staticData, string patchVersion, Player player, PlayerPreview previewModel, bool isBlueTeamMember)
         {
             if (player == null) { throw new ArgumentNullException(nameof(player)); }
+
+            _staticDataManager = staticData;
+            _patchVersion = patchVersion.VersionSubstring();
+            _player = player;
 
             PreviewModel = previewModel ?? throw new ArgumentNullException(nameof(previewModel));
 
@@ -117,22 +128,34 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
                 new Item(player.ITEM5),
                 new Item(player.ITEM6)
             };
+        }
 
-            // Runes
-            KeystoneRune = new RuneStat(staticDataProvider, player.PERK0, player.PERK0_VAR1, player.PERK0_VAR2, player.PERK0_VAR3);
+        public async Task LoadRunes()
+        {
+            KeystoneRune = new RuneStat(await _staticDataManager.GetRuneDataForCurrentLanguage(_player.PERK0, _patchVersion),
+                _player.PERK0, _player.PERK0_VAR1, _player.PERK0_VAR2, _player.PERK0_VAR3);
+
             Runes = new List<RuneStat>
             {
-                new RuneStat(staticDataProvider, player.PERK1, player.PERK1_VAR1, player.PERK1_VAR2, player.PERK1_VAR3),
-                new RuneStat(staticDataProvider, player.PERK2, player.PERK2_VAR1, player.PERK2_VAR2, player.PERK2_VAR3),
-                new RuneStat(staticDataProvider, player.PERK3, player.PERK3_VAR1, player.PERK3_VAR2, player.PERK3_VAR3),
-                new RuneStat(staticDataProvider, player.PERK4, player.PERK4_VAR1, player.PERK4_VAR2, player.PERK4_VAR3),
-                new RuneStat(staticDataProvider, player.PERK5, player.PERK5_VAR1, player.PERK5_VAR2, player.PERK5_VAR3)
+                new RuneStat(await _staticDataManager.GetRuneDataForCurrentLanguage(_player.PERK1, _patchVersion),
+                    _player.PERK1, _player.PERK1_VAR1, _player.PERK1_VAR2, _player.PERK1_VAR3),
+                new RuneStat(await _staticDataManager.GetRuneDataForCurrentLanguage(_player.PERK2, _patchVersion),
+                    _player.PERK2, _player.PERK2_VAR1, _player.PERK2_VAR2, _player.PERK2_VAR3),
+                new RuneStat(await _staticDataManager.GetRuneDataForCurrentLanguage(_player.PERK3, _patchVersion),
+                    _player.PERK3, _player.PERK3_VAR1, _player.PERK3_VAR2, _player.PERK3_VAR3),
+                new RuneStat(await _staticDataManager.GetRuneDataForCurrentLanguage(_player.PERK4, _patchVersion),
+                    _player.PERK4, _player.PERK4_VAR1, _player.PERK4_VAR2, _player.PERK4_VAR3),
+                new RuneStat(await _staticDataManager.GetRuneDataForCurrentLanguage(_player.PERK5, _patchVersion),
+                    _player.PERK5, _player.PERK5_VAR1, _player.PERK5_VAR2, _player.PERK5_VAR3)
             };
             StatsRunes = new List<RuneStat>
             {
-                new RuneStat(staticDataProvider, player.STAT_PERK_0, "", "", ""),
-                new RuneStat(staticDataProvider, player.STAT_PERK_1, "", "", ""),
-                new RuneStat(staticDataProvider, player.STAT_PERK_2, "", "", "")
+                new RuneStat(await _staticDataManager.GetRuneDataForCurrentLanguage(_player.STAT_PERK_0, _patchVersion),
+                    _player.STAT_PERK_0, "", "", ""),
+                new RuneStat(await _staticDataManager.GetRuneDataForCurrentLanguage(_player.STAT_PERK_1, _patchVersion),
+                    _player.STAT_PERK_1, "", "", ""),
+                new RuneStat(await _staticDataManager.GetRuneDataForCurrentLanguage(_player.STAT_PERK_2, _patchVersion),
+                    _player.STAT_PERK_2, "", "", "")
             };
         }
 

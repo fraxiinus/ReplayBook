@@ -17,6 +17,9 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         [JsonPropertyName("item_image_files")]
         public List<string> ItemImageFiles { get; set; } = new List<string>();
 
+        [JsonPropertyName("rune_image_files")]
+        public Dictionary<string, string> RuneImageFiles { get; set; } = new Dictionary<string, string>();
+
         [JsonPropertyName("champion_data_files")]
         public Dictionary<string, string> ChampionDataFiles { get; set; } = new Dictionary<string, string>();
 

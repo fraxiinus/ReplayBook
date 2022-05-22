@@ -80,8 +80,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
             var requests = new List<RequestBase>();
             if (downloadRunes)
             {
-                requests.AddRange(await mainViewModel.RequestManager.GetAllRuneRequests(mainViewModel.StaticDataProvider.GetAllRunes())
-                    .ConfigureAwait(true));
+                //requests.AddRange(await mainViewModel.RequestManager.GetAllRuneRequests(mainViewModel.StaticDataProvider.GetAllRunes())
+                //    .ConfigureAwait(true));
             }
 
             // No requests? nothing to do

@@ -34,6 +34,13 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         /// </summary>
         public bool UpdateExecutablesOnClose { get; private set; }
 
+        private SettingsWindowDataContext Context
+        {
+            get => (DataContext is SettingsWindowDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
+
         public SettingsWindow()
         {
             UpdateExecutablesOnClose = false;
@@ -135,16 +142,20 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                 case "ExecutablesSettingsListItem":
                     SettingsTabControl.SelectedIndex = 3;
                     break;
-                case "ReplaySettingsListItem":
+                case "StaticDataSettingsListItem":
                     SettingsTabControl.SelectedIndex = 4;
+                    await StaticDataSizeValue_CalculateTotalValue();
+                    break;
+                case "ReplaySettingsListItem":
+                    SettingsTabControl.SelectedIndex = 5;
                     LoadReplayCacheSizes();
                     break;
                 case "RequestSettingsListItem":
-                    SettingsTabControl.SelectedIndex = 5;
+                    SettingsTabControl.SelectedIndex = 6;
                     await LoadCacheSizes().ConfigureAwait(true);
                     break;
                 case "AboutSettingsListItem":
-                    SettingsTabControl.SelectedIndex = 6;
+                    SettingsTabControl.SelectedIndex = 7;
                     VersionTextBlock.Text = "Release " + ApplicationProperties.Version;
                     break;
                 default:
@@ -948,7 +959,76 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             // load language strings in application
             LanguageHelper.SetProgramLanguage(context.Configuration.Language);
             // load static data in new language
-            await viewModel.StaticDataProvider.Reload(context.Configuration.Language);
+            // await viewModel.StaticDataProvider.Reload(context.Configuration.Language);
+        }
+
+        private async Task StaticDataSizeValue_CalculateTotalValue()
+        {
+            var totalSize = await Context.StaticData.CalculateDiskUsage();
+
+            var readableSizeConverter = new FormatKbSizeConverter();
+            StaticDataSizeValue.Text = (string)readableSizeConverter.Convert(totalSize, null, null, CultureInfo.InvariantCulture);
+        }
+
+        private void StaticDataDownloadedListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((sender as ListBox).SelectedItem as ObservableBundle) == null) { return; };
+
+            EditStaticDataButton.IsEnabled = true;
+            RemoveStaticDataButton.IsEnabled = true;
+        }
+
+        private async void AddStaticDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Update patches if we don't know any
+            await Context.StaticData.GetPatchesIfOutdated();
+
+            var addDialog = new StaticDataAddDialog()
+            {
+                DataContext = Context.StaticData,
+                Owner = this
+            };
+
+            await addDialog.ShowAsync();
+
+            await StaticDataSizeValue_CalculateTotalValue();
+        }
+
+        private async void EditStaticDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StaticDataDownloadedListBox.SelectedItem is not ObservableBundle targetBundle) { return; }
+
+            var detailDialog = new StaticDataDetailDialog()
+            {
+                DataContext = targetBundle,
+                Owner = this
+            };
+
+            await detailDialog.ShowAsync();
+        }
+
+        private void RemoveStaticDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StaticDataDownloadedListBox.SelectedItem is not ObservableBundle targetBundle) { return; }
+
+            // Create confirmation flyout
+            Flyout confirmFlyout = FlyoutHelper.CreateFlyout();
+            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as string);
+            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as string);
+
+            confirmFlyout.GetFlyoutButton().Click += async (object eSender, RoutedEventArgs eConfirm) =>
+            {
+                Context.StaticData.DeleteBundle(targetBundle.Patch);
+
+                EditStaticDataButton.IsEnabled = false;
+                RemoveStaticDataButton.IsEnabled = false;
+                confirmFlyout.Hide();
+
+                await StaticDataSizeValue_CalculateTotalValue();
+            };
+
+            // Show the flyout
+            confirmFlyout.ShowAt(RemoveStaticDataButton);
         }
     }
 }

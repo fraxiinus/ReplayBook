@@ -75,13 +75,14 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             {
                 // Let the view model know about the replay
                 ReplayPreview previewReplay = context.AddReplay(replay);
-                var replayDetail = new ReplayDetail(context.StaticDataProvider, replay, previewReplay);
+                var replayDetail = new ReplayDetail(context.StaticDataManager, replay, previewReplay);
+                await replayDetail.LoadRunes();
                 DetailView.DataContext = replayDetail;
                 (DetailView.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
                 (DetailView.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
-                context.LoadItemThumbnails(replayDetail);
-                context.LoadSinglePreviewPlayerThumbnails(previewReplay);
+                await context.LoadItemThumbnails(replayDetail);
+                await context.LoadSinglePreviewPlayerThumbnails(previewReplay);
             }
         }
     }

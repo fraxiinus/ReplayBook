@@ -23,7 +23,17 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
 
         public string ItemId { get; set; }
 
-        public string ItemName { get; set; }
+        private string _itemName;
+        public string ItemName
+        {
+            get => _itemName;
+            set
+            {
+                _itemName = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ItemName)));
+            }
+        }
 
         private bool _showBorder;
         public bool ShowBorder

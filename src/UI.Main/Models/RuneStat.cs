@@ -1,4 +1,5 @@
-﻿using Fraxiinus.ReplayBook.UI.Main.Utilities;
+﻿using Fraxiinus.ReplayBook.StaticData.Models;
+using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Media;
@@ -9,18 +10,13 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public RuneStat(StaticDataProvider staticDataProvider, string id, string firstValue, string secondValue, string thirdValue)
+        public RuneStat(RuneData runeData, string id, string firstValue, string secondValue, string thirdValue)
         { 
             RuneId = id;
 
-            RuneStaticData staticData = staticDataProvider.GetRune(id);
-            RuneName = staticData.DisplayName;
-            Descriptions = new List<string>();
-            for (int i = 0; i < staticData.EndOfGameStatDescs.Length; i++)
-            {
-                Descriptions.Add(StaticDataProvider.FillInDescriptions(staticData.EndOfGameStatDescs[i], firstValue, secondValue, thirdValue));
-            }
-
+            RuneName = runeData.DisplayName;
+            Descriptions = (List<string>) runeData.FillRuneDescriptions(firstValue, secondValue, thirdValue);
+            
             Value0 = int.TryParse(firstValue, out int parsedValue0) ? parsedValue0 : 0;
             Value1 = int.TryParse(secondValue, out int parsedValue1) ? parsedValue1 : 0;
             Value2 = int.TryParse(thirdValue, out int parsedValue2) ? parsedValue2 : 0;

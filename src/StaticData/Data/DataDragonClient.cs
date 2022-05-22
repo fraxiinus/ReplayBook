@@ -1,6 +1,8 @@
 ﻿using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.StaticData.Models;
+using System.IO;
+using System.Net.Http;
 using System.Text.Json;
 
 namespace Fraxiinus.ReplayBook.StaticData.Data
@@ -127,8 +129,10 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return resultFiles;
         }
 
-        public async Task DownloadRuneImages(string patchVersion, IEnumerable<RuneData> runeData)
+        public async Task<IEnumerable<(string key, string relativePath)>> DownloadRuneImages(string patchVersion, IEnumerable<RuneData> runeData)
         {
+            var resultFiles = new List<(string, string)>();
+
             foreach (var rune in runeData)
             {
                 if (rune.Key == null)
@@ -147,11 +151,13 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                 {
                     _log.Information($"Made successful HTTP request {url}");
 
-                    var destinationFile = await SaveImageToFile(await response.Content.ReadAsStreamAsync(), patchVersion, rune.Key);
-
-                    _log.Information($"Saved rune to ${destinationFile}");
+                    var destinationFile = await SaveRuneImageToFile(await response.Content.ReadAsStreamAsync(), patchVersion, rune.Key + ".png");
+                    
+                    resultFiles.Add((rune.Key, destinationFile));
                 }
             }
+
+            return resultFiles;
         }
 
         /// <summary>
@@ -326,7 +332,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return Path.Combine(relativeDestination, $"{count}.png");
         }
 
-        private async Task<string> SaveImageToFile(Stream imageStream, string relDestFolder, string destinationFileName)
+        private async Task<string> SaveRuneImageToFile(Stream imageStream, string relDestFolder, string destinationFileName)
         {
             var destinationFolder = Path.Combine(_dataPath, relDestFolder, "rune");
 
