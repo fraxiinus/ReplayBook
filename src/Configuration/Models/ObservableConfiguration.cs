@@ -37,7 +37,7 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
         /// Replay Settings
         public ObservableCollection<string> ReplayFolders { get; private set; }
 
-        /// Request Settings
+        /// Static Data Settings
         public string DataDragonBaseUrl { get; set; }
 
         public string CommunityDragonBaseUrl { get; set; }

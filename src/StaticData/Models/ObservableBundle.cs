@@ -12,6 +12,12 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        /// <summary>
+        /// Was this bundle just created by <see cref="ObservableStaticDataContext.GetBundle(string)"/>?
+        /// AKA does not actually exist.
+        /// </summary>
+        public bool JustCreated = false;
+
         private string _patch = string.Empty;
         public string Patch
         {
@@ -49,11 +55,11 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         public ObservableCollection<(string language, string relativePath)> RuneDataFiles { get; set; } = new ObservableCollection<(string language, string relativePath)>();
 
         // Object dictionaries, language -> id -> data
-        private Dictionary<string, Dictionary<string, ChampionData>> LoadedChampionData { get; set; } = new Dictionary<string, Dictionary<string, ChampionData>>();
+        private Dictionary<string, Dictionary<string, IStaticProperties>> LoadedChampionData { get; set; } = new Dictionary<string, Dictionary<string, IStaticProperties>>();
 
-        private Dictionary<string, Dictionary<string, ItemData>> LoadedItemData { get; set; } = new Dictionary<string, Dictionary<string, ItemData>>();
+        private Dictionary<string, Dictionary<string, IStaticProperties>> LoadedItemData { get; set; } = new Dictionary<string, Dictionary<string, IStaticProperties>>();
 
-        private Dictionary<string, Dictionary<string, RuneData>> LoadedRuneData { get; set; } = new Dictionary<string, Dictionary<string, RuneData>>();
+        private Dictionary<string, Dictionary<string, IStaticProperties>> LoadedRuneData { get; set; } = new Dictionary<string, Dictionary<string, IStaticProperties>>();
 
         // Key is file name
         private Dictionary<string, BitmapFrame> LoadedChampionImages { get; set; } = new Dictionary<string, BitmapFrame>();
@@ -116,101 +122,115 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         }
 
         /// <summary>
-        /// Returns <see cref="ChampionData"/> object either from cache, or from disk.
-        /// All champions are loaded to cache at once.
+        /// Returns <see cref="IStaticProperties"/> object either from cache, or from disk.
+        /// All data sets are loaded to cache at once. Null language to get first available.
         /// </summary>
         /// <param name="language"></param>
         /// <param name="championId"></param>
         /// <param name="dataPath"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<ChampionData> GetChampionData(string language, string championId, string dataPath)
+        public async Task<IStaticProperties> GetProperties<T>(string id, string dataPath, string? language = null) where T : IStaticProperties
         {
-            // find the file we are interested in
-            var championFilePath = ChampionDataFiles
-                .Where(x => x.language == language)
-                .Select(x => x.relativePath)
-                .FirstOrDefault()
-                ?? throw new Exception($"language is not available: {language}");
-
-            // language exists, see if we loaded it already
-            if (!LoadedChampionData.ContainsKey(language))
+            string dataFilePath;
+            if (language == null)
             {
-                // not loaded, read file
-                var targetFile = Path.Combine(dataPath, championFilePath);
+                var dataFile = GetDataFileCollection<T>().FirstOrDefault();
 
-                LoadedChampionData[language] = await GetFileData<ChampionData>(targetFile);
+                if (dataFile.Equals(default(ValueTuple<string, string>)))
+                {
+                    throw new Exception($"no static data available: {id} - {Patch}");
+                }
+
+                language = dataFile.language;
+                dataFilePath = dataFile.relativePath;
+            }
+            else
+            {
+                // find the file we are interested in
+                dataFilePath = GetDataFileCollection<T>()
+                    .Where(x => x.language == language)
+                    .Select(x => x.relativePath)
+                    .FirstOrDefault()
+                    ?? throw new Exception($"language is not available: {id} - {Patch} - {language}");
             }
 
-            return LoadedChampionData[language][championId];
+            var loadedDataDictionary = GetLoadedDataDictionary<T>();
+
+            // language exists, see if we loaded it already
+            if (!loadedDataDictionary.ContainsKey(language))
+            {
+                // not loaded, read file
+                var targetFile = Path.Combine(dataPath, dataFilePath);
+
+                loadedDataDictionary[language] = await GetFileData<T>(targetFile);
+            }
+
+            return loadedDataDictionary[language][id];
         }
 
         /// <summary>
-        /// Returns <see cref="ItemData"/> object either from cache, or from disk.
-        /// All items are loaded to cache at once.
+        /// Returns correct collection for IStaticData type
         /// </summary>
-        /// <param name="language"></param>
-        /// <param name="itemId"></param>
-        /// <param name="dataPath"></param>
+        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<ItemData> GetItemData(string language, string itemId, string dataPath)
+        private ObservableCollection<(string language, string relativePath)> GetDataFileCollection<T>() where T : IStaticProperties
         {
-            // find the file we are interested in
-            var itemFilePath = ItemDataFiles
-                .Where(x => x.language == language)
-                .Select(x => x.relativePath)
-                .FirstOrDefault()
-                ?? throw new Exception($"language is not available: {language}");
-
-            // language exists, see if we loaded it already
-            if (!LoadedItemData.ContainsKey(language))
+            if (typeof(T) == typeof(ChampionProperties))
             {
-                // not loaded, read file
-                var targetFile = Path.Combine(dataPath, itemFilePath);
-
-                LoadedItemData[language] = await GetFileData<ItemData>(targetFile);
+                return ChampionDataFiles;
             }
-
-            return LoadedItemData[language][itemId];
+            else if (typeof(T) == typeof(ItemProperties))
+            {
+                return ItemDataFiles;
+            }
+            else if (typeof(T) == typeof(RuneProperties))
+            {
+                return RuneDataFiles;
+            }
+            else
+            {
+                throw new Exception($"{typeof(T)} is not supported");
+            }
         }
 
         /// <summary>
-        /// Returns <see cref="RuneData"/> object either from cache, or from disk.
-        /// All items are loaded to cache at once.
+        /// Returns correct dictionary for IStaticData type
         /// </summary>
-        /// <param name="language"></param>
-        /// <param name="runeId"></param>
-        /// <param name="dataPath"></param>
+        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<RuneData> GetRuneData(string language, string runeId, string dataPath)
+        private Dictionary<string, Dictionary<string, IStaticProperties>> GetLoadedDataDictionary<T>() where T : IStaticProperties
         {
-            // find the file we are interested in
-            var runeFilePath = RuneDataFiles
-                .Where(x => x.language == language)
-                .Select(x => x.relativePath)
-                .FirstOrDefault()
-                ?? throw new Exception($"language is not available: {language}");
-
-            // language exists, see if we loaded it already
-            if (!LoadedRuneData.ContainsKey(language))
+            if (typeof(T) == typeof(ChampionProperties))
             {
-                // not loaded, read file
-                var targetFile = Path.Combine(dataPath, runeFilePath);
-                
-                LoadedRuneData[language] = await GetFileData<RuneData>(targetFile);
+                return LoadedChampionData;
             }
-
-            return LoadedRuneData[language][runeId];
+            else if (typeof(T) == typeof(ItemProperties))
+            {
+                return LoadedItemData;
+            }
+            else if (typeof(T) == typeof(RuneProperties))
+            {
+                return LoadedRuneData;
+            }
+            else
+            {
+                throw new Exception($"{typeof(T)} is not supported");
+            }
         }
 
-        private static async Task<Dictionary<string, T>> GetFileData<T>(string filePath)
+        /// <summary>
+        /// Helper function.
+        /// Given file path to property set, deserialize and load to memory
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        private static async Task<Dictionary<string, IStaticProperties>> GetFileData<T>(string filePath) where T : IStaticProperties
         {
-            if (!(typeof(T) == typeof(ChampionData) || typeof(T) == typeof(ItemData) || typeof(T) == typeof(RuneData)))
-            {
-                throw new Exception($"unsupported type: {typeof(T)} vs {typeof(ChampionData)}");
-            }
             if (!File.Exists(filePath))
             {
                 throw new Exception($"file not found {filePath}");
@@ -222,10 +242,10 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             var dataList = jsonDocument.Deserialize<IEnumerable<T>>()
                     ?? throw new Exception($"failed {typeof(T)} deserialization: {filePath}");
 
-            var resultDict = new Dictionary<string, T>();
+            var resultDict = new Dictionary<string, IStaticProperties>();
             foreach (var data in dataList)
             {
-                var baseData = data as BaseStaticData
+                var baseData = data as BaseStaticProperties
                     ?? throw new Exception($"failed reading data as base object");
 
                 resultDict.Add(baseData.Id, data);
@@ -234,6 +254,13 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             return resultDict;
         }
 
+        /// <summary>
+        /// Helper function.
+        /// Returns the atlas number within the atlasSource name.
+        /// </summary>
+        /// <param name="atlasSource"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private static int FindAtlasNumber(string atlasSource, string type)
         {
             var atlasFileName = atlasSource.Replace(type, "");
@@ -242,8 +269,21 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             return atlasNumber;
         }
 
-        public async Task<string> SaveToJson(string dataPath)
+        /// <summary>
+        /// Save this object's data to file.
+        /// </summary>
+        /// <param name="dataPath"></param>
+        /// <returns></returns>
+        public async Task<string?> SaveToJson(string dataPath)
         {
+            // Do not save json for blank patch
+            if (ChampionImagePaths.Count == 0 && ItemImagePaths.Count == 0
+                && RuneImageFiles.Count == 0 && ChampionDataFiles.Count == 0
+                && ItemDataFiles.Count == 0 && RuneDataFiles.Count == 0)
+            {
+                return null;
+            }
+
             var jsonModel = new Bundle()
             {
                 Patch = Patch,
@@ -285,6 +325,12 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             return Path.Combine(Patch, "bundle.json");
         }
 
+        /// <summary>
+        /// Load data from JSON file.
+        /// </summary>
+        /// <param name="bundleFilePath"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static async Task<ObservableBundle> CreateFromJson(string bundleFilePath)
         {
             var result = new ObservableBundle();

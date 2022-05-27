@@ -35,6 +35,10 @@ namespace Fraxiinus.ReplayBook.StaticData
             Context = new ObservableStaticDataContext();
         }
 
+        /// <summary>
+        /// Load all static data information, must be done first.
+        /// </summary>
+        /// <returns></returns>
         public async Task LoadIndexAsync()
         {
             // check if index file exists
@@ -64,11 +68,19 @@ namespace Fraxiinus.ReplayBook.StaticData
             _log.Information($"Found index, loaded {Context.Bundles.Count} bundles");
         }
 
+        /// <summary>
+        /// Saves all static data information
+        /// </summary>
+        /// <returns></returns>
         public async Task SaveIndexAsync()
         {
             await Context.SaveToJson(_dataPath);
         }
 
+        /// <summary>
+        /// Downloads patches if there are none loaded.
+        /// </summary>
+        /// <returns></returns>
         public async Task GetPatchesIfOutdated()
         {
             if (!Context.KnownPatchNumbers.Any())
@@ -77,6 +89,10 @@ namespace Fraxiinus.ReplayBook.StaticData
             }
         }
 
+        /// <summary>
+        /// Downloads and overwrites patches list
+        /// </summary>
+        /// <returns></returns>
         public async Task RefreshPatches()
         {
             Context.KnownPatchNumbers.Clear();
@@ -94,60 +110,109 @@ namespace Fraxiinus.ReplayBook.StaticData
             Context.LastPatchFetch = DateTime.Now;
         }
 
-        public async Task<ItemData?> GetItemData(string itemId, ProgramLanguage language, string patchVersion)
+        /// <summary>
+        /// Attempts to get property set that matches input arguments.
+        /// If language is not found, returns first available language as backup.
+        /// Returns null if no data at all for the patch is found.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="id"></param>
+        /// <param name="patchVersion"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        public async Task<T?> GetProperties<T>(string id, string patchVersion, ProgramLanguage language) where T : IStaticProperties
         {
             var bundle = Context.GetBundle(patchVersion);
+            // bundle with patch does not actually exist, there is no data
+            if (bundle.JustCreated)
+            {
+                bundle = Context.GetFirstDownloadedBundle();
+            }
+
+            if (bundle == null)
+            {
+                _log.Error($"could not find bundle for properties: {id} - {patchVersion} - {language.GetRiotRegionCode()}");
+                return default;
+            }
+
             try
             {
-                return await bundle.GetItemData(language.GetRiotRegionCode(), itemId, _dataPath);
+                // throws if language not available
+                return (T) await bundle.GetProperties<T>(id, _dataPath, language.GetRiotRegionCode());
             }
             catch (Exception ex)
             {
-                _log.Error($"{ex}\ncould not load data for item: {itemId} - {patchVersion} - {language.GetRiotRegionCode()}");
-                return null;
+                _log.Error($"could not load static data, loading backup: {id} - {patchVersion} - {language.GetRiotRegionCode()} - {ex}");
+
+                try
+                {
+                    return (T) await bundle.GetProperties<T>(id, _dataPath);
+                }
+                catch (Exception exBackup)
+                {
+                    _log.Error($"could not load any static data: {id} - {patchVersion} - {language.GetRiotRegionCode()} - {exBackup}");
+                    return default;
+                }
             }
         }
 
-        public async Task<ChampionData?> GetChampionData(string championId, ProgramLanguage language, string patchVersion)
-        {
-            var bundle = Context.GetBundle(patchVersion);
-            try
-            {
-                return await bundle.GetChampionData(language.GetRiotRegionCode(), championId, _dataPath);
-            }
-            catch (Exception ex)
-            {
-                _log.Error($"{ex}\ncould not load data for champion: {championId} - {patchVersion} - {language.GetRiotRegionCode()}");
-                return null;
-            }
-        }
-
-        public async Task<RuneData?> GetRuneData(string runeId, ProgramLanguage language, string patchVersion)
-        {
-            var bundle = Context.GetBundle(patchVersion);
-            try
-            {
-                return await bundle.GetRuneData(language.GetRiotRegionCode(), runeId, _dataPath);
-            }
-            catch (Exception ex)
-            {
-                _log.Error($"{ex}\ncould not load data for rune: {runeId} - {patchVersion} - {language.GetRiotRegionCode()}");
-                return null;
-            }
-        }
-
+        /// <summary>
+        /// Given atlas source name and patch, returns <see cref="BitmapFrame"/>, null if nothing found
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="patchVersion"></param>
+        /// <returns></returns>
         public BitmapFrame? GetAtlasImage(string source, string patchVersion)
         {
             var bundle = Context.GetBundle(patchVersion);
+            
+            // bundle with patch does not actually exist, there is no data
+            if (bundle.JustCreated)
+            {
+                bundle = Context.GetFirstDownloadedBundle();
+            }
+
+            if (bundle == null)
+            {
+                _log.Error($"could not find bundle for image: {source} - {patchVersion}");
+                return null;
+            }
+
             try
             {
                 return bundle.GetAtlasImage(source, _dataPath);
             }
             catch (Exception ex)
             {
-                _log.Error($"{ex}\ncould not load image for: {source} - {patchVersion}");
+                _log.Error($"could not load image for: {source} - {patchVersion} - {ex}");
                 return null;
             }
+        }
+
+        public string? GetRuneImagePath(string key, string patchVersion)
+        {
+            var bundle = Context.GetBundle(patchVersion);
+
+            if (bundle.JustCreated)
+            {
+                bundle = Context.GetFirstDownloadedBundle();
+            }
+
+            if (bundle == null)
+            {
+                _log.Error($"could not find bundle for image: {key} - {patchVersion}");
+                return null;
+            }
+
+            var runeRelPath = bundle.RuneImageFiles
+                .Where(x => x.key == key)
+                .Select(x => x.relativePath)
+                .FirstOrDefault();
+
+            // Return full path, or null
+            return runeRelPath != null
+                ? Path.Combine(_dataPath, runeRelPath)
+                : null;
         }
 
         public void DeleteBundle(string patchVersion)
@@ -155,6 +220,12 @@ namespace Fraxiinus.ReplayBook.StaticData
             Context.DeleteBundle(_dataPath, patchVersion);
         }
 
+        /// <summary>
+        /// Downloads all images for a given static data type
+        /// </summary>
+        /// <param name="patchVersion"></param>
+        /// <param name="types"></param>
+        /// <returns></returns>
         public async Task DownloadImages(string patchVersion, StaticDataType types)
         {
             var targetBundle = Context.GetBundle(patchVersion);
@@ -192,7 +263,13 @@ namespace Fraxiinus.ReplayBook.StaticData
             }
         }
 
-        public async Task DownloadRuneImages(string patchVersion, IEnumerable<RuneData> runeData)
+        /// <summary>
+        /// Downloads rune images if you know patch and have the RuneData
+        /// </summary>
+        /// <param name="patchVersion"></param>
+        /// <param name="runeData"></param>
+        /// <returns></returns>
+        public async Task DownloadRuneImages(string patchVersion, IEnumerable<RuneProperties> runeData)
         {
             var targetBundle = Context.GetBundle(patchVersion);
 
@@ -206,6 +283,13 @@ namespace Fraxiinus.ReplayBook.StaticData
             targetBundle.LastDownloadDate = DateTime.Now;
         }
 
+        /// <summary>
+        /// Downloads rune images if you know patch and language
+        /// </summary>
+        /// <param name="patchVersion"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task DownloadRuneImages(string patchVersion, string language)
         {
             // get bundle for patch version
@@ -216,12 +300,19 @@ namespace Fraxiinus.ReplayBook.StaticData
 
             // read the rune data
             await using FileStream fileStream = File.OpenRead(Path.Combine(_dataPath, filePath));
-            var runeData = JsonSerializer.Deserialize<IEnumerable<RuneData>>(fileStream)
+            var runeData = JsonSerializer.Deserialize<IEnumerable<RuneProperties>>(fileStream)
                 ?? throw new Exception("rune data load null");
 
             await DownloadRuneImages(patchVersion, runeData);
         }
 
+        /// <summary>
+        /// Download 
+        /// </summary>
+        /// <param name="patchVersion"></param>
+        /// <param name="types"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
         public async Task DownloadProperties(string patchVersion, StaticDataType types, string language)
         {
             var targetBundle = Context.GetBundle(patchVersion);
@@ -251,7 +342,7 @@ namespace Fraxiinus.ReplayBook.StaticData
             }
             if (types.HasFlag(StaticDataType.Rune))
             {
-                var properties = (List<RuneData>) await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Rune, language);
+                var properties = (List<RuneProperties>) await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Rune, language);
                 await _communityDragonClient.GetRuneStatDescriptions(properties, patchVersion, language);
                 var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Rune, language);
                 var result = targetBundle.RuneDataFiles.TryAdd(language, savedFile);
@@ -266,6 +357,11 @@ namespace Fraxiinus.ReplayBook.StaticData
             targetBundle.LastDownloadDate = DateTime.Now;
         }
 
+        /// <summary>
+        /// Calculates disk usage for all patches, or specified patch.
+        /// </summary>
+        /// <param name="patchVersion"></param>
+        /// <returns></returns>
         public async Task<long> CalculateDiskUsage(string? patchVersion = null)
         {
             string targetPath = _dataPath;
@@ -288,7 +384,15 @@ namespace Fraxiinus.ReplayBook.StaticData
             return dataTotal;
         }
 
-        private async Task<string> SavePropertySet(IEnumerable<BaseStaticData> data, string patchVersion, string dataType, string language)
+        /// <summary>
+        /// Save property set to file.
+        /// </summary>
+        /// <param name="propertySet"></param>
+        /// <param name="patchVersion"></param>
+        /// <param name="dataType"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        private async Task<string> SavePropertySet(IEnumerable<BaseStaticProperties> propertySet, string patchVersion, string dataType, string language)
         {
             var serializerOptions = new JsonSerializerOptions
             {
@@ -311,11 +415,11 @@ namespace Fraxiinus.ReplayBook.StaticData
             await using FileStream indexFile = File.Create(Path.Combine(destinationFolder, destinationFile));
             if (dataType == StaticDataDefinitions.Rune)
             {
-                await JsonSerializer.SerializeAsync(indexFile, (IEnumerable<RuneData>) data, serializerOptions);
+                await JsonSerializer.SerializeAsync(indexFile, (IEnumerable<RuneProperties>) propertySet, serializerOptions);
             }
             else
             {
-                await JsonSerializer.SerializeAsync(indexFile, data, serializerOptions);
+                await JsonSerializer.SerializeAsync(indexFile, propertySet, serializerOptions);
             }
 
             return Path.Combine(relativeDestination, $"{language}.data.json");

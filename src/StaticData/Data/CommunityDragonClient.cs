@@ -31,7 +31,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             _httpClient.Dispose();
         }
 
-        public async Task GetRuneStatDescriptions(List<RuneData> runes, string version, string language)
+        public async Task GetRuneStatDescriptions(List<RuneProperties> runes, string version, string language)
         {
             // ID's of stat runes
             var statRuneIds = new string[6] { "5001", "5002", "5003", "5005", "5007", "5008"};
@@ -61,7 +61,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                 // load information for stats runes from cdragon
                 if (statRuneIds.Contains(id))
                 {
-                    runes.Add(new RuneData(id)
+                    runes.Add(new RuneProperties(id)
                     {
                         Key = cDragonRune.GetProperty("name").GetString()
                             ?? throw new Exception("Get name string returned null"),

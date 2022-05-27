@@ -2,9 +2,16 @@
 
 namespace Fraxiinus.ReplayBook.StaticData.Models
 {
-    public abstract class BaseStaticData
+    public interface IStaticProperties
     {
-        public BaseStaticData(string id)
+        public string Id { get; set; }
+        public string DisplayName { get; set; }
+        public ImageProperties? ImageProperties { get; set; }
+    }
+
+    public abstract class BaseStaticProperties : IStaticProperties
+    {
+        public BaseStaticProperties(string id)
         {
             Id = id;
             DisplayName = "N/A";
@@ -21,19 +28,19 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         public ImageProperties? ImageProperties { get; set; }
     }
 
-    public class ChampionData : BaseStaticData
+    public class ChampionProperties : BaseStaticProperties
     {
-        public ChampionData(string id) : base(id) { }
+        public ChampionProperties(string id) : base(id) { }
     }
 
-    public class ItemData : BaseStaticData
+    public class ItemProperties : BaseStaticProperties
     {
-        public ItemData(string id) : base(id) { }
+        public ItemProperties(string id) : base(id) { }
     }
 
-    public class RuneData : BaseStaticData
+    public class RuneProperties : BaseStaticProperties
     {
-        public RuneData(string id) : base(id)
+        public RuneProperties(string id) : base(id)
         {
             Key = null;
             IconUrl = null;

@@ -52,7 +52,8 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             {
                 result = new ObservableBundle()
                 {
-                    Patch = version
+                    Patch = version,
+                    JustCreated = true
                 };
                 Bundles.Add(result);
             }
@@ -60,6 +61,21 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             return result;
         }
 
+        /// <summary>
+        /// Get first Bundle with a download date
+        /// </summary>
+        /// <returns></returns>
+        public ObservableBundle? GetFirstDownloadedBundle()
+        {
+            return Bundles.FirstOrDefault(x => x.LastDownloadDate > DateTimeOffset.MinValue);
+        }
+
+        /// <summary>
+        /// Delete bundle from disk
+        /// </summary>
+        /// <param name="dataPath"></param>
+        /// <param name="patchVersion"></param>
+        /// <exception cref="Exception"></exception>
         public void DeleteBundle(string dataPath, string patchVersion)
         {
             Directory.Delete(Path.Combine(dataPath, patchVersion), true);
@@ -70,6 +86,11 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             Bundles.Remove(deletedBundle);
         }
 
+        /// <summary>
+        /// Save this object to file
+        /// </summary>
+        /// <param name="dataPath"></param>
+        /// <returns></returns>
         public async Task SaveToJson(string dataPath)
         {
             var jsonModel = new BundleIndex
@@ -81,7 +102,10 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             foreach (var bundle in Bundles)
             {
                 var relativeBundlePath = await bundle.SaveToJson(dataPath);
-                jsonModel.DownloadedBundles.Add(bundle.Patch, relativeBundlePath);
+                if (relativeBundlePath != null)
+                {
+                    jsonModel.DownloadedBundles.Add(bundle.Patch, relativeBundlePath);
+                }
             }
 
             jsonModel.PatchVersions.AddRange(KnownPatchNumbers);
@@ -100,6 +124,13 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             await JsonSerializer.SerializeAsync(bundleFile, jsonModel, serializerOptions);
         }
 
+        /// <summary>
+        /// Load data from JSON file
+        /// </summary>
+        /// <param name="dataPath"></param>
+        /// <param name="log"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static async Task<ObservableStaticDataContext> CreateFromJson(string dataPath, RiZhi log)
         {
             var result = new ObservableStaticDataContext();

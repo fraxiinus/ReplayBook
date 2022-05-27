@@ -129,7 +129,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return resultFiles;
         }
 
-        public async Task<IEnumerable<(string key, string relativePath)>> DownloadRuneImages(string patchVersion, IEnumerable<RuneData> runeData)
+        public async Task<IEnumerable<(string key, string relativePath)>> DownloadRuneImages(string patchVersion, IEnumerable<RuneProperties> runeData)
         {
             var resultFiles = new List<(string, string)>();
 
@@ -168,7 +168,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
         /// <param name="language"></param>
         /// <returns></returns>
         /// <exception cref="HttpRequestException"></exception>
-        public async Task<IEnumerable<BaseStaticData>> DownloadPropertySet(string patchVersion, string dataType, string language)
+        public async Task<IEnumerable<BaseStaticProperties>> DownloadPropertySet(string patchVersion, string dataType, string language)
         {
             // catch and rename rune data type
             var fileName = dataType == StaticDataDefinitions.Rune ? "runesReforged" : dataType.ToLower();
@@ -202,14 +202,14 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             }
         }
 
-        private async Task<IEnumerable<BaseStaticData>> ParsePropertySet(Stream jsonStream, string dataType)
+        private async Task<IEnumerable<BaseStaticProperties>> ParsePropertySet(Stream jsonStream, string dataType)
         {
             if (dataType == StaticDataDefinitions.Rune)
             {
                 throw new NotSupportedException("Runes need to be parsed in their special function");
             }
 
-            var results = new List<BaseStaticData>();
+            var results = new List<BaseStaticProperties>();
 
             using var document = await JsonDocument.ParseAsync(jsonStream);
             var dataArray = document.RootElement.GetProperty("data");
@@ -229,9 +229,9 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return results;
         }
 
-        private async Task<IEnumerable<RuneData>> ParseRunePropertySet(Stream jsonStream)
+        private async Task<IEnumerable<RuneProperties>> ParseRunePropertySet(Stream jsonStream)
         {
-            var results = new List<RuneData>();
+            var results = new List<RuneProperties>();
 
             using var document = await JsonDocument.ParseAsync(jsonStream);
             foreach (var tree in document.RootElement.EnumerateArray())
@@ -248,7 +248,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return results;
         }
 
-        private BaseStaticData CreateStaticData(JsonProperty jsonProperty, string dataType)
+        private BaseStaticProperties CreateStaticData(JsonProperty jsonProperty, string dataType)
         {
             if (dataType == StaticDataDefinitions.Rune)
             {
@@ -258,10 +258,10 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             // item and champion data have the same structure
             var id = jsonProperty.Name;
 
-            BaseStaticData instance = dataType switch
+            BaseStaticProperties instance = dataType switch
             {
-                StaticDataDefinitions.Champion => new ChampionData(id),
-                StaticDataDefinitions.Item => new ItemData(id),
+                StaticDataDefinitions.Champion => new ChampionProperties(id),
+                StaticDataDefinitions.Item => new ItemProperties(id),
                 _ => throw new Exception($"Invalid data type sent {dataType}")
             };
             
@@ -281,12 +281,12 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return instance;
         }
 
-        private RuneData CreateRuneData(JsonElement jsonElement)
+        private RuneProperties CreateRuneData(JsonElement jsonElement)
         {
             var id = jsonElement.GetProperty("id").GetInt32().ToString()
                 ?? throw new Exception("Element ID parsed null");
 
-            var instance = new RuneData(id)
+            var instance = new RuneProperties(id)
             {
                 DisplayName = jsonElement.GetProperty("name").GetString()
                     ?? throw new Exception("json name returned null"),
