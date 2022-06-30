@@ -12,12 +12,6 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        /// <summary>
-        /// Was this bundle just created by <see cref="ObservableStaticDataContext.GetBundle(string)"/>?
-        /// AKA does not actually exist.
-        /// </summary>
-        public bool JustCreated = false;
-
         private string _patch = string.Empty;
         public string Patch
         {

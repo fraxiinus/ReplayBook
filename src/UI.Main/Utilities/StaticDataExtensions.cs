@@ -36,7 +36,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
                 return new RuneProperties(runeId)
                 {
                     DisplayName = runeId,
-                    EndOfGameStatDescs = null,
+                    EndOfGameStatDescs = new List<string>(),
                     IconUrl = null,
                     ImageProperties = null,
                     Key = null

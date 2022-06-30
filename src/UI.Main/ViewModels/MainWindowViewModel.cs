@@ -198,7 +198,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
                     else
                     {
                         // item id was valid, maybe? show id
-                        item.ItemName = staticItem.Id;
+                        item.ItemName = item.ItemId;
                     }
                 }
                 else

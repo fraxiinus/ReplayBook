@@ -3,7 +3,6 @@ using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.StaticData.Data;
 using Fraxiinus.ReplayBook.StaticData.Extensions;
 using Fraxiinus.ReplayBook.StaticData.Models;
-using System.Drawing;
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -122,9 +121,15 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// <returns></returns>
         public async Task<T?> GetProperties<T>(string id, string patchVersion, ProgramLanguage language) where T : IStaticProperties
         {
-            var bundle = Context.GetBundle(patchVersion);
+            // The FiddleSticks Hack(tm)
+            if (id == "FiddleSticks")
+            {
+                id = "Fiddlesticks";
+            }
+
+            var bundle = Context.GetBundle(patchVersion, false);
             // bundle with patch does not actually exist, there is no data
-            if (bundle.JustCreated)
+            if (bundle == null)
             {
                 bundle = Context.GetFirstDownloadedBundle();
             }
@@ -134,6 +139,8 @@ namespace Fraxiinus.ReplayBook.StaticData
                 _log.Error($"could not find bundle for properties: {id} - {patchVersion} - {language.GetRiotRegionCode()}");
                 return default;
             }
+
+            _log.Information($"Using bundle {bundle.Patch} for requested patch {patchVersion}");
 
             try
             {
@@ -164,10 +171,10 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// <returns></returns>
         public BitmapFrame? GetAtlasImage(string source, string patchVersion)
         {
-            var bundle = Context.GetBundle(patchVersion);
+            var bundle = Context.GetBundle(patchVersion, false);
             
             // bundle with patch does not actually exist, there is no data
-            if (bundle.JustCreated)
+            if (bundle == null)
             {
                 bundle = Context.GetFirstDownloadedBundle();
             }
@@ -177,6 +184,8 @@ namespace Fraxiinus.ReplayBook.StaticData
                 _log.Error($"could not find bundle for image: {source} - {patchVersion}");
                 return null;
             }
+
+            _log.Information($"Using bundle {bundle.Patch} for requested patch {patchVersion}");
 
             try
             {
@@ -191,9 +200,9 @@ namespace Fraxiinus.ReplayBook.StaticData
 
         public string? GetRuneImagePath(string key, string patchVersion)
         {
-            var bundle = Context.GetBundle(patchVersion);
+            var bundle = Context.GetBundle(patchVersion, false);
 
-            if (bundle.JustCreated)
+            if (bundle == null)
             {
                 bundle = Context.GetFirstDownloadedBundle();
             }
@@ -203,6 +212,8 @@ namespace Fraxiinus.ReplayBook.StaticData
                 _log.Error($"could not find bundle for image: {key} - {patchVersion}");
                 return null;
             }
+
+            _log.Information($"Using bundle {bundle.Patch} for requested patch {patchVersion}");
 
             var runeRelPath = bundle.RuneImageFiles
                 .Where(x => x.key == key)
@@ -229,6 +240,11 @@ namespace Fraxiinus.ReplayBook.StaticData
         public async Task DownloadImages(string patchVersion, StaticDataType types, CancellationToken cancellationToken = default)
         {
             var targetBundle = Context.GetBundle(patchVersion);
+
+            if (targetBundle == null)
+            {
+                throw new Exception("Got a null bundle when request should not return null");
+            }
 
             // download items
             if (types.HasFlag(StaticDataType.Item))
@@ -273,6 +289,11 @@ namespace Fraxiinus.ReplayBook.StaticData
         {
             var targetBundle = Context.GetBundle(patchVersion);
 
+            if (targetBundle == null)
+            {
+                throw new Exception("Got a null bundle when request should not return null");
+            }
+
             var paths = await _dataDragonClient.DownloadRuneImages(patchVersion, runeData, cancellationToken);
             targetBundle.RuneImageFiles.Clear();
             foreach (var path in paths)
@@ -295,6 +316,11 @@ namespace Fraxiinus.ReplayBook.StaticData
             // get bundle for patch version
             var targetBundle = Context.GetBundle(patchVersion);
 
+            if (targetBundle == null)
+            {
+                throw new Exception("Got a null bundle when request should not return null");
+            }
+
             // see if bundle has rune data already
             var (_, filePath) = targetBundle.RuneDataFiles.First(x => x.language == language);
 
@@ -316,6 +342,11 @@ namespace Fraxiinus.ReplayBook.StaticData
         public async Task DownloadProperties(string patchVersion, StaticDataType types, string language, CancellationToken cancellationToken = default)
         {
             var targetBundle = Context.GetBundle(patchVersion);
+
+            if (targetBundle == null)
+            {
+                throw new Exception("Got a null bundle when request should not return null");
+            }
 
             // download items
             if (types.HasFlag(StaticDataType.Item))

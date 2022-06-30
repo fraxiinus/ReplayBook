@@ -11,11 +11,24 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
         public event PropertyChangedEventHandler PropertyChanged;
 
         public RuneStat(RuneProperties runeData, string id, string firstValue, string secondValue, string thirdValue)
-        { 
-            RuneId = id;
+        {
+            if (runeData != null)
+            {
+                RuneName = runeData.DisplayName;
+                Descriptions = (List<string>)runeData.ReplaceRuneDescriptions(firstValue, secondValue, thirdValue);
+            }
+            else
+            {
+                RuneName = id;
+                Descriptions = new List<string>
+                {
+                    firstValue,
+                    secondValue,
+                    thirdValue
+                };
+            }
 
-            RuneName = runeData.DisplayName;
-            Descriptions = (List<string>) runeData.ReplaceRuneDescriptions(firstValue, secondValue, thirdValue);
+            RuneId = id;
             
             Value0 = int.TryParse(firstValue, out int parsedValue0) ? parsedValue0 : 0;
             Value1 = int.TryParse(secondValue, out int parsedValue1) ? parsedValue1 : 0;

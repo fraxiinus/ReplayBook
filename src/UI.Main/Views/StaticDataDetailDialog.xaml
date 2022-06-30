@@ -54,7 +54,7 @@
                 <TextBlock Grid.Row="3"
                            Grid.Column="2"
                            FontSize="14"
-                           Text="{Binding ChampionImageFiles.Count}" />
+                           Text="{Binding ChampionImagePaths.Count}" />
 
                 <TextBlock Grid.Row="4"
                            FontSize="14"
@@ -62,7 +62,7 @@
                 <TextBlock Grid.Row="4"
                            Grid.Column="2"
                            FontSize="14"
-                           Text="{Binding ItemImageFiles.Count}" />
+                           Text="{Binding ItemImagePaths.Count}" />
 
                 <TextBlock Grid.Row="5"
                            FontSize="14"

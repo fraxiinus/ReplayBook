@@ -43,17 +43,16 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         /// </summary>
         /// <param name="version"></param>
         /// <returns></returns>
-        public ObservableBundle GetBundle(string version)
+        public ObservableBundle? GetBundle(string version, bool createNewIfNotFound = true)
         {
             // try to get an existing bundle, create new otherwise
             var result = Bundles.FirstOrDefault(x => x.Patch.StartsWith(version));
 
-            if (result == null)
+            if (result == null && createNewIfNotFound)
             {
                 result = new ObservableBundle()
                 {
-                    Patch = version,
-                    JustCreated = true
+                    Patch = version
                 };
                 Bundles.Add(result);
             }
