@@ -1,4 +1,5 @@
-﻿using Fraxiinus.ReplayBook.StaticData;
+﻿using Fraxiinus.ReplayBook.Configuration.Models;
+using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.StaticData.Extensions;
 using Fraxiinus.ReplayBook.StaticData.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
