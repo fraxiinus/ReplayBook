@@ -140,8 +140,6 @@ namespace Fraxiinus.ReplayBook.StaticData
                 return default;
             }
 
-            _log.Information($"Using bundle {bundle.Patch} for requested patch {patchVersion}");
-
             try
             {
                 // throws if language not available
@@ -185,8 +183,6 @@ namespace Fraxiinus.ReplayBook.StaticData
                 return null;
             }
 
-            _log.Information($"Using bundle {bundle.Patch} for requested patch {patchVersion}");
-
             try
             {
                 return bundle.GetAtlasImage(source, _dataPath);
@@ -212,8 +208,6 @@ namespace Fraxiinus.ReplayBook.StaticData
                 _log.Error($"could not find bundle for image: {key} - {patchVersion}");
                 return null;
             }
-
-            _log.Information($"Using bundle {bundle.Patch} for requested patch {patchVersion}");
 
             var runeRelPath = bundle.RuneImageFiles
                 .Where(x => x.key == key)
