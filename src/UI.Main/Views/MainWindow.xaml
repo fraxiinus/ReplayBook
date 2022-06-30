@@ -18,7 +18,6 @@
         Closing="MainWindow_OnClosing"
         ContentRendered="Window_ContentRendered"
         Icon="{StaticResource ProgramIcon}"
-        Loaded="MainWindow_OnLoaded"
         ResizeMode="CanResize"
         mc:Ignorable="d">
 

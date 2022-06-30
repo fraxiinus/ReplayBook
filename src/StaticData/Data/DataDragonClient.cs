@@ -36,7 +36,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
         /// Get an array of all appropriate DataDragon versions
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<string>> GetPatchesAsync()
+        public async Task<IEnumerable<string>> GetPatchesAsync(CancellationToken cancellationToken = default)
         {
             const string url = @"https://ddragon.leagueoflegends.com/api/versions.json";
 
@@ -50,7 +50,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                 try
                 {
                     // send the request
-                    response = await _httpClient.SendAsync(request).ConfigureAwait(true);
+                    response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(true);
                 }
                 catch (HttpRequestException ex)
                 {
@@ -63,7 +63,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             {
                 _log.Information($"Made successful HTTP request {url}");
 
-                var json = await response.Content.ReadAsStringAsync().ConfigureAwait(true);
+                var json = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(true);
 
                 return JsonSerializer.Deserialize<string[]>(json)
                     ?? throw new Exception("Json deserialized to null value");
@@ -82,7 +82,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
         /// <returns></returns>
         /// <exception cref="NotSupportedException"></exception>
         /// <exception cref="HttpRequestException"></exception>
-        public async Task<IEnumerable<string>> DownloadSpriteImages(string patchVersion, string dataType)
+        public async Task<IEnumerable<string>> DownloadSpriteImages(string patchVersion, string dataType, CancellationToken cancellationToken = default)
         {
             if (dataType == StaticDataDefinitions.Rune)
             {
@@ -101,13 +101,13 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                     + resultFiles.Count
                     + ".png";
 
-                var response = await SendGetRequestAsync(url, "image/*");
+                var response = await SendGetRequestAsync(url, "image/*", cancellationToken);
 
                 if (response.IsSuccessStatusCode)
                 {
                     _log.Information($"Made successful HTTP request {url}");
 
-                    var destinationFile = await SaveImageToFile(await response.Content.ReadAsStreamAsync(), resultFiles.Count, patchVersion, dataType);
+                    var destinationFile = await SaveImageToFile(await response.Content.ReadAsStreamAsync(cancellationToken), resultFiles.Count, patchVersion, dataType, cancellationToken);
 
                     resultFiles.Add(destinationFile);
                 }
@@ -129,7 +129,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return resultFiles;
         }
 
-        public async Task<IEnumerable<(string key, string relativePath)>> DownloadRuneImages(string patchVersion, IEnumerable<RuneProperties> runeData)
+        public async Task<IEnumerable<(string key, string relativePath)>> DownloadRuneImages(string patchVersion, IEnumerable<RuneProperties> runeData, CancellationToken cancellationToken = default)
         {
             var resultFiles = new List<(string, string)>();
 
@@ -145,13 +145,13 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                     + "img/"
                     + rune.IconUrl;
 
-                var response = await SendGetRequestAsync(url, "image/*");
+                var response = await SendGetRequestAsync(url, "image/*", cancellationToken);
 
                 if (response.IsSuccessStatusCode)
                 {
                     _log.Information($"Made successful HTTP request {url}");
 
-                    var destinationFile = await SaveRuneImageToFile(await response.Content.ReadAsStreamAsync(), patchVersion, rune.Key + ".png");
+                    var destinationFile = await SaveRuneImageToFile(await response.Content.ReadAsStreamAsync(cancellationToken), patchVersion, rune.Key + ".png", cancellationToken);
                     
                     resultFiles.Add((rune.Key, destinationFile));
                 }
@@ -168,7 +168,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
         /// <param name="language"></param>
         /// <returns></returns>
         /// <exception cref="HttpRequestException"></exception>
-        public async Task<IEnumerable<BaseStaticProperties>> DownloadPropertySet(string patchVersion, string dataType, string language)
+        public async Task<IEnumerable<BaseStaticProperties>> DownloadPropertySet(string patchVersion, string dataType, string language, CancellationToken cancellationToken = default)
         {
             // catch and rename rune data type
             var fileName = dataType == StaticDataDefinitions.Rune ? "runesReforged" : dataType.ToLower();
@@ -181,7 +181,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                 + fileName
                 + ".json";
 
-            var response = await SendGetRequestAsync(url, "application/json");
+            var response = await SendGetRequestAsync(url, "application/json", cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
@@ -189,11 +189,11 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                 {
                     _log.Information($"Made successful HTTP request {url}");
 
-                    return await ParseRunePropertySet(response.Content.ReadAsStream());
+                    return await ParseRunePropertySet(response.Content.ReadAsStream(cancellationToken), cancellationToken);
                 }
                 else
                 {
-                    return await ParsePropertySet(response.Content.ReadAsStream(), dataType);
+                    return await ParsePropertySet(response.Content.ReadAsStream(cancellationToken), dataType, cancellationToken);
                 }
             }
             else
@@ -202,7 +202,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             }
         }
 
-        private async Task<IEnumerable<BaseStaticProperties>> ParsePropertySet(Stream jsonStream, string dataType)
+        private async Task<IEnumerable<BaseStaticProperties>> ParsePropertySet(Stream jsonStream, string dataType, CancellationToken cancellationToken = default)
         {
             if (dataType == StaticDataDefinitions.Rune)
             {
@@ -211,7 +211,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
 
             var results = new List<BaseStaticProperties>();
 
-            using var document = await JsonDocument.ParseAsync(jsonStream);
+            using var document = await JsonDocument.ParseAsync(jsonStream, cancellationToken: cancellationToken);
             var dataArray = document.RootElement.GetProperty("data");
             foreach (var element in dataArray.EnumerateObject())
             {
@@ -229,11 +229,11 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return results;
         }
 
-        private async Task<IEnumerable<RuneProperties>> ParseRunePropertySet(Stream jsonStream)
+        private async Task<IEnumerable<RuneProperties>> ParseRunePropertySet(Stream jsonStream, CancellationToken cancellationToken = default)
         {
             var results = new List<RuneProperties>();
 
-            using var document = await JsonDocument.ParseAsync(jsonStream);
+            using var document = await JsonDocument.ParseAsync(jsonStream, cancellationToken: cancellationToken);
             foreach (var tree in document.RootElement.EnumerateArray())
             {
                 foreach (var slot in tree.GetProperty("slots").EnumerateArray())
@@ -297,7 +297,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return instance;
         }
 
-        private async Task<HttpResponseMessage> SendGetRequestAsync(string url, string accept)
+        private async Task<HttpResponseMessage> SendGetRequestAsync(string url, string accept, CancellationToken cancellationToken = default)
         {
             HttpResponseMessage response;
             using var request = new HttpRequestMessage(HttpMethod.Get, url);
@@ -306,7 +306,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             request.Headers.Accept.ParseAdd(accept);
             try
             {
-                response = await _httpClient.SendAsync(request);
+                response = await _httpClient.SendAsync(request, cancellationToken);
             }
             catch (HttpRequestException ex)
             {
@@ -317,7 +317,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             return response;
         }
 
-        private async Task<string> SaveImageToFile(Stream imageStream, int count, string patchVersion, string dataType)
+        private async Task<string> SaveImageToFile(Stream imageStream, int count, string patchVersion, string dataType, CancellationToken cancellationToken = default)
         {
             // Make sure destination exists
             var relativeDestination = Path.Combine(patchVersion, dataType.ToLower());
@@ -327,12 +327,12 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             // Create file stream that will write file
             var destinationFile = Path.Combine(destinationFolder, $"{count}.png");
             using var fileStream = new FileStream(destinationFile, FileMode.Create, FileAccess.Write);
-            await imageStream.CopyToAsync(fileStream);
+            await imageStream.CopyToAsync(fileStream, cancellationToken);
 
             return Path.Combine(relativeDestination, $"{count}.png");
         }
 
-        private async Task<string> SaveRuneImageToFile(Stream imageStream, string relDestFolder, string destinationFileName)
+        private async Task<string> SaveRuneImageToFile(Stream imageStream, string relDestFolder, string destinationFileName, CancellationToken cancellationToken = default)
         {
             var destinationFolder = Path.Combine(_dataPath, relDestFolder, "rune");
 
@@ -340,7 +340,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
 
             var destinationFile = Path.Combine(destinationFolder, destinationFileName);
             using var filestream = new FileStream(destinationFile, FileMode.Create, FileAccess.Write);
-            await imageStream.CopyToAsync(filestream);
+            await imageStream.CopyToAsync(filestream, cancellationToken);
 
             return Path.Combine(relDestFolder, "rune", destinationFileName);
         }

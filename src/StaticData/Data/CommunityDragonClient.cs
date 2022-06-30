@@ -31,7 +31,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             _httpClient.Dispose();
         }
 
-        public async Task GetRuneStatDescriptions(List<RuneProperties> runes, string version, string language)
+        public async Task GetRuneStatDescriptions(List<RuneProperties> runes, string version, string language, CancellationToken cancellationToken = default)
         {
             // ID's of stat runes
             var statRuneIds = new string[6] { "5001", "5002", "5003", "5005", "5007", "5008"};
@@ -52,7 +52,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                 throw new HttpRequestException($"HTTP request to Community Dragon failed on {(int)response.StatusCode}, {url}");
             }
 
-            using var document = await JsonDocument.ParseAsync(response.Content.ReadAsStream());
+            using var document = await JsonDocument.ParseAsync(response.Content.ReadAsStream(cancellationToken), cancellationToken: cancellationToken);
 
             // parse cdragon rune response
             foreach (var cDragonRune in document.RootElement.EnumerateArray())

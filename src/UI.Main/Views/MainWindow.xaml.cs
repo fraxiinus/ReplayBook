@@ -37,7 +37,6 @@ namespace Fraxiinus.ReplayBook.UI.Main
 
         public MainWindow(RiZhi log,
             ObservableConfiguration config,
-            RequestManager requests,
             StaticDataManager staticData,
             ExecutableManager executables,
             FileManager files,
@@ -56,7 +55,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
                 log.WriteLog();
             };
 
-            var context = new MainWindowViewModel(files, requests, staticData, config, executables, player, log);
+            var context = new MainWindowViewModel(files, staticData, config, executables, player, log);
             DataContext = context;
 
             // Decide to show welcome window
@@ -91,14 +90,6 @@ namespace Fraxiinus.ReplayBook.UI.Main
                     WindowState = WindowState.Maximized;
                 }
             }
-        }
-
-        // Window is loaded and ready to be shown on screen
-        private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is not MainWindowViewModel context) { return; }
-
-            // await context.StaticDataProvider.LoadStaticData();
         }
 
         // Window has been rendered to the screen
@@ -322,7 +313,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
         {
             if (DataContext is not MainWindowViewModel context) { return; }
 
-            await context.ClearCache().ConfigureAwait(true);
+            context.ClearCache();
         }
 
         private void ReplayStatusBarDismissButton_Click(object sender, RoutedEventArgs e)

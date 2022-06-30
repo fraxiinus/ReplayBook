@@ -81,11 +81,11 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// Downloads patches if there are none loaded.
         /// </summary>
         /// <returns></returns>
-        public async Task GetPatchesIfOutdated()
+        public async Task GetPatchesIfOutdated(CancellationToken cancellationToken = default)
         {
             if (!Context.KnownPatchNumbers.Any())
             {
-                await RefreshPatches();
+                await RefreshPatches(cancellationToken);
             }
         }
 
@@ -93,11 +93,11 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// Downloads and overwrites patches list
         /// </summary>
         /// <returns></returns>
-        public async Task RefreshPatches()
+        public async Task RefreshPatches(CancellationToken cancellationToken = default)
         {
             Context.KnownPatchNumbers.Clear();
 
-            var allVersions = await _dataDragonClient.GetPatchesAsync();
+            var allVersions = await _dataDragonClient.GetPatchesAsync(cancellationToken);
 
             foreach (var version in allVersions)
             {
@@ -226,14 +226,14 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// <param name="patchVersion"></param>
         /// <param name="types"></param>
         /// <returns></returns>
-        public async Task DownloadImages(string patchVersion, StaticDataType types)
+        public async Task DownloadImages(string patchVersion, StaticDataType types, CancellationToken cancellationToken = default)
         {
             var targetBundle = Context.GetBundle(patchVersion);
 
             // download items
             if (types.HasFlag(StaticDataType.Item))
             {
-                var paths = await _dataDragonClient.DownloadSpriteImages(patchVersion, StaticDataDefinitions.Item);
+                var paths = await _dataDragonClient.DownloadSpriteImages(patchVersion, StaticDataDefinitions.Item, cancellationToken);
                 targetBundle.ItemImagePaths.Clear();
                 foreach (var path in paths)
                 {
@@ -245,7 +245,7 @@ namespace Fraxiinus.ReplayBook.StaticData
             }
             if (types.HasFlag(StaticDataType.Champion))
             {
-                var paths = await _dataDragonClient.DownloadSpriteImages(patchVersion, StaticDataDefinitions.Champion);
+                var paths = await _dataDragonClient.DownloadSpriteImages(patchVersion, StaticDataDefinitions.Champion, cancellationToken);
                 targetBundle.ChampionImagePaths.Clear();
                 foreach (var path in paths)
                 {
@@ -269,11 +269,11 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// <param name="patchVersion"></param>
         /// <param name="runeData"></param>
         /// <returns></returns>
-        public async Task DownloadRuneImages(string patchVersion, IEnumerable<RuneProperties> runeData)
+        public async Task DownloadRuneImages(string patchVersion, IEnumerable<RuneProperties> runeData, CancellationToken cancellationToken = default)
         {
             var targetBundle = Context.GetBundle(patchVersion);
 
-            var paths = await _dataDragonClient.DownloadRuneImages(patchVersion, runeData);
+            var paths = await _dataDragonClient.DownloadRuneImages(patchVersion, runeData, cancellationToken);
             targetBundle.RuneImageFiles.Clear();
             foreach (var path in paths)
             {
@@ -290,7 +290,7 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// <param name="language"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task DownloadRuneImages(string patchVersion, string language)
+        public async Task DownloadRuneImages(string patchVersion, string language, CancellationToken cancellationToken = default)
         {
             // get bundle for patch version
             var targetBundle = Context.GetBundle(patchVersion);
@@ -300,10 +300,10 @@ namespace Fraxiinus.ReplayBook.StaticData
 
             // read the rune data
             await using FileStream fileStream = File.OpenRead(Path.Combine(_dataPath, filePath));
-            var runeData = JsonSerializer.Deserialize<IEnumerable<RuneProperties>>(fileStream)
+            var runeData = await JsonSerializer.DeserializeAsync<IEnumerable<RuneProperties>>(fileStream, cancellationToken: cancellationToken)
                 ?? throw new Exception("rune data load null");
 
-            await DownloadRuneImages(patchVersion, runeData);
+            await DownloadRuneImages(patchVersion, runeData, cancellationToken);
         }
 
         /// <summary>
@@ -313,15 +313,15 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// <param name="types"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task DownloadProperties(string patchVersion, StaticDataType types, string language)
+        public async Task DownloadProperties(string patchVersion, StaticDataType types, string language, CancellationToken cancellationToken = default)
         {
             var targetBundle = Context.GetBundle(patchVersion);
 
             // download items
             if (types.HasFlag(StaticDataType.Item))
             {
-                var properties = await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Item, language);
-                var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Item, language);
+                var properties = await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Item, language, cancellationToken);
+                var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Item, language, cancellationToken);
                 var result = targetBundle.ItemDataFiles.TryAdd(language, savedFile);
                 
                 if (!result)
@@ -331,8 +331,8 @@ namespace Fraxiinus.ReplayBook.StaticData
             }
             if (types.HasFlag(StaticDataType.Champion))
             {
-                var properties = await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Champion, language);
-                var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Champion, language);
+                var properties = await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Champion, language, cancellationToken);
+                var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Champion, language, cancellationToken);
                 var result = targetBundle.ChampionDataFiles.TryAdd(language, savedFile);
 
                 if (!result)
@@ -342,9 +342,9 @@ namespace Fraxiinus.ReplayBook.StaticData
             }
             if (types.HasFlag(StaticDataType.Rune))
             {
-                var properties = (List<RuneProperties>) await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Rune, language);
-                await _communityDragonClient.GetRuneStatDescriptions(properties, patchVersion, language);
-                var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Rune, language);
+                var properties = (List<RuneProperties>) await _dataDragonClient.DownloadPropertySet(patchVersion, StaticDataDefinitions.Rune, language, cancellationToken);
+                await _communityDragonClient.GetRuneStatDescriptions(properties, patchVersion, language, cancellationToken);
+                var savedFile = await SavePropertySet(properties, patchVersion, StaticDataDefinitions.Rune, language, cancellationToken);
                 var result = targetBundle.RuneDataFiles.TryAdd(language, savedFile);
                 
                 if (!result)
@@ -392,7 +392,7 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// <param name="dataType"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        private async Task<string> SavePropertySet(IEnumerable<BaseStaticProperties> propertySet, string patchVersion, string dataType, string language)
+        private async Task<string> SavePropertySet(IEnumerable<BaseStaticProperties> propertySet, string patchVersion, string dataType, string language, CancellationToken cancellationToken = default)
         {
             var serializerOptions = new JsonSerializerOptions
             {
@@ -415,11 +415,11 @@ namespace Fraxiinus.ReplayBook.StaticData
             await using FileStream indexFile = File.Create(Path.Combine(destinationFolder, destinationFile));
             if (dataType == StaticDataDefinitions.Rune)
             {
-                await JsonSerializer.SerializeAsync(indexFile, (IEnumerable<RuneProperties>) propertySet, serializerOptions);
+                await JsonSerializer.SerializeAsync(indexFile, (IEnumerable<RuneProperties>) propertySet, serializerOptions, cancellationToken);
             }
             else
             {
-                await JsonSerializer.SerializeAsync(indexFile, propertySet, serializerOptions);
+                await JsonSerializer.SerializeAsync(indexFile, propertySet, serializerOptions, cancellationToken);
             }
 
             return Path.Combine(relativeDestination, $"{language}.data.json");

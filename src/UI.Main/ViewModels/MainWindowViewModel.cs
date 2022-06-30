@@ -32,8 +32,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
         private readonly ReplayPlayer _player;
         // private readonly string _myName;
 
-        public RequestManager RequestManager { get; private set; }
-
         public StaticDataManager StaticDataManager { get; private set; }
 
         /// <summary>
@@ -60,13 +58,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
         public StatusBar StatusBarModel { get; private set; }
 
         // Flags used to clear cache when closing
-        public bool ClearItemsCacheOnClose { get; set; }
-        public bool ClearChampsCacheOnClose { get; set; }
-        public bool ClearRunesCacheOnClose { get; set; }
         public bool ClearReplayCacheOnClose { get; set; }
 
         public MainWindowViewModel(FileManager files,
-            RequestManager requests,
             StaticDataManager staticData,
             ObservableConfiguration config,
             ExecutableManager executables,
@@ -80,7 +74,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             _player = player ?? throw new ArgumentNullException(nameof(player));
 
             StaticDataManager = staticData ?? throw new ArgumentNullException(nameof(staticData));
-            RequestManager = requests ?? throw new ArgumentNullException(nameof(requests));
 
             KnownPlayers = config.PlayerMarkers;
 
@@ -96,9 +89,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             StatusBarModel = new StatusBar();
 
             // By default we do not want to delete our cache
-            ClearItemsCacheOnClose = false;
-            ClearChampsCacheOnClose = false;
-            ClearRunesCacheOnClose = false;
             ClearReplayCacheOnClose = false;
         }
 
@@ -283,7 +273,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
             var patchVersion = replay.PreviewModel.GameVersion.VersionSubstring();
-            string dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
 
             var allRunes = new List<RuneStat>();
             var allTasks = new List<Task>();
@@ -441,7 +430,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
         {
             _log.Information("Opening new window...");
 
-            var singleWindow = new SingleReplayWindow(_log, Configuration, RequestManager, StaticDataManager, ExecutableManager, _fileManager, _player, true)
+            var singleWindow = new SingleReplayWindow(_log, Configuration, StaticDataManager, ExecutableManager, _fileManager, _player, true)
             {
                 ReplayFileLocation = replayPath,
                 DataContext = this
@@ -551,7 +540,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             {
                 ContentFrame = contentFrame,
                 PageIndex = 0,
-                PageCount = 4,
+                PageCount = 5,
                 DisableBackButton = true,
                 RiotGamesPath = (string)Application.Current.TryFindResource("WswExecutablesHint"),
                 Language = ProgramLanguage.En
@@ -694,13 +683,13 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             _fileManager.ClearDeletedFiles();
         }
 
-        public async Task<long> CalculateCacheSizes()
-        {
-            var runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
-            long runesTotal = !runesInfo.Exists ? 0L : await Task.Run(() => runesInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
+        //public async Task<long> CalculateCacheSizes()
+        //{
+        //    var runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
+        //    long runesTotal = !runesInfo.Exists ? 0L : await Task.Run(() => runesInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
-            return runesTotal;
-        }
+        //    return runesTotal;
+        //}
 
         public long CalculateReplayCacheSize()
         {
@@ -708,12 +697,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             return databaseInfo.Length;
         }
 
-        public async Task ClearCache()
+        public void ClearCache()
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            if (ClearRunesCacheOnClose) { await RequestManager.ClearRunesCache().ConfigureAwait(true); }
+            //if (ClearRunesCacheOnClose) { await RequestManager.ClearRunesCache().ConfigureAwait(true); }
 
             if (ClearReplayCacheOnClose)
             {

@@ -15,7 +15,6 @@
         ui:WindowHelper.UseModernWindowStyle="True"
         Closing="Window_Closing"
         Loaded="Window_Loaded"
-        SourceInitialized="SettingsWindow_OnSourceInitialized"
         mc:Ignorable="d">
 
     <Grid>
@@ -51,10 +50,6 @@
 
             <ListBoxItem x:Name="ReplaySettingsListItem">
                 <TextBlock FontSize="14" Text="{DynamicResource ReplaySettingsItemText}" />
-            </ListBoxItem>
-
-            <ListBoxItem x:Name="RequestSettingsListItem">
-                <TextBlock FontSize="14" Text="{DynamicResource RequestSettingsItemText}" />
             </ListBoxItem>
 
             <ListBoxItem x:Name="AboutSettingsListItem">
@@ -692,7 +687,7 @@
                     </ScrollViewer>
                 </TabItem>
 
-                <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
+                <!--<TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
                     <ScrollViewer>
                         <ui:SimpleStackPanel Margin="15,0,20,12"
                                              Orientation="Vertical"
@@ -870,7 +865,7 @@
 
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
-                </TabItem>
+                </TabItem>-->
 
                 <TabItem x:Name="AboutTabItem" Visibility="Collapsed">
                     <ScrollViewer>

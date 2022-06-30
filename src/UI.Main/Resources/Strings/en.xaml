@@ -399,7 +399,7 @@
     <string:String x:Key="WswReplaysFrameTitle">Replay Setup</string:String>
     <string:String x:Key="WswExecutablesFrameTitle">Executable Setup</string:String>
     <string:String x:Key="WswRegionFrameTitle">Language Setup</string:String>
-    <string:String x:Key="WswDownloadFrameTitle">Download Assets</string:String>
+    <string:String x:Key="WswDownloadFrameTitle">Download Static Data</string:String>
     <string:String x:Key="WswFinishedFrameTitle">Complete!</string:String>
 
     <string:String x:Key="WswIntroductionTitle">Thank you for downloading ReplayBook!</string:String>
@@ -418,12 +418,14 @@
     <string:String x:Key="WswReplaysBody">ReplayBook won't be able to show any replays if it doesn't know where they are. Verify that this is where your replays are stored. You can add additional folders later.</string:String>
     <string:String x:Key="WswReplaysHint">By default, replays are stored in &quot;Documents\League of Legends\Replays&quot;</string:String>
 
-    <string:String x:Key="WswDownloadTitle">Download icons now?</string:String>
-    <string:String x:Key="WswDownloadBody">Downloading icons will take a few minutes, but will make ReplayBook run faster. ReplayBook will download icons on demand if you skip this step.</string:String>
-    <string:String x:Key="WswDownloadChampionsText">Download champion thumbnails</string:String>
-    <string:String x:Key="WswDownloadItemsText">Download item thumbnails</string:String>
-    <string:String x:Key="WswDownloadRunesText">Download rune thumbnails</string:String>
-    <string:String x:Key="WswDownloadFinished">Download Finished</string:String>
+    <string:String x:Key="Welcome__StaticData__Title">Downloading latest static data...</string:String>
+    <string:String x:Key="Welcome__StaticData__Body">Downloading static data will take a few minutes, but is required for displaying champion names and thumbnails. You can download static data bundles for different patches later.</string:String>
+    <string:String x:Key="Welcome__StaticData__DownloadProgress__StartLabel">Starting download</string:String>
+    <string:String x:Key="Welcome__StaticData__DownloadProgress__PropertiesLabel">Downloading static properties</string:String>
+    <string:String x:Key="Welcome__StaticData__DownloadProgress__ImagesLabel">Downloading images</string:String>
+    <string:String x:Key="Welcome__StaticData__DownloadProgress__RuneLabel">Downloading runes</string:String>
+    <string:String x:Key="Welcome__StaticData__DownloadProgress__FinishedLabel">Download finished</string:String>
+    <string:String x:Key="Welcome__StaticData__DownloadProgress__CanceledLabel">Download canceled</string:String>
 
     <string:String x:Key="WswFinishTitle">Setup complete!</string:String>
     <string:String x:Key="WswFinishBody">Click &quot;Finish&quot; and ReplayBook will automatically start with your chosen settings.</string:String>

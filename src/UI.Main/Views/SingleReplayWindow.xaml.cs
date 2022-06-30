@@ -25,7 +25,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
         public SingleReplayWindow(RiZhi log,
             ObservableConfiguration config,
-            RequestManager requests,
             StaticDataManager staticData,
             ExecutableManager executables,
             FileManager files,
@@ -46,7 +45,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                     log.WriteLog();
                 };
 
-                var context = new MainWindowViewModel(files, requests, staticData, config, executables, player, log);
+                var context = new MainWindowViewModel(files, staticData, config, executables, player, log);
 
                 DataContext = context;
 

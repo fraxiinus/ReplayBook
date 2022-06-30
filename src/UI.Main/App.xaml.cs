@@ -24,7 +24,6 @@ namespace Fraxiinus.ReplayBook.UI.Main
     public partial class App : Application
     {
         private FileManager _files;
-        private RequestManager _requests;
         private StaticDataManager _staticDataManager;
         private RiZhi _log;
         private ReplayPlayer _player;
@@ -67,7 +66,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
                 }
                 else if (_configuration.FileAction == FileAction.Open)
                 {
-                    var singleWindow = new SingleReplayWindow(_log, _configuration, _requests, _staticDataManager, _executables, _files, _player)
+                    var singleWindow = new SingleReplayWindow(_log, _configuration, _staticDataManager, _executables, _files, _player)
                     {
                         ReplayFileLocation = selectedFile
                     };
@@ -76,7 +75,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
             }
             else
             {
-                var mainWindow = new MainWindow(_log, _configuration, _requests, _staticDataManager, _executables, _files, _player);
+                var mainWindow = new MainWindow(_log, _configuration, _staticDataManager, _executables, _files, _player);
                 mainWindow.RestoreSavedWindowState();
                 mainWindow.Show();
             }
@@ -98,7 +97,6 @@ namespace Fraxiinus.ReplayBook.UI.Main
             {
                 _executables = new ExecutableManager(_log);
                 _files = new FileManager(_configuration, _log);
-                _requests = new RequestManager(_configuration, ApplicationProperties.UserAgent, _log);
                 _staticDataManager = new StaticDataManager(_configuration, ApplicationProperties.UserAgent, _log);
                 await _staticDataManager.LoadIndexAsync();
 

@@ -60,10 +60,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             AccentColorButton.ColorPickerPopup.Closed += AccentColorPickerPopup_Closed;
         }
 
-        private void SettingsWindow_OnSourceInitialized(object sender, EventArgs e)
-        {
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (DataContext is not SettingsWindowDataContext context) { return; }
@@ -150,12 +146,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                     SettingsTabControl.SelectedIndex = 5;
                     LoadReplayCacheSizes();
                     break;
-                case "RequestSettingsListItem":
-                    SettingsTabControl.SelectedIndex = 6;
-                    await LoadCacheSizes().ConfigureAwait(true);
-                    break;
+                //case "RequestSettingsListItem":
+                //    SettingsTabControl.SelectedIndex = 6;
+                //    //await LoadCacheSizes().ConfigureAwait(true);
+                //    break;
                 case "AboutSettingsListItem":
-                    SettingsTabControl.SelectedIndex = 7;
+                    SettingsTabControl.SelectedIndex = 6;
                     VersionTextBlock.Text = "Release " + ApplicationProperties.Version;
                     break;
                 default:
@@ -786,33 +782,33 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as string;
         }
 
-        private async Task LoadCacheSizes()
-        {
-            if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
+        //private async Task LoadCacheSizes()
+        //{
+        //    if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
 
-            long RunesTotalSize = await viewModel.CalculateCacheSizes().ConfigureAwait(true);
+        //    long RunesTotalSize = await viewModel.CalculateCacheSizes().ConfigureAwait(true);
 
-            var readableSizeConverter = new FormatKbSizeConverter();
-            RequestsCacheRunesSize.Text = (string)readableSizeConverter.Convert(RunesTotalSize, null, null, CultureInfo.InvariantCulture);
-        }
+        //    var readableSizeConverter = new FormatKbSizeConverter();
+        //    RequestsCacheRunesSize.Text = (string)readableSizeConverter.Convert(RunesTotalSize, null, null, CultureInfo.InvariantCulture);
+        //}
 
-        private async void DeleteRunesButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
+        //private async void DeleteRunesButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
 
-            // Set the delete flag, to be deleted by the main view model on close
-            viewModel.ClearRunesCacheOnClose = true;
+        //    // Set the delete flag, to be deleted by the main view model on close
+        //    viewModel.ClearRunesCacheOnClose = true;
 
-            // inform the user that the delete will happen when the window is closed
-            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-            dialog.DefaultButton = ContentDialogButton.Primary;
+        //    // inform the user that the delete will happen when the window is closed
+        //    ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
+        //    dialog.DefaultButton = ContentDialogButton.Primary;
 
-            dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
-            dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
-            dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
+        //    dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
+        //    dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
+        //    dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
 
-            _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
-        }
+        //    _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+        //}
 
         private void PlayerMarkerStyleOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -907,16 +903,16 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             //}
         }
 
-        private void DownloadProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (Math.Abs(DownloadProgressBar.Value) < 0.1) { return; }
+        //private void DownloadProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    if (Math.Abs(DownloadProgressBar.Value) < 0.1) { return; }
 
-            if (Math.Abs(DownloadProgressBar.Value - DownloadProgressBar.Maximum) < 0.1)
-            {
-                DownloadProgressText.Text = (string)TryFindResource("WswDownloadFinished");
-                DownloadImageButton.IsEnabled = true;
-            }
-        }
+        //    if (Math.Abs(DownloadProgressBar.Value - DownloadProgressBar.Maximum) < 0.1)
+        //    {
+        //        DownloadProgressText.Text = (string)TryFindResource("WswDownloadFinished");
+        //        DownloadImageButton.IsEnabled = true;
+        //    }
+        //}
 
         private void LoadReplayCacheSizes()
         {
