@@ -21,6 +21,7 @@ ReplayBook is a free open-source tool that helps you organize and manage your do
 ReplayBook has been community translated to the following languages:
 
 * Chinese Simplified - 简体中文
+* Chinese Traditional - 繁體中文
 * French - Français
 * German - Deutsch
 * Portuguese - Português

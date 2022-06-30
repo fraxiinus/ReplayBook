@@ -7,7 +7,7 @@
 	
     Update：
 		>	N/A#8964 2022-03-04           // <==sample
-		>	
+		>	RichardNewb1e 2022-03-21
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -369,6 +369,7 @@
     <string:String x:Key="ErdPresetOverwrite">覆蓋</string:String>
     <string:String x:Key="ErdPresetExists">已存在同名的預設. 覆蓋之?</string:String>
     <string:String x:Key="ErdPresetExistsNotify">該名稱已經存在</string:String>
+    <string:String x:Key="ErdPresetInvalidNotify">名稱含有無效字符</string:String>
     <string:String x:Key="ErdPresetFailed">加載預設失敗</string:String>
     <string:String x:Key="ErdPresetSavedTitle">預設已保存</string:String>
 
