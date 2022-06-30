@@ -62,25 +62,5 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
 
             CurrentLanguage = target;
         }
-
-        /// <summary>
-        /// Returns language code used by Riot, used mainly to load static data
-        /// </summary>
-        /// <param name="language"></param>
-        /// <returns></returns>
-        public static string GetRiotRegionCode(ProgramLanguage language)
-        {
-            return language switch
-            {
-                ProgramLanguage.En => "en_US",
-                ProgramLanguage.ZhHans => "zh_CN",
-                ProgramLanguage.ZhHant => "zh_TW",
-                ProgramLanguage.De => "de_DE",
-                ProgramLanguage.Es => "es_ES",
-                ProgramLanguage.Fr => "fr_FR",
-                ProgramLanguage.Pt => "pt_BR",
-                _ => "en_US",
-            };
-        }
     }
 }
