@@ -48,7 +48,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
         {
             // select initial language after page is loaded
             var languageNames = ConfigurationDefinitions.LanguageDisplayNames.Keys.ToArray();
-            LanguageComboBox.SelectedItem = languageNames[(int)Context.Language];
+            LanguageComboBox.SelectedItem = languageNames[Context.Language.GetListIndex()];
         }
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

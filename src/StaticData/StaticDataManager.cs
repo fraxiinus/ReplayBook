@@ -45,6 +45,11 @@ namespace Fraxiinus.ReplayBook.StaticData
             {
                 _log.Information("index.json is missing");
 
+                if (!Directory.Exists(_dataPath))
+                {
+                    Directory.CreateDirectory(_dataPath);
+                }
+
                 // re-index existing bundles
                 foreach (var existingBundle in Directory.EnumerateFiles(_dataPath, "bundle.json", SearchOption.AllDirectories))
                 {
