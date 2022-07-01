@@ -15,7 +15,6 @@
         ui:WindowHelper.UseModernWindowStyle="True"
         Closing="Window_Closing"
         Loaded="Window_Loaded"
-        SourceInitialized="SettingsWindow_OnSourceInitialized"
         mc:Ignorable="d">
 
     <Grid>
@@ -45,12 +44,12 @@
                 <TextBlock FontSize="14" Text="{DynamicResource ExecutablesSettingsItemText}" />
             </ListBoxItem>
 
-            <ListBoxItem x:Name="ReplaySettingsListItem">
-                <TextBlock FontSize="14" Text="{DynamicResource ReplaySettingsItemText}" />
+            <ListBoxItem x:Name="StaticDataSettingsListItem">
+                <TextBlock FontSize="14" Text="{DynamicResource Settings__Menu__StaticDataHeader}" />
             </ListBoxItem>
 
-            <ListBoxItem x:Name="RequestSettingsListItem">
-                <TextBlock FontSize="14" Text="{DynamicResource RequestSettingsItemText}" />
+            <ListBoxItem x:Name="ReplaySettingsListItem">
+                <TextBlock FontSize="14" Text="{DynamicResource ReplaySettingsItemText}" />
             </ListBoxItem>
 
             <ListBoxItem x:Name="AboutSettingsListItem">
@@ -447,6 +446,123 @@
                     </ScrollViewer>
                 </TabItem>
 
+                <TabItem x:Name="StaticDataTabItem" Visibility="Collapsed">
+                    <ScrollViewer>
+                        <ui:SimpleStackPanel Margin="15,0,20,12"
+                                             Orientation="Vertical"
+                                             Spacing="12">
+
+                            <TextBlock FontSize="16" Text="{DynamicResource Settings__StaticData__DiskUsage__Header}" />
+
+                            <Grid MinWidth="400" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{DynamicResource Settings__StaticData__DiskUsage__SizeLabel}" />
+
+                                <TextBlock x:Name="StaticDataSizeValue" Grid.Column="1" />
+                            </Grid>
+
+                            <ui:SimpleStackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="16" Text="{DynamicResource Settings__StaticData__BundleList__Header}" />
+                                <ui:PathIcon Width="16"
+                                             Margin="5,2,0,0"
+                                             Data="{StaticResource InfoIcon}"
+                                             ToolTip="{DynamicResource Settings__StaticData__BundleList__Info}" />
+                            </ui:SimpleStackPanel>
+
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <ListBox x:Name="StaticDataDownloadedListBox"
+                                         Grid.Row="0"
+                                         Grid.Column="0"
+                                         Height="200"
+                                         ItemsSource="{Binding Path=StaticData.Context.Bundles}"
+                                         MouseDoubleClick="EditStaticDataButton_Click"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         SelectionChanged="StaticDataDownloadedListBox_SelectionChanged">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                                            <Setter Property="Padding" Value="10,8,10,8" />
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0"
+                                                           FontSize="14"
+                                                           Text="{Binding Patch}"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           ToolTip="{Binding Patch}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+
+                                <ui:CommandBar Grid.Row="1">
+                                    <ui:AppBarButton x:Name="AddStaticDataButton"
+                                                     Click="AddStaticDataButton_Click"
+                                                     Label="{DynamicResource AddButtonText}">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}" />
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="EditStaticDataButton"
+                                                     Click="EditStaticDataButton_Click"
+                                                     IsEnabled="False"
+                                                     Label="{DynamicResource General__ViewButton}">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource View}" />
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="RemoveStaticDataButton"
+                                                     Click="RemoveStaticDataButton_Click"
+                                                     IsEnabled="False"
+                                                     Label="{DynamicResource RemoveButtonText}">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                </ui:CommandBar>
+                            </Grid>
+
+                            <Expander ExpandDirection="Down"
+                                      FontSize="16"
+                                      Header="{DynamicResource RequestsAdvancedLabel}">
+                                <ui:SimpleStackPanel Orientation="Vertical" Spacing="12">
+                                    <TextBlock FontSize="16" Text="{DynamicResource DataDragonBaseUrlLabelText}" />
+                                    <TextBox Height="25"
+                                             Padding="2"
+                                             VerticalContentAlignment="Center"
+                                             Text="{Binding Configuration.DataDragonBaseUrl}" />
+                                    <TextBlock FontSize="16" Text="{DynamicResource CommunityDragonBaseUrlLabelText}" />
+                                    <TextBox Height="25"
+                                             Padding="2"
+                                             VerticalContentAlignment="Center"
+                                             Text="{Binding Configuration.CommunityDragonBaseUrl}" />
+                                </ui:SimpleStackPanel>
+                            </Expander>
+
+                        </ui:SimpleStackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
                 <TabItem x:Name="ReplaysTabItem" Visibility="Collapsed">
                     <ScrollViewer>
                         <ui:SimpleStackPanel Margin="15,0,20,12"
@@ -571,7 +687,7 @@
                     </ScrollViewer>
                 </TabItem>
 
-                <TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
+                <!--<TabItem x:Name="RequestsTabItem" Visibility="Collapsed">
                     <ScrollViewer>
                         <ui:SimpleStackPanel Margin="15,0,20,12"
                                              Orientation="Vertical"
@@ -630,7 +746,7 @@
                                         Width="100"
                                         HorizontalAlignment="Left"
                                         Click="DownloadImageButton_Click"
-                                        Content="{DynamicResource WswDownloadButton}" />
+                                        Content="{DynamicResource General__DownloadButton}" />
 
                                 <TextBlock x:Name="DownloadImageErrorText"
                                            Grid.Column="1"
@@ -668,20 +784,88 @@
                                              ValueChanged="DownloadProgressBar_ValueChanged" />
                             </Grid>
 
-                            <Expander ExpandDirection="Down"
-                                      FontSize="16"
-                                      Header="{DynamicResource RequestsAdvancedLabel}">
-                                <ui:SimpleStackPanel Orientation="Vertical" Spacing="12">
-                                    <TextBlock FontSize="16" Text="{DynamicResource DataDragonBaseUrlLabelText}" />
-                                    <TextBox Height="25"
-                                             Padding="2"
-                                             VerticalContentAlignment="Center"
-                                             Text="{Binding Configuration.DataDragonBaseUrl}" />
-                                </ui:SimpleStackPanel>
-                            </Expander>
+                            <TextBlock FontSize="16" Text="{DynamicResource Settings__StaticData__BundleHeader}" />
+
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <ListBox x:Name="BundlesListBox"
+                                         Grid.Row="0"
+                                         Grid.Column="0"
+                                         Height="150"
+                                         ItemsSource="{Binding Path=Configuration.PlayerMarkers}"
+                                         MouseDoubleClick="EditKnownPlayerButton_Click"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         SelectionChanged="KnownPlayersListBox_SelectionChanged">
+
+                                    <ListBox.ItemContainerStyle>
+                                        <Style BasedOn="{StaticResource DefaultListBoxItemStyle}" TargetType="ListBoxItem">
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                            <Setter Property="Padding" Value="10,8,10,8" />
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Rectangle Grid.Column="0"
+                                                           Width="15"
+                                                           Height="15"
+                                                           Margin="0,0,5,0"
+                                                           VerticalAlignment="Center"
+                                                           Fill="{Binding Path=Color}"
+                                                           Stroke="Black"
+                                                           StrokeThickness="1" />
+                                                <TextBlock Grid.Column="1"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="{Binding Path=Name}" />
+                                                <TextBlock Grid.Column="2"
+                                                           Margin="10,0,5,0"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="14"
+                                                           Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
+                                                           Text="{Binding Path=Note}"
+                                                           TextAlignment="Right"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           TextWrapping="NoWrap" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+
+                                <ui:CommandBar Grid.Row="1">
+                                    <ui:AppBarButton x:Name="AddBundleButton" Label="{DynamicResource AddButtonText}">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource AddPathIcon}" />
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="EditBundleButton"
+                                                     IsEnabled="False"
+                                                     Label="{DynamicResource EditButtonText}">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource EditPathIcon}" />
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                    <ui:AppBarButton x:Name="RemoveBundleButton"
+                                                     IsEnabled="False"
+                                                     Label="{DynamicResource RemoveButtonText}">
+                                        <ui:AppBarButton.Icon>
+                                            <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
+                                        </ui:AppBarButton.Icon>
+                                    </ui:AppBarButton>
+                                </ui:CommandBar>
+                            </Grid>
+
                         </ui:SimpleStackPanel>
                     </ScrollViewer>
-                </TabItem>
+                </TabItem>-->
 
                 <TabItem x:Name="AboutTabItem" Visibility="Collapsed">
                     <ScrollViewer>

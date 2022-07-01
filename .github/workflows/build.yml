@@ -27,28 +27,11 @@ jobs:
     - name: Run ReplayBook publish profile
       run: |
         dotnet publish -p:PublishProfile=FolderProfile -p:Configuration=Release -p:DebugSymbols=false -p:DebugType=None
-
-      shell: pwsh
-
-    - name: Run runes packaging script
-      run: python ./src/scripts/generate-runes.py
-
-    - name: Run items packaging script
-      run: python ./src/scripts/generate-items.py
-
-    - name: Run champions packaging script
-      run: python ./src/scripts/generate-champions.py
-    
-    - name: Copy static data to release
-      run: |
-        Copy-Item -Path "./runes" -Destination "./publish/data/runes" -Recurse
-        Copy-Item -Path "./items" -Destination "./publish/data/items" -Recurse
-        Copy-Item -Path "./champions" -Destination "./publish/data/champions" -Recurse
       shell: pwsh
 
     - name: Package release
       run: |
-        Compress-Archive ./publish ./ReplayBook.zip
+        Compress-Archive ./publish/* ./ReplayBook.zip
       shell: pwsh
 
     - name: Create Artifact

@@ -119,8 +119,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
             }
         }
 
-        private Language _language;
-        public Language Language
+        private ProgramLanguage _language;
+        public ProgramLanguage Language
         {
             get => _language;
             set

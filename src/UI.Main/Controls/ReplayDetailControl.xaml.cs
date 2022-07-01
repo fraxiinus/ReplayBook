@@ -85,7 +85,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             _ = await context.PlayReplay(replay.PreviewModel).ConfigureAwait(true);
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
             if (sender is not TabControl tabControl) { return; }
@@ -95,7 +95,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
 
             if (tabControl.SelectedIndex == 1)
             {
-                _ = context.LoadRuneThumbnails(replay).ConfigureAwait(true);
+                await context.LoadRuneThumbnails(replay);
             }
 
             if (tabControl.SelectedIndex == 2 && PlayerIconsGrid.ColumnDefinitions.Count < 1)

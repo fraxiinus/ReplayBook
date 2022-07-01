@@ -1,16 +1,17 @@
 ﻿using Etirps.RiZhi;
-using ModernWpf.Controls;
 using Fraxiinus.ReplayBook.Configuration;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.Requests;
+using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Controls;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
+using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +35,12 @@ namespace Fraxiinus.ReplayBook.UI.Main
 
         private ReplayPreview _lastSelection;
 
-        public MainWindow(RiZhi log, ObservableConfiguration config, RequestManager requests, ExecutableManager executables, FileManager files, ReplayPlayer player)
+        public MainWindow(RiZhi log,
+            ObservableConfiguration config,
+            StaticDataManager staticData,
+            ExecutableManager executables,
+            FileManager files,
+            ReplayPlayer player)
         {
             InitializeComponent();
 
@@ -49,7 +55,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
                 log.WriteLog();
             };
 
-            var context = new MainWindowViewModel(files, requests, config, executables, player, log);
+            var context = new MainWindowViewModel(files, staticData, config, executables, player, log);
             DataContext = context;
 
             // Decide to show welcome window
@@ -84,14 +90,6 @@ namespace Fraxiinus.ReplayBook.UI.Main
                     WindowState = WindowState.Maximized;
                 }
             }
-        }
-
-        // Window is loaded and ready to be shown on screen
-        private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is not MainWindowViewModel context) { return; }
-
-            await context.StaticDataProvider.LoadStaticData();
         }
 
         // Window has been rendered to the screen
@@ -130,7 +128,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
 
                 Flyout updateNotif = FlyoutHelper.CreateFlyout(true, true);
                 updateNotif.SetFlyoutLabelText(TryFindResource("UpdateAvailableNotifText") as string);
-                updateNotif.SetFlyoutButtonText(TryFindResource("UpdateAvailableNotifButton") as string);
+                updateNotif.SetFlyoutButtonText(TryFindResource("General__DownloadButton") as string);
 
                 updateNotif.GetFlyoutButton().Click += (object e1, RoutedEventArgs a) =>
                 {
@@ -165,7 +163,8 @@ namespace Fraxiinus.ReplayBook.UI.Main
 
             FileResult replayFile = context.FileResults[previewModel.Location];
 
-            var replayDetail = new ReplayDetail(context.StaticDataProvider, replayFile, previewModel);
+            var replayDetail = new ReplayDetail(context.StaticDataManager, replayFile, previewModel);
+            await replayDetail.LoadRunes();
 
             ReplayDetailControl detailControl = FindName("DetailView") as ReplayDetailControl;
             detailControl.DataContext = replayDetail;
@@ -173,7 +172,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
             (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
             (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
-            (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
+            await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
 
             // See if tab control needs to update runes:
             if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)
@@ -314,7 +313,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
         {
             if (DataContext is not MainWindowViewModel context) { return; }
 
-            await context.ClearCache().ConfigureAwait(true);
+            context.ClearCache();
         }
 
         private void ReplayStatusBarDismissButton_Click(object sender, RoutedEventArgs e)

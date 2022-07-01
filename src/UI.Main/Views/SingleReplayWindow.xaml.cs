@@ -3,6 +3,7 @@ using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Requests;
+using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
@@ -22,7 +23,13 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
         public string ReplayFileLocation { get; set; }
 
-        public SingleReplayWindow(RiZhi log, ObservableConfiguration config, RequestManager requests, ExecutableManager executables, FileManager files, ReplayPlayer player, bool subWindow = false)
+        public SingleReplayWindow(RiZhi log,
+            ObservableConfiguration config,
+            StaticDataManager staticData,
+            ExecutableManager executables,
+            FileManager files,
+            ReplayPlayer player,
+            bool subWindow = false)
         {
             InitializeComponent();
             
@@ -38,7 +45,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                     log.WriteLog();
                 };
 
-                var context = new MainWindowViewModel(files, requests, config, executables, player, log);
+                var context = new MainWindowViewModel(files, staticData, config, executables, player, log);
 
                 DataContext = context;
 
@@ -67,13 +74,14 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             {
                 // Let the view model know about the replay
                 ReplayPreview previewReplay = context.AddReplay(replay);
-                var replayDetail = new ReplayDetail(context.StaticDataProvider, replay, previewReplay);
+                var replayDetail = new ReplayDetail(context.StaticDataManager, replay, previewReplay);
+                await replayDetail.LoadRunes();
                 DetailView.DataContext = replayDetail;
                 (DetailView.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
                 (DetailView.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
-                context.LoadItemThumbnails(replayDetail);
-                context.LoadSinglePreviewPlayerThumbnails(previewReplay);
+                await context.LoadItemThumbnails(replayDetail);
+                await context.LoadSinglePreviewPlayerThumbnails(previewReplay);
             }
         }
     }
