@@ -130,13 +130,18 @@ namespace Fraxiinus.ReplayBook.StaticData
             if (id == "FiddleSticks")
             {
                 id = "Fiddlesticks";
+            } 
+            else if (string.IsNullOrEmpty(id))
+            {
+                _log.Warning($"Empty id given: {patchVersion} - {language.GetRiotRegionCode()}");
+                return default;
             }
 
             var bundle = Context.GetBundle(patchVersion, false);
             // bundle with patch does not actually exist, there is no data
             if (bundle == null)
             {
-                bundle = Context.GetFirstDownloadedBundle();
+                bundle = Context.GetAdjacentDownloadedBundle(patchVersion);
             }
 
             if (bundle == null)
@@ -179,7 +184,7 @@ namespace Fraxiinus.ReplayBook.StaticData
             // bundle with patch does not actually exist, there is no data
             if (bundle == null)
             {
-                bundle = Context.GetFirstDownloadedBundle();
+                bundle = Context.GetAdjacentDownloadedBundle(patchVersion);
             }
 
             if (bundle == null)
@@ -205,7 +210,7 @@ namespace Fraxiinus.ReplayBook.StaticData
 
             if (bundle == null)
             {
-                bundle = Context.GetFirstDownloadedBundle();
+                bundle = Context.GetAdjacentDownloadedBundle(patchVersion);
             }
 
             if (bundle == null)

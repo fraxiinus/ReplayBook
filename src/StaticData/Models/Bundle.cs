@@ -8,6 +8,9 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         [JsonPropertyName("patch")]
         public string Patch { get; set; } = string.Empty;
 
+        [JsonPropertyName("patch_sort_number")]
+        public int PatchSortNumber { get; set; }
+
         [JsonPropertyName("download_date")]
         public DateTimeOffset LastDownloadDate { get; set; }
 

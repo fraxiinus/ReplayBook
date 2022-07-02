@@ -1,14 +1,9 @@
 ﻿using Etirps.RiZhi;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Fraxiinus.ReplayBook.StaticData.Models
 {
@@ -52,7 +47,8 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             {
                 result = new ObservableBundle()
                 {
-                    Patch = version
+                    Patch = version,
+                    PatchSortNumber = CalculateSortNumber(version)
                 };
                 Bundles.Add(result);
             }
@@ -67,6 +63,20 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         public ObservableBundle? GetFirstDownloadedBundle()
         {
             return Bundles.FirstOrDefault(x => x.LastDownloadDate > DateTimeOffset.MinValue);
+        }
+
+        /// <summary>
+        /// Gets Bundle that closest matches a given patch
+        /// </summary>
+        /// <returns></returns>
+        public ObservableBundle? GetAdjacentDownloadedBundle(string version)
+        {
+            var requestedSortNumber = CalculateSortNumber(version);
+
+            var foundBundle = Bundles.OrderBy(x => Math.Abs(x.PatchSortNumber - requestedSortNumber))
+                .FirstOrDefault();
+
+            return foundBundle;
         }
 
         /// <summary>
@@ -166,6 +176,21 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             }
 
             return result;
+        }
+
+        private static int CalculateSortNumber(string input)
+        {
+            var numbers = input.Split('.');
+
+            var major = int.TryParse(numbers[0], out int majorParse)
+                ? majorParse
+                : throw new Exception($"cannot parse number {numbers[0]}");
+
+            var minor = int.TryParse(numbers[1], out int minorParse)
+                ? minorParse
+                : throw new Exception($"cannot parse number {numbers[1]}");
+
+            return (major * 100) + minor;
         }
     }
 }
