@@ -24,6 +24,18 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             }
         }
 
+        private int _patchSortNumber;
+        public int PatchSortNumber
+        {
+            get { return _patchSortNumber; }
+            set
+            {
+                _patchSortNumber = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(PatchSortNumber)));
+            }
+        }
+
         private DateTimeOffset _lastDownloadDate;
         public DateTimeOffset LastDownloadDate
         {
@@ -281,6 +293,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
             var jsonModel = new Bundle()
             {
                 Patch = Patch,
+                PatchSortNumber = PatchSortNumber,
                 LastDownloadDate = LastDownloadDate,
             };
 
@@ -335,6 +348,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
                 ?? throw new Exception("bundle load null");
 
             result.Patch = jsonModel.Patch;
+            result.PatchSortNumber = jsonModel.PatchSortNumber;
             result.LastDownloadDate = jsonModel.LastDownloadDate;
             foreach (var championImageFile in jsonModel.ChampionImageFiles)
             {
