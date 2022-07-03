@@ -50,7 +50,7 @@
                                                   Depth="{DynamicResource TabViewShadowDepth}"
                                                   IsShadowEnabled="False">
                         <Border x:Name="LayoutRoot"
-                                Margin="-1 0 0 0"
+                                Margin="-1,0,0,0"
                                 Padding="{TemplateBinding Padding}"
                                 SnapsToDevicePixels="True">
                             <Grid>

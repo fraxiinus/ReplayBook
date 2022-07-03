@@ -1,4 +1,5 @@
 ﻿using Etirps.RiZhi;
+using Fraxiinus.ReplayBook.Executables.Old.Utilities;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -40,6 +41,12 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         /// <returns></returns>
         public ObservableBundle? GetBundle(string version, bool createNewIfNotFound = true)
         {
+            // Check input version for correct length
+            if ((version.Split('.').Length - 1) > 2)
+            {
+                version = version.VersionSubstring();
+            }
+
             // try to get an existing bundle, create new otherwise
             var result = Bundles.FirstOrDefault(x => x.Patch.StartsWith(version));
 

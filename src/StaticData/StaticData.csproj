@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\Executables.Old\Executables.Old.csproj" />
   </ItemGroup>
 
   <ItemGroup>

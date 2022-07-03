@@ -5,22 +5,21 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:ui="http://schemas.modernwpf.com/2019"
-                  Title="Download Static Data"
-                  d:DesignHeight="450"
+                  Title="{DynamicResource General__Downloading}"
+                  d:DesignHeight="250"
                   d:DesignWidth="450"
-                  DefaultButton="Primary"
-                  IsPrimaryButtonEnabled="True"
+                  IsPrimaryButtonEnabled="False"
                   IsSecondaryButtonEnabled="True"
-                  PrimaryButtonText="{DynamicResource General__DownloadButton}"
+                  Loaded="ContentDialog_Loaded"
+                  SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
                   SecondaryButtonText="{DynamicResource CancelButtonText}"
                   mc:Ignorable="d">
     <Grid>
         <ScrollViewer>
-            <ui:SimpleStackPanel Orientation="Horizontal">
-                <Grid>
-                    <Grid.ColumnDefinitions />
-                </Grid>
-                <TextBlock FontSize="16" Text="{DynamicResource ErdPresetName}" />
+            <ui:SimpleStackPanel x:Name="ProgressBarPanel"
+                                 Orientation="Vertical"
+                                 Visibility="Hidden">
+                <ui:ProgressBar IsIndeterminate="True" />
             </ui:SimpleStackPanel>
         </ScrollViewer>
     </Grid>

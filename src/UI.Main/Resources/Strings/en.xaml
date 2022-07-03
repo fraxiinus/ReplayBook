@@ -164,6 +164,7 @@
     <string:String x:Key="Settings__StaticData__ViewBundle__ChampLanguageLabel">Champion data</string:String>
     <string:String x:Key="Settings__StaticData__ViewBundle__ItemLanguageLabel">Item data</string:String>
     <string:String x:Key="Settings__StaticData__ViewBundle__RuneLanguageLabel">Rune data</string:String>
+    <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">Browse Data Folder</string:String>
 
     <string:String x:Key="ReplayItemsPerPage">Items Per Page</string:String>
 
@@ -336,6 +337,7 @@
     <string:String x:Key="ExportReplayData">Export Data...</string:String>
     <string:String x:Key="RenameReplayFile">Rename</string:String>
     <string:String x:Key="DeleteReplayFile">Delete</string:String>
+    <string:String x:Key="ReplayItemControl__ContextMenu__LoadStaticData__Button">Get Images for $</string:String>
     <string:String x:Key="RefreshReplayList">Refresh List</string:String>
 
     <!--  Export Data : Wizard  -->
