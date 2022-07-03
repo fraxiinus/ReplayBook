@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ui="http://schemas.modernwpf.com/2019">
     <ResourceDictionary.MergedDictionaries>
-        <ui:IntellisenseResources Source="/ModernWpf;component/DesignTime/DesignTimeResources.xaml"/>
-        <ResourceDictionary Source="/ReplayBook;component/Resources/Strings/en.xaml"/>
+        <ui:IntellisenseResources Source="/ModernWpf;component/DesignTime/DesignTimeResources.xaml" />
+        <ResourceDictionary Source="/ReplayBook;component/Resources/Strings/en.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

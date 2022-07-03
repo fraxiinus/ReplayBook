@@ -4,7 +4,6 @@ using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Files.Models;
-using Fraxiinus.ReplayBook.Requests;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Controls;
 using Fraxiinus.ReplayBook.UI.Main.Models;
