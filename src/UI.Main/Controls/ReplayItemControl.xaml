@@ -19,7 +19,9 @@
           MouseRightButtonUp="UIElement_OnMouseRightButtonUp">
 
         <Grid.ContextMenu>
-            <ContextMenu x:Name="DockPanelReplayContextMenu" Placement="Bottom">
+            <ContextMenu x:Name="DockPanelReplayContextMenu"
+                         ContextMenuOpening="DockPanelReplayContextMenu_ContextMenuOpening"
+                         Placement="Bottom">
 
                 <MenuItem Click="OpenNewWindow_Click" Header="{DynamicResource OpenNewWindow}">
                     <MenuItem.Icon>
@@ -50,6 +52,9 @@
                         <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem x:Name="DownloadStaticData_MenuItem__1"
+                          Click="DownloadStaticData_Click"
+                          Header="{DynamicResource ReplayItemControl__ContextMenu__LoadStaticData__Button}" />
                 <Separator />
                 <MenuItem Click="RefreshReplayList_Click" Header="{DynamicResource RefreshReplayList}">
                     <MenuItem.Icon>
@@ -345,6 +350,9 @@
                                 <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
                             </MenuItem.Icon>
                         </MenuItem>
+                        <MenuItem x:Name="DownloadStaticData_MenuItem__2"
+                                  Click="DownloadStaticData_Click"
+                                  Header="{DynamicResource ReplayItemControl__ContextMenu__LoadStaticData__Button}" />
                         <Separator />
                         <MenuItem x:Name="RefreshReplayList"
                                   Click="RefreshReplayList_Click"

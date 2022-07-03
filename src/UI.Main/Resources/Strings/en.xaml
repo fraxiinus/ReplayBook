@@ -336,6 +336,7 @@
     <string:String x:Key="ExportReplayData">Export Data...</string:String>
     <string:String x:Key="RenameReplayFile">Rename</string:String>
     <string:String x:Key="DeleteReplayFile">Delete</string:String>
+    <string:String x:Key="ReplayItemControl__ContextMenu__LoadStaticData__Button">Fix Images for $</string:String>
     <string:String x:Key="RefreshReplayList">Refresh List</string:String>
 
     <!--  Export Data : Wizard  -->
