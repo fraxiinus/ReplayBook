@@ -124,6 +124,8 @@ namespace Fraxiinus.ReplayBook.StaticData
             return Context.GetBundle(patchVersion, false) != null;
         }
 
+        public string GetDataPath() => _dataPath;
+
         /// <summary>
         /// Attempts to get property set that matches input arguments.
         /// If language is not found, returns first available language as backup.

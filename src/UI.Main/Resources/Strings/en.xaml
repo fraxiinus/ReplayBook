@@ -164,6 +164,7 @@
     <string:String x:Key="Settings__StaticData__ViewBundle__ChampLanguageLabel">Champion data</string:String>
     <string:String x:Key="Settings__StaticData__ViewBundle__ItemLanguageLabel">Item data</string:String>
     <string:String x:Key="Settings__StaticData__ViewBundle__RuneLanguageLabel">Rune data</string:String>
+    <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">Browse Data Folder</string:String>
 
     <string:String x:Key="ReplayItemsPerPage">Items Per Page</string:String>
 

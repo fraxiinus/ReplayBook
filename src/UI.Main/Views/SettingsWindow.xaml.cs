@@ -1026,5 +1026,10 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             // Show the flyout
             confirmFlyout.ShowAt(RemoveStaticDataButton);
         }
+
+        private void BrowseStaticDataFolder_Click(object sender, RoutedEventArgs e)
+        {
+            _ = Process.Start("explorer.exe", Context.StaticData.GetDataPath());
+        }
     }
 }
