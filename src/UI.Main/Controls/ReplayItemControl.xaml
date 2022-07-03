@@ -54,7 +54,11 @@
                 </MenuItem>
                 <MenuItem x:Name="DownloadStaticData_MenuItem__1"
                           Click="DownloadStaticData_Click"
-                          Header="{DynamicResource ReplayItemControl__ContextMenu__LoadStaticData__Button}" />
+                          Header="{DynamicResource ReplayItemControl__ContextMenu__LoadStaticData__Button}">
+                    <MenuItem.Icon>
+                        <ui:PathIcon Data="{StaticResource DownloadPathIcon}" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator />
                 <MenuItem Click="RefreshReplayList_Click" Header="{DynamicResource RefreshReplayList}">
                     <MenuItem.Icon>
@@ -352,7 +356,11 @@
                         </MenuItem>
                         <MenuItem x:Name="DownloadStaticData_MenuItem__2"
                                   Click="DownloadStaticData_Click"
-                                  Header="{DynamicResource ReplayItemControl__ContextMenu__LoadStaticData__Button}" />
+                                  Header="{DynamicResource ReplayItemControl__ContextMenu__LoadStaticData__Button}">
+                            <MenuItem.Icon>
+                                <ui:PathIcon Data="{StaticResource DownloadPathIcon}" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                         <Separator />
                         <MenuItem x:Name="RefreshReplayList"
                                   Click="RefreshReplayList_Click"
