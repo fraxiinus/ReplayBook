@@ -115,6 +115,16 @@ namespace Fraxiinus.ReplayBook.StaticData
         }
 
         /// <summary>
+        /// Does a bundle matching the given patch version exist?
+        /// </summary>
+        /// <param name="patchVersion"></param>
+        /// <returns></returns>
+        public bool DoesBundleExist(string patchVersion)
+        {
+            return Context.GetBundle(patchVersion, false) != null;
+        }
+
+        /// <summary>
         /// Attempts to get property set that matches input arguments.
         /// If language is not found, returns first available language as backup.
         /// Returns null if no data at all for the patch is found.
