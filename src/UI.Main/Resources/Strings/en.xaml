@@ -165,6 +165,8 @@
     <string:String x:Key="Settings__StaticData__ViewBundle__ItemLanguageLabel">Item data</string:String>
     <string:String x:Key="Settings__StaticData__ViewBundle__RuneLanguageLabel">Rune data</string:String>
     <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">Browse Data Folder</string:String>
+    <string:String x:Key="Settings__StaticData__RetryDownload__ErrorLabel">Failed to download data for patch $0 and language $1. The endpoint could not be found.</string:String>
+    <string:String x:Key="Settings__StaticData__RetryDownload__Button">Retry in English</string:String>
 
     <string:String x:Key="ReplayItemsPerPage">Items Per Page</string:String>
 
@@ -422,12 +424,6 @@
 
     <string:String x:Key="Welcome__StaticData__Title">Downloading latest static data...</string:String>
     <string:String x:Key="Welcome__StaticData__Body">Downloading static data will take a few minutes, but is required for displaying champion names and thumbnails. You can download static data bundles for different patches later.</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__StartLabel">Starting download</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__PropertiesLabel">Downloading static properties</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__ImagesLabel">Downloading images</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__RuneLabel">Downloading runes</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__FinishedLabel">Download finished</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__CanceledLabel">Download canceled</string:String>
 
     <string:String x:Key="WswFinishTitle">Setup complete!</string:String>
     <string:String x:Key="WswFinishBody">Click &quot;Finish&quot; and ReplayBook will automatically start with your chosen settings.</string:String>

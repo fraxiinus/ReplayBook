@@ -70,7 +70,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             }
             else
             {
-                throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}");
+                throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}", null, response.StatusCode);
             }
         }
 
@@ -116,7 +116,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                     // if the very first request fails, then we might have an internet problem
                     if (resultFiles.Count == 0)
                     {
-                        throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}");
+                        throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}", null, response.StatusCode);
                     }
                     else // otherwise it marks the end of the sprites (very ugly implementation but I can't think of any better ahaha)
                     {
@@ -198,7 +198,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             }
             else
             {
-                throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}");
+                throw new HttpRequestException($"HTTP request to Data Dragon failed on {(int)response.StatusCode}, {url}", null, response.StatusCode);
             }
         }
 

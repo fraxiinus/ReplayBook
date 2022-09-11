@@ -877,10 +877,14 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                 DataContext = Context.StaticData,
                 Owner = this
             };
+            var dialogResult = await addDialog.ShowAsync();
 
-            await addDialog.ShowAsync();
+            if (dialogResult == ContentDialogResult.Primary)
+            {
+                await StaticDataDownloadDialog.StartDownloadDialog(addDialog.SelectedPatch);
 
-            await StaticDataSizeValue_CalculateTotalValue();
+                await StaticDataSizeValue_CalculateTotalValue();
+            }
         }
 
         private async void EditStaticDataButton_Click(object sender, RoutedEventArgs e)

@@ -49,7 +49,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
 
             if (!response.IsSuccessStatusCode)
             {
-                throw new HttpRequestException($"HTTP request to Community Dragon failed on {(int)response.StatusCode}, {url}");
+                throw new HttpRequestException($"HTTP request to Community Dragon failed on {(int)response.StatusCode}, {url}", null, response.StatusCode);
             }
 
             using var document = await JsonDocument.ParseAsync(response.Content.ReadAsStream(cancellationToken), cancellationToken: cancellationToken);
