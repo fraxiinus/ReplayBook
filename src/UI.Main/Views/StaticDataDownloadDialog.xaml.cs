@@ -29,7 +29,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
         public bool DownloadResult { get; set; }
 
-        private MainWindowViewModel ViewModel
+        private static MainWindowViewModel ViewModel
         {
             get => (Application.Current.MainWindow?.DataContext is MainWindowViewModel viewModel)
                 ? viewModel
@@ -120,6 +120,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             return (true, targetPatch);
         }
 
+        /// <summary>
+        /// Open dialog and start download for a given patch. Includes provisions for retrying
+        /// </summary>
+        /// <param name="patch"></param>
+        /// <returns></returns>
         public static async Task StartDownloadDialog(string patch)
         {
             var retryDownload = true;

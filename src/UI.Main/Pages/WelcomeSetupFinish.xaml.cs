@@ -20,7 +20,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
         {
             InitializeComponent();
 
-            //SkipButton.IsEnabled = false;
+            // prevent users from ending up in the download page again!
+            Context.DisableBackButton = true;
         }
 
         public string GetTitle()
