@@ -116,6 +116,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                 return (false, targetPatch);
             }
 
+            // save bundle information
+            await ViewModel.StaticDataManager.SaveIndexAsync();
+
             await Task.Delay(1000, cancellationToken.Token);
             return (true, targetPatch);
         }
