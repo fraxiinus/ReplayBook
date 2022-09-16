@@ -8,7 +8,6 @@
     Update：
 		>	N/A#8964 2022-03-04           // <==sample
 		>	RichardNewb1e 2022-03-21
-        >   RichardNewb1e 2022-09-16
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -60,11 +59,6 @@
     <string:String x:Key="MissingPathTitle">找不到重播文件夾</string:String>
     <string:String x:Key="MissingPathText">刪除了以下找不到的路徑：</string:String>
 
-    <string:String x:Key="General__DownloadButton">下載</string:String>
-    <string:String x:Key="General__Downloading">下載中...</string:String>
-    <string:String x:Key="General__ViewButton">查看</string:String>
-    <string:String x:Key="General__ExitButton">退出</string:String>
-
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">一般</string:String>
     <string:String x:Key="UpdatesSettingsItemText">更新</string:String>
@@ -73,7 +67,6 @@
     <string:String x:Key="RequestSettingsItemText">圖片緩存</string:String>
     <string:String x:Key="ExecutablesSettingsItemText">遊戲客戶端相關</string:String>
     <string:String x:Key="AboutSettingsItemText">關於</string:String>
-    <string:String x:Key="Settings__Menu__StaticDataHeader">靜態數據</string:String>
 
     <!--  Settings : General  -->
     <string:String x:Key="LanguageLabelText">語言</string:String>
@@ -163,26 +156,6 @@
     <string:String x:Key="SourceFoldersAlreadyExistsErrorText">已添加所選文件夾，請選擇其他文件夾</string:String>
     <string:String x:Key="SourceFoldersAlreadyExistsErrorTitle">已添加目錄</string:String>
 
-    <!--  Settings: Static Data  -->
-    <string:String x:Key="Settings__StaticData__DiskUsage__Header">磁盤使用量</string:String>
-    <string:String x:Key="Settings__StaticData__DiskUsage__SizeLabel">總大小：</string:String>
-    <string:String x:Key="Settings__StaticData__BundleList__Header">已下載數據包</string:String>
-    <string:String x:Key="Settings__StaticData__BundleList__Info">數據包包含英雄、裝備、符文的圖片與文字</string:String>
-    <string:String x:Key="Settings__StaticData__AddBundle__Title">下載靜態數據包</string:String>
-    <string:String x:Key="Settings__StaticData__AddBundle__PatchComboBox__Header">選擇路徑</string:String>
-    <string:String x:Key="Settings__StaticData__ViewBundle__Title">版本 $ 數據包</string:String>
-    <string:String x:Key="Settings__StaticData__ViewBundle__DateLabel">下載日期</string:String>
-    <string:String x:Key="Settings__StaticData__ViewBundle__SizeLabel">大小</string:String>
-    <string:String x:Key="Settings__StaticData__ViewBundle__ChampImageLabel">英雄圖片</string:String>
-    <string:String x:Key="Settings__StaticData__ViewBundle__ItemImageLabel">裝備圖片</string:String>
-    <string:String x:Key="Settings__StaticData__ViewBundle__RuneImageLabel">符文圖片</string:String>
-    <string:String x:Key="Settings__StaticData__ViewBundle__ChampLanguageLabel">英雄數據</string:String>
-    <string:String x:Key="Settings__StaticData__ViewBundle__ItemLanguageLabel">裝備數據</string:String>
-    <string:String x:Key="Settings__StaticData__ViewBundle__RuneLanguageLabel">符文數據</string:String>
-    <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">瀏覽數據文件夾</string:String>
-    <string:String x:Key="Settings__StaticData__RetryDownload__ErrorLabel">無法下載針對 $0 版本和 $1 語言的數據。找不到下載終端。</string:String>
-    <string:String x:Key="Settings__StaticData__RetryDownload__Button">重試</string:String>
-
     <string:String x:Key="ReplayItemsPerPage">每頁數目</string:String>
 
     <string:String x:Key="ReplayDatabaseText">重播文件數據緩存</string:String>
@@ -201,7 +174,6 @@
     <string:String x:Key="RequestsCacheCloseToDelete">當ReplayBook關閉時，緩存將被刪除</string:String>
     <string:String x:Key="RequestsAdvancedLabel">高級選項</string:String>
     <string:String x:Key="DataDragonBaseUrlLabelText">數據庫URL</string:String>
-    <string:String x:Key="CommunityDragonBaseUrlLabelText">Community Dragon數據庫URL</string:String>
     <string:String x:Key="DataDragonChampionUrlLabelText">英雄圖標的相對URL</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">裝備圖標的相對URL</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">地圖圖像的相對URL</string:String>
@@ -354,7 +326,6 @@
     <string:String x:Key="ExportReplayData">導出數據...</string:String>
     <string:String x:Key="RenameReplayFile">重命名</string:String>
     <string:String x:Key="DeleteReplayFile">刪除</string:String>
-    <string:String x:Key="ReplayItemControl__ContextMenu__LoadStaticData__Button">獲取 $ 圖片</string:String>
     <string:String x:Key="RefreshReplayList">刷新列表</string:String>
 
     <!--  Export Data : Wizard  -->
@@ -444,9 +415,6 @@
     <string:String x:Key="WswDownloadRunesText">下載符文圖標</string:String>
     <string:String x:Key="WswDownloadButton">下載</string:String>
     <string:String x:Key="WswDownloadFinished">下載完成</string:String>
-
-    <string:String x:Key="Welcome__StaticData__Title">下載最新靜態數據中...</string:String>
-    <string:String x:Key="Welcome__StaticData__Body">下載靜態數據可能花費幾分鐘的時間，英雄名稱與圖片的顯示需要用到靜態數據。稍後你可以下載其他版本的靜態數據。</string:String>
 
     <string:String x:Key="WswFinishTitle">安裝完成！ </string:String>
     <string:String x:Key="WswFinishBody">單擊“完成”，ReplayBook將自動以您選擇的設置開始。 </string:String>
