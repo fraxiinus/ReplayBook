@@ -34,7 +34,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
 
         public Type GetNextPage()
         {
-            return typeof(WelcomeSetupFinish);
+            return typeof(WelcomeSetupDownload);
         }
 
         public Type GetPreviousPage()

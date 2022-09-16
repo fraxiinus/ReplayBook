@@ -25,7 +25,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
             InitializeComponent();
 
             // load combo box
-            LanguageComboBox.ItemsSource = StaticConfigurationDefinitions.LanguageDisplayNames.Keys
+            LanguageComboBox.ItemsSource = ConfigurationDefinitions.LanguageDisplayNames.Keys
                 .OrderBy(x => x);
         }
 
@@ -47,8 +47,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // select initial language after page is loaded
-            var languageNames = StaticConfigurationDefinitions.LanguageDisplayNames.Keys.ToArray();
-            LanguageComboBox.SelectedItem = languageNames[(int)Context.Language];
+            var languageNames = ConfigurationDefinitions.LanguageDisplayNames.Keys.ToArray();
+            LanguageComboBox.SelectedItem = languageNames[Context.Language.GetListIndex()];
         }
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -56,9 +56,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
             // selection change might trigger when datacontext is not loaded
             try
             {
-                var languageCode = StaticConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
+                var languageCode = ConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
 
-                LanguageHelper.SetProgramLanguage((Language)languageCode);
+                LanguageHelper.SetProgramLanguage((ProgramLanguage)languageCode);
             }
             catch (Exception)
             {

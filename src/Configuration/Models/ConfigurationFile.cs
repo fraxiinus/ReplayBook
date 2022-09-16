@@ -14,7 +14,12 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
     {
         [ConfigurationKeyName("ddragon_baseurl")]
         [JsonPropertyName("ddragon_baseurl")]
-        public string DataDragonBaseUrl { get; set; } = "http://ddragon.leagueoflegends.com/cdn/";
+        public string DataDragonBaseUrl { get; set; } = "https://ddragon.leagueoflegends.com/cdn/";
+
+
+        [ConfigurationKeyName("cdragon_baseurl")]
+        [JsonPropertyName("cdragon_baseurl")]
+        public string CommunityDragonBaseUrl { get; set; } = "https://raw.communitydragon.org/";
     }
 
     public class GeneralSettings
@@ -51,7 +56,7 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
 
         [ConfigurationKeyName("language")]
         [JsonPropertyName("language")]
-        public Language Language { get; set; }
+        public ProgramLanguage Language { get; set; }
     }
 
     public class AppearanceSettings

@@ -1,14 +1,16 @@
 ﻿using Fraxiinus.ReplayBook.Files.Models;
+using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Models
 {
     public class ReplayDetail
     {
-        public ReplayDetail(StaticDataProvider staticDataProvider, FileResult replay, ReplayPreview previewModel)
+        public ReplayDetail(StaticDataManager staticData, FileResult replay, ReplayPreview previewModel)
         {
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
@@ -21,7 +23,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
             var combinedBluePlayers = replay.ReplayFile.BluePlayers.Zip(previewModel.BluePreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var bPlayer in combinedBluePlayers)
             {
-                var newPlayer = new PlayerDetail(staticDataProvider, bPlayer.Player, bPlayer.Preview, true);
+                var newPlayer = new PlayerDetail(staticData, previewModel.GameVersion, bPlayer.Player, bPlayer.Preview, true);
                 BlueKills += newPlayer.ChampionsKilled;
                 BlueDeaths += newPlayer.Deaths;
                 BlueAssists += newPlayer.Assists;
@@ -38,7 +40,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
             var combinedRedPlayers = replay.ReplayFile.RedPlayers.Zip(previewModel.RedPreviewPlayers, (p, r) => new { Player = p, Preview = r });
             foreach (var rPlayer in combinedRedPlayers)
             {
-                var newPlayer = new PlayerDetail(staticDataProvider, rPlayer.Player, rPlayer.Preview, false);
+                var newPlayer = new PlayerDetail(staticData, previewModel.GameVersion, rPlayer.Player, rPlayer.Preview, false);
                 RedKills += newPlayer.ChampionsKilled;
                 RedDeaths += newPlayer.Deaths;
                 RedAssists += newPlayer.Assists;
@@ -49,6 +51,14 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
 
                 RedPlayers.Add(newPlayer);
                 AllPlayers.Add(newPlayer);
+            }
+        }
+
+        public async Task LoadRunes()
+        {
+            foreach (var player in AllPlayers)
+            {
+                await player.LoadRunes();
             }
         }
 

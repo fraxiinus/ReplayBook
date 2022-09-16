@@ -2,11 +2,11 @@
 using Fraxiinus.ReplayBook.Configuration;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
+using Fraxiinus.ReplayBook.Executables.Old.Utilities;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Files.Models;
-using Fraxiinus.ReplayBook.Requests;
-using Fraxiinus.ReplayBook.Requests.Models;
-using Fraxiinus.ReplayBook.UI.Main.Extensions;
+using Fraxiinus.ReplayBook.StaticData;
+using Fraxiinus.ReplayBook.StaticData.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.Views;
@@ -29,7 +29,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
         private readonly ReplayPlayer _player;
         // private readonly string _myName;
 
-        public RequestManager RequestManager { get; private set; }
+        public StaticDataManager StaticDataManager { get; private set; }
 
         /// <summary>
         /// 
@@ -54,16 +54,15 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
 
         public StatusBar StatusBarModel { get; private set; }
 
-        public StaticDataProvider StaticDataProvider { get; private set; }
-
         // Flags used to clear cache when closing
-        public bool ClearItemsCacheOnClose { get; set; }
-        public bool ClearChampsCacheOnClose { get; set; }
-        public bool ClearRunesCacheOnClose { get; set; }
-
         public bool ClearReplayCacheOnClose { get; set; }
 
-        public MainWindowViewModel(FileManager files, RequestManager requests, ObservableConfiguration config, ExecutableManager executables, ReplayPlayer player, RiZhi log)
+        public MainWindowViewModel(FileManager files,
+            StaticDataManager staticData,
+            ObservableConfiguration config,
+            ExecutableManager executables,
+            ReplayPlayer player, 
+            RiZhi log)
         {
             Configuration = config ?? throw new ArgumentNullException(nameof(config));
             ExecutableManager = executables ?? throw new ArgumentNullException(nameof(executables));
@@ -71,7 +70,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             _log = log ?? throw new ArgumentNullException(nameof(log));
             _player = player ?? throw new ArgumentNullException(nameof(player));
 
-            RequestManager = requests ?? throw new ArgumentNullException(nameof(requests));
+            StaticDataManager = staticData ?? throw new ArgumentNullException(nameof(staticData));
 
             KnownPlayers = config.PlayerMarkers;
 
@@ -85,12 +84,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             };
 
             StatusBarModel = new StatusBar();
-            StaticDataProvider = new StaticDataProvider(LanguageHelper.CurrentLanguage);
 
             // By default we do not want to delete our cache
-            ClearItemsCacheOnClose = false;
-            ClearChampsCacheOnClose = false;
-            ClearRunesCacheOnClose = false;
             ClearReplayCacheOnClose = false;
         }
 
@@ -170,28 +165,29 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             FileResults.Clear();
         }
 
-        public void LoadItemThumbnails(ReplayDetail replay)
+        public async Task LoadItemThumbnails(ReplayDetail replay)
         {
             _log.Information("Loading thumbnails for items...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
+            var patchVersion = replay.PreviewModel.GameVersion.VersionSubstring();
             var allItems = new List<Item>();
 
             allItems.AddRange(replay.AllPlayers.SelectMany(x => x.Items));
 
             foreach (var item in allItems)
             {
-                var staticItem = StaticDataProvider.GetItem(item.ItemId);
+                var staticItem = await StaticDataManager.GetProperties<ItemProperties>(item.ItemId, patchVersion, LanguageHelper.CurrentLanguage);
                 // given id was invalid
-                if (staticItem.ImageData == null)
+                if (staticItem == default || staticItem.ImageProperties == null)
                 {
-                    if (staticItem.Id == "0")
+                    if (item.ItemId == "0")
                     {
                         // no item, show empty space with border
                         item.OverlayIcon = null;
                         item.ShowBorder = true;
                     }
-                    else if (staticItem.Id == "-1")
+                    else if (item.ItemId == "-1")
                     {
                         // item id was invalid, keep error visible, show N/A
                         item.ItemName = staticItem.DisplayName;
@@ -199,32 +195,42 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
                     else
                     {
                         // item id was valid, maybe? show id
-                        item.ItemName = staticItem.Id;
+                        item.ItemName = item.ItemId;
                     }
                 }
                 else
                 {
-                    // hide overlay, show apply item image and add name
-                    item.OverlayIcon = null;
-                    item.ItemName = staticItem.DisplayName;
-                    item.Image = StaticDataProvider.GetItemImage(item.ItemId);
+                    var image = StaticDataManager.GetAtlasImage(staticItem.ImageProperties.Source, patchVersion);
+                    if (image == null)
+                    {
+                        // show id, we have no image to present
+                        item.ItemName = staticItem.Id;
+                    }
+                    else
+                    {
+                        // hide overlay, show apply item image and add name
+                        item.OverlayIcon = null;
+                        item.ItemName = staticItem.DisplayName;
+                        item.Image = staticItem.CreateBrush(image);
+                    }
                 }
             }
         }
 
-        public void LoadPreviewPlayerThumbnails()
+        public async Task LoadPreviewPlayerThumbnails()
         {
             foreach (ReplayPreview replay in PreviewReplays)
             {
-                LoadSinglePreviewPlayerThumbnails(replay);
+                await LoadSinglePreviewPlayerThumbnails(replay);
             }
         }
 
-        public void LoadSinglePreviewPlayerThumbnails(ReplayPreview replay)
+        public async Task LoadSinglePreviewPlayerThumbnails(ReplayPreview replay)
         {
             _log.Information("Loading thumbnails for players...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
+            var patchVersion = replay.GameVersion.VersionSubstring();
             var allPlayers = new List<PlayerPreview>();
 
             allPlayers.AddRange(replay.RedPreviewPlayers);
@@ -232,18 +238,28 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
 
             foreach (var player in allPlayers)
             {
-                var staticChamp = StaticDataProvider.GetChampion(player.ChampionId);
-                if (staticChamp.DisplayName == "N/A")
+                var staticChamp = await StaticDataManager.GetProperties<ChampionProperties>(player.ChampionId, patchVersion, LanguageHelper.CurrentLanguage);
+
+                if (staticChamp == default || staticChamp.DisplayName == "N/A")
                 {
                     // no champion data was found, load id as the name
-                    player.ChampionName = staticChamp.Id;
+                    player.ChampionName = player.ChampionId;
                 }
                 else
                 {
-                    // hide overlay, show apply item image and add name
-                    player.OverlayIcon = null;
-                    player.ChampionName = staticChamp.DisplayName;
-                    player.Image = StaticDataProvider.GetChampionImage(player.ChampionId);
+                    var image = StaticDataManager.GetAtlasImage(staticChamp.ImageProperties.Source, patchVersion);
+                    if (image == null)
+                    {
+                        // we have no image, use the name
+                        player.ChampionName = staticChamp.DisplayName;
+                    }
+                    else
+                    {
+                        // hide overlay, show apply item image and add name
+                        player.OverlayIcon = null;
+                        player.ChampionName = staticChamp.DisplayName;
+                        player.Image = staticChamp.CreateBrush(image);
+                    }
                 }
             }
         }
@@ -253,7 +269,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             _log.Information("Loading/downloading thumbnails for runes...");
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
 
-            string dataVersion = await RequestManager.GetLatestDataDragonVersionAsync().ConfigureAwait(true);
+            var patchVersion = replay.PreviewModel.GameVersion.VersionSubstring();
 
             var allRunes = new List<RuneStat>();
             var allTasks = new List<Task>();
@@ -265,63 +281,29 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             _log.Information($"Processing {allRunes.Count} rune thumbnail requests");
             foreach (RuneStat rune in allRunes)
             {
-                var runeData = StaticDataProvider.GetRune(rune.RuneId);
+                var runeData = await StaticDataManager.GetProperties<RuneProperties>(rune.RuneId, patchVersion, LanguageHelper.CurrentLanguage);
                 // If an item does not exist, set it to nothing!
-                if (string.IsNullOrEmpty(runeData.Icon))
+                if (runeData == default || string.IsNullOrEmpty(runeData.IconUrl))
                 {
                     Application.Current.Dispatcher.Invoke(delegate
                     {
                         rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                     });
-                    // move on to the next rune
-                    continue;
                 }
-
-                // Set default item image, to be replaced
-                Application.Current.Dispatcher.Invoke(delegate
+                else
                 {
-                    rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("DownloadPathIcon");
-                });
+                    var runeImagePath = StaticDataManager.GetRuneImagePath(runeData.Key, patchVersion);
 
-                // make requests for images
-                allTasks.Add(Task.Run(async () =>
-                {
-                    ResponseBase response = await RequestManager.MakeRequestAsync(new RuneRequest
+                    if (runeImagePath == null)
                     {
-                        DataDragonVersion = dataVersion,
-                        RuneKey = runeData.Key,
-                        TargetPath = runeData.Icon
-                    }).ConfigureAwait(true);
-
-                    if (response.IsFaulted)
-                    {
-                        _log.Warning($"Failed to load image for {(response.Request as RuneRequest).RuneKey}");
-                        Application.Current.Dispatcher.Invoke(delegate
-                        {
-                            rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
-                        });
+                        rune.OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
                     }
                     else
                     {
-                        if (response.FromCache) // load image from file
-                        {
-                            Application.Current.Dispatcher.Invoke(delegate
-                            {
-                                rune.OverlayIcon = null; // hide overlay icons, if any
-                                rune.ImageSource = ResourceTools.GetImageSourceFromPath(response.ResponsePath);
-                            });
-                        }
-                        else // load image straight from response if its not cachsed
-                        {
-                            Application.Current.Dispatcher.Invoke(delegate
-                            {
-                                rune.OverlayIcon = null; // hide overlay icons, if any
-                                rune.ImageSource = response.ResponseBytes.ToBitmapImage();
-                            });
-                        }
+                        rune.OverlayIcon = null; // hide overlay icons, if any
+                        rune.ImageSource = ResourceTools.GetImageSourceFromPath(runeImagePath);
                     }
-
-                }));
+                }
             }
 
             await Task.WhenAll(allTasks).ConfigureAwait(true);
@@ -358,7 +340,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
                 DataContext = new SettingsWindowDataContext
                 {
                     Configuration = Configuration,
-                    Executables = ExecutableManager
+                    Executables = ExecutableManager,
+                    StaticData = StaticDataManager
                 }
             };
 
@@ -397,7 +380,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
 
             // Load thumbnails
             StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
-            LoadPreviewPlayerThumbnails();
+            await LoadPreviewPlayerThumbnails();
 
             // Validate executables
             if (scanExecutables)
@@ -444,11 +427,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
         {
             _log.Information("Opening new window...");
 
-            var singleWindow = new SingleReplayWindow(_log, Configuration, RequestManager, ExecutableManager, _fileManager, _player, true)
+            var singleWindow = new SingleReplayWindow(_log, Configuration, StaticDataManager, ExecutableManager, _fileManager, _player, true)
             {
-                ReplayFileLocation = replayPath
+                ReplayFileLocation = replayPath,
+                DataContext = this
             };
-            singleWindow.DataContext = this;
             singleWindow.Show();
         }
 
@@ -457,9 +440,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             _log.Information($"Opening replay file location {location}");
 
             if (string.IsNullOrEmpty(location)) { throw new ArgumentNullException(nameof(location)); }
-
-            //FileResults.TryGetValue(location, out FileResult match);
-            //if (match == null) { throw new ArgumentException($"{location} does not match any known replays"); }
 
             string selectArg = $"/select, \"{location}\"";
             _ = Process.Start("explorer.exe", selectArg);
@@ -557,10 +537,10 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             {
                 ContentFrame = contentFrame,
                 PageIndex = 0,
-                PageCount = 4,
+                PageCount = 5,
                 DisableBackButton = true,
                 RiotGamesPath = (string)Application.Current.TryFindResource("WswExecutablesHint"),
-                Language = Language.En
+                Language = ProgramLanguage.En
             };
 
             _log.Information(welcomeFileFlag);
@@ -700,13 +680,13 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             _fileManager.ClearDeletedFiles();
         }
 
-        public async Task<long> CalculateCacheSizes()
-        {
-            var runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
-            long runesTotal = !runesInfo.Exists ? 0L : await Task.Run(() => runesInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
+        //public async Task<long> CalculateCacheSizes()
+        //{
+        //    var runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
+        //    long runesTotal = !runesInfo.Exists ? 0L : await Task.Run(() => runesInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
 
-            return runesTotal;
-        }
+        //    return runesTotal;
+        //}
 
         public long CalculateReplayCacheSize()
         {
@@ -714,12 +694,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.ViewModels
             return databaseInfo.Length;
         }
 
-        public async Task ClearCache()
+        public void ClearCache()
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            if (ClearRunesCacheOnClose) { await RequestManager.ClearRunesCache().ConfigureAwait(true); }
+            //if (ClearRunesCacheOnClose) { await RequestManager.ClearRunesCache().ConfigureAwait(true); }
 
             if (ClearReplayCacheOnClose)
             {

@@ -1,6 +1,8 @@
-﻿using Fraxiinus.ReplayBook.UI.Main.Models;
+﻿using Fraxiinus.ReplayBook.Executables.Old.Utilities;
+using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
+using Fraxiinus.ReplayBook.UI.Main.Views;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +18,20 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
     public partial class ReplayItemControl : UserControl
     {
 
+        private ReplayPreview Context
+        {
+            get => (DataContext is ReplayPreview context)
+                ? context
+                : null;
+        }
+
+        private MainWindowViewModel ViewModel
+        {
+            get => (Window.GetWindow(this)?.DataContext is MainWindowViewModel viewModel)
+                ? viewModel
+                : null;
+        }
+
         public ReplayItemControl()
         {
             InitializeComponent();
@@ -23,24 +39,33 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
 
         private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
-            if (DataContext is not ReplayPreview replay) { return; }
-
-            _ = await context.PlayReplay(replay).ConfigureAwait(true);
+            if (Context != null)
+            {
+                _ = await ViewModel.PlayReplay(Context).ConfigureAwait(true);
+            }
         }
-
 
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
+            if (Context == null) { return; }
+
             if (Window.GetWindow(this) is not MainWindow mainWindow) { return; }
-            if (DataContext is not ReplayPreview replay) { return; }
             if (sender is not Button moreButton) { return; }
 
             // Select the item
-            mainWindow.SelectReplayItem(replay);
+            mainWindow.SelectReplayItem(Context);
 
             // Get the button and menu
             ContextMenu contextMenu = moreButton.ContextMenu;
+            if (ViewModel.StaticDataManager.DoesBundleExist(Context.GameVersion))
+            {
+                DownloadStaticData_MenuItem__2.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                DownloadStaticData_MenuItem__2.Header = (DownloadStaticData_MenuItem__2.Header as string)
+                    .Replace("$", Context.GameVersionShort);
+            }
             // Set placement and open
             contextMenu.PlacementTarget = moreButton;
             contextMenu.IsOpen = true;
@@ -52,41 +77,57 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             DockPanelReplayContextMenu.IsOpen = true;
         }
 
+        private void DockPanelReplayContextMenu_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            if (Context == null) { return; }
+
+            if (ViewModel.StaticDataManager.DoesBundleExist(Context.GameVersion))
+            {
+                DownloadStaticData_MenuItem__1.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                DownloadStaticData_MenuItem__1.Header = (DownloadStaticData_MenuItem__1.Header as string)
+                    .Replace("$", Context.GameVersionShort);
+            }
+        }
+
         private void OpenNewWindow_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
-            if (DataContext is not ReplayPreview replay) { return; }
-            context.OpenNewWindow(replay.Location);
+            if (Context != null)
+            {
+                ViewModel.OpenNewWindow(Context.Location);
+            }
         }
 
         private void OpenContainingFolder_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
-            if (DataContext is not ReplayPreview replay) { return; }
-            context.OpenReplayContainingFolder(replay.Location);
+            if (Context != null)
+            {
+                ViewModel.OpenReplayContainingFolder(Context.Location);
+            }
         }
 
         private void ExportReplayData_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
-            if (DataContext is not ReplayPreview replay) { return; }
-
-            context.ShowExportReplayDataWindow(replay);
+            if (Context != null)
+            {
+                ViewModel.ShowExportReplayDataWindow(Context);
+            }
         }
 
         private void RenameReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
-            if (DataContext is not ReplayPreview replay) { return; }
+            if (Context == null) { return; }
 
-            ModernWpf.Controls.Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: true);
+            var flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: true);
             flyout.GetFlyoutLabel().Visibility = Visibility.Collapsed;
             flyout.SetFlyoutButtonText(TryFindResource("RenameReplayFile") as string);
 
             // Create textbox to add as flyout custom element
             var fileNameBox = new TextBox
             {
-                Text = replay.DisplayName,
+                Text = Context.DisplayName,
                 IsReadOnly = false,
                 MinWidth = 200
             };
@@ -98,7 +139,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             flyout.GetFlyoutButton().Click += (object eSender, RoutedEventArgs eConfirm) =>
             {
                 // Rename the file and see if an error was returned
-                string error = context.RenameFile(replay, fileNameBox.Text);
+                string error = ViewModel.RenameFile(Context, fileNameBox.Text);
 
                 if (error != null)
                 {
@@ -124,18 +165,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             _ = fileNameBox.Focus();
         }
 
-        private void FileNameBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void DeleteReplayFile_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
-            if (DataContext is not ReplayPreview replay) { return; }
+            if (Context == null) { return; }
 
             // create the flyout
-            ModernWpf.Controls.Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: false);
+            var flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: false);
 
             // set the flyout texts
             flyout.SetFlyoutButtonText(TryFindResource("DeleteReplayFile") as string);
@@ -144,7 +179,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             // set button click function
             flyout.GetFlyoutButton().Click += async (object eSender, RoutedEventArgs eConfirm) =>
             {
-                await context.DeleteReplayFile(replay).ConfigureAwait(false);
+                await ViewModel.DeleteReplayFile(Context).ConfigureAwait(false);
 
                 // Hide the flyout
                 Dispatcher.Invoke(() =>
@@ -158,25 +193,37 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             _ = flyout.GetFlyoutButton().Focus();
         }
 
+        private async void DownloadStaticData_Click(object sender, RoutedEventArgs e)
+        {
+            if (Context == null) { return; }
+
+            await StaticDataDownloadDialog.StartDownloadDialog(Context.GameVersion);
+
+            await ViewModel.LoadSinglePreviewPlayerThumbnails(Context);
+        }
+
         private async void RefreshReplayList_Click(object sender, RoutedEventArgs e)
         {
-            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
-
-            await context.ReloadReplayList(true).ConfigureAwait(true);
+            if (Context != null)
+            {
+                await ViewModel.ReloadReplayList(true).ConfigureAwait(true);
+            }
         }
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (DataContext is not ReplayPreview replay) { return; }
-
-            replay.IsHovered = true;
+            if (Context != null)
+            {
+                Context.IsHovered = true;
+            }
         }
 
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (DataContext is not ReplayPreview replay) { return; }
-
-            replay.IsHovered = false;
+            if (Context != null)
+            {
+                Context.IsHovered = false;
+            }
         }
     }
 }

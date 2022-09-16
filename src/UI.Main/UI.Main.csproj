@@ -43,7 +43,7 @@
     <ProjectReference Include="..\Executables.Old\Executables.Old.csproj" />
     <ProjectReference Include="..\Files\Files.csproj" />
     <ProjectReference Include="..\Reader\Reader.csproj" />
-    <ProjectReference Include="..\Requests\Requests.csproj" />
+    <ProjectReference Include="..\StaticData\StaticData.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\scoreboardicon_champion.png">
@@ -112,6 +112,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\StaticDataRetryDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
   <PropertyGroup>
     <PlatformTarget>x64</PlatformTarget>

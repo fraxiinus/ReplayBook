@@ -22,7 +22,8 @@ namespace Fraxiinus.ReplayBook.Configuration
                 },
                 RequestSettings = new RequestSettings
                 {
-                    DataDragonBaseUrl = config.DataDragonBaseUrl
+                    DataDragonBaseUrl = config.DataDragonBaseUrl,
+                    CommunityDragonBaseUrl = config.CommunityDragonBaseUrl
                 },
                 GeneralSettings = new GeneralSettings
                 {

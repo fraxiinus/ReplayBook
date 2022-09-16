@@ -1,24 +1,23 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using ModernWpf;
-using ModernWpf.Controls;
-using Fraxiinus.ReplayBook.Configuration;
+﻿using Fraxiinus.ReplayBook.Configuration;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old.Models;
-using Fraxiinus.ReplayBook.Requests.Models;
+using Fraxiinus.ReplayBook.StaticData.Models;
 using Fraxiinus.ReplayBook.UI.Main.Converters;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using ModernWpf;
+using ModernWpf.Controls;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
-using System.Linq;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Views
 {
@@ -31,6 +30,13 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         /// We need to update executables if executables were changed
         /// </summary>
         public bool UpdateExecutablesOnClose { get; private set; }
+
+        private SettingsWindowDataContext Context
+        {
+            get => (DataContext is SettingsWindowDataContext context)
+                ? context
+                : throw new Exception("Invalid data context");
+        }
 
         public SettingsWindow()
         {
@@ -49,10 +55,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
             // Set event for when color picker closes
             AccentColorButton.ColorPickerPopup.Closed += AccentColorPickerPopup_Closed;
-        }
-
-        private void SettingsWindow_OnSourceInitialized(object sender, EventArgs e)
-        {
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -91,12 +93,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             AppearanceThemeOption3.IsChecked = context.Configuration.ThemeMode == Theme.Light;
 
             // Load language drop down
-            LanguageComboBox.ItemsSource = StaticConfigurationDefinitions.LanguageDisplayNames.Keys
+            LanguageComboBox.ItemsSource = ConfigurationDefinitions.LanguageDisplayNames.Keys
                 .OrderBy(x => x);
 
             // select initial language after page is loaded
-            var languageNames = StaticConfigurationDefinitions.LanguageDisplayNames.Keys.ToArray();
-            LanguageComboBox.SelectedItem = languageNames[(int)context.Configuration.Language];
+            var languageNames = ConfigurationDefinitions.LanguageDisplayNames.Keys.ToArray();
+            LanguageComboBox.SelectedItem = languageNames[context.Configuration.Language.GetListIndex()];
 
             // See if an update exists
             if (context.Configuration.Stash.TryGetBool("UpdateAvailable", out bool update))
@@ -108,7 +110,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (DataContext is not SettingsWindowDataContext context) { return; }
+            if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
 
+            await viewModel.StaticDataManager.SaveIndexAsync();
             await context.Configuration.ToConfigurationFile().SaveConfigurationFile();
             context.Executables.Save();
         }
@@ -131,14 +135,18 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                 case "ExecutablesSettingsListItem":
                     SettingsTabControl.SelectedIndex = 3;
                     break;
-                case "ReplaySettingsListItem":
+                case "StaticDataSettingsListItem":
                     SettingsTabControl.SelectedIndex = 4;
+                    await StaticDataSizeValue_CalculateTotalValue();
+                    break;
+                case "ReplaySettingsListItem":
+                    SettingsTabControl.SelectedIndex = 5;
                     LoadReplayCacheSizes();
                     break;
-                case "RequestSettingsListItem":
-                    SettingsTabControl.SelectedIndex = 5;
-                    await LoadCacheSizes().ConfigureAwait(true);
-                    break;
+                //case "RequestSettingsListItem":
+                //    SettingsTabControl.SelectedIndex = 6;
+                //    //await LoadCacheSizes().ConfigureAwait(true);
+                //    break;
                 case "AboutSettingsListItem":
                     SettingsTabControl.SelectedIndex = 6;
                     VersionTextBlock.Text = "Release " + ApplicationProperties.Version;
@@ -771,34 +779,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             AccentColorNoteTextBlock.Text = TryFindResource("AppearanceThemeCustomAccentNote") as string;
         }
 
-        private async Task LoadCacheSizes()
-        {
-            if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
-
-            long RunesTotalSize = await viewModel.CalculateCacheSizes().ConfigureAwait(true);
-
-            var readableSizeConverter = new FormatKbSizeConverter();
-            RequestsCacheRunesSize.Text = (string)readableSizeConverter.Convert(RunesTotalSize, null, null, CultureInfo.InvariantCulture);
-        }
-
-        private async void DeleteRunesButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
-
-            // Set the delete flag, to be deleted by the main view model on close
-            viewModel.ClearRunesCacheOnClose = true;
-
-            // inform the user that the delete will happen when the window is closed
-            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-            dialog.DefaultButton = ContentDialogButton.Primary;
-
-            dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
-            dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
-            dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
-
-            _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
-        }
-
         private void PlayerMarkerStyleOptions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DataContext is not SettingsWindowDataContext context) { return; }
@@ -824,77 +804,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             else if (FileActionOptions.SelectedIndex == 1)
             {
                 context.Configuration.FileAction = FileAction.Open;
-            }
-        }
-
-        private async void DownloadImageButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (Application.Current.MainWindow.DataContext is not MainWindowViewModel context) { return; }
-
-            // Clear the error text box
-            DownloadImageErrorText.Text = string.Empty;
-
-            // What do we download?
-            bool downloadRunes = RunesCheckBox.IsChecked ?? false;
-
-            // Nothing was selected, do nothing
-            if (downloadRunes == false)
-            {
-                DownloadImageErrorText.Text = (string)TryFindResource("WswDownloadNoSelectionError");
-                return;
-            }
-
-            // Create all the requests we need
-            var requests = new List<RequestBase>();
-            if (downloadRunes)
-            {
-                requests.AddRange(await context.RequestManager.GetAllRuneRequests(context.StaticDataProvider.GetAllRunes())
-                    .ConfigureAwait(true));
-            }
-
-            // No requests? nothing to do
-            if (requests.Count < 1)
-            {
-                DownloadImageErrorText.Text = (string)TryFindResource("WswDownloadMissingError");
-                return;
-            }
-
-            // Disable buttons while download happens
-            DownloadImageButton.IsEnabled = false;
-            RunesCheckBox.IsChecked = false;
-
-            // Make progress elements visible
-            DownloadProgressGrid.Visibility = Visibility.Visible;
-
-            DownloadProgressBar.Value = 0;
-            DownloadProgressBar.Minimum = 0;
-            DownloadProgressBar.Maximum = requests.Count;
-
-            foreach (RequestBase request in requests)
-            {
-                ResponseBase response = await context.RequestManager.MakeRequestAsync(request)
-                    .ConfigureAwait(true);
-
-                string splitSubstring = response.ResponsePath;
-                if (splitSubstring.Length > 50)
-                {
-                    splitSubstring = string.Concat(response.ResponsePath.AsSpan(0, 35), "...", response.ResponsePath.AsSpan(response.ResponsePath.Length - 15));
-                }
-
-                DownloadProgressText.Text = splitSubstring;
-
-                DownloadProgressBar.Value++;
-            }
-        }
-
-        private void DownloadProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (Math.Abs(DownloadProgressBar.Value) < 0.1) { return; }
-
-            if (Math.Abs(DownloadProgressBar.Value - DownloadProgressBar.Maximum) < 0.1)
-            {
-                DownloadProgressText.Text = (string)TryFindResource("WswDownloadFinished");
-                DownloadImageButton.IsEnabled = true;
             }
         }
 
@@ -932,14 +841,92 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
 
             // convert sorted combobox item to actual code
-            var languageCode = StaticConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
+            var languageCode = ConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
 
             // save language to configuration
-            context.Configuration.Language = (Language)languageCode;
+            context.Configuration.Language = (ProgramLanguage)languageCode;
             // load language strings in application
             LanguageHelper.SetProgramLanguage(context.Configuration.Language);
             // load static data in new language
-            await viewModel.StaticDataProvider.Reload(context.Configuration.Language);
+            // await viewModel.StaticDataProvider.Reload(context.Configuration.Language);
+        }
+
+        private async Task StaticDataSizeValue_CalculateTotalValue()
+        {
+            var totalSize = await Context.StaticData.CalculateDiskUsage();
+
+            var readableSizeConverter = new FormatKbSizeConverter();
+            StaticDataSizeValue.Text = (string)readableSizeConverter.Convert(totalSize, null, null, CultureInfo.InvariantCulture);
+        }
+
+        private void StaticDataDownloadedListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((sender as ListBox).SelectedItem as ObservableBundle) == null) { return; };
+
+            EditStaticDataButton.IsEnabled = true;
+            RemoveStaticDataButton.IsEnabled = true;
+        }
+
+        private async void AddStaticDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Update patches if we don't know any
+            await Context.StaticData.GetPatchesIfOutdated();
+
+            var addDialog = new StaticDataAddDialog()
+            {
+                DataContext = Context.StaticData,
+                Owner = this
+            };
+            var dialogResult = await addDialog.ShowAsync();
+
+            if (dialogResult == ContentDialogResult.Primary)
+            {
+                await StaticDataDownloadDialog.StartDownloadDialog(addDialog.SelectedPatch);
+
+                await StaticDataSizeValue_CalculateTotalValue();
+            }
+        }
+
+        private async void EditStaticDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StaticDataDownloadedListBox.SelectedItem is not ObservableBundle targetBundle) { return; }
+
+            var detailDialog = new StaticDataDetailDialog()
+            {
+                DataContext = targetBundle,
+                Owner = this
+            };
+
+            await detailDialog.ShowAsync();
+        }
+
+        private void RemoveStaticDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StaticDataDownloadedListBox.SelectedItem is not ObservableBundle targetBundle) { return; }
+
+            // Create confirmation flyout
+            Flyout confirmFlyout = FlyoutHelper.CreateFlyout();
+            confirmFlyout.SetFlyoutLabelText(TryFindResource("ConfirmText") as string);
+            confirmFlyout.SetFlyoutButtonText(TryFindResource("YesText") as string);
+
+            confirmFlyout.GetFlyoutButton().Click += async (object eSender, RoutedEventArgs eConfirm) =>
+            {
+                Context.StaticData.DeleteBundle(targetBundle.Patch);
+
+                EditStaticDataButton.IsEnabled = false;
+                RemoveStaticDataButton.IsEnabled = false;
+                confirmFlyout.Hide();
+
+                await StaticDataSizeValue_CalculateTotalValue();
+            };
+
+            // Show the flyout
+            confirmFlyout.ShowAt(RemoveStaticDataButton);
+        }
+
+        private void BrowseStaticDataFolder_Click(object sender, RoutedEventArgs e)
+        {
+            _ = Process.Start("explorer.exe", Context.StaticData.GetDataPath());
         }
     }
 }
