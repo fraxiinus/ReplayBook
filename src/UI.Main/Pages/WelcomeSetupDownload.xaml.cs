@@ -36,7 +36,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
 
             // get patches
             await mainViewModel.StaticDataManager.RefreshPatches();
-            var latestPatch = mainViewModel.StaticDataManager.Context.KnownPatchNumbers[0];
+            var latestPatch = mainViewModel.StaticDataManager.Context.KnownPatchNumbers[1];
 
             await StaticDataDownloadDialog.StartDownloadDialog(latestPatch);
 
