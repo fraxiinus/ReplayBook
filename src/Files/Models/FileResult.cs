@@ -19,7 +19,7 @@ namespace Fraxiinus.ReplayBook.Files.Models
 
             Id = FileInfo.Path;
             MapBestGuess = replayFile.GuessMap();
-            BlueTeamVictory = replayFile.CalculateBlueTeamVictory();
+            BlueTeamVictory = replayFile.DidBlueTeamWin();
 
             SearchKeywords = new List<string>
             {

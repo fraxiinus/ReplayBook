@@ -11,7 +11,7 @@ public enum MapCode
 
 public static class ROFLExtensions
 {
-    public static bool CalculateBlueTeamVictory(this ROFL replayFile)
+    public static bool DidBlueTeamWin(this ROFL replayFile)
     {
         var bluePlayer = replayFile.Metadata.PlayerStatistics.FirstOrDefault(x => x.Team == "100");
 
