@@ -30,7 +30,7 @@
     <string:String x:Key="RunesTabText">RUNES</string:String>
     <string:String x:Key="StatsTabText">STATS</string:String>
     <string:String x:Key="BlankDetailMessageText">Select a replay on the left to begin</string:String>
-    <string:String x:Key="FailedToLoadReplayText">Failed to load replay</string:String>
+    <string:String x:Key="FailedToLoadReplayText">This replay could not be opened, the file may be corrupted.</string:String>
     <string:String x:Key="Victory">VICTORY</string:String>
     <string:String x:Key="BlueVictory">Blue Victory</string:String>
     <string:String x:Key="RedVictory">Red Victory</string:String>
@@ -50,6 +50,7 @@
     <string:String x:Key="General__DownloadButton">Download</string:String>
     <string:String x:Key="General__Downloading">Downloading...</string:String>
     <string:String x:Key="General__ViewButton">View</string:String>
+    <string:String x:Key="General__ExitButton">Exit</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
@@ -165,6 +166,8 @@
     <string:String x:Key="Settings__StaticData__ViewBundle__ItemLanguageLabel">Item data</string:String>
     <string:String x:Key="Settings__StaticData__ViewBundle__RuneLanguageLabel">Rune data</string:String>
     <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">Browse Data Folder</string:String>
+    <string:String x:Key="Settings__StaticData__RetryDownload__ErrorLabel">Failed to download data for patch $0 and language $1. The endpoint could not be found.</string:String>
+    <string:String x:Key="Settings__StaticData__RetryDownload__Button">Retry in English</string:String>
 
     <string:String x:Key="ReplayItemsPerPage">Items Per Page</string:String>
 
@@ -422,12 +425,6 @@
 
     <string:String x:Key="Welcome__StaticData__Title">Downloading latest static data...</string:String>
     <string:String x:Key="Welcome__StaticData__Body">Downloading static data will take a few minutes, but is required for displaying champion names and thumbnails. You can download static data bundles for different patches later.</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__StartLabel">Starting download</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__PropertiesLabel">Downloading static properties</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__ImagesLabel">Downloading images</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__RuneLabel">Downloading runes</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__FinishedLabel">Download finished</string:String>
-    <string:String x:Key="Welcome__StaticData__DownloadProgress__CanceledLabel">Download canceled</string:String>
 
     <string:String x:Key="WswFinishTitle">Setup complete!</string:String>
     <string:String x:Key="WswFinishBody">Click &quot;Finish&quot; and ReplayBook will automatically start with your chosen settings.</string:String>

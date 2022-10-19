@@ -112,6 +112,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\StaticDataRetryDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
   <PropertyGroup>
     <PlatformTarget>x64</PlatformTarget>
     <DebugType>portable</DebugType>

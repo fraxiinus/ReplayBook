@@ -197,12 +197,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
         {
             if (Context == null) { return; }
 
-            var dialog = new StaticDataDownloadDialog()
-            {
-                DataContext = DataContext
-            };
-
-            await dialog.ShowAsync();
+            await StaticDataDownloadDialog.StartDownloadDialog(Context.GameVersion);
 
             await ViewModel.LoadSinglePreviewPlayerThumbnails(Context);
         }
