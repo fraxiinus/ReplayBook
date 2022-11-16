@@ -4,10 +4,15 @@ using Fraxiinus.ReplayBook.Executables.Old.Models;
 using Fraxiinus.ReplayBook.Executables.Old.Utilities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Management;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Runtime.Versioning;
 
 namespace Fraxiinus.ReplayBook.Executables.Old
 {
@@ -103,6 +108,50 @@ namespace Fraxiinus.ReplayBook.Executables.Old
             }
             return (counter, skippedDirs.ToArray());
         }
+		
+        public string GetInstallationFolderFromRunningProcess()
+        {
+            if (!OperatingSystem.IsWindows())
+            {
+                return null;
+            }
+
+            IEnumerable<Process> leagueProcesses = Process.GetProcesses().Where(p => p.ProcessName.Contains("League"));
+            foreach (Process process in leagueProcesses)
+            {
+                try
+                {
+                    StringBuilder stringBuilder = new StringBuilder(process.MainModule.FileName);
+
+                    stringBuilder.Append(" ");
+                    using (ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process.Id))
+                    {
+                        foreach (var searchResult in searcher.Get())
+                        {
+                            stringBuilder.Append(searchResult["CommandLine"]);
+                            stringBuilder.Append(" ");
+                        }
+                    }
+
+                    string commandLine = stringBuilder.ToString();
+                    int installDirIndex = commandLine.IndexOf("--install-directory");
+                    if (installDirIndex == -1)
+                        continue;
+
+                    // Index started at "--league-directory=", but we now go to the start of the directory in the string
+                    installDirIndex = commandLine.IndexOf("=", installDirIndex) + 1;
+
+                    // Take everything until the " behind the directory
+                    return commandLine.Substring(installDirIndex, commandLine.IndexOf("\"", installDirIndex) - installDirIndex);
+                }
+                catch (Win32Exception ex) when ((uint)ex.ErrorCode == 0x80004005)
+                {
+                    // Intentionally empty.
+                }
+            }
+
+			return null;
+		}
 
         public IList<LeagueExecutable> SearchFolderForExecutables(string startPath)
         {

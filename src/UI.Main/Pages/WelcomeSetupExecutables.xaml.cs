@@ -4,6 +4,7 @@ using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
@@ -45,6 +46,10 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            if (Application.Current.MainWindow is not MainWindow mainWindow) { return; }
+            if (mainWindow.DataContext is not MainWindowViewModel mainViewModel) { return; }
+            BrowseExecutables(mainViewModel.ExecutableManager.GetInstallationFolderFromRunningProcess());
+
             // check if anything is already loaded
             if (Context.Executables?.Count > 0)
             {
@@ -58,31 +63,14 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
             }
         }
 
-        private async void BrowseExecutablesButton_OnClick(object sender, RoutedEventArgs e)
+        private async void BrowseExecutables(string selectedFolder)
         {
+            if (string.IsNullOrEmpty(selectedFolder)) { return; }
+            if (!Directory.Exists(selectedFolder)) { return; }
             if (Application.Current.MainWindow is not MainWindow mainWindow) { return; }
             if (mainWindow.DataContext is not MainWindowViewModel mainViewModel) { return; }
 
-            using var folderDialog = new CommonOpenFileDialog();
-            folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as string;
-            folderDialog.IsFolderPicker = true;
-            folderDialog.AddToMostRecentlyUsedList = false;
-            folderDialog.AllowNonFileSystemItems = false;
-            folderDialog.EnsureFileExists = true;
-            folderDialog.EnsurePathExists = true;
-            folderDialog.EnsureReadOnly = false;
-            folderDialog.EnsureValidNames = true;
-            folderDialog.Multiselect = false;
-            folderDialog.ShowPlacesList = true;
-
-            folderDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-            folderDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
-
-            // Only continue if user presses "OK"
-            if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) { return; }
-
-            // reset previews
-            string selectedFolder = folderDialog.FileName;
+            // Reset previews
             ExecutablesPreviewListBox.ItemsSource = null;
             ExecutablesEmptyTextBlock.Visibility = Visibility.Visible;
 
@@ -113,6 +101,32 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
                 ExecutablesEmptyTextBlock.Visibility = Visibility.Visible;
                 Context.DisableNextButton = true;
             }
+        }
+
+        private async void BrowseExecutablesButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow is not MainWindow mainWindow) { return; }
+            if (mainWindow.DataContext is not MainWindowViewModel mainViewModel) { return; }
+
+            using var folderDialog = new CommonOpenFileDialog();
+            folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as string;
+            folderDialog.IsFolderPicker = true;
+            folderDialog.AddToMostRecentlyUsedList = false;
+            folderDialog.AllowNonFileSystemItems = false;
+            folderDialog.EnsureFileExists = true;
+            folderDialog.EnsurePathExists = true;
+            folderDialog.EnsureReadOnly = false;
+            folderDialog.EnsureValidNames = true;
+            folderDialog.Multiselect = false;
+            folderDialog.ShowPlacesList = true;
+
+            folderDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+            folderDialog.DefaultDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
+
+            // Only continue if user presses "OK"
+            if (folderDialog.ShowDialog() != CommonFileDialogResult.Ok) { return; }
+
+            BrowseExecutables(folderDialog.FileName);
         }
     }
 }
