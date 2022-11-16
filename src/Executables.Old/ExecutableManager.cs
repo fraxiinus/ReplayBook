@@ -12,7 +12,6 @@ using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Runtime.Versioning;
 
 namespace Fraxiinus.ReplayBook.Executables.Old
 {
@@ -108,7 +107,7 @@ namespace Fraxiinus.ReplayBook.Executables.Old
             }
             return (counter, skippedDirs.ToArray());
         }
-		
+        
         public string GetInstallationFolderFromRunningProcess()
         {
             if (!OperatingSystem.IsWindows())
@@ -150,8 +149,8 @@ namespace Fraxiinus.ReplayBook.Executables.Old
                 }
             }
 
-			return null;
-		}
+            return null;
+        }
 
         public IList<LeagueExecutable> SearchFolderForExecutables(string startPath)
         {
