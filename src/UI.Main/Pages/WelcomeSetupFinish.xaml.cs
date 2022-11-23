@@ -19,9 +19,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
         public WelcomeSetupFinish()
         {
             InitializeComponent();
-
-            // prevent users from ending up in the download page again!
-            Context.DisableBackButton = true;
         }
 
         public string GetTitle()
@@ -43,6 +40,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            // prevent users from ending up in the download page again!
+            Context.DisableBackButton = true;
             Context.DisableNextButton = false;
             Context.DisableSkipButton = true;
             Context.SwapFinishButton = true;
