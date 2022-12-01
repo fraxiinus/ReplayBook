@@ -45,7 +45,7 @@
     <string:String x:Key="NoReplaysFoundTitle">No more results</string:String>
 
     <string:String x:Key="MissingPathTitle">Replay folder not found</string:String>
-    <string:String x:Key="MissingPathText">The following path(s) could not be found are were removed:</string:String>
+    <string:String x:Key="MissingPathText">The following path(s) could not be found and were removed:</string:String>
 
     <string:String x:Key="General__DownloadButton">Download</string:String>
     <string:String x:Key="General__Downloading">Downloading...</string:String>
