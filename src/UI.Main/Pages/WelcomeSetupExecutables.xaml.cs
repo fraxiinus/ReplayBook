@@ -1,14 +1,12 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
-using Fraxiinus.ReplayBook.Executables.Old.Models;
+﻿using Fraxiinus.ReplayBook.Executables.Old.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
-using Fraxiinus.ReplayBook.UI.Main.Views;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Pages
 {
@@ -103,10 +101,10 @@ namespace Fraxiinus.ReplayBook.UI.Main.Pages
             }
         }
 
-        private async void BrowseExecutablesButton_OnClick(object sender, RoutedEventArgs e)
+        private void BrowseExecutablesButton_OnClick(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow mainWindow) { return; }
-            if (mainWindow.DataContext is not MainWindowViewModel mainViewModel) { return; }
+            if (mainWindow.DataContext is not MainWindowViewModel) { return; }
 
             using var folderDialog = new CommonOpenFileDialog();
             folderDialog.Title = TryFindResource("ExecutableSelectFolderDialogText") as string;

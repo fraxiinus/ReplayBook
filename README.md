@@ -39,3 +39,23 @@ ReplayBook is currently looking for translators! [View the wiki for more informa
 ### Notes
 
 Open the provided solution file. Set **Rofl.UI.Main** as the startup project. Build the solution.
+
+## Contributors
+
+<!-- Copy-paste in your Readme.md file -->
+
+<a href = "https://github.com/fraxiinus/ReplayBook/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo=fraxiinus%2Freplaybook"/>
+</a>
+
+Made with [contributors-img](https://contrib.rocks).
+
+## Special Thanks
+
+[CommunityDragon](https://www.communitydragon.org/) for providing a great resource of League of Legends data.
+
+[Robert Wang](https://github.com/robertabcd) for documenting the ROFL container.
+
+---
+
+ReplayBook isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc.

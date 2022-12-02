@@ -15,7 +15,6 @@ using System.Windows;
 
 namespace Fraxiinus.ReplayBook.Executables.Old
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class ExecutableManager
     {
 
@@ -112,6 +111,7 @@ namespace Fraxiinus.ReplayBook.Executables.Old
         {
             if (!OperatingSystem.IsWindows())
             {
+                _log.Error("ReplayBook is only intended to be run on Windows Operating Systems");
                 return null;
             }
 
@@ -120,15 +120,15 @@ namespace Fraxiinus.ReplayBook.Executables.Old
             {
                 try
                 {
-                    StringBuilder stringBuilder = new StringBuilder(process.MainModule.FileName);
+                    var stringBuilder = new StringBuilder(process.MainModule.FileName);
 
-                    stringBuilder.Append(" ");
-                    using (ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process.Id))
+                    stringBuilder.Append(' ');
+                    using (var searcher = new ManagementObjectSearcher("SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process.Id))
                     {
                         foreach (var searchResult in searcher.Get())
                         {
                             stringBuilder.Append(searchResult["CommandLine"]);
-                            stringBuilder.Append(" ");
+                            stringBuilder.Append(' ');
                         }
                     }
 
@@ -141,7 +141,7 @@ namespace Fraxiinus.ReplayBook.Executables.Old
                     installDirIndex = commandLine.IndexOf("=", installDirIndex) + 1;
 
                     // Take everything until the " behind the directory
-                    return commandLine.Substring(installDirIndex, commandLine.IndexOf("\"", installDirIndex) - installDirIndex);
+                    return commandLine[installDirIndex..commandLine.IndexOf("\"", installDirIndex)];
                 }
                 catch (Win32Exception ex) when ((uint)ex.ErrorCode == 0x80004005)
                 {
@@ -154,7 +154,7 @@ namespace Fraxiinus.ReplayBook.Executables.Old
 
         public IList<LeagueExecutable> SearchFolderForExecutables(string startPath)
         {
-            List<LeagueExecutable> foundExecutables = new List<LeagueExecutable>();
+            var foundExecutables = new List<LeagueExecutable>();
 
             if (!Directory.Exists(startPath))
             {
