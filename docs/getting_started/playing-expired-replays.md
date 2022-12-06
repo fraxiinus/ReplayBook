@@ -1,14 +1,13 @@
 # Playing Expired Replays
 
-Previous Page << [Using Player Markers](2_markers.md)
-
 It is still possible to play expired replays using ReplayBook. The catch is that it requires a backup of the exact patch the replay is from. **You cannot play a replay otherwise!**
 
 ## Getting a Backup
 
 If you want full compatibility with your replays going forward, it is recommended to do full backups of your League of Legends installation whenever a new patch is released. Otherwise, you will have to find and download a 10 GB backup file from somewhere else.
 
-> When saving backups, only the 'Game' folder is required. The League Client is not required for playing back replays.
+!!! note
+    When saving backups, only the 'Game' folder is required. The League Client is not required for playing back replays.
 
 ## Registering Additional Executables
 
@@ -22,7 +21,8 @@ Open the **Settings Window** by clicking the gear icon next to the sort button. 
 
 Add the folder where you are keeping your backups, then press the **Scan Folders for Executables** button.
 
-> Network folders can also be added as an Executable Source Folder, however registering too many executables over the network can impact performance.
+!!! note
+    Network folders can also be added as an Executable Source Folder, however registering too many executables over the network can impact performance.
 
 ![Register Executables](../images/old_replays_1.png)
 
@@ -40,5 +40,3 @@ Direct integration with ReplayBook is currently planned. ([#119](https://github.
 [Ask about it in the GitHub Discussions page](https://github.com/fraxiinus/ReplayBook/discussions),  
 [Or ask in the developer Discord](https://discord.gg/c33Rc5J).  
 [Report an issue with this page](https://github.com/fraxiinus/ReplayBook/issues/new/choose).
-
-Next Page >> [Exporting Player Data](4_export_data.md)

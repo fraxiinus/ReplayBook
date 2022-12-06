@@ -1,7 +1,5 @@
 # Using Player Markers
 
-Previous Page << [Setting Up ReplayBook](1_setup.md)
-
 **Player Markers** allow you to save players of interest so that they can be easily identified in the user interface. Simply add the username of the player, and every occurrence of that player will be marked with a color. Marker colors are customizable, and notes can be added. Notes are visible when hovering over a player portrait with a mark.
 
 ![Player Markers Overview](../images/player_markers_0.png)
@@ -36,5 +34,3 @@ There are currently two options for marker style: **Border around** or **Square 
 [Ask about it in the GitHub Discussions page](https://github.com/fraxiinus/ReplayBook/discussions),  
 [Or ask in the developer Discord](https://discord.gg/c33Rc5J).  
 [Report an issue with this page](https://github.com/fraxiinus/ReplayBook/issues/new/choose).
-
-Next Page >> [Playing Expired Replays](3_old_replays.md)

@@ -1,0 +1,35 @@
+site_name: Fraxiinus.ReplayBook
+repo_url: https://github.com/fraxiinus/ReplayBook
+theme:
+  name: material
+  custom_dir: docs/theme_overrides
+  palette: 
+    scheme: slate
+    primary: deep purple
+    accent: deep purple
+  features:
+    - navigation.indexes
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - stylesheets/extra.js
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+nav:
+  - Home: index.md
+  - Getting started:
+    - Download: getting_started/download.md
+    - Setting up ReplayBook: getting_started/setting-up-replaybook.md
+    - Using player markers: getting_started/using-player-markers.md
+    - Playing expired replays: getting_started/playing-expired-replays.md
+    - Exporting player data: getting_started/exporting-player-data.md
+  - Troubleshooting:
+    - troubleshooting/index.md
+    - Play button disabled: troubleshooting/play-button-disabled.md
+    - Replays not loading: troubleshooting/replays-not-loading.md
+    - Settings not saving: troubleshooting/settings-not-saving.md
+    - ReplayBook won't open: troubleshooting/replaybook-wont-open.md
+    - Crashes when loading thumbnails: troubleshooting/crashes-loading-images.md
+    - Issues playing replays: troubleshooting/issues-playing-replays.md
