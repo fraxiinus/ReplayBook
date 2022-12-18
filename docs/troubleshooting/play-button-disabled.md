@@ -8,4 +8,10 @@ Make sure you have registered your installation(s) of League of Legends with Rep
 !!! warning
     Double check if you really have a patch. In the "Registered Executables" list, each item has the name on the left and the patch on the right. You might have a situation where the executable is named "Patch 10.22" but the actual patch version is something else.
 
-[Learn more about playing expired replays](../getting_started/old_replays.md)
+[Learn more about playing expired replays](../getting_started/playing-expired-replays.md)
+
+## Need Additional Help?
+
+[Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }
+[Join the Discord :material-chat:](https://discord.gg/c33Rc5J){ .md-button .md-button }
+[Report an Issue :material-bug:](https://github.com/fraxiinus/ReplayBook/issues/new/choose){ .md-button .md-button }

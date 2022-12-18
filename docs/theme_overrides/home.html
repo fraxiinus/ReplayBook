@@ -8,12 +8,13 @@
 
 <style>
     .md-main {
-        flex-grow: 0
+        flex-grow: 0;
     }
 
     .md-main__inner {
         display: flex;
         height: 100%;
+        margin-top: 0;
     }
 
     .hero-container {
@@ -34,7 +35,7 @@
     }
 
     .hero h1 img {
-        height: 5rem;
+        height: 6.5rem;
         vertical-align: middle;
         margin-bottom: .5rem;
     }
@@ -53,17 +54,18 @@
     .feature-container {
         display: grid;
         grid-template-columns: auto auto auto;
-        margin: 32px 2.8rem;
+        margin: 0 2.8rem;
     }
 
     .feature-item {
         text-align: center;
-        padding: 0 15px;
-        height: 7rem;
+        padding: 15px;
+        height: 8.5rem;
     }
 
     .feature-item h2 {
         font-size: 20px;
+        margin: 0.5em;
     }
 
     .feature-item h2 svg {
@@ -124,8 +126,6 @@
 
         .feature-container {
             max-width: 60rem;
-            margin-top: 3.5rem;
-            margin-bottom: 3.5rem;
             margin-left: 1.0rem;
             margin-right: 4.0rem;
             align-items: center;
@@ -155,13 +155,15 @@
                 <a href="{{ page.next_page.url | url }}" title="{{ page.next_page.title | e }}" class="md-button md-button--primary">
                     Download
                 </a>
+                <h6>For Windows 10 or newer, 64 bit systems
+                </h6>
             </div>
         </div>
     </div>
 </section>
 
 <div class="features">
-    <div class="feature-container">
+    <div class="feature-container md-typeset">
         <div class="feature-item">
             <h2>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -170,7 +172,7 @@
                 </svg>
                 File Preview
             </h2>
-            <p>See information without having to start the game, no need to guess which replay file is which!</p>
+            <p>See information without having to start the game, no need to guess which replay file is which</p>
         </div>
         <div class="feature-item">
             <h2>
@@ -180,7 +182,9 @@
                 </svg>
                 Backup Support
             </h2>
-            <p>Play expired replays with the appropriate League of Legends backup!</p>
+            <p>Play expired replays with the appropriate League of Legends backup<br>
+                <a href="getting_started/playing-expired-replays">Playing Expired Replays</a>
+            </p>
         </div>
         <div class="feature-item">
             <h2>
@@ -190,7 +194,9 @@
                 </svg>
                 Player Markers
             </h2>
-            <p>Highlight specific players to make them easy to spot with customizable colors and notes!</p>
+            <p>Highlight specific players to make them easy to spot with customizable colors and notes<br>
+                <a href="getting_started/using-player-markers">Using Player Markers</a>
+            </p>
         </div>
         <div class="feature-item">
             <h2>
@@ -200,7 +206,9 @@
                 </svg>
                 Data Export
             </h2>
-            <p>Includes champions, items, runes, and detailed gameplay stats not available anywhere else!</p>
+            <p>Includes champions, items, runes, and detailed gameplay stats not available anywhere else<br>
+                <a href="getting_started/exporting-player-data">Exporting Player Data</a>
+            </p>
         </div>
         <div class="feature-item">
             <h2>
@@ -210,17 +218,19 @@
                 </svg>
                 Region Support
             </h2>
-            <p>Automatically detects League of Legends region, no API access required!</p>
+            <p>Automatically detects League of Legends region, no API access required</p>
         </div>
         <div class="feature-item">
             <h2>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path fill="currentColor"
-                        d="M17.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,12M14.5,8A1.5,1.5 0 0,1 13,6.5A1.5,1.5 0 0,1 14.5,5A1.5,1.5 0 0,1 16,6.5A1.5,1.5 0 0,1 14.5,8M9.5,8A1.5,1.5 0 0,1 8,6.5A1.5,1.5 0 0,1 9.5,5A1.5,1.5 0 0,1 11,6.5A1.5,1.5 0 0,1 9.5,8M6.5,12A1.5,1.5 0 0,1 5,10.5A1.5,1.5 0 0,1 6.5,9A1.5,1.5 0 0,1 8,10.5A1.5,1.5 0 0,1 6.5,12M12,3A9,9 0 0,0 3,12A9,9 0 0,0 12,21A1.5,1.5 0 0,0 13.5,19.5C13.5,19.11 13.35,18.76 13.11,18.5C12.88,18.23 12.73,17.88 12.73,17.5A1.5,1.5 0 0,1 14.23,16H16A5,5 0 0,0 21,11C21,6.58 16.97,3 12,3Z" />
+                        d="M12.87,15.07L10.33,12.56L10.36,12.53C12.1,10.59 13.34,8.36 14.07,6H17V4H10V2H8V4H1V6H12.17C11.5,7.92 10.44,9.75 9,11.35C8.07,10.32 7.3,9.19 6.69,8H4.69C5.42,9.63 6.42,11.17 7.67,12.56L2.58,17.58L4,19L9,14L12.11,17.11L12.87,15.07M18.5,10H16.5L12,22H14L15.12,19H19.87L21,22H23L18.5,10M15.88,17L17.5,12.67L19.12,17H15.88Z" />
                 </svg>
-                Custom Appearance
+                Language Support
             </h2>
-            <p>Supports Windows automatic dark and light themes with accent color!</p>
+            <p>Community translated to 中文 (简体/繁體), Deutsch, Español, Français and Português<br>
+                <a href="https://github.com/fraxiinus/ReplayBook/wiki/Translating">Translation Status</a>
+            </p>
         </div>
     </div>
 </div>

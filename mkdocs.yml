@@ -2,6 +2,8 @@ site_name: Fraxiinus.ReplayBook
 repo_url: https://github.com/fraxiinus/ReplayBook
 theme:
   name: material
+  logo: images/app-icon.png
+  favicon: images/favicon.png
   custom_dir: docs/theme_overrides
   palette: 
     scheme: slate
@@ -17,6 +19,10 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
 nav:
   - Home: index.md
   - Getting started:
@@ -25,6 +31,7 @@ nav:
     - Using player markers: getting_started/using-player-markers.md
     - Playing expired replays: getting_started/playing-expired-replays.md
     - Exporting player data: getting_started/exporting-player-data.md
+    - Get Static Data Bundles: getting_started/get-static-data-bundles.md
   - Troubleshooting:
     - troubleshooting/index.md
     - Play button disabled: troubleshooting/play-button-disabled.md
@@ -33,3 +40,4 @@ nav:
     - ReplayBook won't open: troubleshooting/replaybook-wont-open.md
     - Crashes when loading thumbnails: troubleshooting/crashes-loading-images.md
     - Issues playing replays: troubleshooting/issues-playing-replays.md
+  - About and FAQ: about.md

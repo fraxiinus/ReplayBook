@@ -10,7 +10,7 @@ Check that you have the **locale** set correctly for your League of Legends exec
 
 ### How to change an executable's locale
 
-1. Go to **Settings** (gear icon) -> **Executables** -> **Edit** your executable under **Register Executables**
+1. Go to 「Settings」 (gear icon) -> 「Executables」 -> 「Edit」 your executable under **Registered Executables**
 2. Correct the **Locale** value.
 
 !!! note
@@ -42,3 +42,8 @@ If you do, you will need to rename your Windows user folder, or create a new use
 2. Is the replay file corrupted? Try giving it to someone else and see if they can play it successfully.
 3. Is the League of Legends installation incomplete? Try using a backup from replays.xyz and see if it works.
 
+## Need Additional Help?
+
+[Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }
+[Join the Discord :material-chat:](https://discord.gg/c33Rc5J){ .md-button .md-button }
+[Report an Issue :material-bug:](https://github.com/fraxiinus/ReplayBook/issues/new/choose){ .md-button .md-button }

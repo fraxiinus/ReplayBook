@@ -6,7 +6,7 @@
 
 ## Adding or Editing Markers
 
-Open the **Settings Window** by clicking the gear icon next to the sort button. Then navigate to the **General** settings tab.
+Open the **Settings Window** by clicking the gear icon next to the sort button. Then navigate to the 「General」 settings tab.
 
 ![Settings General Tab](../images/player_markers_1.png)
 
@@ -28,9 +28,10 @@ There are currently two options for marker style: **Border around** or **Square 
 * If you are a coach, you can add your players so you can easily see what champions they are playing.
 * Add entire teams under one color, so you can follow team match-ups easily.
 
-## Need Additional Help?
+## Need Help?
 
-[Check out the Common Problems and Solutions page](../pages/common_problems.md),  
-[Ask about it in the GitHub Discussions page](https://github.com/fraxiinus/ReplayBook/discussions),  
-[Or ask in the developer Discord](https://discord.gg/c33Rc5J).  
-[Report an issue with this page](https://github.com/fraxiinus/ReplayBook/issues/new/choose).
+[Check the Troubleshooting page](../../troubleshooting)
+
+[Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }
+[Join the Discord :material-chat:](https://discord.gg/c33Rc5J){ .md-button .md-button }
+[Report an Issue :material-bug:](https://github.com/fraxiinus/ReplayBook/issues/new/choose){ .md-button .md-button }
