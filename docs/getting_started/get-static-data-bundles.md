@@ -29,6 +29,8 @@ Go to 「Settings」 (gear icon) -> 「Static Data」 page. Here you will see al
 
 Notice how pre-reworked Mordekaiser is now displayed correctly, and all the items that had trouble displaying previous are now fixed.
 
+---
+
 ## Need Help?
 
 [Check the Troubleshooting page](../../troubleshooting)

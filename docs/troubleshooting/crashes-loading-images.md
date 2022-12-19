@@ -6,6 +6,8 @@ You can get around this by keeping ReplayBook in a folder that is not restricted
 
 [How to see which folders are protected in Windows Security](https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/controlled-folders?view=o365-worldwide#view-or-change-the-list-of-protected-folders)
 
+---
+
 ## Need Additional Help?
 
 [Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }

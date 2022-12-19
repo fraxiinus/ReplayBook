@@ -2,9 +2,9 @@
 
 ## [Play button disabled](play-button-disabled.md)
 
-![Can not play replay](../images/troubleshooting/5_can_not_play_replay.png)
-
 ## [Replays not loading](replays-not-loading.md)
+
+## [Images not loading](images-not-loading.md)
 
 ## [Settings not saving](settings-not-saving.md)
 
@@ -14,7 +14,7 @@
 
 ## [Issues playing replays](issues-playing-replays.md)
 
-Things to try if experiencing issues playing replays.
+---
 
 ## Need Additional Help?
 

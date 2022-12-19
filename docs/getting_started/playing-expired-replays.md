@@ -9,6 +9,8 @@ If you want full compatibility with your replays going forward, it is recommende
 !!! note
     When saving backups, only the 'Game' folder is required. The League Client is not required for playing back replays.
 
+---
+
 ## Registering Additional Executables
 
 ReplayBook first needs to be informed that backup patches exist:  
@@ -28,11 +30,15 @@ Add the folder where you are keeping your backups, then press the 「Scan Folder
 
 Whenever you add a new backup, you have to come back here and hit the 「Scan」 button again.
 
+---
+
 ## Useful Tools and Websites
 
 * [league-vcs](https://github.com/preyneyv/league-vcs) is a version control system for League of Legends. It automatically creates backups and saves storage space by only saving the difference between patches.  
 Direct integration with ReplayBook is currently planned. ([#119](https://github.com/fraxiinus/ReplayBook/discussions/119))
 * [replays.xyz](https://replays.xyz/old-clients) offers online backups of League of Legends patches. Be sure to follow the important instructions!
+
+---
 
 ## Need Help?
 

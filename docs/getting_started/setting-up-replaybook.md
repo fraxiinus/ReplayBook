@@ -48,6 +48,8 @@ That is it! With that, the basic setup for ReplayBook is complete. Click 「Fini
 !!! note
     If you ever need to repeat this setup process, delete the file "ReplayBook\cache\SKIPWELCOME".
 
+---
+
 ## Open .ROFL files by default
 
 By default, you need to manually enable .ROFL file associations.
@@ -58,6 +60,8 @@ By default, you need to manually enable .ROFL file associations.
 
 !!! note
     You can also choose the default behavior for opening .ROFL files in Explorer. ReplayBook can either play the replay immediately, or show the replay's information.
+
+---
 
 ## Need Help?
 

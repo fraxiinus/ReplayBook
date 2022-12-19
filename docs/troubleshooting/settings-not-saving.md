@@ -4,6 +4,8 @@ Check if the ReplayBook folder is read-only. ReplayBook needs to be able to crea
 
 ![Folder Read Only](../images/troubleshooting/1_folder_read_only.png)
 
+---
+
 ## Need Additional Help?
 
 [Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }

@@ -4,6 +4,8 @@ Go to where you saved ReplayBook and delete the "cache" folder. If that doesn't 
 
 ![Delete temporary files](../images/troubleshooting/2_delete_temporary.png)
 
+---
+
 ## Need Additional Help?
 
 [Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }

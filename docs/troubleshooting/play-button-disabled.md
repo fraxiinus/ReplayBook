@@ -10,6 +10,8 @@ Make sure you have registered your installation(s) of League of Legends with Rep
 
 [Learn more about playing expired replays](../getting_started/playing-expired-replays.md)
 
+---
+
 ## Need Additional Help?
 
 [Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }

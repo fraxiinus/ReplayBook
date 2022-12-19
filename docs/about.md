@@ -1,6 +1,16 @@
 # About and FAQ
 
-## About
+ReplayBook is not endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc.
+
+---
+
+## Special Thanks
+
+[CommunityDragon](https://www.communitydragon.org/) for providing a great resource of League of Legends data.
+
+[Robert Wang](https://github.com/robertabcd) for documenting the ROFL container.
+
+---
 
 ## Frequently Asked Questions
 
@@ -19,6 +29,8 @@ I also do not own a Mac to do development on.
 ### Q: Does ReplayBook support means of automating data exporting?
 
 **A:** No. However, I do provide parsers that you can use to create your own solution for batch exporting replay files: [roflxd](https://github.com/fraxiinus/roflxd).
+
+---
 
 ## Additional Questions
 

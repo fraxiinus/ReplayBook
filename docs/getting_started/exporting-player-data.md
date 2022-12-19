@@ -38,6 +38,8 @@ On the last screen, you are given other options for the export as well as a data
 
 ![Export Data Wizard Final](../images/export_3.png)
 
+---
+
 ## Taking Advantage of Presets
 
 Presets are a way to save a set of selected options that can be automatically applied. Players (including 'marker' and 'all' options), attributes, and all other options are included in a preset.
@@ -51,6 +53,8 @@ Create a preset by clicking the 「Save as preset」 button on the last screen o
 
 To use a preset, select the 「Export using preset」 option when exporting. A selection window will appear that will also preview the contents of preset. After selecting a preset, clicking the 「Load」 button will load the preset, apply it to the replay, and prompt you where to save the export data file.
 
+---
+
 ## Using the Advanced Mode
 
 The Export Data Wizard includes an **Advanced Mode**. This mode shows all exporter options on a single screen, making it ideal for power users. It also includes a live data preview if the window is resized wider to accommodate.
@@ -59,6 +63,8 @@ The Export Data Wizard includes an **Advanced Mode**. This mode shows all export
     Loading a preset while in **Advanced Mode** does not immediately export the data. It simply applies the saved options.
 
 ![Export Data Wizard Advanced](../images/export_5.png)
+
+---
 
 ## Need Help?
 

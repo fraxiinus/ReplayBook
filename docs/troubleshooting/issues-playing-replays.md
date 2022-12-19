@@ -18,11 +18,15 @@ Check that you have the **locale** set correctly for your League of Legends exec
 
 ![Change Executable Locale](../images/troubleshooting/3_change_executable_locale.png)
 
+---
+
 ## Playing Replays Crashes With Missing stub.dll
 
 In order to play replays, **ReplayBook needs the entire League of Legends installation, not just League of Legends.exe**. To make sure your installation is complete, you can try re-installing the game, or downloading someone else's backup.
 
 ![Missing Executable Files](../images/troubleshooting/4_missing_executable_files.png)
+
+---
 
 ## Playing Replays Crashes With Critical Error
 
@@ -33,6 +37,8 @@ Double check the League of Legends executable you are using. This error is cause
 
 ![League Error screenshot](../images/troubleshooting/8_league_error.png)
 
+---
+
 ## League of Legends "Failed to open replay. The game will now exit." Error
 
 This is a generic error from League of Legends that indicate something is wrong with the installation. Check the following:
@@ -41,6 +47,8 @@ This is a generic error from League of Legends that indicate something is wrong 
 If you do, you will need to rename your Windows user folder, or create a new user that does not have any accent marks in the name.
 2. Is the replay file corrupted? Try giving it to someone else and see if they can play it successfully.
 3. Is the League of Legends installation incomplete? Try using a backup from replays.xyz and see if it works.
+
+---
 
 ## Need Additional Help?
 

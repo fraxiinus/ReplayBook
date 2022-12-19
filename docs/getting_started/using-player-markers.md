@@ -14,6 +14,8 @@ Here you can add new markers, make changes to existing ones, or delete markers y
 
 ![Settings Edit Marker Popup](../images/player_markers_2.png)
 
+---
+
 ## Marker Styles
 
 There are currently two options for marker style: **Border around** or **Square inside**. This option changes where the color is placed in the player portrait.
@@ -22,11 +24,15 @@ There are currently two options for marker style: **Border around** or **Square 
 | --- | --- |
 | ![border around example](../images/player_markers_3.png) | ![square inside example](../images/player_markers_4.png) |
 
+---
+
 ## Use Case Examples
 
 * Add your friends so you can quickly see who was playing with you.
 * If you are a coach, you can add your players so you can easily see what champions they are playing.
 * Add entire teams under one color, so you can follow team match-ups easily.
+
+---
 
 ## Need Help?
 
