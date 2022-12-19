@@ -6,7 +6,7 @@ Check if you have any **static data bundles** downloaded. Bundles are required f
 
 Right click the replay that is having image issues, and click 「Get Images for Patch XX.XX」. ReplayBook will download the appropriate bundle and the images should now display properly.
 
-[Learn more about Static Data Bundles](../getting_started/get-static-data-bundles.md)
+[Learn more about Static Data Bundles](../getting-started/get-static-data-bundles.md)
 
 ---
 

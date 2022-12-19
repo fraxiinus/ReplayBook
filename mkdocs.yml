@@ -26,12 +26,12 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting started:
-    - Download: getting_started/download.md
-    - Setting up ReplayBook: getting_started/setting-up-replaybook.md
-    - Using player markers: getting_started/using-player-markers.md
-    - Playing expired replays: getting_started/playing-expired-replays.md
-    - Exporting player data: getting_started/exporting-player-data.md
-    - Get Static Data Bundles: getting_started/get-static-data-bundles.md
+    - Download: getting-started/download.md
+    - Setting up ReplayBook: getting-started/setting-up-replaybook.md
+    - Using player markers: getting-started/using-player-markers.md
+    - Playing expired replays: getting-started/playing-expired-replays.md
+    - Exporting player data: getting-started/exporting-player-data.md
+    - Get Static Data Bundles: getting-started/get-static-data-bundles.md
   - Troubleshooting:
     - troubleshooting/index.md
     - Play button disabled: troubleshooting/play-button-disabled.md

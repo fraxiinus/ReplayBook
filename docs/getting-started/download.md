@@ -19,4 +19,4 @@ To download an older version, check the [GitHub releases page](https://github.co
 
     ![.NET Desktop Runtime Download](../images/downloads_netRequirements.png)
 
-Check out the [Getting Started](../getting_started/setting-up-replaybook.md) page!
+Check out the [Getting Started](../getting-started/setting-up-replaybook.md) page!
