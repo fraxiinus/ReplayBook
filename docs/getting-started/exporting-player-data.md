@@ -11,13 +11,13 @@ Open the Export Data Wizard by right-clicking or clicking the three-dot 「More�
 
 ![Export Data Wizard Home](../images/export_0.png)
 
-### Select players
+### 1 - Select players
 
 Click the 「Start wizard」 button. The next screen is where you select which players' data you want to export. You have the option of selecting players manually, only including those with [player markers](using-player-markers.md), or select all.
 
 ![Export Data Wizard Players](../images/export_1.png)
 
-### Select attributes
+### 2 - Select attributes
 
 After selecting your players, the next screen will ask you which attributes to export. Selected items are automatically sorted to the top of the list.
 
@@ -29,7 +29,7 @@ After selecting your players, the next screen will ask you which attributes to e
 
 ![Export Data Wizard Attributes](../images/export_2.png)
 
-### Final steps
+### 3 - Final steps
 
 On the last screen, you are given other options for the export as well as a data preview.
 
