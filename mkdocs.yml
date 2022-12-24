@@ -1,0 +1,44 @@
+site_name: Fraxiinus.ReplayBook
+repo_url: https://github.com/fraxiinus/ReplayBook
+theme:
+  name: material
+  logo: images/app-icon.png
+  favicon: images/favicon.png
+  custom_dir: docs/theme_overrides
+  palette: 
+    scheme: slate
+    primary: deep purple
+    accent: deep purple
+  features:
+    - navigation.indexes
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - stylesheets/extra.js
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+nav:
+  - Home: index.md
+  - Getting started:
+    - Download: getting-started/download.md
+    - Setting up ReplayBook: getting-started/setting-up-replaybook.md
+    - Using player markers: getting-started/using-player-markers.md
+    - Playing expired replays: getting-started/playing-expired-replays.md
+    - Exporting player data: getting-started/exporting-player-data.md
+    - Get Static Data Bundles: getting-started/get-static-data-bundles.md
+  - Troubleshooting:
+    - troubleshooting/index.md
+    - Play button disabled: troubleshooting/play-button-disabled.md
+    - Replays not loading: troubleshooting/replays-not-loading.md
+    - Images not loading: troubleshooting/images-not-loading.md
+    - Settings not saving: troubleshooting/settings-not-saving.md
+    - ReplayBook won't open: troubleshooting/replaybook-wont-open.md
+    - Crashes when loading thumbnails: troubleshooting/crashes-loading-images.md
+    - Issues playing replays: troubleshooting/issues-playing-replays.md
+  - About and FAQ: about.md
