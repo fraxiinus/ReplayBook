@@ -8,6 +8,8 @@ Make sure you have registered your installation(s) of League of Legends with Rep
 !!! warning
     Double check if you really have a patch. In the "Registered Executables" list, each item has the name on the left and the patch on the right. You might have a situation where the executable is named "Patch 10.22" but the actual patch version is something else.
 
+    ![Confusing patch name](../images/troubleshooting/playButtonDisabled_nameVersion.png)
+
 [Learn more about playing expired replays](../getting-started/playing-expired-replays.md)
 
 ---
