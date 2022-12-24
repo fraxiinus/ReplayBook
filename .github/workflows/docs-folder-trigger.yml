@@ -2,10 +2,10 @@ name: Documentation Update Trigger
 on:
   push:
     branches:
-      - main
+      - master
     paths: 
       - 'docs/**'
-      - 'workflows/docs-folder-trigger.yml'
+      - '.github/workflows/docs-folder-trigger.yml'
 permissions:
   contents: write
 jobs:
