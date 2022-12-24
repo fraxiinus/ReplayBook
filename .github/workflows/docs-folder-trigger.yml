@@ -1,10 +1,11 @@
-name: ci 
+name: Documentation Update Trigger 
 on:
   push:
     branches:
       - main
     paths: 
       - 'docs/**'
+      - 'workflows/docs-folder-trigger.yml'
 permissions:
   contents: write
 jobs:
