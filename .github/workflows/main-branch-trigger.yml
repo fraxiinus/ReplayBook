@@ -11,7 +11,7 @@ on:
 jobs:
   call-update-translation-workflow:
     name: Update Translation Wiki Pages
-    uses: ./.github/workflows/jobs/update-translation.yml
+    uses: ./.github/workflows/update-translation.yml
   call-build-workflow:
     name: Build
-    uses: ./.github/workflows/jobs/build.yml
+    uses: ./.github/workflows/build.yml
