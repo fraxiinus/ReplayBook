@@ -9,11 +9,11 @@
 
 ReplayBook is a free open-source tool that helps you organize and manage your downloaded replay files
 
-## [Download ReplayBook](https://www.fraxiinus.dev/ReplayBook/getting_started/download)
+## [Download ReplayBook](https://www.fraxiinus.dev/ReplayBook/getting-started/download)
 
 ### [Project Website](https://www.fraxiinus.dev/ReplayBook)
 
-### [Get Started Tutorial](https://www.fraxiinus.dev/ReplayBook/getting_started/setting-up-replaybook/)
+### [Get Started Tutorial](https://www.fraxiinus.dev/ReplayBook/getting-started/setting-up-replaybook/)
 
 ## Need help?
 
