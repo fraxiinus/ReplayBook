@@ -88,44 +88,28 @@ public partial class MainWindow : Window
         }
     }
 
-    // Window has been rendered to the screen
+    /// <summary>
+    /// Window has been rendered to the screen
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private async void Window_ContentRendered(object sender, EventArgs e)
     {
-        if (!_config.AutoUpdateCheck) { return; }
-
-        string latestVersion;
-        try
+        // Auto check for updates
+        if (_config.AutoUpdateCheck)
         {
-            _log.Information("Checking for updates...");
-            latestVersion = await GithubConnection.GetLatestVersion().ConfigureAwait(true);
-        }
-        catch (HttpRequestException ex)
-        {
-            _log.Warning("Failed to check for updates - " + ex.ToString());
-            return; // keep in mind when adding anything to this function!
+            _config.Stash["UpdateAvailable"] = await GithubConnection.CheckForUpdate(_log);
         }
 
-        if (string.IsNullOrEmpty(latestVersion))
+        // If update claims to be available, show popup
+        var updateVariableExists = _config.Stash.TryGetBool("UpdateAvailable", out bool updateAvailable);
+        if (updateVariableExists && updateAvailable)
         {
-            _log.Warning("Failed to check for updates - github returned nothing or error code");
-            return; // keep in mind when adding anything to this function!
-        }
-
-        AssemblyName assemblyName = Assembly.GetEntryAssembly()?.GetName();
-        string assemblyVersion = assemblyName.Version.ToString(3);
-
-        if (latestVersion.Equals(assemblyVersion, StringComparison.OrdinalIgnoreCase))
-        {
-            _config.Stash["UpdateAvailable"] = false;
-        }
-        else
-        {
-            _config.Stash["UpdateAvailable"] = true;
-
-            Flyout updateNotif = FlyoutHelper.CreateFlyout(true, true);
+            Flyout updateNotif = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: true);
             updateNotif.SetFlyoutLabelText(TryFindResource("UpdateAvailableNotifText") as string);
             updateNotif.SetFlyoutButtonText(TryFindResource("General__DownloadButton") as string);
-
+            
+            // Button opens github releases page
             updateNotif.GetFlyoutButton().Click += (object e1, RoutedEventArgs a) =>
             {
                 _ = Process.Start("explorer", (TryFindResource("GitHubReleasesLink") as Uri).ToString());
@@ -134,8 +118,6 @@ public partial class MainWindow : Window
             updateNotif.Placement = ModernWpf.Controls.Primitives.FlyoutPlacementMode.Bottom;
             updateNotif.ShowAt(SettingsButton);
         }
-
-        return;
     }
 
     private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)
