@@ -113,7 +113,7 @@ public class MainWindowViewModel
 
         foreach (FileResult file in databaseResults)
         {
-            _ = AddReplay(file);
+            AddReplay(file);
         }
 
         return databaseResults.Count;
@@ -125,8 +125,13 @@ public class MainWindowViewModel
     /// <param name="fileResult"></param>
     public ReplayPreview AddReplay(FileResult file)
     {
-        ReplayPreview previewModel = CreateReplayPreview(file);
+        if (file == null) { throw new ArgumentNullException(nameof(file)); }
 
+        // create preview model, used in replay list
+        var previewModel = new ReplayPreview(file, Configuration);
+        previewModel.IsSupported = ExecutableManager.DoesVersionExist(previewModel.GameVersion);
+
+        // add to collection
         Application.Current.Dispatcher.Invoke(delegate
         {
             PreviewReplays.Add(previewModel);
@@ -136,33 +141,6 @@ public class MainWindowViewModel
         if (!FileResults.ContainsKey(file.FileInfo.Path))
         {
             FileResults.Add(file.FileInfo.Path, file);
-        }
-
-        return previewModel;
-    }
-
-    public ReplayPreview CreateReplayPreview(FileResult file)
-    {
-        if (file == null) { throw new ArgumentNullException(nameof(file)); }
-
-        var previewModel = new ReplayPreview(file.ReplayFile,
-            file.FileInfo.CreationTime,
-            Configuration.MarkerStyle,
-            Configuration.RenameFile,
-            file.IsNewFile);
-
-        previewModel.IsSupported = ExecutableManager.DoesVersionExist(previewModel.GameVersion);
-
-        foreach (PlayerPreview bluePlayer in previewModel.BluePreviewPlayers)
-        {
-            bluePlayer.Marker = Configuration.PlayerMarkers
-                .FirstOrDefault(x => x.Name.Equals(bluePlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
-        }
-
-        foreach (PlayerPreview redPlayer in previewModel.RedPreviewPlayers)
-        {
-            redPlayer.Marker = Configuration.PlayerMarkers
-                .FirstOrDefault(x => x.Name.Equals(redPlayer.PlayerName, StringComparison.OrdinalIgnoreCase));
         }
 
         return previewModel;
