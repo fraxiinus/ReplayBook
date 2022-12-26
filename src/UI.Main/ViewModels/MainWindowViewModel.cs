@@ -102,7 +102,7 @@ public class MainWindowViewModel
     }
 
     /// <summary>
-    /// Get replays from database and load to display
+    /// Get replays from database and stores in collections
     /// </summary>
     public int LoadReplaysFromDatabase()
     {
@@ -144,17 +144,6 @@ public class MainWindowViewModel
         }
 
         return previewModel;
-    }
-
-    public void ClearReplays()
-    {
-        _log.Information("Clearing replay list...");
-        Application.Current.Dispatcher.Invoke(delegate
-        {
-            PreviewReplays.Clear();
-        });
-
-        FileResults.Clear();
     }
 
     public async Task LoadItemThumbnails(ReplayDetail replay)
