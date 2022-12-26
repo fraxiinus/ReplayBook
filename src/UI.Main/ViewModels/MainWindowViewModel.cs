@@ -31,10 +31,13 @@ public class MainWindowViewModel
     #endregion
 
     #region Properties
+    /// <summary>
+    /// In charge of static data, game images and text
+    /// </summary>
     public StaticDataManager StaticDataManager { get; private set; }
 
     /// <summary>
-    /// 
+    /// Contains properties used for filtering and sorting replays
     /// </summary>
     public QueryProperties SortParameters { get; private set; }
 
@@ -48,13 +51,24 @@ public class MainWindowViewModel
     /// </summary>
     public Dictionary<string, FileResult> FileResults { get; private set; }
 
+    /// <summary>
+    /// Application configuration
+    /// </summary>
     public ObservableConfiguration Configuration { get; private set; }
 
+    /// <summary>
+    /// Deals with League of Legends executables
+    /// </summary>
     public ExecutableManager ExecutableManager { get; private set; }
 
+    /// <summary>
+    /// Contains properties used for displaying replay list status bar
+    /// </summary>
     public StatusBar StatusBarModel { get; private set; }
 
-    // Flags used to clear cache when closing
+    /// <summary>
+    /// Flag used to clear cache when closing
+    /// </summary>
     public bool ClearReplayCacheOnClose { get; set; }
     #endregion
 
@@ -65,24 +79,23 @@ public class MainWindowViewModel
         ReplayPlayer player,
         RiZhi log)
     {
-        Configuration = config ?? throw new ArgumentNullException(nameof(config));
-        ExecutableManager = executables ?? throw new ArgumentNullException(nameof(executables));
         _fileManager = files ?? throw new ArgumentNullException(nameof(files));
         _log = log ?? throw new ArgumentNullException(nameof(log));
         _player = player ?? throw new ArgumentNullException(nameof(player));
 
+        Configuration = config ?? throw new ArgumentNullException(nameof(config));
+        ExecutableManager = executables ?? throw new ArgumentNullException(nameof(executables));
         StaticDataManager = staticData ?? throw new ArgumentNullException(nameof(staticData));
 
+        // Create new, blank objects
         PreviewReplays = new ObservableCollection<ReplayPreview>();
         FileResults = new Dictionary<string, FileResult>();
-
+        StatusBarModel = new StatusBar();
         SortParameters = new QueryProperties
         {
             SearchTerm = string.Empty,
             SortMethod = SortMethod.DateDesc
         };
-
-        StatusBarModel = new StatusBar();
 
         // By default we do not want to delete our cache
         ClearReplayCacheOnClose = false;
