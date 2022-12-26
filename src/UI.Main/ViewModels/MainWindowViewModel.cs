@@ -113,7 +113,7 @@ public class MainWindowViewModel
 
         foreach (FileResult file in databaseResults)
         {
-            AddReplay(file);
+            AddReplayToCollection(file);
         }
 
         return databaseResults.Count;
@@ -123,7 +123,7 @@ public class MainWindowViewModel
     /// Save a Replay File result
     /// </summary>
     /// <param name="fileResult"></param>
-    public ReplayPreview AddReplay(FileResult file)
+    public ReplayPreview AddReplayToCollection(FileResult file)
     {
         if (file == null) { throw new ArgumentNullException(nameof(file)); }
 

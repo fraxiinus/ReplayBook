@@ -102,7 +102,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             if (replay != null)
             {
                 // Let the view model know about the replay
-                ReplayPreview previewReplay = context.AddReplay(replay);
+                ReplayPreview previewReplay = context.AddReplayToCollection(replay);
                 var replayDetail = new ReplayDetail(context.StaticDataManager, replay, previewReplay);
                 await replayDetail.LoadRunes();
                 DetailView.DataContext = replayDetail;
