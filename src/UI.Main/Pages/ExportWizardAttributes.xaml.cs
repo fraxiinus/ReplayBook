@@ -1,7 +1,7 @@
 ﻿namespace Fraxiinus.ReplayBook.UI.Main.Pages;
 
-using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -30,7 +30,7 @@ public partial class ExportWizardAttributes : ModernWpf.Controls.Page
     {
         // get first checked player
         string playerName = Context.Players.FirstOrDefault(x => x.Checked)?.PlayerPreview.PlayerName;
-        DatabasePlayerStats player = Context.Replay.Players
+        PlayerStats player = Context.Replay.Players
             .FirstOrDefault(x => x.Name.Equals(playerName, StringComparison.OrdinalIgnoreCase));
 
         if (player != null)

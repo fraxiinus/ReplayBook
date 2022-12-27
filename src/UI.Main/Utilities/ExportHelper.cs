@@ -1,9 +1,10 @@
 ﻿namespace Fraxiinus.ReplayBook.UI.Main.Utilities;
 
+using Fraxiinus.ReplayBook.UI.Main.Models;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Fraxiinus.ReplayBook.UI.Main.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +12,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using Fraxiinus.ReplayBook.Files.Models;
 
 public static class ExportHelper
 {
@@ -146,7 +146,7 @@ public static class ExportHelper
                 var playerAttributes = new JObject();
 
                 // get the player model
-                DatabasePlayerStats player = context.Replay.Players
+                PlayerStats player = context.Replay.Players
                     .First(x => x.Name.Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
 
                 // irate over all attribute selections
@@ -199,7 +199,7 @@ public static class ExportHelper
                         }
 
                         // get the player object
-                        DatabasePlayerStats player = context.Replay.Players
+                        PlayerStats player = context.Replay.Players
                             .First(x => x.Name.Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
 
                         // Load the attribute value into the player line

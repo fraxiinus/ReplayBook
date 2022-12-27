@@ -1,7 +1,7 @@
 ﻿namespace Fraxiinus.ReplayBook.UI.Main.Views;
 
-using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using System;
 using System.Linq;
 using System.Windows;
@@ -45,10 +45,9 @@ public partial class ExportDataWindow : Window
         // do not reload attributes list if it has been loaded before (when navigating back to this page for example)
         if (Context.Attributes is null)
         {
-            Context.Attributes = typeof(DatabasePlayerStats)
+            Context.Attributes = typeof(PlayerStats)
                 .GetProperties()
-                .Where(x => !x.Name.Equals("Id", StringComparison.OrdinalIgnoreCase)) // ignore internal properties
-                .Where(x => !x.Name.Equals("PlayerID", StringComparison.OrdinalIgnoreCase))
+                .Where(x => !x.Name.Equals("UniqueID", StringComparison.OrdinalIgnoreCase)) // ignore internal properties
                 .OrderBy(x => x.Name)
                 .Select(x => new ExportAttributeSelectItem
                 {

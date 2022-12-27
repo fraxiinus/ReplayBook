@@ -63,12 +63,13 @@ public class DatabaseRepository
         _ = BsonMapper.Global.Entity<ReplayFileInfo>()
             .Id(r => r.Path);
 
-        _ = BsonMapper.Global.Entity<DatabasePlayerStats>()
-            .Id(r => r.DatabaseId);
+        _ = BsonMapper.Global.Entity<PlayerStats>()
+            .Id(r => r.UniqueId);
 
         _ = BsonMapper.Global.Entity<ReplayFile>()
             .Id(r => r.Location)
-            .DbRef(r => r.Players, "players");
+            .DbRef(r => r.RedPlayers, "players")
+            .DbRef(r => r.BluePlayers, "players");
 
         _ = fileResults.EnsureIndex(x => x.FileName);
         _ = fileResults.EnsureIndex(x => x.AlternativeName);
@@ -88,7 +89,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults");
         var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
         var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
-        var players = db.GetCollection<DatabasePlayerStats>("players");
+        var players = db.GetCollection<PlayerStats>("players");
 
         // If we already have the file, do nothing
         if (fileResults.FindById(result.Id) == null)
@@ -110,7 +111,7 @@ public class DatabaseRepository
         foreach (var player in result.ReplayFile.Players)
         {
             // If the player already exists, do nothing
-            if (players.FindById(player.Id) == null)
+            if (players.FindById(player.UniqueId) == null)
             {
                 players.Insert(player);
             }
@@ -126,7 +127,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults");
         var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
         var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
-        var players = db.GetCollection<DatabasePlayerStats>("players");
+        var players = db.GetCollection<PlayerStats>("players");
 
         fileResults.Delete(id);
 

@@ -3,6 +3,7 @@
 using Fraxiinus.ReplayBook.Files.Utilities;
 using Fraxiinus.Rofl.Extract.Data.Models;
 using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +11,11 @@ using System.Linq;
 
 public class ReplayFile
 {
+    /// <summary>
+    /// Blank constructor for LiteDB
+    /// </summary>
+    public ReplayFile() { }
+
     public ReplayFile(string fullFilePath, ROFL input)
     {
         Name = Path.GetFileName(fullFilePath);
@@ -25,18 +31,16 @@ public class ReplayFile
             .Where(x => x.Team == "100")
             .Select(y =>
             {
-                var z = y as DatabasePlayerStats;
-                z.DatabaseId = $"{MatchId}_{y.Id}";
-                return z;
-            });
+                y.UniqueId = $"{MatchId}_{y.Id}";
+                return y;
+            }).ToList();
         RedPlayers = input.Metadata.PlayerStatistics
             .Where(x => x.Team == "200")
             .Select(y =>
             {
-                var z = y as DatabasePlayerStats;
-                z.DatabaseId = $"{MatchId}_{y.Id}";
-                return z;
-            });
+                y.UniqueId = $"{MatchId}_{y.Id}";
+                return y;
+            }).ToList();
 
         // Infer values
         MapId = GameDetailsInferrer.InferMap(Players);
@@ -60,14 +64,15 @@ public class ReplayFile
 
     public string MatchId { get; set; }
 
-    public IEnumerable<DatabasePlayerStats> Players
+    [BsonIgnore]
+    public IEnumerable<PlayerStats> Players
     {
         get => BluePlayers.Union(RedPlayers);
     }
 
-    public IEnumerable<DatabasePlayerStats> BluePlayers { get; set; }
+    public List<PlayerStats> BluePlayers { get; set; }
 
-    public IEnumerable<DatabasePlayerStats> RedPlayers { get; set; }
+    public List<PlayerStats> RedPlayers { get; set; }
 
     // Inferred fields
     public MapId MapId { get; set; }

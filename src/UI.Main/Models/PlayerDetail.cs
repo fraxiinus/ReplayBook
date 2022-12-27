@@ -1,10 +1,10 @@
 ﻿namespace Fraxiinus.ReplayBook.UI.Main.Models;
 
 using Fraxiinus.ReplayBook.Executables.Old.Utilities;
-using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Extensions;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,11 +13,11 @@ public class PlayerDetail
 {
     private readonly StaticDataManager _staticDataManager;
     private readonly string _patchVersion;
-    private readonly DatabasePlayerStats _player;
+    private readonly PlayerStats _player;
 
     public PlayerDetail(StaticDataManager staticData,
         string patchVersion,
-        DatabasePlayerStats player,
+        PlayerStats player,
         PlayerPreview previewModel,
         bool isBlueTeamMember)
     {
@@ -115,8 +115,8 @@ public class PlayerDetail
         TeamEarlySurrendered = Convert.ToBoolean(player.TeamEarlySurrendered.ToInt());
         TimeOfLastDisconnect = player.TimeOfFromLastDisconnect.ToInt();
         WasAFK = Convert.ToBoolean(player.WasAfk.ToInt());
-        WasAFKAfterFailedSurrender = Convert.ToBoolean(player.WasAfkAfterFailedSurrended.ToInt());
-        WasEarlySurrenderAccomplice = Convert.ToBoolean(player.WasEarlySurrendedAccomplice.ToInt());
+        WasAFKAfterFailedSurrender = Convert.ToBoolean(player.WasAfkAfterFailedSurrender.ToInt());
+        WasEarlySurrenderAccomplice = Convert.ToBoolean(player.WasEarlySurrenderAccomplice.ToInt());
 
         // Create items
         Items = new List<Item>

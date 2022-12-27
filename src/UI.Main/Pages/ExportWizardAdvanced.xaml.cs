@@ -1,16 +1,16 @@
 ﻿namespace Fraxiinus.ReplayBook.UI.Main.Pages;
 
-using ModernWpf.Controls;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.Views;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+using ModernWpf.Controls;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Fraxiinus.ReplayBook.Files.Models;
 
 /// <summary>
 /// Interaction logic for ExportWizardAdvanced.xaml
@@ -72,7 +72,7 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         string playerName = (((SimpleStackPanel)checkbox.Content).Children[1] as TextBlock).Text;
 
         // get the player object
-        DatabasePlayerStats player = Context.Replay.Players
+        PlayerStats player = Context.Replay.Players
             .First(x => x.Name.Equals(playerName, StringComparison.OrdinalIgnoreCase));
 
         // loop over all attributes and set preview value

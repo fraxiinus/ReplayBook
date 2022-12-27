@@ -1,15 +1,15 @@
 ﻿namespace Fraxiinus.ReplayBook.UI.Main.Models;
 
 using Fraxiinus.ReplayBook.Configuration.Models;
-using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using System;
 using System.ComponentModel;
 using System.Windows.Media;
 
 public class PlayerPreview : INotifyPropertyChanged
 {
-    public PlayerPreview(DatabasePlayerStats player, MarkerStyle markerStyle)
+    public PlayerPreview(PlayerStats player, MarkerStyle markerStyle)
     {
         if (player == null) { throw new ArgumentNullException(nameof(player)); }
 
