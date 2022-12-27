@@ -1,109 +1,108 @@
-﻿using Fraxiinus.ReplayBook.Configuration.Models;
-using Fraxiinus.ReplayBook.Reader.Models;
+﻿namespace Fraxiinus.ReplayBook.UI.Main.Models;
+
+using Fraxiinus.ReplayBook.Configuration.Models;
+using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using System;
 using System.ComponentModel;
 using System.Windows.Media;
 
-namespace Fraxiinus.ReplayBook.UI.Main.Models
+public class PlayerPreview : INotifyPropertyChanged
 {
-    public class PlayerPreview : INotifyPropertyChanged
+    public PlayerPreview(DatabasePlayerStats player, MarkerStyle markerStyle)
     {
-        public PlayerPreview(Player player, MarkerStyle markerStyle)
+        if (player == null) { throw new ArgumentNullException(nameof(player)); }
+
+        ChampionId = player.Skin;
+        PlayerName = player.Name;
+        PlayerMarkerStyle = markerStyle;
+        marker = null;
+
+        // default to error icon
+        OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public string ChampionId { get; private set; }
+
+    private string _championName;
+    public string ChampionName
+    {
+        get => _championName;
+        set
         {
-            if (player == null) { throw new ArgumentNullException(nameof(player)); }
-
-            ChampionId = player.SKIN;
-            PlayerName = player.NAME;
-            PlayerMarkerStyle = markerStyle;
-            marker = null;
-
-            // default to error icon
-            OverlayIcon = ResourceTools.GetObjectFromResource<Geometry>("ErrorPathIcon");
+            _championName = value;
+            PropertyChanged?.Invoke(
+                this, new PropertyChangedEventArgs(nameof(ChampionName)));
+            PropertyChanged?.Invoke(
+                this, new PropertyChangedEventArgs(nameof(CombinedName)));
         }
+    }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    public string PlayerName { get; private set; }
 
-        public string ChampionId { get; private set; }
+    public MarkerStyle PlayerMarkerStyle { get; private set; }
 
-        private string _championName;
-        public string ChampionName
+    public bool IsKnownPlayer => marker != null;
+
+    private PlayerMarkerConfiguration marker;
+    public PlayerMarkerConfiguration Marker
+    {
+        get => marker;
+        set
         {
-            get => _championName;
-            set
+            marker = value;
+            PropertyChanged?.Invoke(
+                this, new PropertyChangedEventArgs(nameof(Marker)));
+            PropertyChanged?.Invoke(
+                this, new PropertyChangedEventArgs(nameof(IsKnownPlayer)));
+        }
+    }
+
+    private ImageBrush _image;
+    public ImageBrush Image
+    {
+        get => _image;
+        set
+        {
+            _image = value;
+            PropertyChanged?.Invoke(
+                this, new PropertyChangedEventArgs(nameof(Image)));
+        }
+    }
+
+    private Geometry _overlayIcon;
+    public Geometry OverlayIcon
+    {
+        get => _overlayIcon;
+        set
+        {
+            _overlayIcon = value;
+            PropertyChanged?.Invoke(
+                this, new PropertyChangedEventArgs(nameof(OverlayIcon)));
+            PropertyChanged?.Invoke(
+                this, new PropertyChangedEventArgs(nameof(OverlayVisible)));
+        }
+    }
+
+    public System.Windows.Visibility OverlayVisible => _overlayIcon != null
+        ? System.Windows.Visibility.Visible
+        : System.Windows.Visibility.Collapsed;
+
+    public string CombinedName
+    {
+        get
+        {
+            if (Marker == null)
             {
-                _championName = value;
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(ChampionName)));
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(CombinedName)));
+                return $"{PlayerName} - {ChampionName}";
             }
-        }
-
-        public string PlayerName { get; private set; }
-
-        public MarkerStyle PlayerMarkerStyle { get; private set; }
-
-        public bool IsKnownPlayer => marker != null;
-
-        private PlayerMarkerConfiguration marker;
-        public PlayerMarkerConfiguration Marker
-        {
-            get => marker;
-            set
+            else
             {
-                marker = value;
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(Marker)));
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(IsKnownPlayer)));
-            }
-        }
-
-        private ImageBrush _image;
-        public ImageBrush Image
-        {
-            get => _image;
-            set
-            {
-                _image = value;
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(Image)));
-            }
-        }
-
-        private Geometry _overlayIcon;
-        public Geometry OverlayIcon
-        {
-            get => _overlayIcon;
-            set
-            {
-                _overlayIcon = value;
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(OverlayIcon)));
-                PropertyChanged?.Invoke(
-                    this, new PropertyChangedEventArgs(nameof(OverlayVisible)));
-            }
-        }
-
-        public System.Windows.Visibility OverlayVisible => _overlayIcon != null
-            ? System.Windows.Visibility.Visible
-            : System.Windows.Visibility.Collapsed;
-
-        public string CombinedName
-        {
-            get
-            {
-                if (Marker == null)
-                {
-                    return $"{PlayerName} - {ChampionName}";
-                }
-                else
-                {
-                    return string.IsNullOrWhiteSpace(Marker.Note)
-                        ? $"{PlayerName} - {ChampionName}"
-                        : $"{PlayerName} - {ChampionName}\n{Marker.Note}";
-                }
+                return string.IsNullOrWhiteSpace(Marker.Note)
+                    ? $"{PlayerName} - {ChampionName}"
+                    : $"{PlayerName} - {ChampionName}\n{Marker.Note}";
             }
         }
     }
