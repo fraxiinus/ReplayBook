@@ -154,7 +154,7 @@ public static class ExportHelper
                 {
                     if (attributeSelect.Checked)
                     {
-                        string value = player.GetType().GetProperty(attributeSelect.Name).GetValue(player)?.ToString();
+                        string value = player.GetType().GetProperty(attributeSelect.PropertyName).GetValue(player)?.ToString();
 
                         string attributeName = context.NormalizeAttributeNames ? NormalizeAttributeName(attributeSelect.Name) : attributeSelect.Name;
 
@@ -203,7 +203,7 @@ public static class ExportHelper
                             .First(x => x.Name.Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
 
                         // Load the attribute value into the player line
-                        playerLines[playerSelect.PlayerPreview.PlayerName] += "," + player.GetType().GetProperty(attributeSelect.Name).GetValue(player)?.ToString();
+                        playerLines[playerSelect.PlayerPreview.PlayerName] += "," + player.GetType().GetProperty(attributeSelect.PropertyName).GetValue(player)?.ToString();
                     }
                 }
             }

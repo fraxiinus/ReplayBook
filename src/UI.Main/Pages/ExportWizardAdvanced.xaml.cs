@@ -78,7 +78,7 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         // loop over all attributes and set preview value
         foreach (ExportAttributeSelectItem attribute in Context.Attributes)
         {
-            attribute.Value = player.GetType().GetProperty(attribute.Name).GetValue(player)?.ToString() ?? "N/A";
+            attribute.Value = player.GetType().GetProperty(attribute.PropertyName).GetValue(player)?.ToString() ?? "N/A";
         }
 
         // regeneratee export preview
@@ -98,7 +98,7 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         {
             e.Accepted = false;
         }
-        else if (src != null && !src.Name.Contains(filterText.ToUpper(CultureInfo.InvariantCulture)))// here is FirstName a Property in my YourCollectionItem
+        else if (src != null && !src.Name.ToUpper(CultureInfo.InvariantCulture).Contains(filterText.ToUpper(CultureInfo.InvariantCulture)))// here is FirstName a Property in my YourCollectionItem
         {
             e.Accepted = false;
         }

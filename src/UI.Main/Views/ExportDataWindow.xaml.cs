@@ -4,7 +4,9 @@ using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// Interaction logic for ExportDataWindow.xaml
@@ -52,7 +54,8 @@ public partial class ExportDataWindow : Window
                 .Select(x => new ExportAttributeSelectItem
                 {
                     Checked = false,
-                    Name = x.Name,
+                    Name = x.GetCustomAttribute<JsonPropertyNameAttribute>().Name,
+                    PropertyName = x.Name,
                     Value = "N/A"
                 })
                 .ToList();

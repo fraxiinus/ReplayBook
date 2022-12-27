@@ -20,6 +20,18 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
             }
         }
 
+        private string _propertyName;
+        public string PropertyName
+        {
+            get => _propertyName;
+            set
+            {
+                _propertyName = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(PropertyName)));
+            }
+        }
+
         private bool _checked;
         public bool Checked
         {
