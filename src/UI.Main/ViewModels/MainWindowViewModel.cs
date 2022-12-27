@@ -657,18 +657,13 @@ public class MainWindowViewModel
         await ReloadReplayList(false).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Forward to file manager to delete replays
+    /// </summary>
     public void ClearDeletedReplays()
     {
         _fileManager.ClearDeletedFiles();
     }
-
-    //public async Task<long> CalculateCacheSizes()
-    //{
-    //    var runesInfo = new DirectoryInfo(RequestManager.GetRuneCachePath());
-    //    long runesTotal = !runesInfo.Exists ? 0L : await Task.Run(() => runesInfo.EnumerateFiles("*.png").Sum(file => file.Length)).ConfigureAwait(true);
-
-    //    return runesTotal;
-    //}
 
     public long CalculateReplayCacheSize()
     {
@@ -680,8 +675,6 @@ public class MainWindowViewModel
     {
         GC.Collect();
         GC.WaitForPendingFinalizers();
-
-        //if (ClearRunesCacheOnClose) { await RequestManager.ClearRunesCache().ConfigureAwait(true); }
 
         if (ClearReplayCacheOnClose)
         {
