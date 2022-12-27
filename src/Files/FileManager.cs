@@ -61,7 +61,7 @@ public class FileManager
                         IsNewFile = false
                     };
 
-                    _db.AddFileResult(newResult);
+                    _db.AddFileResult(newResult);   
                     newCount++;
                 }
                 catch (Exception ex)
