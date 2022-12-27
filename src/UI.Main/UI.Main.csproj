@@ -42,6 +42,7 @@
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\Executables.Old\Executables.Old.csproj" />
     <ProjectReference Include="..\Files\Files.csproj" />
+    <ProjectReference Include="..\Reader\Reader.csproj" />
     <ProjectReference Include="..\StaticData\StaticData.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -85,13 +86,13 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="ModernWpfUI">
-      <Version>0.9.6</Version>
+      <Version>0.9.4</Version>
     </PackageReference>
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions">
       <Version>4.5.4</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.261602">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>

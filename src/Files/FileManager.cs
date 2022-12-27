@@ -2,7 +2,7 @@
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.Files.Repositories;
-using Fraxiinus.Rofl.Extract.Data.Models;
+using Fraxiinus.ReplayBook.Reader;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,13 +12,15 @@ using System.Threading.Tasks;
 
 namespace Fraxiinus.ReplayBook.Files
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
     public class FileManager
     {
         private readonly FolderRepository _fileSystem;
         private readonly DatabaseRepository _db;
         private readonly RiZhi _log;
-        private readonly List<string> _deletedFiles;
-        private readonly ObservableConfiguration _config;
+        private readonly ReplayReader _reader;
+        private List<string> _deletedFiles;
+        private ObservableConfiguration _config;
 
         public FileManager(ObservableConfiguration config, RiZhi log)
         {
@@ -27,6 +29,8 @@ namespace Fraxiinus.ReplayBook.Files
             _config = config;
             _fileSystem = new FolderRepository(config, log);
             _db = new DatabaseRepository(config, log);
+
+            _reader = new ReplayReader(log);
 
             _deletedFiles = new List<string>();
         }
@@ -44,7 +48,7 @@ namespace Fraxiinus.ReplayBook.Files
 
             //List<ReplayFileInfo> newFiles = new List<ReplayFileInfo>();
 
-            var errorResults = new List<FileErrorResult>();
+            List<FileErrorResult> errorResults = new List<FileErrorResult>();
             int newCount = 0;
 
             // Get all files from all defined replay folders
@@ -57,12 +61,9 @@ namespace Fraxiinus.ReplayBook.Files
                 {
                     try
                     {
-                        // Reader.Models.ReplayFile parseResult = await _reader.ReadFile(file.Path).ConfigureAwait(false);
+                        Reader.Models.ReplayFile parseResult = await _reader.ReadFile(file.Path).ConfigureAwait(false);
 
-                        var parseResult = new ROFL(file.Path);
-                        await parseResult.LoadAsync(false);
-
-                        var newResult = new FileResult(file, parseResult)
+                        FileResult newResult = new FileResult(file, parseResult)
                         {
                             IsNewFile = false
                         };
@@ -96,15 +97,12 @@ namespace Fraxiinus.ReplayBook.Files
             // File exists in the database, return now
             if (returnValue != null)
             {
-                _log.Information($"File {path} already exists in database. Match ID: {returnValue.ReplayFile.PayloadHeader.GameId}");
+                _log.Information($"File {path} already exists in database. Match ID: {returnValue.ReplayFile.MatchId}");
                 return returnValue;
             }
 
             var replayFileInfo = _fileSystem.GetSingleReplayFileInfo(path);
-            // var parseResult = await _reader.ReadFile(path).ConfigureAwait(false);
-
-            var parseResult = new ROFL(path);
-            await parseResult.LoadAsync(false);
+            var parseResult = await _reader.ReadFile(path).ConfigureAwait(false);
 
             if (parseResult is null) return null;
 
@@ -215,11 +213,11 @@ namespace Fraxiinus.ReplayBook.Files
             fileInfo.Name = newName;
             fileInfo.Path = newPath;
 
-            //var replayFile = file.ReplayFile;
-            //replayFile.Name = newName;
-            //replayFile.Location = newPath;
+            var replayFile = file.ReplayFile;
+            replayFile.Name = newName;
+            replayFile.Location = newPath;
 
-            var newFileResult = new FileResult(fileInfo, file.ReplayFile);
+            var newFileResult = new FileResult(fileInfo, replayFile);
             _db.AddFileResult(newFileResult);
 
             // Return value is an error message, no message means no error

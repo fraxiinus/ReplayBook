@@ -1,5 +1,4 @@
-﻿using Fraxiinus.ReplayBook.Files.Utilities;
-using Fraxiinus.Rofl.Extract.Data.Models;
+﻿using Fraxiinus.ReplayBook.Reader.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,39 +11,34 @@ namespace Fraxiinus.ReplayBook.Files.Models
         // Blank constructor for LiteDB
         public FileResult() { }
 
-        public FileResult(ReplayFileInfo fileInfo, ROFL replayFile)
+        public FileResult(ReplayFileInfo fileInfo, ReplayFile replayFile)
         {
             FileInfo = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
             ReplayFile = replayFile ?? throw new ArgumentNullException(nameof(replayFile));
 
             Id = FileInfo.Path;
-            MapBestGuess = replayFile.GuessMap();
-            BlueTeamVictory = replayFile.DidBlueTeamWin();
 
             SearchKeywords = new List<string>
             {
-                FileInfo.Name.ToUpper(CultureInfo.InvariantCulture)
+                FileInfo.Name.ToUpper(CultureInfo.InvariantCulture),
+                ReplayFile.AlternativeName.ToUpper(CultureInfo.InvariantCulture)
             };
-            SearchKeywords.AddRange(ReplayFile.Metadata.PlayerStatistics.Select(x => x.Name.ToUpper(CultureInfo.InvariantCulture)));
-            SearchKeywords.AddRange(ReplayFile.Metadata.PlayerStatistics.Select(x => x.Skin.ToUpper(CultureInfo.InvariantCulture)));
+            SearchKeywords.AddRange(ReplayFile.Players.Select(x => x.NAME.ToUpper(CultureInfo.InvariantCulture)));
+            SearchKeywords.AddRange(ReplayFile.Players.Select(x => x.SKIN.ToUpper(CultureInfo.InvariantCulture)));
 
             FileName = FileInfo.Name;
-            AlternativeName = FileInfo.Name; // set to initial file name
+            AlternativeName = replayFile.AlternativeName;
             FileSizeBytes = FileInfo.FileSizeBytes;
             FileCreationTime = FileInfo.CreationTime;
         }
         
         public ReplayFileInfo FileInfo { get; set; }
 
-        public ROFL ReplayFile { get; set; }
+        public ReplayFile ReplayFile { get; set; }
 
         public string Id { get; set; }
 
         public bool IsNewFile { get; set; }
-
-        public MapCode MapBestGuess { get; set; }
-
-        public bool BlueTeamVictory { get; set; }
 
         // The following fields are used to allow for fast indexing
         // Placing them on the root level object makes creating indexes very easy and clear.

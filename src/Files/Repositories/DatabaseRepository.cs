@@ -2,13 +2,12 @@
 using LiteDB;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Files.Models;
-using Fraxiinus.Rofl.Extract.Data.Models;
+using Fraxiinus.ReplayBook.Reader.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 
 namespace Fraxiinus.ReplayBook.Files.Repositories
 {
@@ -65,12 +64,12 @@ namespace Fraxiinus.ReplayBook.Files.Repositories
             _ = BsonMapper.Global.Entity<ReplayFileInfo>()
                 .Id(r => r.Path);
 
-            _ = BsonMapper.Global.Entity<PlayerStats>()
+            _ = BsonMapper.Global.Entity<Player>()
                 .Id(r => r.Id);
 
-            _ = BsonMapper.Global.Entity<ROFL>()
+            _ = BsonMapper.Global.Entity<ReplayFile>()
                 .Id(r => r.Location)
-                .DbRef(r => r.Metadata.PlayerStatistics, "players");
+                .DbRef(r => r.Players, "players");
 
             _ = fileResults.EnsureIndex(x => x.FileName);
             _ = fileResults.EnsureIndex(x => x.AlternativeName);
