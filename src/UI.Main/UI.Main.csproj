@@ -42,7 +42,6 @@
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\Executables.Old\Executables.Old.csproj" />
     <ProjectReference Include="..\Files\Files.csproj" />
-    <ProjectReference Include="..\Reader\Reader.csproj" />
     <ProjectReference Include="..\StaticData\StaticData.csproj" />
   </ItemGroup>
   <ItemGroup>

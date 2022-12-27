@@ -1,243 +1,241 @@
-﻿using Etirps.RiZhi;
-using LiteDB;
+﻿namespace Fraxiinus.ReplayBook.Files.Repositories;
+
+using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Files.Models;
-using Fraxiinus.ReplayBook.Reader.Models;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+using LiteDB;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace Fraxiinus.ReplayBook.Files.Repositories
+public class DatabaseRepository
 {
-    public class DatabaseRepository
+    private readonly RiZhi _log;
+    private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "replayCache.db");
+    private readonly ObservableConfiguration _config;
+
+    public DatabaseRepository(ObservableConfiguration config, RiZhi log)
     {
-        private readonly RiZhi _log;
-        private readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "replayCache.db");
-        private readonly ObservableConfiguration _config;
+        _config = config;
+        _log = log;
 
-        public DatabaseRepository(ObservableConfiguration config, RiZhi log)
+        try
         {
-            _config = config;
-            _log = log;
-
-            try
-            {
-                InitializeDatabase();
-            }
-            catch (Exception ex)
-            {
-                _log.Warning($"Database file is invalid, deleting and trying again... exception:{ex}");
-                File.Delete(_filePath);
-                InitializeDatabase();
-            }
+            InitializeDatabase();
         }
-
-        public string GetDatabasePath()
+        catch (Exception ex)
         {
-            return _filePath;
-        }
-
-        public void DeleteDatabase()
-        {
+            _log.Warning($"Database file is invalid, deleting and trying again... exception:{ex}");
             File.Delete(_filePath);
+            InitializeDatabase();
+        }
+    }
+
+    public string GetDatabasePath()
+    {
+        return _filePath;
+    }
+
+    public void DeleteDatabase()
+    {
+        File.Delete(_filePath);
+    }
+
+    private void InitializeDatabase()
+    {
+        if (!Directory.Exists(Path.GetDirectoryName(_filePath)))
+        {
+            _ = Directory.CreateDirectory(Path.GetDirectoryName(_filePath));
         }
 
-        private void InitializeDatabase()
+        using var db = new LiteDatabase(_filePath);
+
+        // Create and verify file results collection
+        ILiteCollection<FileResult> fileResults = db.GetCollection<FileResult>("fileResults");
+
+        _ = BsonMapper.Global.Entity<FileResult>()
+            .Id(r => r.Id)
+            .DbRef(r => r.FileInfo, "replayFileInfo")
+            .DbRef(r => r.ReplayFile, "replayFiles");
+
+        _ = BsonMapper.Global.Entity<ReplayFileInfo>()
+            .Id(r => r.Path);
+
+        _ = BsonMapper.Global.Entity<DatabasePlayerStats>()
+            .Id(r => r.DatabaseId);
+
+        _ = BsonMapper.Global.Entity<ReplayFile>()
+            .Id(r => r.Location)
+            .DbRef(r => r.Players, "players");
+
+        _ = fileResults.EnsureIndex(x => x.FileName);
+        _ = fileResults.EnsureIndex(x => x.AlternativeName);
+        _ = fileResults.EnsureIndex(x => x.FileSizeBytes);
+        _ = fileResults.EnsureIndex(x => x.FileCreationTime);
+        _ = fileResults.EnsureIndex(x => x.SearchKeywords);
+    }
+
+    public void AddFileResult(FileResult result)
+    {
+        if (result == null) { throw new ArgumentNullException(nameof(result)); }
+        if (result.ReplayFile == null) { throw new ArgumentNullException(nameof(result)); }
+        if (result.FileInfo == null) { throw new ArgumentNullException(nameof(result)); }
+
+        using var db = new LiteDatabase(_filePath);
+
+        var fileResults = db.GetCollection<FileResult>("fileResults");
+        var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
+        var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
+        var players = db.GetCollection<DatabasePlayerStats>("players");
+
+        // If we already have the file, do nothing
+        if (fileResults.FindById(result.Id) == null)
         {
-            if (!Directory.Exists(Path.GetDirectoryName(_filePath)))
-            {
-                _ = Directory.CreateDirectory(Path.GetDirectoryName(_filePath));
-            }
-
-            using var db = new LiteDatabase(_filePath);
-
-            // Create and verify file results collection
-            ILiteCollection<FileResult> fileResults = db.GetCollection<FileResult>("fileResults");
-
-            _ = BsonMapper.Global.Entity<FileResult>()
-                .Id(r => r.Id)
-                .DbRef(r => r.FileInfo, "replayFileInfo")
-                .DbRef(r => r.ReplayFile, "replayFiles");
-
-            _ = BsonMapper.Global.Entity<ReplayFileInfo>()
-                .Id(r => r.Path);
-
-            _ = BsonMapper.Global.Entity<Player>()
-                .Id(r => r.Id);
-
-            _ = BsonMapper.Global.Entity<ReplayFile>()
-                .Id(r => r.Location)
-                .DbRef(r => r.Players, "players");
-
-            _ = fileResults.EnsureIndex(x => x.FileName);
-            _ = fileResults.EnsureIndex(x => x.AlternativeName);
-            _ = fileResults.EnsureIndex(x => x.FileSizeBytes);
-            _ = fileResults.EnsureIndex(x => x.FileCreationTime);
-            _ = fileResults.EnsureIndex(x => x.SearchKeywords);
+            fileResults.Insert(result);
         }
 
-        public void AddFileResult(FileResult result)
+        // Only add if it doesnt exist
+        if (fileInfos.FindById(result.FileInfo.Path) == null)
         {
-            if (result == null) { throw new ArgumentNullException(nameof(result)); }
-            if (result.ReplayFile == null) { throw new ArgumentNullException(nameof(result)); }
-            if (result.FileInfo == null) { throw new ArgumentNullException(nameof(result)); }
-
-            using var db = new LiteDatabase(_filePath);
-
-            var fileResults = db.GetCollection<FileResult>("fileResults");
-            var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
-            var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
-            var players = db.GetCollection<Player>("players");
-
-            // If we already have the file, do nothing
-            if (fileResults.FindById(result.Id) == null)
-            {
-                fileResults.Insert(result);
-            }
-
-            // Only add if it doesnt exist
-            if (fileInfos.FindById(result.FileInfo.Path) == null)
-            {
-                fileInfos.Insert(result.FileInfo);
-            }
-
-            if (replayFiles.FindById(result.ReplayFile.Location) == null)
-            {
-                replayFiles.Insert(result.ReplayFile);
-            }
-
-            foreach (var player in result.ReplayFile.Players)
-            {
-                // If the player already exists, do nothing
-                if (players.FindById(player.Id) == null)
-                {
-                    players.Insert(player);
-                }
-            }
+            fileInfos.Insert(result.FileInfo);
         }
 
-        public void RemoveFileResult(string id)
+        if (replayFiles.FindById(result.ReplayFile.Location) == null)
         {
-            if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException(id); }
-
-            using var db = new LiteDatabase(_filePath);
-
-            var fileResults = db.GetCollection<FileResult>("fileResults");
-            var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
-            var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
-            var players = db.GetCollection<Player>("players");
-
-            fileResults.Delete(id);
-
-            fileInfos.Delete(id);
-
-            replayFiles.Delete(id);
-
-            // Rip player data is being orphaned...lol
+            replayFiles.Insert(result.ReplayFile);
         }
 
-        public FileResult GetFileResult(string id)
+        foreach (var player in result.ReplayFile.Players)
         {
-            if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException(id); }
-
-            using var db = new LiteDatabase(_filePath);
-
-            return db.GetCollection<FileResult>("fileResults")
-                .Include("$.FileInfo")
-                .Include("$.ReplayFile")
-                .Include("$.ReplayFile.Players[*]")
-                .Include("$.ReplayFile.BluePlayers[*]")
-                .Include("$.ReplayFile.RedPlayers[*]")
-                .FindById(id);
-        }
-
-        public IEnumerable<FileResult> GetReplayFiles()
-        {
-            using var db = new LiteDatabase(_filePath);
-            var fileResults = db.GetCollection<FileResult>("fileResults")
-                .Include("$.FileInfo")
-                .Include("$.ReplayFile")
-                .Include("$.ReplayFile.Players[*]")
-                .Include("$.ReplayFile.BluePlayers[*]")
-                .Include("$.ReplayFile.RedPlayers[*]");
-
-            return fileResults.FindAll().ToList();
-        }
-
-        public IReadOnlyCollection<FileResult> QueryReplayFiles(string[] keywords, SortMethod sort, int maxEntries, int skip)
-        {
-            if (keywords == null) { throw new ArgumentNullException(nameof(keywords)); }
-
-            using var db = new LiteDatabase(_filePath);
-
-            // include all references
-            var fileResultsQueryable = db.GetCollection<FileResult>("fileResults")
-                .Include("$.FileInfo")
-                .Include("$.ReplayFile")
-                .Include("$.ReplayFile.Players[*]")
-                .Include("$.ReplayFile.BluePlayers[*]")
-                .Include("$.ReplayFile.RedPlayers[*]")
-                .Query();
-
-            // apply sort method to query
-            fileResultsQueryable = sort switch
+            // If the player already exists, do nothing
+            if (players.FindById(player.Id) == null)
             {
-                // sort by name depends on if we are using file names, or alternative names
-                SortMethod.NameAsc => fileResultsQueryable.OrderBy(x => _config.RenameFile ? x.FileName : x.AlternativeName),
-                SortMethod.NameDesc => fileResultsQueryable.OrderByDescending(x => _config.RenameFile ? x.FileName : x.AlternativeName),
-                SortMethod.DateAsc => fileResultsQueryable.OrderBy(x => x.FileCreationTime),
-                SortMethod.DateDesc => fileResultsQueryable.OrderByDescending(x => x.FileCreationTime),
-                SortMethod.SizeAsc => fileResultsQueryable.OrderBy(x => x.FileSizeBytes),
-                SortMethod.SizeDesc => fileResultsQueryable.OrderByDescending(x => x.FileSizeBytes),
-                _ => fileResultsQueryable.OrderBy(x => x.FileCreationTime)
-            };
-
-            // apply filter based on keywords
-            if (keywords.Length > 0)
-            {
-                // this filters on ANY, we want to filter on ALL but not sure how to accomplish that (LiteDB issue #1885)
-                fileResultsQueryable = fileResultsQueryable.Where("$.SearchKeywords[*] ANY IN @0", BsonMapper.Global.Serialize(keywords));
+                players.Insert(player);
             }
+        }
+    }
 
-            // apply skip amount and limit results
-            return fileResultsQueryable.Offset(skip).Limit(maxEntries).ToList();
+    public void RemoveFileResult(string id)
+    {
+        if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException(id); }
+
+        using var db = new LiteDatabase(_filePath);
+
+        var fileResults = db.GetCollection<FileResult>("fileResults");
+        var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
+        var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
+        var players = db.GetCollection<DatabasePlayerStats>("players");
+
+        fileResults.Delete(id);
+
+        fileInfos.Delete(id);
+
+        replayFiles.Delete(id);
+
+        // Rip player data is being orphaned...lol
+    }
+
+    public FileResult GetFileResult(string id)
+    {
+        if (string.IsNullOrEmpty(id)) { throw new ArgumentNullException(id); }
+
+        using var db = new LiteDatabase(_filePath);
+
+        return db.GetCollection<FileResult>("fileResults")
+            .Include("$.FileInfo")
+            .Include("$.ReplayFile")
+            .Include("$.ReplayFile.Players[*]")
+            .Include("$.ReplayFile.BluePlayers[*]")
+            .Include("$.ReplayFile.RedPlayers[*]")
+            .FindById(id);
+    }
+
+    public IEnumerable<FileResult> GetReplayFiles()
+    {
+        using var db = new LiteDatabase(_filePath);
+        var fileResults = db.GetCollection<FileResult>("fileResults")
+            .Include("$.FileInfo")
+            .Include("$.ReplayFile")
+            .Include("$.ReplayFile.Players[*]")
+            .Include("$.ReplayFile.BluePlayers[*]")
+            .Include("$.ReplayFile.RedPlayers[*]");
+
+        return fileResults.FindAll().ToList();
+    }
+
+    public IReadOnlyCollection<FileResult> QueryReplayFiles(string[] keywords, SortMethod sort, int maxEntries, int skip)
+    {
+        if (keywords == null) { throw new ArgumentNullException(nameof(keywords)); }
+
+        using var db = new LiteDatabase(_filePath);
+
+        // include all references
+        var fileResultsQueryable = db.GetCollection<FileResult>("fileResults")
+            .Include("$.FileInfo")
+            .Include("$.ReplayFile")
+            .Include("$.ReplayFile.Players[*]")
+            .Include("$.ReplayFile.BluePlayers[*]")
+            .Include("$.ReplayFile.RedPlayers[*]")
+            .Query();
+
+        // apply sort method to query
+        fileResultsQueryable = sort switch
+        {
+            // sort by name depends on if we are using file names, or alternative names
+            SortMethod.NameAsc => fileResultsQueryable.OrderBy(x => _config.RenameFile ? x.FileName : x.AlternativeName),
+            SortMethod.NameDesc => fileResultsQueryable.OrderByDescending(x => _config.RenameFile ? x.FileName : x.AlternativeName),
+            SortMethod.DateAsc => fileResultsQueryable.OrderBy(x => x.FileCreationTime),
+            SortMethod.DateDesc => fileResultsQueryable.OrderByDescending(x => x.FileCreationTime),
+            SortMethod.SizeAsc => fileResultsQueryable.OrderBy(x => x.FileSizeBytes),
+            SortMethod.SizeDesc => fileResultsQueryable.OrderByDescending(x => x.FileSizeBytes),
+            _ => fileResultsQueryable.OrderBy(x => x.FileCreationTime)
+        };
+
+        // apply filter based on keywords
+        if (keywords.Length > 0)
+        {
+            // this filters on ANY, we want to filter on ALL but not sure how to accomplish that (LiteDB issue #1885)
+            fileResultsQueryable = fileResultsQueryable.Where("$.SearchKeywords[*] ANY IN @0", BsonMapper.Global.Serialize(keywords));
         }
 
-        public void UpdateAlternativeName(string id, string newName)
+        // apply skip amount and limit results
+        return fileResultsQueryable.Offset(skip).Limit(maxEntries).ToList();
+    }
+
+    public void UpdateAlternativeName(string id, string newName)
+    {
+        if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(id);
+
+        using var db = new LiteDatabase(_filePath);
+
+        var fileResults = db.GetCollection<FileResult>("fileResults")
+            .Include("$.FileInfo")
+            .Include("$.ReplayFile")
+            .Include("$.ReplayFile.Players[*]")
+            .Include("$.ReplayFile.BluePlayers[*]")
+            .Include("$.ReplayFile.RedPlayers[*]");
+
+        var result = fileResults.FindById(id);
+
+        if (result == null)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(id);
+            throw new KeyNotFoundException($"Could not find FileResult by id {id}");
+        }
+        else
+        {
+            _log.Information($"Db updating {result.AlternativeName} to {newName}");
 
-            using var db = new LiteDatabase(_filePath);
+            // Update the file results (for indexing/search)
+            result.AlternativeName = newName;
+            fileResults.Update(result);
 
-            var fileResults = db.GetCollection<FileResult>("fileResults")
-                .Include("$.FileInfo")
-                .Include("$.ReplayFile")
-                .Include("$.ReplayFile.Players[*]")
-                .Include("$.ReplayFile.BluePlayers[*]")
-                .Include("$.ReplayFile.RedPlayers[*]");
-
-            var result = fileResults.FindById(id);
-
-            if (result == null)
-            {
-                throw new KeyNotFoundException($"Could not find FileResult by id {id}");
-            }
-            else
-            {
-                _log.Information($"Db updating {result.AlternativeName} to {newName}");
-
-                // Update the file results (for indexing/search)
-                result.AlternativeName = newName;
-                fileResults.Update(result);
-
-                // Update the replay entry
-                var replays = db.GetCollection<ReplayFile>("replayFiles");
-                var replayEntry = replays.FindById(id);
-                replayEntry.AlternativeName = newName;
-                replays.Update(replayEntry);
-            }
+            // Update the replay entry
+            var replays = db.GetCollection<ReplayFile>("replayFiles");
+            var replayEntry = replays.FindById(id);
+            replayEntry.AlternativeName = newName;
+            replays.Update(replayEntry);
         }
     }
 }

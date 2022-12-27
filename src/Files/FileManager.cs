@@ -1,266 +1,259 @@
-﻿using Etirps.RiZhi;
+﻿namespace Fraxiinus.ReplayBook.Files;
+
+using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.Files.Repositories;
-using Fraxiinus.ReplayBook.Reader;
+using Fraxiinus.Rofl.Extract.Data;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fraxiinus.ReplayBook.Files
+public class FileManager
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
-    public class FileManager
+    private readonly FolderRepository _fileSystem;
+    private readonly DatabaseRepository _db;
+    private readonly RiZhi _log;
+    private readonly List<string> _deletedFiles;
+    private readonly ObservableConfiguration _config;
+
+    public FileManager(ObservableConfiguration config, RiZhi log)
     {
-        private readonly FolderRepository _fileSystem;
-        private readonly DatabaseRepository _db;
-        private readonly RiZhi _log;
-        private readonly ReplayReader _reader;
-        private List<string> _deletedFiles;
-        private ObservableConfiguration _config;
+        _log = log ?? throw new ArgumentNullException(nameof(log));
+        _config = config;
+        _fileSystem = new FolderRepository(config, log);
+        _db = new DatabaseRepository(config, log);
+        _deletedFiles = new List<string>();
+    }
 
-        public FileManager(ObservableConfiguration config, RiZhi log)
+    public string DatabasePath { get => _db.GetDatabasePath(); }
+
+    public void DeleteDatabase() => _db.DeleteDatabase();
+
+    /// <summary>
+    /// This function is responsible for finding and loading in new replays
+    /// </summary>
+    public async Task<IEnumerable<FileErrorResult>> InitialLoadAsync()
+    {
+        _log.Information("Starting initial load of replays");
+
+        //List<ReplayFileInfo> newFiles = new List<ReplayFileInfo>();
+
+        var errorResults = new List<FileErrorResult>();
+        int newCount = 0;
+
+        // Get all files from all defined replay folders
+        IReadOnlyCollection<ReplayFileInfo> allFiles = _fileSystem.GetAllReplayFileInfo();
+
+        // Check if file exists in the database
+        foreach (ReplayFileInfo file in allFiles)
         {
-            _log = log ?? throw new ArgumentNullException(nameof(log));
-
-            _config = config;
-            _fileSystem = new FolderRepository(config, log);
-            _db = new DatabaseRepository(config, log);
-
-            _reader = new ReplayReader(log);
-
-            _deletedFiles = new List<string>();
-        }
-
-        public string DatabasePath { get => _db.GetDatabasePath(); }
-
-        public void DeleteDatabase() => _db.DeleteDatabase();
-
-        /// <summary>
-        /// This function is responsible for finding and loading in new replays
-        /// </summary>
-        public async Task<IEnumerable<FileErrorResult>> InitialLoadAsync()
-        {
-            _log.Information("Starting initial load of replays");
-
-            //List<ReplayFileInfo> newFiles = new List<ReplayFileInfo>();
-
-            List<FileErrorResult> errorResults = new List<FileErrorResult>();
-            int newCount = 0;
-
-            // Get all files from all defined replay folders
-            IReadOnlyCollection<ReplayFileInfo> allFiles = _fileSystem.GetAllReplayFileInfo();
-
-            // Check if file exists in the database
-            foreach (ReplayFileInfo file in allFiles)
+            if (_db.GetFileResult(file.Path) == null)
             {
-                if (_db.GetFileResult(file.Path) == null)
+                try
                 {
-                    try
+                    var parseResult = await RoflReader.LoadAsync(file.Path).ConfigureAwait(false);
+                    var replayFile = new ReplayFile(file.Path, parseResult);
+                    var newResult = new FileResult(file, replayFile)
                     {
-                        Reader.Models.ReplayFile parseResult = await _reader.ReadFile(file.Path).ConfigureAwait(false);
+                        IsNewFile = false
+                    };
 
-                        FileResult newResult = new FileResult(file, parseResult)
-                        {
-                            IsNewFile = false
-                        };
-
-                        _db.AddFileResult(newResult);
-                        newCount++;
-                    }
-                    catch (Exception ex)
+                    _db.AddFileResult(newResult);
+                    newCount++;
+                }
+                catch (Exception ex)
+                {
+                    _log.Warning($"Failed to parse file: {file.Path}");
+                    _log.Warning(ex.ToString());
+                    errorResults.Add(new FileErrorResult
                     {
-                        _log.Warning($"Failed to parse file: {file.Path}");
-                        _log.Warning(ex.ToString());
-                        errorResults.Add(new FileErrorResult
-                        {
-                            FilePath = file.Path,
-                            Exception = ex
-                        });
-                    }
+                        FilePath = file.Path,
+                        Exception = ex
+                    });
                 }
             }
-
-            _log.Information("Initial load of replays complete");
-            return errorResults;
         }
 
-        public async Task<FileResult> GetSingleFile(string path)
+        _log.Information("Initial load of replays complete");
+        return errorResults;
+    }
+
+    public async Task<FileResult> GetSingleFile(string path)
+    {
+        if (!File.Exists(path)) return null;
+
+        FileResult returnValue = _db.GetFileResult(path);
+
+        // File exists in the database, return now
+        if (returnValue != null)
         {
-            if (!File.Exists(path)) return null;
-
-            FileResult returnValue = _db.GetFileResult(path);
-
-            // File exists in the database, return now
-            if (returnValue != null)
-            {
-                _log.Information($"File {path} already exists in database. Match ID: {returnValue.ReplayFile.MatchId}");
-                return returnValue;
-            }
-
-            var replayFileInfo = _fileSystem.GetSingleReplayFileInfo(path);
-            var parseResult = await _reader.ReadFile(path).ConfigureAwait(false);
-
-            if (parseResult is null) return null;
-
-            var newResult = new FileResult(replayFileInfo, parseResult)
-            {
-                IsNewFile = false
-            };
-
-            _db.AddFileResult(newResult);
-
-            return newResult;
+            _log.Information($"File {path} already exists in database. Match ID: {returnValue.ReplayFile.MatchId}");
+            return returnValue;
         }
 
-        /// <summary>
-        /// Checks all entries and deletes if they do not exist in the file system.
-        /// </summary>
-        /// <returns></returns>
-        public void PruneDatabaseEntries()
+        var replayFileInfo = _fileSystem.GetSingleReplayFileInfo(path);
+        var parseResult = await RoflReader.LoadAsync(path).ConfigureAwait(false);
+
+        if (parseResult is null) return null;
+
+        var replayFile = new ReplayFile(path, parseResult);
+        var newResult = new FileResult(replayFileInfo, replayFile)
         {
-            _log.Information($"Pruning database...");
+            IsNewFile = false
+        };
 
-            var entries = _db.GetReplayFiles();
+        _db.AddFileResult(newResult);
 
-            if (!entries.Any()) return;
+        return newResult;
+    }
 
-            foreach (var entry in entries)
-            {
-                // Files does not exist! (Technically this is the same as id, but it's more clear)
-                // or File is not part of the current source folder collection 
-                if (!File.Exists(entry.FileInfo.Path) || !_fileSystem.IsPathInSourceFolders(entry.FileInfo.Path))
-                {
-                    _log.Information($"File {entry.Id} is no longer valid, removing from database...");
-                    _db.RemoveFileResult(entry.Id);
-                }
-            }
+    /// <summary>
+    /// Checks all entries and deletes if they do not exist in the file system.
+    /// </summary>
+    /// <returns></returns>
+    public void PruneDatabaseEntries()
+    {
+        _log.Information($"Pruning database...");
 
-            _log.Information($"Pruning complete");
-        }
+        var entries = _db.GetReplayFiles();
 
-        public IReadOnlyCollection<FileResult> GetReplays(QueryProperties sort, int maxEntries, int skip)
+        if (!entries.Any()) return;
+
+        foreach (var entry in entries)
         {
-            if (sort == null) { throw new ArgumentNullException(nameof(sort)); }
-
-            var keywords = sort.SearchTerm.Split('"')       // split the string by quotes
-                .Select((element, index) => // select the substring, and the index of the substring
-                    index % 2 == 0  // If the index is even (after a close quote)
-                    ? element.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries) // split by space
-                    : new string[] { element }) // return the string enclosed by quotes
-                .SelectMany(element => element).ToArray();
-
-            return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
-        }
-
-        public string RenameReplay(FileResult file, string newName)
-        {
-            if (_config.RenameFile)
+            // Files does not exist! (Technically this is the same as id, but it's more clear)
+            // or File is not part of the current source folder collection 
+            if (!File.Exists(entry.FileInfo.Path) || !_fileSystem.IsPathInSourceFolders(entry.FileInfo.Path))
             {
-                return RenameFile(file, newName);
-            }
-            else
-            {
-                return RenameAlternative(file, newName);
+                _log.Information($"File {entry.Id} is no longer valid, removing from database...");
+                _db.RemoveFileResult(entry.Id);
             }
         }
 
-        private string RenameAlternative(FileResult file, string newName)
+        _log.Information($"Pruning complete");
+    }
+
+    public IReadOnlyCollection<FileResult> GetReplays(QueryProperties sort, int maxEntries, int skip)
+    {
+        if (sort == null) { throw new ArgumentNullException(nameof(sort)); }
+
+        var keywords = sort.SearchTerm.Split('"')       // split the string by quotes
+            .Select((element, index) => // select the substring, and the index of the substring
+                index % 2 == 0  // If the index is even (after a close quote)
+                ? element.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries) // split by space
+                : new string[] { element }) // return the string enclosed by quotes
+            .SelectMany(element => element).ToArray();
+
+        return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
+    }
+
+    public string RenameReplay(FileResult file, string newName)
+    {
+        if (_config.RenameFile)
         {
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
+            return RenameFile(file, newName);
+        }
+        else
+        {
+            return RenameAlternative(file, newName);
+        }
+    }
 
-            try
-            {
-                _db.UpdateAlternativeName(file.Id, newName);
-            }
-            catch (KeyNotFoundException ex)
-            {
-                _log.Information(ex.ToString());
-                return "{NOT FOUND ERROR}";
-            }
+    private string RenameAlternative(FileResult file, string newName)
+    {
+        if (file == null) throw new ArgumentNullException(nameof(file));
+        if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
 
-            // Return value is an error message, no message means no error
-            return null;
+        try
+        {
+            _db.UpdateAlternativeName(file.Id, newName);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            _log.Information(ex.ToString());
+            return "{NOT FOUND ERROR}";
         }
 
-        private string RenameFile(FileResult file, string newName)
+        // Return value is an error message, no message means no error
+        return null;
+    }
+
+    private string RenameFile(FileResult file, string newName)
+    {
+        if (file == null) throw new ArgumentNullException(nameof(file));
+        if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
+
+        var newPath = Path.Combine(Path.GetDirectoryName(file.Id), newName + ".rofl");
+
+        _log.Information($"Renaming {file.Id} -> {newPath}");
+        // Rename the file
+        try
         {
-            if (file == null) throw new ArgumentNullException(nameof(file));
-            if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
-
-            var newPath = Path.Combine(Path.GetDirectoryName(file.Id), newName + ".rofl");
-
-            _log.Information($"Renaming {file.Id} -> {newPath}");
-            // Rename the file
-            try
-            {
-                File.Move(file.Id, newPath);
-            }
-            catch (Exception e)
-            {
-                return e.Message.Trim();
-            }
-
-            // delete the database entry
-            _db.RemoveFileResult(file.Id);
-
-            // Update new values
-            var fileInfo = file.FileInfo;
-            fileInfo.Name = newName;
-            fileInfo.Path = newPath;
-
-            var replayFile = file.ReplayFile;
-            replayFile.Name = newName;
-            replayFile.Location = newPath;
-
-            var newFileResult = new FileResult(fileInfo, replayFile);
-            _db.AddFileResult(newFileResult);
-
-            // Return value is an error message, no message means no error
-            return null;
-        }
-
-        /// <summary>
-        /// Doesn't actually delete, but moves it to the cache folder, in case they didnt mean to delete it
-        /// </summary>
-        /// <param name="file"></param>
-        /// <returns></returns>
-        public string DeleteFile(FileResult file)
-        {
-            if (file == null) throw new ArgumentNullException(nameof(file));
-
-            _log.Information($"Moving {file.Id} to cache folder - to be deleted when ReplayBook closes");
-
-            var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "deletedReplays");
-            Directory.CreateDirectory(newPath);
-
-            newPath = Path.Combine(newPath, file.FileInfo.Name + ".rofl");
-
             File.Move(file.Id, newPath);
-
-            _db.RemoveFileResult(file.Id);
-
-            _deletedFiles.Add(newPath);
-            return newPath;
         }
-
-        public void ClearDeletedFiles()
+        catch (Exception e)
         {
-            foreach (var file in _deletedFiles)
-            {
-                _log.Information($"Deleting file {file}");
-
-                if (File.Exists(file))
-                {
-                    File.Delete(file);
-                }
-            }
-
-            _deletedFiles.Clear();
+            return e.Message.Trim();
         }
+
+        // delete the database entry
+        _db.RemoveFileResult(file.Id);
+
+        // Update new values
+        var fileInfo = file.FileInfo;
+        fileInfo.Name = newName;
+        fileInfo.Path = newPath;
+
+        var replayFile = file.ReplayFile;
+        replayFile.Name = newName;
+        replayFile.Location = newPath;
+
+        var newFileResult = new FileResult(fileInfo, replayFile);
+        _db.AddFileResult(newFileResult);
+
+        // Return value is an error message, no message means no error
+        return null;
+    }
+
+    /// <summary>
+    /// Doesn't actually delete, but moves it to the cache folder, in case they didnt mean to delete it
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    public string DeleteFile(FileResult file)
+    {
+        if (file == null) throw new ArgumentNullException(nameof(file));
+
+        _log.Information($"Moving {file.Id} to cache folder - to be deleted when ReplayBook closes");
+
+        var newPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "deletedReplays");
+        Directory.CreateDirectory(newPath);
+
+        newPath = Path.Combine(newPath, file.FileInfo.Name + ".rofl");
+
+        File.Move(file.Id, newPath);
+
+        _db.RemoveFileResult(file.Id);
+
+        _deletedFiles.Add(newPath);
+        return newPath;
+    }
+
+    public void ClearDeletedFiles()
+    {
+        foreach (var file in _deletedFiles)
+        {
+            _log.Information($"Deleting file {file}");
+
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
+        }
+
+        _deletedFiles.Clear();
     }
 }
