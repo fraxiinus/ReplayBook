@@ -1,4 +1,7 @@
-# Issues Playing Replays
+---
+title: Issues Playing Replays
+description: Troubleshooting
+---
 
 There are a lot of potential issues that can cause issues.
 

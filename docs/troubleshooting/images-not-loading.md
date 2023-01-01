@@ -1,4 +1,7 @@
-# Images Are Not Loading
+---
+title: Images Are Not Loading
+description: Troubleshooting
+---
 
 ![Example of issue](../images/troubleshooting/imagesNotLoading_example.png)
 

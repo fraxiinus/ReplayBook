@@ -1,4 +1,7 @@
-# Settings Are Not Saving
+---
+title: Settings Are Not Saving
+description: Troubleshooting
+---
 
 Check if the ReplayBook folder is read-only. ReplayBook needs to be able to create and edit files in that folder in order to save its settings.
 

@@ -1,4 +1,7 @@
-# Using Player Markers
+---
+title: Using Player Markers
+description: Getting started
+---
 
 **Player Markers** allow you to save players of interest so that they can be easily identified in the user interface. Simply add the username of the player, and every occurrence of that player will be marked with a color. Marker colors are customizable, and notes can be added. Notes are visible when hovering over a player portrait with a mark.
 

@@ -1,4 +1,6 @@
-# Troubleshooting
+---
+title: Troubleshooting
+---
 
 ## [Play button disabled](play-button-disabled.md)
 

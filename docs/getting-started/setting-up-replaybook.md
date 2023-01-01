@@ -1,4 +1,7 @@
-# Setting Up ReplayBook
+---
+title: Setting Up ReplayBook
+description: Getting started
+---
 
 ## First Time Setup
 

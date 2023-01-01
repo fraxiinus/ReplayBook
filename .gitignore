@@ -256,3 +256,4 @@ runes
 *.rofl
 /src/UI.Main/Properties/launchSettings.json
 venv/
+.cache/
