@@ -1,4 +1,7 @@
-# Playing Expired Replays
+---
+title: Playing Expired Replays
+description: Getting started
+---
 
 It is still possible to play expired replays using ReplayBook. The catch is that it requires a backup of the exact patch the replay is from. **You cannot play a replay otherwise!**
 

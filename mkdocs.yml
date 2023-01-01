@@ -18,7 +18,7 @@ extra_javascript:
   - stylesheets/extra.js
 plugins:
   - social:
-      cards: false
+      cards: true
 markdown_extensions:
   - admonition
   - pymdownx.details

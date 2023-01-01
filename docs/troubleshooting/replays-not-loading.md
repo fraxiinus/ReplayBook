@@ -1,4 +1,7 @@
-# ReplayBook is Not Loading Replays
+---
+title: ReplayBook is Not Loading Replays
+description: Troubleshooting
+---
 
 ## No Replay Folders
 

@@ -1,4 +1,7 @@
-# ReplayBook Launches, But Crashes When Loading Thumbnails
+---
+title: ReplayBook Launches, But Crashes When Loading Thumbnails
+description: Troubleshooting
+---
 
 Check if you have some kind of ransomware protection enabled on your system. That feature prevents unauthorized applications from saving files in certain folders.
 

@@ -1,4 +1,7 @@
-# Play Button is Disabled
+---
+title: Play Button is Disabled
+description: Troubleshooting
+---
 
 ![Can not play replay](../images/troubleshooting/5_can_not_play_replay.png)
 ![Unsupported replay](../images/troubleshooting/7_unsupported_replay.png)
