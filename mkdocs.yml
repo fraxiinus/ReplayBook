@@ -17,6 +17,8 @@ extra_css:
 extra_javascript:
   - stylesheets/extra.js
 plugins:
+  - search:
+      lang: en
   - social:
       cards: true
 markdown_extensions:
