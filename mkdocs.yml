@@ -1,4 +1,5 @@
 site_name: Fraxiinus.ReplayBook
+site_url: https://www.fraxiinus.dev/ReplayBook/
 repo_url: https://github.com/fraxiinus/ReplayBook
 theme:
   name: material
@@ -15,6 +16,11 @@ extra_css:
   - stylesheets/extra.css
 extra_javascript:
   - stylesheets/extra.js
+plugins:
+  - search:
+      lang: en
+  - social:
+      cards: true
 markdown_extensions:
   - admonition
   - pymdownx.details

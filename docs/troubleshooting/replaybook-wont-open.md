@@ -1,4 +1,7 @@
-# ReplayBook will not open
+---
+title: ReplayBook will not open
+description: Troubleshooting
+---
 
 Go to where you saved ReplayBook and delete the "cache" folder. If that doesn't work try deleting "appsettings.json" and "executablesettings.json". You will lose your settings, but it may fix the problem.
 

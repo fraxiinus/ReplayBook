@@ -1,4 +1,7 @@
-# Get Static Data Bundles
+---
+title: Get Static Data Bundles
+description: Getting started
+---
 
 A Static Data Bundle is a collection of images and miscellaneous text that ReplayBook uses to display replay files. It contains champion, item, and rune thumbnails as well as correct champion and rune names and descriptions.
 

@@ -1,4 +1,7 @@
-# Exporting Player Data
+---
+title: Exporting Player Data
+description: Getting started
+---
 
 All readable data in a replay is available for exporting through ReplayBook.
 
