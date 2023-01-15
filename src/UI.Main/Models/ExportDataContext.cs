@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
+using Fraxiinus.ReplayBook.UI.Main.Models.View;
 
 /// <summary>
 /// Set as the DataContext for <see cref="ExportDataWindow"/>

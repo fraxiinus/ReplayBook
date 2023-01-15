@@ -3,6 +3,7 @@
 using Fraxiinus.ReplayBook.Executables.Old.Utilities;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Extensions;
+using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using System;

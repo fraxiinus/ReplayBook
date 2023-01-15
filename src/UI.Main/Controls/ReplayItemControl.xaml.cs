@@ -1,5 +1,5 @@
 ﻿using Fraxiinus.ReplayBook.Executables.Old.Utilities;
-using Fraxiinus.ReplayBook.UI.Main.Models;
+using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
@@ -61,7 +61,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             else
             {
                 DownloadStaticData_MenuItem__2.Header = (DownloadStaticData_MenuItem__2.Header as string)
-                    .Replace("$", Context.GameVersionShort);
+                    .Replace("$", Context.GameVersionString);
             }
 
             // Set placement and open
@@ -86,7 +86,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             else
             {
                 DownloadStaticData_MenuItem__1.Header = (DownloadStaticData_MenuItem__1.Header as string)
-                    .Replace("$", Context.GameVersionShort);
+                    .Replace("$", Context.GameVersionString);
             }
         }
 

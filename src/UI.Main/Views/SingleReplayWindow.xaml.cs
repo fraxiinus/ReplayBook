@@ -5,6 +5,7 @@ using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Models;
+using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using ModernWpf.Controls;
