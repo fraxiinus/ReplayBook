@@ -66,6 +66,10 @@ By default, you need to manually enable .ROFL file associations.
 
 ---
 
+[Next: Using player markers](../getting-started/using-player-markers.md){ .md-button .md-button--primary }
+
+---
+
 ## Need Help?
 
 [Check the Troubleshooting page](../../troubleshooting)

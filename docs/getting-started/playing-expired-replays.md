@@ -43,6 +43,10 @@ Direct integration with ReplayBook is currently planned. ([#119](https://github.
 
 ---
 
+[Next: Exporting player data](../getting-started/exporting-player-data.md){ .md-button .md-button--primary }
+
+---
+
 ## Need Help?
 
 [Check the Troubleshooting page](../../troubleshooting)

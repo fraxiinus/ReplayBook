@@ -37,6 +37,10 @@ There are currently two options for marker style: **Border around** or **Square 
 
 ---
 
+[Next: Playing expired replays](../getting-started/playing-expired-replays.md){ .md-button .md-button--primary }
+
+---
+
 ## Need Help?
 
 [Check the Troubleshooting page](../../troubleshooting)

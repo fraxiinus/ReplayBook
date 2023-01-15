@@ -69,6 +69,10 @@ The Export Data Wizard includes an **Advanced Mode**. This mode shows all export
 
 ---
 
+[Next: Get static data bundles](../getting-started/get-static-data-bundles.md){ .md-button .md-button--primary }
+
+---
+
 ## Need Help?
 
 [Check the Troubleshooting page](../../troubleshooting)
