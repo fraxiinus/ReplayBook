@@ -3,8 +3,7 @@
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,10 +11,17 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Text.Json.Serialization;
+using System.Text.Json.Nodes;
 
 public static class ExportHelper
 {
     private static readonly string _presetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "export_presets");
+
+    private static readonly JsonSerializerOptions serializerOptions = new()
+    {
+        WriteIndented = true
+    };
 
     public static string ConstructExportString(ExportDataContext context)
     {
@@ -88,7 +94,7 @@ public static class ExportHelper
         // create the preset path if it doesnt exist
         if (!Directory.Exists(_presetPath)) { _ = Directory.CreateDirectory(_presetPath); }
 
-        string jsonOutput = JsonConvert.SerializeObject(preset, Formatting.Indented);
+        string jsonOutput = JsonSerializer.Serialize(preset, serializerOptions);
 
         File.WriteAllText(Path.Combine(_presetPath, $"{preset.PresetName}.json"), jsonOutput);
     }
@@ -100,7 +106,7 @@ public static class ExportHelper
         if (!File.Exists(filePath)) { throw new FileNotFoundException(); }
 
         string jsonInput = File.ReadAllText(filePath);
-        return JsonConvert.DeserializeObject<ExportPreset>(jsonInput);
+        return JsonSerializer.Deserialize<ExportPreset>(jsonInput, serializerOptions);
     }
 
     public static void DeletePresetFile(string name)
@@ -116,7 +122,7 @@ public static class ExportHelper
     {
         if (context is null || context.Players is null) { return "{}"; }
 
-        var result = new JObject();
+        var result = new JsonObject();
 
         // add root level properties. Property names based off Riot API
         if (context.IncludeMatchID)
@@ -140,10 +146,10 @@ public static class ExportHelper
                 // If this is the first player added, include players property first
                 if (!result.ContainsKey("participants"))
                 {
-                    result["participants"] = new JArray();
+                    result["participants"] = new JsonArray();
                 }
 
-                var playerAttributes = new JObject();
+                var playerAttributes = new JsonObject();
 
                 // get the player model
                 PlayerStats player = context.Replay.Players
@@ -163,11 +169,11 @@ public static class ExportHelper
                 }
 
                 // add players as new jobjects
-                (result["participants"] as JArray).Add(playerAttributes);
+                (result["participants"] as JsonArray).Add(playerAttributes);
             }
         }
 
-        return result.ToString(Formatting.Indented);
+        return result.ToJsonString(serializerOptions);
     }
 
     private static string ConstructCsvString(ExportDataContext context)

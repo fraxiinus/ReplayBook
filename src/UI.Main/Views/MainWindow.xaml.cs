@@ -227,7 +227,7 @@ public partial class MainWindow : Window
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void LoadMoreButton_Click(object sender, RoutedEventArgs e)
+    private async void LoadMoreButton_Click(object sender, RoutedEventArgs e)
     {
         if (DataContext is not MainWindowViewModel context) { return; }
 
@@ -244,7 +244,7 @@ public partial class MainWindow : Window
 
         // Hide the button bar once we've loaded more
         ReplayPageBar.Visibility = Visibility.Collapsed;
-        context.LoadPreviewPlayerThumbnails();
+        await context.LoadPreviewPlayerThumbnails();
     }
 
     private async void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -286,7 +286,7 @@ public partial class MainWindow : Window
         await _config.ToConfigurationFile().SaveConfigurationFile();
     }
 
-    private async void Window_Closed(object sender, EventArgs e)
+    private void Window_Closed(object sender, EventArgs e)
     {
         if (DataContext is not MainWindowViewModel context) { return; }
 
