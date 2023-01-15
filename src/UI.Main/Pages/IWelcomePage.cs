@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Fraxiinus.ReplayBook.UI.Main.Pages;
 
-namespace Fraxiinus.ReplayBook.UI.Main.Pages
+using System;
+
+public interface IWelcomePage
 {
-    public interface IWelcomePage
-    {
-        string GetTitle();
+    string GetTitle();
 
-        Type GetNextPage();
+    Type GetNextPage();
 
-        Type GetPreviousPage();
-    }
+    Type GetPreviousPage();
 }

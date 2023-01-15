@@ -5,6 +5,7 @@ using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Models;
+using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using ModernWpf.Controls;
@@ -102,7 +103,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             if (replay != null)
             {
                 // Let the view model know about the replay
-                ReplayPreview previewReplay = context.AddReplay(replay);
+                ReplayPreview previewReplay = context.AddReplayToCollection(replay);
                 var replayDetail = new ReplayDetail(context.StaticDataManager, replay, previewReplay);
                 await replayDetail.LoadRunes();
                 DetailView.DataContext = replayDetail;

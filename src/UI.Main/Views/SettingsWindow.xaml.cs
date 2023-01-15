@@ -835,7 +835,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
-        private async void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (DataContext is not SettingsWindowDataContext context) { return; }
             if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }

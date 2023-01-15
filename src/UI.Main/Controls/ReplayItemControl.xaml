@@ -132,7 +132,7 @@
                     CornerRadius="3">
                 <TextBlock VerticalAlignment="Center"
                            FontSize="12"
-                           Text="{Binding GameVersionShort}">
+                           Text="{Binding GameVersionString}">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
@@ -156,7 +156,7 @@
 
             <TextBlock x:Name="GameLengthText"
                        FontSize="12"
-                       Text="{Binding Path=GameLengthString, FallbackValue=Game duration}"
+                       Text="{Binding Path=GameDurationString, FallbackValue=Game duration}"
                        ToolTip="{Binding Path=GameDuration}" />
 
             <TextBlock x:Name="CreationDateText"

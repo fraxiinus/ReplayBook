@@ -143,9 +143,9 @@ namespace Fraxiinus.ReplayBook.StaticData
             {
                 id = "Fiddlesticks";
             } 
-            else if (string.IsNullOrEmpty(id))
+            else if (string.IsNullOrEmpty(id) || id == "0")
             {
-                _log.Warning($"Empty id given: {patchVersion} - {language.GetRiotRegionCode()}");
+                _log.Warning($"Empty/Zero id given: {patchVersion} - {language.GetRiotRegionCode()}");
                 return default;
             }
 

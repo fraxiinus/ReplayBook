@@ -1,5 +1,5 @@
 ﻿using Fraxiinus.ReplayBook.Executables.Old.Utilities;
-using Fraxiinus.ReplayBook.UI.Main.Models;
+using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
@@ -48,15 +48,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
         private void MoreButton_Click(object sender, RoutedEventArgs e)
         {
             if (Context == null) { return; }
-
-            if (Window.GetWindow(this) is not MainWindow mainWindow) { return; }
             if (sender is not Button moreButton) { return; }
-
-            // Select the item
-            mainWindow.SelectReplayItem(Context);
 
             // Get the button and menu
             ContextMenu contextMenu = moreButton.ContextMenu;
+
+            // Check if static data already exists for this patch, show option to download
             if (ViewModel.StaticDataManager.DoesBundleExist(Context.GameVersion))
             {
                 DownloadStaticData_MenuItem__2.Visibility = Visibility.Collapsed;
@@ -64,8 +61,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             else
             {
                 DownloadStaticData_MenuItem__2.Header = (DownloadStaticData_MenuItem__2.Header as string)
-                    .Replace("$", Context.GameVersionShort);
+                    .Replace("$", Context.GameVersionString);
             }
+
             // Set placement and open
             contextMenu.PlacementTarget = moreButton;
             contextMenu.IsOpen = true;
@@ -88,7 +86,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             else
             {
                 DownloadStaticData_MenuItem__1.Header = (DownloadStaticData_MenuItem__1.Header as string)
-                    .Replace("$", Context.GameVersionShort);
+                    .Replace("$", Context.GameVersionString);
             }
         }
 
