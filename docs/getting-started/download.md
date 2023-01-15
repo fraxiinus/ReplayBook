@@ -22,4 +22,6 @@ To download an older version, check the [GitHub releases page](https://github.co
 
     ![.NET Desktop Runtime Download](../images/downloads_netRequirements.png)
 
-Check out the [Getting Started](../getting-started/setting-up-replaybook.md) page!
+Once ReplayBook is downloaded, you may want to check out the following section to take full advantage of all features:
+
+[Getting Started](../getting-started/setting-up-replaybook.md){ .md-button }

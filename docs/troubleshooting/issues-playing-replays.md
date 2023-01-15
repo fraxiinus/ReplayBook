@@ -35,6 +35,8 @@ In order to play replays, **ReplayBook needs the entire League of Legends instal
 
 Double check the League of Legends executable you are using. This error is caused by problems with League of Legends, perhaps a missing file.
 
+This error also occurs if your [executable locale is set incorrectly](#how-to-change-an-executables-locale).
+
 !!! note
     If you downloaded a backup from replays.xyz, try extracting it again. If that doesn't work, try downloading it again.
 
