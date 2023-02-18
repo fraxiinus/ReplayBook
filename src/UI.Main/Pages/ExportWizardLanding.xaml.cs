@@ -83,13 +83,10 @@ public partial class ExportWizardLanding : Page
             Context.Log.Error(TryFindResource("ErdFailedToSave") as string);
             Context.Log.Error(ex.ToString());
 
-            ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-            errDialog.DefaultButton = ContentDialogButton.Primary;
-            errDialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
-            errDialog.Title = TryFindResource("ErdPresetFailed") as string;
-            errDialog.SetLabelText(ex.ToString());
-            errDialog.GetContentDialogLabel().TextWrapping = TextWrapping.Wrap;
-            errDialog.GetContentDialogLabel().Width = 300;
+            var errDialog = ContentDialogHelper.CreateContentDialog(
+                title: TryFindResource("ErdFailedToSave") as string,
+                description: ex.ToString(),
+                primaryButtonText: TryFindResource("OKButtonText") as string);
 
             _ = await errDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }

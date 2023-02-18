@@ -182,13 +182,10 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
             Context.Log.Error(TryFindResource("ErdFailedToSave") as string);
             Context.Log.Error(ex.ToString());
 
-            ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-            errDialog.DefaultButton = ContentDialogButton.Primary;
-            errDialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
-            errDialog.Title = TryFindResource("ErdPresetFailed") as string;
-            errDialog.SetLabelText(ex.ToString());
-            errDialog.GetContentDialogLabel().TextWrapping = TextWrapping.Wrap;
-            errDialog.GetContentDialogLabel().Width = 300;
+            var errDialog = ContentDialogHelper.CreateContentDialog(
+                title: TryFindResource("ErdPresetFailed") as string,
+                description: ex.ToString(),
+                primaryButtonText: TryFindResource("OKButtonText") as string);
 
             _ = await errDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
@@ -224,14 +221,11 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
                 if (ExportHelper.PresetNameExists(preview.PresetName))
                 {
                     // create dialog to inform user of overwrite
-                    ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: true);
-                    errDialog.DefaultButton = ContentDialogButton.Primary;
-                    errDialog.SecondaryButtonText = TryFindResource("CancelButtonText") as string;
-                    errDialog.PrimaryButtonText = TryFindResource("ErdPresetOverwrite") as string;
-                    errDialog.Title = TryFindResource("ErdFailedToSave") as string;
-                    errDialog.SetLabelText(TryFindResource("ErdPresetExists") as string);
-                    errDialog.GetContentDialogLabel().TextWrapping = TextWrapping.Wrap;
-                    errDialog.GetContentDialogLabel().Width = 300;
+                    var errDialog = ContentDialogHelper.CreateContentDialog(
+                        title: TryFindResource("ErdFailedToSave") as string,
+                        description: TryFindResource("ErdPresetExists") as string,
+                        primaryButtonText: TryFindResource("ErdPresetOverwrite") as string,
+                        secondaryButtonText: TryFindResource("CancelButtonText") as string);
 
                     // if user wants to overwrite
                     if (await errDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true) == ContentDialogResult.Primary)
@@ -244,16 +238,13 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
                     ExportHelper.SavePresetToFile(preview);
 
                     // create dialog to inform save succeeded
-                    ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-                    errDialog.DefaultButton = ContentDialogButton.Primary;
-                    errDialog.PrimaryButtonText = TryFindResource("CloseText") as string;
-                    errDialog.Title = TryFindResource("ErdPresetSavedTitle") as string;
-                    errDialog.SetLabelText(preview.PresetName);
-                    errDialog.GetContentDialogLabel().TextWrapping = TextWrapping.Wrap;
-                    errDialog.GetContentDialogLabel().Width = 300;
+                    var resultDialog = ContentDialogHelper.CreateContentDialog(
+                        title: TryFindResource("ErdPresetSavedTitle") as string,
+                        description: preview.PresetName,
+                        primaryButtonText: TryFindResource("CloseText") as string);
 
                     // show confirmation
-                    _ = await errDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+                    _ = await resultDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
                 }
             }
             catch (Exception ex)
@@ -261,13 +252,10 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
                 Context.Log.Error(TryFindResource("ErdFailedToSave") as string);
                 Context.Log.Error(ex.ToString());
 
-                ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-                errDialog.DefaultButton = ContentDialogButton.Primary;
-                errDialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
-                errDialog.Title = TryFindResource("ErdFailedToSave") as string;
-                errDialog.SetLabelText(ex.ToString());
-                errDialog.GetContentDialogLabel().TextWrapping = TextWrapping.Wrap;
-                errDialog.GetContentDialogLabel().Width = 300;
+                var errDialog = ContentDialogHelper.CreateContentDialog(
+                    title: TryFindResource("ErdFailedToSave") as string,
+                    description: ex.ToString(),
+                    primaryButtonText: TryFindResource("OKButtonText") as string);
 
                 _ = await errDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
             }
@@ -289,13 +277,10 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
             Context.Log.Error(TryFindResource("ErdFailedToSave") as string);
             Context.Log.Error(ex.ToString());
 
-            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-            dialog.DefaultButton = ContentDialogButton.Primary;
-            dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
-            dialog.Title = TryFindResource("ErdFailedToSave") as string;
-            dialog.SetLabelText(ex.ToString());
-            dialog.GetContentDialogLabel().TextWrapping = TextWrapping.Wrap;
-            dialog.GetContentDialogLabel().Width = 300;
+            var dialog = ContentDialogHelper.CreateContentDialog(
+                title: TryFindResource("ErdFailedToSave") as string,
+                description: ex.ToString(),
+                primaryButtonText: TryFindResource("OKButtonText") as string);
 
             _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
