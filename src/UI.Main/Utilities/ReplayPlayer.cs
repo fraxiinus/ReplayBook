@@ -123,13 +123,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
         private static async Task<ContentDialogResult> ShowConfirmationDialog()
         {
             // Creating content dialog
-            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: true);
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(
+                title: Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string,
+                description: Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string,
+                primaryButtonText: Application.Current.TryFindResource("YesText") as string,
+                secondaryButtonText: Application.Current.TryFindResource("NoText") as string);
             dialog.DefaultButton = ContentDialogButton.Primary;
-
-            dialog.PrimaryButtonText = Application.Current.TryFindResource("YesText") as string;
-            dialog.SecondaryButtonText = Application.Current.TryFindResource("NoText") as string;
-            dialog.Title = Application.Current.TryFindResource("ReplayPlayConfirmTitle") as string;
-            dialog.SetLabelText(Application.Current.TryFindResource("ReplayPlayConfirmOptOut") as string);
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
@@ -144,12 +143,10 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
         private static async Task ShowUnsupportedDialog(string version)
         {
             // Creating content dialog
-            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-            dialog.DefaultButton = ContentDialogButton.Primary;
-
-            dialog.PrimaryButtonText = Application.Current.TryFindResource("OKButtonText") as string;
-            dialog.Title = Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as string;
-            dialog.SetLabelText((Application.Current.TryFindResource("ExecutableNotFoundErrorText") as string) + " " + version);
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(
+                title: Application.Current.TryFindResource("ExecutableNotFoundErrorTitle") as string,
+                description: (Application.Current.TryFindResource("ExecutableNotFoundErrorText") as string) + " " + version,
+                primaryButtonText: Application.Current.TryFindResource("OKButtonText") as string);
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
@@ -164,17 +161,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
         private static async Task ShowExceptionDialog(Exception ex)
         {
             // Creating content dialog
-            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-            dialog.DefaultButton = ContentDialogButton.Primary;
-
-            dialog.PrimaryButtonText = Application.Current.TryFindResource("OKButtonText") as string;
-            dialog.Title = Application.Current.TryFindResource("ReplayPlayExceptionTitle") as string;
-            dialog.SetLabelText(ex.ToString());
-
-            // Make dialog as long as the exception
-            System.Windows.Controls.TextBlock label = dialog.GetContentDialogLabel();
-            label.MaxWidth = 350;
-            label.TextWrapping = TextWrapping.Wrap;
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(
+                title: Application.Current.TryFindResource("ReplayPlayExceptionTitle") as string,
+                description: ex.ToString(),
+                primaryButtonText: Application.Current.TryFindResource("OKButtonText") as string,
+                labelWidth: 350);
 
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly

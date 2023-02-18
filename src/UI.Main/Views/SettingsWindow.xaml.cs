@@ -825,12 +825,10 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             viewModel.ClearReplayCacheOnClose = true;
 
             // inform the user that the delete will happen when the window is closed
-            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-            dialog.DefaultButton = ContentDialogButton.Primary;
-
-            dialog.PrimaryButtonText = TryFindResource("OKButtonText") as string;
-            dialog.Title = TryFindResource("RequestsCacheCloseToDeleteTitle") as string;
-            dialog.SetLabelText(TryFindResource("RequestsCacheCloseToDelete") as string);
+            ContentDialog dialog = ContentDialogHelper.CreateContentDialog(
+                title: TryFindResource("RequestsCacheCloseToDeleteTitle") as string,
+                description: TryFindResource("RequestsCacheCloseToDelete") as string,
+                primaryButtonText: TryFindResource("OKButtonText") as string);
 
             _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
