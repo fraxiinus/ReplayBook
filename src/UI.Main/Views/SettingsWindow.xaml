@@ -97,9 +97,30 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                                    <Grid Margin="12,6,12,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   FontSize="14"
+                                                   Text="{DynamicResource PlayerMarkerNameLabelText}" />
+                                        <Rectangle Grid.Column="1"
+                                                   Width="1"
+                                                   Height="12"
+                                                   Fill="{DynamicResource SystemControlBackgroundBaseMediumHighBrush}" />
+                                        <TextBlock Grid.Column="2"
+                                                   FontSize="14"
+                                                   Text="{DynamicResource PlayerMarkerNoteLabelText}" />
+                                    </Grid>
+                                </Border>
+
                                 <ListBox x:Name="KnownPlayersListBox"
-                                         Grid.Row="0"
+                                         Grid.Row="1"
                                          Grid.Column="0"
                                          Height="150"
                                          ItemsSource="{Binding Path=Configuration.PlayerMarkers}"
@@ -147,7 +168,7 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
 
-                                <ui:CommandBar Grid.Row="1">
+                                <ui:CommandBar Grid.Row="2">
                                     <ui:AppBarButton x:Name="AddKnownPlayerButton"
                                                      Click="AddKnownPlayerButton_Click"
                                                      Label="{DynamicResource AddButtonText}">
@@ -374,10 +395,31 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
+                                <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                                    <Grid Margin="12,6,12,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   FontSize="14"
+                                                   Text="{DynamicResource ExecutableDetailName}" />
+                                        <Rectangle Grid.Column="1"
+                                                   Width="1"
+                                                   Height="12"
+                                                   Fill="{DynamicResource SystemControlBackgroundBaseMediumHighBrush}" />
+                                        <TextBlock Grid.Column="2"
+                                                   FontSize="14"
+                                                   Text="{DynamicResource ExecutableDetailPropertyPatch}" />
+                                    </Grid>
+                                </Border>
+
                                 <ListBox x:Name="ExecutablesListBox"
-                                         Grid.Row="0"
+                                         Grid.Row="1"
                                          Grid.Column="0"
                                          Height="150"
                                          HorizontalContentAlignment="Stretch"
@@ -414,7 +456,7 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
 
-                                <ui:CommandBar Grid.Row="1">
+                                <ui:CommandBar Grid.Row="2">
                                     <ui:AppBarButton x:Name="AddExecutableButton"
                                                      Click="AddExecutableButton_Click"
                                                      Label="{DynamicResource AddButtonText}">
