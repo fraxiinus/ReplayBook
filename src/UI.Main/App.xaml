@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="Resources/Icons.xaml" />
                 <ResourceDictionary Source="Resources/Styles.xaml" />
                 <ResourceDictionary Source="Resources/Acknowledgements.xaml" />
+                <ResourceDictionary Source="Resources/WebLinks.xaml" />
 
                 <ui:ThemeResources>
                     <ui:ThemeResources.ThemeDictionaries>

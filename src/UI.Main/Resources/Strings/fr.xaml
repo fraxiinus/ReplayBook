@@ -87,7 +87,6 @@
     <string:String x:Key="UpdateAvailableText">Mise à jour est disponible! Téléchargez la nouvelle version ici</string:String>
     <string:String x:Key="UpdateAvailableNotifText">Nouvelle version disponible!</string:String>
     <string:String x:Key="UpdateAvailableNotifButton">Téléchargez</string:String>
-    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
     <string:String x:Key="OpenGitHubButtonText">Voir le projet sur GitHub</string:String>
     <string:String x:Key="UpdateExceptionTitleText">Impossible de vérifier pour les mises à jour</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">La connexion à GitHub a échoué. Vérifiez votre connexion et réessayez</string:String>
@@ -168,12 +167,9 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
-    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Joigner le Discord</string:String>
-    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">Ce programme est sous la licence GPL-3.0</string:String>
-    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">ReplayBook n'est possible que grâce aux personnes suivants:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Projets à code source ouvert</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Remerciements pour l'Open Source</string:String>
@@ -215,7 +211,7 @@
     <string:String x:Key="MagicDamageDealtHeaderText">Dégâts Magiques Infligés</string:String>
     <string:String x:Key="TrueDamageDealtHeaderText">Dégâts Bruts Infligés</string:String>
     <string:String x:Key="LargestCriticalStrikeHeaderText">Coup Critique Max</string:String>
-    <string:String x:Key="TotalDamageToTurretsHeaderText">Dégâts Totaux aux Tourelles </string:String>
+    <string:String x:Key="TotalDamageToTurretsHeaderText">Dégâts Totaux aux Tourelles</string:String>
     <string:String x:Key="TotalDamageToObjectivesHeaderText">Dégâts Totaux aux Objectifs</string:String>
 
     <string:String x:Key="DamageTakenAndHealedGroupHeaderText">Dommages Subis et Guéris</string:String>

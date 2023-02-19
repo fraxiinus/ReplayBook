@@ -103,7 +103,6 @@
     <string:String x:Key="UpdateAvailableText">更新可用！在此处下载新版本</string:String>
     <string:String x:Key="UpdateAvailableNotifText">有新版本可用！</string:String>
     <string:String x:Key="UpdateAvailableNotifButton">下载</string:String>
-    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
     <string:String x:Key="OpenGitHubButtonText">前往Github查看项目</string:String>
     <string:String x:Key="UpdateExceptionTitleText">无法获取更新信息</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">无法连接到GitHub。请检查您的网络连接，然后重试。</string:String>
@@ -205,12 +204,9 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
-    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">加入 Discord</string:String>
-    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">This program is licensed under  GPL-3.0</string:String>
-    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">感谢以下项目对本软件的支持:</string:String>
     <string:String x:Key="AcknowledgementButtonText">查看支持库项目</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">开源确认</string:String>
