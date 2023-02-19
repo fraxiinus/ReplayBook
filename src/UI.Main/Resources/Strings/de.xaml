@@ -88,7 +88,6 @@
     <string:String x:Key="UpdateAvailableText">Update ist verfügbar! Lade die neue Version jetzt herunter</string:String>
     <string:String x:Key="UpdateAvailableNotifText">Neue Version verfügbar</string:String>
     <string:String x:Key="UpdateAvailableNotifButton">Download</string:String>
-    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
     <string:String x:Key="OpenGitHubButtonText">Projekt auf GitHub ansehen</string:String>
     <string:String x:Key="UpdateExceptionTitleText">Kann nicht nach Updates suchen</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">Verbindung zu GitHub fehlgeschlagen. Überprüfe deine Verbindung und probiere es nochmals.</string:String>
@@ -169,12 +168,9 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxinus (Etirps)</string:String>
-    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Trete dem Discord bei!</string:String>
-    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">Dieses Programm ist lizensiert unter GPL-3.0</string:String>
-    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">ReplayBook ist nur möglich dank dem Folgendem:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Open Source Projects</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Open Source Acknowledgements</string:String>
@@ -310,7 +306,7 @@
     <string:String x:Key="SizeAsc">Grösse aufsteigend</string:String>
     <string:String x:Key="SizeDesc">Grösse absteigend</string:String>
 
-    <!--  Replay Menu Item Text  -->  
+    <!--  Replay Menu Item Text  -->
     <string:String x:Key="OpenNewWindow">In neuem Fenster öffnen</string:String>
     <string:String x:Key="OpenContainingFolder">Öffne beinhaltenden Ordner</string:String>
     <string:String x:Key="ExportReplayData">Daten exportieren...</string:String>
@@ -340,7 +336,7 @@
     <string:String x:Key="ErdFinishJsonDuration">Beinhalte Spieldauer</string:String>
     <string:String x:Key="ErdFinishJsonVersion">Beinhalte Patchversion</string:String>
     <string:String x:Key="ErdPreviewTitle">Datenvorschau</string:String>
-  
+
     <!--  Export Data : Common Items + Presets  -->
     <string:String x:Key="ErdSelectAllItems">Alles auswählen</string:String>
     <string:String x:Key="ErdDeselectAllItems">Alles abwählen</string:String>
@@ -362,7 +358,7 @@
     <string:String x:Key="ErdPresetInvalidNotify">Name beinhaltet invalide Zeichen</string:String>
     <string:String x:Key="ErdPresetFailed">Laden der Vorlage gescheitert</string:String>
     <string:String x:Key="ErdPresetSavedTitle">Vorlage gespeichert</string:String>
-  
+
     <!--  Welcome Setup  -->
     <string:String x:Key="WswWindowTitleText">ReplayBook Einrichtung</string:String>
     <string:String x:Key="WswPreviousText">Zurück</string:String>

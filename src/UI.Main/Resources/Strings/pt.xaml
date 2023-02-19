@@ -87,7 +87,6 @@
     <string:String x:Key="UpdateAvailableText">Uma atualização está disponível! Baixe a nova versão aqui</string:String>
     <string:String x:Key="UpdateAvailableNotifText">Nova versão disponível!</string:String>
     <string:String x:Key="UpdateAvailableNotifButton">Baixar</string:String>
-    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
     <string:String x:Key="OpenGitHubButtonText">Ver projeto no GitHub</string:String>
     <string:String x:Key="UpdateExceptionTitleText">Não foi possível procurar por atualizações</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">Falha ao conectar-se ao GitHub. Cheque sua conexão à internet e tente novamente.</string:String>
@@ -140,7 +139,7 @@
 
     <string:String x:Key="SourceFoldersLabelText">Pastas para procurar por Replays</string:String>
     <string:String x:Key="SourceFoldersInfoText">Quaisquer subpastas são inclusas</string:String>
-    <string:String x:Key="SourceFoldersWindowText">Selecione a pasta para procurar por Replays </string:String>
+    <string:String x:Key="SourceFoldersWindowText">Selecione a pasta para procurar por Replays</string:String>
     <string:String x:Key="SourceFoldersAlreadyExistsErrorText">A pasta selecionada já foi adicionada. Por favor escolha outra pasta</string:String>
     <string:String x:Key="SourceFoldersAlreadyExistsErrorTitle">Pasta já adicionada</string:String>
 
@@ -168,12 +167,9 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
-    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Entrar no Discord (servidor em inglês)</string:String>
-    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">Esse programa é licensiado sob GPL-3.0</string:String>
-    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">o ReplayBook só é possível graças aos seguintes:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Projetos Open Source</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Créditos Open Source</string:String>

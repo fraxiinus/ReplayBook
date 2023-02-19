@@ -82,7 +82,6 @@
     <string:String x:Key="UpdateAvailableText">Hay una actualización disponible. Descarga la nueva versión aquí</string:String>
     <string:String x:Key="UpdateAvailableNotifText">Nueva versión disponible</string:String>
     <string:String x:Key="UpdateAvailableNotifButton">Descargar</string:String>
-    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
     <string:String x:Key="OpenGitHubButtonText">Ver repositorio en Github</string:String>
     <string:String x:Key="UpdateExceptionTitleText">No fue posible buscar actualizaciones</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">Error al conectarse a Github. Revisa tu conexión a internet e inténtalo de nuevo.</string:String>
@@ -163,12 +162,9 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
-    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Únete al Discord</string:String>
-    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">Este programa tiene la licencia GPL-3.0</string:String>
-    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">ReplayBook existe gracias a:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Proyectos de código abierto</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Agradecimientos y créditos</string:String>

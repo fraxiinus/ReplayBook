@@ -195,7 +195,6 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
-    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">This program is licensed under GPL-3.0</string:String>
@@ -439,10 +438,4 @@
     <!--  Delete dialog  -->
     <string:String x:Key="DeleteFlyoutLabel">Are you sure?</string:String>
 
-
-    <!--  Web Links  -->
-    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
-    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
-    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
-    <system:Uri x:Key="Help_PlayingExpiredReplays">https://www.fraxiinus.dev/ReplayBook/getting-started/playing-expired-replays/</system:Uri>
 </ResourceDictionary>

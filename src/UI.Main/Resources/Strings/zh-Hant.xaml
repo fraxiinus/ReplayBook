@@ -106,7 +106,6 @@
     <string:String x:Key="UpdateAvailableText">更新可用！在此處下載新版本</string:String>
     <string:String x:Key="UpdateAvailableNotifText">有新版本可用！ </string:String>
     <string:String x:Key="UpdateAvailableNotifButton">下載</string:String>
-    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
     <string:String x:Key="OpenGitHubButtonText">前往Github查看項目</string:String>
     <string:String x:Key="UpdateExceptionTitleText">無法獲取更新信息</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">無法連接到GitHub。請檢查您的網絡連接，然後重試。 </string:String>
@@ -208,12 +207,9 @@
 
     <string:String x:Key="Name">ReplayBook</string:String>
     <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
-    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">加入 Discord</string:String>
-    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">N/A : Liberate Hong Kong, the revolution of our times.</string:String>
     <string:String x:Key="LicenseText">This program is licensed under  GPL-3.0</string:String>
-    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">感謝以下項目對本軟件的支持:</string:String>
     <string:String x:Key="AcknowledgementButtonText">查看支持庫項目</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">開源確認</string:String>
