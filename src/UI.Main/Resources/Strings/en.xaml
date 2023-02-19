@@ -92,7 +92,6 @@
     <string:String x:Key="CheckUpdatesButtonText">Check now</string:String>
     <string:String x:Key="UpdateAvailableText">Update is available! Download the new version here</string:String>
     <string:String x:Key="UpdateAvailableNotifText">New version available!</string:String>
-    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
     <string:String x:Key="OpenGitHubButtonText">View project on GitHub</string:String>
     <string:String x:Key="UpdateExceptionTitleText">Unable to check for updates</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">Failed to connect to GitHub. Check your connection and try again.</string:String>
@@ -129,6 +128,7 @@
     <string:String x:Key="ExecutableSelectWindowTitleText">Select Executable</string:String>
     <string:String x:Key="ExecutableNotFoundErrorTitle">Unsupported Replay</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">No matching executable found for patch</string:String>
+    <string:String x:Key="ExecutableNotFoundDescriptionText">This replay cannot be played because there is no matching executable! An executable with matching patch version must be registered in order to play expired replays.</string:String>
     <string:String x:Key="ReplayPlayConfirmTitle">Play replay?</string:String>
     <string:String x:Key="ReplayPlayConfirmOptOut">You can turn off this confirmation in the settings window</string:String>
 
@@ -196,10 +196,8 @@
     <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
     <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
     <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
-    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">This program is licensed under GPL-3.0</string:String>
-    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">ReplayBook is only possible thanks to the following:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Open Source Projects</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Open Source Acknowledgements</string:String>
@@ -213,6 +211,7 @@
     <string:String x:Key="CancelButtonText">Cancel</string:String>
     <string:String x:Key="BrowseButtonText">Browse...</string:String>
     <string:String x:Key="SelectButtonText">Select</string:String>
+    <string:String x:Key="HelpButtonText">Help</string:String>
 
     <!--  Stats Header Text  -->
     <string:String x:Key="CombatGroupHeaderText">Combat</string:String>
@@ -437,4 +436,10 @@
     <!--  Delete dialog  -->
     <string:String x:Key="DeleteFlyoutLabel">Are you sure?</string:String>
 
+
+    <!--  Web Links  -->
+    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
+    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
+    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
+    <system:Uri x:Key="Help_PlayingExpiredReplays">https://www.fraxiinus.dev/ReplayBook/getting-started/playing-expired-replays/</system:Uri>
 </ResourceDictionary>

@@ -1,9 +1,9 @@
-﻿using Fraxiinus.ReplayBook.Executables.Old.Utilities;
-using Fraxiinus.ReplayBook.UI.Main.Models.View;
+﻿using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -221,6 +221,24 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             if (Context != null)
             {
                 Context.IsHovered = false;
+            }
+        }
+
+        private async void DisabledButtonHandler_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!Context.IsSupported)
+            {
+                var dialog = ContentDialogHelper.CreateContentDialog(
+                    title: TryFindResource("ExecutableNotFoundErrorTitle") as string,
+                    description: TryFindResource("ExecutableNotFoundDescriptionText") as string,
+                    primaryButtonText: TryFindResource("OKButtonText") as string,
+                    secondaryButtonText: TryFindResource("HelpButtonText") as string);
+                
+                if (await dialog.ShowAsync() == ModernWpf.Controls.ContentDialogResult.Secondary)
+                {
+                    var url = (TryFindResource("Help_PlayingExpiredReplays") as Uri).ToString();
+                    _ = Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+                }
             }
         }
     }
