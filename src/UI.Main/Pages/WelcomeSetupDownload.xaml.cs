@@ -1,9 +1,11 @@
 ﻿namespace Fraxiinus.ReplayBook.UI.Main.Pages;
 
 using Fraxiinus.ReplayBook.UI.Main.Models;
+using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 /// <summary>
@@ -29,10 +31,7 @@ public partial class WelcomeSetupDownload : ModernWpf.Controls.Page, IWelcomePag
         context.DisableSkipButton = true;
 
         // get patches
-        await mainViewModel.StaticDataManager.RefreshPatches();
-        var latestPatch = mainViewModel.StaticDataManager.Context.KnownPatchNumbers[1];
-
-        await StaticDataDownloadDialog.StartDownloadDialog(latestPatch);
+        await DownloadStaticData(mainViewModel, context);
 
         // enable nav buttons, only allow them to proceed
         context.DisableNextButton = false;
@@ -51,5 +50,32 @@ public partial class WelcomeSetupDownload : ModernWpf.Controls.Page, IWelcomePag
     public Type GetPreviousPage()
     {
         return typeof(WelcomeSetupReplays);
+    }
+
+    private async Task DownloadStaticData(MainWindowViewModel mainViewModel, WelcomeSetupDataContext context)
+    {
+        try
+        {
+            await mainViewModel.StaticDataManager.RefreshPatches();
+            var latestPatch = mainViewModel.StaticDataManager.Context.KnownPatchNumbers[1];
+
+            await StaticDataDownloadDialog.StartDownloadDialog(latestPatch);
+        }
+        catch (Exception ex)
+        {
+            context.Log.Error(ex.ToString());
+
+            var errorDialog = ContentDialogHelper.CreateContentDialog(
+                title: TryFindResource("ErrorTitle") as string,
+                description: (TryFindResource("Welcome__StaticData__GenericError__Body") as string) + $"\n\n{ex}",
+                primaryButtonText: TryFindResource("RetryButtonText") as string,
+                secondaryButtonText: TryFindResource("CloseText") as string,
+                labelWidth: 500);
+
+            if (await errorDialog.ShowAsync() == ModernWpf.Controls.ContentDialogResult.Primary)
+            {
+                await DownloadStaticData(mainViewModel, context);
+            }
+        }
     }
 }

@@ -34,7 +34,15 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             RefreshPatchesButton.IsEnabled = false;
             PatchComboBox.IsEnabled = false;
 
-            await Context.RefreshPatches();
+            try
+            {
+                await Context.RefreshPatches();
+            }
+            catch (Exception ex)
+            {
+                ErrorTextBlock.Visibility = Visibility.Visible;
+                ErrorTextBlock.Text = ex.Message;
+            }
 
             RefreshPatchesButton.IsEnabled = true;
             PatchComboBox.IsEnabled = true;
