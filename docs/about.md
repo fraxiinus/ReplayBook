@@ -13,6 +13,10 @@ ReplayBook is not endorsed by Riot Games and doesn't reflect the views or opinio
 
 [Robert Wang](https://github.com/robertabcd) for documenting the ROFL container.
 
+[Community Translators](https://github.com/fraxiinus/ReplayBook/wiki/Translating) for translating ReplayBook to other languages.
+
+[Code Contributors](https://github.com/fraxiinus/ReplayBook/graphs/contributors) for providing improvements to ReplayBook.
+
 ---
 
 ## Frequently Asked Questions
@@ -31,7 +35,7 @@ I also do not own a Mac to do development on.
 
 ### Q: Does ReplayBook support means of automating data exporting?
 
-**A:** No. However, I do provide parsers that you can use to create your own solution for batch exporting replay files: [roflxd](https://github.com/fraxiinus/roflxd).
+**A:** ReplayBook provides [presets](../getting-started/exporting-player-data/#taking-advantage-of-presets) to make data exporting easier, however there is no support for exporting bulk replays. I do provide parsers that you can use to create your own solution for batch exporting replay files: [roflxd](https://github.com/fraxiinus/roflxd).
 
 ---
 
