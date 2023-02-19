@@ -212,6 +212,7 @@
     <string:String x:Key="BrowseButtonText">Browse...</string:String>
     <string:String x:Key="SelectButtonText">Select</string:String>
     <string:String x:Key="HelpButtonText">Help</string:String>
+    <string:String x:Key="RetryButtonText">Retry</string:String>
 
     <!--  Stats Header Text  -->
     <string:String x:Key="CombatGroupHeaderText">Combat</string:String>
@@ -424,6 +425,7 @@
 
     <string:String x:Key="Welcome__StaticData__Title">Downloading latest static data...</string:String>
     <string:String x:Key="Welcome__StaticData__Body">Downloading static data will take a few minutes, but is required for displaying champion names and thumbnails. You can download static data bundles for different patches later.</string:String>
+    <string:String x:Key="Welcome__StaticData__GenericError__Body">Error downloading static data. See attached error message.</string:String>
 
     <string:String x:Key="WswFinishTitle">Setup complete!</string:String>
     <string:String x:Key="WswFinishBody">Click &quot;Finish&quot; and ReplayBook will automatically start with your chosen settings.</string:String>
