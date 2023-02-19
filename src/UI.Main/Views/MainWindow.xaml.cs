@@ -46,10 +46,16 @@ public partial class MainWindow : Window
         _lastSelection = null;
 
         // Catch all unhandled exceptions to write logs
-        Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
+        Dispatcher.UnhandledException += async (object sender, DispatcherUnhandledExceptionEventArgs e) =>
         {
             log.Error(e.Exception.ToString());
             log.WriteLog();
+
+            MessageBox.Show(
+                messageBoxText: (TryFindResource("General__GlobalExceptionHandler__Body") as string) + $"\nException: {e.Exception.GetType()} {e.Exception.Message}",
+                caption: TryFindResource("ErrorTitle") as string,
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
         };
 
         // Create new viewmodel and set as mainwindow context

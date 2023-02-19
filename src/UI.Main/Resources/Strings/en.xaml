@@ -40,7 +40,7 @@
 
     <string:String x:Key="ReplaySupported">Playable</string:String>
     <string:String x:Key="ReplayUnsupported">Unsupported</string:String>
-    <string:String x:Key="ReplayPlayExceptionTitle">Exception Occured</string:String>
+    <string:String x:Key="ReplayPlayExceptionTitle">Exception Occurred</string:String>
 
     <string:String x:Key="NoReplaysFoundTitle">No more results</string:String>
 
@@ -51,6 +51,7 @@
     <string:String x:Key="General__Downloading">Downloading...</string:String>
     <string:String x:Key="General__ViewButton">View</string:String>
     <string:String x:Key="General__ExitButton">Exit</string:String>
+    <string:String x:Key="General__GlobalExceptionHandler__Body">Unhandled exception occurred! Please check the logs directory for full details.</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
