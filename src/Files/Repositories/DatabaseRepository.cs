@@ -153,6 +153,11 @@ public class DatabaseRepository
             .FindById(id);
     }
 
+    public IReadOnlyCollection<FileResult> GetFileResults(IEnumerable<string> ids)
+    {
+        return ids.Select(x => GetFileResult(x)).ToList();
+    }
+
     public IEnumerable<FileResult> GetReplayFiles()
     {
         using var db = new LiteDatabase(_filePath);

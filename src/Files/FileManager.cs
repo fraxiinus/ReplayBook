@@ -15,16 +15,20 @@ public class FileManager
 {
     private readonly FolderRepository _fileSystem;
     private readonly DatabaseRepository _db;
+    private readonly SearchRepository _search;
+
     private readonly RiZhi _log;
     private readonly List<string> _deletedFiles;
     private readonly ObservableConfiguration _config;
 
     public FileManager(ObservableConfiguration config, RiZhi log)
     {
-        _log = log ?? throw new ArgumentNullException(nameof(log));
-        _config = config;
         _fileSystem = new FolderRepository(config, log);
         _db = new DatabaseRepository(config, log);
+        _search = new SearchRepository(config, log);
+
+        _log = log ?? throw new ArgumentNullException(nameof(log));
+        _config = config;
         _deletedFiles = new List<string>();
     }
 
@@ -61,7 +65,8 @@ public class FileManager
                         IsNewFile = false
                     };
 
-                    _db.AddFileResult(newResult);   
+                    _db.AddFileResult(newResult);
+                    _search.AddDocument(newResult);
                     newCount++;
                 }
                 catch (Exception ex)
@@ -77,6 +82,7 @@ public class FileManager
             }
         }
 
+        _search.CommitIndex();
         _log.Information("Initial load of replays complete");
         return errorResults;
     }
@@ -140,14 +146,23 @@ public class FileManager
     {
         if (sort == null) { throw new ArgumentNullException(nameof(sort)); }
 
-        var keywords = sort.SearchTerm.Split('"')       // split the string by quotes
-            .Select((element, index) => // select the substring, and the index of the substring
-                index % 2 == 0  // If the index is even (after a close quote)
-                ? element.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries) // split by space
-                : new string[] { element }) // return the string enclosed by quotes
-            .SelectMany(element => element).ToArray();
+        if (string.IsNullOrEmpty(sort.SearchTerm))
+        {
+            return _db.QueryReplayFiles(Array.Empty<string>(), sort.SortMethod, maxEntries, skip);
+        }
 
-        return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
+        var results = _search.Query(sort.SearchTerm, maxEntries);
+
+        return _db.GetFileResults(results);
+
+        //var keywords = sort.SearchTerm.Split('"')       // split the string by quotes
+        //    .Select((element, index) => // select the substring, and the index of the substring
+        //        index % 2 == 0  // If the index is even (after a close quote)
+        //        ? element.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries) // split by space
+        //        : new string[] { element }) // return the string enclosed by quotes
+        //    .SelectMany(element => element).ToArray();
+
+        //return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
     }
 
     public string RenameReplay(FileResult file, string newName)
