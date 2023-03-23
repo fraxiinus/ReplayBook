@@ -13,6 +13,7 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
             ReplayFolders = config.ReplaySettings.FolderList != null
                 ? new ObservableCollection<string>(config.ReplaySettings.FolderList)
                 : new ObservableCollection<string>();
+            SearchMinimumScore = config.ReplaySettings.SearchMinimumScore;
 
             DataDragonBaseUrl = config.RequestSettings.DataDragonBaseUrl;
             CommunityDragonBaseUrl = config.RequestSettings.CommunityDragonBaseUrl;
@@ -36,6 +37,10 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
 
         /// Replay Settings
         public ObservableCollection<string> ReplayFolders { get; private set; }
+
+        public int ItemsPerPage { get; set; }
+
+        public float SearchMinimumScore { get; set; }
 
         /// Static Data Settings
         public string DataDragonBaseUrl { get; set; }
@@ -63,8 +68,6 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
         public bool PlayConfirm { get; set; }
 
         public bool RenameFile { get; set; }
-
-        public int ItemsPerPage { get; set; }
 
         public bool AutoUpdateCheck { get;set; }
 

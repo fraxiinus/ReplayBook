@@ -8,6 +8,10 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
         [ConfigurationKeyName("folder_list")]
         [JsonPropertyName("folder_list")]
         public string[]? FolderList { get; set; }
+
+        [ConfigurationKeyName("search_minimum_score")]
+        [JsonPropertyName("search_minimum_score")]
+        public float SearchMinimumScore { get; set; } = 0.3f;
     }
 
     public class RequestSettings

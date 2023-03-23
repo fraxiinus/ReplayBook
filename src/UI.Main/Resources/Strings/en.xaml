@@ -171,6 +171,7 @@
     <string:String x:Key="Settings__StaticData__RetryDownload__Button">Retry in English</string:String>
 
     <string:String x:Key="ReplayItemsPerPage">Items Per Page</string:String>
+    <string:String x:Key="Settings__Replays__SearchMinimumScore__Label">Search Strictness</string:String>
 
     <string:String x:Key="ReplayDatabaseText">Replay Data Cache</string:String>
     <string:String x:Key="ReplayDatabaseSize">Size:</string:String>
