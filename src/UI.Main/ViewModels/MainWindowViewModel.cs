@@ -7,6 +7,7 @@ using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Executables.Old.Utilities;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Files.Models;
+using Fraxiinus.ReplayBook.Files.Models.Search;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.StaticData.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models;
@@ -40,7 +41,7 @@ public class MainWindowViewModel
     /// <summary>
     /// Contains properties used for filtering and sorting replays
     /// </summary>
-    public QueryProperties SortParameters { get; private set; }
+    public SearchParameters SortParameters { get; private set; }
 
     /// <summary>
     /// Smaller, preview objects of replays
@@ -92,9 +93,9 @@ public class MainWindowViewModel
         PreviewReplays = new ObservableCollection<ReplayPreview>();
         FileResults = new Dictionary<string, FileResult>();
         StatusBarModel = new StatusBar();
-        SortParameters = new QueryProperties
+        SortParameters = new SearchParameters
         {
-            SearchTerm = string.Empty,
+            QueryString = string.Empty,
             SortMethod = SortMethod.DateDesc
         };
 
@@ -105,10 +106,10 @@ public class MainWindowViewModel
     /// <summary>
     /// Get replays from database and stores in collections
     /// </summary>
-    public int LoadReplaysFromDatabase()
+    public (int received, int total) LoadReplaysFromDatabase(bool resetSearch = false)
     {
         _log.Information("Loading replays from database...");
-        IReadOnlyCollection<FileResult> databaseResults = _fileManager.GetReplays(SortParameters, Configuration.ItemsPerPage, PreviewReplays.Count);
+        var (databaseResults, searchResultCount) = _fileManager.GetReplays(SortParameters, Configuration.ItemsPerPage, PreviewReplays.Count, resetSearch);
 
         _log.Information($"Retrieved {databaseResults.Count} replays");
 
@@ -117,7 +118,7 @@ public class MainWindowViewModel
             AddReplayToCollection(file);
         }
 
-        return databaseResults.Count;
+        return (databaseResults.Count, searchResultCount);
     }
 
     /// <summary>
@@ -359,7 +360,8 @@ public class MainWindowViewModel
         IEnumerable<FileErrorResult> results = await _fileManager.InitialLoadAsync().ConfigureAwait(true);
 
         // Load from database into our viewmodel
-        await Task.Run(() => LoadReplaysFromDatabase());
+        int searchResults = -1;
+        await Task.Run(() => (_, searchResults) = LoadReplaysFromDatabase(true));
 
         // Load thumbnails
         StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;
@@ -372,16 +374,24 @@ public class MainWindowViewModel
             await ExecutableManager.VerifyRegisteredExecutables().ConfigureAwait(true);
         }
 
-        if (results.Any())
+        if (searchResults == -1)
         {
-            StatusBarModel.ShowProgressBar = false;
-            StatusBarModel.ShowDismissButton = true;
-            StatusBarModel.Errors = results;
-            StatusBarModel.StatusMessage = $"{results.Count()} {Application.Current.TryFindResource("LoadingMessageErrors")}";
+            if (results.Any())
+            {
+                StatusBarModel.ShowProgressBar = false;
+                StatusBarModel.ShowDismissButton = true;
+                StatusBarModel.Errors = results;
+                StatusBarModel.StatusMessage = $"{results.Count()} {Application.Current.TryFindResource("LoadingMessageErrors")}";
+            }
+            else
+            {
+                StatusBarModel.Visible = false;
+            }
         }
         else
         {
-            StatusBarModel.Visible = false;
+            StatusBarModel.ShowProgressBar = false;
+            StatusBarModel.StatusMessage = $"{PreviewReplays.Count} / {searchResults}";
         }
     }
 

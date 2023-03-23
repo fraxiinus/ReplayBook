@@ -707,6 +707,29 @@
                                            TextAlignment="Right" />
                             </Grid>
 
+                            <TextBlock FontSize="16" Text="{DynamicResource Settings__Replays__SearchMinimumScore__Label}" />
+                            <Grid VerticalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="25" />
+                                </Grid.ColumnDefinitions>
+                                <Slider x:Name="SearchMinimumScoreSlider"
+                                        Grid.Column="0"
+                                        Margin="0,0,10,0"
+                                        IsSnapToTickEnabled="True"
+                                        Maximum="1"
+                                        Minimum="0"
+                                        TickFrequency="0.1"
+                                        TickPlacement="BottomRight"
+                                        Value="{Binding Path=Configuration.SearchMinimumScore}" />
+
+                                <TextBlock x:Name="SearchMinimumScoreTextBox"
+                                           Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding ElementName=SearchMinimumScoreSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                                           TextAlignment="Right" />
+                            </Grid>
+
                             <TextBlock FontSize="16" Text="{DynamicResource ReplayDatabaseText}" />
                             <Grid MinWidth="200" HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>

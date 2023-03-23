@@ -3,6 +3,7 @@
 using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Files.Models;
+using Fraxiinus.ReplayBook.Files.Models.Search;
 using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using LiteDB;
 using System;
@@ -151,6 +152,11 @@ public class DatabaseRepository
             .Include("$.ReplayFile.BluePlayers[*]")
             .Include("$.ReplayFile.RedPlayers[*]")
             .FindById(id);
+    }
+
+    public IReadOnlyCollection<FileResult> GetFileResults(IEnumerable<string> ids)
+    {
+        return ids.Select(x => GetFileResult(x)).ToList();
     }
 
     public IEnumerable<FileResult> GetReplayFiles()
