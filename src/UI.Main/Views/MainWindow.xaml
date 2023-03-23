@@ -42,12 +42,11 @@
 
                 <Grid x:Name="ToolPanel"
                       Grid.Row="0"
+                      MinWidth="374"
                       Background="Transparent"
                       DataContext="{Binding Path=SortParameters}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
@@ -55,56 +54,62 @@
                             Margin="10,10,5,10"
                             BorderThickness="1">
                         <ui:AutoSuggestBox x:Name="SearchBox"
+                                           MaxWidth="278"
                                            FontSize="14"
                                            PlaceholderText="{DynamicResource SearchDefaultText}"
                                            QueryIcon="Find"
                                            QuerySubmitted="SearchBox_QuerySubmitted" />
                     </Border>
 
-                    <Button x:Name="SortButton"
-                            Grid.Column="2"
-                            Width="37"
-                            Background="Transparent"
-                            Click="SortButton_Click"
-                            ContextMenuService.Placement="Bottom"
-                            ToolTip="{DynamicResource SortToolTip}">
-                        <ui:PathIcon Data="{StaticResource SortPathIcon}" />
-                        <Button.ContextMenu>
-                            <ContextMenu x:Name="SortMenu">
-                                <ui:RadioMenuItem x:Name="NameAsc"
-                                                  Click="MenuItem_Click"
-                                                  Header="{DynamicResource NameAsc}" />
-                                <ui:RadioMenuItem x:Name="NameDesc"
-                                                  Click="MenuItem_Click"
-                                                  Header="{DynamicResource NameDesc}" />
-                                <Separator />
-                                <ui:RadioMenuItem x:Name="DateAsc"
-                                                  Click="MenuItem_Click"
-                                                  Header="{DynamicResource DateAsc}" />
-                                <ui:RadioMenuItem x:Name="DateDesc"
-                                                  Click="MenuItem_Click"
-                                                  Header="{DynamicResource DateDesc}" />
-                                <Separator />
-                                <ui:RadioMenuItem x:Name="SizeAsc"
-                                                  Click="MenuItem_Click"
-                                                  Header="{DynamicResource SizeAsc}" />
-                                <ui:RadioMenuItem x:Name="SizeDesc"
-                                                  Click="MenuItem_Click"
-                                                  Header="{DynamicResource SizeDesc}" />
-                            </ContextMenu>
-                        </Button.ContextMenu>
-                    </Button>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="SortButton"
+                                Grid.Column="0"
+                                Width="37"
+                                Background="Transparent"
+                                Click="SortButton_Click"
+                                ContextMenuService.Placement="Bottom"
+                                ToolTip="{DynamicResource SortToolTip}">
+                            <ui:PathIcon Data="{StaticResource SortPathIcon}" />
+                            <Button.ContextMenu>
+                                <ContextMenu x:Name="SortMenu">
+                                    <ui:RadioMenuItem x:Name="NameAsc"
+                                                      Click="MenuItem_Click"
+                                                      Header="{DynamicResource NameAsc}" />
+                                    <ui:RadioMenuItem x:Name="NameDesc"
+                                                      Click="MenuItem_Click"
+                                                      Header="{DynamicResource NameDesc}" />
+                                    <Separator />
+                                    <ui:RadioMenuItem x:Name="DateAsc"
+                                                      Click="MenuItem_Click"
+                                                      Header="{DynamicResource DateAsc}" />
+                                    <ui:RadioMenuItem x:Name="DateDesc"
+                                                      Click="MenuItem_Click"
+                                                      Header="{DynamicResource DateDesc}" />
+                                    <Separator />
+                                    <ui:RadioMenuItem x:Name="SizeAsc"
+                                                      Click="MenuItem_Click"
+                                                      Header="{DynamicResource SizeAsc}" />
+                                    <ui:RadioMenuItem x:Name="SizeDesc"
+                                                      Click="MenuItem_Click"
+                                                      Header="{DynamicResource SizeDesc}" />
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
 
-                    <Button x:Name="SettingsButton"
-                            Grid.Column="3"
-                            Width="37"
-                            Margin="0,5,5,5"
-                            Background="Transparent"
-                            Click="SettingsButton_Click"
-                            ToolTip="{DynamicResource SettingsToolTip}">
-                        <ui:PathIcon Data="{StaticResource SettingsPathIcon}" />
-                    </Button>
-
+                        <Button x:Name="SettingsButton"
+                                Grid.Column="1"
+                                Width="37"
+                                Margin="0,5,5,5"
+                                Background="Transparent"
+                                Click="SettingsButton_Click"
+                                ToolTip="{DynamicResource SettingsToolTip}">
+                            <ui:PathIcon Data="{StaticResource SettingsPathIcon}" />
+                        </Button>
+                    </Grid>
                 </Grid>
 
                 <Grid x:Name="ReplayStatusBar"
