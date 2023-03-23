@@ -3,6 +3,7 @@
 using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Files.Models;
+using Fraxiinus.ReplayBook.Files.Models.Search;
 using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using LiteDB;
 using System;

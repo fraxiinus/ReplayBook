@@ -3,6 +3,7 @@
 using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Files.Models;
+using Fraxiinus.ReplayBook.Files.Models.Search;
 using Fraxiinus.ReplayBook.Files.Repositories;
 using Fraxiinus.Rofl.Extract.Data;
 using System;
@@ -142,27 +143,18 @@ public class FileManager
         _log.Information($"Pruning complete");
     }
 
-    public IReadOnlyCollection<FileResult> GetReplays(QueryProperties sort, int maxEntries, int skip)
+    public (IReadOnlyCollection<FileResult>, int searchResultCount) GetReplays(SearchParameters searchParameters, int maxEntries, int skip, bool resetSearch = false)
     {
-        if (sort == null) { throw new ArgumentNullException(nameof(sort)); }
+        if (searchParameters == null) { throw new ArgumentNullException(nameof(searchParameters)); }
 
-        if (string.IsNullOrEmpty(sort.SearchTerm))
+        if (string.IsNullOrEmpty(searchParameters.QueryString))
         {
-            return _db.QueryReplayFiles(Array.Empty<string>(), sort.SortMethod, maxEntries, skip);
+            return (_db.QueryReplayFiles(Array.Empty<string>(), searchParameters.SortMethod, maxEntries, skip), -1);
         }
 
-        var results = _search.Query(sort.SearchTerm, maxEntries);
+        var (results, searchResultCount) = _search.Query(searchParameters, maxEntries, skip, _config.SearchMinimumScore, resetSearch);
 
-        return _db.GetFileResults(results);
-
-        //var keywords = sort.SearchTerm.Split('"')       // split the string by quotes
-        //    .Select((element, index) => // select the substring, and the index of the substring
-        //        index % 2 == 0  // If the index is even (after a close quote)
-        //        ? element.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries) // split by space
-        //        : new string[] { element }) // return the string enclosed by quotes
-        //    .SelectMany(element => element).ToArray();
-
-        //return _db.QueryReplayFiles(keywords, sort.SortMethod, maxEntries, skip);
+        return (_db.GetFileResults(results.Select(x => x.Id)), searchResultCount);
     }
 
     public string RenameReplay(FileResult file, string newName)

@@ -6,6 +6,7 @@ using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.Files.Models;
+using Fraxiinus.ReplayBook.Files.Models.Search;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Controls;
 using Fraxiinus.ReplayBook.UI.Main.Models;
@@ -237,7 +238,9 @@ public partial class MainWindow : Window
     {
         if (DataContext is not MainWindowViewModel context) { return; }
 
-        if (context.LoadReplaysFromDatabase() == 0)
+        var (received, searchResults) = context.LoadReplaysFromDatabase();
+
+        if (received == 0)
         {
             // Create and show flyout above the button
             Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false, includeCustom: false);
@@ -246,6 +249,10 @@ public partial class MainWindow : Window
             flyout.ShowAt(LoadMoreButton);
 
             return;
+        }
+        else
+        {
+            context.StatusBarModel.StatusMessage = $"{context.PreviewReplays.Count} / {searchResults}";
         }
 
         // Hide the button bar once we've loaded more
@@ -259,7 +266,7 @@ public partial class MainWindow : Window
         if (e.Key != System.Windows.Input.Key.Enter) { return; }
         if (sender is not AutoSuggestBox searchBox) { return; }
 
-        context.SortParameters.SearchTerm = searchBox.Text;
+        context.SortParameters.QueryString = searchBox.Text;
 
         await context.ReloadReplayList(false);
     }
@@ -272,7 +279,7 @@ public partial class MainWindow : Window
             await context.ReloadReplayList(false).ConfigureAwait(true);
         }
 
-        context.SortParameters.SearchTerm = args.QueryText;
+        context.SortParameters.QueryString = args.QueryText;
 
         await context.ReloadReplayList(false);
     }
