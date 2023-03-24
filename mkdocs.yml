@@ -38,6 +38,7 @@ nav:
     - Playing expired replays: getting-started/playing-expired-replays.md
     - Exporting player data: getting-started/exporting-player-data.md
     - Get Static Data Bundles: getting-started/get-static-data-bundles.md
+    - Advanced search techniques: getting-started/advanced-search-techniques.md
   - Troubleshooting:
     - troubleshooting/index.md
     - Play button disabled: troubleshooting/play-button-disabled.md

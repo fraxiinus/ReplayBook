@@ -34,6 +34,10 @@ Notice how pre-reworked Mordekaiser is now displayed correctly, and all the item
 
 ---
 
+[Next: Advanced search techniques](../getting-started/advanced-search-techniques.md){ .md-button .md-button--primary }
+
+---
+
 ## Need Help?
 
 [Check the Troubleshooting page](../../troubleshooting)
