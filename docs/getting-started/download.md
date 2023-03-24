@@ -8,8 +8,13 @@ Thank you for downloading ReplayBook!
 Click the button below to start your download.
 
 [Download latest version](https://github.com/fraxiinus/replaybook/releases/latest/download/ReplayBook.zip){ .md-button .md-button--primary }
+&nbsp;[All versions](https://github.com/fraxiinus/ReplayBook/releases){ .md-button }
 
-To download an older version, check the [GitHub releases page](https://github.com/fraxiinus/ReplayBook/releases)
+If you like what I do and would like to support me:
+
+[![Donate](https://shields.io/badge/ko--fi-support%20me-green?logo=ko-fi&style=flat-square)](https://ko-fi.com/fraxiinus)
+
+## Quick Start
 
 1. Extract the files from the zip archive  
     ![Extract Archive](../images/downloads_ExtractArchive.png)
@@ -24,4 +29,12 @@ To download an older version, check the [GitHub releases page](https://github.co
 
 Once ReplayBook is downloaded, you may want to check out the following section to take full advantage of all features:
 
-[Getting Started](../getting-started/setting-up-replaybook.md){ .md-button }
+[Setting up ReplayBook](../getting-started/setting-up-replaybook.md){ .md-button }
+
+## Need Help?
+
+[Check the Troubleshooting page](../../troubleshooting)
+
+[Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }
+[Join the Discord :material-chat:](https://discord.gg/c33Rc5J){ .md-button .md-button }
+[Report an Issue :material-bug:](https://github.com/fraxiinus/ReplayBook/issues/new/choose){ .md-button .md-button }
