@@ -35,7 +35,11 @@ public class FileManager
 
     public string DatabasePath { get => _db.GetDatabasePath(); }
 
+    public string SearchIndexPath { get => _search.SearchIndexDirectory; }
+
     public void DeleteDatabase() => _db.DeleteDatabase();
+
+    public void DeleteSearchIndex() => _search.DeleteIndex();
 
     /// <summary>
     /// This function is responsible for finding and loading in new replays
