@@ -73,6 +73,8 @@ public class SearchRepository
         __luceneDirectory.Dispose();
     }
 
+    public string SearchIndexDirectory => _searchDirectory;
+
     /// <summary>
     /// Commit the search repository to disk and update index searcher
     /// </summary>
@@ -84,7 +86,21 @@ public class SearchRepository
         __directoryReader = _writer.GetReader(applyAllDeletes: true);
         _searcher = new IndexSearcher(__directoryReader);
 
-        _log.Information("Seach index committed and reader updated");
+        _log.Information("Search index committed and reader updated");
+    }
+
+    public void DeleteIndex()
+    {
+        _writer.DeleteAll();
+
+        _writer.Commit();
+
+        _log.Information("Search index deleted and committed");
+
+        __directoryReader.Dispose();
+        _writer.Dispose();
+        __standardAnalyzer.Dispose();
+        __luceneDirectory.Dispose();
     }
 
     /// <summary>

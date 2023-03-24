@@ -1,6 +1,7 @@
-﻿using ModernWpf.Controls;
-using Fraxiinus.ReplayBook.Files.Models;
+﻿using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models;
+using ModernWpf.Controls;
+using System.Windows;
 using System.Windows.Documents;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Views
@@ -15,7 +16,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             InitializeComponent();
         }
 
-        private void ContentDialog_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void ContentDialog_Loaded(object sender, RoutedEventArgs e)
         {
             if (DataContext is not StatusBar context) { return; }
 

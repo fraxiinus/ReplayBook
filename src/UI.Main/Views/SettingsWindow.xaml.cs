@@ -828,9 +828,15 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             ContentDialog dialog = ContentDialogHelper.CreateContentDialog(
                 title: TryFindResource("RequestsCacheCloseToDeleteTitle") as string,
                 description: TryFindResource("RequestsCacheCloseToDelete") as string,
-                primaryButtonText: TryFindResource("OKButtonText") as string);
+                primaryButtonText: TryFindResource("Settings__Replays__ClearCacheRestartNow__Button") as string,
+                secondaryButtonText: TryFindResource("CancelButtonText") as string);
 
-            _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            var result = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            if (result == ContentDialogResult.Primary)
+            {
+                viewModel.RestartOnClose = true;
+                this.Close();
+            }
         }
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

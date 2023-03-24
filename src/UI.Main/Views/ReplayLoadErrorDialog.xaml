@@ -7,8 +7,9 @@
                   Title="{DynamicResource LoadingFailureTitle}"
                   Background="{DynamicResource TabBackground}"
                   CloseButtonText="{DynamicResource CloseText}"
-                  DefaultButton="Primary"
+                  DefaultButton="Close"
                   Loaded="ContentDialog_Loaded"
+                  PrimaryButtonText="{DynamicResource ReplayDatabaseClearButton}"
                   mc:Ignorable="d">
     <ui:SimpleStackPanel Orientation="Vertical" Spacing="12">
         <TextBlock Text="{DynamicResource LoadingFailureSubtitle}" />

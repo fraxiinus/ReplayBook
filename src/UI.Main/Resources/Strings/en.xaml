@@ -176,6 +176,7 @@
     <string:String x:Key="ReplayDatabaseText">Replay Data Cache</string:String>
     <string:String x:Key="ReplayDatabaseSize">Size:</string:String>
     <string:String x:Key="ReplayDatabaseClearButton">Clear cache</string:String>
+    <string:String x:Key="Settings__Replays__ClearCacheRestartNow__Button">Restart now</string:String>
 
     <string:String x:Key="RequestsDownloadAllLabel">Download Images</string:String>
     <string:String x:Key="RequestsCacheLabel">Downloaded Images Cache</string:String>
@@ -195,7 +196,7 @@
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
 
     <string:String x:Key="Name">ReplayBook</string:String>
-    <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
+    <string:String x:Key="Author">Fraxiinus</string:String>
     <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">This program is licensed under GPL-3.0</string:String>
