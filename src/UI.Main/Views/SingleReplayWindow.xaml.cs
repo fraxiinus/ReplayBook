@@ -71,10 +71,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             {
                 _log.Error($"Failed to load file {ReplayFileLocation}");
 
-                ContentDialog errDialog = ContentDialogHelper.CreateContentDialog(includeSecondaryButton: false);
-                errDialog.DefaultButton = ContentDialogButton.Primary;
-                errDialog.PrimaryButtonText = TryFindResource("General__ExitButton") as string;
-                errDialog.Title = TryFindResource("LoadingFailureTitle") as string;
+                var errDialog = ContentDialogHelper.CreateContentDialog(
+                    title: TryFindResource("LoadingFailureTitle") as string,
+                    description: TryFindResource("FailedToLoadReplayText") as string,
+                    primaryButtonText: TryFindResource("General__ExitButton") as string,
+                    labelWidth: 500);
 
                 var exceptionText = new TextBox
                 {
@@ -82,18 +83,13 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                     IsReadOnly = true,
                     IsReadOnlyCaretVisible = true,
                     TextWrapping = TextWrapping.Wrap,
-                    Width = 300,
+                    Width = 500,
                     Height = 300,
                     Margin = new Thickness(0, 20, 0, 0)
                 };
-
                 Grid.SetColumn(exceptionText, 0);
                 Grid.SetRow(exceptionText, 1);
                 (errDialog.Content as Grid).Children.Add(exceptionText);
-
-                errDialog.SetLabelText(TryFindResource("FailedToLoadReplayText") as string);
-                errDialog.GetContentDialogLabel().TextWrapping = TextWrapping.Wrap;
-                errDialog.GetContentDialogLabel().Width = 300;
 
                 _ = await errDialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
 

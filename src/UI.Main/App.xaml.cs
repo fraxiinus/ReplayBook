@@ -4,10 +4,12 @@ using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
+using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
 using Microsoft.Extensions.Configuration;
 using ModernWpf;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
@@ -29,7 +31,27 @@ namespace Fraxiinus.ReplayBook.UI.Main
         private ObservableConfiguration _configuration;
         private ExecutableManager _executables;
 
+        /// <summary>
+        /// Application entry point
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void Application_Startup(object sender, StartupEventArgs e)
+        {
+            await StartApplication(e);
+        }
+
+        private static void ShouldRestart(bool restartApplication)
+        {
+            if (restartApplication)
+            {
+                var currentExecutablePath = Environment.ProcessPath;
+                Current.Shutdown();
+                Process.Start(currentExecutablePath);
+            }
+        }
+
+        private async Task StartApplication(StartupEventArgs e)
         {
             // load settings
             var config = new ConfigurationBuilder()
@@ -38,6 +60,7 @@ namespace Fraxiinus.ReplayBook.UI.Main
                 .Get<ConfigurationFile>();
             _configuration = new ObservableConfiguration(config);
 
+            // create underlying objects
             await CreateCommonObjects();
 
             // Apply appearence theme
@@ -69,12 +92,27 @@ namespace Fraxiinus.ReplayBook.UI.Main
                     {
                         ReplayFileLocation = selectedFile
                     };
+                    // Capture if restart is needed
+                    singleWindow.Closed += (s, eventArgs) =>
+                    {
+                        if (singleWindow.DataContext is MainWindowViewModel viewModel)
+                        {
+                            ShouldRestart(viewModel.RestartOnClose);
+                        }
+                    };
                     singleWindow.Show();
                 }
             }
             else
             {
                 var mainWindow = new MainWindow(_log, _configuration, _staticDataManager, _executables, _files, _player);
+                mainWindow.Closed += (s, eventArgs) =>
+                {
+                    if (mainWindow.DataContext is MainWindowViewModel viewModel)
+                    {
+                        ShouldRestart(viewModel.RestartOnClose);
+                    }
+                };
                 mainWindow.RestoreSavedWindowState();
                 mainWindow.Show();
             }

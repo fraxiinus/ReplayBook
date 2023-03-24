@@ -69,9 +69,15 @@ public class MainWindowViewModel
     public StatusBar StatusBarModel { get; private set; }
 
     /// <summary>
-    /// Flag used to clear cache when closing
+    /// Flag used to clear cache (database and search) when closing
     /// </summary>
     public bool ClearReplayCacheOnClose { get; set; }
+
+    /// <summary>
+    /// Flag to communicate with startup method to restart the application
+    /// </summary>
+    public bool RestartOnClose { get; set; }
+
     #endregion
 
     public MainWindowViewModel(FileManager files,
@@ -101,6 +107,7 @@ public class MainWindowViewModel
 
         // By default we do not want to delete our cache
         ClearReplayCacheOnClose = false;
+        RestartOnClose = false;
     }
 
     /// <summary>
@@ -330,6 +337,11 @@ public class MainWindowViewModel
         };
 
         settingsDialog.ShowDialog();
+
+        if (RestartOnClose)
+        {
+            Application.Current.MainWindow.Close();
+        }
 
         // Refresh markers
         ReloadPlayerMarkers();
@@ -677,13 +689,26 @@ public class MainWindowViewModel
         _fileManager.ClearDeletedFiles();
     }
 
+    /// <summary>
+    /// Calculate size on disk for replay cache (database + search index)
+    /// </summary>
+    /// <returns></returns>
     public long CalculateReplayCacheSize()
     {
         var databaseInfo = new FileInfo(_fileManager.DatabasePath);
-        return databaseInfo.Length;
+        var totalSize = databaseInfo.Length;
+
+        // Calculate disk size of search index files
+        var searchIndexInfo = new DirectoryInfo(_fileManager.SearchIndexPath);
+        foreach (var file in searchIndexInfo.EnumerateFiles())
+        {
+            totalSize += file.Length;
+        }
+
+        return totalSize;
     }
 
-    public void ClearCache()
+    public void ClearCachedData()
     {
         GC.Collect();
         GC.WaitForPendingFinalizers();
@@ -691,6 +716,7 @@ public class MainWindowViewModel
         if (ClearReplayCacheOnClose)
         {
             _fileManager.DeleteDatabase();
+            _fileManager.DeleteSearchIndex();
         }
     }
 }

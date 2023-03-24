@@ -303,7 +303,7 @@ public partial class MainWindow : Window
     {
         if (DataContext is not MainWindowViewModel context) { return; }
 
-        context.ClearCache();
+        context.ClearCachedData();
     }
 
     private void ReplayStatusBarDismissButton_Click(object sender, RoutedEventArgs e)
@@ -324,6 +324,25 @@ public partial class MainWindow : Window
         {
             DataContext = context.StatusBarModel
         };
-        _ = await errorDialog.ShowAsync().ConfigureAwait(true);
+        var result = await errorDialog.ShowAsync().ConfigureAwait(true);
+
+        if (result == ContentDialogResult.Primary)
+        {
+            context.ClearReplayCacheOnClose = true;
+
+            // inform the user that the delete will happen when the window is closed
+            var dialog = ContentDialogHelper.CreateContentDialog(
+                title: TryFindResource("RequestsCacheCloseToDeleteTitle") as string,
+                description: TryFindResource("RequestsCacheCloseToDelete") as string,
+                primaryButtonText: TryFindResource("Settings__Replays__ClearCacheRestartNow__Button") as string,
+                secondaryButtonText: TryFindResource("CancelButtonText") as string);
+
+            var confirmResult = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            if (confirmResult == ContentDialogResult.Primary)
+            {
+                context.RestartOnClose = true;
+                Close();
+            }
+        }
     }
 }
