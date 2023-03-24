@@ -6,8 +6,8 @@ description: Getting started
 ReplayBook utilizes [Lucene.NET](https://lucenenet.apache.org/) for its search functionality.
 The full query syntax can be found [here](https://lucenenet.apache.org/docs/4.8.0-beta00016/api/queryparser/Lucene.Net.QueryParsers.Classic.html).
 
-!!! note
-    This document only applies to application versions >= 1.8.0. Stay updated to the most [recent version](../getting-started/download.md).
+!!! failure
+    This feature has not been released yet! Provide your feedback at the links below!
 
 ## Available Fields
 
