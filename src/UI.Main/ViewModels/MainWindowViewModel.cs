@@ -490,7 +490,8 @@ public class MainWindowViewModel
             ContentFrame = contentFrame,
             HideHeader = false,
             WindowTitleText = Application.Current.FindResource("ErdTitle") as string,
-            Log = _log
+            Log = _log,
+            StaticDataManager = StaticDataManager
         };
 
         var exportDialog = new ExportDataWindow()

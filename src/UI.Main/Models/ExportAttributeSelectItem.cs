@@ -7,7 +7,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string _name;
-
+        /// <summary>
+        /// Display Name
+        /// </summary>
         public string Name
         {
             get => _name;
@@ -21,6 +23,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
         }
 
         private string _propertyName;
+        /// <summary>
+        /// Internal Object Name
+        /// </summary>
         public string PropertyName
         {
             get => _propertyName;

@@ -14,12 +14,13 @@ using System.Windows.Data;
 /// </summary>
 public partial class ExportWizardAttributes : ModernWpf.Controls.Page
 {
-    private ExportDataContext Context
-    {
-        get => (DataContext is ExportDataContext context)
-            ? context
-            : throw new Exception("Invalid data context");
-    }
+    // This method of handling context is unstable when ContentFrame navigates
+    //private ExportDataContext Context
+    //{
+    //    get => (DataContext is ExportDataContext context)
+    //        ? context
+    //        : throw new Exception("Invalid data context");
+    //}
 
     public ExportWizardAttributes()
     {
@@ -28,6 +29,8 @@ public partial class ExportWizardAttributes : ModernWpf.Controls.Page
 
     private void ExportWizardAttributes_Loaded(object sender, RoutedEventArgs e)
     {
+        if (DataContext is not ExportDataContext Context) { return; }
+
         // get first checked player
         string playerName = Context.Players.FirstOrDefault(x => x.Checked)?.PlayerPreview.PlayerName;
         PlayerStats player = Context.Replay.Players
@@ -49,8 +52,10 @@ public partial class ExportWizardAttributes : ModernWpf.Controls.Page
 
     private void AttributeFilterBox_TextChanged(object sender, TextChangedEventArgs e)
     {
+        if (DataContext is not ExportDataContext Context) { return; }
         if (sender is not TextBox textbox) { return; }
 
+        // datacontext null check to stop crash when page is being deallocated
         if (string.IsNullOrEmpty(textbox.Text))
         {
             Context.AttributesView.Filter -= new FilterEventHandler(AttributeFilter);
@@ -65,6 +70,7 @@ public partial class ExportWizardAttributes : ModernWpf.Controls.Page
 
     private void AttributeFilter(object sender, FilterEventArgs e)
     {
+        if (DataContext is not ExportDataContext Context) { return; }
         string filterText = Context.AttributeFilterText;
 
         if (e.Item is not ExportAttributeSelectItem src)
@@ -79,16 +85,19 @@ public partial class ExportWizardAttributes : ModernWpf.Controls.Page
 
     private void BackButton_Click(object sender, RoutedEventArgs e)
     {
+        if (DataContext is not ExportDataContext Context) { return; }
         Context.ContentFrame.GoBack();
     }
 
     private void NextButton_Click(object sender, RoutedEventArgs e)
     {
+        if (DataContext is not ExportDataContext Context) { return; }
         _ = Context.ContentFrame.Navigate(typeof(ExportWizardFinish));
     }
 
     private void SelectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
+        if (DataContext is not ExportDataContext Context) { return; }
         foreach (ExportAttributeSelectItem attributeSelect in Context.Attributes)
         {
             attributeSelect.Checked = true;
@@ -97,6 +106,7 @@ public partial class ExportWizardAttributes : ModernWpf.Controls.Page
 
     private void DeselectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
+        if (DataContext is not ExportDataContext Context) { return; }
         foreach (ExportAttributeSelectItem attributeSelect in Context.Attributes)
         {
             attributeSelect.Checked = false;

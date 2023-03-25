@@ -101,7 +101,7 @@ public partial class ExportWizardLanding : Page
             Context.LastPreset = Context.PresetName;
 
             // try to export data to file, close the wizard if its done
-            if (ExportHelper.ExportToFile(Context, Window.GetWindow(this)))
+            if (await ExportHelper.ExportToFile(Context, Window.GetWindow(this)))
             {
                 Window.GetWindow(this).Close();
             }

@@ -43,9 +43,9 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void PreviewBox_Update(object sender, RoutedEventArgs e)
+    private async void PreviewBox_Update(object sender, RoutedEventArgs e)
     {
-        Context.ExportPreview = ExportHelper.ConstructExportString(Context);
+        Context.ExportPreview = await ExportHelper.ConstructExportString(Context);
     }
 
     private void AttributeFilterBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -64,7 +64,7 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         Context.AttributesView.View.Refresh();
     }
 
-    private void PlayerCheckBox_Click(object sender, RoutedEventArgs e)
+    private async void PlayerCheckBox_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not CheckBox checkbox) { return; }
 
@@ -82,12 +82,12 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         }
 
         // regeneratee export preview
-        Context.ExportPreview = ExportHelper.ConstructExportString(Context);
+        Context.ExportPreview = await ExportHelper.ConstructExportString(Context);
     }
 
-    private void AttributeCheckBox_Click(object sender, RoutedEventArgs e)
+    private async void AttributeCheckBox_Click(object sender, RoutedEventArgs e)
     {
-        Context.ExportPreview = ExportHelper.ConstructExportString(Context);
+        Context.ExportPreview = await ExportHelper.ConstructExportString(Context);
     }
 
     private void AttributeFilter(object sender, FilterEventArgs e)
@@ -104,7 +104,7 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         }
     }
 
-    private void SelectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
+    private async void SelectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
         foreach (ExportPlayerSelectItem playerSelect in Context.Players)
         {
@@ -112,10 +112,10 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         }
 
         // update preview
-        Context.ExportPreview = ExportHelper.ConstructExportString(Context);
+        Context.ExportPreview = await ExportHelper.ConstructExportString(Context);
     }
 
-    private void DeselectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
+    private async void DeselectAllMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
         foreach (ExportPlayerSelectItem playerSelect in Context.Players)
         {
@@ -123,10 +123,10 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         }
 
         // update preview
-        Context.ExportPreview = ExportHelper.ConstructExportString(Context);
+        Context.ExportPreview = await ExportHelper.ConstructExportString(Context);
     }
 
-    private void SelectAllAttributeMenuItem_OnClick(object sender, RoutedEventArgs e)
+    private async void SelectAllAttributeMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
         foreach (ExportAttributeSelectItem attributeSelect in Context.Attributes)
         {
@@ -134,10 +134,10 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         }
 
         // update preview
-        Context.ExportPreview = ExportHelper.ConstructExportString(Context);
+        Context.ExportPreview = await ExportHelper.ConstructExportString(Context);
     }
 
-    private void DeselectAllAttributeMenuItem_OnClick(object sender, RoutedEventArgs e)
+    private async void DeselectAllAttributeMenuItem_OnClick(object sender, RoutedEventArgs e)
     {
         foreach (ExportAttributeSelectItem attributeSelect in Context.Attributes)
         {
@@ -145,7 +145,7 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         }
 
         // update preview
-        Context.ExportPreview = ExportHelper.ConstructExportString(Context);
+        Context.ExportPreview = await ExportHelper.ConstructExportString(Context);
     }
 
     private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -197,7 +197,7 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
             Context.LoadPreset(dialog.DataContext as ExportPreset);
 
             // update preview
-            Context.ExportPreview = ExportHelper.ConstructExportString(Context);
+            Context.ExportPreview = await ExportHelper.ConstructExportString(Context);
         }
     }
 
@@ -270,7 +270,7 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
             // Save the preset as the last loaded
             Context.LastPreset = Context.PresetName;
 
-            exit = ExportHelper.ExportToFile(Context, Window.GetWindow(this));
+            exit = await ExportHelper.ExportToFile(Context, Window.GetWindow(this));
         }
         catch (Exception ex)
         {

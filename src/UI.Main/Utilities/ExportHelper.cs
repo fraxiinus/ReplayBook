@@ -1,18 +1,22 @@
 ﻿namespace Fraxiinus.ReplayBook.UI.Main.Utilities;
 
+using Fraxiinus.ReplayBook.Executables.Old.Utilities;
+using Fraxiinus.ReplayBook.StaticData;
+using Fraxiinus.ReplayBook.StaticData.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using System.Text.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Text.Json.Serialization;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Threading.Tasks;
+using System.Windows;
 
 public static class ExportHelper
 {
@@ -20,12 +24,13 @@ public static class ExportHelper
 
     private static readonly JsonSerializerOptions serializerOptions = new()
     {
-        WriteIndented = true
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping // I know this is unsafe, but this json is going to disk; not the web
     };
 
-    public static string ConstructExportString(ExportDataContext context)
+    public static async Task<string> ConstructExportString(ExportDataContext context)
     {
-        return context.ExportAsCSV ? ConstructCsvString(context) : ConstructJsonString(context);
+        return context.ExportAsCSV ? await ConstructCsvString(context) : await ConstructJsonString(context);
     }
 
     /// <summary>
@@ -34,9 +39,9 @@ public static class ExportHelper
     /// <param name="context"></param>
     /// <param name="parent"></param>
     /// <returns></returns>
-    public static bool ExportToFile(ExportDataContext context, Window parent)
+    public static async Task<bool> ExportToFile(ExportDataContext context, Window parent)
     {
-        string results = ConstructExportString(context);
+        string results = await ConstructExportString(context);
 
         using var saveDialog = new CommonSaveFileDialog();
         saveDialog.Title = Application.Current.FindResource("ErdExportDialogTitle") as string;
@@ -118,7 +123,7 @@ public static class ExportHelper
         File.Delete(filePath);
     }
 
-    private static string ConstructJsonString(ExportDataContext context)
+    private static async Task<string> ConstructJsonString(ExportDataContext context)
     {
         if (context is null || context.Players is null) { return "{}"; }
 
@@ -160,9 +165,22 @@ public static class ExportHelper
                 {
                     if (attributeSelect.Checked)
                     {
-                        string value = player.GetType().GetProperty(attributeSelect.PropertyName).GetValue(player)?.ToString();
+                        // Get value of attribute
+                        string value = player
+                            .GetType()
+                            .GetProperty(attributeSelect.PropertyName)
+                            .GetValue(player)
+                            ?.ToString();
 
-                        string attributeName = context.NormalizeAttributeNames ? NormalizeAttributeName(attributeSelect.Name) : attributeSelect.Name;
+                        // Replace value with static data
+                        value = context.ApplyStaticData
+                            ? await ReplaceValueWithStaticData(attributeSelect.Name, value, context.Replay.GameVersion, context.StaticDataManager)
+                            : value;
+
+                        // Normalize attribute name
+                        string attributeName = context.NormalizeAttributeNames
+                            ? NormalizeAttributeName(attributeSelect.Name)
+                            : attributeSelect.Name;
 
                         playerAttributes[attributeName] = value;
                     }
@@ -176,7 +194,7 @@ public static class ExportHelper
         return result.ToJsonString(serializerOptions);
     }
 
-    private static string ConstructCsvString(ExportDataContext context)
+    private static async Task<string> ConstructCsvString(ExportDataContext context)
     {
         if (context is null || context.Players is null) { return ""; }
 
@@ -208,8 +226,19 @@ public static class ExportHelper
                         PlayerStats player = context.Replay.Players
                             .First(x => x.Name.Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
 
+                        string value = player
+                            .GetType()
+                            .GetProperty(attributeSelect.PropertyName)
+                            .GetValue(player)
+                            ?.ToString();
+
+                        // Replace value with static data
+                        value = context.ApplyStaticData
+                            ? await ReplaceValueWithStaticData(attributeSelect.Name, value, context.Replay.GameVersion, context.StaticDataManager)
+                            : value;
+
                         // Load the attribute value into the player line
-                        playerLines[playerSelect.PlayerPreview.PlayerName] += "," + player.GetType().GetProperty(attributeSelect.PropertyName).GetValue(player)?.ToString();
+                        playerLines[playerSelect.PlayerPreview.PlayerName] += "," + value;
                     }
                 }
             }
@@ -239,5 +268,36 @@ public static class ExportHelper
         }
 
         return value;
+    }
+
+    private static async Task<string> ReplaceValueWithStaticData(string attributeName, string propertyValue, string patchVersion, StaticDataManager staticData)
+    {
+        var currentLanguage = LanguageHelper.CurrentLanguage;
+
+        // Item Ids to Names
+        return attributeName switch
+        {
+            // Champion Ids to Names
+            "SKIN" => (await staticData.GetProperties<ChampionProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "PERK0" => (await staticData.GetProperties<RuneProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "PERK1" => (await staticData.GetProperties<RuneProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "PERK2" => (await staticData.GetProperties<RuneProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "PERK3" => (await staticData.GetProperties<RuneProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "PERK4" => (await staticData.GetProperties<RuneProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "PERK5" => (await staticData.GetProperties<RuneProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "STAT_PERK_0" => (await staticData.GetProperties<RuneProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "STAT_PERK_1" => (await staticData.GetProperties<RuneProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "STAT_PERK_2" => (await staticData.GetProperties<RuneProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "ITEM0" => (await staticData.GetProperties<ItemProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "ITEM1" => (await staticData.GetProperties<ItemProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "ITEM2" => (await staticData.GetProperties<ItemProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "ITEM3" => (await staticData.GetProperties<ItemProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "ITEM4" => (await staticData.GetProperties<ItemProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "ITEM5" => (await staticData.GetProperties<ItemProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            "ITEM6" => (await staticData.GetProperties<ItemProperties>(propertyValue, patchVersion.VersionSubstring(), currentLanguage))?.DisplayName ?? propertyValue,
+            _ => propertyValue
+        };
+
+        // Rune Ids to Names
     }
 }

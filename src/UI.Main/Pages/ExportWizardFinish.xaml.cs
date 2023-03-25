@@ -29,9 +29,9 @@ public partial class ExportWizardFinish : Page
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void PreviewBox_Update(object sender, RoutedEventArgs e)
+    private async void PreviewBox_Update(object sender, RoutedEventArgs e)
     {
-        Context.ExportPreview = ExportHelper.ConstructExportString(Context);
+        Context.ExportPreview = await ExportHelper.ConstructExportString(Context);
     }
 
     private async void PresetButton_Click(object sender, RoutedEventArgs e)
@@ -105,7 +105,7 @@ public partial class ExportWizardFinish : Page
         bool exit = false;
         try
         {
-            exit = ExportHelper.ExportToFile(Context, Window.GetWindow(this));
+            exit = await ExportHelper.ExportToFile(Context, Window.GetWindow(this));
         }
         catch (Exception ex)
         {
