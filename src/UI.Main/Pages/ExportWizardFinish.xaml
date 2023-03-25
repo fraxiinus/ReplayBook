@@ -31,6 +31,9 @@
                 <CheckBox Click="PreviewBox_Update"
                           Content="{DynamicResource ErdFinishFormatNormalize}"
                           IsChecked="{Binding NormalizeAttributeNames}" />
+                <CheckBox Click="PreviewBox_Update"
+                          Content="{DynamicResource ExportData__FinishPage__ApplyStaticData__Checkbox}"
+                          IsChecked="{Binding ApplyStaticData}" />
                 <TextBlock FontSize="16" Text="{DynamicResource ErdFinishJsonHeading}" />
                 <CheckBox Click="PreviewBox_Update"
                           Content="{DynamicResource ErdFinishJsonMatchId}"

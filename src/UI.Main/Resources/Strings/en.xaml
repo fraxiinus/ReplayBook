@@ -362,6 +362,7 @@
     <string:String x:Key="ErdFinishFormatHeading">Output format</string:String>
     <string:String x:Key="ErdFinishFormatCsv">Export as CSV</string:String>
     <string:String x:Key="ErdFinishFormatNormalize">Normalize attribute names</string:String>
+    <string:String x:Key="ExportData__FinishPage__ApplyStaticData__Checkbox">Apply static data</string:String>
     <string:String x:Key="ErdFinishJsonHeading">JSON specific options</string:String>
     <string:String x:Key="ErdFinishJsonMatchId">Include match ID</string:String>
     <string:String x:Key="ErdFinishJsonDuration">Include match duration</string:String>

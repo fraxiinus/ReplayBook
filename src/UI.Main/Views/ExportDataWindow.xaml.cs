@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Text.Json.Serialization;
+using Fraxiinus.ReplayBook.StaticData;
 
 /// <summary>
 /// Interaction logic for ExportDataWindow.xaml

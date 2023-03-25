@@ -9,7 +9,7 @@
          xmlns:ui="http://schemas.modernwpf.com/2019"
          Title="ExportWizardAdvanced"
          d:DataContext="{d:DesignInstance Type=models:ExportDataContext}"
-         d:DesignHeight="450"
+         d:DesignHeight="480"
          d:DesignWidth="800"
          Loaded="ExportWizardAdvanced_Loaded"
          SizeChanged="Page_SizeChanged"
@@ -104,6 +104,10 @@
                     <CheckBox Click="PreviewBox_Update"
                               Content="{DynamicResource ErdFinishFormatNormalize}"
                               IsChecked="{Binding NormalizeAttributeNames}" />
+
+                    <CheckBox Click="PreviewBox_Update"
+                              Content="{DynamicResource ExportData__FinishPage__ApplyStaticData__Checkbox}"
+                              IsChecked="{Binding ApplyStaticData}" />
 
                     <TextBlock FontSize="16" Text="{DynamicResource ErdFinishJsonHeading}" />
 
