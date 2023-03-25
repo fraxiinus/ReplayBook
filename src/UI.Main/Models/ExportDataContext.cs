@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using Fraxiinus.ReplayBook.UI.Main.Models.View;
+using Fraxiinus.ReplayBook.StaticData;
 
 /// <summary>
 /// Set as the DataContext for <see cref="ExportDataWindow"/>
@@ -19,6 +20,8 @@ public class ExportDataContext : INotifyPropertyChanged
     #region Properties
 
     public RiZhi Log { get; set; }
+
+    public StaticDataManager StaticDataManager { get; set; }
 
     public string LastPreset { get; set; }
 
@@ -215,6 +218,18 @@ public class ExportDataContext : INotifyPropertyChanged
             _normalizeAttributeNames = value;
             PropertyChanged?.Invoke(
                 this, new PropertyChangedEventArgs(nameof(NormalizeAttributeNames)));
+        }
+    }
+
+    private bool _applyStaticData;
+    public bool ApplyStaticData
+    {
+        get => _applyStaticData;
+        set
+        {
+            _applyStaticData = value;
+            PropertyChanged?.Invoke(
+                this, new PropertyChangedEventArgs(nameof(ApplyStaticData)));
         }
     }
 
