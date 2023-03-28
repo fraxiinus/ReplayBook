@@ -16,6 +16,8 @@ title: Troubleshooting
 
 ## [Issues playing replays](issues-playing-replays.md)
 
+## [Replay not displaying data](replay-not-displaying-data.md)
+
 ---
 
 ## Need Additional Help?

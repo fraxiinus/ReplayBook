@@ -18,8 +18,8 @@ The full query syntax can be found [here](https://lucenenet.apache.org/docs/4.8.
 | red          | A comma separated list of player names and champions on the red team                                 | -                                                                      |
 | blue         | A comma separated list of player names and champions on the blue team                                | -                                                                      |
 | replayName   | The name of the replay - Only supports full text matches                                             | NA1-999999.rofl                                                        |
-| createdDate  | Replay file created date, in ticks                                                                   |                                                                        |
-| fileSize     | Replay file size, in bytes                                                                           |                                                                        |
+| createdDate  | Replay file created date, in ticks                                                                   | -                                                                      |
+| fileSize     | Replay file size, in bytes                                                                           | -                                                                      |
 
 !!! note
     Champion names use the internal game names. Usually it is enough to remove spaces and special characters. For example, "Miss Fortune" becomes "MissFortune" and "Wukong" becomes "MonkeyKing"
@@ -44,13 +44,13 @@ The quotes ensure that only replays where `wifienyabledcat` is playing `Yuumi` a
 Use the `AND` operator to query two players:
 
 ```plaintext
-"wifienyabledcat Nami" AND redmagemorgan
+"wifienyabledcat Nami" AND Shavisi
 ```
 
 And to specify champions:
 
 ```plaintext
-"wifienyabledcat Yuumi" AND "redmagemorgan Zeri"
+"wifienyabledcat Yuumi" AND "Shavisi Zeri"
 ```
 
 ### Query matchups
@@ -70,7 +70,7 @@ Player names can also be specified:
 Search only player matchups:
 
 ```plaintext
-(blue:Shavisi AND red:Supes) OR (red:Shavisi AND blue:Supes)
+(blue:Shavisi AND red:Etirps) OR (red:Shavisi AND blue:Etirps)
 ```
 
 ---
