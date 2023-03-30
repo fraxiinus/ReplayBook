@@ -113,10 +113,21 @@ public class MainWindowViewModel
     /// <summary>
     /// Get replays from database and stores in collections
     /// </summary>
-    public (int received, int total) LoadReplaysFromDatabase(bool resetSearch = false)
+    public (int received, int total, Exception fault) LoadReplaysFromDatabase(bool resetSearch = false)
     {
         _log.Information("Loading replays from database...");
-        var (databaseResults, searchResultCount) = _fileManager.GetReplays(SortParameters, Configuration.ItemsPerPage, PreviewReplays.Count, resetSearch);
+
+        IReadOnlyCollection<FileResult> databaseResults;
+        int searchResultCount;
+        try
+        {
+            (databaseResults, searchResultCount) = _fileManager.GetReplays(SortParameters, Configuration.ItemsPerPage, PreviewReplays.Count, resetSearch);
+        }
+        catch (Exception ex)
+        {
+            _log.Error(ex.ToString());
+            return (0, 0, ex);
+        }
 
         _log.Information($"Retrieved {databaseResults.Count} replays");
 
@@ -125,7 +136,7 @@ public class MainWindowViewModel
             AddReplayToCollection(file);
         }
 
-        return (databaseResults.Count, searchResultCount);
+        return (databaseResults.Count, searchResultCount, null);
     }
 
     /// <summary>
@@ -373,7 +384,7 @@ public class MainWindowViewModel
 
         // Load from database into our viewmodel
         int searchResults = -1;
-        await Task.Run(() => (_, searchResults) = LoadReplaysFromDatabase(true));
+        await Task.Run(() => (_, searchResults, _) = LoadReplaysFromDatabase(true));
 
         // Load thumbnails
         StatusBarModel.StatusMessage = Application.Current.TryFindResource("LoadingMessageThumbnails") as string;

@@ -147,6 +147,15 @@ public class FileManager
         _log.Information($"Pruning complete");
     }
 
+    /// <summary>
+    /// searchResultCount is -1 if results are direct from database
+    /// </summary>
+    /// <param name="searchParameters"></param>
+    /// <param name="maxEntries"></param>
+    /// <param name="skip"></param>
+    /// <param name="resetSearch"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public (IReadOnlyCollection<FileResult>, int searchResultCount) GetReplays(SearchParameters searchParameters, int maxEntries, int skip, bool resetSearch = false)
     {
         if (searchParameters == null) { throw new ArgumentNullException(nameof(searchParameters)); }
