@@ -163,14 +163,9 @@ public class FileManager
 
     public string RenameReplay(FileResult file, string newName)
     {
-        if (_config.RenameFile)
-        {
-            return RenameFile(file, newName);
-        }
-        else
-        {
-            return RenameAlternative(file, newName);
-        }
+        return _config.RenameFile
+            ? RenameReplay(file, newName)
+            : RenameAlternative(file, newName);
     }
 
     private string RenameAlternative(FileResult file, string newName)
