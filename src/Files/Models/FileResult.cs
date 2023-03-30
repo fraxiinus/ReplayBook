@@ -35,6 +35,9 @@ public class FileResult
 
     public ReplayFile ReplayFile { get; set; }
 
+    /// <summary>
+    /// Full file path used as ID
+    /// </summary>
     public string Id { get; set; }
 
     public bool IsNewFile { get; set; }
