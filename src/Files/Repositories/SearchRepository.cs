@@ -5,15 +5,20 @@ using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.Files.Models.Search;
 using Fraxiinus.ReplayBook.Files.Utilities;
+using Lucene.Net.Analysis;
+using Lucene.Net.Analysis.Core;
+using Lucene.Net.Analysis.Miscellaneous;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
-using Lucene.Net.QueryParsers.Classic;
+using Lucene.Net.QueryParsers.Flexible.Standard;
+using Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using LuceneDirectory = Lucene.Net.Store.Directory;
@@ -28,12 +33,12 @@ public class SearchRepository
     // responsible for writing to the index
     private readonly IndexWriter _writer;
     // reponsible for parsing queries
-    private readonly QueryParser _queryParser;
+    private readonly StandardQueryParser _queryParser;
     // responsible for searching the index
     private IndexSearcher _searcher;
 
     // dependencies for lucene, need to be disposed
-    private readonly StandardAnalyzer __standardAnalyzer;
+    private readonly PerFieldAnalyzerWrapper __analyzer;
     private readonly LuceneDirectory __luceneDirectory;
     private DirectoryReader __directoryReader;
 
@@ -46,14 +51,20 @@ public class SearchRepository
         _config = config ?? throw new ArgumentNullException(nameof(config));
         _log = log ?? throw new ArgumentNullException(nameof(log));
 
-        // required objects for lucene
-        __standardAnalyzer = new StandardAnalyzer(luceneVersion);
-        __luceneDirectory = FSDirectory.Open(_searchDirectory);
+        // Analyzers used for fields
+        var analyzersPerField = new Dictionary<string, Analyzer>
+        {   // some fields need different analyzers in order to query properly
+            ["replayName"] = new KeywordAnalyzer(),
+            ["fileSize"] = new KeywordAnalyzer(),
+            ["id"] = new KeywordAnalyzer()
+        };
+        __analyzer = new PerFieldAnalyzerWrapper(new StandardAnalyzer(luceneVersion), analyzersPerField);
 
+        __luceneDirectory = FSDirectory.Open(_searchDirectory);
         // initialize writer
-        var indexConfig = new IndexWriterConfig(luceneVersion, __standardAnalyzer)
+        var indexConfig = new IndexWriterConfig(luceneVersion, __analyzer)
         {
-            OpenMode = OpenMode.CREATE_OR_APPEND
+            OpenMode = OpenMode.CREATE_OR_APPEND,
         };
         _writer = new IndexWriter(__luceneDirectory, indexConfig);
 
@@ -61,15 +72,22 @@ public class SearchRepository
         __directoryReader = _writer.GetReader(applyAllDeletes: true);
         _searcher = new IndexSearcher(__directoryReader);
 
-        // create parser
-        _queryParser = new QueryParser(luceneVersion, "baseKeywords", __standardAnalyzer);
+        // create parser and required configurations
+        var numericConfigMap = new Dictionary<string, NumericConfig>
+        {   // numeric fields need definitions on how to compare numbers
+            ["date"] = new NumericConfig(1, new SimpleNumberFormat(CultureInfo.InvariantCulture), NumericType.INT64)
+        };
+        _queryParser = new StandardQueryParser(__analyzer)
+        {
+            NumericConfigMap = numericConfigMap
+        };
     }
 
     ~SearchRepository()
     {
         __directoryReader.Dispose();
         _writer.Dispose();
-        __standardAnalyzer.Dispose();
+        __analyzer.Dispose();
         __luceneDirectory.Dispose();
     }
 
@@ -99,7 +117,7 @@ public class SearchRepository
 
         __directoryReader.Dispose();
         _writer.Dispose();
-        __standardAnalyzer.Dispose();
+        __analyzer.Dispose();
         __luceneDirectory.Dispose();
     }
 
@@ -125,6 +143,9 @@ public class SearchRepository
         var bluePlayers = string.Join(", ", fileResult.ReplayFile.BluePlayers.Select(p => p.Name + " " + p.Skin));
         document.Add(new TextField("blue", bluePlayers, Field.Store.NO));
        
+        // Query date, allow for date range query
+        document.Add(new Int64Field("date", long.Parse(fileResult.FileCreationTime.ToString("yyyyMMdd")), Field.Store.NO));
+
         // These are used for sorting, and must be stored
         document.Add(new StringField("replayName", fileResult.AlternativeName, Field.Store.YES));
         document.Add(new Int64Field("createdDate", fileResult.FileCreationTime.Ticks, Field.Store.YES));
@@ -133,13 +154,18 @@ public class SearchRepository
         _writer.AddDocument(document);
     }
 
+    public void RemoveDocument(string id)
+    {
+
+    }
+
     public (IEnumerable<SearchResultItem>, int searchResultCount) Query(SearchParameters searchParameters, int maxEntries, int skip, float minScore = 0.3f, bool forceReset = false)
     {
         if (searchParameters.QueryString != _queryString || forceReset)
         {
-            _queryString = searchParameters.QueryString;
+            _queryString = QueryParserUtil.Escape(searchParameters.QueryString);
             // parse the query and create the collector
-            var query = _queryParser.Parse(searchParameters.QueryString);
+            var query = _queryParser.Parse(searchParameters.QueryString, "baseKeywords");
             var resultsCollector = new ResultsCollector();
 
             _searcher.Search(query, resultsCollector.GetCollector());
