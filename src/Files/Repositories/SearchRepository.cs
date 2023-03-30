@@ -73,13 +73,17 @@ public class SearchRepository
         _searcher = new IndexSearcher(__directoryReader);
 
         // create parser and required configurations
-        var numericConfigMap = new Dictionary<string, NumericConfig>
-        {   // numeric fields need definitions on how to compare numbers
-            ["date"] = new NumericConfig(1, new SimpleNumberFormat(CultureInfo.InvariantCulture), NumericType.INT64)
+        //var numericConfigMap = new Dictionary<string, NumericConfig>
+        //{   // numeric fields need definitions on how to compare numbers
+        //    ["date"] = new NumericConfig(1, new SimpleNumberFormat(CultureInfo.InvariantCulture), NumericType.INT64)
+        //};
+        var dateResolutionMap = new Dictionary<string, DateResolution>
+        {   // date fields need resolution definitions
+            ["date"] = DateResolution.DAY
         };
         _queryParser = new StandardQueryParser(__analyzer)
         {
-            NumericConfigMap = numericConfigMap
+            DateResolutionMap = dateResolutionMap
         };
     }
 
@@ -144,7 +148,7 @@ public class SearchRepository
         document.Add(new TextField("blue", bluePlayers, Field.Store.NO));
        
         // Query date, allow for date range query
-        document.Add(new Int64Field("date", long.Parse(fileResult.FileCreationTime.ToString("yyyyMMdd")), Field.Store.NO));
+        document.Add(new StringField("date", DateTools.DateToString(fileResult.FileCreationTime, DateResolution.DAY), Field.Store.NO));
 
         // These are used for sorting, and must be stored
         document.Add(new StringField("replayName", fileResult.AlternativeName, Field.Store.YES));
