@@ -75,14 +75,15 @@ public class SearchRepository
         // create parser and required configurations
         //var numericConfigMap = new Dictionary<string, NumericConfig>
         //{   // numeric fields need definitions on how to compare numbers
-        //    ["date"] = new NumericConfig(1, new SimpleNumberFormat(CultureInfo.InvariantCulture), NumericType.INT64)
+        //    ["length"] = new NumericConfig(1, new SimpleNumberFormat(CultureInfo.InvariantCulture), NumericType.INT32)
         //};
         var dateResolutionMap = new Dictionary<string, DateResolution>
         {   // date fields need resolution definitions
-            ["date"] = DateResolution.DAY
+            ["date"] = DateResolution.DAY,
         };
         _queryParser = new StandardQueryParser(__analyzer)
         {
+            //NumericConfigMap = numericConfigMap,
             DateResolutionMap = dateResolutionMap
         };
     }
@@ -149,6 +150,7 @@ public class SearchRepository
        
         // Query date, allow for date range query
         document.Add(new StringField("date", DateTools.DateToString(fileResult.FileCreationTime, DateResolution.DAY), Field.Store.NO));
+        document.Add(new StringField("length", $"{fileResult.ReplayFile.GameDuration.Minutes}{fileResult.ReplayFile.GameDuration.Seconds}", Field.Store.NO));
 
         // These are used for sorting, and must be stored
         document.Add(new StringField("replayName", fileResult.AlternativeName, Field.Store.YES));
