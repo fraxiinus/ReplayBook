@@ -44,7 +44,7 @@ public class ResultsCollector
             var searchResult = new SearchResultItem()
             {
                 Id = document.Get("id"),
-                ReplayName = document.Get("replayName"),
+                ReplayName = document.Get("name"),
                 CreatedDate = float.Parse(document.Get("createdDate")),
                 FileSize = float.Parse(document.Get("fileSize")),
                 Score = score

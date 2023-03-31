@@ -9,16 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class SimpleNumberFormat : NumberFormat
-{
-    public SimpleNumberFormat(CultureInfo info) : base(info)
-    {
+// Unused, but good to remember!
+//public class SimpleNumberFormat : NumberFormat
+//{
+//    public SimpleNumberFormat(CultureInfo info) : base(info)
+//    {
 
-    }
+//    }
 
-    public override Number Parse(string source)
-    {
-        _ = J2N.Numerics.Int64.TryParse(source, out long result);
-        return J2N.Numerics.Int64.GetInstance(result);
-    }
-}
+//    public override Number Parse(string source)
+//    {
+//        _ = J2N.Numerics.Int64.TryParse(source, out long result);
+//        return J2N.Numerics.Int64.GetInstance(result);
+//    }
+//}

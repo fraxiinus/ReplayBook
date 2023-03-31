@@ -173,7 +173,7 @@ public class FileManager
     public string RenameReplay(FileResult file, string newName)
     {
         return _config.RenameFile
-            ? RenameReplay(file, newName)
+            ? RenameFile(file, newName)
             : RenameAlternative(file, newName);
     }
 
@@ -185,6 +185,8 @@ public class FileManager
         try
         {
             _db.UpdateAlternativeName(file.Id, newName);
+            _search.UpdateDocumentName(file, newName);
+            _search.CommitIndex();
         }
         catch (KeyNotFoundException ex)
         {
