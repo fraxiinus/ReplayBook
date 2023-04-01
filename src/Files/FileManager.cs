@@ -186,7 +186,6 @@ public class FileManager
         {
             _db.UpdateAlternativeName(file.Id, newName);
             _search.UpdateDocumentName(file, newName);
-            _search.CommitIndex();
         }
         catch (KeyNotFoundException ex)
         {

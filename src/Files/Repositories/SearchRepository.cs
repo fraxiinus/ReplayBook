@@ -62,7 +62,7 @@ public class SearchRepository
         // initialize writer
         var indexConfig = new IndexWriterConfig(luceneVersion, __analyzer)
         {
-            OpenMode = OpenMode.CREATE_OR_APPEND,
+            OpenMode = OpenMode.CREATE_OR_APPEND
         };
         _writer = new IndexWriter(__luceneDirectory, indexConfig);
 
@@ -102,11 +102,11 @@ public class SearchRepository
     /// </summary>
     public void CommitIndex()
     {
+        // Writes to disk and updates index
         _writer.Commit();
 
         // New readers need to be created when index is updated
         __directoryReader = DirectoryReader.OpenIfChanged(__directoryReader) ?? __directoryReader;
-                            //_writer.GetReader(applyAllDeletes: true);
         _searcher = new IndexSearcher(__directoryReader);
 
         _log.Information("Search index committed and reader updated");
@@ -146,14 +146,8 @@ public class SearchRepository
     {
         fileResult.AlternativeName = newName;
         var document = CreateDocument(fileResult);
-
-        //var what = _searcher.Search(new TermQuery(new Term("id", fileResult.Id)), 1);
-        // TODO this isn't working.
-        // documents no longer appear in search after rename
-        // When renaming NA1-4613366632.rofl, results for that file return for EUN1-2877002380.rofl???
         _writer.UpdateDocument(new Term("id", fileResult.Id), document);
-        //_writer.DeleteDocuments(new Term("id", fileResult.Id));
-        //_writer.AddDocument(document);
+        CommitIndex();
     }
 
     public (IEnumerable<SearchResultItem>, int searchResultCount) Query(SearchParameters searchParameters, int maxEntries, int skip, float minScore = 0.3f, bool forceReset = false)
