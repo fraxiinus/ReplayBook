@@ -142,6 +142,11 @@ public class SearchRepository
         _writer.DeleteDocuments(new Term("id", id));
     }
 
+    /// <summary>
+    /// This action commits the index!
+    /// </summary>
+    /// <param name="fileResult"></param>
+    /// <param name="newName"></param>
     public void UpdateDocumentName(FileResult fileResult, string newName)
     {
         fileResult.AlternativeName = newName;

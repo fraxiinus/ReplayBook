@@ -217,6 +217,7 @@ public class FileManager
 
         // delete the database entry
         _db.RemoveFileResult(file.Id);
+        _search.RemoveDocument(file.Id);
 
         // Update new values
         var fileInfo = file.FileInfo;
@@ -229,6 +230,8 @@ public class FileManager
 
         var newFileResult = new FileResult(fileInfo, replayFile);
         _db.AddFileResult(newFileResult);
+        _search.AddDocument(newFileResult);
+        _search.CommitIndex();
 
         // Return value is an error message, no message means no error
         return null;
