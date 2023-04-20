@@ -129,7 +129,7 @@
     <string:String x:Key="ExecutableSelectWindowTitleText">Select Executable</string:String>
     <string:String x:Key="ExecutableNotFoundErrorTitle">Unsupported Replay</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">No matching executable found for patch</string:String>
-    <string:String x:Key="ExecutableNotFoundDescriptionText">This replay cannot be played because there is no matching executable! An executable with matching patch version must be registered in order to play expired replays.</string:String>
+    <string:String x:Key="ExecutableNotFoundDescriptionText">This replay cannot be played because there is no matching executable. An executable with matching patch version must be registered with ReplayBook in order to play replays.</string:String>
     <string:String x:Key="ReplayPlayConfirmTitle">Play replay?</string:String>
     <string:String x:Key="ReplayPlayConfirmOptOut">You can turn off this confirmation in the settings window</string:String>
 
