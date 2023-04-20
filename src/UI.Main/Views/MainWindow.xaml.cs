@@ -238,7 +238,7 @@ public partial class MainWindow : Window
     {
         if (DataContext is not MainWindowViewModel context) { return; }
 
-        var (received, searchResults) = context.LoadReplaysFromDatabase();
+        var (received, searchResults, _) = context.LoadReplaysFromDatabase();
 
         if (received == 0)
         {

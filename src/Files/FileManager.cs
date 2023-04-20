@@ -147,6 +147,15 @@ public class FileManager
         _log.Information($"Pruning complete");
     }
 
+    /// <summary>
+    /// searchResultCount is -1 if results are direct from database
+    /// </summary>
+    /// <param name="searchParameters"></param>
+    /// <param name="maxEntries"></param>
+    /// <param name="skip"></param>
+    /// <param name="resetSearch"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public (IReadOnlyCollection<FileResult>, int searchResultCount) GetReplays(SearchParameters searchParameters, int maxEntries, int skip, bool resetSearch = false)
     {
         if (searchParameters == null) { throw new ArgumentNullException(nameof(searchParameters)); }
@@ -163,14 +172,9 @@ public class FileManager
 
     public string RenameReplay(FileResult file, string newName)
     {
-        if (_config.RenameFile)
-        {
-            return RenameFile(file, newName);
-        }
-        else
-        {
-            return RenameAlternative(file, newName);
-        }
+        return _config.RenameFile
+            ? RenameFile(file, newName)
+            : RenameAlternative(file, newName);
     }
 
     private string RenameAlternative(FileResult file, string newName)
@@ -181,6 +185,7 @@ public class FileManager
         try
         {
             _db.UpdateAlternativeName(file.Id, newName);
+            _search.UpdateDocumentName(file, newName);
         }
         catch (KeyNotFoundException ex)
         {
@@ -212,6 +217,7 @@ public class FileManager
 
         // delete the database entry
         _db.RemoveFileResult(file.Id);
+        _search.RemoveDocument(file.Id);
 
         // Update new values
         var fileInfo = file.FileInfo;
@@ -224,6 +230,8 @@ public class FileManager
 
         var newFileResult = new FileResult(fileInfo, replayFile);
         _db.AddFileResult(newFileResult);
+        _search.AddDocument(newFileResult);
+        _search.CommitIndex();
 
         // Return value is an error message, no message means no error
         return null;

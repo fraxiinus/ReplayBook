@@ -5,10 +5,13 @@ using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.Files.Models.Search;
 using Fraxiinus.ReplayBook.Files.Utilities;
+using Lucene.Net.Analysis;
+using Lucene.Net.Analysis.Core;
+using Lucene.Net.Analysis.Miscellaneous;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
-using Lucene.Net.QueryParsers.Classic;
+using Lucene.Net.QueryParsers.Flexible.Standard;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Lucene.Net.Util;
@@ -28,12 +31,12 @@ public class SearchRepository
     // responsible for writing to the index
     private readonly IndexWriter _writer;
     // reponsible for parsing queries
-    private readonly QueryParser _queryParser;
+    private readonly StandardQueryParser _queryParser;
     // responsible for searching the index
     private IndexSearcher _searcher;
 
     // dependencies for lucene, need to be disposed
-    private readonly StandardAnalyzer __standardAnalyzer;
+    private readonly PerFieldAnalyzerWrapper __analyzer;
     private readonly LuceneDirectory __luceneDirectory;
     private DirectoryReader __directoryReader;
 
@@ -46,30 +49,49 @@ public class SearchRepository
         _config = config ?? throw new ArgumentNullException(nameof(config));
         _log = log ?? throw new ArgumentNullException(nameof(log));
 
-        // required objects for lucene
-        __standardAnalyzer = new StandardAnalyzer(luceneVersion);
-        __luceneDirectory = FSDirectory.Open(_searchDirectory);
+        // Analyzers used for fields
+        var analyzersPerField = new Dictionary<string, Analyzer>
+        {   // some fields need different analyzers in order to query properly
+            ["name"] = new KeywordAnalyzer(),
+            ["fileSize"] = new KeywordAnalyzer(),
+            ["id"] = new KeywordAnalyzer()
+        };
+        __analyzer = new PerFieldAnalyzerWrapper(new StandardAnalyzer(luceneVersion), analyzersPerField);
 
+        __luceneDirectory = FSDirectory.Open(_searchDirectory);
         // initialize writer
-        var indexConfig = new IndexWriterConfig(luceneVersion, __standardAnalyzer)
+        var indexConfig = new IndexWriterConfig(luceneVersion, __analyzer)
         {
             OpenMode = OpenMode.CREATE_OR_APPEND
         };
         _writer = new IndexWriter(__luceneDirectory, indexConfig);
 
         // initializer reader
-        __directoryReader = _writer.GetReader(applyAllDeletes: true);
+        __directoryReader = DirectoryReader.Open(__luceneDirectory);
+                            //_writer.GetReader(applyAllDeletes: true);
         _searcher = new IndexSearcher(__directoryReader);
 
-        // create parser
-        _queryParser = new QueryParser(luceneVersion, "baseKeywords", __standardAnalyzer);
+        // create parser and required configurations
+        //var numericConfigMap = new Dictionary<string, NumericConfig>
+        //{   // numeric fields need definitions on how to compare numbers
+        //    ["length"] = new NumericConfig(1, new SimpleNumberFormat(CultureInfo.InvariantCulture), NumericType.INT32)
+        //};
+        //var dateResolutionMap = new Dictionary<string, DateResolution>
+        //{   // date fields need resolution definitions
+        //    ["date"] = DateResolution.DAY,
+        //};
+        _queryParser = new StandardQueryParser(__analyzer)
+        {
+            //NumericConfigMap = numericConfigMap,
+            //DateResolutionMap = dateResolutionMap
+        };
     }
 
     ~SearchRepository()
     {
         __directoryReader.Dispose();
         _writer.Dispose();
-        __standardAnalyzer.Dispose();
+        __analyzer.Dispose();
         __luceneDirectory.Dispose();
     }
 
@@ -80,10 +102,11 @@ public class SearchRepository
     /// </summary>
     public void CommitIndex()
     {
+        // Writes to disk and updates index
         _writer.Commit();
 
         // New readers need to be created when index is updated
-        __directoryReader = _writer.GetReader(applyAllDeletes: true);
+        __directoryReader = DirectoryReader.OpenIfChanged(__directoryReader) ?? __directoryReader;
         _searcher = new IndexSearcher(__directoryReader);
 
         _log.Information("Search index committed and reader updated");
@@ -99,7 +122,7 @@ public class SearchRepository
 
         __directoryReader.Dispose();
         _writer.Dispose();
-        __standardAnalyzer.Dispose();
+        __analyzer.Dispose();
         __luceneDirectory.Dispose();
     }
 
@@ -109,37 +132,36 @@ public class SearchRepository
     /// <param name="fileResult"></param>
     public void AddDocument(FileResult fileResult)
     {
-        var document = new Document
-        {
-            new StringField("id", fileResult.Id, Field.Store.YES)
-        };
-
-        // Default search includes player name with champion
-        var playerChampionCombinations = string.Join(", ", fileResult.ReplayFile.Players.Select(p => p.Name + " " + p.Skin));
-        // text fields provide full text search, string fields do complete match
-        document.Add(new TextField("baseKeywords", playerChampionCombinations, Field.Store.NO));
-
-        // Allow users to search specific teams, allowing a basic matchup search
-        var redPlayers = string.Join(", ", fileResult.ReplayFile.RedPlayers.Select(p => p.Name + " " + p.Skin));
-        document.Add(new TextField("red", redPlayers, Field.Store.NO));
-        var bluePlayers = string.Join(", ", fileResult.ReplayFile.BluePlayers.Select(p => p.Name + " " + p.Skin));
-        document.Add(new TextField("blue", bluePlayers, Field.Store.NO));
-       
-        // These are used for sorting, and must be stored
-        document.Add(new StringField("replayName", fileResult.AlternativeName, Field.Store.YES));
-        document.Add(new Int64Field("createdDate", fileResult.FileCreationTime.Ticks, Field.Store.YES));
-        document.Add(new Int64Field("fileSize", fileResult.FileSizeBytes, Field.Store.YES));
+        var document = CreateDocument(fileResult);
 
         _writer.AddDocument(document);
+    }
+
+    public void RemoveDocument(string id)
+    {
+        _writer.DeleteDocuments(new Term("id", id));
+    }
+
+    /// <summary>
+    /// This action commits the index!
+    /// </summary>
+    /// <param name="fileResult"></param>
+    /// <param name="newName"></param>
+    public void UpdateDocumentName(FileResult fileResult, string newName)
+    {
+        fileResult.AlternativeName = newName;
+        var document = CreateDocument(fileResult);
+        _writer.UpdateDocument(new Term("id", fileResult.Id), document);
+        CommitIndex();
     }
 
     public (IEnumerable<SearchResultItem>, int searchResultCount) Query(SearchParameters searchParameters, int maxEntries, int skip, float minScore = 0.3f, bool forceReset = false)
     {
         if (searchParameters.QueryString != _queryString || forceReset)
         {
-            _queryString = searchParameters.QueryString;
+            _queryString = QueryParserUtil.Escape(searchParameters.QueryString);
             // parse the query and create the collector
-            var query = _queryParser.Parse(searchParameters.QueryString);
+            var query = _queryParser.Parse(searchParameters.QueryString, "baseKeywords");
             var resultsCollector = new ResultsCollector();
 
             _searcher.Search(query, resultsCollector.GetCollector());
@@ -172,5 +194,35 @@ public class SearchRepository
         }
 
         return (_searchResults.Skip(skip).Take(maxEntries), _searchResults.Count);
+    }
+
+    private static Document CreateDocument(FileResult fileResult)
+    {
+        var document = new Document
+        {
+            new StringField("id", fileResult.Id, Field.Store.YES)
+        };
+
+        // Default search includes player name with champion
+        var playerChampionCombinations = string.Join(", ", fileResult.ReplayFile.Players.Select(p => p.Name + " " + p.Skin));
+        // text fields provide full text search, string fields do complete match
+        document.Add(new TextField("baseKeywords", fileResult.AlternativeName + ", " + playerChampionCombinations, Field.Store.NO));
+
+        // Allow users to search specific teams, allowing a basic matchup search
+        var redPlayers = string.Join(", ", fileResult.ReplayFile.RedPlayers.Select(p => p.Name + " " + p.Skin));
+        document.Add(new TextField("red", redPlayers, Field.Store.NO));
+        var bluePlayers = string.Join(", ", fileResult.ReplayFile.BluePlayers.Select(p => p.Name + " " + p.Skin));
+        document.Add(new TextField("blue", bluePlayers, Field.Store.NO));
+
+        // Query date, allow for date range query
+        document.Add(new StringField("date", DateTools.DateToString(fileResult.FileCreationTime, DateResolution.DAY), Field.Store.NO));
+        document.Add(new StringField("length", $"{fileResult.ReplayFile.GameDuration.Minutes}{fileResult.ReplayFile.GameDuration.Seconds}", Field.Store.NO));
+
+        // These are used for sorting, and must be stored
+        document.Add(new StringField("name", fileResult.AlternativeName, Field.Store.YES));
+        document.Add(new Int64Field("createdDate", fileResult.FileCreationTime.Ticks, Field.Store.YES));
+        document.Add(new Int64Field("fileSize", fileResult.FileSizeBytes, Field.Store.YES));
+
+        return document;
     }
 }
