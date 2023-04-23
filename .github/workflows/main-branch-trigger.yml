@@ -7,6 +7,8 @@ on:
     paths: 
       - 'src/**'
       - '.github/workflows/main-branch-trigger.yml'
+      - '.github/workflows/update-translation.yml'
+      - '.github/workflows/build.yml'
 
 jobs:
   call-update-translation-workflow:
