@@ -25,7 +25,7 @@ public partial class WelcomeSetupIntroduction : ModernWpf.Controls.Page, IWelcom
         InitializeComponent();
 
         // load combo box
-        LanguageComboBox.ItemsSource = ConfigurationDefinitions.LanguageDisplayNames.Keys
+        LanguageComboBox.ItemsSource = ConfigurationDefinitions.ApplicationLanguageDisplayNames.Keys
             .OrderBy(x => x);
     }
 
@@ -47,7 +47,7 @@ public partial class WelcomeSetupIntroduction : ModernWpf.Controls.Page, IWelcom
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
         // select initial language after page is loaded
-        var languageNames = ConfigurationDefinitions.LanguageDisplayNames.Keys.ToArray();
+        var languageNames = ConfigurationDefinitions.ApplicationLanguageDisplayNames.Keys.ToArray();
         LanguageComboBox.SelectedItem = languageNames[Context.Language.GetListIndex()];
     }
 
@@ -56,9 +56,9 @@ public partial class WelcomeSetupIntroduction : ModernWpf.Controls.Page, IWelcom
         // selection change might trigger when datacontext is not loaded
         try
         {
-            var languageCode = ConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
+            var languageCode = ConfigurationDefinitions.ApplicationLanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
 
-            LanguageHelper.SetProgramLanguage((ProgramLanguage)languageCode);
+            LanguageHelper.SetProgramLanguage((ApplicationLanguage)languageCode);
         }
         catch (Exception)
         {

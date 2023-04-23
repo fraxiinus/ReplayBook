@@ -169,6 +169,8 @@
     <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">Browse Data Folder</string:String>
     <string:String x:Key="Settings__StaticData__RetryDownload__ErrorLabel">Failed to download data for patch $0 and language $1. The endpoint could not be found.</string:String>
     <string:String x:Key="Settings__StaticData__RetryDownload__Button">Retry in English</string:String>
+    <string:String x:Key="Settings__StaticData__UseAppLanguage__Checkbox">Use application language as bundle language</string:String>
+    <string:String x:Key="Settings__StaticData__BundleLanguage__ComboBoxLabel">Download language</string:String>
 
     <string:String x:Key="ReplayItemsPerPage">Items Per Page</string:String>
     <string:String x:Key="Settings__Replays__SearchMinimumScore__Label">Search Strictness</string:String>

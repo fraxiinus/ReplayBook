@@ -1,5 +1,6 @@
 ﻿namespace Fraxiinus.ReplayBook.UI.Main.Pages;
 
+using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
@@ -59,7 +60,7 @@ public partial class WelcomeSetupDownload : ModernWpf.Controls.Page, IWelcomePag
             await mainViewModel.StaticDataManager.RefreshPatches();
             var latestPatch = mainViewModel.StaticDataManager.Context.KnownPatchNumbers[1];
 
-            await StaticDataDownloadDialog.StartDownloadDialog(latestPatch);
+            await StaticDataDownloadDialog.StartDownloadDialog(latestPatch, ConfigurationDefinitions.GetRiotRegionCode(LanguageHelper.CurrentLanguage));
         }
         catch (Exception ex)
         {

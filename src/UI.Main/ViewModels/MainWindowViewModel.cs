@@ -557,7 +557,7 @@ public class MainWindowViewModel
             PageCount = 5,
             DisableBackButton = true,
             RiotGamesPath = (string)Application.Current.TryFindResource("WswExecutablesHint"),
-            Language = ProgramLanguage.En,
+            Language = ApplicationLanguage.En,
             Log= _log
         };
 

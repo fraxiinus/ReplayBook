@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Fraxiinus.ReplayBook.Configuration.Models;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Views
 {
@@ -27,7 +28,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         {
             // load locales into drop down, skip parentheses for custom option
             LocaleNames = Enum.GetNames(typeof(LeagueLocale))
-                .Select(x => x + (x.StartsWith(LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase) ? "" : " (" + ExeTools.GetLocaleCode(x) + ")"))
+                .Select(x => x + (x.StartsWith(LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase) ? "" : " (" + ConfigurationDefinitions.GetRiotRegionCode(x) + ")"))
                 .OrderBy(x => x == LeagueLocale.Custom.ToString())
                 .ThenBy(x => x);
 
@@ -43,7 +44,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
             // load locales into drop down, skip parentheses for custom option
             LocaleNames = Enum.GetNames(typeof(LeagueLocale))
-                .Select(x => x + (x.StartsWith(LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase) ? "" : " (" + ExeTools.GetLocaleCode(x) + ")"))
+                .Select(x => x + (x.StartsWith(LeagueLocale.Custom.ToString(), StringComparison.OrdinalIgnoreCase) ? "" : " (" + ConfigurationDefinitions.GetRiotRegionCode(x) + ")"))
                 .OrderBy(x => x == LeagueLocale.Custom.ToString())
                 .ThenBy(x => x);
 
@@ -68,7 +69,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
             LocaleComboBox.SelectedItem = executable.Locale == LeagueLocale.Custom
                 ? LocaleNames.Last()
-                : LocaleNames.First(x => x.Split('(', ')')[1] == ExeTools.GetLocaleCode(executable.Locale));
+                : LocaleNames.First(x => x.Split('(', ')')[1] == ConfigurationDefinitions.GetRiotRegionCode(executable.Locale));
 
             LaunchArgsTextBox.Text = PrettifyLaunchArgs(executable.LaunchArguments);
             CustomLocaleTextBox.Text = executable.CustomLocale;
@@ -107,7 +108,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                 }
                 else
                 {
-                    _executable.Locale = ExeTools.GetLocaleEnum((LocaleComboBox.SelectedItem as string).Split('(', ')')[1]);
+                    _executable.Locale = ConfigurationDefinitions.GetLocaleEnum((LocaleComboBox.SelectedItem as string).Split('(', ')')[1]);
                 }
 
                 if (_isEditMode)

@@ -1,4 +1,5 @@
-﻿using Fraxiinus.ReplayBook.UI.Main.Models.View;
+﻿using Fraxiinus.ReplayBook.Configuration.Models;
+using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
@@ -195,7 +196,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
         {
             if (Context == null) { return; }
 
-            await StaticDataDownloadDialog.StartDownloadDialog(Context.GameVersion);
+            var language = ViewModel.Configuration.UseCurrentLanguageAsLocale
+                    ? ConfigurationDefinitions.GetRiotRegionCode(LanguageHelper.CurrentLanguage)
+                    : ConfigurationDefinitions.GetRiotRegionCode(ViewModel.Configuration.StaticDataDownloadLanguage);
+
+            await StaticDataDownloadDialog.StartDownloadDialog(Context.GameVersion, language);
 
             await ViewModel.LoadSinglePreviewPlayerThumbnails(Context);
         }
