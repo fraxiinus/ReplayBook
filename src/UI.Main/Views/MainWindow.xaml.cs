@@ -260,24 +260,9 @@ public partial class MainWindow : Window
         await context.LoadPreviewPlayerThumbnails();
     }
 
-    private async void SearchBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-    {
-        if (DataContext is not MainWindowViewModel context) { return; }
-        if (e.Key != System.Windows.Input.Key.Enter) { return; }
-        if (sender is not AutoSuggestBox searchBox) { return; }
-
-        context.SortParameters.QueryString = searchBox.Text;
-
-        await context.ReloadReplayList(false);
-    }
-
     private async void SearchBox_QuerySubmitted(AutoSuggestBox auto, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
         if (DataContext is not MainWindowViewModel context) { return; }
-        if (string.IsNullOrEmpty(args.QueryText))
-        {
-            await context.ReloadReplayList(false).ConfigureAwait(true);
-        }
 
         context.SortParameters.QueryString = args.QueryText;
 
