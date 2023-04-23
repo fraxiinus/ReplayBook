@@ -86,8 +86,16 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             // find the matching target patch
             await ViewModel.StaticDataManager.GetPatchesIfOutdated(cancellationToken.Token);
             var targetPatch = ViewModel.StaticDataManager.Context.KnownPatchNumbers
-                .FirstOrDefault(x => x.VersionSubstring().Equals(PatchToDownload.VersionSubstring()))
-                ?? throw new Exception($"failed to find patch for {PatchToDownload.VersionSubstring()}");
+                .FirstOrDefault(x => x.VersionSubstring().Equals(PatchToDownload.VersionSubstring()));
+
+            // There is a chance the list isn't updated, refresh the list and try again
+            if (targetPatch == null)
+            {
+                await ViewModel.StaticDataManager.RefreshPatches();
+                targetPatch = ViewModel.StaticDataManager.Context.KnownPatchNumbers
+                    .FirstOrDefault(x => x.VersionSubstring().Equals(PatchToDownload.VersionSubstring()))
+                    ?? throw new Exception($"failed to find patch for {PatchToDownload.VersionSubstring()}");
+            }
 
             progressBar.IsIndeterminate = false;
             try
