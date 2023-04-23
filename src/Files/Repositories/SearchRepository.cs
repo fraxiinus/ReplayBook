@@ -204,14 +204,14 @@ public class SearchRepository
         };
 
         // Default search includes player name with champion
-        var playerChampionCombinations = string.Join(", ", fileResult.ReplayFile.Players.Select(p => p.Name + " " + p.Skin));
+        var playerChampionCombinations = string.Join(", ", fileResult.ReplayFile.Players.Select(p => p.Name + " " + GetSafeChampionName(p.Skin)));
         // text fields provide full text search, string fields do complete match
         document.Add(new TextField("baseKeywords", fileResult.AlternativeName + ", " + playerChampionCombinations, Field.Store.NO));
 
         // Allow users to search specific teams, allowing a basic matchup search
-        var redPlayers = string.Join(", ", fileResult.ReplayFile.RedPlayers.Select(p => p.Name + " " + p.Skin));
+        var redPlayers = string.Join(", ", fileResult.ReplayFile.RedPlayers.Select(p => p.Name + " " + GetSafeChampionName(p.Skin)));
         document.Add(new TextField("red", redPlayers, Field.Store.NO));
-        var bluePlayers = string.Join(", ", fileResult.ReplayFile.BluePlayers.Select(p => p.Name + " " + p.Skin));
+        var bluePlayers = string.Join(", ", fileResult.ReplayFile.BluePlayers.Select(p => p.Name + " " + GetSafeChampionName(p.Skin)));
         document.Add(new TextField("blue", bluePlayers, Field.Store.NO));
 
         // Query date, allow for date range query
@@ -224,5 +224,30 @@ public class SearchRepository
         document.Add(new Int64Field("fileSize", fileResult.FileSizeBytes, Field.Store.YES));
 
         return document;
+    }
+
+    /// <summary>
+    /// Spaces are added, symbols removed, and monkeyking renamed
+    /// </summary>
+    /// <param name="championName"></param>
+    /// <returns></returns>
+    private static string GetSafeChampionName(string championName)
+    {
+        return championName switch
+        {
+            "AurelionSol" => "Aurelion Sol",
+            "DrMundo" => "Dr Mundo",
+            "JarvanIV" => "Jarvan",
+            "LeeSin" => "Lee Sin",
+            "MasterYi" => "Master Yi",
+            "MissFortune" => "Miss Fortune",
+            "MonkeyKing" => "Wukong",
+            "Nunu" => "Nunu Willump",
+            "Renata" => "Renata Glasc",
+            "TahmKench" => "Tahm Kench",
+            "TwistedFate" => "Twisted Fate",
+            "XinZhao" => "Xin Zhao",
+            _ => championName,
+        };
     }
 }
