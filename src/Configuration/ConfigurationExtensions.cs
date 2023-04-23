@@ -23,7 +23,9 @@ namespace Fraxiinus.ReplayBook.Configuration
                 RequestSettings = new RequestSettings
                 {
                     DataDragonBaseUrl = config.DataDragonBaseUrl,
-                    CommunityDragonBaseUrl = config.CommunityDragonBaseUrl
+                    CommunityDragonBaseUrl = config.CommunityDragonBaseUrl,
+                    UseCurrentLanguageAsLocale = config.UseCurrentLanguageAsLocale,
+                    StaticDataDownloadLanguage = config.StaticDataDownloadLanguage,
                 },
                 GeneralSettings = new GeneralSettings
                 {

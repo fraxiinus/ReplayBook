@@ -93,11 +93,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             AppearanceThemeOption3.IsChecked = context.Configuration.ThemeMode == Theme.Light;
 
             // Load language drop down
-            LanguageComboBox.ItemsSource = ConfigurationDefinitions.LanguageDisplayNames.Keys
+            LanguageComboBox.ItemsSource = ConfigurationDefinitions.ApplicationLanguageDisplayNames.Keys
                 .OrderBy(x => x);
 
             // select initial language after page is loaded
-            var languageNames = ConfigurationDefinitions.LanguageDisplayNames.Keys.ToArray();
+            var languageNames = ConfigurationDefinitions.ApplicationLanguageDisplayNames.Keys.ToArray();
             LanguageComboBox.SelectedItem = languageNames[context.Configuration.Language.GetListIndex()];
 
             // See if an update exists
@@ -138,6 +138,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                 case "StaticDataSettingsListItem":
                     SettingsTabControl.SelectedIndex = 4;
                     await StaticDataSizeValue_CalculateTotalValue();
+                    StaticDataLocaleComboBox_LoadItems();
                     break;
                 case "ReplaySettingsListItem":
                     SettingsTabControl.SelectedIndex = 5;
@@ -845,10 +846,10 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             if (Application.Current.MainWindow.DataContext is not MainWindowViewModel viewModel) { return; }
 
             // convert sorted combobox item to actual code
-            var languageCode = ConfigurationDefinitions.LanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
+            var languageCode = ConfigurationDefinitions.ApplicationLanguageDisplayNames[(string)LanguageComboBox.SelectedItem];
 
             // save language to configuration
-            context.Configuration.Language = (ProgramLanguage)languageCode;
+            context.Configuration.Language = (ApplicationLanguage)languageCode;
             // load language strings in application
             LanguageHelper.SetProgramLanguage(context.Configuration.Language);
             // load static data in new language
@@ -861,6 +862,28 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
             var readableSizeConverter = new FormatKbSizeConverter();
             StaticDataSizeValue.Text = (string)readableSizeConverter.Convert(totalSize, null, null, CultureInfo.InvariantCulture);
+        }
+
+        private void StaticDataLocaleComboBox_LoadItems()
+        {
+            var LocaleNames = Enum.GetNames(typeof(LeagueLocale))
+                .Where(x => x != LeagueLocale.Custom.ToString()) // don't include custom locale
+                .Select(x => x + " (" + ConfigurationDefinitions.GetRiotRegionCode(x) + ")")
+                .OrderBy(x => x);
+
+            var selectedLanguage = Context.Configuration.UseCurrentLanguageAsLocale == true
+                ? LocaleNames.First(x => x.Split('(', ')')[1] == ConfigurationDefinitions.GetRiotRegionCode(LanguageHelper.CurrentLanguage))
+                : LocaleNames.First(x => x.Split('(', ')')[1] == ConfigurationDefinitions.GetRiotRegionCode(Context.Configuration.StaticDataDownloadLanguage));
+
+            StaticDataLocaleComboBox.ItemsSource = LocaleNames;
+            StaticDataLocaleComboBox.SelectedItem = selectedLanguage;
+        }
+
+        private void StaticDataLocaleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedLanguage = ConfigurationDefinitions.GetLocaleEnum((StaticDataLocaleComboBox.SelectedItem as string).Split('(', ')')[1]);
+
+            Context.Configuration.StaticDataDownloadLanguage = selectedLanguage;
         }
 
         private void StaticDataDownloadedListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -885,7 +908,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
             if (dialogResult == ContentDialogResult.Primary)
             {
-                await StaticDataDownloadDialog.StartDownloadDialog(addDialog.SelectedPatch);
+                var language = Context.Configuration.UseCurrentLanguageAsLocale
+                    ? ConfigurationDefinitions.GetRiotRegionCode(LanguageHelper.CurrentLanguage)
+                    : ConfigurationDefinitions.GetRiotRegionCode(Context.Configuration.StaticDataDownloadLanguage);
+
+                await StaticDataDownloadDialog.StartDownloadDialog(addDialog.SelectedPatch, language);
 
                 await StaticDataSizeValue_CalculateTotalValue();
             }

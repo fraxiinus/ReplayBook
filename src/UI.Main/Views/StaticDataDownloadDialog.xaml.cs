@@ -25,7 +25,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         /// </summary>
         public string PatchToDownload { get; set; }
 
-        public ProgramLanguage LanguageToDownload { get; set; } = LanguageHelper.CurrentLanguage;
+        public string LanguageToDownload { get; set; }
 
         public bool DownloadResult { get; set; }
 
@@ -94,7 +94,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             {
                 await ViewModel.StaticDataManager.DownloadProperties(targetPatch,
                     StaticDataType.Rune | StaticDataType.Item | StaticDataType.Champion,
-                    LanguageHelper.CurrentLanguage.GetRiotRegionCode(),
+                    LanguageToDownload,
                     cancellationToken.Token);
 
                 progressBar.Value = 33;
@@ -106,7 +106,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                 progressBar.Value = 66;
 
                 await ViewModel.StaticDataManager.DownloadRuneImages(targetPatch,
-                    LanguageHelper.CurrentLanguage.GetRiotRegionCode(),
+                    LanguageToDownload,
                     cancellationToken.Token);
 
                 progressBar.Value = 100;
@@ -128,10 +128,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         /// </summary>
         /// <param name="patch"></param>
         /// <returns></returns>
-        public static async Task StartDownloadDialog(string patch)
+        public static async Task StartDownloadDialog(string patch, string targetLanguageCode)
         {
             var retryDownload = true;
-            var targetLanguage = LanguageHelper.CurrentLanguage;
 
             while (retryDownload)
             {
@@ -139,7 +138,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                 var downloadDialog = new StaticDataDownloadDialog()
                 {
                     PatchToDownload = patch,
-                    LanguageToDownload = targetLanguage
+                    LanguageToDownload = targetLanguageCode
                 };
                 await downloadDialog.ShowAsync();
 
@@ -156,7 +155,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                     // retry download in english
                     if (result == ContentDialogResult.Primary)
                     {
-                        targetLanguage = ProgramLanguage.En;
+                        targetLanguageCode = ConfigurationDefinitions.GetRiotRegionCode(LeagueLocale.EnglishUS);
                     }
                     else
                     {

@@ -17,6 +17,8 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
 
             DataDragonBaseUrl = config.RequestSettings.DataDragonBaseUrl;
             CommunityDragonBaseUrl = config.RequestSettings.CommunityDragonBaseUrl;
+            UseCurrentLanguageAsLocale = config.RequestSettings.UseCurrentLanguageAsLocale;
+            StaticDataDownloadLanguage = config.RequestSettings.StaticDataDownloadLanguage;
 
             PlayerMarkers = config.GeneralSettings.KnownPlayers != null
                 ? new ObservableCollection<PlayerMarkerConfiguration>(config.GeneralSettings.KnownPlayers)
@@ -47,6 +49,20 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
 
         public string CommunityDragonBaseUrl { get; set; }
 
+        private bool _useCurrentLanguageAsLocale;
+        public bool UseCurrentLanguageAsLocale
+        {
+            get => _useCurrentLanguageAsLocale;
+            set
+            {
+                _useCurrentLanguageAsLocale = value;
+                PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(UseCurrentLanguageAsLocale)));
+            }
+        }
+
+        public LeagueLocale StaticDataDownloadLanguage { get; set; }
+
         /// General Settings
         public ObservableCollection<PlayerMarkerConfiguration> PlayerMarkers { get; private set; }
 
@@ -71,8 +87,8 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
 
         public bool AutoUpdateCheck { get;set; }
 
-        private ProgramLanguage _language;
-        public ProgramLanguage Language
+        private ApplicationLanguage _language;
+        public ApplicationLanguage Language
         {
             get => _language;
             set
