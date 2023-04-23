@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Text.Json.Serialization;
+using Fraxiinus.ReplayBook.Configuration.Models;
 
 namespace Fraxiinus.ReplayBook.Executables.Old;
 

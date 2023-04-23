@@ -136,7 +136,7 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// <param name="patchVersion"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<T?> GetProperties<T>(string id, string patchVersion, ProgramLanguage language) where T : IStaticProperties
+        public async Task<T?> GetProperties<T>(string id, string patchVersion, ApplicationLanguage language) where T : IStaticProperties
         {
             // The FiddleSticks Hack(tm)
             if (id == "FiddleSticks")

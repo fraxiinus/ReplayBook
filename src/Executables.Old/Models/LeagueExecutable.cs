@@ -1,4 +1,4 @@
-﻿using Fraxiinus.ReplayBook.Executables.Old.Utilities;
+﻿using Fraxiinus.ReplayBook.Configuration.Models;
 using System;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
