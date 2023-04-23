@@ -65,6 +65,7 @@ public class SearchRepository
             OpenMode = OpenMode.CREATE_OR_APPEND
         };
         _writer = new IndexWriter(__luceneDirectory, indexConfig);
+        _writer.Commit(); // commit index in case the index was just created
 
         // initializer reader
         __directoryReader = DirectoryReader.Open(__luceneDirectory);
