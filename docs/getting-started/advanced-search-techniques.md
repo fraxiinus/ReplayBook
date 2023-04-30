@@ -86,6 +86,7 @@ These of course can be combined with other queries, this example returns replays
 
 Search results are filtered by a score determined by how well it matches the query.
 This filter can be adjusted to a lower value if the results are being constrained, or to a higher value if non-relevant results are returning.
+The default value is 0.3.
 
 ![Search Strictness](../images/search_0.png)
 
