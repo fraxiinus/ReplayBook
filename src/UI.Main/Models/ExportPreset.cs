@@ -17,6 +17,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
 
         public bool NormalizeAttributeNames { get; set; }
 
+        public bool ApplyStaticData { get; set; }
+
         public bool IncludeMatchID { get; set; }
 
         public bool IncludeMatchDuration { get; set; }
