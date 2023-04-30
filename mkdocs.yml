@@ -12,6 +12,7 @@ theme:
     accent: deep purple
   features:
     - navigation.indexes
+    - content.code.copy
 extra_css:
   - stylesheets/extra.css
 extra_javascript:
