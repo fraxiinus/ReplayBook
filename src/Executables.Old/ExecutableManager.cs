@@ -45,7 +45,11 @@ public class ExecutableManager
         {
             // Exe file is missing, set up defaults
             _log.Information($"Executable file does not exist, creating");
-            Settings = new ExecutableSettings();
+            Settings = new ExecutableSettings
+            {
+                Executables = new System.Collections.ObjectModel.ObservableCollection<LeagueExecutable>(),
+                SourceFolders = new System.Collections.ObjectModel.ObservableCollection<string>()
+            };
         }
         else
         {
@@ -60,7 +64,11 @@ public class ExecutableManager
                 // Failed loading, create new one instead
                 _log.Error($"Error reading executable info file, creating new one. {parseEx}");
 
-                Settings = new ExecutableSettings();
+                Settings = new ExecutableSettings
+                {
+                    Executables = new System.Collections.ObjectModel.ObservableCollection<LeagueExecutable>(),
+                    SourceFolders = new System.Collections.ObjectModel.ObservableCollection<string>()
+                };
             }
         }
     }

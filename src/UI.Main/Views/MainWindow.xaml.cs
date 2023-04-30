@@ -47,7 +47,7 @@ public partial class MainWindow : Window
         _lastSelection = null;
 
         // Catch all unhandled exceptions to write logs
-        Dispatcher.UnhandledException += async (object sender, DispatcherUnhandledExceptionEventArgs e) =>
+        Dispatcher.UnhandledException += (object sender, DispatcherUnhandledExceptionEventArgs e) =>
         {
             log.Error(e.Exception.ToString());
             log.WriteLog();
