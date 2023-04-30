@@ -8,7 +8,7 @@ Thank you for downloading ReplayBook!
 Click the button below to start your download.
 
 [Download latest version](https://github.com/fraxiinus/replaybook/releases/latest/download/ReplayBook.zip){ .md-button .md-button--primary }
-&nbsp;[All versions](https://github.com/fraxiinus/ReplayBook/releases){ .md-button }
+&nbsp;[Other versions](https://github.com/fraxiinus/ReplayBook/releases){ .md-button }
 
 If you like what I do and would like to support me:
 
