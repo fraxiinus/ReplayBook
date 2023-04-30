@@ -51,6 +51,20 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
+            <TextBlock FontSize="14" Text="{DynamicResource ExportData__FinishPage__ApplyStaticData__Checkbox}">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ApplyStaticData}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ApplyStaticData}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
             <TextBlock FontSize="14" Text="{DynamicResource ErdFinishJsonMatchId}">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">

@@ -384,6 +384,7 @@ public class ExportDataContext : INotifyPropertyChanged
             IncludeMatchID = !ExportAsCSV && IncludeMatchID,
             IncludePatchVersion = !ExportAsCSV && IncludePatchVersion,
             NormalizeAttributeNames = NormalizeAttributeNames,
+            ApplyStaticData = ApplyStaticData,
             SelectedAttributes = Attributes.Where(x => x.Checked)
                                            .Select(x => x.Name)
                                            .ToList(),
@@ -411,6 +412,7 @@ public class ExportDataContext : INotifyPropertyChanged
         IncludeMatchID = preset.IncludeMatchID;
         IncludePatchVersion = preset.IncludePatchVersion;
         NormalizeAttributeNames = preset.NormalizeAttributeNames;
+        ApplyStaticData = preset.ApplyStaticData;
         // check all attributes in presets
         foreach (string selectedAttributeName in preset.SelectedAttributes)
         {
