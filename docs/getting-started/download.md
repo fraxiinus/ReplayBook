@@ -14,6 +14,8 @@ If you like what I do and would like to support me:
 
 [![Donate](https://shields.io/badge/ko--fi-support%20me-green?logo=ko-fi&style=flat-square)](https://ko-fi.com/fraxiinus)
 
+ReplayBook is completely ad-free and does not collect nor track user data.
+
 ## Quick Start
 
 1. Extract the files from the zip archive  
