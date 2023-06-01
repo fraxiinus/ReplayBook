@@ -33,14 +33,16 @@ In order to play replays, **ReplayBook needs the entire League of Legends instal
 
 ## Playing Replays Crashes With Critical Error
 
-Double check the League of Legends executable you are using. This error is caused by problems with League of Legends, perhaps a missing file.
+![League Error screenshot](../images/troubleshooting/8_league_error.png)
 
-This error also occurs if your [executable locale is set incorrectly](#how-to-change-an-executables-locale).
+The following steps will walk you through checking common problems when using League of Legends backups:
+
+1. Is your executable locale set correctly? Check [these instructions](#how-to-change-an-executables-locale)
+2. If you are using a backup downloaded online, try extracting the download into a new empty folder and try ReplayBook again. You may have accidentally lost a few files during extractions.
+3. If that doesn't work, maybe the download failed. Try downloading the file again, or try a difference source.
 
 !!! note
-    If you downloaded a backup from replays.xyz, try extracting it again. If that doesn't work, try downloading it again.
-
-![League Error screenshot](../images/troubleshooting/8_league_error.png)
+    This error usually occurs when the League of Legends installation is missing critical files.
 
 ---
 
