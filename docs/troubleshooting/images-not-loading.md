@@ -11,6 +11,8 @@ Right click the replay that is having image issues, and click 「Get Images for 
 
 ![Highlight menu option](../images/bundles_MoreMenu.png)
 
+If that does not fix the problem, try deleting the most recent bundle and then re-download it.
+
 [Learn more about Static Data Bundles](../getting-started/get-static-data-bundles.md)
 
 ---
