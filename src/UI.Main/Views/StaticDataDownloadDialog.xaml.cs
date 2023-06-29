@@ -29,6 +29,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
         public bool DownloadResult { get; set; }
 
+        /// <summary>
+        /// Error message is set if <see cref="DownloadResult"/> = true
+        /// </summary>
+        public string ErrorMessage { get; set; }
+
         private static MainWindowViewModel ViewModel
         {
             get => (Application.Current.MainWindow?.DataContext is MainWindowViewModel viewModel)
@@ -119,8 +124,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
                 progressBar.Value = 100;
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException ex)
             {
+                ErrorMessage = ex.ToString();
                 return (false, targetPatch);
             }
 
@@ -156,7 +162,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                     // show retry dialog
                     var retryDialog = new StaticDataRetryDialog()
                     {
-                        PatchToDownload = patch
+                        PatchToDownload = patch,
+                        HttpErrorMessage = downloadDialog.ErrorMessage
                     };
                     var result = await retryDialog.ShowAsync();
 

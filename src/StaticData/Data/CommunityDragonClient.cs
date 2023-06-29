@@ -36,7 +36,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
             // ID's of stat runes
             var statRuneIds = new string[6] { "5001", "5002", "5003", "5005", "5007", "5008"};
             // "default" is "en_us" in cdragon
-            var cDragonLanguage = language.ToLower() == "en_us" ? "default" : language.ToLower();
+            var cDragonLanguage = language.ToLowerInvariant() == "en_us" ? "default" : language.ToLowerInvariant();
 
             // construct cdragon url
             var url = _config.CommunityDragonBaseUrl
