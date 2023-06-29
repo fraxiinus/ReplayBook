@@ -17,10 +17,15 @@
                   mc:Ignorable="d">
     <Grid>
         <ScrollViewer>
-            <ui:SimpleStackPanel Orientation="Vertical">
+            <ui:SimpleStackPanel Orientation="Vertical" Spacing="20">
                 <TextBlock x:Name="ErrorMessage"
                            Text="{DynamicResource Settings__StaticData__RetryDownload__ErrorLabel}"
                            TextWrapping="Wrap" />
+
+                <TextBox x:Name="HttpErrorMessageBox"
+                         IsReadOnly="True"
+                         TextWrapping="Wrap" />
+
             </ui:SimpleStackPanel>
         </ScrollViewer>
     </Grid>

@@ -453,7 +453,7 @@ namespace Fraxiinus.ReplayBook.StaticData
             };
 
             // Make sure destination exists
-            var relativeDestination = Path.Combine(patchVersion, dataType.ToLower());
+            var relativeDestination = Path.Combine(patchVersion, dataType.ToLowerInvariant());
             var destinationFolder = Path.Combine(_dataPath, relativeDestination);
             Directory.CreateDirectory(destinationFolder);
 
