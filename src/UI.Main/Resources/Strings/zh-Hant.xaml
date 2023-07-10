@@ -64,7 +64,8 @@
     <string:String x:Key="General__Downloading">下載中...</string:String>
     <string:String x:Key="General__ViewButton">查看</string:String>
     <string:String x:Key="General__ExitButton">退出</string:String>
-    
+    <string:String x:Key="General__GlobalExceptionHandler__Body">出現未處理的錯誤！請檢查日志目錄以查看詳情</string:String>
+
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">一般</string:String>
     <string:String x:Key="UpdatesSettingsItemText">更新</string:String>
@@ -142,6 +143,7 @@
     <string:String x:Key="ExecutableSelectWindowTitleText">選擇可執行文件</string:String>
     <string:String x:Key="ExecutableNotFoundErrorTitle">不支持</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">找不到可執行文件</string:String>
+    <string:String x:Key="ExecutableNotFoundDescriptionText">因找不到匹配的客戶端可執行文件，此錄像無法播放。務必先在ReplayBook中添加對應版本的客戶端可執行文件才能播放錄像</string:String>
     <string:String x:Key="ReplayPlayConfirmTitle">播放重播?</string:String>
     <string:String x:Key="ReplayPlayConfirmOptOut">您可以在“設置”窗口中關閉此確認</string:String>
 
@@ -181,12 +183,16 @@
     <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">瀏覽數據文件夾</string:String>
     <string:String x:Key="Settings__StaticData__RetryDownload__ErrorLabel">無法下載針對 $0 版本和 $1 語言的數據。找不到下載終端。</string:String>
     <string:String x:Key="Settings__StaticData__RetryDownload__Button">重試</string:String>
+    <string:String x:Key="Settings__StaticData__UseAppLanguage__Checkbox">使用應用程式語言作爲數據包語言</string:String>
+    <string:String x:Key="Settings__StaticData__BundleLanguage__ComboBoxLabel">下載語言包</string:String>
 
     <string:String x:Key="ReplayItemsPerPage">每頁數目</string:String>
+    <string:String x:Key="Settings__Replays__SearchMinimumScore__Label">搜索精度</string:String>
 
     <string:String x:Key="ReplayDatabaseText">重播文件數據緩存</string:String>
     <string:String x:Key="ReplayDatabaseSize">大小:</string:String>
     <string:String x:Key="ReplayDatabaseClearButton">清理緩存</string:String>
+    <string:String x:Key="Settings__Replays__ClearCacheRestartNow__Button">現在重啓軟件</string:String>
 
     <string:String x:Key="RequestsDownloadAllLabel">圖標下載</string:String>
     <string:String x:Key="RequestsCacheLabel">已下載的裝備圖標緩存</string:String>
@@ -223,6 +229,8 @@
     <string:String x:Key="CancelButtonText">取消</string:String>
     <string:String x:Key="BrowseButtonText">瀏覽...</string:String>
     <string:String x:Key="SelectButtonText">選擇</string:String>
+    <string:String x:Key="HelpButtonText">幫助</string:String>
+    <string:String x:Key="RetryButtonText">重試</string:String>
 
     <!--  Stats Header Text  -->
     <string:String x:Key="CombatGroupHeaderText">戰鬥總覽</string:String>
@@ -370,6 +378,7 @@
     <string:String x:Key="ErdFinishFormatHeading">輸出格式</string:String>
     <string:String x:Key="ErdFinishFormatCsv">導出為 CSV</string:String>
     <string:String x:Key="ErdFinishFormatNormalize">規範化屬性名稱</string:String>
+    <string:String x:Key="ExportData__FinishPage__ApplyStaticData__Checkbox">應用靜態數據</string:String>
     <string:String x:Key="ErdFinishJsonHeading">特定於JSON的選項</string:String>
     <string:String x:Key="ErdFinishJsonMatchId">包含匹配ID</string:String>
     <string:String x:Key="ErdFinishJsonDuration">包含比賽時長</string:String>
@@ -443,6 +452,7 @@
 
     <string:String x:Key="Welcome__StaticData__Title">下載最新靜態數據中...</string:String>
     <string:String x:Key="Welcome__StaticData__Body">下載靜態數據可能花費幾分鐘的時間，英雄名稱與圖片的顯示需要用到靜態數據。稍後你可以下載其他版本的靜態數據。</string:String>
+    <string:String x:Key="Welcome__StaticData__GenericError__Body">下載靜態數據錯誤，請查看錯誤信息</string:String>
 
     <string:String x:Key="WswFinishTitle">安裝完成！ </string:String>
     <string:String x:Key="WswFinishBody">單擊“完成”，ReplayBook將自動以您選擇的設置開始。 </string:String>

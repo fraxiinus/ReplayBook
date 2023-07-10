@@ -46,7 +46,7 @@
     <string:String x:Key="RedVictory">红队胜利</string:String>
     <string:String x:Key="ErrorTitle">错误</string:String>
     <string:String x:Key="ConfirmTitle">确认</string:String>
-    <string:String x:Key="ConfirmText">你确定?</string:String>
+    <string:String x:Key="ConfirmText">确定?</string:String>
 
     <string:String x:Key="ReplaySupported">可播放</string:String>
     <string:String x:Key="ReplayUnsupported">不支持</string:String>
@@ -61,6 +61,7 @@
     <string:String x:Key="General__Downloading">下载中...</string:String>
     <string:String x:Key="General__ViewButton">查看</string:String>
     <string:String x:Key="General__ExitButton">退出</string:String>
+    <string:String x:Key="General__GlobalExceptionHandler__Body">出现未处理的错误！请检查日志目录以查看详情</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">常规</string:String>
@@ -139,6 +140,7 @@
     <string:String x:Key="ExecutableSelectWindowTitleText">选择可执行文件</string:String>
     <string:String x:Key="ExecutableNotFoundErrorTitle">不支持</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">找不到与可匹配的可执行文件</string:String>
+    <string:String x:Key="ExecutableNotFoundDescriptionText">因没有找到匹配的客户端可执行文件，此回放无法播放。必须在ReplayBook中添加对应版本的客户端可执行文件才能播放录像</string:String>
     <string:String x:Key="ReplayPlayConfirmTitle">播放对局回放?</string:String>
     <string:String x:Key="ReplayPlayConfirmOptOut">您可以在“设置”窗口中关闭此确认</string:String>
 
@@ -178,12 +180,16 @@
     <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">浏览数据文件夹</string:String>
     <string:String x:Key="Settings__StaticData__RetryDownload__ErrorLabel">无法下载针对 $0 版本和 $1 语言的数据。找不到下载终端</string:String>
     <string:String x:Key="Settings__StaticData__RetryDownload__Button">重试</string:String>
+    <string:String x:Key="Settings__StaticData__UseAppLanguage__Checkbox">使用应用程序语言作为数据包语言</string:String>
+    <string:String x:Key="Settings__StaticData__BundleLanguage__ComboBoxLabel">下载语言包</string:String>
 
     <string:String x:Key="ReplayItemsPerPage">每页数目</string:String>
+    <string:String x:Key="Settings__Replays__SearchMinimumScore__Label">搜索精度</string:String>
 
     <string:String x:Key="ReplayDatabaseText">回放文件数据缓存</string:String>
     <string:String x:Key="ReplayDatabaseSize">大小:</string:String>
     <string:String x:Key="ReplayDatabaseClearButton">清理缓存</string:String>
+    <string:String x:Key="Settings__Replays__ClearCacheRestartNow__Button">现在重启软件</string:String>
 
     <string:String x:Key="RequestsDownloadAllLabel">图像下载</string:String>
     <string:String x:Key="RequestsCacheLabel">已下载的装备图像缓存</string:String>
@@ -220,6 +226,8 @@
     <string:String x:Key="CancelButtonText">取消</string:String>
     <string:String x:Key="BrowseButtonText">浏览...</string:String>
     <string:String x:Key="SelectButtonText">选中</string:String>
+    <string:String x:Key="HelpButtonText">帮助</string:String>
+    <string:String x:Key="RetryButtonText">重试</string:String>
 
     <!--  Stats Header Text  -->
     <string:String x:Key="CombatGroupHeaderText">战斗总览</string:String>
@@ -367,6 +375,7 @@
     <string:String x:Key="ErdFinishFormatHeading">输出格式</string:String>
     <string:String x:Key="ErdFinishFormatCsv">导出为 CSV</string:String>
     <string:String x:Key="ErdFinishFormatNormalize">规范化属性名称</string:String>
+    <string:String x:Key="ExportData__FinishPage__ApplyStaticData__Checkbox">应用静态数据</string:String>
     <string:String x:Key="ErdFinishJsonHeading">特定于JSON的选项</string:String>
     <string:String x:Key="ErdFinishJsonMatchId">包含匹配ID</string:String>
     <string:String x:Key="ErdFinishJsonDuration">包含比赛时长</string:String>
@@ -440,7 +449,8 @@
 
     <string:String x:Key="Welcome__StaticData__Title">下载最新静态数据中...</string:String>
     <string:String x:Key="Welcome__StaticData__Body">下载静态数据可能花费几分钟的时间，英雄名称与图片的显示需要用到静态数据。稍后你可以下载其他版本的静态数据。</string:String>
-    
+    <string:String x:Key="Welcome__StaticData__GenericError__Body">下载静态数据错误，请查看错误信息</string:String>
+
     <string:String x:Key="WswFinishTitle">安装完成！</string:String>
     <string:String x:Key="WswFinishBody">单击“完成”，ReplayBook将自动以您选择的设置开始。</string:String>
     <string:String x:Key="WswFinishButton">完成</string:String>
