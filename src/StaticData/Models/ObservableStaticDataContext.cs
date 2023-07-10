@@ -94,7 +94,11 @@ namespace Fraxiinus.ReplayBook.StaticData.Models
         /// <exception cref="Exception"></exception>
         public void DeleteBundle(string dataPath, string patchVersion)
         {
-            Directory.Delete(Path.Combine(dataPath, patchVersion), true);
+            var deletePath = Path.Combine(dataPath, patchVersion);
+            if (Directory.Exists(deletePath))
+            {
+                Directory.Delete(deletePath, true);
+            }
 
             var deletedBundle = Bundles.First(x => x.Patch == patchVersion)
                 ?? throw new Exception($"cannot find bundle to delete: {patchVersion}");

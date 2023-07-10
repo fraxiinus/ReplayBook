@@ -25,9 +25,14 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         /// </summary>
         public string PatchToDownload { get; set; }
 
-        public ProgramLanguage LanguageToDownload { get; set; } = LanguageHelper.CurrentLanguage;
+        public string LanguageToDownload { get; set; }
 
         public bool DownloadResult { get; set; }
+
+        /// <summary>
+        /// Error message is set if <see cref="DownloadResult"/> = true
+        /// </summary>
+        public string ErrorMessage { get; set; }
 
         private static MainWindowViewModel ViewModel
         {
@@ -86,15 +91,23 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             // find the matching target patch
             await ViewModel.StaticDataManager.GetPatchesIfOutdated(cancellationToken.Token);
             var targetPatch = ViewModel.StaticDataManager.Context.KnownPatchNumbers
-                .FirstOrDefault(x => x.StartsWith(PatchToDownload.VersionSubstring()))
-                ?? throw new Exception($"failed to find patch for {PatchToDownload.VersionSubstring()}");
+                .FirstOrDefault(x => x.VersionSubstring().Equals(PatchToDownload.VersionSubstring()));
+
+            // There is a chance the list isn't updated, refresh the list and try again
+            if (targetPatch == null)
+            {
+                await ViewModel.StaticDataManager.RefreshPatches();
+                targetPatch = ViewModel.StaticDataManager.Context.KnownPatchNumbers
+                    .FirstOrDefault(x => x.VersionSubstring().Equals(PatchToDownload.VersionSubstring()))
+                    ?? throw new Exception($"failed to find patch for {PatchToDownload.VersionSubstring()}");
+            }
 
             progressBar.IsIndeterminate = false;
             try
             {
                 await ViewModel.StaticDataManager.DownloadProperties(targetPatch,
                     StaticDataType.Rune | StaticDataType.Item | StaticDataType.Champion,
-                    LanguageHelper.CurrentLanguage.GetRiotRegionCode(),
+                    LanguageToDownload,
                     cancellationToken.Token);
 
                 progressBar.Value = 33;
@@ -106,13 +119,14 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                 progressBar.Value = 66;
 
                 await ViewModel.StaticDataManager.DownloadRuneImages(targetPatch,
-                    LanguageHelper.CurrentLanguage.GetRiotRegionCode(),
+                    LanguageToDownload,
                     cancellationToken.Token);
 
                 progressBar.Value = 100;
             }
-            catch (HttpRequestException)
+            catch (HttpRequestException ex)
             {
+                ErrorMessage = ex.ToString();
                 return (false, targetPatch);
             }
 
@@ -128,10 +142,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         /// </summary>
         /// <param name="patch"></param>
         /// <returns></returns>
-        public static async Task StartDownloadDialog(string patch)
+        public static async Task StartDownloadDialog(string patch, string targetLanguageCode)
         {
             var retryDownload = true;
-            var targetLanguage = LanguageHelper.CurrentLanguage;
 
             while (retryDownload)
             {
@@ -139,7 +152,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                 var downloadDialog = new StaticDataDownloadDialog()
                 {
                     PatchToDownload = patch,
-                    LanguageToDownload = targetLanguage
+                    LanguageToDownload = targetLanguageCode
                 };
                 await downloadDialog.ShowAsync();
 
@@ -149,14 +162,15 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                     // show retry dialog
                     var retryDialog = new StaticDataRetryDialog()
                     {
-                        PatchToDownload = patch
+                        PatchToDownload = patch,
+                        HttpErrorMessage = downloadDialog.ErrorMessage
                     };
                     var result = await retryDialog.ShowAsync();
 
                     // retry download in english
                     if (result == ContentDialogResult.Primary)
                     {
-                        targetLanguage = ProgramLanguage.En;
+                        targetLanguageCode = ConfigurationDefinitions.GetRiotRegionCode(LeagueLocale.EnglishUS);
                     }
                     else
                     {

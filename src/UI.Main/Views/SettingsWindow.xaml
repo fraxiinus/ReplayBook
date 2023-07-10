@@ -97,9 +97,30 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                                    <Grid Margin="12,6,12,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   FontSize="14"
+                                                   Text="{DynamicResource PlayerMarkerNameLabelText}" />
+                                        <Rectangle Grid.Column="1"
+                                                   Width="1"
+                                                   Height="12"
+                                                   Fill="{DynamicResource SystemControlBackgroundBaseMediumHighBrush}" />
+                                        <TextBlock Grid.Column="2"
+                                                   FontSize="14"
+                                                   Text="{DynamicResource PlayerMarkerNoteLabelText}" />
+                                    </Grid>
+                                </Border>
+
                                 <ListBox x:Name="KnownPlayersListBox"
-                                         Grid.Row="0"
+                                         Grid.Row="1"
                                          Grid.Column="0"
                                          Height="150"
                                          ItemsSource="{Binding Path=Configuration.PlayerMarkers}"
@@ -147,7 +168,7 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
 
-                                <ui:CommandBar Grid.Row="1">
+                                <ui:CommandBar Grid.Row="2">
                                     <ui:AppBarButton x:Name="AddKnownPlayerButton"
                                                      Click="AddKnownPlayerButton_Click"
                                                      Label="{DynamicResource AddButtonText}">
@@ -374,10 +395,31 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
+                                <Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                                    <Grid Margin="12,6,12,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   FontSize="14"
+                                                   Text="{DynamicResource ExecutableDetailName}" />
+                                        <Rectangle Grid.Column="1"
+                                                   Width="1"
+                                                   Height="12"
+                                                   Fill="{DynamicResource SystemControlBackgroundBaseMediumHighBrush}" />
+                                        <TextBlock Grid.Column="2"
+                                                   FontSize="14"
+                                                   Text="{DynamicResource ExecutableDetailPropertyPatch}" />
+                                    </Grid>
+                                </Border>
+
                                 <ListBox x:Name="ExecutablesListBox"
-                                         Grid.Row="0"
+                                         Grid.Row="1"
                                          Grid.Column="0"
                                          Height="150"
                                          HorizontalContentAlignment="Stretch"
@@ -414,7 +456,7 @@
                                     </ListBox.ItemTemplate>
                                 </ListBox>
 
-                                <ui:CommandBar Grid.Row="1">
+                                <ui:CommandBar Grid.Row="2">
                                     <ui:AppBarButton x:Name="AddExecutableButton"
                                                      Click="AddExecutableButton_Click"
                                                      Label="{DynamicResource AddButtonText}">
@@ -482,10 +524,31 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
+                                <!--<Border Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}">
+                                    <Grid Margin="12,6,12,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0"
+                                                   FontSize="14"
+                                                   Text="{DynamicResource Settings__StaticData__BundleList__PatchLabel}" />
+                                        <Rectangle Grid.Column="1"
+                                                   Width="1"
+                                                   Height="12"
+                                                   Fill="{DynamicResource SystemControlBackgroundBaseMediumHighBrush}" />
+                                        <TextBlock Grid.Column="2"
+                                                   FontSize="14"
+                                                   Text="{DynamicResource Settings__StaticData__BundleList__LanguageLabel}" />
+                                    </Grid>
+                                </Border>-->
+
                                 <ListBox x:Name="StaticDataDownloadedListBox"
-                                         Grid.Row="0"
+                                         Grid.Row="1"
                                          Grid.Column="0"
                                          Height="200"
                                          ItemsSource="{Binding Path=StaticData.Context.Bundles}"
@@ -510,12 +573,19 @@
                                                            Text="{Binding Patch}"
                                                            TextTrimming="CharacterEllipsis"
                                                            ToolTip="{Binding Patch}" />
+                                                <!--<TextBlock Grid.Column="1"
+                                                           Margin="5,0,5,0"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="14"
+                                                           Foreground="{DynamicResource SystemControlHighlightBaseMediumLowBrush}"
+                                                           Text="{Binding Path=PatchNumber}"
+                                                           TextAlignment="Right" />-->
                                             </Grid>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
 
-                                <ui:CommandBar Grid.Row="1">
+                                <ui:CommandBar Grid.Row="2">
                                     <ui:AppBarButton x:Name="AddStaticDataButton"
                                                      Click="AddStaticDataButton_Click"
                                                      Label="{DynamicResource AddButtonText}">
@@ -541,6 +611,26 @@
                                     </ui:AppBarButton>
                                 </ui:CommandBar>
                             </Grid>
+
+                            <CheckBox Content="{DynamicResource Settings__StaticData__UseAppLanguage__Checkbox}" IsChecked="{Binding Path=Configuration.UseCurrentLanguageAsLocale}" />
+
+                            <TextBlock FontSize="16" Text="{DynamicResource Settings__StaticData__BundleLanguage__ComboBoxLabel}" />
+                            <ComboBox x:Name="StaticDataLocaleComboBox"
+                                      Width="200"
+                                      SelectionChanged="StaticDataLocaleComboBox_SelectionChanged">
+                                <ComboBox.Style>
+                                    <Style BasedOn="{StaticResource DefaultComboBoxStyle}" TargetType="ComboBox">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=Configuration.UseCurrentLanguageAsLocale}" Value="true">
+                                                <Setter Property="IsEnabled" Value="false" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path=Configuration.UseCurrentLanguageAsLocale}" Value="false">
+                                                <Setter Property="IsEnabled" Value="true" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ComboBox.Style>
+                            </ComboBox>
 
                             <Expander ExpandDirection="Down"
                                       FontSize="16"
@@ -662,6 +752,29 @@
                                            Grid.Column="1"
                                            VerticalAlignment="Center"
                                            Text="{Binding ElementName=ItemCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                                           TextAlignment="Right" />
+                            </Grid>
+
+                            <TextBlock FontSize="16" Text="{DynamicResource Settings__Replays__SearchMinimumScore__Label}" />
+                            <Grid VerticalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="25" />
+                                </Grid.ColumnDefinitions>
+                                <Slider x:Name="SearchMinimumScoreSlider"
+                                        Grid.Column="0"
+                                        Margin="0,0,10,0"
+                                        IsSnapToTickEnabled="True"
+                                        Maximum="1"
+                                        Minimum="0"
+                                        TickFrequency="0.1"
+                                        TickPlacement="BottomRight"
+                                        Value="{Binding Path=Configuration.SearchMinimumScore}" />
+
+                                <TextBlock x:Name="SearchMinimumScoreTextBox"
+                                           Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding ElementName=SearchMinimumScoreSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
                                            TextAlignment="Right" />
                             </Grid>
 

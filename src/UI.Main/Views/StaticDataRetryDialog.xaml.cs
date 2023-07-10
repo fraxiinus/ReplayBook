@@ -25,6 +25,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
         /// </summary>
         public string PatchToDownload { get; set; }
 
+        public string HttpErrorMessage { get; set; }
+
         private MainWindowViewModel ViewModel
         {
             get => (Window.GetWindow(this)?.DataContext is MainWindowViewModel viewModel)
@@ -42,6 +44,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             ErrorMessage.Text = ErrorMessage.Text
                 .Replace("$0", PatchToDownload)
                 .Replace("$1", LanguageHelper.CurrentLanguage.GetRiotRegionCode());
+
+            HttpErrorMessageBox.Text = HttpErrorMessage;
         }
     }
 }

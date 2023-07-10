@@ -9,6 +9,27 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
 {
     public static class ContentDialogHelper
     {
+        public static ContentDialog CreateContentDialog(string title,
+                                                        string description,
+                                                        string primaryButtonText,
+                                                        string secondaryButtonText = null,
+                                                        double labelWidth = 300) 
+        {
+            // include secondary button if secondary buton text is provided
+            var dialog = CreateContentDialog(secondaryButtonText != null);
+
+            // set properties
+            dialog.Title = title;
+            dialog.PrimaryButtonText = primaryButtonText;
+            dialog.SecondaryButtonText = secondaryButtonText;
+            dialog.SetLabelText(description);
+            dialog.GetContentDialogLabel().TextWrapping = TextWrapping.Wrap;
+            dialog.GetContentDialogLabel().Width = labelWidth;
+            dialog.DefaultButton = ContentDialogButton.Primary;
+
+            return dialog;
+        }
+
         /// <summary>
         /// Creates a <see cref="ContentDialog"/> using the parameters
         /// </summary>

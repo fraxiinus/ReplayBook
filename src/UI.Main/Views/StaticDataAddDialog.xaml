@@ -30,15 +30,19 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
                 <ComboBox x:Name="PatchComboBox"
-                          Grid.Row="1"
+                          Grid.Row="0"
                           Grid.Column="0"
                           HorizontalAlignment="Stretch"
                           ItemsSource="{Binding Context.KnownPatchNumbers}" />
 
                 <Button x:Name="RefreshPatchesButton"
-                        Grid.Row="1"
+                        Grid.Row="0"
                         Grid.Column="1"
                         Height="32"
                         Margin="12,0,0,0"
@@ -50,6 +54,12 @@
                                  Height="16"
                                  Data="{StaticResource RefreshPathIcon}" />
                 </Button>
+
+                <TextBlock x:Name="ErrorTextBlock"
+                           Grid.Row="1"
+                           Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}"
+                           TextWrapping="Wrap"
+                           Visibility="Collapsed" />
             </Grid>
 
         </ui:SimpleStackPanel>

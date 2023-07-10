@@ -8,39 +8,39 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
     public static class LanguageHelper
     {
         /// <summary>
-        /// The current language loaded into ReplayBook. Set using <see cref="SetProgramLanguage(ProgramLanguage)"/>
+        /// The current language loaded into ReplayBook. Set using <see cref="SetProgramLanguage(ApplicationLanguage)"/>
         /// </summary>
-        public static ProgramLanguage CurrentLanguage { get; private set; }
+        public static ApplicationLanguage CurrentLanguage { get; private set; }
 
         /// <summary>
         /// Updates resource dictionary to target language (English loaded as secondary always).
         /// Loads static data in target language.
         /// </summary>
         /// <param name="target"></param>
-        public static void SetProgramLanguage(ProgramLanguage target)
+        public static void SetProgramLanguage(ApplicationLanguage target)
         {
             var dict = new ResourceDictionary();
             switch (target)
             {
-                case ProgramLanguage.En:
+                case ApplicationLanguage.En:
                     dict.Source = new Uri("..\\Resources\\Strings\\en.xaml", UriKind.Relative);
                     break;
-                case ProgramLanguage.ZhHans:
+                case ApplicationLanguage.ZhHans:
                     dict.Source = new Uri("..\\Resources\\Strings\\zh-Hans.xaml", UriKind.Relative);
                     break;
-                case ProgramLanguage.ZhHant:
+                case ApplicationLanguage.ZhHant:
                     dict.Source = new Uri("..\\Resources\\Strings\\zh-Hant.xaml", UriKind.Relative);
                     break;
-                case ProgramLanguage.De:
+                case ApplicationLanguage.De:
                     dict.Source = new Uri("..\\Resources\\Strings\\de.xaml", UriKind.Relative);
                     break;
-                case ProgramLanguage.Es:
+                case ApplicationLanguage.Es:
                     dict.Source = new Uri("..\\Resources\\Strings\\es.xaml", UriKind.Relative);
                     break;
-                case ProgramLanguage.Fr:
+                case ApplicationLanguage.Fr:
                     dict.Source = new Uri("..\\Resources\\Strings\\fr.xaml", UriKind.Relative);
                     break;
-                case ProgramLanguage.Pt:
+                case ApplicationLanguage.Pt:
                     dict.Source = new Uri("..\\Resources\\Strings\\pt.xaml", UriKind.Relative);
                     break;
                 default:
@@ -48,7 +48,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
             }
 
             // Load english data in for backup
-            if (target != ProgramLanguage.En)
+            if (target != ApplicationLanguage.En)
             {
                 var backupDict = new ResourceDictionary
                 {

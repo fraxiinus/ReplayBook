@@ -8,6 +8,10 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
         [ConfigurationKeyName("folder_list")]
         [JsonPropertyName("folder_list")]
         public string[]? FolderList { get; set; }
+
+        [ConfigurationKeyName("search_minimum_score")]
+        [JsonPropertyName("search_minimum_score")]
+        public float SearchMinimumScore { get; set; } = 0.3f;
     }
 
     public class RequestSettings
@@ -20,6 +24,14 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
         [ConfigurationKeyName("cdragon_baseurl")]
         [JsonPropertyName("cdragon_baseurl")]
         public string CommunityDragonBaseUrl { get; set; } = "https://raw.communitydragon.org/";
+
+        [ConfigurationKeyName("staticdata_useapplanguage")]
+        [JsonPropertyName("staticdata_useapplanguage")]
+        public bool UseCurrentLanguageAsLocale { get; set; } = true;
+
+        [ConfigurationKeyName("staticdata_downloadlanguage")]
+        [JsonPropertyName("staticdata_downloadlanguage")]
+        public LeagueLocale StaticDataDownloadLanguage { get; set; } = LeagueLocale.EnglishUS;
     }
 
     public class GeneralSettings
@@ -56,7 +68,7 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
 
         [ConfigurationKeyName("language")]
         [JsonPropertyName("language")]
-        public ProgramLanguage Language { get; set; }
+        public ApplicationLanguage Language { get; set; }
     }
 
     public class AppearanceSettings

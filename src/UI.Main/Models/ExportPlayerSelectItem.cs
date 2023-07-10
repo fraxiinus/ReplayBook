@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Fraxiinus.ReplayBook.UI.Main.Models.View;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Models
 {

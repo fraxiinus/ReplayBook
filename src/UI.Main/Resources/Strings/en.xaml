@@ -40,17 +40,18 @@
 
     <string:String x:Key="ReplaySupported">Playable</string:String>
     <string:String x:Key="ReplayUnsupported">Unsupported</string:String>
-    <string:String x:Key="ReplayPlayExceptionTitle">Exception Occured</string:String>
+    <string:String x:Key="ReplayPlayExceptionTitle">Exception Occurred</string:String>
 
     <string:String x:Key="NoReplaysFoundTitle">No more results</string:String>
 
     <string:String x:Key="MissingPathTitle">Replay folder not found</string:String>
-    <string:String x:Key="MissingPathText">The following path(s) could not be found are were removed:</string:String>
+    <string:String x:Key="MissingPathText">The following path(s) could not be found and were removed:</string:String>
 
     <string:String x:Key="General__DownloadButton">Download</string:String>
     <string:String x:Key="General__Downloading">Downloading...</string:String>
     <string:String x:Key="General__ViewButton">View</string:String>
     <string:String x:Key="General__ExitButton">Exit</string:String>
+    <string:String x:Key="General__GlobalExceptionHandler__Body">Unhandled exception occurred! Please check the logs directory for full details.</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
@@ -92,7 +93,6 @@
     <string:String x:Key="CheckUpdatesButtonText">Check now</string:String>
     <string:String x:Key="UpdateAvailableText">Update is available! Download the new version here</string:String>
     <string:String x:Key="UpdateAvailableNotifText">New version available!</string:String>
-    <system:Uri x:Key="GitHubReleasesLink">https://github.com/fraxiinus/ReplayBook/releases/latest</system:Uri>
     <string:String x:Key="OpenGitHubButtonText">View project on GitHub</string:String>
     <string:String x:Key="UpdateExceptionTitleText">Unable to check for updates</string:String>
     <string:String x:Key="UpdateHTTPExceptionBodyText">Failed to connect to GitHub. Check your connection and try again.</string:String>
@@ -129,6 +129,7 @@
     <string:String x:Key="ExecutableSelectWindowTitleText">Select Executable</string:String>
     <string:String x:Key="ExecutableNotFoundErrorTitle">Unsupported Replay</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">No matching executable found for patch</string:String>
+    <string:String x:Key="ExecutableNotFoundDescriptionText">This replay cannot be played because there is no matching executable. An executable with matching patch version must be registered with ReplayBook in order to play replays.</string:String>
     <string:String x:Key="ReplayPlayConfirmTitle">Play replay?</string:String>
     <string:String x:Key="ReplayPlayConfirmOptOut">You can turn off this confirmation in the settings window</string:String>
 
@@ -166,14 +167,18 @@
     <string:String x:Key="Settings__StaticData__ViewBundle__ItemLanguageLabel">Item data</string:String>
     <string:String x:Key="Settings__StaticData__ViewBundle__RuneLanguageLabel">Rune data</string:String>
     <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">Browse Data Folder</string:String>
-    <string:String x:Key="Settings__StaticData__RetryDownload__ErrorLabel">Failed to download data for patch $0 and language $1. The endpoint could not be found.</string:String>
+    <string:String x:Key="Settings__StaticData__RetryDownload__ErrorLabel">Failed to download data for patch $0 and language $1. The combination you selected does not appear to exist.</string:String>
     <string:String x:Key="Settings__StaticData__RetryDownload__Button">Retry in English</string:String>
+    <string:String x:Key="Settings__StaticData__UseAppLanguage__Checkbox">Use application language as bundle language</string:String>
+    <string:String x:Key="Settings__StaticData__BundleLanguage__ComboBoxLabel">Download language</string:String>
 
     <string:String x:Key="ReplayItemsPerPage">Items Per Page</string:String>
+    <string:String x:Key="Settings__Replays__SearchMinimumScore__Label">Search Strictness</string:String>
 
     <string:String x:Key="ReplayDatabaseText">Replay Data Cache</string:String>
     <string:String x:Key="ReplayDatabaseSize">Size:</string:String>
     <string:String x:Key="ReplayDatabaseClearButton">Clear cache</string:String>
+    <string:String x:Key="Settings__Replays__ClearCacheRestartNow__Button">Restart now</string:String>
 
     <string:String x:Key="RequestsDownloadAllLabel">Download Images</string:String>
     <string:String x:Key="RequestsCacheLabel">Downloaded Images Cache</string:String>
@@ -193,13 +198,10 @@
     <string:String x:Key="DataDragonMapUrlLabelText">Map Image Relative URL</string:String>
 
     <string:String x:Key="Name">ReplayBook</string:String>
-    <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
-    <string:String x:Key="GitHubLink">https://github.com/fraxiinus/ReplayBook</string:String>
+    <string:String x:Key="Author">Fraxiinus</string:String>
     <string:String x:Key="DiscordInviteButton">Join the Discord</string:String>
-    <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
     <string:String x:Key="LicenseText">This program is licensed under GPL-3.0</string:String>
-    <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <string:String x:Key="AcknowledgementText">ReplayBook is only possible thanks to the following:</string:String>
     <string:String x:Key="AcknowledgementButtonText">Open Source Projects</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">Open Source Acknowledgements</string:String>
@@ -213,6 +215,8 @@
     <string:String x:Key="CancelButtonText">Cancel</string:String>
     <string:String x:Key="BrowseButtonText">Browse...</string:String>
     <string:String x:Key="SelectButtonText">Select</string:String>
+    <string:String x:Key="HelpButtonText">Help</string:String>
+    <string:String x:Key="RetryButtonText">Retry</string:String>
 
     <!--  Stats Header Text  -->
     <string:String x:Key="CombatGroupHeaderText">Combat</string:String>
@@ -360,6 +364,7 @@
     <string:String x:Key="ErdFinishFormatHeading">Output format</string:String>
     <string:String x:Key="ErdFinishFormatCsv">Export as CSV</string:String>
     <string:String x:Key="ErdFinishFormatNormalize">Normalize attribute names</string:String>
+    <string:String x:Key="ExportData__FinishPage__ApplyStaticData__Checkbox">Apply static data</string:String>
     <string:String x:Key="ErdFinishJsonHeading">JSON specific options</string:String>
     <string:String x:Key="ErdFinishJsonMatchId">Include match ID</string:String>
     <string:String x:Key="ErdFinishJsonDuration">Include match duration</string:String>
@@ -425,6 +430,7 @@
 
     <string:String x:Key="Welcome__StaticData__Title">Downloading latest static data...</string:String>
     <string:String x:Key="Welcome__StaticData__Body">Downloading static data will take a few minutes, but is required for displaying champion names and thumbnails. You can download static data bundles for different patches later.</string:String>
+    <string:String x:Key="Welcome__StaticData__GenericError__Body">Error downloading static data. See attached error message.</string:String>
 
     <string:String x:Key="WswFinishTitle">Setup complete!</string:String>
     <string:String x:Key="WswFinishBody">Click &quot;Finish&quot; and ReplayBook will automatically start with your chosen settings.</string:String>

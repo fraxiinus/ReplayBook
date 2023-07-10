@@ -1,9 +1,8 @@
-﻿using Fraxiinus.ReplayBook.Executables.Old.Models;
+﻿using Fraxiinus.ReplayBook.Configuration.Models;
+using Fraxiinus.ReplayBook.Executables.Old.Models;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 namespace Fraxiinus.ReplayBook.Executables.Old.Utilities
 {
@@ -22,7 +21,7 @@ namespace Fraxiinus.ReplayBook.Executables.Old.Utilities
 
             // Create the launch arguments, each argument is put in quotes
             // <replay file path> GameBaseDir=... <other arguments>
-            var locale = executable.Locale == LeagueLocale.Custom ? executable.CustomLocale : ExeTools.GetLocaleCode(executable.Locale);
+            var locale = executable.Locale == LeagueLocale.Custom ? executable.CustomLocale : ConfigurationDefinitions.GetRiotRegionCode(executable.Locale);
 
             string launchArgs = $"\"{path}\" " + executable.LaunchArguments + $" \"-Locale={locale}\"";
 

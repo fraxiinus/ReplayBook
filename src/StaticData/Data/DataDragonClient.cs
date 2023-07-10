@@ -97,7 +97,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
                 var url = _config.DataDragonBaseUrl
                     + patchVersion
                     + "/img/sprite/"
-                    + dataType.ToLower()
+                    + dataType.ToLowerInvariant()
                     + resultFiles.Count
                     + ".png";
 
@@ -171,7 +171,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
         public async Task<IEnumerable<BaseStaticProperties>> DownloadPropertySet(string patchVersion, string dataType, string language, CancellationToken cancellationToken = default)
         {
             // catch and rename rune data type
-            var fileName = dataType == StaticDataDefinitions.Rune ? "runesReforged" : dataType.ToLower();
+            var fileName = dataType == StaticDataDefinitions.Rune ? "runesReforged" : dataType.ToLowerInvariant();
 
             var url = _config.DataDragonBaseUrl
                 + patchVersion
@@ -320,7 +320,7 @@ namespace Fraxiinus.ReplayBook.StaticData.Data
         private async Task<string> SaveImageToFile(Stream imageStream, int count, string patchVersion, string dataType, CancellationToken cancellationToken = default)
         {
             // Make sure destination exists
-            var relativeDestination = Path.Combine(patchVersion, dataType.ToLower());
+            var relativeDestination = Path.Combine(patchVersion, dataType.ToLowerInvariant());
             var destinationFolder = Path.Combine(_dataPath, relativeDestination);
             Directory.CreateDirectory(destinationFolder);
 

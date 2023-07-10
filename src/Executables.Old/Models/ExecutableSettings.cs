@@ -1,23 +1,15 @@
-﻿using Newtonsoft.Json;
-using System.Collections.ObjectModel;
-using Fraxiinus.ReplayBook.Executables.Old.Utilities;
+﻿using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 
-namespace Fraxiinus.ReplayBook.Executables.Old.Models
+namespace Fraxiinus.ReplayBook.Executables.Old.Models;
+
+public class ExecutableSettings
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
-    public class ExecutableSettings
-    {
-        public ExecutableSettings()
-        {
-            Executables = new ObservableCollection<LeagueExecutable>();
-            SourceFolders = new ObservableCollection<string>();
-        }
 
-        [JsonProperty("executables")]
-        public ObservableCollection<LeagueExecutable> Executables { get; private set; }
+    [JsonPropertyName("executables")]
+    public ObservableCollection<LeagueExecutable> Executables { get; set; }
 
-        [JsonProperty("sourceFolders")]
-        public ObservableCollection<string> SourceFolders { get; private set; }
+    [JsonPropertyName("sourceFolders")]
+    public ObservableCollection<string> SourceFolders { get; set; }
 
-    }
 }

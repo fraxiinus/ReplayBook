@@ -194,7 +194,7 @@
                                VerticalAlignment="Center"
                                Background="Transparent"
                                FontSize="14"
-                               Text="{Binding Path=PreviewModel.GameLengthString, FallbackValue=GameDuration, Mode=OneWay}"
+                               Text="{Binding Path=PreviewModel.GameDurationString, FallbackValue=GameDuration, Mode=OneWay}"
                                ToolTip="{Binding Path=PreviewModel.GameDuration}" />
 
                     <TextBlock Margin="0,0,15,0"

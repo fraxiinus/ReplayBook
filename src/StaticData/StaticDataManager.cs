@@ -136,16 +136,16 @@ namespace Fraxiinus.ReplayBook.StaticData
         /// <param name="patchVersion"></param>
         /// <param name="language"></param>
         /// <returns></returns>
-        public async Task<T?> GetProperties<T>(string id, string patchVersion, ProgramLanguage language) where T : IStaticProperties
+        public async Task<T?> GetProperties<T>(string id, string patchVersion, ApplicationLanguage language) where T : IStaticProperties
         {
             // The FiddleSticks Hack(tm)
             if (id == "FiddleSticks")
             {
                 id = "Fiddlesticks";
             } 
-            else if (string.IsNullOrEmpty(id))
+            else if (string.IsNullOrEmpty(id) || id == "0")
             {
-                _log.Warning($"Empty id given: {patchVersion} - {language.GetRiotRegionCode()}");
+                _log.Warning($"Empty/Zero id given: {patchVersion} - {language.GetRiotRegionCode()}");
                 return default;
             }
 
@@ -453,7 +453,7 @@ namespace Fraxiinus.ReplayBook.StaticData
             };
 
             // Make sure destination exists
-            var relativeDestination = Path.Combine(patchVersion, dataType.ToLower());
+            var relativeDestination = Path.Combine(patchVersion, dataType.ToLowerInvariant());
             var destinationFolder = Path.Combine(_dataPath, relativeDestination);
             Directory.CreateDirectory(destinationFolder);
 

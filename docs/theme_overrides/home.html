@@ -1,0 +1,249 @@
+<!-- Custom HTML site displayed as the Home chapter -->
+
+{% extends "main.html" %}
+
+<!-- Attach landing page to tabs -->
+{% block tabs %}
+{{ super() }}
+
+<style>
+    .md-main {
+        flex-grow: 0;
+    }
+
+    .md-main__inner {
+        display: flex;
+        height: 100%;
+        margin-top: 0;
+    }
+
+    .hero-container {
+        padding-top: .0rem;
+        background: linear-gradient(to bottom, var(--md-primary-fg-color), hsl(232, 15%, 21%) 99%, #2e303e 99%)
+    }
+
+    .hero {
+        margin: 32px 2.8rem;
+        color: var(--md-primary-bg-color);
+        justify-content: center;
+    }
+
+    .hero h1 {
+        margin-bottom: 1rem;
+        color: currentColor;
+        font-weight: 700
+    }
+
+    .hero h1 img {
+        height: 6.5rem;
+        vertical-align: middle;
+        margin-bottom: .5rem;
+    }
+
+    .hero-image {
+        width: 30rem;
+        order: 1;
+    }
+
+    .hero-content {
+        padding-bottom: 1rem;
+        margin: 0 auto;
+    }
+
+    .feature-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        margin: 0 2.8rem;
+    }
+
+    .feature-item {
+        text-align: center;
+        padding: 15px;
+        height: 8.5rem;
+    }
+
+    .feature-item h2 {
+        font-size: 20px;
+        margin: 0.5em;
+    }
+
+    .feature-item h2 svg {
+        height: 30px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .feature-item p {
+        font-size: 16px;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    @media screen and (max-width:30em) {
+        .hero h1 {
+            font-size: 1.4rem
+        }
+    }
+
+    @media screen and (max-width:40em) {
+        .feature-container {
+            grid-template-columns: auto;
+        }
+
+        .hero-image {
+            width: 18rem;
+        }
+    }
+
+    @media screen and (min-width:40em) and (max-width:60em) {
+        .feature-container {
+            grid-template-columns: auto auto;
+        }
+    }
+
+    @media screen and (min-width:60em) {
+        .md-sidebar--secondary {
+            display: none
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            max-width: 22rem;
+            margin-top: 3.5rem;
+            margin-bottom: 3.5rem;
+            margin-left: 1.0rem;
+            margin-right: 1.0rem;
+            padding-right: 2.0rem;
+            align-items: center;
+        }
+
+        .features {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-container {
+            max-width: 60rem;
+            margin-left: 1.0rem;
+            margin-right: 4.0rem;
+            align-items: center;
+        }
+    }
+
+    @media screen and (min-width:76.25em) {
+        .md-sidebar--primary {
+            display: none
+        }
+    }
+</style>
+
+<section class="hero-container">
+    <div class="md-grid md-typeset">
+        <div class="hero">
+            <div class="hero-image">
+                <img src="images/0_banner_image.png" draggable="false">
+            </div>
+            <div class="hero-content">
+                <h1>
+                    <img src="images/app-icon.png" draggable="false">
+                    ReplayBook
+                </h1>
+                <p>A <b>free, open-source</b> tool that helps you <b>organize</b> and <b>manage</b> your downloaded
+                    replay files</p>
+                <a href="{{ page.next_page.url | url }}" title="{{ page.next_page.title | e }}" class="md-button md-button--primary">
+                    Download
+                </a>
+                <a href="about" title="Learn more" class="md-button">
+                    Learn more
+                </a>
+                <h6>For Windows 10 or newer, 64 bit systems
+                </h6>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="features">
+    <div class="feature-container md-typeset">
+        <div class="feature-item">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor" 
+                        d="M9,13A3,3 0 0,0 12,16A3,3 0 0,0 15,13A3,3 0 0,0 12,10A3,3 0 0,0 9,13M20,19.59V8L14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18C18.45,22 18.85,21.85 19.19,21.6L14.76,17.17C13.96,17.69 13,18 12,18A5,5 0 0,1 7,13A5,5 0 0,1 12,8A5,5 0 0,1 17,13C17,14 16.69,14.96 16.17,15.75L20,19.59Z" />
+                </svg>
+                File Preview
+            </h2>
+            <p>See information without having to start the game, no need to guess which replay file is which</p>
+        </div>
+        <div class="feature-item">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor" 
+                        d="M12,3A9,9 0 0,0 3,12H0L4,16L8,12H5A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19C10.5,19 9.09,18.5 7.94,17.7L6.5,19.14C8.04,20.3 9.94,21 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M14,12A2,2 0 0,0 12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12Z" />
+                </svg>
+                Backup Support
+            </h2>
+            <p>Play expired replays with the appropriate League of Legends backup<br>
+                <a href="getting-started/playing-expired-replays">Playing Expired Replays</a>
+            </p>
+        </div>
+        <div class="feature-item">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12M5,13.28L7.45,14.77L6.8,11.96L9,10.08L6.11,9.83L5,7.19L3.87,9.83L1,10.08L3.18,11.96L2.5,14.77L5,13.28Z" />
+                </svg>
+                Player Markers
+            </h2>
+            <p>Highlight specific players to make them easy to spot with customizable colors and notes<br>
+                <a href="getting-started/using-player-markers">Using Player Markers</a>
+            </p>
+        </div>
+        <div class="feature-item">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z" />
+                </svg>
+                Data Export
+            </h2>
+            <p>Includes champions, items, runes, and detailed gameplay stats not available anywhere else<br>
+                <a href="getting-started/exporting-player-data">Exporting Player Data</a>
+            </p>
+        </div>
+        <div class="feature-item">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M17.9,17.39C17.64,16.59 16.89,16 16,16H15V13A1,1 0 0,0 14,12H8V10H10A1,1 0 0,0 11,9V7H13A2,2 0 0,0 15,5V4.59C17.93,5.77 20,8.64 20,12C20,14.08 19.2,15.97 17.9,17.39M11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.78 4.21,10.21L9,15V16A2,2 0 0,0 11,18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                </svg>
+                Region Free
+            </h2>
+            <p>Automatically detects League of Legends region, no API access required</p>
+        </div>
+        <div class="feature-item">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M12.87,15.07L10.33,12.56L10.36,12.53C12.1,10.59 13.34,8.36 14.07,6H17V4H10V2H8V4H1V6H12.17C11.5,7.92 10.44,9.75 9,11.35C8.07,10.32 7.3,9.19 6.69,8H4.69C5.42,9.63 6.42,11.17 7.67,12.56L2.58,17.58L4,19L9,14L12.11,17.11L12.87,15.07M18.5,10H16.5L12,22H14L15.12,19H19.87L21,22H23L18.5,10M15.88,17L17.5,12.67L19.12,17H15.88Z" />
+                </svg>
+                Multi-language
+            </h2>
+            <p>Community translated to 中文 (简体/繁體), Deutsch, Español, Français and Português<br>
+                <a href="https://github.com/fraxiinus/ReplayBook/wiki/Translating">Translation Status</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- Do not show content or footer -->
+{% block content %}{% endblock %}
+{% block footer %}{% endblock %}
