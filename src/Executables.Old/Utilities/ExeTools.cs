@@ -14,8 +14,8 @@ namespace Fraxiinus.ReplayBook.Executables.Old.Utilities
             return !string.IsNullOrEmpty(filePath)
                 && filePath.Contains("League of Legends.exe")
                 && File.Exists(filePath)
-                && FileVersionInfo.GetVersionInfo(filePath).FileDescription
-                        .Equals(@"League of Legends (TM) Client", StringComparison.OrdinalIgnoreCase);
+                && FileVersionInfo.GetVersionInfo(filePath).FileDescription?
+                    .Equals(@"League of Legends (TM) Client", StringComparison.OrdinalIgnoreCase) == true;
         }
 
         public static string GetLeagueVersion(string filePath)

@@ -160,7 +160,7 @@ public static class ConfigurationDefinitions
             "es_AR" => LeagueLocale.SpanishAR,
             "id_ID" => LeagueLocale.Indonesian,
             "th_TH" => LeagueLocale.Thai,
-            "vn_VN" => LeagueLocale.Vietnamese,
+            "vi_VN" => LeagueLocale.Vietnamese,
             "zh_MY" => LeagueLocale.ChineseMY,
             _ => throw new ArgumentException($"locale not found {name}"),
         };
@@ -200,7 +200,7 @@ public static class ConfigurationDefinitions
             LeagueLocale.SpanishAR => "es_AR",
             LeagueLocale.Indonesian => "id_ID",
             LeagueLocale.Thai => "th_TH",
-            LeagueLocale.Vietnamese => "vn_VN",
+            LeagueLocale.Vietnamese => "vi_VN",
             LeagueLocale.ChineseMY => "zh_MY",
             LeagueLocale.Custom => "Custom",
             _ => "en_US",

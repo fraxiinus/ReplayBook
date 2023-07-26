@@ -163,6 +163,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
                     var retryDialog = new StaticDataRetryDialog()
                     {
                         PatchToDownload = patch,
+                        LanguageTried = targetLanguageCode,
                         HttpErrorMessage = downloadDialog.ErrorMessage
                     };
                     var result = await retryDialog.ShowAsync();
