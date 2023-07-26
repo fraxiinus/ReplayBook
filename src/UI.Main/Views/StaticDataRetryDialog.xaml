@@ -6,6 +6,7 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:ui="http://schemas.modernwpf.com/2019"
                   Title="{DynamicResource ErrorTitle}"
+                  MaxWidth="400"
                   d:DesignHeight="250"
                   d:DesignWidth="450"
                   DefaultButton="Primary"
