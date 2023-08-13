@@ -24,7 +24,7 @@ ReplayBook is a free open-source tool that helps you organize and manage your do
 ## Translating
 
 Huge thanks to the following users for providing translations:
-"ASTWY", "awter", "JerryLiew", "RichardNewb1e", "N/A", "grog12", "FlorianHugCH", "xXLaokoonXx", "feikname", "Catinaxo".
+"ASTWY", "awter", "JerryLiew", "RichardNewb1e", "N/A", "grog12", "FlorianHugCH", "xXLaokoonXx", "feikname", "Catinaxo", "Nokatir".
 
 ReplayBook is always open for translation help!  
 [View the wiki for more information](https://github.com/fraxiinus/ReplayBook/wiki/Translating).
