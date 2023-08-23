@@ -43,6 +43,15 @@ namespace Fraxiinus.ReplayBook.Configuration
                     ThemeMode = config.ThemeMode,
                     AccentColor = config.AccentColor
                 },
+                LeagueBackupSettings = new LeagueBackupSettings
+                {
+                    BackupToolPath = config.BackupToolPath,
+                    ToolVersion = config.ToolVersion,
+                    RepositoryPath = config.RepositoryPath,
+                    ExtractPath = config.ExtractPath,
+                    AvailablePatches = config.AvailablePatches.ToArray(),
+                    PatchesToKeep = config.PatchesToKeep
+                },
                 Stash = config.Stash
             };
         }

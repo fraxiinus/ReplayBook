@@ -38,12 +38,10 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
     {
         [ConfigurationKeyName("known_players")]
         [JsonPropertyName("known_players")]
-
         public PlayerMarkerConfiguration[]? KnownPlayers { get; set; }
 
         [ConfigurationKeyName("marker_style")]
         [JsonPropertyName("marker_style")]
-
         public MarkerStyle MarkerStyle { get; set; }
 
         [ConfigurationKeyName("file_action")]
@@ -82,6 +80,33 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
         public string? AccentColor { get; set; }
     }
 
+    public class LeagueBackupSettings
+    {
+        [ConfigurationKeyName("backup_tool_path")]
+        [JsonPropertyName("backup_tool_path")]
+        public string? BackupToolPath { get; set; }
+
+        [ConfigurationKeyName("tool_version")]
+        [JsonPropertyName("tool_version")]
+        public string? ToolVersion { get; set; }
+
+        [ConfigurationKeyName("repository_path")]
+        [JsonPropertyName("repository_path")]
+        public string? RepositoryPath { get; set; }
+
+        [ConfigurationKeyName("extract_path")]
+        [JsonPropertyName("extract_path")]
+        public string? ExtractPath { get; set; }
+
+        [ConfigurationKeyName("available_patches")]
+        [JsonPropertyName("available_patches")]
+        public string[]? AvailablePatches { get; set; }
+
+        [ConfigurationKeyName("patches_to_keep")]
+        [JsonPropertyName("patches_to_keep")]
+        public int PatchesToKeep { get; set; } = 1;
+    }
+
     public class ConfigurationFile
     {
         [ConfigurationKeyName("replay_settings")]
@@ -99,6 +124,10 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
         [ConfigurationKeyName("appearance_settings")]
         [JsonPropertyName("appearance_settings")]
         public AppearanceSettings AppearanceSettings { get; set; } = new AppearanceSettings();
+
+        [ConfigurationKeyName("leaguebackup_settings")]
+        [JsonPropertyName("leaguebackup_settings")]
+        public LeagueBackupSettings LeagueBackupSettings { get; set; } = new LeagueBackupSettings();
 
         [ConfigurationKeyName("stash")]
         [JsonPropertyName("stash")]

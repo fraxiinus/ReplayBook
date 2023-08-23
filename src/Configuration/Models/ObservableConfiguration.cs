@@ -34,6 +34,15 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
             ThemeMode = config.AppearanceSettings.ThemeMode;
             AccentColor = config.AppearanceSettings.AccentColor;
 
+            BackupToolPath = config.LeagueBackupSettings.BackupToolPath;
+            ToolVersion = config.LeagueBackupSettings.ToolVersion;
+            RepositoryPath = config.LeagueBackupSettings.RepositoryPath;
+            ExtractPath = config.LeagueBackupSettings.ExtractPath;
+            AvailablePatches = config.LeagueBackupSettings.AvailablePatches != null 
+                ? new ObservableCollection<string>(config.LeagueBackupSettings.AvailablePatches)
+                : new ObservableCollection<string>();
+            PatchesToKeep = config.LeagueBackupSettings.PatchesToKeep;
+
             Stash = config.Stash;
         }
 
@@ -126,6 +135,19 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
                     this, new PropertyChangedEventArgs(nameof(AccentColor)));
             }
         }
+
+        /// LeagueBackup Settings
+        public string? BackupToolPath { get; set; }
+
+        public string? ToolVersion { get; set; }
+
+        public string? RepositoryPath { get; set; }
+
+        public string? ExtractPath { get; set; }
+
+        public ObservableCollection<string> AvailablePatches { get; private set; }
+
+        public int PatchesToKeep { get; set; }
 
         public Dictionary<string, object> Stash { get; private set; }
     }

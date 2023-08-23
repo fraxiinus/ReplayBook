@@ -312,14 +312,78 @@
                                              Spacing="12">
 
                             <ui:SimpleStackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="16" Text="{DynamicResource ExecutableFoldersLabelText}" />
+                                <TextBlock FontSize="16" Text="Filesystem Source" />
                                 <ui:PathIcon Width="16"
                                              Margin="5,2,0,0"
                                              Data="{StaticResource InfoIcon}"
                                              ToolTip="{DynamicResource ExecutableFoldersInfoText}" />
                             </ui:SimpleStackPanel>
 
-                            <Grid HorizontalAlignment="Stretch">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Folders being searched:" />
+                                <TextBlock Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           Text="A" />
+                                <TextBlock Grid.Row="1" Text="Last scan date:" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           Text="2023-08-14 9:32" />
+                            </Grid>
+
+                            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="12">
+                                <Button Width="120" Content="Scan" />
+                                <Button Grid.Column="1"
+                                        Width="120"
+                                        Content="Edit..." />
+                            </ui:SimpleStackPanel>
+
+                            <ui:SimpleStackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="16" Text="LeagueBackup Source" />
+                                <ui:PathIcon Width="16"
+                                             Margin="5,2,0,0"
+                                             Data="{StaticResource InfoIcon}"
+                                             ToolTip="{DynamicResource ExecutableFoldersInfoText}" />
+                            </ui:SimpleStackPanel>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Tool version:" />
+                                <TextBlock Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           Text="{Binding Configuration.ToolVersion, FallbackValue=Unknown}" />
+                                <TextBlock Grid.Row="1" Text="Executables backed up:" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           Text="C" />
+                                <CheckBox Grid.Row="2" Content="Auto-backup" />
+                            </Grid>
+                            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="12">
+                                <Button Width="120" Content="Import..." />
+                                <Button Width="120" Content="Advanced..." />
+
+                            </ui:SimpleStackPanel>
+
+                            <!--<Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -380,7 +444,7 @@
                                         Click="SourceFoldersSearchButton_Click"
                                         Content="{DynamicResource ExecutableFoldersSearchButtonText}" />
                                 <ui:ProgressRing x:Name="SourceFolderSearchProgress" IsActive="False" />
-                            </ui:SimpleStackPanel>
+                            </ui:SimpleStackPanel>-->
 
                             <TextBlock Grid.Row="2"
                                        Grid.Column="0"
@@ -404,6 +468,8 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"
                                                    FontSize="14"
@@ -415,6 +481,13 @@
                                         <TextBlock Grid.Column="2"
                                                    FontSize="14"
                                                    Text="{DynamicResource ExecutableDetailPropertyPatch}" />
+                                        <Rectangle Grid.Column="3"
+                                                   Width="1"
+                                                   Height="12"
+                                                   Fill="{DynamicResource SystemControlBackgroundBaseMediumHighBrush}" />
+                                        <TextBlock Grid.Column="4"
+                                                   FontSize="14"
+                                                   Text="Source" />
                                     </Grid>
                                 </Border>
 
@@ -457,29 +530,29 @@
                                 </ListBox>
 
                                 <ui:CommandBar Grid.Row="2">
-                                    <ui:AppBarButton x:Name="AddExecutableButton"
+                                    <!--<ui:AppBarButton x:Name="AddExecutableButton"
                                                      Click="AddExecutableButton_Click"
                                                      Label="{DynamicResource AddButtonText}">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource AddPathIcon}" />
                                         </ui:AppBarButton.Icon>
-                                    </ui:AppBarButton>
+                                    </ui:AppBarButton>-->
                                     <ui:AppBarButton x:Name="EditExecutableButton"
                                                      Click="EditExecutableButton_Click"
                                                      IsEnabled="False"
-                                                     Label="{DynamicResource EditButtonText}">
+                                                     Label="{DynamicResource General__ViewButton}">
                                         <ui:AppBarButton.Icon>
-                                            <ui:PathIcon Data="{StaticResource EditPathIcon}" />
+                                            <ui:PathIcon Data="{StaticResource View}" />
                                         </ui:AppBarButton.Icon>
                                     </ui:AppBarButton>
-                                    <ui:AppBarButton x:Name="RemoveExecutableButton"
+                                    <!--<ui:AppBarButton x:Name="RemoveExecutableButton"
                                                      Click="RemoveExecutableButton_Click"
                                                      IsEnabled="False"
                                                      Label="{DynamicResource RemoveButtonText}">
                                         <ui:AppBarButton.Icon>
                                             <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
                                         </ui:AppBarButton.Icon>
-                                    </ui:AppBarButton>
+                                    </ui:AppBarButton>-->
                                 </ui:CommandBar>
 
                             </Grid>
