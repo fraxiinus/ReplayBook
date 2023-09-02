@@ -1,0 +1,446 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:string="clr-namespace:System;assembly=mscorlib"
+                    xmlns:system="clr-namespace:System;assembly=System">
+
+    <!--  General UI Text  -->
+    <string:String x:Key="ProgramName">ReplayBook</string:String>
+    <string:String x:Key="SearchDefaultText">Ara...</string:String>
+    <string:String x:Key="MoreButtonText">Seçenekler</string:String>
+    <string:String x:Key="LoadMoreButtonText">Daha fazlasını yükle...</string:String>
+
+    <string:String x:Key="LoadingMessageReplay">Oyun tekrarları yükleniyor...</string:String>
+    <string:String x:Key="LoadingMessageExecutables">Yürütülebilir dosyalar doğrulanıyor...</string:String>
+    <string:String x:Key="LoadingMessageThumbnails">Küçük resimler yükleniyor...</string:String>
+    <string:String x:Key="LoadingMessageErrors">Oyun tekrar(lar)ı yüklenemedi</string:String>
+    <string:String x:Key="LoadingFailureTitle">Oyun tekrarı yüklenirken hata oluştu</string:String>
+    <string:String x:Key="LoadingFailureSubtitle">Aşağıdaki dosya(yı/ları) kaldırın veya düzeltin:</string:String>
+
+    <string:String x:Key="CloseText">Kapat</string:String>
+    <string:String x:Key="YesText">Evet</string:String>
+    <string:String x:Key="NoText">Hayır</string:String>
+
+    <string:String x:Key="CopyText">Kopyala</string:String>
+
+    <string:String x:Key="CheckText">✔</string:String>
+    <string:String x:Key="CrossText">❌</string:String>
+    <string:String x:Key="BlueTeamText">Mavi Takım</string:String>
+    <string:String x:Key="RedTeamText">Kırmızı Takım</string:String>
+    <string:String x:Key="ScoreboardTabText">SKOR TABLOSU</string:String>
+    <string:String x:Key="RunesTabText">RÜNLER</string:String>
+    <string:String x:Key="StatsTabText">İSTATİSTİKLER</string:String>
+    <string:String x:Key="BlankDetailMessageText">Başlamak için sol pencereden bir oyun tekrarı seçin.</string:String>
+    <string:String x:Key="FailedToLoadReplayText">Bu oyun tekrarı açılamadı, dosya bozuk olabilir.</string:String>
+    <string:String x:Key="Victory">ZAFER</string:String>
+    <string:String x:Key="BlueVictory">Mavi Zafer</string:String>
+    <string:String x:Key="RedVictory">Kırmızı Zafer</string:String>
+    <string:String x:Key="ErrorTitle">Hata</string:String>
+    <string:String x:Key="ConfirmTitle">Onaylama</string:String>
+    <string:String x:Key="ConfirmText">Emin misiniz?</string:String>
+
+    <string:String x:Key="ReplaySupported">Oynatılabilir</string:String>
+    <string:String x:Key="ReplayUnsupported">Desteklenmiyor</string:String>
+    <string:String x:Key="ReplayPlayExceptionTitle">Bir hata oluştu</string:String>
+
+    <string:String x:Key="NoReplaysFoundTitle">Sonuç yok</string:String>
+
+    <string:String x:Key="MissingPathTitle">Tekrar dosyası bulunamadı</string:String>
+    <string:String x:Key="MissingPathText">Aşağıdaki dosya yolu/yolları bulunamadı ve kaldırıldı:</string:String>
+
+    <string:String x:Key="General__DownloadButton">İndir</string:String>
+    <string:String x:Key="General__Downloading">İndiriliyor...</string:String>
+    <string:String x:Key="General__ViewButton">Görüntüle</string:String>
+    <string:String x:Key="General__ExitButton">Çık</string:String>
+    <string:String x:Key="General__GlobalExceptionHandler__Body">İşlenmeyen bir hata oluştu! Detaylı bilgi için lütfen log dizinini kontrol ediniz.</string:String>
+
+    <!--  Settings Window Text  -->
+    <string:String x:Key="GeneralSettingsItemText">Genel</string:String>
+    <string:String x:Key="UpdatesSettingsItemText">Güncellemeler</string:String>
+    <string:String x:Key="AppearanceSettingsItemText">Görünüm</string:String>
+    <string:String x:Key="ReplaySettingsItemText">Tekrarlar</string:String>
+    <string:String x:Key="RequestSettingsItemText">İndirmeler</string:String>
+    <string:String x:Key="ExecutablesSettingsItemText">Yürütülebilir Dosyalar</string:String>
+    <string:String x:Key="AboutSettingsItemText">Hakkında</string:String>
+    <string:String x:Key="Settings__Menu__StaticDataHeader">Statik Veriler</string:String>
+
+    <!--  Settings : General  -->
+    <string:String x:Key="LanguageLabelText">Dil</string:String>
+
+    <string:String x:Key="PlayerMarkerLabelText">Oyuncu İşaretleri</string:String>
+    <string:String x:Key="PlayerMarkerStyleLabel">Oyuncu İşaret Stili</string:String>
+    <string:String x:Key="PlayerMarkerStyleOption1">Çerçeve</string:String>
+    <string:String x:Key="PlayerMarkerStyleOption2">İç Kare</string:String>
+    <string:String x:Key="PlayerMarkerWindowText">Oyuncu İşareti</string:String>
+    <string:String x:Key="PlayerMarkerNameLabelText">Oyuncu Adı</string:String>
+    <string:String x:Key="PlayerMarkerNoteLabelText">Not</string:String>
+    <string:String x:Key="PlayerMarkerColorLabelText">İşaret Rengi</string:String>
+    <string:String x:Key="PlayerMarkerAlreadyExistsErrorText">&quot;$&quot; oyuncu adı için zaten işaret mevcut.</string:String>
+    <string:String x:Key="PlayerMarkerNameIsEmptyErrorText">Oyuncu adı boş bırakılamaz.</string:String>
+
+    <string:String x:Key="FileAssociationLabelText">Tarayıcı Dosya Açma Davranışı</string:String>
+    <string:String x:Key="FileAssociationButtonText">Bu uygulamayı varsayılan .ROFL uygulaması olarak ayarla</string:String>
+    <string:String x:Key="FileAssociationMessageTitleText">Dosya İlişkilendirme Tamamlandı</string:String>
+    <string:String x:Key="FileAssociationMessageBodyText">ReplayBook, .rofl dosyaları için varsayılan uygulama olarak ayarlandı.</string:String>
+    <string:String x:Key="FileActionOption1">Tekrarı oynat</string:String>
+    <string:String x:Key="FileActionOption2">İstatistikleri göster</string:String>
+
+    <string:String x:Key="MiscBehaviorLabelText">Çeşitli Davranışlar</string:String>
+    <string:String x:Key="PlayConfirmCheckboxText">Tekrarları oynatmadan önce onayımı sor</string:String>
+    <string:String x:Key="ReplayRenameCheckboxText">Tekrarları yeniden adlandırırken dosya isimlerini de değiştir</string:String>
+
+    <string:String x:Key="UpdatesLabelText">Güncellemeleri kontrol et</string:String>
+    <string:String x:Key="AutoUpdateCheckboxText">Otomatik olarak güncellemeleri kontrol et</string:String>
+    <string:String x:Key="CheckUpdatesButtonText">Kontrol et</string:String>
+    <string:String x:Key="UpdateAvailableText">Güncelleme mevcut! Yeni güncellemeyi buradan indir</string:String>
+    <string:String x:Key="UpdateAvailableNotifText">Yeni sürüm mevcut!</string:String>
+    <string:String x:Key="OpenGitHubButtonText">Projeyi GitHub'da göster</string:String>
+    <string:String x:Key="UpdateExceptionTitleText">Güncellemeler kontrol edilemiyor</string:String>
+    <string:String x:Key="UpdateHTTPExceptionBodyText">GitHub'a bağlanılamadı. İnternet bağlantınızı kontrol edip yeniden deneyiniz.</string:String>
+    <string:String x:Key="UpdateGitHubErrorBodyText">GitHub bir hata verdi. Güncellemeleri manuel olarak buradan kontrol ediniz: https://github.com/fraxiinus/ReplayBook</string:String>
+    <string:String x:Key="UpdateMostRecentTitleText">Zaten güncel</string:String>
+    <string:String x:Key="UpdateMostRecentBodyText">ReplayBook'un en son sürümünü kullanıyorsunuz.</string:String>
+    <string:String x:Key="UpdateNewerTitleText">Yeni sürüm mevcut</string:String>
+    <string:String x:Key="UpdateNewerBodyText">ReplayBook'un yeni bir sürümü mevcut. İndirme sayfasına yönlendirilmek için Tamama'a basınız.</string:String>
+
+    <!--  Settings : Appearance  -->
+    <string:String x:Key="AppearanceThemeModeTitle">Tema</string:String>
+    <string:String x:Key="AppearanceThemeMode0">Sisteme göre</string:String>
+    <string:String x:Key="AppearanceThemeMode1">Koyu</string:String>
+    <string:String x:Key="AppearanceThemeMode2">Açık</string:String>
+    <string:String x:Key="AppearanceThemeAccentTitle">İkincil Renk</string:String>
+    <string:String x:Key="AppearanceThemeResetColorText">Sıfırla</string:String>
+    <string:String x:Key="AppearanceThemeDefaultAccentNote">Sistemin atadığı ikincil renk kullanılıyor</string:String>
+    <string:String x:Key="AppearanceThemeCustomAccentNote">Özel ikincil renk kullanılıyor</string:String>
+
+    <string:String x:Key="ExecutableFoldersLabelText">Yürütülebilir Dosya Kaynak Klasörleri</string:String>
+    <string:String x:Key="ExecutableFoldersInfoText">Bütün alt klasörler dahil edilir</string:String>
+    <string:String x:Key="ExecutableFoldersSearchButtonText">Yürütülebilir Dosyalar için Klasörü Tara</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultTitleText">Arama sonuçları</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultLabelText">$ yeni yürütülebilir dosya kaydedildi</string:String>
+    <string:String x:Key="ExecutableFoldersSearchResultErrorText">Aşağıdaki klasör(ler) taranamadı:</string:String>
+    <string:String x:Key="ExecutablesLabelText">Kaydedilen Yürütülebilir Dosyalar</string:String>
+    <string:String x:Key="ExecutableSelectFolderDialogText">Yürütülebilir Dosya Kaynak Klasörü Seç</string:String>
+    <string:String x:Key="ExecutableDetailWindowText">Yürütülebilir Dosya</string:String>
+    <string:String x:Key="ExecutableSelectDialogText">League of Legends.exe Seç</string:String>
+    <string:String x:Key="ExecutableSelectInvalidErrorText">Geçerli bir yürütülebilir dosya seçiniz</string:String>
+    <string:String x:Key="ExecutableSelectInvalidErrorTitle">Geçersiz yürütülebilir dosya</string:String>
+    <string:String x:Key="ExecutableSaveNullText">Gerekli boşluklar doldurulmamış</string:String>
+    <string:String x:Key="ExecutableSaveNullTitle">Kaydedilirken bir hata oluştu</string:String>
+    <string:String x:Key="ExecutableSelectWindowTitleText">Yürütülebilir dosya seçiniz</string:String>
+    <string:String x:Key="ExecutableNotFoundErrorTitle">Desteklenmeyen oyun tekrarı</string:String>
+    <string:String x:Key="ExecutableNotFoundErrorText">Bu yama için uygun yürütülebilir dosya bulunamadı</string:String>
+    <string:String x:Key="ExecutableNotFoundDescriptionText">Bu tekrar oynatılamaz çünkü eşleşen bir yürütülebilir dosya bulunamadı. Bu yama ile eşleşen bir yürütülebilir dosyanın ReplayBook ile kaydedilmesi gerekiyor.</string:String>
+    <string:String x:Key="ReplayPlayConfirmTitle">Tekrarı oynatmak istediğinize emin misiniz?</string:String>
+    <string:String x:Key="ReplayPlayConfirmOptOut">Bu onaylamayı ayarlar penceresinden kapatabilirsiniz.</string:String>
+
+    <!--  Executable Detail  -->
+    <string:String x:Key="ExecutableDetailTargetPath">Hedef Dosya Yolu</string:String>
+    <string:String x:Key="ExecutableDetailName">Yürütülebilir Dosya İsmi</string:String>
+    <string:String x:Key="ExecutableDetailCustomLocale">Özel Yerel Ayar</string:String>
+    <string:String x:Key="ExecutableDetailLocale">Yerel Ayar</string:String>
+    <string:String x:Key="ExecutableDetailLocaleInfo">Bu değer yürütülebilir dosyadaki değer ile eşleşmezse tekrarlar başarısız olabilir</string:String>
+    <string:String x:Key="ExecutableDetailLaunchArgs">Diğer Başlatma Argümanları</string:String>
+    <string:String x:Key="ExecutableDetailPropertyStartPath">Başlangıç Dosya Yolu</string:String>
+    <string:String x:Key="ExecutableDetailPropertyPatch">Yama Numarası</string:String>
+    <string:String x:Key="ExecutableDetailPropertyModified">Değiştirme Tarihi</string:String>
+
+    <string:String x:Key="SourceFoldersLabelText">Oyun Tekrarı Kaynak Klasörleri</string:String>
+    <string:String x:Key="SourceFoldersInfoText">Herhangi bir alt klasör dahil</string:String>
+    <string:String x:Key="SourceFoldersWindowText">Oyun Tekrarı Kaynak Klasörü Seç</string:String>
+    <string:String x:Key="SourceFoldersAlreadyExistsErrorText">Seçili klasör zaten ekli, lütfen başka bir klasör seçiniz</string:String>
+    <string:String x:Key="SourceFoldersAlreadyExistsErrorTitle">Klasör zaten eklendi</string:String>
+
+    <!--  Settings: Static Data  -->
+    <string:String x:Key="Settings__StaticData__DiskUsage__Header">Disk Kullanımı</string:String>
+    <string:String x:Key="Settings__StaticData__DiskUsage__SizeLabel">Toplam boyut:</string:String>
+    <string:String x:Key="Settings__StaticData__BundleList__Header">İndirilen Paketler</string:String>
+    <string:String x:Key="Settings__StaticData__BundleList__Info">Paketler; şampiyonlar, eşyalar ve rünler için resim ve metin verileri içerir</string:String>
+    <string:String x:Key="Settings__StaticData__AddBundle__Title">Statik Veri Paketi İndir</string:String>
+    <string:String x:Key="Settings__StaticData__AddBundle__PatchComboBox__Header">Yama Seçin</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__Title">Yama $ Paketi</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__DateLabel">İndirme tarihi</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__SizeLabel">Boyut</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ChampImageLabel">Şampiyon resimleri</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ItemImageLabel">Eşya resimleri</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__RuneImageLabel">Rün resimleri</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ChampLanguageLabel">Şampiyon verisi</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ItemLanguageLabel">Eşya verisi</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__RuneLanguageLabel">Rün verisi</string:String>
+    <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">Veri Klasörüne Göz At</string:String>
+    <string:String x:Key="Settings__StaticData__RetryDownload__ErrorLabel">$0 yaması ve $1 dili için veri indirme başarısız oldu. Seçtiğiniz kombinasyon mevcut görünmüyor.</string:String>
+    <string:String x:Key="Settings__StaticData__RetryDownload__Button">İngilizce olarak tekrar deneyin</string:String>
+    <string:String x:Key="Settings__StaticData__UseAppLanguage__Checkbox">Paket dili olarak uygulama dilini kullanın</string:String>
+    <string:String x:Key="Settings__StaticData__BundleLanguage__ComboBoxLabel">Dili indir</string:String>
+
+    <string:String x:Key="ReplayItemsPerPage">Sayfa Başına Eşyalar</string:String>
+    <string:String x:Key="Settings__Replays__SearchMinimumScore__Label">Arama Hassasiyeti</string:String>
+
+    <string:String x:Key="ReplayDatabaseText">Tekrar Veri Önbelleği</string:String>
+    <string:String x:Key="ReplayDatabaseSize">Boyut:</string:String>
+    <string:String x:Key="ReplayDatabaseClearButton">Önbelleği temizle</string:String>
+    <string:String x:Key="Settings__Replays__ClearCacheRestartNow__Button">Şimdi yeniden başlat</string:String>
+
+    <string:String x:Key="RequestsDownloadAllLabel">Resimleri İndir</string:String>
+    <string:String x:Key="RequestsCacheLabel">İndirilen Resimler Önbelleği</string:String>
+    <string:String x:Key="RequestsCacheItemsSize">Eşyalar önbellek boyutu:</string:String>
+    <string:String x:Key="RequestsCacheChampsSize">Şampiyonlar önbellek boyutu:</string:String>
+    <string:String x:Key="RequestsCacheRunesSize">Rünler önbellek boyutu:</string:String>
+    <string:String x:Key="RequestsCacheClearItemsButton">Eşyaları Sil</string:String>
+    <string:String x:Key="RequestsCacheClearChampsButton">Şampiyonları Sil</string:String>
+    <string:String x:Key="RequestsCacheClearRunesButton">Rünleri Sil</string:String>
+    <string:String x:Key="RequestsCacheCloseToDeleteTitle">ReplayBook'u Kapat</string:String>
+    <string:String x:Key="RequestsCacheCloseToDelete">Önbellek ReplayBook kapatıldığında silinecek</string:String>
+    <string:String x:Key="RequestsAdvancedLabel">Gelişmiş Seçenekler</string:String>
+    <string:String x:Key="DataDragonBaseUrlLabelText">Data Dragon Temel URL'si</string:String>
+    <string:String x:Key="CommunityDragonBaseUrlLabelText">Community Dragon Temel URL'si</string:String>
+    <string:String x:Key="DataDragonChampionUrlLabelText">Şampiyon Resmi İlgili URL</string:String>
+    <string:String x:Key="DataDragonItemUrlLabelText">Eşya Resmi İlgili URL</string:String>
+    <string:String x:Key="DataDragonMapUrlLabelText">Harita Resmi İlgili URL</string:String>
+
+    <string:String x:Key="Name">ReplayBook</string:String>
+    <string:String x:Key="Author">Fraxiinus</string:String>
+    <string:String x:Key="DiscordInviteButton">Discord'a katıl</string:String>
+    <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
+    <string:String x:Key="LicenseText">Bu program GPL-3.0 kapsamında lisanslanmıştır</string:String>
+    <string:String x:Key="AcknowledgementText">ReplayBook yalnızca aşağıdakiler sayesinde mümkündür:</string:String>
+    <string:String x:Key="AcknowledgementButtonText">Açık Kaynak Projeleri</string:String>
+    <string:String x:Key="AcknowledgementWindowTitleText">Açık Kaynak Teşekkürleri</string:String>
+
+    <!--  Generic button text  -->
+    <string:String x:Key="OKButtonText">Tamam</string:String>
+    <string:String x:Key="AddButtonText">Ekle</string:String>
+    <string:String x:Key="EditButtonText">Düzenle</string:String>
+    <string:String x:Key="RemoveButtonText">Kaldır</string:String>
+    <string:String x:Key="SaveButtonText">Kaydet</string:String>
+    <string:String x:Key="CancelButtonText">İptal</string:String>
+    <string:String x:Key="BrowseButtonText">Göz At...</string:String>
+    <string:String x:Key="SelectButtonText">Seç</string:String>
+    <string:String x:Key="HelpButtonText">Yardım</string:String>
+    <string:String x:Key="RetryButtonText">Tekrar Dene</string:String>
+
+    <!--  Stats Header Text  -->
+    <string:String x:Key="CombatGroupHeaderText">Çatışma</string:String>
+    <string:String x:Key="ChampionsKilledHeaderText">Katletmeler</string:String>
+    <string:String x:Key="DeathsHeaderText">Ölümler</string:String>
+    <string:String x:Key="AssistsHeaderText">Asistler</string:String>
+    <string:String x:Key="LargestKillingSpreeHeaderText"En Büyük Seriye Bağlama</string:String>
+    <string:String x:Key="KillingSpreesHeaderText">Seriye Bağlamalar</string:String>
+    <string:String x:Key="LargestMultiKillHeaderText">En Büyük Çoklu Katletme</string:String>
+    <string:String x:Key="BountyLevelHeaderText">Ödül Seviyesi</string:String>
+    <string:String x:Key="DoubleKillsHeaderText">İkili Katletmeler</string:String>
+    <string:String x:Key="TripleKillsHeaderText">Üçlü Katletmeler</string:String>
+    <string:String x:Key="QuadraKillsHeaderText">Dörtlü Katletmeler</string:String>
+    <string:String x:Key="PentaKillsHeaderText">Beşli Katletmeler</string:String>
+    <string:String x:Key="UnrealKillsHeaderText">Altılı Katletmeler</string:String>
+    <string:String x:Key="CrowdControlScoreHeaderText">Kitle Kontrol Skoru</string:String>
+    <string:String x:Key="TotalTimeCrowdControlDealtHeaderText">Kitle Kontrol Süresi</string:String>
+
+    <string:String x:Key="DamageDealtGroupHeaderText">Verilen Hasar</string:String>
+    <string:String x:Key="TotalDamageDealtToChampionsHeaderText">Şampiyonlara Toplam Hasar</string:String>
+    <string:String x:Key="PhysicalDamageDealtToChampionsHeaderText">Şampiyonlara Fiziksel Hasar</string:String>
+    <string:String x:Key="MagicDamageDealtToChampionsHeaderText">Şampiyonlara Büyü Hasarı</string:String>
+    <string:String x:Key="TrueDamageDealtToChampionsHeaderText">Şampiyonlara Gerçek Hasar</string:String>
+    <string:String x:Key="TotalDamageDealtHeaderText">Verilen Toplam Hasar</string:String>
+    <string:String x:Key="PhysicalDamageDealtHeaderText">Verilen Fiziksel Hasar</string:String>
+    <string:String x:Key="MagicDamageDealtHeaderText">Verilen Büyü Hasarı</string:String>
+    <string:String x:Key="TrueDamageDealtHeaderText">Verilen Gerçek Hasar</string:String>
+    <string:String x:Key="LargestCriticalStrikeHeaderText">En Yüksek Kritik Vuruş</string:String>
+    <string:String x:Key="TotalDamageToTurretsHeaderText">Kulelere Toplam Hasar</string:String>
+    <string:String x:Key="TotalDamageToObjectivesHeaderText">Görevlere Toplam Hasar</string:String>
+
+    <string:String x:Key="DamageTakenAndHealedGroupHeaderText">Alınan ve İyileştirilen Hasar</string:String>
+    <string:String x:Key="TotalHealingDoneHeaderText">Toplam İyileştirilen Hasar</string:String>
+    <string:String x:Key="TotalHealingDoneToTeammatesHeaderText">Takım Arkadaşlarına Uygulanan Toplam İyileştirme</string:String>
+    <string:String x:Key="TotalUnitsHealedHeaderText">İyileştirilen Toplam Birim Sayısı</string:String>
+    <string:String x:Key="TotalDamageShieldedToTeammatesHeaderText">Takım Arkadaşlarına Karşı Korunan Toplam Hasar</string:String>
+    <string:String x:Key="TotalDamageTakenHeaderText">Alınan Toplam Hasar</string:String>
+    <string:String x:Key="PhysicalDamageTakenHeaderText">Alınan Fiziksel Hasar</string:String>
+    <string:String x:Key="MagicDamageTakenHeaderText">Alınan Büyü Hasarı</string:String>
+    <string:String x:Key="TrueDamageTakenHeaderText">Alınan Gerçek Hasar</string:String>
+    <string:String x:Key="TotalDamageSelfMitigatedHeaderText">Kendi Azalttığın Hasar</string:String>
+
+    <string:String x:Key="VisionGroupHeaderText">Görüş</string:String>
+    <string:String x:Key="VisionScoreHeaderText">Görüş Skoru</string:String>
+    <string:String x:Key="WardsPlacedHeaderText">Yerleştirilen Totemler</string:String>
+    <string:String x:Key="WardsKilledHeaderText">Kırılan Totemler</string:String>
+    <string:String x:Key="VisionWardsPurchasedHeaderText">Alınan Kontrol Totemi</string:String>
+
+    <string:String x:Key="IncomeGroupHeaderText">Gelir</string:String>
+    <string:String x:Key="GoldEarnedHeaderText">Kazanılan Altın</string:String>
+    <string:String x:Key="GoldSpentHeaderText">Harcanan Altın</string:String>
+    <string:String x:Key="ItemsPurchasedHeaderText">Satın Alınan Eşyalar</string:String>
+    <string:String x:Key="ConsumablesPurchasedHeaderText">Satın Alınan Sarf Malzemeleri</string:String>
+    <string:String x:Key="MinionsKilledHeaderText">Katledilen Minyonlar</string:String>
+    <string:String x:Key="NeutralMinionsKilledHeaderText">Katledilen Tarafsız Minyonlar</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Kendi Orman Minyon Katletmeleri</string:String>
+    <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Diğer Orman Minyon Katletmeleri</string:String>
+
+    <string:String x:Key="ObjectivesGroupHeaderText">Görevler</string:String>
+    <string:String x:Key="TotalExperienceHeaderText">Toplam Tecrübe</string:String>
+    <string:String x:Key="TurretsKilledHeaderText">Yıkılan Kuleler</string:String>
+    <string:String x:Key="InhibitorsKilledHeaderText">Yok Edilen İnhibitörler</string:String>
+    <string:String x:Key="ObjectivesStolenHeaderText">Çalınan Görevler</string:String>
+    <string:String x:Key="BaronsKilledHeaderText">Katledilen Baronlar</string:String>
+    <string:String x:Key="DragonsKilledHeaderText">Katledilen Ejderler</string:String>
+    <string:String x:Key="LongestTimeSpentAliveHeaderText">Hayatta Geçirilen En Uzun Süre</string:String>
+    <string:String x:Key="TotalTimeSpentDeadHeaderText">Toplam Ölüm Süresi</string:String>
+    <string:String x:Key="LastHitNexusHeaderText">Son Nexus Vuruşu</string:String>
+
+    <string:String x:Key="ToxicityGroupHeaderText">Toksiklik</string:String>
+    <string:String x:Key="TimeSpentDisconnectedHeaderText">Bağlantı Kesildiğinde Harcanan Zaman</string:String>
+    <string:String x:Key="TimeOfLastDisconnectHeaderText">Son Bağlantı Kesilme Zamanı</string:String>
+    <string:String x:Key="PlayersMutedHeaderText">Susturulan Oyuncular</string:String>
+    <string:String x:Key="MutedByPlayersHeaderText">Oyuncular Tarafından Susturulma</string:String>
+    <string:String x:Key="PingHeaderText">Ping</string:String>
+    <string:String x:Key="TeamEarlySurrenderedHeaderText">Takım Erken Teslim</string:String>
+    <string:String x:Key="WasAFKHeaderText">AFK</string:String>
+    <string:String x:Key="WasAFKAfterFailedSurrenderHeaderText">Başarısız Teslim Olma Sonrası AFK</string:String>
+    <string:String x:Key="WasEarlySurrenderAccompliceHeaderText">Erken Teslim Ortağı</string:String>
+
+    <string:String x:Key="MiscGroupHeaderText">Çeşitli</string:String>
+    <string:String x:Key="Spell1CastsHeaderText">1. Yetenek Kullanımı</string:String>
+    <string:String x:Key="Spell2CastsHeaderText">2. Yetenek Kullanımı</string:String>
+    <string:String x:Key="Spell3CastsHeaderText">3. Yetenek Kullanımı</string:String>
+    <string:String x:Key="Spell4CastsHeaderText">4. Yetenek Kullanımı</string:String>
+    <string:String x:Key="SummonerSpell1CastsHeaderText">1. Sihirdar Büyüsü Kullanımı</string:String>
+    <string:String x:Key="SummonerSpell2CastsHeaderText">2. Sihirdar Büyüsü Kullanımı</string:String>
+    <string:String x:Key="IndividualPositionHeaderText">Bireysel Konum</string:String>
+
+    <!--  ToolTip Text  -->
+    <string:String x:Key="SortToolTip">Sırala</string:String>
+    <string:String x:Key="RefreshToolTip">Yenile</string:String>
+    <string:String x:Key="SettingsToolTip">Ayarlar</string:String>
+    <string:String x:Key="PlayReplayToolTip">Tekrarı Oynat</string:String>
+    <string:String x:Key="AlreadyPlayingToolTip">Zaten oynatılıyor...</string:String>
+    <string:String x:Key="CannotPlayToolTip">Bu tekrar oynatılamıyor</string:String>
+    <string:String x:Key="MoreToolTip">Daha fazla...</string:String>
+
+    <string:String x:Key="FileDateToolTip">Dosya oluşturma tarihi</string:String>
+    <string:String x:Key="MatchIdToolTip">Karşılaşma ID</string:String>
+    <string:String x:Key="FileSizeToolTip">Dosya boyutu</string:String>
+    <string:String x:Key="MapNameToolTip">Harita (en iyi tahmin)</string:String>
+    <string:String x:Key="GameVersionToolTip">Oyun sürümü</string:String>
+
+    <string:String x:Key="LevelToolTip">Seviye</string:String>
+    <string:String x:Key="KillsToolTip">Katletmeler</string:String>
+    <string:String x:Key="DeathsToolTip">Ölümler</string:String>
+    <string:String x:Key="AssistsToolTip">Asistler</string:String>
+    <string:String x:Key="CreepScoreToolTip">Minyon Katletmeleri</string:String>
+    <string:String x:Key="GoldEarnedToolTip">Kazanılan altın</string:String>
+
+    <!--  sort menu text  -->
+    <string:String x:Key="NameAsc">Artan isim</string:String>
+    <string:String x:Key="NameDesc">Azalan isim</string:String>
+
+    <string:String x:Key="DateAsc">Artan Oluşturulma tarihi</string:String>
+    <string:String x:Key="DateDesc">Azalan Oluşturulma tarihi</string:String>
+
+    <string:String x:Key="SizeAsc">Artan Boyut</string:String>
+    <string:String x:Key="SizeDesc">Azalan Boyut</string:String>
+
+    <!--  Replay Menu Item Text  -->
+    <string:String x:Key="OpenNewWindow">Yeni Pencerede Aç</string:String>
+    <string:String x:Key="OpenContainingFolder">Tekrarı İçeren Klasörü Aç</string:String>
+    <string:String x:Key="ExportReplayData">Verileri Dışa Aktar...</string:String>
+    <string:String x:Key="RenameReplayFile">Yeniden Adlandır</string:String>
+    <string:String x:Key="DeleteReplayFile">Sil</string:String>
+    <string:String x:Key="ReplayItemControl__ContextMenu__LoadStaticData__Button">$ İçin Görüntü Al</string:String>
+    <string:String x:Key="RefreshReplayList">Listeyi Yenile</string:String>
+
+    <!--  Export Data : Wizard  -->
+    <string:String x:Key="ErdTitle">Verileri Dışa Aktarma Sihirbazı</string:String>
+    <string:String x:Key="ErdTitleAdvanced">Verileri Dışa Aktarma Gelişmiş Modu</string:String>
+    <string:String x:Key="ErdLandingSubtitle">Aşağıdaki seçenekler arasından seçim yapın</string:String>
+    <string:String x:Key="ErdLandingStart">Sihirbazı başlat</string:String>
+    <string:String x:Key="ErdLandingPreset">Ön ayarı kullanarak dışa aktar</string:String>
+    <string:String x:Key="ErdLandingAdvanced">Gelişmiş modu göster</string:String>
+    <string:String x:Key="ErdLandingEverything">Her şeyi dışa aktar</string:String>
+    <string:String x:Key="ErdPlayersSubtitle">Dahil edilecek oyuncuları seçin</string:String>
+    <string:String x:Key="ErdPlayersManual">Manuel seçim</string:String>
+    <string:String x:Key="ErdPlayersMarkers">İşaretli oyuncular</string:String>
+    <string:String x:Key="ErdPlayersAll">Tüm oyuncular</string:String>
+    <string:String x:Key="ErdAttributesSubtitle">Eklenecek oyuncu özelliklerini seçin</string:String>
+    <string:String x:Key="ErdAttributesFilter">Filtre nitelikleri...</string:String>
+    <string:String x:Key="ErdFinishFormatHeading">Çıktı biçimi</string:String>
+    <string:String x:Key="ErdFinishFormatCsv">CSV olarak dışa aktar</string:String>
+    <string:String x:Key="ErdFinishFormatNormalize">Özellik adlarını normalleştir</string:String>
+    <string:String x:Key="ExportData__FinishPage__ApplyStaticData__Checkbox">Statik verileri uygula</string:String>
+    <string:String x:Key="ErdFinishJsonHeading">JSON'a özgü seçenekler</string:String>
+    <string:String x:Key="ErdFinishJsonMatchId">Karşılaşma ID ekle</string:String>
+    <string:String x:Key="ErdFinishJsonDuration">Karşılaşma süresini dahil et</string:String>
+    <string:String x:Key="ErdFinishJsonVersion">Yama sürümünü dahil et</string:String>
+    <string:String x:Key="ErdPreviewTitle">Veri Önizleme</string:String>
+
+    <!--  Export Data : Common Items + Presets  -->
+    <string:String x:Key="ErdSelectAllItems">Tümünü seç</string:String>
+    <string:String x:Key="ErdDeselectAllItems">Tüm seçimleri kaldır</string:String>
+    <string:String x:Key="ErdExportButtonText">Dışa aktar...</string:String>
+    <string:String x:Key="ErdExportDialogTitle">Dışa Aktarma Konumunu Seçin</string:String>
+    <string:String x:Key="ErdFailedToSave">Dosya kaydedilemedi</string:String>
+    <string:String x:Key="ErdPresetSave">Ön ayar olarak kaydet</string:String>
+    <string:String x:Key="ErdPresetLoad">Ön ayar yükle</string:String>
+    <string:String x:Key="ErdPresetLoadbutton">Yükle</string:String>
+    <string:String x:Key="ErdPresetLoadTitle">Ön Ayarı Yükle</string:String>
+    <string:String x:Key="ErdPresetSaveTitle">Ön Ayarı Kaydet</string:String>
+    <string:String x:Key="ErdPresetName">Ad</string:String>
+    <string:String x:Key="ErdPresetProperties">Özellikler</string:String>
+    <string:String x:Key="ErdPresetPlayers">Seçili Oyuncular</string:String>
+    <string:String x:Key="ErdPresetAttributes">Seçili Özellikler</string:String>
+    <string:String x:Key="ErdPresetOverwrite">Üzerine Yaz</string:String>
+    <string:String x:Key="ErdPresetExists">Bu ada sahip bir ön ayar zaten mevcut. Üzerine yazılsın mı?</string:String>
+    <string:String x:Key="ErdPresetExistsNotify">Ad zaten mevcut</string:String>
+    <string:String x:Key="ErdPresetInvalidNotify">Ad geçersiz karakterler içeriyor</string:String>
+    <string:String x:Key="ErdPresetFailed">Ön ayar yüklenemedi</string:String>
+    <string:String x:Key="ErdPresetSavedTitle">Ön ayar Kaydedildi</string:String>
+
+    <!--  Welcome Setup  -->
+    <string:String x:Key="WswWindowTitleText">ReplayBook Kurulumu</string:String>
+    <string:String x:Key="WswPreviousText">Geri</string:String>
+    <string:String x:Key="WswPreviousDisabled">Önceki sayfaya gidilemiyor</string:String>
+    <string:String x:Key="WswNextText">Sonraki</string:String>
+    <string:String x:Key="WswNextDisabled">Sonraki sayfaya geçilemiyor</string:String>
+    <string:String x:Key="WswSkipText">Atla</string:String>
+    <string:String x:Key="WswSkipDisabled">Sayfa atlanamıyor</string:String>
+    <string:String x:Key="WswDownloadMissingError">İndirilecek bir şey bulunamadı - internet bağlantınızı kontrol edin veya bu adımı atlayın</string:String>
+    <string:String x:Key="WswDownloadNoSelectionError">Lütfen bir indirme seçimi yapın</string:String>
+
+    <!--  Welcome Setup : Introduction  -->
+    <string:String x:Key="WswIntroFrameTitle">ReplayBook'a Hoş Geldiniz</string:String>
+    <string:String x:Key="WswReplaysFrameTitle">Tekrar Oynatma Kurulumu</string:String>
+    <string:String x:Key="WswExecutablesFrameTitle">Yürütülebilir Dosya Kurulumu</string:String>
+    <string:String x:Key="WswRegionFrameTitle">Dil Kurulumu</string:String>
+    <string:String x:Key="WswDownloadFrameTitle">Statik Veri İndir</string:String>
+    <string:String x:Key="WswFinishedFrameTitle">Tamamlandı!</string:String>
+
+    <string:String x:Key="WswIntroductionTitle">ReplayBook'u indirdiğiniz için teşekkür ederiz!</string:String>
+    <string:String x:Key="WswIntroductionBody">Öncelikle bazı başlangıç ​​kurulumlarını yapalım. Devam etmek için 'İleri' düğmesini tıklayınız.</string:String>
+
+    <string:String x:Key="WswRegionTitle">Varsayılan League of Legends dilinizi ayarlayın</string:String>
+    <string:String x:Key="WswRegionBody">Açılır menüyü kullanarak bir dil seçin. ReplayBook yürütülebilir dosyalarınızı bu dili kullanarak kaydedecektir. Yürütülebilir dosyanın dilini daha sonra manuel olarak düzenleyebilirsiniz.</string:String>
+
+    <string:String x:Key="WswExecutablesTitle">Riot Games klasörünü seçin</string:String>
+    <string:String x:Key="WswExecutablesBody">ReplayBook'un tekrarları oynatmadan önce League of Legends'ı kaydetmesi gerekiyor. Bu klasörde League of Legends'ın mevcut tüm sürümlerini arayacağız.</string:String>
+    <string:String x:Key="WswExecutablesHint">Örneğin: 'C:\Riot Games'</string:String>
+    <string:String x:Key="WswExecutablesRegisterList">Tespit edilen sürümler:</string:String>
+    <string:String x:Key="WswExecutablesRegisterListEmpty">Hiçbir şey bulunamadı...</string:String>
+
+    <string:String x:Key="WswReplaysTitle">Tekrar klasörünü seçin</string:String>
+    <string:String x:Key="WswReplaysBody">ReplayBook, nerede olduklarını bilmeden herhangi bir tekrarı gösteremez. Tekrarlarınızın burada saklandığını doğrulayın. Daha sonra ek klasörler ekleyebilirsiniz.</string:String>
+    <string:String x:Key="WswReplaysHint">Varsayılan olarak tekrarlar &quot;Documents\League of Legends\Replays&quot; konumunda saklanır </string:String>
+
+    <string:String x:Key="Welcome__StaticData__Title">En son statik veriler indiriliyor...</string:String>
+    <string:String x:Key="Welcome__StaticData__Body">Statik verilerin indirilmesi birkaç dakika sürecektir ancak şampiyon isimlerinin ve küçük resimlerin görüntülenmesi için gereklidir. Farklı yamalar için statik veri paketlerini daha sonra indirebilirsiniz.</string:String>
+    <string:String x:Key="Welcome__StaticData__GenericError__Body">Statik veriler indirilirken bir hata oluştu. Ekteki hata mesajına bakın.</string:String>
+
+    <string:String x:Key="WswFinishTitle">Kurulum tamamlandı!</string:String>
+    <string:String x:Key="WswFinishBody">&quot;Bitir&quot;a tıklayın ve ReplayBook seçtiğiniz ayarlarla otomatik olarak başlayacaktır.</string:String>
+    <string:String x:Key="WswFinishButton">Bitir</string:String>
+
+    <!--  Rename dialog  -->
+    <string:String x:Key="RenameFlyoutEmptyError">Geçerli bir dosya adı girin</string:String>
+    <string:String x:Key="RenameFlyoutNotFoundError">Tekrar bir tekrar klasöründe değil</string:String>
+
+    <!--  Delete dialog  -->
+    <string:String x:Key="DeleteFlyoutLabel">Emin misiniz?</string:String>
+
+</ResourceDictionary>
