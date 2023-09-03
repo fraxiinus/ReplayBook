@@ -223,7 +223,7 @@
     <string:String x:Key="ChampionsKilledHeaderText">Katletmeler</string:String>
     <string:String x:Key="DeathsHeaderText">Ölümler</string:String>
     <string:String x:Key="AssistsHeaderText">Asistler</string:String>
-    <string:String x:Key="LargestKillingSpreeHeaderText"En Büyük Seriye Bağlama</string:String>
+    <string:String x:Key="LargestKillingSpreeHeaderText">En Büyük Seriye Bağlama</string:String>
     <string:String x:Key="KillingSpreesHeaderText">Seriye Bağlamalar</string:String>
     <string:String x:Key="LargestMultiKillHeaderText">En Büyük Çoklu Katletme</string:String>
     <string:String x:Key="BountyLevelHeaderText">Ödül Seviyesi</string:String>
@@ -426,7 +426,7 @@
 
     <string:String x:Key="WswReplaysTitle">Tekrar klasörünü seçin</string:String>
     <string:String x:Key="WswReplaysBody">ReplayBook, nerede olduklarını bilmeden herhangi bir tekrarı gösteremez. Tekrarlarınızın burada saklandığını doğrulayın. Daha sonra ek klasörler ekleyebilirsiniz.</string:String>
-    <string:String x:Key="WswReplaysHint">Varsayılan olarak tekrarlar &quot;Documents\League of Legends\Replays&quot; konumunda saklanır </string:String>
+    <string:String x:Key="WswReplaysHint">Varsayılan olarak tekrarlar &quot;Documents\League of Legends\Replays&quot; konumunda saklanır</string:String>
 
     <string:String x:Key="Welcome__StaticData__Title">En son statik veriler indiriliyor...</string:String>
     <string:String x:Key="Welcome__StaticData__Body">Statik verilerin indirilmesi birkaç dakika sürecektir ancak şampiyon isimlerinin ve küçük resimlerin görüntülenmesi için gereklidir. Farklı yamalar için statik veri paketlerini daha sonra indirebilirsiniz.</string:String>
