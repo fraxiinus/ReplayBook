@@ -28,10 +28,10 @@
         <ui:NavigationView.MenuItems>
             <ui:NavigationViewItem Content="Replays"
                                    Icon="Play"
-                                   Tag="NavigationPage1" />
+                                   Tag="ReplayPage" />
             <ui:NavigationViewItem Content="Executables"
                                    Icon="AllApps"
-                                   Tag="NavigationPage2" />
+                                   Tag="ExecutablePage" />
         </ui:NavigationView.MenuItems>
 
         <ui:Frame x:Name="MainNavigationFrame" Margin="0" />

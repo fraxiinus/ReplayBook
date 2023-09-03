@@ -129,32 +129,28 @@ public partial class MainWindow : Window
         }
     }
 
-    private void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private async void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
+        if (DataContext is not MainWindowViewModel context) { return; }
+
         if (args.IsSettingsSelected)
         {
-            // nothing
+            await context.ShowSettingsDialog().ConfigureAwait(true);
         }
         else if (args.SelectedItem is NavigationViewItem selectedNVItem)
         {
             switch (selectedNVItem.Tag as string)
             {
-                case "NavigationPage1":
+                case "ReplayPage":
                     MainNavigationFrame.Navigate(_replayPage);
+                    break;
+                case "ExecutablePage":
+                    MainNavigationFrame.Navigate(typeof(ExecutablesPage));
                     break;
                 default:
                     break;
             }
         }
-
-
-    }
-
-    private async void SettingsButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is not MainWindowViewModel context) { return; }
-
-        await context.ShowSettingsDialog().ConfigureAwait(true);
     }
 
     private async void MainWindow_OnClosing(object sender, CancelEventArgs e)
