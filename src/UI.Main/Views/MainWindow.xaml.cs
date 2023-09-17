@@ -144,6 +144,9 @@ public partial class MainWindow : Window
                 case "ReplayPage":
                     MainNavigationFrame.Navigate(_replayPage);
                     break;
+                case "PlayerPage":
+                    MainNavigationFrame.Navigate(typeof(PlayersPage));
+                    break;
                 case "ExecutablePage":
                     MainNavigationFrame.Navigate(typeof(ExecutablesPage));
                     break;

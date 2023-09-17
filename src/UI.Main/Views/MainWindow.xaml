@@ -29,6 +29,9 @@
             <ui:NavigationViewItem Content="Replays"
                                    Icon="Play"
                                    Tag="ReplayPage" />
+            <ui:NavigationViewItem Content="Players"
+                                   Icon="OtherUser"
+                                   Tag="PlayerPage" />
             <ui:NavigationViewItem Content="Executables"
                                    Icon="AllApps"
                                    Tag="ExecutablePage" />
