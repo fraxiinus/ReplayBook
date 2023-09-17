@@ -333,33 +333,34 @@ public class MainWindowViewModel
         }
     }
 
-    public async Task ShowSettingsDialog()
-    {
-        var settingsDialog = new SettingsWindow()
-        {
-            Top = Application.Current.MainWindow.Top + 50,
-            Left = Application.Current.MainWindow.Left + 50,
-            DataContext = new SettingsWindowDataContext
-            {
-                Configuration = Configuration,
-                Executables = ExecutableManager,
-                StaticData = StaticDataManager
-            }
-        };
+    // TODO: reconfigure this function
+    //public async Task ShowSettingsDialog()
+    //{
+    //    var settingsDialog = new SettingsWindow()
+    //    {
+    //        Top = Application.Current.MainWindow.Top + 50,
+    //        Left = Application.Current.MainWindow.Left + 50,
+    //        DataContext = new SettingsWindowDataContext
+    //        {
+    //            Configuration = Configuration,
+    //            Executables = ExecutableManager,
+    //            StaticData = StaticDataManager
+    //        }
+    //    };
 
-        settingsDialog.ShowDialog();
+    //    settingsDialog.ShowDialog();
 
-        if (RestartOnClose)
-        {
-            Application.Current.MainWindow.Close();
-        }
+    //    if (RestartOnClose)
+    //    {
+    //        Application.Current.MainWindow.Close();
+    //    }
 
-        // Refresh markers
-        ReloadPlayerMarkers();
+    //    // Refresh markers
+    //    ReloadPlayerMarkers();
 
-        // Refresh all replays
-        await ReloadReplayList(settingsDialog.UpdateExecutablesOnClose).ConfigureAwait(true);
-    }
+    //    // Refresh all replays
+    //    await ReloadReplayList(settingsDialog.UpdateExecutablesOnClose).ConfigureAwait(true);
+    //}
 
     /// <summary>
     /// The function to call to refresh the list

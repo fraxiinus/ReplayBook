@@ -6,6 +6,7 @@ using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Files;
 using Fraxiinus.ReplayBook.StaticData;
+using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Pages;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
@@ -17,6 +18,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
+using Windows.UI.ApplicationSettings;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -27,6 +29,7 @@ public partial class MainWindow : Window
     private readonly RiZhi _log;
 
     private readonly MainReplayPage _replayPage;
+    private readonly SettingsPage _settingsPage;
 
     public MainWindow(RiZhi log,
         ObservableConfiguration config,
@@ -63,11 +66,22 @@ public partial class MainWindow : Window
         // Check if replay folders are missing and need to be removed
         context.ShowMissingReplayFoldersMessageBox();
 
-        // Navigate to first page
+        // Create pages
         _replayPage = new MainReplayPage
         {
             DataContext = context
         };
+        _settingsPage = new SettingsPage
+        {
+            DataContext = new SettingsWindowDataContext
+            {
+                Configuration = config,
+                Executables = executables,
+                StaticData = staticData
+            }
+        };
+
+        // Navigate to first page
         MainNavigationView.SelectedItem = MainNavigationView.MenuItems.OfType<NavigationViewItem>().First();
     }
 
@@ -135,7 +149,8 @@ public partial class MainWindow : Window
 
         if (args.IsSettingsSelected)
         {
-            await context.ShowSettingsDialog().ConfigureAwait(true);
+            MainNavigationFrame.Navigate(_settingsPage);
+            //await context.ShowSettingsDialog().ConfigureAwait(true);
         }
         else if (args.SelectedItem is NavigationViewItem selectedNVItem)
         {
