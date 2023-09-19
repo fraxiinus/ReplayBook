@@ -23,11 +23,13 @@
     <ui:NavigationView x:Name="MainNavigationView"
                        IsBackButtonVisible="Collapsed"
                        IsBackEnabled="False"
+                       OpenPaneLength="250"
                        PaneDisplayMode="LeftCompact"
                        SelectionChanged="MainNavigationView_SelectionChanged">
         <ui:NavigationView.MenuItems>
-            <ui:NavigationViewItem Content="Replays"
+            <ui:NavigationViewItem Content="All Replays"
                                    Icon="Play"
+                                   MenuItemsSource="{Binding ReplayNavigationItems}"
                                    Tag="ReplayPage" />
             <ui:NavigationViewItem Content="Players"
                                    Icon="OtherUser"
@@ -36,6 +38,15 @@
                                    Icon="AllApps"
                                    Tag="ExecutablePage" />
         </ui:NavigationView.MenuItems>
+        <!--<ui:NavigationView.PaneFooter>
+            <StackPanel x:Name="FooterStackPanel" Orientation="Vertical">
+                <ui:NavigationViewItem x:Name="PinNavigationItem"
+                                       Content="Pin navigation"
+                                       Icon="Pin"
+                                       MouseLeftButtonUp="PinNavigationItem_MouseLeftButtonUp"
+                                       Tag="ExecutablePage" />
+            </StackPanel>
+        </ui:NavigationView.PaneFooter>-->
 
         <ui:Frame x:Name="MainNavigationFrame" Margin="0" />
 

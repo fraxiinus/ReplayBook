@@ -14,6 +14,7 @@ using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.Views;
+using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -78,6 +79,8 @@ public class MainWindowViewModel
     /// </summary>
     public bool RestartOnClose { get; set; }
 
+    public ObservableCollection<NavigationViewItem> ReplayNavigationItems { get; private set; }
+
     #endregion
 
     public MainWindowViewModel(FileManager files,
@@ -103,6 +106,15 @@ public class MainWindowViewModel
         {
             QueryString = string.Empty,
             SortMethod = SortMethod.DateDesc
+        };
+        ReplayNavigationItems = new ObservableCollection<NavigationViewItem>
+        {
+            new NavigationViewItem()
+            {
+                Content = "Add Category",
+                Icon = new SymbolIcon(Symbol.Add),
+                Tag = "AddCategory"
+            }
         };
 
         // By default we do not want to delete our cache

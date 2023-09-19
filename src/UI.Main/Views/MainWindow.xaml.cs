@@ -192,4 +192,17 @@ public partial class MainWindow : Window
 
         context.ClearCachedData();
     }
+
+    // TODO: the themeing gets weird when toggling pinned nav, might need to be mroe involved than this
+    //private void PinNavigationItem_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    //{
+    //    if (MainNavigationView.PaneDisplayMode == NavigationViewPaneDisplayMode.LeftCompact)
+    //    {
+    //        MainNavigationView.PaneDisplayMode = NavigationViewPaneDisplayMode.Left;
+    //    }
+    //    else
+    //    {
+    //        MainNavigationView.PaneDisplayMode = NavigationViewPaneDisplayMode.LeftCompact;
+    //    }
+    //}
 }
