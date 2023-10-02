@@ -145,7 +145,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private async void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (DataContext is not MainWindowViewModel context) { return; }
 
@@ -201,6 +201,12 @@ public partial class MainWindow : Window
         await context.HandleAddCategoryButton();
 
         context.Configuration.SortReplayCategories();
+    }
+
+    private void ReplayCategory_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (sender is not NavigationViewItem root) { return; }
+
     }
 
     // TODO: the themeing gets weird when toggling pinned nav, might need to be more involved than this
