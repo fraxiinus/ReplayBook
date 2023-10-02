@@ -96,6 +96,16 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
                     : LogicalTreeHelper.FindLogicalNode(content, "LabelTextBlock") as TextBlock;
         }
 
+        public static void SetCustomObject(this ContentDialog dialog, UIElement customObject)
+        {
+            if (dialog.Content is not Grid contentPanel) { return; }
+
+            Grid.SetRow(customObject, 1);
+            Grid.SetColumn(customObject, 0);
+
+            contentPanel.Children.Add(customObject);
+        }
+
         /// <summary>
         /// Only works for <see cref="ContentDialog"/>s made by <see cref="ContentDialogHelper"/>
         /// </summary>

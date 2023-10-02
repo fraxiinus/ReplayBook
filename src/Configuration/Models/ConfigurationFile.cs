@@ -38,12 +38,10 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
     {
         [ConfigurationKeyName("known_players")]
         [JsonPropertyName("known_players")]
-
         public PlayerMarkerConfiguration[]? KnownPlayers { get; set; }
 
         [ConfigurationKeyName("marker_style")]
         [JsonPropertyName("marker_style")]
-
         public MarkerStyle MarkerStyle { get; set; }
 
         [ConfigurationKeyName("file_action")]
@@ -69,6 +67,11 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
         [ConfigurationKeyName("language")]
         [JsonPropertyName("language")]
         public ApplicationLanguage Language { get; set; }
+
+        [ConfigurationKeyName("replay_categories")]
+        [JsonPropertyName("replay_categories")]
+        public CategoryItem[]? ReplayCategories { get; set; }
+
     }
 
     public class AppearanceSettings

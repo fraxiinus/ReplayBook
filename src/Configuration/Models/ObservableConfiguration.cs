@@ -30,6 +30,9 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
             ItemsPerPage = config.GeneralSettings.ItemsPerPage;
             AutoUpdateCheck = config.GeneralSettings.AutoUpdateCheck;
             Language = config.GeneralSettings.Language;
+            ReplayCategories = config.GeneralSettings.ReplayCategories != null
+                ? new ObservableCollection<CategoryItem>(config.GeneralSettings.ReplayCategories)
+                : new ObservableCollection<CategoryItem>();
 
             ThemeMode = config.AppearanceSettings.ThemeMode;
             AccentColor = config.AppearanceSettings.AccentColor;
@@ -98,6 +101,16 @@ namespace Fraxiinus.ReplayBook.Configuration.Models
                 PropertyChanged?.Invoke(
                     this, new PropertyChangedEventArgs(nameof(Language)));
             }
+        }
+
+        public ObservableCollection<CategoryItem> ReplayCategories { get; private set; }
+
+        public void SortReplayCategories()
+        {
+            ReplayCategories = new ObservableCollection<CategoryItem>(ReplayCategories.OrderBy(c => c.Name));
+            // Create new event, as reassigning the variable does not event on its own!
+            PropertyChanged?.Invoke(
+                    this, new PropertyChangedEventArgs(nameof(ReplayCategories)));
         }
 
         /// Appearance Settings

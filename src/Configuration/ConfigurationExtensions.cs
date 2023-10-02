@@ -36,7 +36,8 @@ namespace Fraxiinus.ReplayBook.Configuration
                     RenameFile = config.RenameFile,
                     ItemsPerPage = config.ItemsPerPage,
                     AutoUpdateCheck = config.AutoUpdateCheck,
-                    Language = config.Language
+                    Language = config.Language,
+                    ReplayCategories = config.ReplayCategories.ToArray(),
                 },
                 AppearanceSettings = new AppearanceSettings
                 {

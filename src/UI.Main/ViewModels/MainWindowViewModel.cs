@@ -19,11 +19,16 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
+using System.ComponentModel;
+using ModernWpf.Controls.Primitives;
 
 public class MainWindowViewModel
 {
@@ -33,7 +38,7 @@ public class MainWindowViewModel
     private readonly ReplayPlayer _player;
     #endregion
 
-    #region Properties
+    #region Public Properties
     /// <summary>
     /// In charge of static data, game images and text
     /// </summary>
@@ -79,7 +84,15 @@ public class MainWindowViewModel
     /// </summary>
     public bool RestartOnClose { get; set; }
 
-    public ObservableCollection<NavigationViewItem> ReplayNavigationItems { get; private set; }
+    /// <summary>
+    /// The list of actual navigation items for replay organization
+    /// </summary>
+    //public ObservableCollection<NavigationViewItem> ReplayNavigationItems { get; private set; }
+
+    /// <summary>
+    /// The view that allows for sorting for replay navigation items
+    /// </summary>
+    //public CollectionViewSource ReplayNavigationItemsView { get; private set; }
 
     #endregion
 
@@ -107,15 +120,27 @@ public class MainWindowViewModel
             QueryString = string.Empty,
             SortMethod = SortMethod.DateDesc
         };
-        ReplayNavigationItems = new ObservableCollection<NavigationViewItem>
-        {
-            new NavigationViewItem()
-            {
-                Content = "Add Category",
-                Icon = new SymbolIcon(Symbol.Add),
-                Tag = "AddCategory"
-            }
-        };
+        config.ReplayCategories.Add(new CategoryItem("what", "what", "what"));
+        //ReplayNavigationItems = new ObservableCollection<NavigationViewItem>()
+        //{
+        //    new NavigationViewItem
+        //    {
+        //        Content = "WHAT",
+        //        Tag = "ReplayCategory_aaaa",
+        //        Icon = new SymbolIcon(Symbol.Folder)
+        //    },
+        //    new NavigationViewItem
+        //    {
+        //        Content = "AWHAT",
+        //        Tag = "ReplayCategory_aaaa",
+        //        Icon = new SymbolIcon(Symbol.Folder)
+        //    }
+        //};
+        //ReplayNavigationItemsView = new CollectionViewSource()
+        //{
+        //    Source = ReplayNavigationItems
+        //};
+        //ReplayNavigationItemsView.SortDescriptions.Add(new SortDescription(nameof(NavigationViewItem.Content), ListSortDirection.Descending));
 
         // By default we do not want to delete our cache
         ClearReplayCacheOnClose = false;
@@ -742,6 +767,64 @@ public class MainWindowViewModel
         {
             _fileManager.DeleteDatabase();
             _fileManager.DeleteSearchIndex();
+        }
+    }
+
+    public async Task HandleAddCategoryButton()
+    {
+        //var contentDialog = ContentDialogHelper.CreateContentDialog("Add search shortcut", "", "Create", "Cancel");
+
+        //var nameInputBox = new TextBox()
+        //{
+        //    MaxWidth = 300
+        //};
+        //ControlHelper.SetHeader(nameInputBox, "Name");
+
+        //var descInputBox = new TextBox()
+        //{
+        //    MaxWidth = 300
+        //};
+        //ControlHelper.SetHeader(descInputBox, "Description");
+
+        //var searchInputBox = new TextBox()
+        //{
+        //    Width = 300,
+        //    MaxWidth = 300,
+        //    Height = 250,
+        //    MaxHeight = 250,
+        //    TextWrapping = TextWrapping.Wrap,
+        //    HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+        //    VerticalScrollBarVisibility = ScrollBarVisibility.Visible
+        //};
+        //ControlHelper.SetHeader(searchInputBox, "Search term");
+
+        //var stackLayout = new SimpleStackPanel()
+        //{
+        //    Spacing = 12
+        //};
+        //stackLayout.Children.Add(nameInputBox);
+        //stackLayout.Children.Add(descInputBox);
+        //stackLayout.Children.Add(searchInputBox);
+        //contentDialog.SetCustomObject(stackLayout);
+
+        //var dialogResult = await contentDialog.ShowAsync();
+
+        var dialog = new AddReplayCategoryDialog();
+
+        var dialogResult = await dialog.ShowAsync();
+
+        if (dialogResult == ContentDialogResult.Primary)
+        {
+            var newCategory = new CategoryItem(dialog.NameInputBox.Text, dialog.DescInputBox.Text, dialog.SearchInputBox.Text);
+
+            Configuration.ReplayCategories.Add(newCategory);
+            //var identifier = new Guid("dddddddddddddddddddddddddddddddd");
+            //ReplayNavigationItems.Add(new NavigationViewItem()
+            //{
+            //    Content = dialog.NameInputBox.Text,
+            //    Icon = new SymbolIcon(Symbol.Folder),
+            //    Tag = $"ReplayCategory_{identifier}"
+            //});
         }
     }
 }

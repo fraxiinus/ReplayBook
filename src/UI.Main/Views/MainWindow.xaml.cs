@@ -17,6 +17,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Threading;
 using Windows.UI.ApplicationSettings;
 
@@ -150,7 +152,6 @@ public partial class MainWindow : Window
         if (args.IsSettingsSelected)
         {
             MainNavigationFrame.Navigate(_settingsPage);
-            //await context.ShowSettingsDialog().ConfigureAwait(true);
         }
         else if (args.SelectedItem is NavigationViewItem selectedNVItem)
         {
@@ -193,7 +194,16 @@ public partial class MainWindow : Window
         context.ClearCachedData();
     }
 
-    // TODO: the themeing gets weird when toggling pinned nav, might need to be mroe involved than this
+    private async void AddReplayCategoryButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainWindowViewModel context) { return; }
+
+        await context.HandleAddCategoryButton();
+
+        context.Configuration.SortReplayCategories();
+    }
+
+    // TODO: the themeing gets weird when toggling pinned nav, might need to be more involved than this
     //private void PinNavigationItem_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
     //{
     //    if (MainNavigationView.PaneDisplayMode == NavigationViewPaneDisplayMode.LeftCompact)

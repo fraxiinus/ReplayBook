@@ -52,6 +52,7 @@
     <string:String x:Key="General__ViewButton">View</string:String>
     <string:String x:Key="General__ExitButton">Exit</string:String>
     <string:String x:Key="General__GlobalExceptionHandler__Body">Unhandled exception occurred! Please check the logs directory for full details.</string:String>
+    <string:String x:Key="General__RequiredFieldHelpText">Required</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
@@ -442,5 +443,8 @@
 
     <!--  Delete dialog  -->
     <string:String x:Key="DeleteFlyoutLabel">Are you sure?</string:String>
+
+    <!--  Add replay category dialog  -->
+    <string:String x:Key="AddCategory__DialogTitle">Add saved search</string:String>
 
 </ResourceDictionary>

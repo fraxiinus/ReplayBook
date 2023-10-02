@@ -1,14 +1,17 @@
 ﻿<Window x:Class="Fraxiinus.ReplayBook.UI.Main.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cfg="clr-namespace:Fraxiinus.ReplayBook.Configuration.Models;assembly=Fraxiinus.ReplayBook.Configuration"
+        xmlns:clr="clr-namespace:System;assembly=netstandard"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:viewmodels="clr-namespace:Fraxiinus.ReplayBook.UI.Main.ViewModels"
         Title="{DynamicResource ProgramName}"
-        Width="1150"
+        Width="1400"
         Height="670"
-        MinWidth="1150"
+        MinWidth="1400"
         MinHeight="670"
         d:DataContext="{d:DesignInstance Type=viewmodels:MainWindowViewModel}"
         ui:TitleBar.IsIconVisible="True"
@@ -19,23 +22,67 @@
         Icon="{StaticResource ProgramIcon}"
         ResizeMode="CanResize"
         mc:Ignorable="d">
+    <Window.Resources>
+        <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="Black" />
+        <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="Black" />
+        <DataTemplate DataType="{x:Type cfg:CategoryItem}">
+            <Grid Tag="{Binding Id}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ui:FontIcon Margin="0,2,0,0"
+                             FontFamily="Segoe MDL2 Assets"
+                             FontSize="18"
+                             Glyph="&#xED42;" />
+                <TextBlock Grid.Column="1"
+                           Padding="12,0,0,0"
+                           Text="{Binding Name}" />
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
 
     <ui:NavigationView x:Name="MainNavigationView"
                        IsBackButtonVisible="Collapsed"
                        IsBackEnabled="False"
                        OpenPaneLength="250"
-                       PaneDisplayMode="LeftCompact"
+                       PaneDisplayMode="Left"
                        SelectionChanged="MainNavigationView_SelectionChanged">
         <ui:NavigationView.MenuItems>
-            <ui:NavigationViewItem Content="All Replays"
+            <ui:NavigationViewItem x:Name="ReplayRootMenuItem"
+                                   VerticalContentAlignment="Center"
                                    Icon="Play"
-                                   MenuItemsSource="{Binding ReplayNavigationItems}"
-                                   Tag="ReplayPage" />
-            <ui:NavigationViewItem Content="Players"
+                                   MenuItemsSource="{Binding Configuration.ReplayCategories}"
+                                   Tag="ReplayPage">
+                <ui:NavigationViewItem.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="All Replays" />
+                        <Button x:Name="AddReplayCategoryButton"
+                                Grid.Column="1"
+                                Width="20"
+                                Height="22"
+                                Padding="2"
+                                HorizontalContentAlignment="Center"
+                                Background="Black"
+                                Click="AddReplayCategoryButton_Click">
+                            <Button.Content>
+                                <ui:FontIcon FontFamily="Segoe MDL2 Assets"
+                                             FontSize="13"
+                                             Glyph="&#xE710;" />
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </ui:NavigationViewItem.Content>
+            </ui:NavigationViewItem>
+            <!--<ui:NavigationViewItem Content="Players"
                                    Icon="OtherUser"
-                                   Tag="PlayerPage" />
+                                   Tag="PlayerPage" />-->
             <ui:NavigationViewItem Content="Executables"
-                                   Icon="AllApps"
+                                   Icon="Folder"
                                    Tag="ExecutablePage" />
         </ui:NavigationView.MenuItems>
         <!--<ui:NavigationView.PaneFooter>
@@ -49,6 +96,5 @@
         </ui:NavigationView.PaneFooter>-->
 
         <ui:Frame x:Name="MainNavigationFrame" Margin="0" />
-
     </ui:NavigationView>
 </Window>
