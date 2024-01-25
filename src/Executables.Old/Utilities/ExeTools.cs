@@ -47,8 +47,8 @@ namespace Fraxiinus.ReplayBook.Executables.Old.Utilities
                 ModifiedDate = GetLastModifiedDate(path)
             };
 
-
             newExe.Name = $"Patch {newExe.PatchNumber.VersionSubstring()}";
+            // The GameBaseDir value needs to be set to the parent folder so the game can find user config files
             newExe.LaunchArguments = $"\"-GameBaseDir={Directory.GetParent(newExe.StartFolder).FullName}\"" +
                                         " \"-SkipRads\"" +
                                         " \"-SkipBuild\"" +
