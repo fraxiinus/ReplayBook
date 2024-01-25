@@ -47,8 +47,9 @@ namespace Fraxiinus.ReplayBook.Executables.Old.Utilities
                 ModifiedDate = GetLastModifiedDate(path)
             };
 
+
             newExe.Name = $"Patch {newExe.PatchNumber.VersionSubstring()}";
-            newExe.LaunchArguments = $"\"-GameBaseDir={newExe.StartFolder}\"" +
+            newExe.LaunchArguments = $"\"-GameBaseDir={Directory.GetParent(newExe.StartFolder).FullName}\"" +
                                         " \"-SkipRads\"" +
                                         " \"-SkipBuild\"" +
                                         " \"-EnableLNP\"" +
