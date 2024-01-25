@@ -63,7 +63,7 @@ public class PlayerDetail
 
         // Items
         ItemsPurchased = player.ItemsPurchased.ToInt();
-        ConsumablesPurchased = player.ConsumablePurchased.ToInt();
+        ConsumablesPurchased = player.ConsumablesPurchased.ToInt();
         VisionWardsPurchased = player.VisionWardsBoughtInGame.ToInt();
         WardsPlaced = player.WardPlaced.ToInt();
         WardsKilled = player.WardKilled.ToInt();
@@ -75,7 +75,7 @@ public class PlayerDetail
         Spell3Casts = player.Spell3Cast.ToInt();
         Spell4Casts = player.Spell4Cast.ToInt();
         SummonerSpell1Casts = player.SummonSpell1Cast.ToInt();
-        SummonerSpell2Casts = player.SummonSpell22Cast.ToInt();
+        SummonerSpell2Casts = player.SummonSpell2Cast.ToInt();
 
         // Damage/Healing/Shelding Stats
         TotalDamageDealt = player.TotalDamageDealt.ToInt();
@@ -90,7 +90,7 @@ public class PlayerDetail
         PhysicalDamageTaken = player.PhysicalDamageTaken.ToInt();
         MagicDamageTaken = player.MagicDamageTaken.ToInt();
         TrueDamageTaken = player.TrueDamageTaken.ToInt();
-        TotalDamageSelfMitigated = player.TotalDamageSeltMitigated.ToInt();
+        TotalDamageSelfMitigated = player.TotalDamageSelfMitigated.ToInt();
         TotalDamageShieldedToTeammates = player.TotalDamageShieldedOnTeammates.ToInt();
         // Same as towers...
         //TotalDamageToBuildings = player.TOTAL_DAMAGE_DEALT_TO_BUILDINGS.ToInt();
