@@ -306,6 +306,29 @@
     <string:String x:Key="SummonerSpell2CastsHeaderText">Summoner Spell 2 Casts</string:String>
     <string:String x:Key="IndividualPositionHeaderText">Individual Position</string:String>
 
+    <string:String x:Key="AllInPingsHeaderText">All In Pings</string:String>
+    <string:String x:Key="AssistMePingsHeaderText">Assist Me Pings</string:String>
+    <string:String x:Key="BaitPingsHeaderText">Bait Pings</string:String>
+    <string:String x:Key="BasicPingsHeaderText">Basic Pings</string:String>
+    <string:String x:Key="CommandPingsHeaderText">Command Pings</string:String>
+    <string:String x:Key="DangerPingsHeaderText">Danger Pings</string:String>
+    <string:String x:Key="EnemyMissingPingsHeaderText">Enemy Missing Pings</string:String>
+    <string:String x:Key="EnemyVisionPingsHeaderText">Enemy Vision Pings</string:String>
+    <string:String x:Key="GetBackPingsHeaderText">Get Back Pings</string:String>
+    <string:String x:Key="HoldPingsHeaderText">Hold Pings</string:String>
+    <string:String x:Key="VoidGrubKillsHeaderText">Void Grub Kills</string:String>
+    <string:String x:Key="LargestAbilityDamageHeaderText">Largest Ability Damage</string:String>
+    <string:String x:Key="LargestAttackDamageHeaderText">Largest Attack Damage</string:String>
+    <string:String x:Key="LastTakedownTimeHeaderText">Last Takedown Time</string:String>
+    <string:String x:Key="NeedVisionPingsHeaderText">Need Vision Pings</string:String>
+    <string:String x:Key="OnMyWayPingsHeaderText">On My Way Pings</string:String>
+    <string:String x:Key="PushPingsHeaderText">Push Pings</string:String>
+    <string:String x:Key="PUUIDHeaderText">PUUID</string:String>
+    <string:String x:Key="RetreatPingsHeaderText">Retreat Pings</string:String>
+    <string:String x:Key="RiftHeraldKillsHeaderText">Rift Herald Kills</string:String>
+    <string:String x:Key="TotalTimeCrowdControlDealtToChampionsHeaderText">Total Time Crowd Control Dealt To Champions</string:String>
+    <string:String x:Key="VisionClearedPingsHeaderText">Vision Cleared Pings</string:String>
+
     <!--  ToolTip Text  -->
     <string:String x:Key="SortToolTip">Sort</string:String>
     <string:String x:Key="RefreshToolTip">Refresh</string:String>
