@@ -26,7 +26,25 @@
         <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="Black" />
         <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="Black" />
         <DataTemplate DataType="{x:Type cfg:CategoryItem}">
-            <Grid Tag="{Binding Id}">
+            <Grid Tag="{Binding Id}" ToolTip="{Binding Description}">
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="EditReplayCategoryButton"
+                                  Click="EditReplayCategoryButton_Click"
+                                  Header="{DynamicResource EditButtonText}">
+                            <MenuItem.Icon>
+                                <ui:FontIcon Glyph="&#xE70F;" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem x:Name="DeleteReplayCategoryButton"
+                                  Click="DeleteReplayCategoryButton_Click"
+                                  Header="{DynamicResource General__DeleteButton}">
+                            <MenuItem.Icon>
+                                <ui:FontIcon Glyph="&#xE74D;" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </Grid.ContextMenu>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -34,11 +52,9 @@
                 <ui:FontIcon Margin="0,2,0,0"
                              FontFamily="Segoe MDL2 Assets"
                              FontSize="18"
-                             Glyph="&#xED42;" />
-                <!--  TODO right clicking does not work!  -->
+                             Glyph="&#xE840;" />
                 <TextBlock Grid.Column="1"
                            Padding="12,0,0,0"
-                           MouseRightButtonUp="ReplayCategory_MouseRightButtonUp"
                            Text="{Binding Name}" />
             </Grid>
         </DataTemplate>
@@ -70,7 +86,8 @@
                                 Padding="2"
                                 HorizontalContentAlignment="Center"
                                 Background="Black"
-                                Click="AddReplayCategoryButton_Click">
+                                Click="AddReplayCategoryButton_Click"
+                                ToolTip="{DynamicResource AddCategory__DialogTitle}">
                             <Button.Content>
                                 <ui:FontIcon FontFamily="Segoe MDL2 Assets"
                                              FontSize="13"

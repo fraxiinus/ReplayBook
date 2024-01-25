@@ -46,6 +46,7 @@
 
     <string:String x:Key="MissingPathTitle">Replayordner nicht gefunden</string:String>
     <string:String x:Key="MissingPathText">Der folgende Pfad(e) wurde nicht gefunden oder wurde entfert:</string:String>
+    <string:String x:Key="General__DeleteButton">Löschen</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">Allgemein</string:String>
@@ -311,7 +312,6 @@
     <string:String x:Key="OpenContainingFolder">Öffne beinhaltenden Ordner</string:String>
     <string:String x:Key="ExportReplayData">Daten exportieren...</string:String>
     <string:String x:Key="RenameReplayFile">Umbenennen</string:String>
-    <string:String x:Key="DeleteReplayFile">Löschen</string:String>
     <string:String x:Key="RefreshReplayList">Liste erneuern</string:String>
 
     <!--  Export Data : Wizard  -->

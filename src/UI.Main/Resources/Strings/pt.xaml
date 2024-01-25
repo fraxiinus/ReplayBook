@@ -46,6 +46,7 @@
 
     <string:String x:Key="MissingPathTitle">Pasta de replays não encontrada</string:String>
     <string:String x:Key="MissingPathText">Os seguintes caminhos não puderam ser encontrados e portanto foram removidos:</string:String>
+    <string:String x:Key="General__DeleteButton">Deletar</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">Geral</string:String>
@@ -309,7 +310,6 @@
     <string:String x:Key="OpenContainingFolder">Abrir Local do Arquivo</string:String>
     <string:String x:Key="ExportReplayData">Exportar Dados...</string:String>
     <string:String x:Key="RenameReplayFile">Renomear</string:String>
-    <string:String x:Key="DeleteReplayFile">Deletar</string:String>
     <string:String x:Key="RefreshReplayList">Atualizar Lista</string:String>
 
     <!--  Export Data : Wizard  -->

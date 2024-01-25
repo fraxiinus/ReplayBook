@@ -57,7 +57,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: true, includeCustom: false);
 
             // set the flyout texts
-            flyout.SetFlyoutButtonText(TryFindResource("DeleteReplayFile") as string);
+            flyout.SetFlyoutButtonText(TryFindResource("General__DeleteButton") as string);
             flyout.SetFlyoutLabelText(TryFindResource("DeleteFlyoutLabel") as string);
 
             // set button click function

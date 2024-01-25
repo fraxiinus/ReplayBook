@@ -41,6 +41,7 @@
 
     <string:String x:Key="MissingPathTitle">No se encontró la carpeta de repeticiones</string:String>
     <string:String x:Key="MissingPathText">El siguiente directorio no se pudo encontrar o fue eliminado:</string:String>
+    <string:String x:Key="General__DeleteButton">Eliminar</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
@@ -303,7 +304,6 @@
     <string:String x:Key="OpenContainingFolder">Abrir carpeta contenedora</string:String>
     <string:String x:Key="ExportReplayData">Exportar datos...</string:String>
     <string:String x:Key="RenameReplayFile">Renombrar</string:String>
-    <string:String x:Key="DeleteReplayFile">Eliminar</string:String>
     <string:String x:Key="RefreshReplayList">Actualizar lista</string:String>
 
     <!--  Replay Data Export  -->

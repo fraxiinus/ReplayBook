@@ -47,7 +47,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Click="DeleteReplayFile_OnClick" Header="{DynamicResource DeleteReplayFile}">
+                <MenuItem Click="DeleteReplayFile_OnClick" Header="{DynamicResource General__DeleteButton}">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
                     </MenuItem.Icon>
@@ -351,7 +351,7 @@
 
                         <MenuItem x:Name="DeleteReplayFile"
                                   Click="DeleteReplayFile_OnClick"
-                                  Header="{DynamicResource DeleteReplayFile}">
+                                  Header="{DynamicResource General__DeleteButton}">
                             <MenuItem.Icon>
                                 <ui:PathIcon Data="{StaticResource DeletePathIcon}" />
                             </MenuItem.Icon>

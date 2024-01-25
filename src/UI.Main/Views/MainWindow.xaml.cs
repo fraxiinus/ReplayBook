@@ -18,9 +18,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Threading;
-using Windows.UI.ApplicationSettings;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -145,7 +143,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+    private async void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (DataContext is not MainWindowViewModel context) { return; }
 
@@ -155,10 +153,13 @@ public partial class MainWindow : Window
         }
         else if (args.SelectedItem is NavigationViewItem selectedNVItem)
         {
-            switch (selectedNVItem.Tag as string)
+            var tag = selectedNVItem.Tag as string;
+            switch (tag)
             {
                 case "ReplayPage":
                     MainNavigationFrame.Navigate(_replayPage);
+                    _replayPage.SearchBox.Text = string.Empty;
+                    await context.HandleClickCategoryButton();
                     break;
                 case "PlayerPage":
                     MainNavigationFrame.Navigate(typeof(PlayersPage));
@@ -169,6 +170,15 @@ public partial class MainWindow : Window
                 default:
                     break;
             }
+        }
+        else if (args.SelectedItem is CategoryItem categoryItem)
+        {
+            // TODO
+            // this is failing- for some reason another process is trying to access the database file at the same time?
+            // not sure what this means because this should be the same code/process i was using before
+            MainNavigationFrame.Navigate(_replayPage);
+            _replayPage.SearchBox.Text = categoryItem.SearchTerm;
+            await context.HandleClickCategoryButton(categoryItem);
         }
     }
 
@@ -199,14 +209,26 @@ public partial class MainWindow : Window
         if (DataContext is not MainWindowViewModel context) { return; }
 
         await context.HandleAddCategoryButton();
-
-        context.Configuration.SortReplayCategories();
     }
 
-    private void ReplayCategory_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private async void DeleteReplayCategoryButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is not NavigationViewItem root) { return; }
+        if (sender is not MenuItem menuItem) { return; }
+        if (DataContext is not MainWindowViewModel context) { return; }
 
+        var categoryItem = menuItem.DataContext as CategoryItem;
+
+        await context.HandleRemoveCategoryButton(categoryItem);
+    }
+
+    private async void EditReplayCategoryButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem menuItem) { return; }
+        if (DataContext is not MainWindowViewModel context) { return; }
+
+        var categoryItem = menuItem.DataContext as CategoryItem;
+
+        await context.HandleEditCategoryButton(categoryItem);
     }
 
     // TODO: the themeing gets weird when toggling pinned nav, might need to be more involved than this

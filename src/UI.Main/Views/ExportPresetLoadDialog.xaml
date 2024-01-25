@@ -39,7 +39,7 @@
                             Margin="12,0,12,0"
                             HorizontalAlignment="Stretch"
                             Click="DeleteButton_Click"
-                            ToolTip="{DynamicResource DeleteReplayFile}">
+                            ToolTip="{DynamicResource General__DeleteButton}">
                         <ui:PathIcon Grid.Row="0"
                                      Width="16"
                                      Height="16"

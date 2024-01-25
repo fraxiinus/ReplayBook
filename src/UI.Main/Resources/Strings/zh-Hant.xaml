@@ -8,8 +8,7 @@
     Update：
 		>	N/A#8964 2022-03-04           // <==sample
 		>	RichardNewb1e 2022-03-21
-        >   RichardNewb1e 2022-09-16
--->
+        >   RichardNewb1e 2022-09-16-->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:string="clr-namespace:System;assembly=mscorlib"
@@ -65,6 +64,7 @@
     <string:String x:Key="General__ViewButton">查看</string:String>
     <string:String x:Key="General__ExitButton">退出</string:String>
     <string:String x:Key="General__GlobalExceptionHandler__Body">出現未處理的錯誤！請檢查日志目錄以查看詳情</string:String>
+    <string:String x:Key="General__DeleteButton">刪除</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">一般</string:String>
@@ -75,7 +75,7 @@
     <string:String x:Key="ExecutablesSettingsItemText">遊戲客戶端相關</string:String>
     <string:String x:Key="AboutSettingsItemText">關於</string:String>
     <string:String x:Key="Settings__Menu__StaticDataHeader">靜態數據</string:String>
-    
+
     <!--  Settings : General  -->
     <string:String x:Key="LanguageLabelText">語言</string:String>
 
@@ -105,14 +105,14 @@
     <string:String x:Key="AutoUpdateCheckboxText">自動檢查更新</string:String>
     <string:String x:Key="CheckUpdatesButtonText">手動檢查</string:String>
     <string:String x:Key="UpdateAvailableText">更新可用！在此處下載新版本</string:String>
-    <string:String x:Key="UpdateAvailableNotifText">有新版本可用！ </string:String>
+    <string:String x:Key="UpdateAvailableNotifText">有新版本可用！</string:String>
     <string:String x:Key="UpdateAvailableNotifButton">下載</string:String>
     <string:String x:Key="OpenGitHubButtonText">前往Github查看項目</string:String>
     <string:String x:Key="UpdateExceptionTitleText">無法獲取更新信息</string:String>
-    <string:String x:Key="UpdateHTTPExceptionBodyText">無法連接到GitHub。請檢查您的網絡連接，然後重試。 </string:String>
+    <string:String x:Key="UpdateHTTPExceptionBodyText">無法連接到GitHub。請檢查您的網絡連接，然後重試。</string:String>
     <string:String x:Key="UpdateGitHubErrorBodyText">無法獲取更新，您可前往 https://github.com/fraxiinus/ReplayBook 獲取更新</string:String>
     <string:String x:Key="UpdateMostRecentTitleText">已經是最新版本</string:String>
-    <string:String x:Key="UpdateMostRecentBodyText">您正在使用最新版本的ReplayBook。 </string:String>
+    <string:String x:Key="UpdateMostRecentBodyText">您正在使用最新版本的ReplayBook。</string:String>
     <string:String x:Key="UpdateNewerTitleText">新版本可用</string:String>
     <string:String x:Key="UpdateNewerBodyText">可以使用更新版本的ReplayBook。按確定進入下載頁面</string:String>
 
@@ -357,7 +357,6 @@
     <string:String x:Key="OpenContainingFolder">打開包含文件夾</string:String>
     <string:String x:Key="ExportReplayData">導出數據...</string:String>
     <string:String x:Key="RenameReplayFile">重命名</string:String>
-    <string:String x:Key="DeleteReplayFile">刪除</string:String>
     <string:String x:Key="ReplayItemControl__ContextMenu__LoadStaticData__Button">獲取 $ 圖片</string:String>
     <string:String x:Key="RefreshReplayList">刷新列表</string:String>
 
@@ -384,16 +383,16 @@
     <string:String x:Key="ErdFinishJsonDuration">包含比賽時長</string:String>
     <string:String x:Key="ErdFinishJsonVersion">包含遊戲(補丁)版本</string:String>
     <string:String x:Key="ErdPreviewTitle">數據預覽</string:String>
-    
+
     <!--  Export Data : Common Items + Presets  -->
     <string:String x:Key="ErdSelectAllItems">全選</string:String>
     <string:String x:Key="ErdDeselectAllItems">取消全選</string:String>
     <string:String x:Key="ErdExportButtonText">導出...</string:String>
     <string:String x:Key="ErdExportDialogTitle">選擇導出位置</string:String>
     <string:String x:Key="ErdFailedToSave">無法保存文件</string:String>
-    <string:String x:Key="ErdPresetSave">保存為預設</string:String> 
-    <string:String x:Key="ErdPresetLoad">加載一個預設</string:String> 
-    <string:String x:Key="ErdPresetLoadbutton">加載</string:String> 
+    <string:String x:Key="ErdPresetSave">保存為預設</string:String>
+    <string:String x:Key="ErdPresetLoad">加載一個預設</string:String>
+    <string:String x:Key="ErdPresetLoadbutton">加載</string:String>
     <string:String x:Key="ErdPresetLoadTitle">加載預設</string:String>
     <string:String x:Key="ErdPresetSaveTitle">保存預設</string:String>
     <string:String x:Key="ErdPresetName">名稱</string:String>
@@ -424,26 +423,26 @@
     <string:String x:Key="WswExecutablesFrameTitle">客戶端設置</string:String>
     <string:String x:Key="WswRegionFrameTitle">語言設置</string:String>
     <string:String x:Key="WswDownloadFrameTitle">下載資源</string:String>
-    <string:String x:Key="WswFinishedFrameTitle">完成！ </string:String>
+    <string:String x:Key="WswFinishedFrameTitle">完成！</string:String>
 
-    <string:String x:Key="WswIntroductionTitle">感謝您下載ReplayBook！ </string:String>
-    <string:String x:Key="WswIntroductionBody">首先，讓我們進行一些初始設置。點擊下面的“下一步”按鈕繼續。 </string:String>
+    <string:String x:Key="WswIntroductionTitle">感謝您下載ReplayBook！</string:String>
+    <string:String x:Key="WswIntroductionBody">首先，讓我們進行一些初始設置。點擊下面的“下一步”按鈕繼續。</string:String>
 
     <string:String x:Key="WswRegionTitle">設置默認的英雄聯盟語言</string:String>
-    <string:String x:Key="WswRegionBody">通過下拉菜單選擇一種語言。 ReplayBook將使用此語言註冊您的可執行文件。您可以稍後手動編輯可執行文件的語言。 </string:String>
+    <string:String x:Key="WswRegionBody">通過下拉菜單選擇一種語言。 ReplayBook將使用此語言註冊您的可執行文件。您可以稍後手動編輯可執行文件的語言。</string:String>
 
     <string:String x:Key="WswExecutablesTitle">選擇Riot Games文件夾</string:String>
-    <string:String x:Key="WswExecutablesBody">ReplayBook需要先連接英雄聯盟，然後才能播放重播。我們將在此文件夾中搜索存在的英雄聯盟的所有版本。 </string:String>
+    <string:String x:Key="WswExecutablesBody">ReplayBook需要先連接英雄聯盟，然後才能播放重播。我們將在此文件夾中搜索存在的英雄聯盟的所有版本。</string:String>
     <string:String x:Key="WswExecutablesHint">例如: 'C:\Riot Games'</string:String>
     <string:String x:Key="WswExecutablesRegisterList">檢測到的版本:</string:String>
     <string:String x:Key="WswExecutablesRegisterListEmpty">什麼也沒找到...</string:String>
 
     <string:String x:Key="WswReplaysTitle">選擇回放文件儲存目錄</string:String>
-    <string:String x:Key="WswReplaysBody">如果ReplayBook不知道它們在哪裡，則將無法顯示任何重播。確認這是您的重播文件存儲的位置。您可以稍後添加其他文件夾。 </string:String>
+    <string:String x:Key="WswReplaysBody">如果ReplayBook不知道它們在哪裡，則將無法顯示任何重播。確認這是您的重播文件存儲的位置。您可以稍後添加其他文件夾。</string:String>
     <string:String x:Key="WswReplaysHint">默認情況下，重播文件存儲在“Documents\League of Legends\Replay”中</string:String>
 
     <string:String x:Key="WswDownloadTitle">立即下載圖標?</string:String>
-    <string:String x:Key="WswDownloadBody">下載圖標將花費幾分鐘，但會使ReplayBook運行更快。如果您跳過此步驟，ReplayBook將按需下載圖標。 </string:String>
+    <string:String x:Key="WswDownloadBody">下載圖標將花費幾分鐘，但會使ReplayBook運行更快。如果您跳過此步驟，ReplayBook將按需下載圖標。</string:String>
     <string:String x:Key="WswDownloadChampionsText">下載英雄圖標</string:String>
     <string:String x:Key="WswDownloadItemsText">下載裝備圖標</string:String>
     <string:String x:Key="WswDownloadRunesText">下載符文圖標</string:String>
@@ -454,8 +453,8 @@
     <string:String x:Key="Welcome__StaticData__Body">下載靜態數據可能花費幾分鐘的時間，英雄名稱與圖片的顯示需要用到靜態數據。稍後你可以下載其他版本的靜態數據。</string:String>
     <string:String x:Key="Welcome__StaticData__GenericError__Body">下載靜態數據錯誤，請查看錯誤信息</string:String>
 
-    <string:String x:Key="WswFinishTitle">安裝完成！ </string:String>
-    <string:String x:Key="WswFinishBody">單擊“完成”，ReplayBook將自動以您選擇的設置開始。 </string:String>
+    <string:String x:Key="WswFinishTitle">安裝完成！</string:String>
+    <string:String x:Key="WswFinishBody">單擊“完成”，ReplayBook將自動以您選擇的設置開始。</string:String>
     <string:String x:Key="WswFinishButton">完成</string:String>
 
     <!--  Rename dialog  -->

@@ -53,6 +53,7 @@
     <string:String x:Key="General__ExitButton">Exit</string:String>
     <string:String x:Key="General__GlobalExceptionHandler__Body">Unhandled exception occurred! Please check the logs directory for full details.</string:String>
     <string:String x:Key="General__RequiredFieldHelpText">Required</string:String>
+    <string:String x:Key="General__DeleteButton">Delete</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
@@ -344,7 +345,6 @@
     <string:String x:Key="OpenContainingFolder">Open Containing Folder</string:String>
     <string:String x:Key="ExportReplayData">Export Data...</string:String>
     <string:String x:Key="RenameReplayFile">Rename</string:String>
-    <string:String x:Key="DeleteReplayFile">Delete</string:String>
     <string:String x:Key="ReplayItemControl__ContextMenu__LoadStaticData__Button">Get Images for $</string:String>
     <string:String x:Key="RefreshReplayList">Refresh List</string:String>
 
@@ -446,5 +446,6 @@
 
     <!--  Add replay category dialog  -->
     <string:String x:Key="AddCategory__DialogTitle">Add saved search</string:String>
+    <string:String x:Key="EditCategory__DialogTitle">Edit saved search</string:String>
 
 </ResourceDictionary>

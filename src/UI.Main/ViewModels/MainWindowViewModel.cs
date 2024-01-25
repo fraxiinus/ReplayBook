@@ -29,6 +29,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.ComponentModel;
 using ModernWpf.Controls.Primitives;
+using Fraxiinus.ReplayBook.UI.Main.Pages;
 
 public class MainWindowViewModel
 {
@@ -120,27 +121,6 @@ public class MainWindowViewModel
             QueryString = string.Empty,
             SortMethod = SortMethod.DateDesc
         };
-        config.ReplayCategories.Add(new CategoryItem("what", "what", "what"));
-        //ReplayNavigationItems = new ObservableCollection<NavigationViewItem>()
-        //{
-        //    new NavigationViewItem
-        //    {
-        //        Content = "WHAT",
-        //        Tag = "ReplayCategory_aaaa",
-        //        Icon = new SymbolIcon(Symbol.Folder)
-        //    },
-        //    new NavigationViewItem
-        //    {
-        //        Content = "AWHAT",
-        //        Tag = "ReplayCategory_aaaa",
-        //        Icon = new SymbolIcon(Symbol.Folder)
-        //    }
-        //};
-        //ReplayNavigationItemsView = new CollectionViewSource()
-        //{
-        //    Source = ReplayNavigationItems
-        //};
-        //ReplayNavigationItemsView.SortDescriptions.Add(new SortDescription(nameof(NavigationViewItem.Content), ListSortDirection.Descending));
 
         // By default we do not want to delete our cache
         ClearReplayCacheOnClose = false;
@@ -770,45 +750,56 @@ public class MainWindowViewModel
         }
     }
 
+    public async Task HandleClickCategoryButton(CategoryItem categoryItem = null)
+    {
+        if (categoryItem == null)
+        {
+            SortParameters.QueryString = string.Empty;
+        }
+        else
+        {
+            SortParameters.QueryString = categoryItem.SearchTerm;
+        }
+
+        // apply the search term and refresh the list :)
+        await ReloadReplayList(false);
+    }
+
+    public async Task HandleEditCategoryButton(CategoryItem categoryItem)
+    {
+        var dialog = new AddReplayCategoryDialog(categoryItem);
+
+        var dialogResult = await dialog.ShowAsync();
+
+        if (dialogResult == ContentDialogResult.Primary)
+        {
+            var newCategory = new CategoryItem(dialog.NameInputBox.Text, dialog.DescInputBox.Text, dialog.SearchInputBox.Text);
+
+            Configuration.ReplayCategories.Remove(categoryItem);
+            Configuration.ReplayCategories.Add(newCategory);
+            // This action also refreshes the UI
+            Configuration.SortReplayCategories();
+        }
+    }
+
+    public async Task HandleRemoveCategoryButton(CategoryItem categoryItem)
+    {
+        var title = $"{ResourceTools.GetObjectFromResource<string>("General__DeleteButton")}: {categoryItem.Name}";
+        var description = ResourceTools.GetObjectFromResource<string>("ConfirmText");
+        var primaryButtonText = ResourceTools.GetObjectFromResource<string>("YesText");
+        var secondaryButtonText = ResourceTools.GetObjectFromResource<string>("NoText");
+        var contentDialog = ContentDialogHelper.CreateContentDialog(title, description, primaryButtonText, secondaryButtonText);
+
+        if(await contentDialog.ShowAsync() == ContentDialogResult.Primary)
+        {
+            Configuration.ReplayCategories.Remove(categoryItem);
+            // This action also refreshes the UI
+            Configuration.SortReplayCategories();
+        }
+    }
+
     public async Task HandleAddCategoryButton()
     {
-        //var contentDialog = ContentDialogHelper.CreateContentDialog("Add search shortcut", "", "Create", "Cancel");
-
-        //var nameInputBox = new TextBox()
-        //{
-        //    MaxWidth = 300
-        //};
-        //ControlHelper.SetHeader(nameInputBox, "Name");
-
-        //var descInputBox = new TextBox()
-        //{
-        //    MaxWidth = 300
-        //};
-        //ControlHelper.SetHeader(descInputBox, "Description");
-
-        //var searchInputBox = new TextBox()
-        //{
-        //    Width = 300,
-        //    MaxWidth = 300,
-        //    Height = 250,
-        //    MaxHeight = 250,
-        //    TextWrapping = TextWrapping.Wrap,
-        //    HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
-        //    VerticalScrollBarVisibility = ScrollBarVisibility.Visible
-        //};
-        //ControlHelper.SetHeader(searchInputBox, "Search term");
-
-        //var stackLayout = new SimpleStackPanel()
-        //{
-        //    Spacing = 12
-        //};
-        //stackLayout.Children.Add(nameInputBox);
-        //stackLayout.Children.Add(descInputBox);
-        //stackLayout.Children.Add(searchInputBox);
-        //contentDialog.SetCustomObject(stackLayout);
-
-        //var dialogResult = await contentDialog.ShowAsync();
-
         var dialog = new AddReplayCategoryDialog();
 
         var dialogResult = await dialog.ShowAsync();
@@ -818,13 +809,8 @@ public class MainWindowViewModel
             var newCategory = new CategoryItem(dialog.NameInputBox.Text, dialog.DescInputBox.Text, dialog.SearchInputBox.Text);
 
             Configuration.ReplayCategories.Add(newCategory);
-            //var identifier = new Guid("dddddddddddddddddddddddddddddddd");
-            //ReplayNavigationItems.Add(new NavigationViewItem()
-            //{
-            //    Content = dialog.NameInputBox.Text,
-            //    Icon = new SymbolIcon(Symbol.Folder),
-            //    Tag = $"ReplayCategory_{identifier}"
-            //});
+            // This action also refreshes the UI
+            Configuration.SortReplayCategories();
         }
     }
 }

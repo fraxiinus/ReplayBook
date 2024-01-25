@@ -52,6 +52,7 @@
     <string:String x:Key="General__ViewButton">Voir</string:String>
     <string:String x:Key="General__ExitButton">Quitter</string:String>
     <string:String x:Key="General__GlobalExceptionHandler__Body">Une erreur inattendue s'est produite ! Vérifiez les logs pour plus de détails.</string:String>
+    <string:String x:Key="General__DeleteButton">Supprimer</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">Général</string:String>
@@ -134,7 +135,7 @@
     <string:String x:Key="ReplayPlayConfirmOptOut">Vous pouvez désactiver cette confirmation dans la fenêtre des paramètres.</string:String>
 
     <!--  Executable Detail  -->
-    <string:String x:Key="ExecutableDetailTargetPath">Chemin d'accès </string:String>
+    <string:String x:Key="ExecutableDetailTargetPath">Chemin d'accès</string:String>
     <string:String x:Key="ExecutableDetailName">Nom de l'exécutable</string:String>
     <string:String x:Key="ExecutableDetailCustomLocale">Locale personnalisée</string:String>
     <string:String x:Key="ExecutableDetailLocale">Locale</string:String>
@@ -176,7 +177,7 @@
     <string:String x:Key="Settings__Replays__SearchMinimumScore__Label">Rigueur de recherche</string:String>
 
     <string:String x:Key="ReplayDatabaseText">Cache de données de rediffusions</string:String>
-    <string:String x:Key="ReplayDatabaseSize">Taille : </string:String>
+    <string:String x:Key="ReplayDatabaseSize">Taille :</string:String>
     <string:String x:Key="ReplayDatabaseClearButton">Effacer le cache</string:String>
     <string:String x:Key="Settings__Replays__ClearCacheRestartNow__Button">Redémarrer</string:String>
 
@@ -343,7 +344,6 @@
     <string:String x:Key="OpenContainingFolder">Ouvrir le dossier</string:String>
     <string:String x:Key="ExportReplayData">Exporter les données...</string:String>
     <string:String x:Key="RenameReplayFile">Renommer</string:String>
-    <string:String x:Key="DeleteReplayFile">Supprimer</string:String>
     <string:String x:Key="ReplayItemControl__ContextMenu__LoadStaticData__Button">Obtenir l'image de $</string:String>
     <string:String x:Key="RefreshReplayList">Rafraîchir la liste</string:String>
 

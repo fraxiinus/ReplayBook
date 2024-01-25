@@ -62,6 +62,7 @@
     <string:String x:Key="General__ViewButton">查看</string:String>
     <string:String x:Key="General__ExitButton">退出</string:String>
     <string:String x:Key="General__GlobalExceptionHandler__Body">出现未处理的错误！请检查日志目录以查看详情</string:String>
+    <string:String x:Key="General__DeleteButton">删除</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">常规</string:String>
@@ -354,7 +355,6 @@
     <string:String x:Key="OpenContainingFolder">打开包含文件夹</string:String>
     <string:String x:Key="ExportReplayData">导出数据...</string:String>
     <string:String x:Key="RenameReplayFile">重命名</string:String>
-    <string:String x:Key="DeleteReplayFile">删除</string:String>
     <string:String x:Key="ReplayItemControl__ContextMenu__LoadStaticData__Button">获取 $ 图片</string:String>
     <string:String x:Key="RefreshReplayList">刷新列表</string:String>
 
@@ -381,16 +381,16 @@
     <string:String x:Key="ErdFinishJsonDuration">包含比赛时长</string:String>
     <string:String x:Key="ErdFinishJsonVersion">包含游戏(补丁)版本</string:String>
     <string:String x:Key="ErdPreviewTitle">数据预览</string:String>
-    
+
     <!--  Export Data : Common Items + Presets  -->
     <string:String x:Key="ErdSelectAllItems">全选</string:String>
     <string:String x:Key="ErdDeselectAllItems">取消全选</string:String>
     <string:String x:Key="ErdExportButtonText">导出...</string:String>
     <string:String x:Key="ErdExportDialogTitle">选择导出位置</string:String>
     <string:String x:Key="ErdFailedToSave">无法保存文件</string:String>
-    <string:String x:Key="ErdPresetSave">保存为预设</string:String> 
-    <string:String x:Key="ErdPresetLoad">加载一个预设</string:String> 
-    <string:String x:Key="ErdPresetLoadbutton">加载</string:String> 
+    <string:String x:Key="ErdPresetSave">保存为预设</string:String>
+    <string:String x:Key="ErdPresetLoad">加载一个预设</string:String>
+    <string:String x:Key="ErdPresetLoadbutton">加载</string:String>
     <string:String x:Key="ErdPresetLoadTitle">加载预设</string:String>
     <string:String x:Key="ErdPresetSaveTitle">保存预设</string:String>
     <string:String x:Key="ErdPresetName">名称</string:String>
