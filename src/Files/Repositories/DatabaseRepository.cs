@@ -52,6 +52,8 @@ public class DatabaseRepository
         }
 
         using var db = new LiteDatabase(_filePath);
+        // Prevent empty string values from being lost!
+        BsonMapper.Global.EmptyStringToNull = false;
 
         // Create and verify file results collection
         ILiteCollection<FileResult> fileResults = db.GetCollection<FileResult>("fileResults");
