@@ -69,11 +69,13 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         if (sender is not CheckBox checkbox) { return; }
 
         // get name of the player we just selected
-        string playerName = (((SimpleStackPanel)checkbox.Content).Children[1] as TextBlock).Text;
+
+        var playerPreview = (checkbox.DataContext as ExportPlayerSelectItem).PlayerPreview;
+        var playerIdentifier = $"{playerPreview.PlayerName}{playerPreview.ChampionId}";
 
         // get the player object
         PlayerStats player = Context.Replay.Players
-            .First(x => x.Name.Equals(playerName, StringComparison.OrdinalIgnoreCase));
+            .First(x => $"{x.Name}{x.Skin}".Equals(playerIdentifier, StringComparison.OrdinalIgnoreCase));
 
         // loop over all attributes and set preview value
         foreach (ExportAttributeSelectItem attribute in Context.Attributes)
