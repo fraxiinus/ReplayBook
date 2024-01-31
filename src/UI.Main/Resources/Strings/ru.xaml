@@ -12,7 +12,7 @@
     <string:String x:Key="LoadingMessageReplay">Загрузка повторов...</string:String>
     <string:String x:Key="LoadingMessageExecutables">Проверка исполняемых файлов...</string:String>
     <string:String x:Key="LoadingMessageThumbnails">Загрузка иконок...</string:String>
-    <string:String x:Key="LoadingMessageErrors">Не удалось загрузить повтор(ы)</string:String>
+    <string:String x:Key="LoadingMessageErrors">повтор(а) не удалось загрузить</string:String>
     <string:String x:Key="LoadingFailureTitle">Ошибка загрузки повтора</string:String>
     <string:String x:Key="LoadingFailureSubtitle">Исправьте или удалите следующие файлы:</string:String>
 
@@ -157,7 +157,7 @@
     <string:String x:Key="Settings__StaticData__BundleList__Info">Наборы включают изображения и текстовые данные для чемпионов, предметов, и рун</string:String>
     <string:String x:Key="Settings__StaticData__AddBundle__Title">Скачать набор статических данных</string:String>
     <string:String x:Key="Settings__StaticData__AddBundle__PatchComboBox__Header">Выберите обновление</string:String>
-    <string:String x:Key="Settings__StaticData__ViewBundle__Title">Набор $ обновления</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__Title">Набор обновления $</string:String>
     <string:String x:Key="Settings__StaticData__ViewBundle__DateLabel">Дата загрузки</string:String>
     <string:String x:Key="Settings__StaticData__ViewBundle__SizeLabel">Размер</string:String>
     <string:String x:Key="Settings__StaticData__ViewBundle__ChampImageLabel">Изображения чемпионов</string:String>
@@ -203,8 +203,8 @@
     <string:String x:Key="EggEggEgg">KappaChungusDeluxe</string:String>
     <string:String x:Key="LicenseText">Эта программа распространяется под лицензией GPL-3.0</string:String>
     <string:String x:Key="AcknowledgementText">ReplayBook возможен только благодаря следующим:</string:String>
-    <string:String x:Key="AcknowledgementButtonText">Проектам с открытым исходным кодом</string:String>
-    <string:String x:Key="AcknowledgementWindowTitleText">Благодарности проектам с открытым исходным кодом</string:String>
+    <string:String x:Key="AcknowledgementButtonText">Open Source проектам</string:String>
+    <string:String x:Key="AcknowledgementWindowTitleText">Благодарности Open Source проектам</string:String>
 
     <!--  Generic button text  -->
     <string:String x:Key="OKButtonText">ОК</string:String>
@@ -397,14 +397,14 @@
     <!--  Export Data : Common Items + Presets  -->
     <string:String x:Key="ErdSelectAllItems">Выбрать все</string:String>
     <string:String x:Key="ErdDeselectAllItems">Отменить выбор всех</string:String>
-    <string:String x:Key="ErdExportButtonText">Экспортировать...</string:String>
+    <string:String x:Key="ErdExportButtonText">Экспорт...</string:String>
     <string:String x:Key="ErdExportDialogTitle">Выберите место экспорта</string:String>
     <string:String x:Key="ErdFailedToSave">Не удалось сохранить файл</string:String>
-    <string:String x:Key="ErdPresetSave">Сохранить как предустановку</string:String>
+    <string:String x:Key="ErdPresetSave">Сохранить предустановку</string:String>
     <string:String x:Key="ErdPresetLoad">Загрузить предустановку</string:String>
     <string:String x:Key="ErdPresetLoadbutton">Загрузить</string:String>
     <string:String x:Key="ErdPresetLoadTitle">Загрузить предустановку</string:String>
-    <string:String x:Key="ErdPresetSaveTitle">Сохранить предустановку</string:String>
+    <string:String x:Key="ErdPresetSaveTitle">Сохранить как предустановку</string:String>
     <string:String x:Key="ErdPresetName">Имя</string:String>
     <string:String x:Key="ErdPresetProperties">Свойства</string:String>
     <string:String x:Key="ErdPresetPlayers">Выбранные игроки</string:String>
