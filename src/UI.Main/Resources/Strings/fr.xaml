@@ -318,8 +318,8 @@
     <string:String x:Key="GetBackPingsHeaderText">Signaux reculer</string:String>
     <string:String x:Key="HoldPingsHeaderText">Signaux maintenir la position</string:String>
     <string:String x:Key="VoidGrubKillsHeaderText">Larves du neant tuées</string:String>
-    <string:String x:Key="LargestAbilityDamageHeaderText">Dégâts de capacité les plus importants</string:String>
-    <string:String x:Key="LargestAttackDamageHeaderText">Dégâts d'attaque les plus importants</string:String>
+    <string:String x:Key="LargestAbilityDamageHeaderText">Maximum de dégâts infligé par une capacité</string:String>
+    <string:String x:Key="LargestAttackDamageHeaderText">Maximum de dégâts infligé par une attaque</string:String>
     <string:String x:Key="LastTakedownTimeHeaderText">Temps depuis la dernière élimination/assistance</string:String>
     <string:String x:Key="NeedVisionPingsHeaderText">Signaux besoin de vision</string:String>
     <string:String x:Key="OnMyWayPingsHeaderText">Signaux j'arrive</string:String>
