@@ -315,19 +315,19 @@
     <string:String x:Key="DangerPingsHeaderText">Signaux danger</string:String>
     <string:String x:Key="EnemyMissingPingsHeaderText">Signaux ennemi disparu</string:String>
     <string:String x:Key="EnemyVisionPingsHeaderText">Signaux vision ennemie</string:String>
-    <string:String x:Key="GetBackPingsHeaderText">Singaux reculer</string:String>
-    <string:String x:Key="HoldPingsHeaderText">Signaux garder la position</string:String>
+    <string:String x:Key="GetBackPingsHeaderText">Signaux reculer</string:String>
+    <string:String x:Key="HoldPingsHeaderText">Signaux maintenir la position</string:String>
     <string:String x:Key="VoidGrubKillsHeaderText">Larves du neant tuées</string:String>
     <string:String x:Key="LargestAbilityDamageHeaderText">Dégâts de capacité les plus importants</string:String>
     <string:String x:Key="LargestAttackDamageHeaderText">Dégâts d'attaque les plus importants</string:String>
-    <string:String x:Key="LastTakedownTimeHeaderText">Le temps du dernier kill/assist</string:String>
+    <string:String x:Key="LastTakedownTimeHeaderText">Temps depuis la dernière élimination/assistance</string:String>
     <string:String x:Key="NeedVisionPingsHeaderText">Signaux besoin de vision</string:String>
     <string:String x:Key="OnMyWayPingsHeaderText">Signaux j'arrive</string:String>
     <string:String x:Key="PushPingsHeaderText">Signaux avancez</string:String>
     <string:String x:Key="PUUIDHeaderText">PUUID</string:String>
     <string:String x:Key="RetreatPingsHeaderText">Signaux retraite</string:String>
     <string:String x:Key="RiftHeraldKillsHeaderText">Héraut de la Faille tués</string:String>
-    <string:String x:Key="TotalTimeCrowdControlDealtToChampionsHeaderText">Temps total de contrôle de foule aux champions</string:String>
+    <string:String x:Key="TotalTimeCrowdControlDealtToChampionsHeaderText">Temps total de contrôle de foule infligé aux champions</string:String>
     <string:String x:Key="VisionClearedPingsHeaderText">Signaux vision effacée</string:String>
 
     <!--  ToolTip Text  -->
