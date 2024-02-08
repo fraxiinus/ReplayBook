@@ -129,7 +129,8 @@
     <string:String x:Key="ExecutableSaveNullTitle">Erreur lors de la sauvegarde</string:String>
     <string:String x:Key="ExecutableSelectWindowTitleText">Sélectionner l'exécutable</string:String>
     <string:String x:Key="ExecutableNotFoundErrorTitle">Rediffusion non supporté</string:String>
-    <string:String x:Key="ExecutableNotFoundErrorText">Cette rediffusion n'a pas pu être lancée car il n'y a pas d'exécutable correspondant. Un exécutable de même version que la rediffusion doit êtr eenregistré dans ReplayBook pour la lancer.</string:String>
+    <string:String x:Key="ExecutableNotFoundErrorText">Aucun exécutable correspondant trouvé pour le correctif.</string:String>
+    <string:String x:Key="ExecutableNotFoundDescriptionText">Cette rediffusion n'a pas pu être lancée car il n'y a pas d'exécutable correspondant. Un exécutable de même version que la rediffusion doit être enregistré dans ReplayBook pour la lancer.</string:String>
     <string:String x:Key="ReplayPlayConfirmTitle">Jouez la rediffusion?</string:String>
     <string:String x:Key="ReplayPlayConfirmOptOut">Vous pouvez désactiver cette confirmation dans la fenêtre des paramètres.</string:String>
 
@@ -306,6 +307,29 @@
     <string:String x:Key="SummonerSpell2CastsHeaderText">Sort d'invocateur 2 Lancés</string:String>
     <string:String x:Key="IndividualPositionHeaderText">Rôle individuelle</string:String>
 
+    <string:String x:Key="AllInPingsHeaderText">Signaux à l'attaque</string:String>
+    <string:String x:Key="AssistMePingsHeaderText">Signaux aidez-moi</string:String>
+    <string:String x:Key="BaitPingsHeaderText">Signaux appât</string:String>
+    <string:String x:Key="BasicPingsHeaderText">Signaux basique</string:String>
+    <string:String x:Key="CommandPingsHeaderText">Signaux commande</string:String>
+    <string:String x:Key="DangerPingsHeaderText">Signaux danger</string:String>
+    <string:String x:Key="EnemyMissingPingsHeaderText">Signaux ennemi disparu</string:String>
+    <string:String x:Key="EnemyVisionPingsHeaderText">Signaux vision ennemie</string:String>
+    <string:String x:Key="GetBackPingsHeaderText">Signaux reculer</string:String>
+    <string:String x:Key="HoldPingsHeaderText">Signaux maintenir la position</string:String>
+    <string:String x:Key="VoidGrubKillsHeaderText">Larves du neant tuées</string:String>
+    <string:String x:Key="LargestAbilityDamageHeaderText">Maximum de dégâts infligé par une capacité</string:String>
+    <string:String x:Key="LargestAttackDamageHeaderText">Maximum de dégâts infligé par une attaque</string:String>
+    <string:String x:Key="LastTakedownTimeHeaderText">Temps depuis la dernière élimination/assistance</string:String>
+    <string:String x:Key="NeedVisionPingsHeaderText">Signaux besoin de vision</string:String>
+    <string:String x:Key="OnMyWayPingsHeaderText">Signaux j'arrive</string:String>
+    <string:String x:Key="PushPingsHeaderText">Signaux avancez</string:String>
+    <string:String x:Key="PUUIDHeaderText">PUUID</string:String>
+    <string:String x:Key="RetreatPingsHeaderText">Signaux retraite</string:String>
+    <string:String x:Key="RiftHeraldKillsHeaderText">Héraut de la Faille tués</string:String>
+    <string:String x:Key="TotalTimeCrowdControlDealtToChampionsHeaderText">Temps total de contrôle de foule infligé aux champions</string:String>
+    <string:String x:Key="VisionClearedPingsHeaderText">Signaux vision effacée</string:String>
+
     <!--  ToolTip Text  -->
     <string:String x:Key="SortToolTip">Trier</string:String>
     <string:String x:Key="RefreshToolTip">Rafraîchir</string:String>
@@ -435,6 +459,10 @@
     <string:String x:Key="WswDownloadRunesText">Télécharger les vignettes des runes</string:String>
     <string:String x:Key="WswDownloadButton">Télécharger</string:String>
     <string:String x:Key="WswDownloadFinished">Téléchargement terminé</string:String>
+
+    <string:String x:Key="Welcome__StaticData__Title">Téléchargement des dernières données statiques...</string:String>
+    <string:String x:Key="Welcome__StaticData__Body">Le téléchargement des données statiques prendra quelques minutes, mais est nécessaire pour afficher les noms et les miniatures des champions. Vous pourrez télécharger ultérieurement des ensembles de données statiques pour différents correctifs.</string:String>
+    <string:String x:Key="Welcome__StaticData__GenericError__Body">Erreur lors du téléchargement des données statiques. Voir le message d'erreur ci-joint.</string:String>
 
     <string:String x:Key="WswFinishTitle">Installation terminée!</string:String>
     <string:String x:Key="WswFinishBody">Cliquez&quot;Terminer&quot; et ReplayBook démarrera automatiquement avec les paramètres que vous avez choisis.</string:String>
