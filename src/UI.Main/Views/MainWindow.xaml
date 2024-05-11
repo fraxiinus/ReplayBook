@@ -100,9 +100,9 @@
             <!--<ui:NavigationViewItem Content="Players"
                                    Icon="OtherUser"
                                    Tag="PlayerPage" />-->
-            <ui:NavigationViewItem Content="Executables"
+            <!--<ui:NavigationViewItem Content="Executables"
                                    Icon="Folder"
-                                   Tag="ExecutablePage" />
+                                   Tag="ExecutablePage" />-->
         </ui:NavigationView.MenuItems>
         <!--<ui:NavigationView.PaneFooter>
             <StackPanel x:Name="FooterStackPanel" Orientation="Vertical">

@@ -71,15 +71,15 @@ public partial class MainWindow : Window
         {
             DataContext = context
         };
-        _settingsPage = new SettingsPage
-        {
-            DataContext = new SettingsWindowDataContext
-            {
-                Configuration = config,
-                Executables = executables,
-                StaticData = staticData
-            }
-        };
+        //_settingsPage = new SettingsPage
+        //{
+        //    DataContext = new SettingsWindowDataContext
+        //    {
+        //        Configuration = config,
+        //        Executables = executables,
+        //        StaticData = staticData
+        //    }
+        //};
 
         // Navigate to first page
         MainNavigationView.SelectedItem = MainNavigationView.MenuItems.OfType<NavigationViewItem>().First();
@@ -149,7 +149,8 @@ public partial class MainWindow : Window
 
         if (args.IsSettingsSelected)
         {
-            MainNavigationFrame.Navigate(_settingsPage);
+            // MainNavigationFrame.Navigate(_settingsPage);
+            await context.ShowSettingsDialog();
         }
         else if (args.SelectedItem is NavigationViewItem selectedNVItem)
         {

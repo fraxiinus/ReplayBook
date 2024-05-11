@@ -20,7 +20,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
 
 /// <summary>
 /// Interaction logic for SettingsWindow.xaml
@@ -30,7 +29,7 @@ public partial class SettingsPage : ModernWpf.Controls.Page
     /// <summary>
     /// We need to update executables if executables were changed
     /// </summary>
-    public bool UpdateExecutablesOnClose { get; private set; }
+    //public bool UpdateExecutablesOnClose { get; private set; }
 
     private SettingsWindowDataContext Context
     {
@@ -41,8 +40,6 @@ public partial class SettingsPage : ModernWpf.Controls.Page
 
     public SettingsPage()
     {
-        UpdateExecutablesOnClose = false;
-
         InitializeComponent();
 
         // This window should open as a dialog, so set owner
@@ -415,9 +412,9 @@ public partial class SettingsPage : ModernWpf.Controls.Page
             else
             {
                 context.Executables.Settings.SourceFolders.Add(selectedFolder);
-                    
+
                 // executables have been changed, need to update
-                UpdateExecutablesOnClose = true;
+                Context.ReloadReplayListOnClose = true;
             }
         }
     }
@@ -475,7 +472,7 @@ public partial class SettingsPage : ModernWpf.Controls.Page
                 context.Executables.Settings.SourceFolders.Add(newSelectedFolder);
 
                 // executables have been changed, need to update
-                UpdateExecutablesOnClose = true;
+                Context.ReloadReplayListOnClose = true;
             }
         }
     }
@@ -499,7 +496,7 @@ public partial class SettingsPage : ModernWpf.Controls.Page
             confirmFlyout.Hide();
 
             // executables have been changed, need to update
-            UpdateExecutablesOnClose = true;
+            Context.ReloadReplayListOnClose = true;
         };
 
         // Show the flyout
@@ -524,7 +521,7 @@ public partial class SettingsPage : ModernWpf.Controls.Page
         if (addedCount > 0)
         {
             // executables have been changed, need to update
-            UpdateExecutablesOnClose = true;
+            Context.ReloadReplayListOnClose = true;
         }
 
         if (skippedDirs.Length > 0)
@@ -572,7 +569,7 @@ public partial class SettingsPage : ModernWpf.Controls.Page
         _ = addDialog.ShowAsync(ContentDialogPlacement.Popup);
 
         // executables have been changed, need to update
-        UpdateExecutablesOnClose = true;
+        Context.ReloadReplayListOnClose = true;
     }
 
     private void EditExecutableButton_Click(object sender, RoutedEventArgs e)
@@ -589,7 +586,7 @@ public partial class SettingsPage : ModernWpf.Controls.Page
         _ = editDialog.ShowAsync(ContentDialogPlacement.Popup);
 
         // executables have been changed, need to update
-        UpdateExecutablesOnClose = true;
+        Context.ReloadReplayListOnClose = true;
     }
 
     private void RemoveExecutableButton_Click(object sender, RoutedEventArgs e)
@@ -611,7 +608,7 @@ public partial class SettingsPage : ModernWpf.Controls.Page
             confirmFlyout.Hide();
 
             // executables have been changed, need to update
-            UpdateExecutablesOnClose = true;
+            Context.ReloadReplayListOnClose = true;
         };
 
         // Show the flyout

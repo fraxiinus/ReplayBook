@@ -351,33 +351,64 @@ public class MainWindowViewModel
     }
 
     // TODO: reconfigure this function
-    //public async Task ShowSettingsDialog()
-    //{
-    //    var settingsDialog = new SettingsWindow()
-    //    {
-    //        Top = Application.Current.MainWindow.Top + 50,
-    //        Left = Application.Current.MainWindow.Left + 50,
-    //        DataContext = new SettingsWindowDataContext
-    //        {
-    //            Configuration = Configuration,
-    //            Executables = ExecutableManager,
-    //            StaticData = StaticDataManager
-    //        }
-    //    };
+    public async Task ShowSettingsDialog()
+    {
+        var settingsContext = new SettingsWindowDataContext
+        {
+            Configuration = Configuration,
+            Executables = ExecutableManager,
+            StaticData = StaticDataManager
+        };
+        var settingsDialog = new SettingsHostWindow()
+        {
+            Top = Application.Current.MainWindow.Top + 50,
+            Left = Application.Current.MainWindow.Left + 50,
+            DataContext = settingsContext
+        };
 
-    //    settingsDialog.ShowDialog();
+        settingsDialog.MainFrame.Navigate(new SettingsPage());
 
-    //    if (RestartOnClose)
-    //    {
-    //        Application.Current.MainWindow.Close();
-    //    }
+        settingsDialog.ShowDialog();
 
-    //    // Refresh markers
-    //    ReloadPlayerMarkers();
+        if (RestartOnClose)
+        {
+            Application.Current.MainWindow.Close();
+        }
 
-    //    // Refresh all replays
-    //    await ReloadReplayList(settingsDialog.UpdateExecutablesOnClose).ConfigureAwait(true);
-    //}
+        // Refresh markers
+        ReloadPlayerMarkers();
+
+        // Refresh all replays
+        await ReloadReplayList(settingsContext.ReloadReplayListOnClose).ConfigureAwait(true);
+
+        //var settingsDialog = ContentDialogHelper.CreateContentDialog();
+        //settingsDialog.DataContext = new SettingsWindowDataContext
+        //{
+        //    Configuration = Configuration,
+        //    Executables = ExecutableManager,
+        //    StaticData = StaticDataManager
+        //};
+
+        //var settingsContainer = new ModernWpf.Controls.Frame();
+        //settingsContainer.Navigate(new SettingsPage());
+        //settingsContainer.Width = Application.Current.MainWindow.Width - 100;
+        //settingsContainer.Height = Application.Current.MainWindow.Height - 50;
+
+        //settingsDialog.SetCustomObject(settingsContainer);
+
+        //await settingsDialog.ShowAsync();
+
+        //if (RestartOnClose)
+        //{
+        //    Application.Current.MainWindow.Close();
+        //}
+
+        //// Refresh markers
+        //ReloadPlayerMarkers();
+
+        //// Refresh all replays
+        //await ReloadReplayList((settingsDialog.DataContext as SettingsWindowDataContext).ReloadReplayListOnClose).ConfigureAwait(true);
+    }
 
     /// <summary>
     /// The function to call to refresh the list

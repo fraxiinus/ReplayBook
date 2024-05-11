@@ -16,5 +16,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
         public ExecutableManager Executables { get; set; }
 
         public StaticDataManager StaticData { get; set; }
+
+        public bool ReloadReplayListOnClose { get; set; } = false;
     }
 }
