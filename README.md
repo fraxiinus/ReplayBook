@@ -9,6 +9,9 @@
 
 ReplayBook is a free open-source tool that helps you organize and manage your downloaded replay files
 
+> [!Caution]
+> ReplayBook no longer works for patches 14.9+, read the [issue](https://github.com/fraxiinus/ReplayBook/issues/299)
+
 ## [Download ReplayBook](https://www.fraxiinus.dev/ReplayBook/getting-started/download)
 
 ### [Project Website](https://www.fraxiinus.dev/ReplayBook)
