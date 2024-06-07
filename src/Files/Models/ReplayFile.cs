@@ -1,8 +1,9 @@
 ﻿namespace Fraxiinus.ReplayBook.Files.Models;
 
 using Fraxiinus.ReplayBook.Files.Utilities;
+using Fraxiinus.Rofl.Extract.Data;
 using Fraxiinus.Rofl.Extract.Data.Models;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using LiteDB;
 using System;
 using System.Collections.Generic;
@@ -16,36 +17,79 @@ public class ReplayFile
     /// </summary>
     public ReplayFile() { }
 
-    public ReplayFile(string fullFilePath, ROFL input)
+    public ReplayFile(string fullFilePath, ParseResult input)
     {
         Name = Path.GetFileName(fullFilePath);
         AlternativeName = Name;
         Location = fullFilePath;
 
+        Type = input.Type;
+        switch (Type)
+        {
+            case ReplayType.ROFL2:
+                LoadFromROFL2File((ROFL2)input.Result);
+                break;
+            case ReplayType.ROFL:
+                LoadFromROFLFile((ROFL)input.Result);
+                break;
+        }
+
+        // Infer values
+        MapId = GameDetailsInferrer.InferMap(Players);
+        MapName = GameDetailsInferrer.GetMapName(MapId);
+        IsBlueVictorious = GameDetailsInferrer.InferBlueVictory(BluePlayers, RedPlayers);
+    }
+
+    private void LoadFromROFL2File(ROFL2 input)
+    {
         // Copy values
         GameDuration = TimeSpan.FromMilliseconds(input.Metadata.GameLength);
         GameVersion = input.Metadata.GameVersion;
-        MatchId = input.PayloadHeader.GameId.ToString();
+        MatchId = "Unknown";
+
+        // UniqueId must be unique for every player in a match.
+        // It is used to optimize the player cache so the same object isn't loaded twice
 
         BluePlayers = input.Metadata.PlayerStatistics
             .Where(x => x.Team == "100")
             .Select(y =>
             {
-                y.UniqueId = $"{MatchId}_{y.Id}";
+                y.UniqueId = $"{y.Id}_{y.Exp}_{GameDuration}";
                 return y;
             }).ToList();
         RedPlayers = input.Metadata.PlayerStatistics
             .Where(x => x.Team == "200")
             .Select(y =>
             {
-                y.UniqueId = $"{MatchId}_{y.Id}";
+                y.UniqueId = $"{y.Id}_{y.Exp}_{GameDuration}";
+                return y;
+            }).ToList();
+    }
+
+    private void LoadFromROFLFile(ROFL input)
+    {
+        // Copy values
+        GameDuration = TimeSpan.FromMilliseconds(input.Metadata.GameLength);
+        GameVersion = input.Metadata.GameVersion;
+        MatchId = input.PayloadHeader.GameId.ToString();
+
+        BluePlayers = input.Metadata.PlayerStatistics
+            .Cast<PlayerStats2>()
+            .Where(x => x.Team == "100")
+            .Select(y =>
+            {
+                y.UniqueId = $"{y.Id}_{y.Exp}_{GameDuration}";
                 return y;
             }).ToList();
 
-        // Infer values
-        MapId = GameDetailsInferrer.InferMap(Players);
-        MapName = GameDetailsInferrer.GetMapName(MapId);
-        IsBlueVictorious = GameDetailsInferrer.InferBlueVictory(BluePlayers, RedPlayers);
+        RedPlayers = input.Metadata.PlayerStatistics
+            .Cast<PlayerStats2>()
+            .Where(x => x.Team == "200")
+            .Select(y =>
+            {
+                y.UniqueId = $"{y.Id}_{y.Exp}_{GameDuration}";
+                return y;
+            }).ToList();
     }
 
     /// <summary>
@@ -65,14 +109,16 @@ public class ReplayFile
     public string MatchId { get; set; }
 
     [BsonIgnore]
-    public IEnumerable<PlayerStats> Players
+    public IEnumerable<PlayerStats2> Players
     {
         get => BluePlayers.Union(RedPlayers);
     }
 
-    public List<PlayerStats> BluePlayers { get; set; }
+    public List<PlayerStats2> BluePlayers { get; set; }
 
-    public List<PlayerStats> RedPlayers { get; set; }
+    public List<PlayerStats2> RedPlayers { get; set; }
+
+    public ReplayType Type { get; set; }
 
     // Inferred fields
     public MapId MapId { get; set; }
