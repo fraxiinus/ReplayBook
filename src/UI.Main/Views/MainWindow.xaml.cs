@@ -124,6 +124,17 @@ public partial class MainWindow : Window
             updateNotif.Placement = ModernWpf.Controls.Primitives.FlyoutPlacementMode.Bottom;
             updateNotif.ShowAt(SettingsButton);
         }
+
+        if (ReplayPlayer.IsVanguardRunning())
+        {
+            // inform the user that replays cannot be played while vanguard is running
+            var dialog = ContentDialogHelper.CreateContentDialog(
+                title: TryFindResource("Main__VanguardWarning__Title") as string,
+                description: TryFindResource("Main__VanguardWarning__Body") as string,
+                primaryButtonText: TryFindResource("OKButtonText") as string);
+
+            await dialog.ShowAsync();
+        }
     }
 
     private async void ReplayListView_Loaded(object sender, RoutedEventArgs e)

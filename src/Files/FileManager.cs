@@ -21,6 +21,7 @@ public class FileManager
     private readonly RiZhi _log;
     private readonly List<string> _deletedFiles;
     private readonly ObservableConfiguration _config;
+    private readonly ReplayReaderOptions _readerOptions;
 
     public FileManager(ObservableConfiguration config, RiZhi log)
     {
@@ -31,6 +32,11 @@ public class FileManager
         _log = log ?? throw new ArgumentNullException(nameof(log));
         _config = config;
         _deletedFiles = new List<string>();
+        _readerOptions = new ReplayReaderOptions
+        {
+            LoadPayload = false,
+            Type = ReplayType.Unknown
+        };
     }
 
     public string DatabasePath { get => _db.GetDatabasePath(); }
@@ -63,7 +69,8 @@ public class FileManager
             {
                 try
                 {
-                    var parseResult = await RoflReader.LoadAsync(file.Path).ConfigureAwait(false);
+                    //var parseResult = await RoflReader.LoadAsync(file.Path).ConfigureAwait(false);
+                    var parseResult = await ReplayReader.ReadReplayAsync(file.Path, _readerOptions);
                     var replayFile = new ReplayFile(file.Path, parseResult);
                     var newResult = new FileResult(file, replayFile)
                     {
@@ -106,7 +113,7 @@ public class FileManager
         }
 
         var replayFileInfo = _fileSystem.GetSingleReplayFileInfo(path);
-        var parseResult = await RoflReader.LoadAsync(path).ConfigureAwait(false);
+        var parseResult = await ReplayReader.ReadReplayAsync(path, _readerOptions);
 
         if (parseResult is null) return null;
 

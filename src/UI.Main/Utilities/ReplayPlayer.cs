@@ -31,6 +31,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
             _log = log;
         }
 
+        public static bool IsVanguardRunning()
+        {
+            var searchResults = Process.GetProcessesByName("vgtray");
+            return searchResults.Length > 0;
+        }
+
         public async Task<Process> PlayReplay(string path)
         {
             Files.Models.FileResult replay = await _files.GetSingleFile(path).ConfigureAwait(true);
