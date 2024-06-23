@@ -444,7 +444,7 @@
 
             <DataGridTextColumn Binding="{Binding Path=TurretPlatesDestroyed, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="Turret Plates Destroyed" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+                    <TextBlock Text="{DynamicResource TurretPlatesDestroyedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -515,13 +515,13 @@
 
             <DataGridTextColumn Binding="{Binding Path=GoldFromStructuresDestroyed, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="Gold From Structures" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+                    <TextBlock Text="{DynamicResource GoldFromStructuresHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=GoldFromTurretPlatesTaken, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
-                    <TextBlock Text="Gold From Turret Plates" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+                    <TextBlock Text="{DynamicResource GoldFromTurretPlatesHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
