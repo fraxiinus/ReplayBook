@@ -1,6 +1,6 @@
 ﻿using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using System;
 using System.ComponentModel;
 using System.Windows.Media;
@@ -9,7 +9,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models.View;
 
 public class PlayerPreview : INotifyPropertyChanged
 {
-    public PlayerPreview(PlayerStats player, MarkerStyle markerStyle)
+    public PlayerPreview(PlayerStats2 player, MarkerStyle markerStyle)
     {
         if (player == null) { throw new ArgumentNullException(nameof(player)); }
 

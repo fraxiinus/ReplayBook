@@ -1,15 +1,14 @@
-﻿namespace Fraxiinus.ReplayBook.Files.Utilities;
-
-using Fraxiinus.ReplayBook.Files.Models;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+﻿using Fraxiinus.ReplayBook.Files.Models;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
+namespace Fraxiinus.ReplayBook.Files.Utilities;
 public class GameDetailsInferrer
 {
-    public static bool InferBlueVictory(IEnumerable<PlayerStats> bluePlayers, IEnumerable<PlayerStats> redPlayers)
+    public static bool InferBlueVictory(IEnumerable<PlayerStats2> bluePlayers, IEnumerable<PlayerStats2> redPlayers)
     {
         // If there are blue players
         if (bluePlayers.Any())
@@ -36,7 +35,7 @@ public class GameDetailsInferrer
         return false;
     }
 
-    public static MapId InferMap(IEnumerable<PlayerStats> players)
+    public static MapId InferMap(IEnumerable<PlayerStats2> players)
     {
         // Check if any players have killed jungle creeps, Rules out HowlingAbyss
         var JungleCheck = (from player in players
