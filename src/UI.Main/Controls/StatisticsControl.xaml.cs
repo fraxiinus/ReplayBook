@@ -16,9 +16,9 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
 
         // NOTE: the data grid is rotated on its side! width and height are swapped! very cool
 
-        public double GetCombinedColumnWidth()
+        private double GetCombinedColumnWidth()
         {
-            if (!(StatsDataGrid.ColumnHeaderStyle.Setters.First(x => (x as Setter)?.Property.Name == "Width") is Setter headerWidthSetter)) { return 0; }
+            if (StatsDataGrid.ColumnHeaderStyle.Setters.First(x => x is Setter { Property.Name: "Width" }) is not Setter headerWidthSetter) { return 0; }
 
             double currentHeaderWidth = (double)headerWidthSetter.Value;
             double currentControlWidth = StatsDataGrid.ActualHeight;
@@ -28,7 +28,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
 
         private void StatsDataGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (!(sender is DataGrid dataGrid)) { return; }
+            if (sender is not DataGrid dataGrid) { return; }
 
             double availableColumnSpace = GetCombinedColumnWidth();
             int rowCount = dataGrid.Items.Count;

@@ -74,21 +74,19 @@ public class ReplayFile
         MatchId = input.PayloadHeader.GameId.ToString();
 
         BluePlayers = input.Metadata.PlayerStatistics
-            .Cast<PlayerStats2>()
             .Where(x => x.Team == "100")
             .Select(y =>
             {
                 y.UniqueId = $"{y.Id}_{y.Exp}_{GameDuration}";
-                return y;
+                return RoflBaseClassConverter.ToPlayerStats2(y);
             }).ToList();
 
         RedPlayers = input.Metadata.PlayerStatistics
-            .Cast<PlayerStats2>()
             .Where(x => x.Team == "200")
             .Select(y =>
             {
                 y.UniqueId = $"{y.Id}_{y.Exp}_{GameDuration}";
-                return y;
+                return RoflBaseClassConverter.ToPlayerStats2(y);
             }).ToList();
     }
 

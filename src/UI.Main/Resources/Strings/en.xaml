@@ -277,6 +277,8 @@
     <string:String x:Key="NeutralMinionsKilledHeaderText">Neutral Minions Killed</string:String>
     <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Own Jungle Minion Kills</string:String>
     <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Other Jungle Minion Kills</string:String>
+    <string:String x:Key="GoldFromStructuresHeaderText">Gold from Structures</string:String>
+    <string:String x:Key="GoldFromTurretPlatesHeaderText">Gold from Turret Plates</string:String>
 
     <string:String x:Key="ObjectivesGroupHeaderText">Objectives</string:String>
     <string:String x:Key="TotalExperienceHeaderText">Total Experience</string:String>
@@ -288,6 +290,7 @@
     <string:String x:Key="LongestTimeSpentAliveHeaderText">Longest Time Spent Alive</string:String>
     <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
     <string:String x:Key="LastHitNexusHeaderText">Last Hit Nexus</string:String>
+    <string:String x:Key="TurretPlatesDestroyedHeaderText">Turret Plates Destroyed</string:String>
 
     <string:String x:Key="ToxicityGroupHeaderText">Toxicity</string:String>
     <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>

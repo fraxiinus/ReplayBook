@@ -1,14 +1,12 @@
-﻿namespace Fraxiinus.ReplayBook.UI.Main.Views;
-
-using Fraxiinus.ReplayBook.UI.Main.Models;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+﻿using Fraxiinus.ReplayBook.UI.Main.Models;
 using System;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Text.Json.Serialization;
-using Fraxiinus.ReplayBook.StaticData;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 
+namespace Fraxiinus.ReplayBook.UI.Main.Views;
 /// <summary>
 /// Interaction logic for ExportDataWindow.xaml
 /// </summary>
@@ -48,7 +46,7 @@ public partial class ExportDataWindow : Window
         // do not reload attributes list if it has been loaded before (when navigating back to this page for example)
         if (Context.Attributes is null)
         {
-            Context.Attributes = typeof(PlayerStats)
+            Context.Attributes = typeof(PlayerStats2)
                 .GetProperties()
                 .Where(x => !x.Name.Equals("UniqueID", StringComparison.OrdinalIgnoreCase)) // ignore internal properties
                 .OrderBy(x => x.Name)

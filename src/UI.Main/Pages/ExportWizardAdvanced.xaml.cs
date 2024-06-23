@@ -1,9 +1,7 @@
-﻿namespace Fraxiinus.ReplayBook.UI.Main.Pages;
-
-using Fraxiinus.ReplayBook.UI.Main.Models;
+﻿using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.Views;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using ModernWpf.Controls;
 using System;
 using System.Globalization;
@@ -12,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
+namespace Fraxiinus.ReplayBook.UI.Main.Pages;
 /// <summary>
 /// Interaction logic for ExportWizardAdvanced.xaml
 /// </summary>
@@ -74,7 +73,7 @@ public partial class ExportWizardAdvanced : ModernWpf.Controls.Page
         var playerIdentifier = $"{playerPreview.PlayerName}{playerPreview.ChampionId}";
 
         // get the player object
-        PlayerStats player = Context.Replay.Players
+        PlayerStats2 player = Context.Replay.Players
             .First(x => $"{x.Name}{x.Skin}".Equals(playerIdentifier, StringComparison.OrdinalIgnoreCase));
 
         // loop over all attributes and set preview value
