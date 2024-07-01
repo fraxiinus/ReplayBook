@@ -1,7 +1,6 @@
 ﻿using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Models.View;
-using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
