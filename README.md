@@ -10,7 +10,7 @@
 ReplayBook is a free open-source tool that helps you organize and manage your downloaded replay files
 
 > [!Caution]
-> Download the [unstable build](https://github.com/fraxiinus/ReplayBook/actions/workflows/main-branch-trigger.yml) for rofl2 (patch 14.11+) support, read the [issue](https://github.com/fraxiinus/ReplayBook/issues/299) for more information
+> Replays from 14.9 through 14.10 do not contain metadata and are not supported by ReplayBook. read the [issue](https://github.com/fraxiinus/ReplayBook/issues/299) for more information
 
 ## [Download ReplayBook](https://www.fraxiinus.dev/ReplayBook/getting-started/download)
 
