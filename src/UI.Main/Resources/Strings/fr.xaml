@@ -53,6 +53,9 @@
     <string:String x:Key="General__ExitButton">Quitter</string:String>
     <string:String x:Key="General__GlobalExceptionHandler__Body">Une erreur inattendue s'est produite ! Vérifiez les logs pour plus de détails.</string:String>
 
+    <string:String x:Key="Main__VanguardWarning__Title">Vanguard est en cours d'exécution</string:String>
+    <string:String x:Key="Main__VanguardWarning__Body">ReplayBook ne peut pas lire les rediffusions si Vanguard est en cours d'exécution. Veuillez quitter Vanguard avant d'essayer de lire les rediffusions.</string:String>
+
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">Général</string:String>
     <string:String x:Key="UpdatesSettingsItemText">Mises à jour</string:String>
@@ -275,6 +278,8 @@
     <string:String x:Key="NeutralMinionsKilledHeaderText">Sbires Neutres Tués</string:String>
     <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Monstres de la Jungle Alliée Tués</string:String>
     <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Monstres de la Jungle Ennemie Tués</string:String>
+    <string:String x:Key="GoldFromStructuresHeaderText">Or provenant des structures</string:String>
+    <string:String x:Key="GoldFromTurretPlatesHeaderText">Or provenant des plaques de tourelle</string:String>
 
     <string:String x:Key="ObjectivesGroupHeaderText">Objectifs</string:String>
     <string:String x:Key="TotalExperienceHeaderText">Expérience Totale</string:String>
@@ -286,6 +291,7 @@
     <string:String x:Key="LongestTimeSpentAliveHeaderText">Plus Long Temps passé En Vie</string:String>
     <string:String x:Key="TotalTimeSpentDeadHeaderText">Durée Totale des Morts</string:String>
     <string:String x:Key="LastHitNexusHeaderText">Coup de Grâce au Nexus</string:String>
+    <string:String x:Key="TurretPlatesDestroyedHeaderText">Plaques de tourelle détruites</string:String>
 
     <string:String x:Key="ToxicityGroupHeaderText">Toxicité</string:String>
     <string:String x:Key="TimeSpentDisconnectedHeaderText">Temps passé déconnecté</string:String>
