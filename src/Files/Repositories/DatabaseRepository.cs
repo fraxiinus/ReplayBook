@@ -4,7 +4,7 @@ using Etirps.RiZhi;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.Files.Models.Search;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using LiteDB;
 using System;
 using System.Collections.Generic;
@@ -66,7 +66,7 @@ public class DatabaseRepository
         _ = BsonMapper.Global.Entity<ReplayFileInfo>()
             .Id(r => r.Path);
 
-        _ = BsonMapper.Global.Entity<PlayerStats>()
+        _ = BsonMapper.Global.Entity<PlayerStats2>()
             .Id(r => r.UniqueId);
 
         _ = BsonMapper.Global.Entity<ReplayFile>()
@@ -92,7 +92,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults");
         var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
         var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
-        var players = db.GetCollection<PlayerStats>("players");
+        var players = db.GetCollection<PlayerStats2>("players");
 
         // If we already have the file, do nothing
         if (fileResults.FindById(result.Id) == null)
@@ -130,7 +130,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults");
         var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
         var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
-        var players = db.GetCollection<PlayerStats>("players");
+        var players = db.GetCollection<PlayerStats2>("players");
 
         fileResults.Delete(id);
 

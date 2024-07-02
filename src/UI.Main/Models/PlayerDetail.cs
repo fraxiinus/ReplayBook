@@ -1,24 +1,23 @@
-﻿namespace Fraxiinus.ReplayBook.UI.Main.Models;
-
-using Fraxiinus.ReplayBook.Executables.Old.Utilities;
+﻿using Fraxiinus.ReplayBook.Executables.Old.Utilities;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Extensions;
 using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+namespace Fraxiinus.ReplayBook.UI.Main.Models;
 public class PlayerDetail
 {
     private readonly StaticDataManager _staticDataManager;
     private readonly string _patchVersion;
-    private readonly PlayerStats _player;
+    private readonly PlayerStats2 _player;
 
     public PlayerDetail(StaticDataManager staticData,
         string patchVersion,
-        PlayerStats player,
+        PlayerStats2 player,
         PlayerPreview previewModel,
         bool isBlueTeamMember)
     {
@@ -36,6 +35,9 @@ public class PlayerDetail
         PlayerSubteam = player.PlayerSubteam.ToInt();
         PlayerSubteamPlacement = player.PlayerSubteamPlacement.ToInt();
         PUUID = player.PUUID;
+
+        GoldFromTurretPlatesTaken = player.MissionsGoldFromTurretPlatesTaken.ToInt();
+        GoldFromStructuresDestroyed = player.MissionsGoldFromStructuresDestroyed.ToInt();
 
         // Kills/Deaths/Assists
         MinionsKilled = player.MinionsKilled.ToInt();
@@ -100,6 +102,7 @@ public class PlayerDetail
         // Same as towers...
         //TotalDamageToBuildings = player.TOTAL_DAMAGE_DEALT_TO_BUILDINGS.ToInt();
         TotalDamageToTurrets = player.TotalDamageDealtToTurrets.ToInt();
+        TurretPlatesDestroyed = player.MissionsTurretPlatesDestroyed.ToInt();
         TotalDamageToObjectives = player.TotalDamageDealtToObjectives.ToInt();
         LargestCriticalStrike = player.LargestCriticalStrike.ToInt();
         LargestAbilityDamage = player.LargestAbilityDamage.ToInt();
@@ -209,6 +212,10 @@ public class PlayerDetail
 
     public int GoldEarned { get; private set; }
 
+    public int GoldFromTurretPlatesTaken { get; private set; }
+
+    public int GoldFromStructuresDestroyed { get; private set; }
+
     public int GoldSpent { get; private set; }
 
     public int TotalMinionsKilled { get; private set; }
@@ -315,6 +322,8 @@ public class PlayerDetail
     public int TotalDamageShieldedToTeammates { get; private set; }
 
     public int TotalDamageToTurrets { get; private set; }
+
+    public int TurretPlatesDestroyed { get; private set; }
 
     public int TotalDamageToObjectives { get; private set; }
 

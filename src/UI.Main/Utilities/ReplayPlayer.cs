@@ -31,6 +31,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
             _log = log;
         }
 
+        public static bool IsVanguardRunning()
+        {
+            var searchResults = Process.GetProcessesByName("vgtray");
+            return searchResults.Length > 0;
+        }
+
         public async Task<Process> PlayReplay(string path)
         {
             Files.Models.FileResult replay = await _files.GetSingleFile(path).ConfigureAwait(true);
@@ -82,6 +88,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
             }
 
             _log.Information($"Using {target.Name} to play replay {replay.FileInfo.Path}");
+
+            if (IsVanguardRunning())
+            {
+                await ShowVanguardDialog();
+                return null;
+            }
 
             Process gameHandle = null;
             try
@@ -175,6 +187,24 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
             }
 
             _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+        }
+
+        private static async Task ShowVanguardDialog()
+        {
+            // inform the user that replays cannot be played while vanguard is running
+            var dialog = ContentDialogHelper.CreateContentDialog(
+                title: Application.Current.TryFindResource("Main__VanguardWarning__Title") as string,
+                description: Application.Current.TryFindResource("Main__VanguardWarning__Body") as string,
+                primaryButtonText: Application.Current.TryFindResource("OKButtonText") as string);
+            
+            // Make background overlay transparent when in the dialog host window,
+            // making the dialog appear seamlessly
+            if (Application.Current.MainWindow is DialogHostWindow)
+            {
+                dialog.SetBackgroundSmokeColor(Brushes.Transparent);
+            }
+
+            await dialog.ShowAsync(ContentDialogPlacement.Popup);
         }
     }
 }

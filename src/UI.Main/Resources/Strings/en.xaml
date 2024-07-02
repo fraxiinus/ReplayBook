@@ -53,6 +53,9 @@
     <string:String x:Key="General__ExitButton">Exit</string:String>
     <string:String x:Key="General__GlobalExceptionHandler__Body">Unhandled exception occurred! Please check the logs directory for full details.</string:String>
 
+    <string:String x:Key="Main__VanguardWarning__Title">Vanguard is running</string:String>
+    <string:String x:Key="Main__VanguardWarning__Body">ReplayBook is unable to play replays if Vanguard is running. Please exit Vanguard before trying to play replays.</string:String>
+
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
     <string:String x:Key="UpdatesSettingsItemText">Updates</string:String>
@@ -274,6 +277,8 @@
     <string:String x:Key="NeutralMinionsKilledHeaderText">Neutral Minions Killed</string:String>
     <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Own Jungle Minion Kills</string:String>
     <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Other Jungle Minion Kills</string:String>
+    <string:String x:Key="GoldFromStructuresHeaderText">Gold from Structures</string:String>
+    <string:String x:Key="GoldFromTurretPlatesHeaderText">Gold from Turret Plates</string:String>
 
     <string:String x:Key="ObjectivesGroupHeaderText">Objectives</string:String>
     <string:String x:Key="TotalExperienceHeaderText">Total Experience</string:String>
@@ -285,6 +290,7 @@
     <string:String x:Key="LongestTimeSpentAliveHeaderText">Longest Time Spent Alive</string:String>
     <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
     <string:String x:Key="LastHitNexusHeaderText">Last Hit Nexus</string:String>
+    <string:String x:Key="TurretPlatesDestroyedHeaderText">Turret Plates Destroyed</string:String>
 
     <string:String x:Key="ToxicityGroupHeaderText">Toxicity</string:String>
     <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>

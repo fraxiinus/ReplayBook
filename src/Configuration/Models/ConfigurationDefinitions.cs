@@ -54,7 +54,8 @@ public enum ApplicationLanguage
     Fr = 16,
     Pt = 32,
     ZhHant = 64,
-    Tr = 128
+    Tr = 128,
+    Ru = 256
 }
 
 /// <summary>
@@ -83,7 +84,8 @@ public static class ConfigurationDefinitions
         { "Français", 16 },
         { "Português (Brasil)", 32 },
         { "繁體中文", 64 },
-        { "Türkçe", 128 }
+        { "Türkçe", 128 },
+        { "русский", 256 }
     };
 
     /// <summary>
@@ -104,6 +106,7 @@ public static class ConfigurationDefinitions
             ApplicationLanguage.Pt => 5,
             ApplicationLanguage.ZhHant => 6,
             ApplicationLanguage.Tr => 7,
+            ApplicationLanguage.Ru => 8,
             _ => throw new NotImplementedException()
         };
     }
@@ -125,6 +128,7 @@ public static class ConfigurationDefinitions
             ApplicationLanguage.Fr => "fr_FR",
             ApplicationLanguage.Pt => "pt_BR",
             ApplicationLanguage.Tr => "tr_TR",
+            ApplicationLanguage.Ru => "ru_RU",
             _ => "en_US",
         };
     }

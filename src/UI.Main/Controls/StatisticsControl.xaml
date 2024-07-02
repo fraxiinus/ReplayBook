@@ -14,7 +14,7 @@
     </Behaviors:Interaction.Behaviors>
 
     <DataGrid x:Name="StatsDataGrid"
-              Width="3230"
+              Width="3325"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
               HorizontalContentAlignment="Stretch"
@@ -424,9 +424,27 @@
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
+            <DataGridTextColumn Binding="{Binding Path=TotalDamageToObjectives, Mode=OneWay, StringFormat='{}{0:#,0}'}">
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{DynamicResource TotalDamageToObjectivesHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+
             <DataGridTextColumn Binding="{Binding Path=InhibitorsKilled, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource InhibitorsKilledHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+
+            <DataGridTextColumn Binding="{Binding Path=TotalDamageToTurrets, Mode=OneWay, StringFormat='{}{0:#,0}'}">
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{DynamicResource TotalDamageToTurretsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+
+            <DataGridTextColumn Binding="{Binding Path=TurretPlatesDestroyed, Mode=OneWay, StringFormat='{}{0:#,0}'}">
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{DynamicResource TurretPlatesDestroyedHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -492,6 +510,18 @@
             <DataGridTextColumn Binding="{Binding Path=GoldSpent, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>
                     <TextBlock Text="{DynamicResource GoldSpentHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+
+            <DataGridTextColumn Binding="{Binding Path=GoldFromStructuresDestroyed, Mode=OneWay, StringFormat='{}{0:#,0}'}">
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{DynamicResource GoldFromStructuresHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
+                </DataGridTextColumn.Header>
+            </DataGridTextColumn>
+
+            <DataGridTextColumn Binding="{Binding Path=GoldFromTurretPlatesTaken, Mode=OneWay, StringFormat='{}{0:#,0}'}">
+                <DataGridTextColumn.Header>
+                    <TextBlock Text="{DynamicResource GoldFromTurretPlatesHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
                 </DataGridTextColumn.Header>
             </DataGridTextColumn>
 
@@ -615,18 +645,6 @@
             </DataGridTextColumn>
 
             <!--    -->
-
-            <DataGridTextColumn Binding="{Binding Path=TotalDamageToObjectives, Mode=OneWay, StringFormat='{}{0:#,0}'}">
-                <DataGridTextColumn.Header>
-                    <TextBlock Text="{DynamicResource TotalDamageToObjectivesHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
-                </DataGridTextColumn.Header>
-            </DataGridTextColumn>
-
-            <DataGridTextColumn Binding="{Binding Path=TotalDamageToTurrets, Mode=OneWay, StringFormat='{}{0:#,0}'}">
-                <DataGridTextColumn.Header>
-                    <TextBlock Text="{DynamicResource TotalDamageToTurretsHeaderText}" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" />
-                </DataGridTextColumn.Header>
-            </DataGridTextColumn>
 
             <DataGridTextColumn Binding="{Binding Path=LargestAbilityDamage, Mode=OneWay, StringFormat='{}{0:#,0}'}">
                 <DataGridTextColumn.Header>

@@ -10,7 +10,7 @@
 ReplayBook is a free open-source tool that helps you organize and manage your downloaded replay files
 
 > [!Caution]
-> ReplayBook no longer works for patches 14.9+, read the [issue](https://github.com/fraxiinus/ReplayBook/issues/299)
+> Replays from 14.9 through 14.10 do not contain metadata and are not supported by ReplayBook. read the [issue](https://github.com/fraxiinus/ReplayBook/issues/299) for more information
 
 ## [Download ReplayBook](https://www.fraxiinus.dev/ReplayBook/getting-started/download)
 
@@ -27,7 +27,7 @@ ReplayBook is a free open-source tool that helps you organize and manage your do
 ## Translating
 
 Huge thanks to the following users for providing translations:
-"ASTWY", "awter", "JerryLiew", "RichardNewb1e", "N/A", "grog12", "FlorianHugCH", "xXLaokoonXx", "feikname", "Catinaxo", "Nokatir", "electrogu".
+"ASTWY", "awter", "JerryLiew", "RichardNewb1e", "N/A", "grog12", "FlorianHugCH", "xXLaokoonXx", "feikname", "Catinaxo", "Nokatir", "electrogu", "xnorxnorxnorxnor", "magcicada", "gzordrai", "TroniPM"
 
 ReplayBook is always open for translation help!  
 [View the wiki for more information](https://github.com/fraxiinus/ReplayBook/wiki/Translating).
