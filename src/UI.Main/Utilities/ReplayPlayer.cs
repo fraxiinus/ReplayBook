@@ -204,13 +204,19 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
 
             if (diagResult == ContentDialogResult.Primary)
             {
+                var progressDialog = ContentDialogHelper.CreateContentDialog(
+                    title: Application.Current.TryFindResource("Main__VanguardDisable__Title") as string,
+                    description: null,
+                    primaryButtonText: null);
+                await progressDialog.ShowAsync(ContentDialogPlacement.Popup);
                 var (success, exception) = await VanguardServiceHelper.TryStopVanguardAsync();
                 if (!success) 
                 {
+                    progressDialog.Hide();
                     await ShowExceptionDialog(exception);
                     return false;
                 }
-
+                progressDialog.Hide();
                 return success;
             }
             
