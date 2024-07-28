@@ -86,8 +86,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
 
             if (VanguardServiceHelper.IsVanguardRunning())
             {
-                await ShowVanguardDialog();
-                return null;
+                var vanguardDisabled = await ShowVanguardDialog();
+                if (!vanguardDisabled) // could not disable vanguard, stop play attempt
+                {
+                    return null;
+                }
             }
 
             Process gameHandle = null;
@@ -204,20 +207,28 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
 
             if (diagResult == ContentDialogResult.Primary)
             {
-                var progressDialog = ContentDialogHelper.CreateContentDialog(
-                    title: Application.Current.TryFindResource("Main__VanguardDisable__Title") as string,
-                    description: null,
-                    primaryButtonText: null);
-                await progressDialog.ShowAsync(ContentDialogPlacement.Popup);
-                var (success, exception) = await VanguardServiceHelper.TryStopVanguardAsync();
-                if (!success) 
+                var disableVanguardDialog = new VanguardDisableDialog();
+                _ = await disableVanguardDialog.ShowAsync(ContentDialogPlacement.Popup);
+                if (!disableVanguardDialog.Success)
                 {
-                    progressDialog.Hide();
-                    await ShowExceptionDialog(exception);
-                    return false;
+                    await ShowExceptionDialog(disableVanguardDialog.Exception);
                 }
-                progressDialog.Hide();
-                return success;
+                return disableVanguardDialog.Success;
+
+                //var progressDialog = ContentDialogHelper.CreateContentDialog(
+                //    title: Application.Current.TryFindResource("Main__VanguardDisable__Title") as string,
+                //    description: null,
+                //    primaryButtonText: null);
+                // var (success, exception) = await VanguardServiceHelper.TryStopVanguardAsync();
+                //await progressDialog.ShowAsync(ContentDialogPlacement.Popup);
+                //if (!success) 
+                //{
+                //    progressDialog.Hide();
+                //    await ShowExceptionDialog(exception);
+                //    return false;
+                //}
+                //progressDialog.Hide();
+                //return success;
             }
             
             return false;
