@@ -19,7 +19,7 @@ public class VanguardServiceHelper
         var VanguardServiceController = new ServiceController(VANGUARD_SERVICE_NAME);
         try
         {
-            VanguardServiceController.Stop();
+            var vanguardStopTask = Task.Run(() => VanguardServiceController.Stop());
             await WaitForStatusAsync(VanguardServiceController, ServiceControllerStatus.Stopped, TimeSpan.FromSeconds(10));
             return (true, null);
         }

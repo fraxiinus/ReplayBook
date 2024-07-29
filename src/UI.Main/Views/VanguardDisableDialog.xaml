@@ -8,6 +8,7 @@
                   x:Name="DisableVanguardDialog"
                   Title="{DynamicResource Main__VanguardDisable__Title}"
                   Background="{DynamicResource TabBackground}"
+                  
                   IsVisibleChanged="DisableVanguardDialog_IsVisibleChanged"
                   mc:Ignorable="d">
     <Grid>
