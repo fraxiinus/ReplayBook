@@ -54,7 +54,8 @@
     <string:String x:Key="General__GlobalExceptionHandler__Body">Unhandled exception occurred! Please check the logs directory for full details.</string:String>
 
     <string:String x:Key="Main__VanguardWarning__Title">Vanguard is running</string:String>
-    <string:String x:Key="Main__VanguardWarning__Body">ReplayBook is unable to play replays if Vanguard is running. Please exit Vanguard before trying to play replays.</string:String>
+    <string:String x:Key="Main__VanguardWarning__Body">ReplayBook is unable to play replays if Vanguard is running. Would you like ReplayBook to stop Vanguard?</string:String>
+    <string:String x:Key="Main__VanguardDisable__Title">Stopping Vanguard...</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>

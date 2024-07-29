@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.ServiceProcess;
 
 namespace Fraxiinus.ReplayBook.UI.Main.Utilities
 {
@@ -29,12 +30,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
             _config = config;
             _executables = executables;
             _log = log;
-        }
-
-        public static bool IsVanguardRunning()
-        {
-            var searchResults = Process.GetProcessesByName("vgtray");
-            return searchResults.Length > 0;
         }
 
         public async Task<Process> PlayReplay(string path)
@@ -89,10 +84,13 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
 
             _log.Information($"Using {target.Name} to play replay {replay.FileInfo.Path}");
 
-            if (IsVanguardRunning())
+            if (VanguardServiceHelper.IsVanguardRunning())
             {
-                await ShowVanguardDialog();
-                return null;
+                var vanguardDisabled = await ShowVanguardDialog();
+                if (!vanguardDisabled) // could not disable vanguard, stop play attempt
+                {
+                    return null;
+                }
             }
 
             Process gameHandle = null;
@@ -189,13 +187,14 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
             _ = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
         }
 
-        private static async Task ShowVanguardDialog()
+        private static async Task<bool> ShowVanguardDialog()
         {
             // inform the user that replays cannot be played while vanguard is running
             var dialog = ContentDialogHelper.CreateContentDialog(
                 title: Application.Current.TryFindResource("Main__VanguardWarning__Title") as string,
                 description: Application.Current.TryFindResource("Main__VanguardWarning__Body") as string,
-                primaryButtonText: Application.Current.TryFindResource("OKButtonText") as string);
+                primaryButtonText: Application.Current.TryFindResource("YesText") as string,
+                secondaryButtonText: Application.Current.TryFindResource("NoText") as string);
             
             // Make background overlay transparent when in the dialog host window,
             // making the dialog appear seamlessly
@@ -204,7 +203,35 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
                 dialog.SetBackgroundSmokeColor(Brushes.Transparent);
             }
 
-            await dialog.ShowAsync(ContentDialogPlacement.Popup);
+            var diagResult = await dialog.ShowAsync(ContentDialogPlacement.Popup);
+
+            if (diagResult == ContentDialogResult.Primary)
+            {
+                var disableVanguardDialog = new VanguardDisableDialog();
+                _ = await disableVanguardDialog.ShowAsync(ContentDialogPlacement.Popup);
+                if (!disableVanguardDialog.Success)
+                {
+                    await ShowExceptionDialog(disableVanguardDialog.Exception);
+                }
+                return disableVanguardDialog.Success;
+
+                //var progressDialog = ContentDialogHelper.CreateContentDialog(
+                //    title: Application.Current.TryFindResource("Main__VanguardDisable__Title") as string,
+                //    description: null,
+                //    primaryButtonText: null);
+                // var (success, exception) = await VanguardServiceHelper.TryStopVanguardAsync();
+                //await progressDialog.ShowAsync(ContentDialogPlacement.Popup);
+                //if (!success) 
+                //{
+                //    progressDialog.Hide();
+                //    await ShowExceptionDialog(exception);
+                //    return false;
+                //}
+                //progressDialog.Hide();
+                //return success;
+            }
+            
+            return false;
         }
     }
 }
