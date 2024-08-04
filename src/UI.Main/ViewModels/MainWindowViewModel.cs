@@ -664,24 +664,31 @@ public class MainWindowViewModel
         FileResult replay = FileResults[preview.Location];
 
         // Ask the file manager to rename the replay
-        string error = _fileManager.RenameReplay(replay, newText);
+        string errorMessage = null;
+        try
+        {
+            string newReplayLocation = _fileManager.RenameReplay(replay, newText);
 
-        // User entered nothing, change message
-        if (error == "{EMPTY ERROR}")
-        {
-            error = Application.Current.TryFindResource("RenameFlyoutEmptyError") as string;
+            preview.DisplayName = Path.GetFileName(newReplayLocation);
+            preview.Location = newReplayLocation;
         }
-        else if (error == "{NOT FOUND ERROR}")
+        catch (Exception ex)
         {
-            error = Application.Current.TryFindResource("RenameFlyoutNotFoundError") as string;
-        }
-        else // Success
-        {
-            // Change the displayed data to the new name
-            preview.DisplayName = newText;
+            if (ex.Message == "{EMPTY ERROR}")
+            {
+                errorMessage = Application.Current.TryFindResource("RenameFlyoutEmptyError") as string;
+            }
+            else if (ex.Message == "{NOT FOUND ERROR}")
+            {
+                errorMessage = Application.Current.TryFindResource("RenameFlyoutNotFoundError") as string;
+            }
+            else
+            {
+                throw;
+            }
         }
 
-        return error;
+        return errorMessage;
     }
 
     public async Task DeleteReplayFile(ReplayPreview preview)

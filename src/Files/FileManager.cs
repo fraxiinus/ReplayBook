@@ -180,14 +180,14 @@ public class FileManager
     public string RenameReplay(FileResult file, string newName)
     {
         return _config.RenameFile
-            ? RenameFile(file, newName)
-            : RenameAlternative(file, newName);
+            ? RenameReplayInFileSystem(file, newName)
+            : RenameReplayInDatabase(file, newName);
     }
 
-    private string RenameAlternative(FileResult file, string newName)
+    private string RenameReplayInDatabase(FileResult file, string newName)
     {
         if (file == null) throw new ArgumentNullException(nameof(file));
-        if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
+        if (String.IsNullOrEmpty(newName)) throw new Exception("{EMPTY ERROR}");
 
         try
         {
@@ -197,19 +197,23 @@ public class FileManager
         catch (KeyNotFoundException ex)
         {
             _log.Information(ex.ToString());
-            return "{NOT FOUND ERROR}";
+            throw new Exception("{NOT FOUND ERROR}", ex);
         }
 
-        // Return value is an error message, no message means no error
-        return null;
+        // Return value file path, no changes made to filesystem so return same id
+        return file.Id;
     }
 
-    private string RenameFile(FileResult file, string newName)
+    private string RenameReplayInFileSystem(FileResult file, string newName)
     {
         if (file == null) throw new ArgumentNullException(nameof(file));
-        if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
+        if (String.IsNullOrEmpty(newName)) throw new Exception("{EMPTY ERROR}");
 
-        var newPath = Path.Combine(Path.GetDirectoryName(file.Id), newName + ".rofl");
+        var nameWithExtension = newName.EndsWith(".rofl")
+            ? newName
+            : newName + ".rofl";
+
+        var newPath = Path.Combine(Path.GetDirectoryName(file.Id), nameWithExtension);
 
         _log.Information($"Renaming {file.Id} -> {newPath}");
         // Rename the file
@@ -217,9 +221,10 @@ public class FileManager
         {
             File.Move(file.Id, newPath);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            return e.Message.Trim();
+            _log.Information(ex.ToString());
+            throw new Exception("{FAILED TO WRITE}", ex);
         }
 
         // delete the database entry
@@ -228,11 +233,11 @@ public class FileManager
 
         // Update new values
         var fileInfo = file.FileInfo;
-        fileInfo.Name = newName;
+        fileInfo.Name = nameWithExtension;
         fileInfo.Path = newPath;
 
         var replayFile = file.ReplayFile;
-        replayFile.Name = newName;
+        replayFile.Name = nameWithExtension;
         replayFile.Location = newPath;
 
         var newFileResult = new FileResult(fileInfo, replayFile);
@@ -240,8 +245,8 @@ public class FileManager
         _search.AddDocument(newFileResult);
         _search.CommitIndex();
 
-        // Return value is an error message, no message means no error
-        return null;
+        // return new file location
+        return newPath;
     }
 
     /// <summary>

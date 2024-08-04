@@ -92,7 +92,7 @@ public class ReplayPreview : INotifyPropertyChanged
 
     public bool IsBlueVictorious { get; private set; }
 
-    public string Location { get; private set; }
+    public string Location { get; set; }
 
     public DateTimeOffset CreationDate { get; set; }
 
