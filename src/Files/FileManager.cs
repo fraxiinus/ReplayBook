@@ -180,11 +180,11 @@ public class FileManager
     public string RenameReplay(FileResult file, string newName)
     {
         return _config.RenameFile
-            ? RenameFile(file, newName)
-            : RenameAlternative(file, newName);
+            ? RenameReplayInFileSystem(file, newName)
+            : RenameReplayInDatabase(file, newName);
     }
 
-    private string RenameAlternative(FileResult file, string newName)
+    private string RenameReplayInDatabase(FileResult file, string newName)
     {
         if (file == null) throw new ArgumentNullException(nameof(file));
         if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
@@ -204,12 +204,16 @@ public class FileManager
         return null;
     }
 
-    private string RenameFile(FileResult file, string newName)
+    private string RenameReplayInFileSystem(FileResult file, string newName)
     {
         if (file == null) throw new ArgumentNullException(nameof(file));
         if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
 
-        var newPath = Path.Combine(Path.GetDirectoryName(file.Id), newName + ".rofl");
+        var nameWithExtension = newName.EndsWith(".rofl")
+            ? newName
+            : newName + ".rofl";
+
+        var newPath = Path.Combine(Path.GetDirectoryName(file.Id), nameWithExtension);
 
         _log.Information($"Renaming {file.Id} -> {newPath}");
         // Rename the file
@@ -228,11 +232,11 @@ public class FileManager
 
         // Update new values
         var fileInfo = file.FileInfo;
-        fileInfo.Name = newName;
+        fileInfo.Name = nameWithExtension;
         fileInfo.Path = newPath;
 
         var replayFile = file.ReplayFile;
-        replayFile.Name = newName;
+        replayFile.Name = nameWithExtension;
         replayFile.Location = newPath;
 
         var newFileResult = new FileResult(fileInfo, replayFile);
