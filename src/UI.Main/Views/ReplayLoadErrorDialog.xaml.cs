@@ -21,7 +21,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
             if (DataContext is not StatusBar context) { return; }
 
             var errorDetails = new FlowDocument();
-            foreach (FileErrorResult error in context.Errors)
+            foreach (ReplayErrorInfo error in context.Errors)
             {
                 var filePath = new Bold(new Run(error.FilePath + "\n"));
 

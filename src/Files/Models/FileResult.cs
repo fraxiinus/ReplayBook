@@ -35,6 +35,8 @@ public class FileResult
 
     public ReplayFile ReplayFile { get; set; }
 
+    public ReplayErrorInfo ErrorInfo { get; set; }
+
     /// <summary>
     /// Full file path used as ID
     /// </summary>

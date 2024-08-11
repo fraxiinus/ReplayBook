@@ -50,13 +50,13 @@ public class FileManager
     /// <summary>
     /// This function is responsible for finding and loading in new replays
     /// </summary>
-    public async Task<IEnumerable<FileErrorResult>> InitialLoadAsync()
+    public async Task<IEnumerable<ReplayErrorInfo>> InitialLoadAsync()
     {
         _log.Information("Starting initial load of replays");
 
         //List<ReplayFileInfo> newFiles = new List<ReplayFileInfo>();
 
-        var errorResults = new List<FileErrorResult>();
+        var errorResults = new List<ReplayErrorInfo>();
         int newCount = 0;
 
         // Get all files from all defined replay folders
@@ -85,7 +85,7 @@ public class FileManager
                 {
                     _log.Warning($"Failed to parse file: {file.Path}");
                     _log.Warning(ex.ToString());
-                    errorResults.Add(new FileErrorResult
+                    errorResults.Add(new ReplayErrorInfo
                     {
                         FilePath = file.Path,
                         Exception = ex

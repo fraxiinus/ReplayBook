@@ -379,8 +379,8 @@ public class MainWindowViewModel
 
         await Task.Run(() => _fileManager.PruneDatabaseEntries());
 
-        // Discover and load replays into database
-        IEnumerable<FileErrorResult> results = await _fileManager.InitialLoadAsync().ConfigureAwait(true);
+        // Discover and load replays into database, results are files that failed to load
+        IEnumerable<ReplayErrorInfo> errorResults = await _fileManager.InitialLoadAsync().ConfigureAwait(true);
 
         // Load from database into our viewmodel
         int searchResults = -1;
@@ -399,12 +399,12 @@ public class MainWindowViewModel
 
         if (searchResults == -1)
         {
-            if (results.Any())
+            if (errorResults.Any())
             {
                 StatusBarModel.ShowProgressBar = false;
                 StatusBarModel.ShowDismissButton = true;
-                StatusBarModel.Errors = results;
-                StatusBarModel.StatusMessage = $"{results.Count()} {Application.Current.TryFindResource("LoadingMessageErrors")}";
+                StatusBarModel.Errors = errorResults;
+                StatusBarModel.StatusMessage = $"{errorResults.Count()} {Application.Current.TryFindResource("LoadingMessageErrors")}";
             }
             else
             {

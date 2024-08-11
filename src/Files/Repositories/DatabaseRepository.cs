@@ -66,6 +66,9 @@ public class DatabaseRepository
         _ = BsonMapper.Global.Entity<ReplayFileInfo>()
             .Id(r => r.Path);
 
+        _ = BsonMapper.Global.Entity<ReplayErrorInfo>()
+            .Id(r => r.FilePath);
+
         _ = BsonMapper.Global.Entity<PlayerStats2>()
             .Id(r => r.UniqueId);
 
@@ -92,6 +95,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults");
         var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
         var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
+        var replayErrors = db.GetCollection<ReplayErrorInfo>("replayErrorInfo");
         var players = db.GetCollection<PlayerStats2>("players");
 
         // If we already have the file, do nothing
@@ -100,15 +104,20 @@ public class DatabaseRepository
             fileResults.Insert(result);
         }
 
-        // Only add if it doesnt exist
-        if (fileInfos.FindById(result.FileInfo.Path) == null)
+        // Only add if it doesnt exist, and fileInfo exists
+        if (fileInfos.FindById(result.FileInfo.Path) == null && result.FileInfo != null)
         {
             fileInfos.Insert(result.FileInfo);
         }
 
-        if (replayFiles.FindById(result.ReplayFile.Location) == null)
+        if (replayFiles.FindById(result.ReplayFile.Location) == null && result.ReplayFile != null)
         {
             replayFiles.Insert(result.ReplayFile);
+        }
+
+        if (replayErrors.FindById(result.ErrorInfo.FilePath) == null && result.ErrorInfo != null)
+        {
+            replayErrors.Insert(result.ErrorInfo); 
         }
 
         foreach (var player in result.ReplayFile.Players)
@@ -130,6 +139,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults");
         var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
         var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
+        var replayErrors = db.GetCollection<ReplayErrorInfo>("replayErrorInfo");
         var players = db.GetCollection<PlayerStats2>("players");
 
         fileResults.Delete(id);
@@ -137,6 +147,8 @@ public class DatabaseRepository
         fileInfos.Delete(id);
 
         replayFiles.Delete(id);
+
+        replayErrors.Delete(id);
 
         // Rip player data is being orphaned...lol
     }
@@ -150,6 +162,7 @@ public class DatabaseRepository
         return db.GetCollection<FileResult>("fileResults")
             .Include("$.FileInfo")
             .Include("$.ReplayFile")
+            .Include("$.ErrorInfo")
             .Include("$.ReplayFile.Players[*]")
             .Include("$.ReplayFile.BluePlayers[*]")
             .Include("$.ReplayFile.RedPlayers[*]")
@@ -167,6 +180,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults")
             .Include("$.FileInfo")
             .Include("$.ReplayFile")
+            .Include("$.ErrorInfo")
             .Include("$.ReplayFile.Players[*]")
             .Include("$.ReplayFile.BluePlayers[*]")
             .Include("$.ReplayFile.RedPlayers[*]");
@@ -184,6 +198,7 @@ public class DatabaseRepository
         var fileResultsQueryable = db.GetCollection<FileResult>("fileResults")
             .Include("$.FileInfo")
             .Include("$.ReplayFile")
+            .Include("$.ErrorInfo")
             .Include("$.ReplayFile.Players[*]")
             .Include("$.ReplayFile.BluePlayers[*]")
             .Include("$.ReplayFile.RedPlayers[*]")
@@ -222,6 +237,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults")
             .Include("$.FileInfo")
             .Include("$.ReplayFile")
+            .Include("$.ErrorInfo")
             .Include("$.ReplayFile.Players[*]")
             .Include("$.ReplayFile.BluePlayers[*]")
             .Include("$.ReplayFile.RedPlayers[*]");

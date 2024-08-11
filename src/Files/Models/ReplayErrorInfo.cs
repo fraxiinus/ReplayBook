@@ -2,7 +2,7 @@
 
 namespace Fraxiinus.ReplayBook.Files.Models
 {
-    public class FileErrorResult
+    public class ReplayErrorInfo
     {
         /// <summary>
         /// Offending file path
