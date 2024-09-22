@@ -73,9 +73,205 @@ The Export Data Wizard includes an **Advanced Mode**. This mode shows all export
 
 ---
 
+## Table of available player properties
+
+| Property Name | Description |
+| --- | --- |
+| AllInPings | |
+| Assists | |
+| AssistMePings | |
+| BaitPings | |
+| BaronKills | |
+| BarracksKilled | Inhibitors killed |
+| BarracksTakedowns | Inhibitor takedowns |
+| BasicPings | |
+| BountyLevel | |
+| ChampionsKilled | |
+| ChampionMissionStat0 | Unknown |
+| ChampionMissionStat1 | Unknown |
+| ChampionMissionStat2 | Unknown |
+| ChampionMissionStat3 | Unknown |
+| ChampionTransform | Unknown |
+| CommandPings | |
+| ConsumablesPurchased | |
+| DangerPings | |
+| DoubleKills | |
+| DragonKills | |
+| EnemyMissingPings | |
+| EnemyVisionPings | |
+| Exp | Total experience earned|
+| FriendlyDampenLost | Unknown |
+| FriendlyHQLost | Friendly Nexus lost |
+| FriendlyTurretLost | |
+| GameEndedInEarlySurrender | |
+| GameEndedInSurrender | |
+| GetBackPings | |
+| GoldEarned | |
+| GoldSpent | |
+| HoldPings | |
+| HordeKills | Unknown |
+| HQKilled | Nexus killed |
+| HQTakedowns | Nexus takedowns |
+| Id | |
+| IndividualPosition | Lane position |
+| Item0 | |
+| Item1 | |
+| Item2 | |
+| Item3 | |
+| Item4 | |
+| Item5 | |
+| Item6 | |
+| ItemsPurchased | |
+| KeystoneId | |
+| KillingSprees | |
+| LargestAbilityDamage | |
+| LargestAttackDamage | |
+| LargestCriticalStrike | |
+| LargestKillingSpree | |
+| LargestMultiKill | |
+| LastTakedownTime | |
+| Level | |
+| LongestTimeSpentLiving | In seconds |
+| MagicDamageDealtPlayer | |
+| MagicDamageDealtToChampions | |
+| MagicDamageTaken | |
+| MinionsKilled | |
+| MissionsChampionsKilled | |
+| MissionsCreepScore | |
+| MissionsGoldFromStructuresDestroyed | |
+| MissionsGoldFromTurretPlatesTaken | |
+| MissionsHealingFromLevelObjects | |
+| MissionsMinionsKilled | |
+| MissionsTurretPlatesDestroyed | |
+| MutedAll | |
+| Name | Player name |
+| NeedVisionPings | |
+| NeutralMinionsKilled | |
+| NeutralMinionsKilledEnemyJungle | |
+| NeutralMinionsKilledYourJungle | |
+| NodeCapture | Unknown, perhaps Dominion or Twisted Treeline |
+| NodeCaptureAssist | Unknown, perhaps Dominion or Twisted Treeline |
+| NodeNeutralize | Unknown, perhaps Dominion or Twisted Treeline |
+| NodeNeutralizeAssist | Unknown, perhaps Dominion or Twisted Treeline |
+| NumDeaths | |
+| ObjectivesStolen | |
+| ObjectivesStolenAssists | |
+| OnMyWayPings | |
+| PentaKills | |
+| Perk0 | Rune 0 Id |
+| Perk0Var1 | |
+| Perk0Var2 | |
+| Perk0Var3 | |
+| Perk1 | Rune 1 Id |
+| Perk1Var1 | |
+| Perk1Var2 | |
+| Perk1Var3 | |
+| Perk2 | Rune 2 Id |
+| Perk2Var1 | |
+| Perk2Var2 | |
+| Perk2Var3 | |
+| Perk3 | Rune 3 Id |
+| Perk3Var1 | |
+| Perk3Var2 | |
+| Perk3Var3 | |
+| Perk4 | Rune 4 Id |
+| Perk4Var1 | |
+| Perk4Var2 | |
+| Perk4Var3 | |
+| Perk5 | Rune 5 Id |
+| Perk5Var1 | |
+| Perk5Var2 | |
+| Perk5Var3 | |
+| PerkPrimaryStyle | |
+| PerkSubStyle | |
+| PhysicalDamageDealtPlayer | |
+| PhysicalDamageDealtToChampions | |
+| PhysicalDamageTaken | |
+| Ping | Average(?) ping to server |
+| PlayersIMuted | |
+| PlayersThatMutedMe | |
+| PlayerAugment1 | Unknown, Perhaps Area |
+| PlayerAugment2 | Unknown, Perhaps Area |
+| PlayerAugment3 | Unknown, Perhaps Area |
+| PlayerAugment4 | Unknown, Perhaps Area |
+| PlayerPosition | |
+| PlayerRole | |
+| PlayerScore0 | Unknown |
+| PlayerScore1 | Unknown |
+| PlayerScore10 | Unknown |
+| PlayerScore11 | Unknown |
+| PlayerScore2 | Unknown |
+| PlayerScore3 | Unknown |
+| PlayerScore4 | Unknown |
+| PlayerScore5 | Unknown |
+| PlayerScore6 | Unknown |
+| PlayerScore7 | Unknown |
+| PlayerScore8 | Unknown |
+| PlayerScore9 | Unknown |
+| PlayerSubteam | Unknown |
+| PlayerSubteamPlacement | Unknown |
+| PushPings | |
+| PUUID | |
+| QuadraKills | |
+| RetreatPings | |
+| RiftHeraldKills | |
+| SightWardsBoughtInGame | |
+| Skin | Name of champion |
+| Spell1Cast | |
+| Spell2Cast | |
+| Spell3Cast | |
+| Spell4Cast | |
+| StatPerk0 | Stat rune |
+| StatPerk1 | Stat rune |
+| StatPerk2 | Stat rune |
+| SummonSpell1Cast | |
+| SummonSpell2Cast | |
+| Team | |
+| TeamEarlySurrendered | |
+| TeamObjective | |
+| TeamPosition | |
+| TimeCCingOthers | Seconds |
+| TimeOfFromLastDisconnect | Seconds |
+| TimePlayed | Seconds |
+| TimeSpentDisconnected | Seconds |
+| TotalDamageDealt | |
+| TotalDamageDealtToBuildings | |
+| TotalDamageDealtToChampions | |
+| TotalDamageDealtToObjectives | |
+| TotalDamageDealtToTurrets | |
+| TotalDamageSelfMitigated | |
+| TotalDamageShieldedOnTeammates | |
+| TotalDamageTaken | |
+| TotalHeal | |
+| TotalHealOnTeammates | |
+| TotalTimeCrowdControlDealt | |
+| TotalTimeCrowdControlDealtToChampions | |
+| TotalTimeSpentDead | |
+| TotalUnitsHealed | |
+| TripleKills | |
+| TrueDamageDealtPlayer | |
+| TrueDamageDealtToChampions | |
+| TrueDamageTaken | |
+| TurretsKilled | |
+| TurretTakedowns | |
+| UnrealKills | |
+| VictoryPointTotal | Unknown |
+| VisionClearedPings | |
+| VisionScore | |
+| VisionWardsBoughtInGame | |
+| WardKilled | |
+| WardPlaced | |
+| WardPlacedDetector | Pink wards |
+| WasAfk | |
+| WasAfkAfterFailedSurrender | |
+| WasEarlySurrenderAccomplice | |
+| WasLeaver | |
+| WasSurrenderDueToAfk | |
+| Win | |
+
 ## Need Help?
 
-[Check the Troubleshooting page](../../troubleshooting)
+[Check the Troubleshooting page](../troubleshooting/index.md)
 
 [Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }
 [Join the Discord :material-chat:](https://discord.gg/c33Rc5J){ .md-button .md-button }

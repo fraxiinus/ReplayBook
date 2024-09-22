@@ -35,7 +35,7 @@ Once ReplayBook is downloaded, you may want to check out the following section t
 
 ## Need Help?
 
-[Check the Troubleshooting page](../../troubleshooting)
+[Check the Troubleshooting page](../troubleshooting/index.md)
 
 [Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }
 [Join the Discord :material-chat:](https://discord.gg/c33Rc5J){ .md-button .md-button }
