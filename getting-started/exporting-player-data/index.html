@@ -1,0 +1,1883 @@
+<!-- Elements added to main will be displayed on all pages -->
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Getting started">
+      
+      
+      
+        <link rel="canonical" href="https://www.fraxiinus.dev/ReplayBook/getting-started/exporting-player-data/">
+      
+      
+        <link rel="prev" href="../playing-expired-replays/">
+      
+      
+        <link rel="next" href="../get-static-data-bundles/">
+      
+      
+      <link rel="icon" href="../../images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
+    
+    
+      
+        <title>Exporting Player Data - Fraxiinus.ReplayBook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.06209087.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Exporting Player Data - Fraxiinus.ReplayBook" >
+      
+        <meta  property="og:description"  content="Getting started" >
+      
+        <meta  property="og:image"  content="https://www.fraxiinus.dev/ReplayBook/assets/images/social/getting-started/exporting-player-data.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://www.fraxiinus.dev/ReplayBook/getting-started/exporting-player-data/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Exporting Player Data - Fraxiinus.ReplayBook" >
+      
+        <meta  name="twitter:description"  content="Getting started" >
+      
+        <meta  name="twitter:image"  content="https://www.fraxiinus.dev/ReplayBook/assets/images/social/getting-started/exporting-player-data.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#using-the-export-data-wizard" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  Replays from 14.9 through 14.10 do not contain metadata and are not supported by ReplayBook&nbsp;&nbsp;&nbsp;&nbsp;Read the issue on Github:
+  <a rel="me" href="https://github.com/fraxiinus/ReplayBook/issues/299">
+    <span class="twemoji simple-github">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </span>
+    <strong>Issue #299</strong>
+  </a>
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Fraxiinus.ReplayBook" class="md-header__button md-logo" aria-label="Fraxiinus.ReplayBook" data-md-component="logo">
+      
+  <img src="../../images/app-icon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Fraxiinus.ReplayBook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Exporting Player Data
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/fraxiinus/ReplayBook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Fraxiinus.ReplayBook" class="md-nav__button md-logo" aria-label="Fraxiinus.ReplayBook" data-md-component="logo">
+      
+  <img src="../../images/app-icon.png" alt="logo">
+
+    </a>
+    Fraxiinus.ReplayBook
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fraxiinus/ReplayBook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../download/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Download
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setting-up-replaybook/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Setting up ReplayBook
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using-player-markers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using player markers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../playing-expired-replays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Playing expired replays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Exporting player data
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Exporting player data
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-export-data-wizard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Export Data Wizard
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Export Data Wizard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-select-players" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 - Select players
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-select-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 - Select attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-final-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 - Final steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taking-advantage-of-presets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Taking Advantage of Presets
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-advanced-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Advanced Mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-available-player-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of available player properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#need-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Need Help?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get-static-data-bundles/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Get Static Data Bundles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-search-techniques/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Advanced search techniques
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../troubleshooting/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/play-button-disabled/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Play button disabled
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/replays-not-loading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Replays not loading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/images-not-loading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Images not loading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/settings-not-saving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Settings not saving
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/replaybook-wont-open/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ReplayBook won't open
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/crashes-loading-images/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Crashes when loading thumbnails
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/issues-playing-replays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Issues playing replays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/replay-not-displaying-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Replay not displaying data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About and FAQ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-export-data-wizard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Export Data Wizard
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using the Export Data Wizard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-select-players" class="md-nav__link">
+    <span class="md-ellipsis">
+      1 - Select players
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-select-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 - Select attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-final-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      3 - Final steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taking-advantage-of-presets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Taking Advantage of Presets
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-advanced-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Advanced Mode
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-available-player-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of available player properties
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#need-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Need Help?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Exporting player data</h1>
+
+<p>All readable data in a replay is available for exporting through ReplayBook.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Exporting data from replays is one of the only ways of getting player data from custom games!</p>
+</div>
+<h2 id="using-the-export-data-wizard">Using the Export Data Wizard</h2>
+<p>Open the Export Data Wizard by right-clicking or clicking the three-dot 「More」 button on any replay.</p>
+<p><img alt="Export Data Wizard Home" src="../../images/export_0.png" /></p>
+<h3 id="1-select-players">1 - Select players</h3>
+<p>Click the 「Start wizard」 button. The next screen is where you select which players' data you want to export. You have the option of selecting players manually, only including those with <a href="../using-player-markers/">player markers</a>, or select all.</p>
+<p><img alt="Export Data Wizard Players" src="../../images/export_1.png" /></p>
+<h3 id="2-select-attributes">2 - Select attributes</h3>
+<p>After selecting your players, the next screen will ask you which attributes to export. Selected items are automatically sorted to the top of the list.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Keep in mind that this list uses the <strong>original attribute names</strong> that are in the replay. Some things may be named strangely. For example, inhibitors are called 'Barracks' and the Nexus is called 'HQ'.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The square on the right of each item is a preview using the data one of the previously selected players.</p>
+</div>
+<p><img alt="Export Data Wizard Attributes" src="../../images/export_2.png" /></p>
+<h3 id="3-final-steps">3 - Final steps</h3>
+<p>On the last screen, you are given other options for the export as well as a data preview.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some attributes can only be included if the output format is JSON. This is a limitation of the CSV format.</p>
+</div>
+<p><img alt="Export Data Wizard Final" src="../../images/export_3.png" /></p>
+<hr />
+<h2 id="taking-advantage-of-presets">Taking Advantage of Presets</h2>
+<p>Presets are a way to save a set of selected options that can be automatically applied. Players (including 'marker' and 'all' options), attributes, and all other options are included in a preset.</p>
+<p>Create a preset by clicking the 「Save as preset」 button on the last screen of the Export Data Wizard. A prompt will appear containing a summary of the preset and a text box to input a name for the preset.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Presets are saved in the folder 'ReplayBook\cache\export_presets'</p>
+</div>
+<p><img alt="Export Data Wizard Preset" src="../../images/export_4.png" /></p>
+<p>To use a preset, select the 「Export using preset」 option when exporting. A selection window will appear that will also preview the contents of preset. After selecting a preset, clicking the 「Load」 button will load the preset, apply it to the replay, and prompt you where to save the export data file.</p>
+<hr />
+<h2 id="using-the-advanced-mode">Using the Advanced Mode</h2>
+<p>The Export Data Wizard includes an <strong>Advanced Mode</strong>. This mode shows all exporter options on a single screen, making it ideal for power users. It also includes a live data preview if the window is resized wider to accommodate.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Loading a preset while in <strong>Advanced Mode</strong> does not immediately export the data. It simply applies the saved options.</p>
+</div>
+<p><img alt="Export Data Wizard Advanced" src="../../images/export_5.png" /></p>
+<hr />
+<p><a class="md-button md-button--primary" href="../get-static-data-bundles/">Next: Get static data bundles</a></p>
+<hr />
+<h2 id="table-of-available-player-properties">Table of available player properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AllInPings</td>
+<td></td>
+</tr>
+<tr>
+<td>Assists</td>
+<td></td>
+</tr>
+<tr>
+<td>AssistMePings</td>
+<td></td>
+</tr>
+<tr>
+<td>BaitPings</td>
+<td></td>
+</tr>
+<tr>
+<td>BaronKills</td>
+<td></td>
+</tr>
+<tr>
+<td>BarracksKilled</td>
+<td>Inhibitors killed</td>
+</tr>
+<tr>
+<td>BarracksTakedowns</td>
+<td>Inhibitor takedowns</td>
+</tr>
+<tr>
+<td>BasicPings</td>
+<td></td>
+</tr>
+<tr>
+<td>BountyLevel</td>
+<td></td>
+</tr>
+<tr>
+<td>ChampionsKilled</td>
+<td></td>
+</tr>
+<tr>
+<td>ChampionMissionStat0</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>ChampionMissionStat1</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>ChampionMissionStat2</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>ChampionMissionStat3</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>ChampionTransform</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>CommandPings</td>
+<td></td>
+</tr>
+<tr>
+<td>ConsumablesPurchased</td>
+<td></td>
+</tr>
+<tr>
+<td>DangerPings</td>
+<td></td>
+</tr>
+<tr>
+<td>DoubleKills</td>
+<td></td>
+</tr>
+<tr>
+<td>DragonKills</td>
+<td></td>
+</tr>
+<tr>
+<td>EnemyMissingPings</td>
+<td></td>
+</tr>
+<tr>
+<td>EnemyVisionPings</td>
+<td></td>
+</tr>
+<tr>
+<td>Exp</td>
+<td>Total experience earned</td>
+</tr>
+<tr>
+<td>FriendlyDampenLost</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>FriendlyHQLost</td>
+<td>Friendly Nexus lost</td>
+</tr>
+<tr>
+<td>FriendlyTurretLost</td>
+<td></td>
+</tr>
+<tr>
+<td>GameEndedInEarlySurrender</td>
+<td></td>
+</tr>
+<tr>
+<td>GameEndedInSurrender</td>
+<td></td>
+</tr>
+<tr>
+<td>GetBackPings</td>
+<td></td>
+</tr>
+<tr>
+<td>GoldEarned</td>
+<td></td>
+</tr>
+<tr>
+<td>GoldSpent</td>
+<td></td>
+</tr>
+<tr>
+<td>HoldPings</td>
+<td></td>
+</tr>
+<tr>
+<td>HordeKills</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>HQKilled</td>
+<td>Nexus killed</td>
+</tr>
+<tr>
+<td>HQTakedowns</td>
+<td>Nexus takedowns</td>
+</tr>
+<tr>
+<td>Id</td>
+<td></td>
+</tr>
+<tr>
+<td>IndividualPosition</td>
+<td>Lane position</td>
+</tr>
+<tr>
+<td>Item0</td>
+<td></td>
+</tr>
+<tr>
+<td>Item1</td>
+<td></td>
+</tr>
+<tr>
+<td>Item2</td>
+<td></td>
+</tr>
+<tr>
+<td>Item3</td>
+<td></td>
+</tr>
+<tr>
+<td>Item4</td>
+<td></td>
+</tr>
+<tr>
+<td>Item5</td>
+<td></td>
+</tr>
+<tr>
+<td>Item6</td>
+<td></td>
+</tr>
+<tr>
+<td>ItemsPurchased</td>
+<td></td>
+</tr>
+<tr>
+<td>KeystoneId</td>
+<td></td>
+</tr>
+<tr>
+<td>KillingSprees</td>
+<td></td>
+</tr>
+<tr>
+<td>LargestAbilityDamage</td>
+<td></td>
+</tr>
+<tr>
+<td>LargestAttackDamage</td>
+<td></td>
+</tr>
+<tr>
+<td>LargestCriticalStrike</td>
+<td></td>
+</tr>
+<tr>
+<td>LargestKillingSpree</td>
+<td></td>
+</tr>
+<tr>
+<td>LargestMultiKill</td>
+<td></td>
+</tr>
+<tr>
+<td>LastTakedownTime</td>
+<td></td>
+</tr>
+<tr>
+<td>Level</td>
+<td></td>
+</tr>
+<tr>
+<td>LongestTimeSpentLiving</td>
+<td>In seconds</td>
+</tr>
+<tr>
+<td>MagicDamageDealtPlayer</td>
+<td></td>
+</tr>
+<tr>
+<td>MagicDamageDealtToChampions</td>
+<td></td>
+</tr>
+<tr>
+<td>MagicDamageTaken</td>
+<td></td>
+</tr>
+<tr>
+<td>MinionsKilled</td>
+<td></td>
+</tr>
+<tr>
+<td>MissionsChampionsKilled</td>
+<td></td>
+</tr>
+<tr>
+<td>MissionsCreepScore</td>
+<td></td>
+</tr>
+<tr>
+<td>MissionsGoldFromStructuresDestroyed</td>
+<td></td>
+</tr>
+<tr>
+<td>MissionsGoldFromTurretPlatesTaken</td>
+<td></td>
+</tr>
+<tr>
+<td>MissionsHealingFromLevelObjects</td>
+<td></td>
+</tr>
+<tr>
+<td>MissionsMinionsKilled</td>
+<td></td>
+</tr>
+<tr>
+<td>MissionsTurretPlatesDestroyed</td>
+<td></td>
+</tr>
+<tr>
+<td>MutedAll</td>
+<td></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Player name</td>
+</tr>
+<tr>
+<td>NeedVisionPings</td>
+<td></td>
+</tr>
+<tr>
+<td>NeutralMinionsKilled</td>
+<td></td>
+</tr>
+<tr>
+<td>NeutralMinionsKilledEnemyJungle</td>
+<td></td>
+</tr>
+<tr>
+<td>NeutralMinionsKilledYourJungle</td>
+<td></td>
+</tr>
+<tr>
+<td>NodeCapture</td>
+<td>Unknown, perhaps Dominion or Twisted Treeline</td>
+</tr>
+<tr>
+<td>NodeCaptureAssist</td>
+<td>Unknown, perhaps Dominion or Twisted Treeline</td>
+</tr>
+<tr>
+<td>NodeNeutralize</td>
+<td>Unknown, perhaps Dominion or Twisted Treeline</td>
+</tr>
+<tr>
+<td>NodeNeutralizeAssist</td>
+<td>Unknown, perhaps Dominion or Twisted Treeline</td>
+</tr>
+<tr>
+<td>NumDeaths</td>
+<td></td>
+</tr>
+<tr>
+<td>ObjectivesStolen</td>
+<td></td>
+</tr>
+<tr>
+<td>ObjectivesStolenAssists</td>
+<td></td>
+</tr>
+<tr>
+<td>OnMyWayPings</td>
+<td></td>
+</tr>
+<tr>
+<td>PentaKills</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk0</td>
+<td>Rune 0 Id</td>
+</tr>
+<tr>
+<td>Perk0Var1</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk0Var2</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk0Var3</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk1</td>
+<td>Rune 1 Id</td>
+</tr>
+<tr>
+<td>Perk1Var1</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk1Var2</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk1Var3</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk2</td>
+<td>Rune 2 Id</td>
+</tr>
+<tr>
+<td>Perk2Var1</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk2Var2</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk2Var3</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk3</td>
+<td>Rune 3 Id</td>
+</tr>
+<tr>
+<td>Perk3Var1</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk3Var2</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk3Var3</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk4</td>
+<td>Rune 4 Id</td>
+</tr>
+<tr>
+<td>Perk4Var1</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk4Var2</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk4Var3</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk5</td>
+<td>Rune 5 Id</td>
+</tr>
+<tr>
+<td>Perk5Var1</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk5Var2</td>
+<td></td>
+</tr>
+<tr>
+<td>Perk5Var3</td>
+<td></td>
+</tr>
+<tr>
+<td>PerkPrimaryStyle</td>
+<td></td>
+</tr>
+<tr>
+<td>PerkSubStyle</td>
+<td></td>
+</tr>
+<tr>
+<td>PhysicalDamageDealtPlayer</td>
+<td></td>
+</tr>
+<tr>
+<td>PhysicalDamageDealtToChampions</td>
+<td></td>
+</tr>
+<tr>
+<td>PhysicalDamageTaken</td>
+<td></td>
+</tr>
+<tr>
+<td>Ping</td>
+<td>Average(?) ping to server</td>
+</tr>
+<tr>
+<td>PlayersIMuted</td>
+<td></td>
+</tr>
+<tr>
+<td>PlayersThatMutedMe</td>
+<td></td>
+</tr>
+<tr>
+<td>PlayerAugment1</td>
+<td>Unknown, Perhaps Area</td>
+</tr>
+<tr>
+<td>PlayerAugment2</td>
+<td>Unknown, Perhaps Area</td>
+</tr>
+<tr>
+<td>PlayerAugment3</td>
+<td>Unknown, Perhaps Area</td>
+</tr>
+<tr>
+<td>PlayerAugment4</td>
+<td>Unknown, Perhaps Area</td>
+</tr>
+<tr>
+<td>PlayerPosition</td>
+<td></td>
+</tr>
+<tr>
+<td>PlayerRole</td>
+<td></td>
+</tr>
+<tr>
+<td>PlayerScore0</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore1</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore10</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore11</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore2</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore3</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore4</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore5</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore6</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore7</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore8</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerScore9</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerSubteam</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PlayerSubteamPlacement</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>PushPings</td>
+<td></td>
+</tr>
+<tr>
+<td>PUUID</td>
+<td></td>
+</tr>
+<tr>
+<td>QuadraKills</td>
+<td></td>
+</tr>
+<tr>
+<td>RetreatPings</td>
+<td></td>
+</tr>
+<tr>
+<td>RiftHeraldKills</td>
+<td></td>
+</tr>
+<tr>
+<td>SightWardsBoughtInGame</td>
+<td></td>
+</tr>
+<tr>
+<td>Skin</td>
+<td>Name of champion</td>
+</tr>
+<tr>
+<td>Spell1Cast</td>
+<td></td>
+</tr>
+<tr>
+<td>Spell2Cast</td>
+<td></td>
+</tr>
+<tr>
+<td>Spell3Cast</td>
+<td></td>
+</tr>
+<tr>
+<td>Spell4Cast</td>
+<td></td>
+</tr>
+<tr>
+<td>StatPerk0</td>
+<td>Stat rune</td>
+</tr>
+<tr>
+<td>StatPerk1</td>
+<td>Stat rune</td>
+</tr>
+<tr>
+<td>StatPerk2</td>
+<td>Stat rune</td>
+</tr>
+<tr>
+<td>SummonSpell1Cast</td>
+<td></td>
+</tr>
+<tr>
+<td>SummonSpell2Cast</td>
+<td></td>
+</tr>
+<tr>
+<td>Team</td>
+<td></td>
+</tr>
+<tr>
+<td>TeamEarlySurrendered</td>
+<td></td>
+</tr>
+<tr>
+<td>TeamObjective</td>
+<td></td>
+</tr>
+<tr>
+<td>TeamPosition</td>
+<td></td>
+</tr>
+<tr>
+<td>TimeCCingOthers</td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td>TimeOfFromLastDisconnect</td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td>TimePlayed</td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td>TimeSpentDisconnected</td>
+<td>Seconds</td>
+</tr>
+<tr>
+<td>TotalDamageDealt</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalDamageDealtToBuildings</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalDamageDealtToChampions</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalDamageDealtToObjectives</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalDamageDealtToTurrets</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalDamageSelfMitigated</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalDamageShieldedOnTeammates</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalDamageTaken</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalHeal</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalHealOnTeammates</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalTimeCrowdControlDealt</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalTimeCrowdControlDealtToChampions</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalTimeSpentDead</td>
+<td></td>
+</tr>
+<tr>
+<td>TotalUnitsHealed</td>
+<td></td>
+</tr>
+<tr>
+<td>TripleKills</td>
+<td></td>
+</tr>
+<tr>
+<td>TrueDamageDealtPlayer</td>
+<td></td>
+</tr>
+<tr>
+<td>TrueDamageDealtToChampions</td>
+<td></td>
+</tr>
+<tr>
+<td>TrueDamageTaken</td>
+<td></td>
+</tr>
+<tr>
+<td>TurretsKilled</td>
+<td></td>
+</tr>
+<tr>
+<td>TurretTakedowns</td>
+<td></td>
+</tr>
+<tr>
+<td>UnrealKills</td>
+<td></td>
+</tr>
+<tr>
+<td>VictoryPointTotal</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>VisionClearedPings</td>
+<td></td>
+</tr>
+<tr>
+<td>VisionScore</td>
+<td></td>
+</tr>
+<tr>
+<td>VisionWardsBoughtInGame</td>
+<td></td>
+</tr>
+<tr>
+<td>WardKilled</td>
+<td></td>
+</tr>
+<tr>
+<td>WardPlaced</td>
+<td></td>
+</tr>
+<tr>
+<td>WardPlacedDetector</td>
+<td>Pink wards</td>
+</tr>
+<tr>
+<td>WasAfk</td>
+<td></td>
+</tr>
+<tr>
+<td>WasAfkAfterFailedSurrender</td>
+<td></td>
+</tr>
+<tr>
+<td>WasEarlySurrenderAccomplice</td>
+<td></td>
+</tr>
+<tr>
+<td>WasLeaver</td>
+<td></td>
+</tr>
+<tr>
+<td>WasSurrenderDueToAfk</td>
+<td></td>
+</tr>
+<tr>
+<td>Win</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="need-help">Need Help?</h2>
+<p><a href="../../troubleshooting/">Check the Troubleshooting page</a></p>
+<p><a class="md-button md-button" href="https://github.com/fraxiinus/ReplayBook/discussions">Ask in GitHub <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg></span></a>
+<a class="md-button md-button" href="https://discord.gg/c33Rc5J">Join the Discord <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c5.5 0 10 3.58 10 8s-4.5 8-10 8c-1.24 0-2.43-.18-3.53-.5C5.55 21 2 21 2 21c2.33-2.33 2.7-3.9 2.75-4.5C3.05 15.07 2 13.13 2 11c0-4.42 4.5-8 10-8"/></svg></span></a>
+<a class="md-button md-button" href="https://github.com/fraxiinus/ReplayBook/issues/new/choose">Report an Issue <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 12h-4v-2h4m0 6h-4v-2h4m6-6h-2.81a6 6 0 0 0-1.82-1.96L17 4.41 15.59 3l-2.17 2.17a6 6 0 0 0-2.83 0L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20z"/></svg></span></a></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+<footer class="md-footer">
+    <div class="md-footer-meta md-typeset">
+        <div class="md-footer-meta__inner md-grid">
+            <!-- Copyright and theme information -->
+            <div class="md-footer-copyright">
+                
+                powered by
+                <a href="https://www.mkdocs.org" title="MkDocs">MkDocs</a>
+                and
+                <a href="https://squidfunk.github.io/mkdocs-material/"
+                   title="Material for MkDocs">
+                    Material for MkDocs</a>
+            </div>
+            
+            <div class="md-social">
+  
+</div>
+            
+        </div>
+    </div>
+</footer>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "content.code.copy"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../stylesheets/extra.js"></script>
+      
+    
+  </body>
+</html>
