@@ -8,6 +8,7 @@ using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using LiteDB;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -61,7 +62,8 @@ public class DatabaseRepository
         _ = BsonMapper.Global.Entity<FileResult>()
             .Id(r => r.Id)
             .DbRef(r => r.FileInfo, "replayFileInfo")
-            .DbRef(r => r.ReplayFile, "replayFiles");
+            .DbRef(r => r.ReplayFile, "replayFiles")
+            .DbRef(r => r.ErrorInfo, "replayErrorInfo");
 
         _ = BsonMapper.Global.Entity<ReplayFileInfo>()
             .Id(r => r.Path);
@@ -87,7 +89,7 @@ public class DatabaseRepository
     public void AddFileResult(FileResult result)
     {
         if (result == null) { throw new ArgumentNullException(nameof(result)); }
-        if (result.ReplayFile == null) { throw new ArgumentNullException(nameof(result)); }
+        //if (result.ReplayFile == null) { throw new ArgumentNullException(nameof(result)); }
         if (result.FileInfo == null) { throw new ArgumentNullException(nameof(result)); }
 
         using var db = new LiteDatabase(_filePath);
@@ -110,22 +112,25 @@ public class DatabaseRepository
             fileInfos.Insert(result.FileInfo);
         }
 
-        if (replayFiles.FindById(result.ReplayFile.Location) == null && result.ReplayFile != null)
+        if (result.ReplayFile != null && replayFiles.FindById(result.ReplayFile.Location) == null)
         {
             replayFiles.Insert(result.ReplayFile);
         }
 
-        if (replayErrors.FindById(result.ErrorInfo.FilePath) == null && result.ErrorInfo != null)
+        if (result.ErrorInfo != null && replayErrors.FindById(result.ErrorInfo.FilePath) == null)
         {
-            replayErrors.Insert(result.ErrorInfo); 
+            replayErrors.Insert(result.ErrorInfo);
         }
 
-        foreach (var player in result.ReplayFile.Players)
+        if (result.ReplayFile != default)
         {
-            // If the player already exists, do nothing
-            if (players.FindById(player.UniqueId) == null)
+            foreach (var player in result.ReplayFile?.Players)
             {
-                players.Insert(player);
+                // If the player already exists, do nothing
+                if (players.FindById(player.UniqueId) == null)
+                {
+                    players.Insert(player);
+                }
             }
         }
     }
@@ -254,13 +259,18 @@ public class DatabaseRepository
 
             // Update the file results (for indexing/search)
             result.AlternativeName = newName;
+            result.SearchKeywords = new List<string>
+            {
+                result.FileInfo.Name.ToUpper(CultureInfo.InvariantCulture),
+                result.AlternativeName.ToUpper(CultureInfo.InvariantCulture)
+            };
             fileResults.Update(result);
 
             // Update the replay entry
-            var replays = db.GetCollection<ReplayFile>("replayFiles");
-            var replayEntry = replays.FindById(id);
-            replayEntry.AlternativeName = newName;
-            replays.Update(replayEntry);
+            //var replays = db.GetCollection<ReplayFile>("replayFiles");
+            //var replayEntry = replays.FindById(id);
+            //replayEntry.AlternativeName = newName;
+            //replays.Update(replayEntry);
         }
     }
 }

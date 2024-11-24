@@ -57,7 +57,6 @@ public class FileManager
         //List<ReplayFileInfo> newFiles = new List<ReplayFileInfo>();
 
         var errorResults = new List<ReplayErrorInfo>();
-        int newCount = 0;
 
         // Get all files from all defined replay folders
         IReadOnlyCollection<ReplayFileInfo> allFiles = _fileSystem.GetAllReplayFileInfo();
@@ -69,7 +68,6 @@ public class FileManager
             {
                 try
                 {
-                    //var parseResult = await RoflReader.LoadAsync(file.Path).ConfigureAwait(false);
                     var parseResult = await ReplayReader.ReadReplayAsync(file.Path, _readerOptions);
                     var replayFile = new ReplayFile(file.Path, parseResult);
                     var newResult = new FileResult(file, replayFile)
@@ -79,17 +77,24 @@ public class FileManager
 
                     _db.AddFileResult(newResult);
                     _search.AddDocument(newResult);
-                    newCount++;
                 }
                 catch (Exception ex)
                 {
+                    // if parsing file failed for any reason, save info
                     _log.Warning($"Failed to parse file: {file.Path}");
                     _log.Warning(ex.ToString());
-                    errorResults.Add(new ReplayErrorInfo
+                    var errorInfo = new ReplayErrorInfo
                     {
                         FilePath = file.Path,
-                        Exception = ex
-                    });
+                        ExceptionType = ex.GetType().FullName,
+                        ExceptionString = ex.ToString(),
+                        ExceptionCallStack = ex.StackTrace
+                    };
+                    var errorFileResult = new FileResult(file, errorInfo);
+                    _db.AddFileResult(errorFileResult);
+                    _search.AddDocument(errorFileResult);
+
+                    errorResults.Add(errorInfo);
                 }
             }
         }

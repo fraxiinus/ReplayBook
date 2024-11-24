@@ -14,6 +14,7 @@ using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.Views;
+using Fraxiinus.Rofl.Extract.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -230,6 +231,7 @@ public class MainWindowViewModel
     {
         _log.Information("Loading thumbnails for players...");
         if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
+        if (replay.IsErrorReplay) { return; } // TODO
 
         var patchVersion = replay.GameVersion.VersionSubstring();
         var allPlayers = new List<PlayerPreview>();
@@ -316,6 +318,8 @@ public class MainWindowViewModel
         // Look through all replays to get all players
         foreach (ReplayPreview replay in PreviewReplays)
         {
+            if (replay.IsErrorReplay) { continue; } // TODO
+
             IEnumerable<PlayerPreview> allPlayers = replay.BluePreviewPlayers != null
                 ? replay.BluePreviewPlayers.Union(replay.RedPreviewPlayers)
                 : replay.RedPreviewPlayers;
@@ -466,6 +470,7 @@ public class MainWindowViewModel
         _log.Information($"Showing Export Dialog...");
 
         if (preview == null) { throw new ArgumentNullException(nameof(preview)); }
+        if (preview.IsErrorReplay) { return; } // TODO
 
         // create transition collection
         var contentTransitions = new ModernWpf.Media.Animation.TransitionCollection

@@ -27,7 +27,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Views
 
                 var errorParagraph = new Paragraph();
                 errorParagraph.Inlines.Add(filePath);
-                errorParagraph.Inlines.Add(new Run(error.Exception.Message));
+                errorParagraph.Inlines.Add(new Run(error.ExceptionString));
                 errorDetails.Blocks.Add(errorParagraph);
             }
             ErrorDetailsTextBox.Document = errorDetails;

@@ -9,6 +9,12 @@ namespace Fraxiinus.ReplayBook.Files.Models
         /// </summary>
         public string FilePath { get; set; }
 
-        public Exception Exception { get; set; }
+        public string ExceptionType { get; set; }
+
+        public string ExceptionString { get; set; }
+
+        public string ExceptionCallStack { get; set; }
+        //
+        //public Exception Exception { get; set; }
     }
 }
