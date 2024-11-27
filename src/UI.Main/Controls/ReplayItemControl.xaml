@@ -35,7 +35,9 @@
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Click="ExportReplayData_OnClick" Header="{DynamicResource ExportReplayData}">
+                <MenuItem x:Name="ExportReplayData_MenuItem__1"
+                          Click="ExportReplayData_OnClick"
+                          Header="{DynamicResource ExportReplayData}">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource ExportPathIcon}" />
                     </MenuItem.Icon>
@@ -398,7 +400,7 @@
                             </MenuItem.Icon>
                         </MenuItem>
 
-                        <MenuItem x:Name="ExportReplayData"
+                        <MenuItem x:Name="ExportReplayData_MenuItem__2"
                                   Click="ExportReplayData_OnClick"
                                   Header="{DynamicResource ExportReplayData}">
                             <MenuItem.Icon>

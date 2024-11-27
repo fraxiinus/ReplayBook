@@ -6,5 +6,5 @@
     <system:Uri x:Key="LicenseLink">https://github.com/fraxiinus/ReplayBook/blob/master/LICENSE</system:Uri>
     <system:Uri x:Key="DiscordInviteLink">https://discord.gg/c33Rc5J</system:Uri>
     <system:Uri x:Key="Help_PlayingExpiredReplays">https://www.fraxiinus.dev/ReplayBook/getting-started/playing-expired-replays/</system:Uri>
-
+    <system:Uri x:Key="Help_ErrorLoadingReplay">https://www.fraxiinus.dev/</system:Uri>
 </ResourceDictionary>

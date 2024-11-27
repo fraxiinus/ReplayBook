@@ -54,6 +54,12 @@
                 <TextBox x:Name="ErrorContent__TextBox"
                          Height="150"
                          IsReadOnly="True" />
+
+                <Button x:Name="ErrorContent__HelpButton"
+                        HorizontalAlignment="Right"
+                        Click="ErrorContent__HelpButton_Click"
+                        Content="{DynamicResource HelpButtonText}"
+                        Style="{DynamicResource AccentButtonStyle}" />
             </ui:SimpleStackPanel>
         </Grid>
 

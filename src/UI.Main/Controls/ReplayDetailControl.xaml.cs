@@ -2,7 +2,9 @@
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -150,6 +152,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
         private void ReplayFileName_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             RenameReplayFile_OnClick(null, null);
+        }
+
+        private void ErrorContent__HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            var url = (TryFindResource("Help_ErrorLoadingReplay") as Uri).ToString();
+            _ = Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
         }
 
         #region Context menu item handlers
