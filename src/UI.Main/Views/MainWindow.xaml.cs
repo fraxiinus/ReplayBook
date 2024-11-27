@@ -142,25 +142,28 @@ public partial class MainWindow : Window
         // Deselect the last selected item
         if (_lastSelection != null && _lastSelection.IsSelected) { _lastSelection.IsSelected = false; }
 
+        // Select the new item
         previewModel.IsSelected = true;
         _lastSelection = previewModel;
 
+        // Get the replay file in question, and then create the detail model
         FileResult replayFile = context.FileResults[previewModel.Location];
-
         var replayDetail = new ReplayDetail(context.StaticDataManager, replayFile, previewModel);
 
+        // Set the detail control that is used for displaying the replay
         ReplayDetailControl detailControl = FindName("DetailView") as ReplayDetailControl;
         detailControl.DataContext = replayDetail;
 
         if (replayDetail.ErrorInfo != default)
         {
+            // Hide everything besides the error display
             (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
             (detailControl.FindName("ErrorContent") as Grid).Visibility = Visibility.Visible;
             (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Hidden;
-
         }
         else
         {
+            // Hide everything besides the replay display
             await replayDetail.LoadRunes();
 
             (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
