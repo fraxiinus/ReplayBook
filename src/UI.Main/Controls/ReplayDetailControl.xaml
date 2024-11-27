@@ -34,6 +34,29 @@
                        TextAlignment="Center" />
         </Grid>
 
+        <!--  Error content to show when error replay is selected  -->
+        <Grid x:Name="ErrorContent"
+              Background="{DynamicResource TabViewBackground}"
+              Visibility="Hidden">
+            <ui:SimpleStackPanel Margin="100,150"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Spacing="12">
+
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource SystemControlPageTextBaseMediumBrush}"
+                           Text="{DynamicResource LoadingFailureTitle}"
+                           TextAlignment="Center" />
+                <TextBlock Text="{DynamicResource FailedToLoadReplayText}" />
+
+                <TextBox x:Name="ErrorContent__TextBox"
+                         Height="150"
+                         IsReadOnly="True" />
+            </ui:SimpleStackPanel>
+        </Grid>
+
         <!--  The actual replay content  -->
         <Grid x:Name="ReplayContent" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -283,6 +306,4 @@
 
         </Grid>
     </Grid>
-
-
 </UserControl>

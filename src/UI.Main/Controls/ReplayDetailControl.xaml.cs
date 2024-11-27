@@ -46,6 +46,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
         private void ReplayDetailControlElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (DataContext is not ReplayDetail replay) { return; }
+            if (replay.ErrorInfo != default)
+            {
+                ErrorContent__TextBox.Text = replay.ErrorInfo.ExceptionString;
+                return;
+            }
 
             PlayerIconsGrid.Children.Clear();
             PlayerIconsGrid.ColumnDefinitions.Clear();

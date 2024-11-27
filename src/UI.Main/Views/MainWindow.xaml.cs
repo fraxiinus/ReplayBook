@@ -148,20 +148,32 @@ public partial class MainWindow : Window
         FileResult replayFile = context.FileResults[previewModel.Location];
 
         var replayDetail = new ReplayDetail(context.StaticDataManager, replayFile, previewModel);
-        await replayDetail.LoadRunes();
 
         ReplayDetailControl detailControl = FindName("DetailView") as ReplayDetailControl;
         detailControl.DataContext = replayDetail;
 
-        (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
-        (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
-
-        await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
-
-        // See if tab control needs to update runes:
-        if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)
+        if (replayDetail.ErrorInfo != default)
         {
-            await context.LoadRuneThumbnails(replayDetail).ConfigureAwait(true);
+            (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
+            (detailControl.FindName("ErrorContent") as Grid).Visibility = Visibility.Visible;
+            (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Hidden;
+
+        }
+        else
+        {
+            await replayDetail.LoadRunes();
+
+            (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
+            (detailControl.FindName("ErrorContent") as Grid).Visibility = Visibility.Hidden;
+            (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
+
+            await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
+
+            // See if tab control needs to update runes:
+            if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)
+            {
+                await context.LoadRuneThumbnails(replayDetail).ConfigureAwait(true);
+            }
         }
     }
 
