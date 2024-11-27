@@ -2,6 +2,7 @@
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
+using ModernWpf.Controls;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -158,6 +159,27 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
         {
             var url = (TryFindResource("Help_ErrorLoadingReplay") as Uri).ToString();
             _ = Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+        }
+
+        private async void ErrorContent__ClearCacheButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
+
+            context.ClearReplayCacheOnClose = true;
+
+            // inform the user that the delete will happen when the window is closed
+            var dialog = ContentDialogHelper.CreateContentDialog(
+                title: TryFindResource("RequestsCacheCloseToDeleteTitle") as string,
+                description: TryFindResource("RequestsCacheCloseToDelete") as string,
+                primaryButtonText: TryFindResource("Settings__Replays__ClearCacheRestartNow__Button") as string,
+                secondaryButtonText: TryFindResource("CancelButtonText") as string);
+
+            var confirmResult = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            if (confirmResult == ContentDialogResult.Primary)
+            {
+                context.RestartOnClose = true;
+                Application.Current.MainWindow.Close();
+            }
         }
 
         #region Context menu item handlers

@@ -55,12 +55,26 @@
                          Height="150"
                          IsReadOnly="True" />
 
-                <Button x:Name="ErrorContent__HelpButton"
-                        Width="80"
-                        HorizontalAlignment="Right"
-                        Click="ErrorContent__HelpButton_Click"
-                        Content="{DynamicResource HelpButtonText}"
-                        Style="{DynamicResource AccentButtonStyle}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="ErrorContent__ClearCacheButton"
+                            Grid.Column="0"
+                            Width="100"
+                            Margin="0,0,12,0"
+                            HorizontalAlignment="Right"
+                            Click="ErrorContent__ClearCacheButton_Click"
+                            Content="{DynamicResource ReplayDatabaseClearButton}" />
+                    <Button x:Name="ErrorContent__HelpButton"
+                            Grid.Column="1"
+                            Width="100"
+                            HorizontalAlignment="Right"
+                            Click="ErrorContent__HelpButton_Click"
+                            Content="{DynamicResource HelpButtonText}"
+                            Style="{DynamicResource AccentButtonStyle}" />
+                </Grid>
             </ui:SimpleStackPanel>
         </Grid>
 
