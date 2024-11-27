@@ -56,6 +56,7 @@
                          IsReadOnly="True" />
 
                 <Button x:Name="ErrorContent__HelpButton"
+                        Width="80"
                         HorizontalAlignment="Right"
                         Click="ErrorContent__HelpButton_Click"
                         Content="{DynamicResource HelpButtonText}"
