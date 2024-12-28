@@ -54,8 +54,13 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
             // Get the button and menu
             ContextMenu contextMenu = moreButton.ContextMenu;
 
-            // Check if static data already exists for this patch, show option to download
-            if (ViewModel.StaticDataManager.DoesBundleExist(Context.GameVersion))
+            // Hide static data option if item is error or is already downloaded
+            if (Context.IsErrorReplay == true)
+            {
+                DownloadStaticData_MenuItem__2.Visibility = Visibility.Collapsed;
+                ExportReplayData_MenuItem__2.Visibility = Visibility.Collapsed;
+            }
+            else if (ViewModel.StaticDataManager.DoesBundleExist(Context.GameVersion))
             {
                 DownloadStaticData_MenuItem__2.Visibility = Visibility.Collapsed;
             }
@@ -80,7 +85,13 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
         {
             if (Context == null) { return; }
 
-            if (ViewModel.StaticDataManager.DoesBundleExist(Context.GameVersion))
+            // Hide static data option if item is error or is already downloaded
+            if (Context.IsErrorReplay == true)
+            {
+                DownloadStaticData_MenuItem__1.Visibility = Visibility.Collapsed;
+                ExportReplayData_MenuItem__1.Visibility = Visibility.Collapsed;
+            }
+            else if (ViewModel.StaticDataManager.DoesBundleExist(Context.GameVersion))
             {
                 DownloadStaticData_MenuItem__1.Visibility = Visibility.Collapsed;
             }

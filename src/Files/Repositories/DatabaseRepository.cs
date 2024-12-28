@@ -8,6 +8,7 @@ using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using LiteDB;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -61,10 +62,14 @@ public class DatabaseRepository
         _ = BsonMapper.Global.Entity<FileResult>()
             .Id(r => r.Id)
             .DbRef(r => r.FileInfo, "replayFileInfo")
-            .DbRef(r => r.ReplayFile, "replayFiles");
+            .DbRef(r => r.ReplayFile, "replayFiles")
+            .DbRef(r => r.ErrorInfo, "replayErrorInfo");
 
         _ = BsonMapper.Global.Entity<ReplayFileInfo>()
             .Id(r => r.Path);
+
+        _ = BsonMapper.Global.Entity<ReplayErrorInfo>()
+            .Id(r => r.FilePath);
 
         _ = BsonMapper.Global.Entity<PlayerStats2>()
             .Id(r => r.UniqueId);
@@ -84,7 +89,7 @@ public class DatabaseRepository
     public void AddFileResult(FileResult result)
     {
         if (result == null) { throw new ArgumentNullException(nameof(result)); }
-        if (result.ReplayFile == null) { throw new ArgumentNullException(nameof(result)); }
+        //if (result.ReplayFile == null) { throw new ArgumentNullException(nameof(result)); }
         if (result.FileInfo == null) { throw new ArgumentNullException(nameof(result)); }
 
         using var db = new LiteDatabase(_filePath);
@@ -92,6 +97,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults");
         var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
         var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
+        var replayErrors = db.GetCollection<ReplayErrorInfo>("replayErrorInfo");
         var players = db.GetCollection<PlayerStats2>("players");
 
         // If we already have the file, do nothing
@@ -100,23 +106,31 @@ public class DatabaseRepository
             fileResults.Insert(result);
         }
 
-        // Only add if it doesnt exist
-        if (fileInfos.FindById(result.FileInfo.Path) == null)
+        // Only add if it doesnt exist, and fileInfo exists
+        if (fileInfos.FindById(result.FileInfo.Path) == null && result.FileInfo != null)
         {
             fileInfos.Insert(result.FileInfo);
         }
 
-        if (replayFiles.FindById(result.ReplayFile.Location) == null)
+        if (result.ReplayFile != null && replayFiles.FindById(result.ReplayFile.Location) == null)
         {
             replayFiles.Insert(result.ReplayFile);
         }
 
-        foreach (var player in result.ReplayFile.Players)
+        if (result.ErrorInfo != null && replayErrors.FindById(result.ErrorInfo.FilePath) == null)
         {
-            // If the player already exists, do nothing
-            if (players.FindById(player.UniqueId) == null)
+            replayErrors.Insert(result.ErrorInfo);
+        }
+
+        if (result.ReplayFile != default)
+        {
+            foreach (var player in result.ReplayFile?.Players)
             {
-                players.Insert(player);
+                // If the player already exists, do nothing
+                if (players.FindById(player.UniqueId) == null)
+                {
+                    players.Insert(player);
+                }
             }
         }
     }
@@ -130,6 +144,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults");
         var fileInfos = db.GetCollection<ReplayFileInfo>("replayFileInfo");
         var replayFiles = db.GetCollection<ReplayFile>("replayFiles");
+        var replayErrors = db.GetCollection<ReplayErrorInfo>("replayErrorInfo");
         var players = db.GetCollection<PlayerStats2>("players");
 
         fileResults.Delete(id);
@@ -137,6 +152,8 @@ public class DatabaseRepository
         fileInfos.Delete(id);
 
         replayFiles.Delete(id);
+
+        replayErrors.Delete(id);
 
         // Rip player data is being orphaned...lol
     }
@@ -150,6 +167,7 @@ public class DatabaseRepository
         return db.GetCollection<FileResult>("fileResults")
             .Include("$.FileInfo")
             .Include("$.ReplayFile")
+            .Include("$.ErrorInfo")
             .Include("$.ReplayFile.Players[*]")
             .Include("$.ReplayFile.BluePlayers[*]")
             .Include("$.ReplayFile.RedPlayers[*]")
@@ -167,6 +185,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults")
             .Include("$.FileInfo")
             .Include("$.ReplayFile")
+            .Include("$.ErrorInfo")
             .Include("$.ReplayFile.Players[*]")
             .Include("$.ReplayFile.BluePlayers[*]")
             .Include("$.ReplayFile.RedPlayers[*]");
@@ -184,6 +203,7 @@ public class DatabaseRepository
         var fileResultsQueryable = db.GetCollection<FileResult>("fileResults")
             .Include("$.FileInfo")
             .Include("$.ReplayFile")
+            .Include("$.ErrorInfo")
             .Include("$.ReplayFile.Players[*]")
             .Include("$.ReplayFile.BluePlayers[*]")
             .Include("$.ReplayFile.RedPlayers[*]")
@@ -222,6 +242,7 @@ public class DatabaseRepository
         var fileResults = db.GetCollection<FileResult>("fileResults")
             .Include("$.FileInfo")
             .Include("$.ReplayFile")
+            .Include("$.ErrorInfo")
             .Include("$.ReplayFile.Players[*]")
             .Include("$.ReplayFile.BluePlayers[*]")
             .Include("$.ReplayFile.RedPlayers[*]");
@@ -238,13 +259,18 @@ public class DatabaseRepository
 
             // Update the file results (for indexing/search)
             result.AlternativeName = newName;
+            result.SearchKeywords = new List<string>
+            {
+                result.FileInfo.Name.ToUpper(CultureInfo.InvariantCulture),
+                result.AlternativeName.ToUpper(CultureInfo.InvariantCulture)
+            };
             fileResults.Update(result);
 
             // Update the replay entry
-            var replays = db.GetCollection<ReplayFile>("replayFiles");
-            var replayEntry = replays.FindById(id);
-            replayEntry.AlternativeName = newName;
-            replays.Update(replayEntry);
+            //var replays = db.GetCollection<ReplayFile>("replayFiles");
+            //var replayEntry = replays.FindById(id);
+            //replayEntry.AlternativeName = newName;
+            //replays.Update(replayEntry);
         }
     }
 }

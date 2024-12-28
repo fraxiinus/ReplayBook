@@ -14,7 +14,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
             _visible = false;
         }
 
-        public IEnumerable<FileErrorResult> Errors { get; set; }
+        public IEnumerable<ReplayErrorInfo> Errors { get; set; }
 
         private string _statusMessage;
         public string StatusMessage

@@ -20,7 +20,7 @@ public class ReplayFile
     public ReplayFile(string fullFilePath, ParseResult input)
     {
         Name = Path.GetFileName(fullFilePath);
-        AlternativeName = Name;
+        // AlternativeName = Name;
         Location = fullFilePath;
 
         Type = input.Type;
@@ -126,5 +126,5 @@ public class ReplayFile
     public bool IsBlueVictorious { get; set; }
 
     // User assigned fields
-    public string AlternativeName { get; set; }
+    //public string AlternativeName { get; set; }
 }

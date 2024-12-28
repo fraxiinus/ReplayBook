@@ -2,7 +2,10 @@
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
+using ModernWpf.Controls;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -46,6 +49,11 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
         private void ReplayDetailControlElement_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (DataContext is not ReplayDetail replay) { return; }
+            if (replay.ErrorInfo != default)
+            {
+                ErrorContent__TextBox.Text = replay.ErrorInfo.ExceptionString;
+                return;
+            }
 
             PlayerIconsGrid.Children.Clear();
             PlayerIconsGrid.ColumnDefinitions.Clear();
@@ -145,6 +153,33 @@ namespace Fraxiinus.ReplayBook.UI.Main.Controls
         private void ReplayFileName_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             RenameReplayFile_OnClick(null, null);
+        }
+
+        private void ErrorContent__HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            var url = (TryFindResource("Help_ErrorLoadingReplay") as Uri).ToString();
+            _ = Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+        }
+
+        private async void ErrorContent__ClearCacheButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Window.GetWindow(this)?.DataContext is not MainWindowViewModel context) { return; }
+
+            context.ClearReplayCacheOnClose = true;
+
+            // inform the user that the delete will happen when the window is closed
+            var dialog = ContentDialogHelper.CreateContentDialog(
+                title: TryFindResource("RequestsCacheCloseToDeleteTitle") as string,
+                description: TryFindResource("RequestsCacheCloseToDelete") as string,
+                primaryButtonText: TryFindResource("Settings__Replays__ClearCacheRestartNow__Button") as string,
+                secondaryButtonText: TryFindResource("CancelButtonText") as string);
+
+            var confirmResult = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+            if (confirmResult == ContentDialogResult.Primary)
+            {
+                context.RestartOnClose = true;
+                Application.Current.MainWindow.Close();
+            }
         }
 
         #region Context menu item handlers

@@ -34,6 +34,50 @@
                        TextAlignment="Center" />
         </Grid>
 
+        <!--  Error content to show when error replay is selected  -->
+        <Grid x:Name="ErrorContent"
+              Background="{DynamicResource TabViewBackground}"
+              Visibility="Hidden">
+            <ui:SimpleStackPanel Margin="100,150"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Spacing="12">
+
+                <TextBlock VerticalAlignment="Center"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource SystemControlPageTextBaseMediumBrush}"
+                           Text="{DynamicResource LoadingFailureTitle}"
+                           TextAlignment="Center" />
+                <TextBlock Text="{DynamicResource FailedToLoadReplayText}" />
+
+                <TextBox x:Name="ErrorContent__TextBox"
+                         Height="150"
+                         IsReadOnly="True" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="ErrorContent__ClearCacheButton"
+                            Grid.Column="0"
+                            Width="100"
+                            Margin="0,0,12,0"
+                            HorizontalAlignment="Right"
+                            Click="ErrorContent__ClearCacheButton_Click"
+                            Content="{DynamicResource ReplayDatabaseClearButton}" />
+                    <Button x:Name="ErrorContent__HelpButton"
+                            Grid.Column="1"
+                            Width="100"
+                            HorizontalAlignment="Right"
+                            Click="ErrorContent__HelpButton_Click"
+                            Content="{DynamicResource HelpButtonText}"
+                            Style="{DynamicResource AccentButtonStyle}" />
+                </Grid>
+            </ui:SimpleStackPanel>
+        </Grid>
+
         <!--  The actual replay content  -->
         <Grid x:Name="ReplayContent" Visibility="Hidden">
             <Grid.RowDefinitions>
@@ -283,6 +327,4 @@
 
         </Grid>
     </Grid>
-
-
 </UserControl>
