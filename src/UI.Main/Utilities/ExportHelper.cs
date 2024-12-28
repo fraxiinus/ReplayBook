@@ -1,10 +1,8 @@
-﻿namespace Fraxiinus.ReplayBook.UI.Main.Utilities;
-
-using Fraxiinus.ReplayBook.Executables.Old.Utilities;
+﻿using Fraxiinus.ReplayBook.Executables.Old.Utilities;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.StaticData.Models;
 using Fraxiinus.ReplayBook.UI.Main.Models;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -18,6 +16,7 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows;
 
+namespace Fraxiinus.ReplayBook.UI.Main.Utilities;
 public static class ExportHelper
 {
     private static readonly string _presetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cache", "export_presets");
@@ -157,7 +156,7 @@ public static class ExportHelper
                 var playerAttributes = new JsonObject();
 
                 // get the player model
-                PlayerStats player = context.Replay.Players
+                PlayerStats2 player = context.Replay.Players
                     .First(x => x.Name.Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
 
                 // irate over all attribute selections
@@ -223,7 +222,7 @@ public static class ExportHelper
                         }
 
                         // get the player object
-                        PlayerStats player = context.Replay.Players
+                        PlayerStats2 player = context.Replay.Players
                             .First(x => x.Name.Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
 
                         string value = player

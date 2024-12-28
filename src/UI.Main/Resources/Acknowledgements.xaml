@@ -1194,11 +1194,13 @@ falls under the following license:
     <string:String x:Key="AckAuthor11">N/A</string:String>
     <string:String x:Key="AckLink11">https://github.com/fraxiinus/ReplayBook/wiki/Translating</string:String>
     <string:String x:Key="AckLicense11" xml:space="preserve">Thanks to these people for contributing translations!
-- Chinese Simplified by ASTWY, awter, Jerry Liew, RichardNewb1e
+- Chinese Simplified by ASTWY, awter, Jerry Liew, RichardNewb1e, magcicada
 - Chinese Traditional by N/A, RichardNewb1e
 - Spanish by Catinaxo
 - German by FlorianHugCH, xXLaokoonXx
-- French by grog12, Nokatir
-- Portuguese by feikname
+- French by grog12, Nokatir, gzordrai
+- Portuguese by feikname, TroniPM
+- Turkish by electrogu
+- Russian by xnorxnorxnorxnor
     </string:String>
 </ResourceDictionary>

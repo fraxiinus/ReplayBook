@@ -1,0 +1,20 @@
+﻿<ui:ContentDialog x:Class="Fraxiinus.ReplayBook.UI.Main.Views.VanguardDisableDialog"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:local="clr-namespace:Fraxiinus.ReplayBook.UI.Main.Views"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:ui="http://schemas.modernwpf.com/2019"
+                  x:Name="DisableVanguardDialog"
+                  Title="{DynamicResource Main__VanguardDisable__Title}"
+                  Background="{DynamicResource TabBackground}"
+                  
+                  IsVisibleChanged="DisableVanguardDialog_IsVisibleChanged"
+                  mc:Ignorable="d">
+    <Grid>
+        <ui:ProgressRing Margin="0,20,0,20"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Stretch"
+                         IsActive="True" />
+    </Grid>
+</ui:ContentDialog>

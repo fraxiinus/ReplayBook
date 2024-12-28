@@ -204,21 +204,25 @@ public class SearchRepository
             new StringField("id", fileResult.Id, Field.Store.YES)
         };
 
-        // Default search includes player name with champion
-        var playerChampionCombinations = string.Join(", ", fileResult.ReplayFile.Players.Select(p => p.Name + " " + GetSafeChampionName(p.Skin)));
-        // text fields provide full text search, string fields do complete match
-        document.Add(new TextField("baseKeywords", fileResult.AlternativeName + ", " + playerChampionCombinations, Field.Store.NO));
+        if (fileResult.ReplayFile != default)
+        {
+            // Default search includes player name with champion
+            var playerChampionCombinations = string.Join(", ", fileResult.ReplayFile.Players.Select(p => p.Name + " " + GetSafeChampionName(p.Skin)));
+            // text fields provide full text search, string fields do complete match
+            document.Add(new TextField("baseKeywords", fileResult.AlternativeName + ", " + playerChampionCombinations, Field.Store.NO));
 
-        // Allow users to search specific teams, allowing a basic matchup search
-        var redPlayers = string.Join(", ", fileResult.ReplayFile.RedPlayers.Select(p => p.Name + " " + GetSafeChampionName(p.Skin)));
-        document.Add(new TextField("red", redPlayers, Field.Store.NO));
-        var bluePlayers = string.Join(", ", fileResult.ReplayFile.BluePlayers.Select(p => p.Name + " " + GetSafeChampionName(p.Skin)));
-        document.Add(new TextField("blue", bluePlayers, Field.Store.NO));
+            // Allow users to search specific teams, allowing a basic matchup search
+            var redPlayers = string.Join(", ", fileResult.ReplayFile.RedPlayers.Select(p => p.Name + " " + GetSafeChampionName(p.Skin)));
+            var bluePlayers = string.Join(", ", fileResult.ReplayFile.BluePlayers.Select(p => p.Name + " " + GetSafeChampionName(p.Skin)));
+            document.Add(new TextField("red", redPlayers, Field.Store.NO));
+            document.Add(new TextField("blue", bluePlayers, Field.Store.NO));
+            
+            // enable game length query
+            document.Add(new StringField("length", $"{fileResult.ReplayFile.GameDuration.Minutes}{fileResult.ReplayFile.GameDuration.Seconds}", Field.Store.NO));
+        }
 
         // Query date, allow for date range query
         document.Add(new StringField("date", DateTools.DateToString(fileResult.FileCreationTime, DateResolution.DAY), Field.Store.NO));
-        document.Add(new StringField("length", $"{fileResult.ReplayFile.GameDuration.Minutes}{fileResult.ReplayFile.GameDuration.Seconds}", Field.Store.NO));
-
         // These are used for sorting, and must be stored
         document.Add(new StringField("name", fileResult.AlternativeName, Field.Store.YES));
         document.Add(new Int64Field("createdDate", fileResult.FileCreationTime.Ticks, Field.Store.YES));

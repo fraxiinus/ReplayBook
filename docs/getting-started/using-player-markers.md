@@ -43,7 +43,7 @@ There are currently two options for marker style: **Border around** or **Square 
 
 ## Need Help?
 
-[Check the Troubleshooting page](../../troubleshooting)
+[Check the Troubleshooting page](../troubleshooting/index.md)
 
 [Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }
 [Join the Discord :material-chat:](https://discord.gg/c33Rc5J){ .md-button .md-button }

@@ -30,7 +30,8 @@
     <string:String x:Key="RunesTabText">RUNES</string:String>
     <string:String x:Key="StatsTabText">STATS</string:String>
     <string:String x:Key="BlankDetailMessageText">Select a replay on the left to begin</string:String>
-    <string:String x:Key="FailedToLoadReplayText">This replay could not be opened, the file may be corrupted.</string:String>
+    <string:String x:Key="General__PreviewItem__FailedToLoadText">Failed to load replay!</string:String>
+    <string:String x:Key="FailedToLoadReplayText">This replay could not be opened, the file may be corrupted. See below for more information:</string:String>
     <string:String x:Key="Victory">VICTORY</string:String>
     <string:String x:Key="BlueVictory">Blue Victory</string:String>
     <string:String x:Key="RedVictory">Red Victory</string:String>
@@ -54,6 +55,10 @@
     <string:String x:Key="General__GlobalExceptionHandler__Body">Unhandled exception occurred! Please check the logs directory for full details.</string:String>
     <string:String x:Key="General__RequiredFieldHelpText">Required</string:String>
     <string:String x:Key="General__DeleteButton">Delete</string:String>
+
+    <string:String x:Key="Main__VanguardWarning__Title">Vanguard is running</string:String>
+    <string:String x:Key="Main__VanguardWarning__Body">ReplayBook is unable to play replays if Vanguard is running. Would you like ReplayBook to stop Vanguard?</string:String>
+    <string:String x:Key="Main__VanguardDisable__Title">Stopping Vanguard...</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>
@@ -276,6 +281,8 @@
     <string:String x:Key="NeutralMinionsKilledHeaderText">Neutral Minions Killed</string:String>
     <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Own Jungle Minion Kills</string:String>
     <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Other Jungle Minion Kills</string:String>
+    <string:String x:Key="GoldFromStructuresHeaderText">Gold from Structures</string:String>
+    <string:String x:Key="GoldFromTurretPlatesHeaderText">Gold from Turret Plates</string:String>
 
     <string:String x:Key="ObjectivesGroupHeaderText">Objectives</string:String>
     <string:String x:Key="TotalExperienceHeaderText">Total Experience</string:String>
@@ -287,6 +294,7 @@
     <string:String x:Key="LongestTimeSpentAliveHeaderText">Longest Time Spent Alive</string:String>
     <string:String x:Key="TotalTimeSpentDeadHeaderText">Total Time Spent Dead</string:String>
     <string:String x:Key="LastHitNexusHeaderText">Last Hit Nexus</string:String>
+    <string:String x:Key="TurretPlatesDestroyedHeaderText">Turret Plates Destroyed</string:String>
 
     <string:String x:Key="ToxicityGroupHeaderText">Toxicity</string:String>
     <string:String x:Key="TimeSpentDisconnectedHeaderText">Time Spent Disconnected</string:String>
@@ -307,6 +315,29 @@
     <string:String x:Key="SummonerSpell1CastsHeaderText">Summoner Spell 1 Casts</string:String>
     <string:String x:Key="SummonerSpell2CastsHeaderText">Summoner Spell 2 Casts</string:String>
     <string:String x:Key="IndividualPositionHeaderText">Individual Position</string:String>
+
+    <string:String x:Key="AllInPingsHeaderText">All In Pings</string:String>
+    <string:String x:Key="AssistMePingsHeaderText">Assist Me Pings</string:String>
+    <string:String x:Key="BaitPingsHeaderText">Bait Pings</string:String>
+    <string:String x:Key="BasicPingsHeaderText">Basic Pings</string:String>
+    <string:String x:Key="CommandPingsHeaderText">Command Pings</string:String>
+    <string:String x:Key="DangerPingsHeaderText">Danger Pings</string:String>
+    <string:String x:Key="EnemyMissingPingsHeaderText">Enemy Missing Pings</string:String>
+    <string:String x:Key="EnemyVisionPingsHeaderText">Enemy Vision Pings</string:String>
+    <string:String x:Key="GetBackPingsHeaderText">Get Back Pings</string:String>
+    <string:String x:Key="HoldPingsHeaderText">Hold Pings</string:String>
+    <string:String x:Key="VoidGrubKillsHeaderText">Void Grub Kills</string:String>
+    <string:String x:Key="LargestAbilityDamageHeaderText">Largest Ability Damage</string:String>
+    <string:String x:Key="LargestAttackDamageHeaderText">Largest Attack Damage</string:String>
+    <string:String x:Key="LastTakedownTimeHeaderText">Last Takedown Time</string:String>
+    <string:String x:Key="NeedVisionPingsHeaderText">Need Vision Pings</string:String>
+    <string:String x:Key="OnMyWayPingsHeaderText">On My Way Pings</string:String>
+    <string:String x:Key="PushPingsHeaderText">Push Pings</string:String>
+    <string:String x:Key="PUUIDHeaderText">PUUID</string:String>
+    <string:String x:Key="RetreatPingsHeaderText">Retreat Pings</string:String>
+    <string:String x:Key="RiftHeraldKillsHeaderText">Rift Herald Kills</string:String>
+    <string:String x:Key="TotalTimeCrowdControlDealtToChampionsHeaderText">Total Time Crowd Control Dealt To Champions</string:String>
+    <string:String x:Key="VisionClearedPingsHeaderText">Vision Cleared Pings</string:String>
 
     <!--  ToolTip Text  -->
     <string:String x:Key="SortToolTip">Sort</string:String>

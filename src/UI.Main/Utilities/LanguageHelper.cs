@@ -43,6 +43,12 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
                 case ApplicationLanguage.Pt:
                     dict.Source = new Uri("..\\Resources\\Strings\\pt.xaml", UriKind.Relative);
                     break;
+                case ApplicationLanguage.Tr:
+                    dict.Source = new Uri("..\\Resources\\Strings\\tr.xaml", UriKind.Relative);
+                    break;
+                case ApplicationLanguage.Ru:
+                    dict.Source = new Uri("..\\Resources\\Strings\\ru.xaml", UriKind.Relative);
+                    break;
                 default:
                     break;
             }

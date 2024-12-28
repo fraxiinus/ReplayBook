@@ -35,7 +35,9 @@
                     </MenuItem.Icon>
                 </MenuItem>
 
-                <MenuItem Click="ExportReplayData_OnClick" Header="{DynamicResource ExportReplayData}">
+                <MenuItem x:Name="ExportReplayData_MenuItem__1"
+                          Click="ExportReplayData_OnClick"
+                          Header="{DynamicResource ExportReplayData}">
                     <MenuItem.Icon>
                         <ui:PathIcon Data="{StaticResource ExportPathIcon}" />
                     </MenuItem.Icon>
@@ -104,12 +106,13 @@
                             <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
                                 <Setter Property="Background" Value="{DynamicResource RedTeamAccent}" />
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource BadgeBackground}" />
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Border.Style>
-                <TextBlock VerticalAlignment="Center"
-                           FontSize="12"
-                           Foreground="{DynamicResource SystemControlForegroundChromeWhiteBrush}">
+                <TextBlock VerticalAlignment="Center" FontSize="12">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Style.Triggers>
@@ -118,6 +121,13 @@
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Path=IsBlueVictorious}" Value="False">
                                     <Setter Property="Text" Value="{DynamicResource RedVictory}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="True">
+                                    <Setter Property="Text" Value="{DynamicResource ErrorTitle}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="False">
+                                    <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundChromeWhiteBrush}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -130,6 +140,15 @@
                     VerticalAlignment="Center"
                     Background="{DynamicResource BadgeBackground}"
                     CornerRadius="3">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="true">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
                 <TextBlock VerticalAlignment="Center"
                            FontSize="12"
                            Text="{Binding GameVersionString}">
@@ -157,7 +176,17 @@
             <TextBlock x:Name="GameLengthText"
                        FontSize="12"
                        Text="{Binding Path=GameDurationString, FallbackValue=Game duration}"
-                       ToolTip="{Binding Path=GameDuration}" />
+                       ToolTip="{Binding Path=GameDuration}">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="true">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
 
             <TextBlock x:Name="CreationDateText"
                        FontSize="12"
@@ -201,6 +230,18 @@
 
             <StackPanel Margin="2,0,0,0">
                 <ItemsControl ItemsSource="{Binding Path=BluePreviewPlayers}">
+                    <ItemsControl.Style>
+                        <Style TargetType="ItemsControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="true">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="false">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ItemsControl.Style>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0,2,0,2" Orientation="Horizontal" />
@@ -215,7 +256,34 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
+                <TextBlock Margin="0,12,0,0" Text="{DynamicResource General__PreviewItem__FailedToLoadText}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="false">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
                 <ItemsControl ItemsSource="{Binding Path=RedPreviewPlayers}">
+                    <ItemsControl.Style>
+                        <Style TargetType="ItemsControl">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="true">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=IsErrorReplay}" Value="false">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ItemsControl.Style>
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Margin="0,2,0,1" Orientation="Horizontal" />
@@ -295,7 +363,6 @@
                                     <Setter Property="IsEnabled" Value="false" />
                                     <Setter Property="ToolTip" Value="{DynamicResource CannotPlayToolTip}" />
                                 </DataTrigger>
-
                                 <MultiDataTrigger>
                                     <MultiDataTrigger.Conditions>
                                         <Condition Binding="{Binding Path=IsPlaying}" Value="false" />
@@ -333,7 +400,7 @@
                             </MenuItem.Icon>
                         </MenuItem>
 
-                        <MenuItem x:Name="ExportReplayData"
+                        <MenuItem x:Name="ExportReplayData_MenuItem__2"
                                   Click="ExportReplayData_OnClick"
                                   Header="{DynamicResource ExportReplayData}">
                             <MenuItem.Icon>

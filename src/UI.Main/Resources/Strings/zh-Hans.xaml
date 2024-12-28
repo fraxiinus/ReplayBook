@@ -16,7 +16,7 @@
     <string:String x:Key="ProgramName">ReplayBook</string:String>
     <string:String x:Key="SearchDefaultText">搜索...</string:String>
     <string:String x:Key="MoreButtonText">选项</string:String>
-    <string:String x:Key="LoadMoreButtonText">装载更多...</string:String>
+    <string:String x:Key="LoadMoreButtonText">加载更多...</string:String>
 
     <string:String x:Key="LoadingMessageReplay">正在载入回放文件...</string:String>
     <string:String x:Key="LoadingMessageExecutables">正在验证可执行文件...</string:String>
@@ -39,7 +39,7 @@
     <string:String x:Key="ScoreboardTabText">计分板</string:String>
     <string:String x:Key="RunesTabText">符文</string:String>
     <string:String x:Key="StatsTabText">统计</string:String>
-    <string:String x:Key="BlankDetailMessageText">在左侧选择一个回放文件</string:String>
+    <string:String x:Key="BlankDetailMessageText">选择一个回放文件</string:String>
     <string:String x:Key="FailedToLoadReplayText">无法加载回放文件</string:String>
     <string:String x:Key="Victory">胜利</string:String>
     <string:String x:Key="BlueVictory">蓝队胜利</string:String>
@@ -107,10 +107,10 @@
     <string:String x:Key="UpdateAvailableNotifButton">下载</string:String>
     <string:String x:Key="OpenGitHubButtonText">前往Github查看项目</string:String>
     <string:String x:Key="UpdateExceptionTitleText">无法获取更新信息</string:String>
-    <string:String x:Key="UpdateHTTPExceptionBodyText">无法连接到GitHub。请检查您的网络连接，然后重试。</string:String>
-    <string:String x:Key="UpdateGitHubErrorBodyText">无法获取更新，您可前往 https://github.com/fraxiinus/ReplayBook 获取更新</string:String>
+    <string:String x:Key="UpdateHTTPExceptionBodyText">无法连接到GitHub。请检查网络连接，然后重试。</string:String>
+    <string:String x:Key="UpdateGitHubErrorBodyText">无法获取更新，前往 https://github.com/fraxiinus/ReplayBook 获取更新</string:String>
     <string:String x:Key="UpdateMostRecentTitleText">已经是最新版本</string:String>
-    <string:String x:Key="UpdateMostRecentBodyText">您正在使用最新版本的ReplayBook。</string:String>
+    <string:String x:Key="UpdateMostRecentBodyText">正在使用最新版本的ReplayBook。</string:String>
     <string:String x:Key="UpdateNewerTitleText">新版本可用</string:String>
     <string:String x:Key="UpdateNewerBodyText">可以使用更新版本的ReplayBook。按确定进入下载页面</string:String>
 
@@ -143,7 +143,7 @@
     <string:String x:Key="ExecutableNotFoundErrorText">找不到与可匹配的可执行文件</string:String>
     <string:String x:Key="ExecutableNotFoundDescriptionText">因没有找到匹配的客户端可执行文件，此回放无法播放。必须在ReplayBook中添加对应版本的客户端可执行文件才能播放录像</string:String>
     <string:String x:Key="ReplayPlayConfirmTitle">播放对局回放?</string:String>
-    <string:String x:Key="ReplayPlayConfirmOptOut">您可以在“设置”窗口中关闭此确认</string:String>
+    <string:String x:Key="ReplayPlayConfirmOptOut">可在“设置”窗口中关闭此确认</string:String>
 
     <!--  Executable Detail  -->
     <string:String x:Key="ExecutableDetailTargetPath">League of Legends.exe 路径</string:String>
@@ -213,7 +213,7 @@
     <string:String x:Key="Author">Fraxiinus (Etirps)</string:String>
     <string:String x:Key="DiscordInviteButton">加入 Discord</string:String>
     <string:String x:Key="EggEggEgg">buff nidalee 😺</string:String>
-    <string:String x:Key="LicenseText">This program is licensed under  GPL-3.0</string:String>
+    <string:String x:Key="LicenseText">本项目已使用 GPL-3.0 协议开源</string:String>
     <string:String x:Key="AcknowledgementText">感谢以下项目对本软件的支持:</string:String>
     <string:String x:Key="AcknowledgementButtonText">查看支持库项目</string:String>
     <string:String x:Key="AcknowledgementWindowTitleText">开源确认</string:String>
@@ -255,7 +255,7 @@
     <string:String x:Key="TotalDamageDealtHeaderText">造成的总伤害</string:String>
     <string:String x:Key="PhysicalDamageDealtHeaderText">造成物理伤害</string:String>
     <string:String x:Key="MagicDamageDealtHeaderText">造成的魔法伤害</string:String>
-    <string:String x:Key="TrueDamageDealtHeaderText">造成的真是伤害</string:String>
+    <string:String x:Key="TrueDamageDealtHeaderText">造成的真实伤害</string:String>
     <string:String x:Key="LargestCriticalStrikeHeaderText">最大的暴击伤害</string:String>
     <string:String x:Key="TotalDamageToTurretsHeaderText">承受防御塔</string:String>
     <string:String x:Key="TotalDamageToObjectivesHeaderText">对建筑的伤害</string:String>
@@ -412,7 +412,7 @@
     <string:String x:Key="WswNextDisabled">无法转到下一步</string:String>
     <string:String x:Key="WswSkipText">跳过</string:String>
     <string:String x:Key="WswSkipDisabled">不能跳过</string:String>
-    <string:String x:Key="WswDownloadMissingError">找不到要下载的任何内容-检查您的互联网连接或跳过此步骤</string:String>
+    <string:String x:Key="WswDownloadMissingError">找不到要下载的任何内容-检查网络连接或跳过此步骤</string:String>
     <string:String x:Key="WswDownloadNoSelectionError">请选择下载</string:String>
 
     <!--  Welcome Setup : Introduction  -->
@@ -423,24 +423,24 @@
     <string:String x:Key="WswDownloadFrameTitle">下载资源</string:String>
     <string:String x:Key="WswFinishedFrameTitle">完成！</string:String>
 
-    <string:String x:Key="WswIntroductionTitle">感谢您下载ReplayBook！</string:String>
-    <string:String x:Key="WswIntroductionBody">首先，让我们进行一些初始设置。点击下面的“下一步”按钮继续。</string:String>
+    <string:String x:Key="WswIntroductionTitle">感谢下载ReplayBook！</string:String>
+    <string:String x:Key="WswIntroductionBody">首先，需要进行初始设置。然后点击下面的“下一步”按钮以完成设置。</string:String>
 
     <string:String x:Key="WswRegionTitle">设置默认的英雄联盟语言</string:String>
-    <string:String x:Key="WswRegionBody">通过下拉菜单选择一种语言。 ReplayBook将使用此语言注册您的可执行文件。您可以稍后手动编辑可执行文件的语言。</string:String>
+    <string:String x:Key="WswRegionBody">通过下拉菜单选择一种语言。 ReplayBook将使用此语言注册可执行文件。可稍后手动编辑可执行文件的语言。</string:String>
 
     <string:String x:Key="WswExecutablesTitle">选择Riot Games文件夹</string:String>
     <string:String x:Key="WswExecutablesBody">ReplayBook需要先链接英雄联盟，然后才能播放重播。我们将在此文件夹中搜索存在的英雄联盟的所有版本。</string:String>
     <string:String x:Key="WswExecutablesHint">例如: 'C:\Riot Games'</string:String>
-    <string:String x:Key="WswExecutablesRegisterList">检测到的版本:</string:String>
-    <string:String x:Key="WswExecutablesRegisterListEmpty">什么也没找到...</string:String>
+    <string:String x:Key="WswExecutablesRegisterList">检测到的游戏版本:</string:String>
+    <string:String x:Key="WswExecutablesRegisterListEmpty">找不到可用游戏版本</string:String>
 
     <string:String x:Key="WswReplaysTitle">选择回放文件储存目录</string:String>
-    <string:String x:Key="WswReplaysBody">如果ReplayBook不知道它们在哪里，则将无法显示任何重放。确认这是您的回放文件存储的位置。您可以稍后添加其他文件夹。</string:String>
+    <string:String x:Key="WswReplaysBody">如果ReplayBook不知道它们在哪里，则将无法显示任何重放。确认这是回放文件存储的位置。可以稍后添加其他文件夹。</string:String>
     <string:String x:Key="WswReplaysHint">默认情况下，回放文件存储在“Documents\League of Legends\Replay”中</string:String>
 
     <string:String x:Key="WswDownloadTitle">立即下载图标?</string:String>
-    <string:String x:Key="WswDownloadBody">下载图标将花费几分钟，但会使ReplayBook运行更快。如果您跳过此步骤，ReplayBook将按需下载图标。</string:String>
+    <string:String x:Key="WswDownloadBody">下载图标将花费几分钟，但会使ReplayBook运行更快。如果跳过此步骤，ReplayBook将按需下载图标。</string:String>
     <string:String x:Key="WswDownloadChampionsText">下载英雄缩略图</string:String>
     <string:String x:Key="WswDownloadItemsText">下载装备缩略图</string:String>
     <string:String x:Key="WswDownloadRunesText">下载符文缩略图</string:String>
@@ -452,11 +452,11 @@
     <string:String x:Key="Welcome__StaticData__GenericError__Body">下载静态数据错误，请查看错误信息</string:String>
 
     <string:String x:Key="WswFinishTitle">安装完成！</string:String>
-    <string:String x:Key="WswFinishBody">单击“完成”，ReplayBook将自动以您选择的设置开始。</string:String>
+    <string:String x:Key="WswFinishBody">单击“完成”，ReplayBook将自动以被选择的设置开始。</string:String>
     <string:String x:Key="WswFinishButton">完成</string:String>
 
     <!--  Rename dialog  -->
-    <string:String x:Key="RenameFlyoutEmptyError">键入新的文件名</string:String>
+    <string:String x:Key="RenameFlyoutEmptyError">输入新的文件名</string:String>
     <string:String x:Key="RenameFlyoutNotFoundError">回放文件不存在</string:String>
 
     <!--  Delete dialog  -->

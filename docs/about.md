@@ -35,7 +35,7 @@ I also do not own a Mac to do development on.
 
 ### Q: Does ReplayBook support means of automating data exporting?
 
-**A:** ReplayBook provides [presets](../getting-started/exporting-player-data/#taking-advantage-of-presets) to make data exporting easier, however there is no support for exporting bulk replays. I do provide parsers that you can use to create your own solution for batch exporting replay files: [roflxd](https://github.com/fraxiinus/roflxd).
+**A:** ReplayBook provides [presets](getting-started/exporting-player-data.md#taking-advantage-of-presets) to make data exporting easier, however there is no support for exporting bulk replays. I do provide parsers that you can use to create your own solution for batch exporting replay files: [roflxd](https://github.com/fraxiinus/roflxd).
 
 ---
 

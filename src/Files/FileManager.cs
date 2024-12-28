@@ -21,6 +21,7 @@ public class FileManager
     private readonly RiZhi _log;
     private readonly List<string> _deletedFiles;
     private readonly ObservableConfiguration _config;
+    private readonly ReplayReaderOptions _readerOptions;
 
     public FileManager(ObservableConfiguration config, RiZhi log)
     {
@@ -31,6 +32,11 @@ public class FileManager
         _log = log ?? throw new ArgumentNullException(nameof(log));
         _config = config;
         _deletedFiles = new List<string>();
+        _readerOptions = new ReplayReaderOptions
+        {
+            LoadPayload = false,
+            Type = ReplayType.Unknown
+        };
     }
 
     public string DatabasePath { get => _db.GetDatabasePath(); }
@@ -44,14 +50,13 @@ public class FileManager
     /// <summary>
     /// This function is responsible for finding and loading in new replays
     /// </summary>
-    public async Task<IEnumerable<FileErrorResult>> InitialLoadAsync()
+    public async Task<IEnumerable<ReplayErrorInfo>> InitialLoadAsync()
     {
         _log.Information("Starting initial load of replays");
 
         //List<ReplayFileInfo> newFiles = new List<ReplayFileInfo>();
 
-        var errorResults = new List<FileErrorResult>();
-        int newCount = 0;
+        var errorResults = new List<ReplayErrorInfo>();
 
         // Get all files from all defined replay folders
         IReadOnlyCollection<ReplayFileInfo> allFiles = _fileSystem.GetAllReplayFileInfo();
@@ -63,7 +68,7 @@ public class FileManager
             {
                 try
                 {
-                    var parseResult = await RoflReader.LoadAsync(file.Path).ConfigureAwait(false);
+                    var parseResult = await ReplayReader.ReadReplayAsync(file.Path, _readerOptions);
                     var replayFile = new ReplayFile(file.Path, parseResult);
                     var newResult = new FileResult(file, replayFile)
                     {
@@ -72,17 +77,24 @@ public class FileManager
 
                     _db.AddFileResult(newResult);
                     _search.AddDocument(newResult);
-                    newCount++;
                 }
                 catch (Exception ex)
                 {
+                    // if parsing file failed for any reason, save info
                     _log.Warning($"Failed to parse file: {file.Path}");
                     _log.Warning(ex.ToString());
-                    errorResults.Add(new FileErrorResult
+                    var errorInfo = new ReplayErrorInfo
                     {
                         FilePath = file.Path,
-                        Exception = ex
-                    });
+                        ExceptionType = ex.GetType().FullName,
+                        ExceptionString = ex.ToString(),
+                        ExceptionCallStack = ex.StackTrace
+                    };
+                    var errorFileResult = new FileResult(file, errorInfo);
+                    _db.AddFileResult(errorFileResult);
+                    _search.AddDocument(errorFileResult);
+
+                    errorResults.Add(errorInfo);
                 }
             }
         }
@@ -106,7 +118,7 @@ public class FileManager
         }
 
         var replayFileInfo = _fileSystem.GetSingleReplayFileInfo(path);
-        var parseResult = await RoflReader.LoadAsync(path).ConfigureAwait(false);
+        var parseResult = await ReplayReader.ReadReplayAsync(path, _readerOptions);
 
         if (parseResult is null) return null;
 
@@ -173,14 +185,14 @@ public class FileManager
     public string RenameReplay(FileResult file, string newName)
     {
         return _config.RenameFile
-            ? RenameFile(file, newName)
-            : RenameAlternative(file, newName);
+            ? RenameReplayInFileSystem(file, newName)
+            : RenameReplayInDatabase(file, newName);
     }
 
-    private string RenameAlternative(FileResult file, string newName)
+    private string RenameReplayInDatabase(FileResult file, string newName)
     {
         if (file == null) throw new ArgumentNullException(nameof(file));
-        if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
+        if (String.IsNullOrEmpty(newName)) throw new Exception("{EMPTY ERROR}");
 
         try
         {
@@ -190,19 +202,23 @@ public class FileManager
         catch (KeyNotFoundException ex)
         {
             _log.Information(ex.ToString());
-            return "{NOT FOUND ERROR}";
+            throw new Exception("{NOT FOUND ERROR}", ex);
         }
 
-        // Return value is an error message, no message means no error
-        return null;
+        // Return value file path, no changes made to filesystem so return same id
+        return file.Id;
     }
 
-    private string RenameFile(FileResult file, string newName)
+    private string RenameReplayInFileSystem(FileResult file, string newName)
     {
         if (file == null) throw new ArgumentNullException(nameof(file));
-        if (String.IsNullOrEmpty(newName)) return "{EMPTY ERROR}";
+        if (String.IsNullOrEmpty(newName)) throw new Exception("{EMPTY ERROR}");
 
-        var newPath = Path.Combine(Path.GetDirectoryName(file.Id), newName + ".rofl");
+        var nameWithExtension = newName.EndsWith(".rofl")
+            ? newName
+            : newName + ".rofl";
+
+        var newPath = Path.Combine(Path.GetDirectoryName(file.Id), nameWithExtension);
 
         _log.Information($"Renaming {file.Id} -> {newPath}");
         // Rename the file
@@ -210,9 +226,10 @@ public class FileManager
         {
             File.Move(file.Id, newPath);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            return e.Message.Trim();
+            _log.Information(ex.ToString());
+            throw new Exception("{FAILED TO WRITE}", ex);
         }
 
         // delete the database entry
@@ -221,11 +238,11 @@ public class FileManager
 
         // Update new values
         var fileInfo = file.FileInfo;
-        fileInfo.Name = newName;
+        fileInfo.Name = nameWithExtension;
         fileInfo.Path = newPath;
 
         var replayFile = file.ReplayFile;
-        replayFile.Name = newName;
+        replayFile.Name = nameWithExtension;
         replayFile.Location = newPath;
 
         var newFileResult = new FileResult(fileInfo, replayFile);
@@ -233,8 +250,8 @@ public class FileManager
         _search.AddDocument(newFileResult);
         _search.CommitIndex();
 
-        // Return value is an error message, no message means no error
-        return null;
+        // return new file location
+        return newPath;
     }
 
     /// <summary>

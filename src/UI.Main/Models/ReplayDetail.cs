@@ -1,7 +1,6 @@
 ﻿using Fraxiinus.ReplayBook.Files.Models;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Models.View;
-using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +13,15 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
         public ReplayDetail(StaticDataManager staticData, FileResult replay, ReplayPreview previewModel)
         {
             if (replay == null) { throw new ArgumentNullException(nameof(replay)); }
+            if (previewModel.IsErrorReplay) 
+            {
+                ErrorInfo = replay.ErrorInfo; 
+                return;
+            }
 
             PreviewModel = previewModel ?? throw new ArgumentNullException(nameof(previewModel));
             FileInfo = replay.FileInfo ?? throw new ArgumentNullException(nameof(replay));
+
 
             AllPlayers = new List<PlayerDetail>();
 
@@ -66,6 +71,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Models
         public ReplayPreview PreviewModel { get; private set; }
 
         public ReplayFileInfo FileInfo { get; private set; }
+
+        public ReplayErrorInfo ErrorInfo { get; private set; }
 
         public int BlueKills { get; private set; }
 

@@ -48,6 +48,12 @@
     <string:String x:Key="MissingPathText">Os seguintes caminhos não puderam ser encontrados e portanto foram removidos:</string:String>
     <string:String x:Key="General__DeleteButton">Deletar</string:String>
 
+    <string:String x:Key="General__DownloadButton">Baixar</string:String>
+    <string:String x:Key="General__Downloading">Baixando...</string:String>
+    <string:String x:Key="General__ViewButton">Visualizar</string:String>
+    <string:String x:Key="General__ExitButton">Sair</string:String>
+    <string:String x:Key="General__GlobalExceptionHandler__Body">Ocorreu um problema! Por favor verifique o diretório de logs para ver os detalhes.</string:String>
+
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">Geral</string:String>
     <string:String x:Key="UpdatesSettingsItemText">Atualizações</string:String>
@@ -56,6 +62,7 @@
     <string:String x:Key="RequestSettingsItemText">Cache</string:String>
     <string:String x:Key="ExecutablesSettingsItemText">Executáveis</string:String>
     <string:String x:Key="AboutSettingsItemText">Sobre</string:String>
+    <string:String x:Key="Settings__Menu__StaticDataHeader">Dados estáticos</string:String>
 
     <!--  Settings : General  -->
     <string:String x:Key="LanguageLabelText">Idioma</string:String>
@@ -99,6 +106,7 @@
 
     <!--  Settings : Appearance  -->
     <string:String x:Key="AppearanceThemeModeTitle">Tema</string:String>
+
     <string:String x:Key="AppearanceThemeMode0">Seguir o tema do sistema</string:String>
     <string:String x:Key="AppearanceThemeMode1">Escuro</string:String>
     <string:String x:Key="AppearanceThemeMode2">Claro</string:String>
@@ -124,6 +132,7 @@
     <string:String x:Key="ExecutableSelectWindowTitleText">Selecione o Executável</string:String>
     <string:String x:Key="ExecutableNotFoundErrorTitle">Executável não encontrado</string:String>
     <string:String x:Key="ExecutableNotFoundErrorText">Não foi possível encontrar um executável para esse patch</string:String>
+    <string:String x:Key="ExecutableNotFoundDescriptionText">Este replay não pôde ser reproduzido porque não há executável correspondente. Um executável com versão de patch correspondente deve ser registrado no ReplayBook para reproduzir os replays.</string:String>
     <string:String x:Key="ReplayPlayConfirmTitle">Assistir ao replay?</string:String>
     <string:String x:Key="ReplayPlayConfirmOptOut">Você pode desativar essa confirmação na janela de configurações</string:String>
 
@@ -144,11 +153,35 @@
     <string:String x:Key="SourceFoldersAlreadyExistsErrorText">A pasta selecionada já foi adicionada. Por favor escolha outra pasta</string:String>
     <string:String x:Key="SourceFoldersAlreadyExistsErrorTitle">Pasta já adicionada</string:String>
 
-    <string:String x:Key="ReplayItemsPerPage">Itens por Página</string:String>
+    <!--  Settings: Static Data  -->
+    <string:String x:Key="Settings__StaticData__DiskUsage__Header">Uso de disco</string:String>
+    <string:String x:Key="Settings__StaticData__DiskUsage__SizeLabel">Tamanho total:</string:String>
+    <string:String x:Key="Settings__StaticData__BundleList__Header">Pacotes baixados</string:String>
+    <string:String x:Key="Settings__StaticData__BundleList__Info">Os pacotes incluem imagens e dados de texto para campeões, itens e runas</string:String>
+    <string:String x:Key="Settings__StaticData__AddBundle__Title">Baixe o pacote de dados estáticos</string:String>
+    <string:String x:Key="Settings__StaticData__AddBundle__PatchComboBox__Header">Selecionar Patch</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__Title">Pacote Patch $</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__DateLabel">Data de download</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__SizeLabel">Tamanho</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ChampImageLabel">Imagem dos campeões</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ItemImageLabel">Imagem dos itens</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__RuneImageLabel">Imagem das runas</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ChampLanguageLabel">Dados dos campeões</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__ItemLanguageLabel">Dados dos itens</string:String>
+    <string:String x:Key="Settings__StaticData__ViewBundle__RuneLanguageLabel">Dados das runas</string:String>
+    <string:String x:Key="Settings__StaticData__OpenDataFolder__Button">Navegar pela pasta de dados</string:String>
+    <string:String x:Key="Settings__StaticData__RetryDownload__ErrorLabel">Falha ao baixar dados do patch $0 e idioma $1. A combinação que você selecionou parece não existir.</string:String>
+    <string:String x:Key="Settings__StaticData__RetryDownload__Button">Tente novamente em Inglês</string:String>
+    <string:String x:Key="Settings__StaticData__UseAppLanguage__Checkbox">Use o idioma do aplicativo como o idioma do pacote</string:String>
+    <string:String x:Key="Settings__StaticData__BundleLanguage__ComboBoxLabel">Baixar idioma</string:String>
 
-    <string:String x:Key="ReplayDatabaseText">Cache de Dados de Replay</string:String>
+    <string:String x:Key="ReplayItemsPerPage">Itens por Página</string:String>
+    <string:String x:Key="Settings__Replays__SearchMinimumScore__Label">Rigor de pesquisa</string:String>
+
+    <string:String x:Key="ReplayDatabaseText">Cache de dados do Replay</string:String>
     <string:String x:Key="ReplayDatabaseSize">Tamanho:</string:String>
-    <string:String x:Key="ReplayDatabaseClearButton">Limpar esse cache</string:String>
+    <string:String x:Key="ReplayDatabaseClearButton">Limpar cache</string:String>
+    <string:String x:Key="Settings__Replays__ClearCacheRestartNow__Button">Reiniciar agora</string:String>
 
     <string:String x:Key="RequestsDownloadAllLabel">Baixar Imagens</string:String>
     <string:String x:Key="RequestsCacheLabel">Cache de Imagens Baixadas</string:String>
@@ -162,6 +195,7 @@
     <string:String x:Key="RequestsCacheCloseToDelete">O Cache será deletado quando o ReplayBok for fechado</string:String>
     <string:String x:Key="RequestsAdvancedLabel">Opções Avançadas</string:String>
     <string:String x:Key="DataDragonBaseUrlLabelText">URL Base do Data Dragon</string:String>
+    <string:String x:Key="CommunityDragonBaseUrlLabelText">URL Base da Comunidade do Dragon</string:String>
     <string:String x:Key="DataDragonChampionUrlLabelText">URL Relativa de Imagens de Campeão</string:String>
     <string:String x:Key="DataDragonItemUrlLabelText">URL Relativa de Imagens de Item</string:String>
     <string:String x:Key="DataDragonMapUrlLabelText">URL Relativa de Mapa</string:String>
@@ -184,6 +218,8 @@
     <string:String x:Key="CancelButtonText">Cancelar</string:String>
     <string:String x:Key="BrowseButtonText">Explorar...</string:String>
     <string:String x:Key="SelectButtonText">Selecionar</string:String>
+    <string:String x:Key="HelpButtonText">Ajuda</string:String>
+    <string:String x:Key="RetryButtonText">Tentar novamente</string:String>
 
     <!--  Stats Header Text  -->
     <string:String x:Key="CombatGroupHeaderText">Combate</string:String>
@@ -397,6 +433,10 @@
     <string:String x:Key="WswDownloadRunesText">Baixar thumbnails de runas</string:String>
     <string:String x:Key="WswDownloadButton">Baixar</string:String>
     <string:String x:Key="WswDownloadFinished">Download completo</string:String>
+	
+    <string:String x:Key="Welcome__StaticData__Title">Baixando dados estáticos atualizados...</string:String>
+    <string:String x:Key="Welcome__StaticData__Body">O download de dados estáticos levará alguns minutos, mas é necessário para exibir nomes e miniaturas de campeões. Você pode baixar pacotes de dados estáticos para diferentes patches posteriormente.</string:String>
+    <string:String x:Key="Welcome__StaticData__GenericError__Body">Erro ao baixar dados estáticos. Veja a mensagem de erro anexada.</string:String>
 
     <string:String x:Key="WswFinishTitle">Configuração finalizada!</string:String>
     <string:String x:Key="WswFinishBody">Clique &quot;Terminar&quot; e o ReplayBook irá imediatamente abrir com as configurações que você acabou de escolher.</string:String>

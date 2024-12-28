@@ -1,7 +1,5 @@
-﻿namespace Fraxiinus.ReplayBook.UI.Main.Pages;
-
-using Fraxiinus.ReplayBook.UI.Main.Models;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+﻿using Fraxiinus.ReplayBook.UI.Main.Models;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -9,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
+namespace Fraxiinus.ReplayBook.UI.Main.Pages;
 /// <summary>
 /// Interaction logic for ExportWizardAttributes.xaml
 /// </summary>
@@ -33,7 +32,7 @@ public partial class ExportWizardAttributes : ModernWpf.Controls.Page
 
         // get first checked player
         string playerName = Context.Players.FirstOrDefault(x => x.Checked)?.PlayerPreview.PlayerName;
-        PlayerStats player = Context.Replay.Players
+        PlayerStats2 player = Context.Replay.Players
             .FirstOrDefault(x => x.Name.Equals(playerName, StringComparison.OrdinalIgnoreCase));
 
         if (player != null)

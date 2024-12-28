@@ -31,7 +31,7 @@ namespace Fraxiinus.ReplayBook.Executables.Old.Utilities
                 Arguments = launchArgs,
 
                 // The game client uses the working directory to find the data files
-                WorkingDirectory = Path.GetDirectoryName(executable.TargetPath)
+                WorkingDirectory = executable.StartFolder
             };
 
             Process game = Process.Start(processStartInfo);

@@ -10,30 +10,56 @@ public class FileResult
     // Blank constructor for LiteDB
     public FileResult() { }
 
+    // Initial constructor for first time file is parsed
     public FileResult(ReplayFileInfo fileInfo, ReplayFile replayFile)
     {
         FileInfo = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
         ReplayFile = replayFile ?? throw new ArgumentNullException(nameof(replayFile));
 
         Id = FileInfo.Path;
+        AlternativeName = FileInfo.Name;
+        FileName = FileInfo.Name;
+        FileSizeBytes = FileInfo.FileSizeBytes;
+        FileCreationTime = FileInfo.CreationTime;
 
         SearchKeywords = new List<string>
-            {
-                FileInfo.Name.ToUpper(CultureInfo.InvariantCulture),
-                ReplayFile.AlternativeName.ToUpper(CultureInfo.InvariantCulture)
-            };
+        {
+            FileInfo.Name.ToUpper(CultureInfo.InvariantCulture)
+        };
         SearchKeywords.AddRange(ReplayFile.Players.Select(x => x.Name.ToUpper(CultureInfo.InvariantCulture)));
         SearchKeywords.AddRange(ReplayFile.Players.Select(x => x.Skin.ToUpper(CultureInfo.InvariantCulture)));
 
+    }
+
+    // Error constructor
+    public FileResult(ReplayFileInfo fileInfo, ReplayErrorInfo errorInfo)
+    {
+        FileInfo = fileInfo ?? throw new ArgumentNullException(nameof(fileInfo));
+        ErrorInfo = errorInfo ?? throw new ArgumentNullException(nameof(errorInfo));
+
+        Id = FileInfo.Path;
+        AlternativeName = FileInfo.Name;
         FileName = FileInfo.Name;
-        AlternativeName = replayFile.AlternativeName;
         FileSizeBytes = FileInfo.FileSizeBytes;
         FileCreationTime = FileInfo.CreationTime;
+
+        SearchKeywords = new List<string>
+        {
+            FileInfo.Name.ToUpper(CultureInfo.InvariantCulture),
+        };
     }
 
     public ReplayFileInfo FileInfo { get; set; }
 
+    /// <summary>
+    /// Will be null if replay failed to parse
+    /// </summary>
     public ReplayFile ReplayFile { get; set; }
+
+    /// <summary>
+    /// Will be set if replay failed to parse
+    /// </summary>
+    public ReplayErrorInfo ErrorInfo { get; set; }
 
     /// <summary>
     /// Full file path used as ID
@@ -50,5 +76,7 @@ public class FileResult
     public string FileName { get; set; }
     public long FileSizeBytes { get; set; }
     public DateTime FileCreationTime { get; set; }
+
+    // User Assigned Field
     public string AlternativeName { get; set; }
 }

@@ -158,7 +158,7 @@ namespace Fraxiinus.ReplayBook.StaticData
 
             if (bundle == null)
             {
-                _log.Error($"could not find bundle for properties: {id} - {patchVersion} - {language.GetRiotRegionCode()}");
+                _log.Warning($"could not find bundle for properties: {id} - {patchVersion} - {language.GetRiotRegionCode()}");
                 return default;
             }
 
@@ -167,9 +167,9 @@ namespace Fraxiinus.ReplayBook.StaticData
                 // throws if language not available
                 return (T) await bundle.GetProperties<T>(id, _dataPath, language.GetRiotRegionCode());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _log.Error($"could not load static data, loading backup: {id} - {patchVersion} - {language.GetRiotRegionCode()} - {ex}");
+                // _log.Error($"could not load static data, loading backup: {id} - {patchVersion} - {language.GetRiotRegionCode()} - {ex}");
 
                 try
                 {

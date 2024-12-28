@@ -16,19 +16,26 @@ public class ReplayPreview : INotifyPropertyChanged
     public ReplayPreview(FileResult file, ObservableConfiguration config)
     {
         if (file == null) { throw new ArgumentNullException(nameof(file)); }
+        
+        Name = file.FileName;
+        AlternativeName = file.AlternativeName;
+        Location = file.FileInfo.Path;
+        CreationDate = file.FileCreationTime;
 
+        if (file.ReplayFile == default)
+        {
+            IsErrorReplay = true;
+            return;
+        }
+        IsErrorReplay = false;
         // Copy all the replay file fields
-        Name = file.ReplayFile.Name;
-        AlternativeName = file.ReplayFile.AlternativeName;
         GameDuration = file.ReplayFile.GameDuration;
         GameVersion = file.ReplayFile.GameVersion;
         MatchId = file.ReplayFile.MatchId;
         MapName = file.ReplayFile.MapName;
         IsBlueVictorious = file.ReplayFile.IsBlueVictorious;
-        Location = file.ReplayFile.Location;
 
         // Set new fields
-        CreationDate = file.FileCreationTime;
         _showRealName = config.RenameFile;
         IsPlaying = false;
         IsSelected = false;
@@ -55,6 +62,8 @@ public class ReplayPreview : INotifyPropertyChanged
     }
 
     public string Name { get; private set; }
+
+    public bool IsErrorReplay { get; private set; }
 
     public string AlternativeName { get; private set; }
 
@@ -92,7 +101,7 @@ public class ReplayPreview : INotifyPropertyChanged
 
     public bool IsBlueVictorious { get; private set; }
 
-    public string Location { get; private set; }
+    public string Location { get; set; }
 
     public DateTimeOffset CreationDate { get; set; }
 

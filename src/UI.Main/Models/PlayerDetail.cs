@@ -1,24 +1,23 @@
-﻿namespace Fraxiinus.ReplayBook.UI.Main.Models;
-
-using Fraxiinus.ReplayBook.Executables.Old.Utilities;
+﻿using Fraxiinus.ReplayBook.Executables.Old.Utilities;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Extensions;
 using Fraxiinus.ReplayBook.UI.Main.Models.View;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
-using Fraxiinus.Rofl.Extract.Data.Models.Rofl;
+using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+namespace Fraxiinus.ReplayBook.UI.Main.Models;
 public class PlayerDetail
 {
     private readonly StaticDataManager _staticDataManager;
     private readonly string _patchVersion;
-    private readonly PlayerStats _player;
+    private readonly PlayerStats2 _player;
 
     public PlayerDetail(StaticDataManager staticData,
         string patchVersion,
-        PlayerStats player,
+        PlayerStats2 player,
         PlayerPreview previewModel,
         bool isBlueTeamMember)
     {
@@ -33,6 +32,12 @@ public class PlayerDetail
         TotalExperience = player.Exp.ToInt();
         GoldEarned = player.GoldEarned.ToInt();
         GoldSpent = player.GoldSpent.ToInt();
+        PlayerSubteam = player.PlayerSubteam.ToInt();
+        PlayerSubteamPlacement = player.PlayerSubteamPlacement.ToInt();
+        PUUID = player.PUUID;
+
+        GoldFromTurretPlatesTaken = player.MissionsGoldFromTurretPlatesTaken.ToInt();
+        GoldFromStructuresDestroyed = player.MissionsGoldFromStructuresDestroyed.ToInt();
 
         // Kills/Deaths/Assists
         MinionsKilled = player.MinionsKilled.ToInt();
@@ -58,12 +63,14 @@ public class PlayerDetail
         LastHitNexus = Convert.ToBoolean(player.HQKilled.ToInt());
 
         ObjectivesStolen = player.ObjectivesStolen.ToInt();
+        VoidGrubKills = player.HordeKills.ToInt();
+        RiftHeraldKills = player.RiftHeraldKills.ToInt();
         BaronsKilled = player.BaronKills.ToInt();
         DragonsKilled = player.DragonKills.ToInt();
 
         // Items
         ItemsPurchased = player.ItemsPurchased.ToInt();
-        ConsumablesPurchased = player.ConsumablePurchased.ToInt();
+        ConsumablesPurchased = player.ConsumablesPurchased.ToInt();
         VisionWardsPurchased = player.VisionWardsBoughtInGame.ToInt();
         WardsPlaced = player.WardPlaced.ToInt();
         WardsKilled = player.WardKilled.ToInt();
@@ -75,7 +82,7 @@ public class PlayerDetail
         Spell3Casts = player.Spell3Cast.ToInt();
         Spell4Casts = player.Spell4Cast.ToInt();
         SummonerSpell1Casts = player.SummonSpell1Cast.ToInt();
-        SummonerSpell2Casts = player.SummonSpell22Cast.ToInt();
+        SummonerSpell2Casts = player.SummonSpell2Cast.ToInt();
 
         // Damage/Healing/Shelding Stats
         TotalDamageDealt = player.TotalDamageDealt.ToInt();
@@ -90,19 +97,24 @@ public class PlayerDetail
         PhysicalDamageTaken = player.PhysicalDamageTaken.ToInt();
         MagicDamageTaken = player.MagicDamageTaken.ToInt();
         TrueDamageTaken = player.TrueDamageTaken.ToInt();
-        TotalDamageSelfMitigated = player.TotalDamageSeltMitigated.ToInt();
+        TotalDamageSelfMitigated = player.TotalDamageSelfMitigated.ToInt();
         TotalDamageShieldedToTeammates = player.TotalDamageShieldedOnTeammates.ToInt();
         // Same as towers...
         //TotalDamageToBuildings = player.TOTAL_DAMAGE_DEALT_TO_BUILDINGS.ToInt();
         TotalDamageToTurrets = player.TotalDamageDealtToTurrets.ToInt();
+        TurretPlatesDestroyed = player.MissionsTurretPlatesDestroyed.ToInt();
         TotalDamageToObjectives = player.TotalDamageDealtToObjectives.ToInt();
         LargestCriticalStrike = player.LargestCriticalStrike.ToInt();
+        LargestAbilityDamage = player.LargestAbilityDamage.ToInt();
+        LargestAttackDamage = player.LargestAttackDamage.ToInt();
         TotalTimeCrowdControlDealt = player.TotalTimeCrowdControlDealt.ToInt();
+        TotalTimeCrowdControlDealtToChampions = player.TotalTimeCrowdControlDealtToChampions.ToInt();
         TotalHealingDone = player.TotalHeal.ToInt();
         TotalHealingDoneToTeammates = player.TotalHealOnTeammates.ToInt();
         TotalUnitsHealed = player.TotalUnitsHealed.ToInt();
 
         // Other
+        LastTakedownTime = player.LastTakedownTime.ToInt();
         LongestTimeSpentAlive = player.LongestTimeSpentLiving.ToInt();
         TotalTimeSpentDead = player.TotalTimeSpentDead.ToInt();
         TimeSpentDisconnected = player.TimeSpentDisconnected.ToInt();
@@ -110,6 +122,26 @@ public class PlayerDetail
         PlayersMuted = player.PlayersIMuted.ToInt();
         MutedByPlayers = player.PlayersThatMutedMe.ToInt();
         Ping = player.Ping.ToInt();
+        AllInPings = player.AllInPings.ToInt();
+        AssistMePings = player.AssistMePings.ToInt();
+        BaitPings = player.BaitPings.ToInt();
+        BasicPings = player.BasicPings.ToInt();
+        CommandPings = player.CommandPings.ToInt();
+        DangerPings = player.DangerPings.ToInt();
+        EnemyMissingPings = player.EnemyMissingPings.ToInt();
+        EnemyVisionPings = player.EnemyVisionPings.ToInt();
+        GetBackPings = player.GetBackPings.ToInt();
+        HoldPings = player.HoldPings.ToInt();
+        NeedVisionPings = player.NeedVisionPings.ToInt();
+        OnMyWayPings = player.OnMyWayPings.ToInt();
+        PushPings = player.PushPings.ToInt();
+        RetreatPings = player.RetreatPings.ToInt();
+        VisionClearedPings = player.VisionClearedPings.ToInt();
+
+        PlayerAugment1 = player.PlayerAugment1.ToInt();
+        PlayerAugment2 = player.PlayerAugment2.ToInt();
+        PlayerAugment3 = player.PlayerAugment3.ToInt();
+        PlayerAugment4 = player.PlayerAugment4.ToInt();
 
         // Only capitalize first letter of position name JUNGLE -> Jungle
         IndividualPosition = player.IndividualPosition == null ? "N/A" : player.IndividualPosition[0] + player.IndividualPosition[1..].ToLowerInvariant();
@@ -167,9 +199,22 @@ public class PlayerDetail
 
     public bool IsBlueTeamMember { get; private set; }
 
+    // Unknown value/type
+    public int PlayerSubteam { get; private set; }
+    
+    // Unknown value/type
+    public int PlayerSubteamPlacement { get; private set; }
+
+    // Player Universally Unique IDentifiers. The value is unencrypted.
+    public string PUUID { get; private set; }
+
     public int TotalExperience { get; private set; }
 
     public int GoldEarned { get; private set; }
+
+    public int GoldFromTurretPlatesTaken { get; private set; }
+
+    public int GoldFromStructuresDestroyed { get; private set; }
 
     public int GoldSpent { get; private set; }
 
@@ -214,6 +259,11 @@ public class PlayerDetail
     public bool LastHitNexus { get; private set; }
 
     public int ObjectivesStolen { get; private set; }
+
+    // This is called 'Horde Kills' in the replay file
+    public int VoidGrubKills { get; private set; }
+
+    public int RiftHeraldKills { get; private set; }
 
     public int BaronsKilled { get; private set; }
 
@@ -273,11 +323,19 @@ public class PlayerDetail
 
     public int TotalDamageToTurrets { get; private set; }
 
+    public int TurretPlatesDestroyed { get; private set; }
+
     public int TotalDamageToObjectives { get; private set; }
 
     public int LargestCriticalStrike { get; private set; }
 
+    public int LargestAbilityDamage { get; private set; }
+
+    public int LargestAttackDamage { get; private set; }
+
     public int TotalTimeCrowdControlDealt { get; private set; }
+
+    public int TotalTimeCrowdControlDealtToChampions { get; private set; }
 
     public int TotalHealingDone { get; private set; }
 
@@ -286,6 +344,8 @@ public class PlayerDetail
     public int TotalUnitsHealed { get; private set; }
 
     public int LongestTimeSpentAlive { get; private set; }
+
+    public int LastTakedownTime { get; private set; }
 
     public int TotalTimeSpentDead { get; private set; }
 
@@ -311,6 +371,36 @@ public class PlayerDetail
 
     public bool WasEarlySurrenderAccomplice { get; private set; }
 
+    public int AllInPings { get; private set; }
+
+    public int AssistMePings { get; private set; }
+
+    public int BaitPings { get; private set; }
+
+    public int BasicPings { get; private set; }
+
+    public int CommandPings { get; private set; }
+
+    public int DangerPings { get; private set; }
+
+    public int EnemyMissingPings { get; private set; }
+
+    public int EnemyVisionPings { get; private set; }
+
+    public int GetBackPings { get; private set; }
+
+    public int HoldPings { get; private set; }
+
+    public int NeedVisionPings { get; private set; }
+
+    public int OnMyWayPings { get; private set; }
+
+    public int PushPings { get; private set; }
+
+    public int RetreatPings { get; private set; }
+
+    public int VisionClearedPings { get; private set; }
+
     public RuneStat KeystoneRune { get; private set; }
 
     public IList<Item> Items { get; private set; }
@@ -319,6 +409,15 @@ public class PlayerDetail
     public IList<RuneStat> Runes { get; private set; }
 
     public IList<RuneStat> StatsRunes { get; private set; }
+
+    // Unknown value/type, perhaps arena?
+    public int PlayerAugment1 { get; private set; }
+
+    public int PlayerAugment2 { get; private set; }
+
+    public int PlayerAugment3 { get; private set; }
+
+    public int PlayerAugment4 { get; private set; }
 
     public RuneStat PrimaryPathRune0 => Runes[0];
 

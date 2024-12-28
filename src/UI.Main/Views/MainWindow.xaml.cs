@@ -146,7 +146,7 @@ public partial class MainWindow : Window
     private async void MainNavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
     {
         if (DataContext is not MainWindowViewModel context) { return; }
-
+        
         if (args.IsSettingsSelected)
         {
             // MainNavigationFrame.Navigate(_settingsPage);
@@ -181,6 +181,143 @@ public partial class MainWindow : Window
             _replayPage.SearchBox.Text = categoryItem.SearchTerm;
             await context.HandleClickCategoryButton(categoryItem);
         }
+        //await context.ReloadReplayList(false).ConfigureAwait(true);
+    }
+
+    private async void ReplayListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (DataContext is not MainWindowViewModel context) { return; }
+        if (sender is not System.Windows.Controls.ListView replayList) { return; }
+        if (replayList.SelectedItem is not ReplayPreview previewModel) { return; }
+
+        // Deselect the last selected item
+        if (_lastSelection != null && _lastSelection.IsSelected) { _lastSelection.IsSelected = false; }
+
+        previewModel.IsSelected = true;
+        _lastSelection = previewModel;
+
+        FileResult replayFile = context.FileResults[previewModel.Location];
+
+        var replayDetail = new ReplayDetail(context.StaticDataManager, replayFile, previewModel);
+        await replayDetail.LoadRunes();
+
+        ReplayDetailControl detailControl = FindName("DetailView") as ReplayDetailControl;
+        detailControl.DataContext = replayDetail;
+
+        (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
+        (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
+
+        await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
+
+        // See if tab control needs to update runes:
+        if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)
+        {
+            await context.LoadRuneThumbnails(replayDetail).ConfigureAwait(true);
+        }
+    }
+
+    private void SortButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainWindowViewModel context) { return; }
+        if (sender is not Button sortButton) { return; }
+
+        // Get the button and menu
+        ContextMenu contextMenu = sortButton.ContextMenu;
+        // Set placement and open
+        contextMenu.PlacementTarget = sortButton;
+        contextMenu.Placement = PlacementMode.Bottom;
+        contextMenu.IsOpen = true;
+
+        string name = Enum.GetName(context.SortParameters.SortMethod.GetType(), context.SortParameters.SortMethod);
+        if (FindName(name) is RadioMenuItem selectItem)
+        {
+            // Select our item
+            selectItem.IsChecked = true;
+        }
+    }
+
+    /// <summary>
+    /// Sort menu item click handler
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void MenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainWindowViewModel context) { return; }
+        if (sender is not RadioMenuItem selectedItem) { return; }
+
+        if (Enum.TryParse(selectedItem.Name, out SortMethod selectSort))
+        {
+            context.SortParameters.SortMethod = selectSort;
+        }
+
+        await context.ReloadReplayList(false).ConfigureAwait(false);
+    }
+
+    private async void SettingsButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainWindowViewModel context) { return; }
+
+        await context.ShowSettingsDialog().ConfigureAwait(true);
+    }
+
+    /// <summary>
+    /// Display or hide LoadMoreButton if scrolled to the bottom
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ReplayListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
+    {
+        if (DataContext is not MainWindowViewModel) { return; }
+
+        // If we scrolled at all...
+        if (Math.Abs(e.VerticalChange) > 0)
+        {
+            // If we reached the end, show the button!!!
+            ReplayPageBar.Visibility = e.VerticalOffset + e.ViewportHeight == e.ExtentHeight
+                ? Visibility.Visible
+                : Visibility.Collapsed;
+        }
+    }
+
+    /// <summary>
+    /// Handler for LoadMoreButton
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void LoadMoreButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainWindowViewModel context) { return; }
+
+        var (received, searchResults, _) = context.LoadReplaysFromDatabase();
+
+        if (received == 0)
+        {
+            // Create and show flyout above the button
+            Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false, includeCustom: false);
+            flyout.SetFlyoutLabelText(TryFindResource("NoReplaysFoundTitle") as string);
+
+            flyout.ShowAt(LoadMoreButton);
+
+            return;
+        }
+        else
+        {
+            context.StatusBarModel.StatusMessage = $"{context.PreviewReplays.Count} / {searchResults}";
+        }
+
+        // Hide the button bar once we've loaded more
+        ReplayPageBar.Visibility = Visibility.Collapsed;
+        await context.LoadPreviewPlayerThumbnails();
+    }
+
+    private async void SearchBox_QuerySubmitted(AutoSuggestBox auto, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        if (DataContext is not MainWindowViewModel context) { return; }
+
+        context.SortParameters.QueryString = args.QueryText;
+
+        await context.ReloadReplayList(false);
     }
 
     private async void MainWindow_OnClosing(object sender, CancelEventArgs e)
@@ -212,6 +349,16 @@ public partial class MainWindow : Window
         await context.HandleAddCategoryButton();
     }
 
+    private void ReplayStatusBar_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (DataContext is not MainWindowViewModel context) { return; }
+
+        // do not show error dialog if there are no errors
+        if (context.StatusBarModel.Errors == null) { return; }
+
+        // The status bar should NOT stay on screen once loading is done
+    }
+
     private async void DeleteReplayCategoryButton_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) { return; }
@@ -220,6 +367,8 @@ public partial class MainWindow : Window
         var categoryItem = menuItem.DataContext as CategoryItem;
 
         await context.HandleRemoveCategoryButton(categoryItem);
+
+        // The status bar should NOT stay on screen once loading is done
     }
 
     private async void EditReplayCategoryButton_Click(object sender, RoutedEventArgs e)

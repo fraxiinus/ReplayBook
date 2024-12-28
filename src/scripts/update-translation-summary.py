@@ -32,7 +32,7 @@ with open(args.target, encoding="utf-8") as targetFile:
 
 # find and replace value between language tags
 for lang in statusData:
-    targetData = re.sub("(?<=<" + lang + ">)(.*?)(?=</" + lang + ">)", str(statusData[lang]), targetData)
+    targetData = re.sub("(?<=<fx-" + lang + ">)(.*?)(?=</fx-" + lang + ">)", str(statusData[lang]), targetData)
 # update last updated value
 targetData = re.sub("(?<=<updated>)(.*?)(?=</updated>)", datetime.datetime.utcnow().isoformat() + "Z", targetData)
 
