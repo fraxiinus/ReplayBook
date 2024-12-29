@@ -5,6 +5,7 @@ using Fraxiinus.ReplayBook.Configuration;
 using Fraxiinus.ReplayBook.Configuration.Models;
 using Fraxiinus.ReplayBook.Executables.Old;
 using Fraxiinus.ReplayBook.Files;
+using Fraxiinus.ReplayBook.Files.Models.Search;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.ReplayBook.UI.Main.Pages;
@@ -18,6 +19,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 
 /// <summary>
@@ -183,38 +185,39 @@ public partial class MainWindow : Window
         }
         //await context.ReloadReplayList(false).ConfigureAwait(true);
     }
+    
+    // TODO
+    //private async void ReplayListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    //{
+    //    if (DataContext is not MainWindowViewModel context) { return; }
+    //    if (sender is not System.Windows.Controls.ListView replayList) { return; }
+    //    if (replayList.SelectedItem is not ReplayPreview previewModel) { return; }
 
-    private async void ReplayListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (DataContext is not MainWindowViewModel context) { return; }
-        if (sender is not System.Windows.Controls.ListView replayList) { return; }
-        if (replayList.SelectedItem is not ReplayPreview previewModel) { return; }
+    //    // Deselect the last selected item
+    //    if (_lastSelection != null && _lastSelection.IsSelected) { _lastSelection.IsSelected = false; }
 
-        // Deselect the last selected item
-        if (_lastSelection != null && _lastSelection.IsSelected) { _lastSelection.IsSelected = false; }
+    //    previewModel.IsSelected = true;
+    //    _lastSelection = previewModel;
 
-        previewModel.IsSelected = true;
-        _lastSelection = previewModel;
+    //    FileResult replayFile = context.FileResults[previewModel.Location];
 
-        FileResult replayFile = context.FileResults[previewModel.Location];
+    //    var replayDetail = new ReplayDetail(context.StaticDataManager, replayFile, previewModel);
+    //    await replayDetail.LoadRunes();
 
-        var replayDetail = new ReplayDetail(context.StaticDataManager, replayFile, previewModel);
-        await replayDetail.LoadRunes();
+    //    ReplayDetailControl detailControl = FindName("DetailView") as ReplayDetailControl;
+    //    detailControl.DataContext = replayDetail;
 
-        ReplayDetailControl detailControl = FindName("DetailView") as ReplayDetailControl;
-        detailControl.DataContext = replayDetail;
+    //    (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
+    //    (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
 
-        (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
-        (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
+    //    await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
 
-        await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
-
-        // See if tab control needs to update runes:
-        if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)
-        {
-            await context.LoadRuneThumbnails(replayDetail).ConfigureAwait(true);
-        }
-    }
+    //    // See if tab control needs to update runes:
+    //    if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)
+    //    {
+    //        await context.LoadRuneThumbnails(replayDetail).ConfigureAwait(true);
+    //    }
+    //}
 
     private void SortButton_Click(object sender, RoutedEventArgs e)
     {
@@ -266,50 +269,52 @@ public partial class MainWindow : Window
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ReplayListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
-    {
-        if (DataContext is not MainWindowViewModel) { return; }
+    /// TODO
+    //private void ReplayListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
+    //{
+    //    if (DataContext is not MainWindowViewModel) { return; }
 
-        // If we scrolled at all...
-        if (Math.Abs(e.VerticalChange) > 0)
-        {
-            // If we reached the end, show the button!!!
-            ReplayPageBar.Visibility = e.VerticalOffset + e.ViewportHeight == e.ExtentHeight
-                ? Visibility.Visible
-                : Visibility.Collapsed;
-        }
-    }
+    //    // If we scrolled at all...
+    //    if (Math.Abs(e.VerticalChange) > 0)
+    //    {
+    //        // If we reached the end, show the button!!!
+    //        ReplayPageBar.Visibility = e.VerticalOffset + e.ViewportHeight == e.ExtentHeight
+    //            ? Visibility.Visible
+    //            : Visibility.Collapsed;
+    //    }
+    //}
 
     /// <summary>
     /// Handler for LoadMoreButton
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private async void LoadMoreButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is not MainWindowViewModel context) { return; }
+    /// TODO
+    //private async void LoadMoreButton_Click(object sender, RoutedEventArgs e)
+    //{
+    //    if (DataContext is not MainWindowViewModel context) { return; }
 
-        var (received, searchResults, _) = context.LoadReplaysFromDatabase();
+    //    var (received, searchResults, _) = context.LoadReplaysFromDatabase();
 
-        if (received == 0)
-        {
-            // Create and show flyout above the button
-            Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false, includeCustom: false);
-            flyout.SetFlyoutLabelText(TryFindResource("NoReplaysFoundTitle") as string);
+    //    if (received == 0)
+    //    {
+    //        // Create and show flyout above the button
+    //        Flyout flyout = FlyoutHelper.CreateFlyout(includeButton: false, includeCustom: false);
+    //        flyout.SetFlyoutLabelText(TryFindResource("NoReplaysFoundTitle") as string);
 
-            flyout.ShowAt(LoadMoreButton);
+    //        flyout.ShowAt(LoadMoreButton);
 
-            return;
-        }
-        else
-        {
-            context.StatusBarModel.StatusMessage = $"{context.PreviewReplays.Count} / {searchResults}";
-        }
+    //        return;
+    //    }
+    //    else
+    //    {
+    //        context.StatusBarModel.StatusMessage = $"{context.PreviewReplays.Count} / {searchResults}";
+    //    }
 
-        // Hide the button bar once we've loaded more
-        ReplayPageBar.Visibility = Visibility.Collapsed;
-        await context.LoadPreviewPlayerThumbnails();
-    }
+    //    // Hide the button bar once we've loaded more
+    //    ReplayPageBar.Visibility = Visibility.Collapsed;
+    //    await context.LoadPreviewPlayerThumbnails();
+    //}
 
     private async void SearchBox_QuerySubmitted(AutoSuggestBox auto, AutoSuggestBoxQuerySubmittedEventArgs args)
     {

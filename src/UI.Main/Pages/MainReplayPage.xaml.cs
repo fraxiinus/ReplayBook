@@ -54,26 +54,41 @@ public partial class MainReplayPage : ModernWpf.Controls.Page
         // Deselect the last selected item
         if (_lastSelection != null && _lastSelection.IsSelected) { _lastSelection.IsSelected = false; }
 
+        // Select the new item
         previewModel.IsSelected = true;
         _lastSelection = previewModel;
 
+        // Get the replay file in question, and then create the detail model
         FileResult replayFile = Context.FileResults[previewModel.Location];
-
         var replayDetail = new ReplayDetail(Context.StaticDataManager, replayFile, previewModel);
-        await replayDetail.LoadRunes();
 
+        // Set the detail control that is used for displaying the replay
         ReplayDetailControl detailControl = FindName("DetailView") as ReplayDetailControl;
         detailControl.DataContext = replayDetail;
 
-        (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
-        (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
-
-        await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
-
-        // See if tab control needs to update runes:
-        if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)
+        if (replayDetail.ErrorInfo != default)
         {
-            await Context.LoadRuneThumbnails(replayDetail).ConfigureAwait(true);
+            // Hide everything besides the error display
+            (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
+            (detailControl.FindName("ErrorContent") as Grid).Visibility = Visibility.Visible;
+            (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Hidden;
+        }
+        else
+        {
+            // Hide everything besides the replay display
+            await replayDetail.LoadRunes();
+
+            (detailControl.FindName("BlankContent") as Grid).Visibility = Visibility.Hidden;
+            (detailControl.FindName("ErrorContent") as Grid).Visibility = Visibility.Hidden;
+            (detailControl.FindName("ReplayContent") as Grid).Visibility = Visibility.Visible;
+
+            await (DataContext as MainWindowViewModel).LoadItemThumbnails(replayDetail);
+
+            // See if tab control needs to update runes:
+            if ((detailControl.FindName("DetailTabControl") as TabControl).SelectedIndex == 1)
+            {
+                await Context.LoadRuneThumbnails(replayDetail).ConfigureAwait(true);
+            }
         }
     }
 
@@ -187,30 +202,31 @@ public partial class MainReplayPage : ModernWpf.Controls.Page
 
         // do not show error dialog if there are no errors
         if (Context.StatusBarModel.Errors == null) { return; }
+        
+        // TODO this needs to handle the new error handling
+        //var errorDialog = new ReplayLoadErrorDialog
+        //{
+        //    DataContext = Context.StatusBarModel
+        //};
+        //var result = await errorDialog.ShowAsync().ConfigureAwait(true);
 
-        var errorDialog = new ReplayLoadErrorDialog
-        {
-            DataContext = Context.StatusBarModel
-        };
-        var result = await errorDialog.ShowAsync().ConfigureAwait(true);
+        //if (result == ContentDialogResult.Primary)
+        //{
+        //    Context.ClearReplayCacheOnClose = true;
 
-        if (result == ContentDialogResult.Primary)
-        {
-            Context.ClearReplayCacheOnClose = true;
+        //    // inform the user that the delete will happen when the window is closed
+        //    var dialog = ContentDialogHelper.CreateContentDialog(
+        //        title: TryFindResource("RequestsCacheCloseToDeleteTitle") as string,
+        //        description: TryFindResource("RequestsCacheCloseToDelete") as string,
+        //        primaryButtonText: TryFindResource("Settings__Replays__ClearCacheRestartNow__Button") as string,
+        //        secondaryButtonText: TryFindResource("CancelButtonText") as string);
 
-            // inform the user that the delete will happen when the window is closed
-            var dialog = ContentDialogHelper.CreateContentDialog(
-                title: TryFindResource("RequestsCacheCloseToDeleteTitle") as string,
-                description: TryFindResource("RequestsCacheCloseToDelete") as string,
-                primaryButtonText: TryFindResource("Settings__Replays__ClearCacheRestartNow__Button") as string,
-                secondaryButtonText: TryFindResource("CancelButtonText") as string);
-
-            var confirmResult = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
-            if (confirmResult == ContentDialogResult.Primary)
-            {
-                Context.RestartOnClose = true;
-                App.Current.MainWindow.Close();
-            }
-        }
+        //    var confirmResult = await dialog.ShowAsync(ContentDialogPlacement.Popup).ConfigureAwait(true);
+        //    if (confirmResult == ContentDialogResult.Primary)
+        //    {
+        //        Context.RestartOnClose = true;
+        //        App.Current.MainWindow.Close();
+        //    }
+        //}
     }
 }

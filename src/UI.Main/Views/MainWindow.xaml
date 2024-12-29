@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cfg="clr-namespace:Fraxiinus.ReplayBook.Configuration.Models;assembly=Fraxiinus.ReplayBook.Configuration"
         xmlns:clr="clr-namespace:System;assembly=netstandard"
+        xmlns:controls="clr-namespace:Fraxiinus.ReplayBook.UI.Main.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
