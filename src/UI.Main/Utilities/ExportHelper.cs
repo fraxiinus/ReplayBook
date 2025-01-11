@@ -1,6 +1,7 @@
 ﻿using Fraxiinus.ReplayBook.Executables.Old.Utilities;
 using Fraxiinus.ReplayBook.StaticData;
 using Fraxiinus.ReplayBook.StaticData.Models;
+using Fraxiinus.ReplayBook.UI.Main.Extensions;
 using Fraxiinus.ReplayBook.UI.Main.Models;
 using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -157,7 +158,7 @@ public static class ExportHelper
 
                 // get the player model
                 PlayerStats2 player = context.Replay.Players
-                    .First(x => x.Name.Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
+                    .First(x => x.GetPlayerNameOrID().Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
 
                 // irate over all attribute selections
                 foreach (ExportAttributeSelectItem attributeSelect in context.Attributes)
@@ -223,7 +224,7 @@ public static class ExportHelper
 
                         // get the player object
                         PlayerStats2 player = context.Replay.Players
-                            .First(x => x.Name.Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
+                            .First(x => x.GetPlayerNameOrID().Equals(playerSelect.PlayerPreview.PlayerName, StringComparison.OrdinalIgnoreCase));
 
                         string value = player
                             .GetType()

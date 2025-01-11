@@ -106,6 +106,8 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
                 result = result.Replace("@eogvar1@", firstValue);
                 result = result.Replace("@eogvar2@", secondValue);
                 result = result.Replace("@eogvar3@", thirdValue);
+                result = result.Replace("<br>", "\n");
+                result = result.Replace(@"\n", "\n");
 
                 results.Add(result);
             }

@@ -1,4 +1,5 @@
 ﻿using Fraxiinus.ReplayBook.Configuration.Models;
+using Fraxiinus.ReplayBook.UI.Main.Extensions;
 using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.Rofl.Extract.Data.Models.Rofl2;
 using System;
@@ -14,7 +15,7 @@ public class PlayerPreview : INotifyPropertyChanged
         if (player == null) { throw new ArgumentNullException(nameof(player)); }
 
         ChampionId = player.Skin;
-        PlayerName = player.Name;
+        PlayerName = player.GetPlayerNameOrID();
         PlayerMarkerStyle = markerStyle;
         marker = null;
 
@@ -94,16 +95,14 @@ public class PlayerPreview : INotifyPropertyChanged
     {
         get
         {
-            if (Marker == null)
+            string combinedName = $"{PlayerName} - {ChampionName}";
+
+            if (marker != null)
             {
-                return $"{PlayerName} - {ChampionName}";
+                combinedName += $"\n{Marker.Note}";
             }
-            else
-            {
-                return string.IsNullOrWhiteSpace(Marker.Note)
-                    ? $"{PlayerName} - {ChampionName}"
-                    : $"{PlayerName} - {ChampionName}\n{Marker.Note}";
-            }
+
+            return combinedName;
         }
     }
 }
