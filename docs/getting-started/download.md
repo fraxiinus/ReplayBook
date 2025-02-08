@@ -25,7 +25,7 @@ ReplayBook is completely ad-free and does not collect nor track user data.
     ![Run Program](../images/downloads_CorrectFile.png)
 
 !!! note
-    Install [.NET Desktop Runtime 6.0.x (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) if ReplayBook does not start.
+    Install [.NET Desktop Runtime 8.0.x (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) if ReplayBook does not start.
 
     ![.NET Desktop Runtime Download](../images/downloads_netRequirements.png)
 
