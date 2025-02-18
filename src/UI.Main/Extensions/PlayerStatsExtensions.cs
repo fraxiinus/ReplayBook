@@ -6,8 +6,19 @@ public static class PlayerStatsExtensions
 {
     public static string GetPlayerNameOrID(this PlayerStats2 playerStats)
     {
-        return string.IsNullOrEmpty(playerStats.Name)
-            ? $"N/A - {playerStats.PUUID[^6..]}"
-            : playerStats.Name;
+        var nameWithTag = $"{playerStats.RiotIdGameName}#{playerStats.RiotIdTagLine}";
+
+        if (nameWithTag.Trim().Length >= 3)
+        {
+            return nameWithTag;
+        }
+        else if (!string.IsNullOrEmpty(playerStats.Name))
+        {
+            return playerStats.Name;
+        }
+        else
+        {
+            return $"N/A - {playerStats.PUUID[^6..]}";
+        }
     }
 }
