@@ -37,7 +37,8 @@
 
                 <TextBlock FontSize="14"
                            FontWeight="Bold"
-                           Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}">
+                           Text="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}"
+                           ToolTip="{Binding Path=PreviewModel.PlayerName, FallbackValue=PlayerName, Mode=OneWay}">
                     <TextBlock.ContextMenu>
                         <ContextMenu>
                             <MenuItem Click="CopyTextBlock_Click" Header="{DynamicResource CopyText}">
