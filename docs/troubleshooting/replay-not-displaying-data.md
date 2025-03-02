@@ -11,9 +11,11 @@ The replay file is missing the entire data block that ReplayBook relies on for i
 
 ![Example of problem](../images/troubleshooting/replayNotShowingData_1.bmp)
 
-So far all examples of this have been replays from the **Tournament Realm**.
+This seems to happen when all players of the game leave the game by using Alt-F4 before the nexus is destroyed. This seems to cancel the game on the server thus leaving no data behind. **Please stay in the game as long as possible to prevent this from happening.**
 
-If you know any more information, please let get in touch:
+---
+
+## Need Additional Help?
 
 [Ask in GitHub :material-github:](https://github.com/fraxiinus/ReplayBook/discussions){ .md-button .md-button }
 [Join the Discord :material-chat:](https://discord.gg/c33Rc5J){ .md-button .md-button }

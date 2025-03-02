@@ -5,9 +5,9 @@ description: Troubleshooting
 
 ## Ensure .NET is installed
 
-ReplayBook will not start at all if .NET 6 is not installed properly. Please download and install from the link below, then try ReplayBook again.
+ReplayBook will not start at all if .NET 8 is not installed properly. Please download and install from the link below, then try ReplayBook again.
 
-[.NET Desktop Runtime 6.0.x (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+[.NET Desktop Runtime 8.0.x (x64)](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
 ![Download Screenshot](../images/downloads_netRequirements.png)
 
