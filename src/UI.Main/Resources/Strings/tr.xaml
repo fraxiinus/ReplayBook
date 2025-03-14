@@ -30,6 +30,7 @@
     <string:String x:Key="RunesTabText">RÜNLER</string:String>
     <string:String x:Key="StatsTabText">İSTATİSTİKLER</string:String>
     <string:String x:Key="BlankDetailMessageText">Başlamak için sol pencereden bir oyun tekrarı seçin.</string:String>
+    <string:String x:Key="General__PreviewItem__FailedToLoadText">Oyun tekrarı yüklemesi başarısız oldu.</string:String>
     <string:String x:Key="FailedToLoadReplayText">Bu oyun tekrarı açılamadı, dosya bozuk olabilir.</string:String>
     <string:String x:Key="Victory">ZAFER</string:String>
     <string:String x:Key="BlueVictory">Mavi Zafer</string:String>
@@ -52,6 +53,10 @@
     <string:String x:Key="General__ViewButton">Görüntüle</string:String>
     <string:String x:Key="General__ExitButton">Çık</string:String>
     <string:String x:Key="General__GlobalExceptionHandler__Body">İşlenmeyen bir hata oluştu! Detaylı bilgi için lütfen log dizinini kontrol ediniz.</string:String>
+
+    <string:String x:Key="Main__VanguardWarning__Title">Vanguard çalışıyor</string:String>
+    <string:String x:Key="Main__VanguardWarning__Body">ReplayBook, Vanguard çalışırken oyun tekrarlarını oynatamıyor. ReplayBook'un Vanguard'ı durdurmasını ister misiniz?</string:String>
+    <string:String x:Key="Main__VanguardDisable__Title">Vanguard durduluyor...</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">Genel</string:String>
@@ -274,7 +279,9 @@
     <string:String x:Key="NeutralMinionsKilledHeaderText">Katledilen Tarafsız Minyonlar</string:String>
     <string:String x:Key="NeutralMinionsKilledFromOwnJungleHeaderText">Kendi Orman Minyon Katletmeleri</string:String>
     <string:String x:Key="NeutralMinionsKilledFromEnemyJungleHeaderText">Diğer Orman Minyon Katletmeleri</string:String>
-
+    <string:String x:Key="GoldFromStructuresHeaderText">Yapılardan gelen Altın</string:String>
+    <string:String x:Key="GoldFromTurretPlatesHeaderText">Kule Barikatlarından gelen Altın</string:String>
+    
     <string:String x:Key="ObjectivesGroupHeaderText">Görevler</string:String>
     <string:String x:Key="TotalExperienceHeaderText">Toplam Tecrübe</string:String>
     <string:String x:Key="TurretsKilledHeaderText">Yıkılan Kuleler</string:String>
@@ -285,6 +292,7 @@
     <string:String x:Key="LongestTimeSpentAliveHeaderText">Hayatta Geçirilen En Uzun Süre</string:String>
     <string:String x:Key="TotalTimeSpentDeadHeaderText">Toplam Ölüm Süresi</string:String>
     <string:String x:Key="LastHitNexusHeaderText">Son Nexus Vuruşu</string:String>
+    <string:String x:Key="TurretPlatesDestroyedHeaderText">Yıkılan Kule Barikatları</string:String>
 
     <string:String x:Key="ToxicityGroupHeaderText">Toksiklik</string:String>
     <string:String x:Key="TimeSpentDisconnectedHeaderText">Bağlantı Kesildiğinde Harcanan Zaman</string:String>
@@ -305,6 +313,29 @@
     <string:String x:Key="SummonerSpell1CastsHeaderText">1. Sihirdar Büyüsü Kullanımı</string:String>
     <string:String x:Key="SummonerSpell2CastsHeaderText">2. Sihirdar Büyüsü Kullanımı</string:String>
     <string:String x:Key="IndividualPositionHeaderText">Bireysel Konum</string:String>
+
+    <string:String x:Key="AllInPingsHeaderText">Saldır Sinyalleri</string:String>
+    <string:String x:Key="AssistMePingsHeaderText">Bana Yardım Sinyalleri</string:String>
+    <string:String x:Key="BaitPingsHeaderText">Yemle Sinyalleri</string:String>
+    <string:String x:Key="BasicPingsHeaderText">Basit Sinyalleri</string:String>
+    <string:String x:Key="CommandPingsHeaderText">Komut Sinyalleri</string:String>
+    <string:String x:Key="DangerPingsHeaderText">Dikkat Sinyalleri</string:String>
+    <string:String x:Key="EnemyMissingPingsHeaderText">Rakip Kayıp Sinyalleri</string:String>
+    <string:String x:Key="EnemyVisionPingsHeaderText">Rakip Görüşü Sinyalleri</string:String>
+    <string:String x:Key="GetBackPingsHeaderText">Geri Dön Sinyalleri</string:String>
+    <string:String x:Key="HoldPingsHeaderText">Burayı Koru Sinyalleri</string:String>
+    <string:String x:Key="VoidGrubKillsHeaderText">Boşluk Böcekleri ile Alınan Katletmeler</string:String>
+    <string:String x:Key="LargestAbilityDamageHeaderText">En Büyük Büyü Hasarı</string:String>
+    <string:String x:Key="LargestAttackDamageHeaderText">En Büyük Fiziksel Hasar</string:String>
+    <string:String x:Key="LastTakedownTimeHeaderText">Son Alt Etme Zamanı</string:String>
+    <string:String x:Key="NeedVisionPingsHeaderText">Görüş Lazım Sinyalleri</string:String>
+    <string:String x:Key="OnMyWayPingsHeaderText">Yoldayım Sinyalleri</string:String>
+    <string:String x:Key="PushPingsHeaderText">İttir Sinyalleri</string:String>
+    <string:String x:Key="PUUIDHeaderText">PUUID</string:String>
+    <string:String x:Key="RetreatPingsHeaderText">Çekilme Sinyalleri</string:String>
+    <string:String x:Key="RiftHeraldKillsHeaderText">Vadi'nin Alameti ile Alınan Katletmeler</string:String>
+    <string:String x:Key="TotalTimeCrowdControlDealtToChampionsHeaderText">Şampiyonlara Uygulanan Toplam Kitle Kontrol Süresi</string:String>
+    <string:String x:Key="VisionClearedPingsHeaderText">Görüş Temizlendi Sinyalleri</string:String>
 
     <!--  ToolTip Text  -->
     <string:String x:Key="SortToolTip">Sırala</string:String>
