@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.ServiceProcess;
 using System.Threading.Tasks;
 
@@ -10,17 +11,25 @@ public class VanguardServiceHelper
 
     public static bool IsVanguardRunning()
     {
-        var VanguardServiceController = new ServiceController(VANGUARD_SERVICE_NAME);
-        return VanguardServiceController.Status != ServiceControllerStatus.Stopped;
+        using var serviceController = TryGetVanguardService();
+        // If service controller is null, then vanguard does not exist
+        if (serviceController != null)
+        {
+            return serviceController.Status != ServiceControllerStatus.Stopped;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public static async Task<(bool success, Exception message)> TryStopVanguardAsync()
     {
-        var VanguardServiceController = new ServiceController(VANGUARD_SERVICE_NAME);
+        using var serviceController = TryGetVanguardService();
         try
         {
-            var vanguardStopTask = Task.Run(() => VanguardServiceController.Stop());
-            await WaitForStatusAsync(VanguardServiceController, ServiceControllerStatus.Stopped, TimeSpan.FromSeconds(10));
+            var vanguardStopTask = Task.Run(() => serviceController.Stop());
+            await WaitForStatusAsync(serviceController, ServiceControllerStatus.Stopped, TimeSpan.FromSeconds(10));
             return (true, null);
         }
         catch (Exception ex)
@@ -43,5 +52,11 @@ public class VanguardServiceHelper
                 .ConfigureAwait(false);
             controller.Refresh();
         }
+    }
+
+    private static ServiceController TryGetVanguardService()
+    {
+        var servicesList = ServiceController.GetServices();
+        return servicesList.Where(x => x.ServiceName == VANGUARD_SERVICE_NAME).FirstOrDefault();
     }
 }
