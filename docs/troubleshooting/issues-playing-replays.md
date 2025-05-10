@@ -3,7 +3,17 @@ title: Issues Playing Replays
 description: Troubleshooting
 ---
 
-There are a lot of potential issues that can cause issues.
+There are a lot of potential issues that can cause issues. Check if the issue you are having matches any of these descriptions.
+
+## Access Denied before replay launches
+
+![Access Denied example](../images/troubleshooting/accessDenied_example.png)
+
+This occurs due to Riot Vanguard preventing anything from accessing the League of Legends executable. Vanguard must be disabled before ReplayBook will be able to launch replays. ReplayBook attempts to disable Vanguard automatically, but sometimes it doesn't work.
+
+If disabling Vanguard from the tray icon does not work, or if you do not have access to the tray icon, try using the following script.
+
+[NoMoreVanguard by Vudgekek](https://github.com/Vudgekek/NoMoreVanguard)
 
 ## Incorrect Locale
 
