@@ -57,6 +57,8 @@
     <string:String x:Key="Main__VanguardWarning__Title">Vanguard is running</string:String>
     <string:String x:Key="Main__VanguardWarning__Body">ReplayBook is unable to play replays if Vanguard is running. Would you like ReplayBook to stop Vanguard?</string:String>
     <string:String x:Key="Main__VanguardDisable__Title">Stopping Vanguard...</string:String>
+    <string:String x:Key="Main__VanguardPermissionsError__Title">Elevation Required</string:String>
+    <string:String x:Key="Main__VanguardPermissionsError__Body">ReplayBook requires elevation to disable Vanguard</string:String>
 
     <!--  Settings Window Text  -->
     <string:String x:Key="GeneralSettingsItemText">General</string:String>

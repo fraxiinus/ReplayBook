@@ -7,6 +7,7 @@ using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
 using Microsoft.Extensions.Configuration;
+using Microsoft.VisualBasic.Logging;
 using ModernWpf;
 using System;
 using System.Diagnostics;
@@ -17,170 +18,198 @@ using System.Windows;
 using System.Windows.Media;
 
 [assembly: SupportedOSPlatform("windows10.0.18362.0")]
-namespace Fraxiinus.ReplayBook.UI.Main
+namespace Fraxiinus.ReplayBook.UI.Main;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
+    private FileManager _files;
+    private StaticDataManager _staticDataManager;
+    private RiZhi _log;
+    private ReplayPlayer _player;
+    private ObservableConfiguration _configuration;
+    private ExecutableManager _executables;
+
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Application entry point
     /// </summary>
-    public partial class App : Application
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void Application_Startup(object sender, StartupEventArgs e)
     {
-        private FileManager _files;
-        private StaticDataManager _staticDataManager;
-        private RiZhi _log;
-        private ReplayPlayer _player;
-        private ObservableConfiguration _configuration;
-        private ExecutableManager _executables;
+        await StartApplication(e);
+    }
 
-        /// <summary>
-        /// Application entry point
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void Application_Startup(object sender, StartupEventArgs e)
+    private static void ShouldRestart(bool restartApplication)
+    {
+        if (restartApplication)
         {
-            await StartApplication(e);
+            var currentExecutablePath = Environment.ProcessPath;
+            Current.Shutdown();
+            Process.Start(currentExecutablePath);
         }
+    }
 
-        private static void ShouldRestart(bool restartApplication)
+    private async Task StartApplication(StartupEventArgs e)
+    {
+        // load settings
+        var config = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json").Build()
+            .Get<ConfigurationFile>();
+        _configuration = new ObservableConfiguration(config);
+
+        // Apply language setting, also loads static data for the language
+        LanguageHelper.SetProgramLanguage(_configuration.Language);
+
+        // Short circuit - Disable Vanguard And Exit
+        if (e.Args.Length == 2 && string.Equals(e.Args[0], "disable"))
         {
-            if (restartApplication)
-            {
-                var currentExecutablePath = Environment.ProcessPath;
-                Current.Shutdown();
-                Process.Start(currentExecutablePath);
-            }
-        }
-
-        private async Task StartApplication(StartupEventArgs e)
-        {
-            // load settings
-            var config = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json").Build()
-                .Get<ConfigurationFile>();
-            _configuration = new ObservableConfiguration(config);
-
-            // create underlying objects
-            await CreateCommonObjects();
-
-            // Apply appearence theme
-            ApplyThemeSetting();
-
-            // Apply language setting, also loads static data for the language
-            LanguageHelper.SetProgramLanguage(_configuration.Language);
-
-#if DEBUG
-            _log.Error("Debug mode, writing log");
-#endif
-
-            // there is a launch argument
-            if (e.Args.Length == 1)
-            {
-                string selectedFile = e.Args[0];
-                // 0 = directly play, 1 = open in replaybook
-                if (_configuration.FileAction == FileAction.Play)
-                {
-                    // Start a blank/invisible window that will host dialogs, otherwise dialogs are invisible
-                    var host = new DialogHostWindow();
-                    host.Show();
-                    await _player.PlayReplay(selectedFile).ConfigureAwait(true);
-                    Current.Shutdown();
-                }
-                else if (_configuration.FileAction == FileAction.Open)
-                {
-                    var singleWindow = new SingleReplayWindow(_log, _configuration, _staticDataManager, _executables, _files, _player)
-                    {
-                        ReplayFileLocation = selectedFile
-                    };
-                    // Capture if restart is needed
-                    singleWindow.Closed += (s, eventArgs) =>
-                    {
-                        if (singleWindow.DataContext is MainWindowViewModel viewModel)
-                        {
-                            ShouldRestart(viewModel.RestartOnClose);
-                        }
-                    };
-                    singleWindow.Show();
-                }
-            }
-            else
-            {
-                var mainWindow = new MainWindow(_log, _configuration, _staticDataManager, _executables, _files, _player);
-                mainWindow.Closed += (s, eventArgs) =>
-                {
-                    if (mainWindow.DataContext is MainWindowViewModel viewModel)
-                    {
-                        ShouldRestart(viewModel.RestartOnClose);
-                    }
-                };
-                mainWindow.RestoreSavedWindowState();
-                mainWindow.Show();
-            }
-        }
-
-        private async Task CreateCommonObjects()
-        {
-            // Create common objects
             AssemblyName assemblyName = Assembly.GetEntryAssembly()?.GetName();
 
+            // Create new logger just for this action
             _log = new RiZhi()
             {
-                FilePrefix = "ReplayBookLog",
+                FilePrefix = "ReplayBookLog_DisableVanguard",
                 AssemblyName = assemblyName.Name,
                 AssemblyVersion = assemblyName.Version.ToString(2)
             };
 
-            try
-            {
-                _executables = new ExecutableManager(_log);
-                _files = new FileManager(_configuration, _log);
-                _staticDataManager = new StaticDataManager(_configuration, ApplicationProperties.UserAgent, _log);
-                await _staticDataManager.LoadIndexAsync();
+            // Start a blank/invisible window that will host dialogs, otherwise dialogs are invisible
+            var host = new DialogHostWindow();
+            host.Show();
+            var (success, message) = await VanguardServiceHelper.TryStopVanguardAsync(_log);
 
-                _player = new ReplayPlayer(_files, _configuration, _executables, _log);
-            }
-            catch (Exception ex)
+            if (!success)
             {
-                _log.Error(ex.ToString());
-                _log.WriteLog();
-                throw;
+                _log.Error($"{message}");
             }
+
+            Current.Shutdown();
+            return;
         }
 
-        private void ApplyThemeSetting()
-        {
-            // Set theme mode
-            switch (_configuration.ThemeMode)
-            {
-                case Theme.SystemAssigned:
-                    // null defaults to system assignment
-                    ThemeManager.Current.ApplicationTheme = null;
-                    break;
-                case Theme.Light:
-                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
-                    break;
-                case Theme.Dark:
-                    ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
-                    break;
-            }
+        // create underlying objects
+        await CreateCommonObjects();
 
-            // Set accent color
-            ThemeManager.Current.AccentColor = string.IsNullOrEmpty(_configuration.AccentColor)
-                ? null
-                : (Color)ColorConverter.ConvertFromString(_configuration.AccentColor);
+        // Apply appearance & theme
+        ApplyThemeSetting();
+
+#if DEBUG
+        _log.Error("Debug mode, writing log");
+#endif
+
+        // Directly open with a replay file
+        if (e.Args.Length == 1)
+        {
+            string selectedFile = e.Args[0];
+            // 0 = directly play, 1 = open in replaybook
+            if (_configuration.FileAction == FileAction.Play)
+            {
+                // Start a blank/invisible window that will host dialogs, otherwise dialogs are invisible
+                var host = new DialogHostWindow();
+                host.Show();
+                await _player.PlayReplay(selectedFile).ConfigureAwait(true);
+                Current.Shutdown();
+                return;
+            }
+            else if (_configuration.FileAction == FileAction.Open)
+            {
+                var singleWindow = new SingleReplayWindow(_log, _configuration, _staticDataManager, _executables, _files, _player)
+                {
+                    ReplayFileLocation = selectedFile
+                };
+                // Capture if restart is needed
+                singleWindow.Closed += (s, eventArgs) =>
+                {
+                    if (singleWindow.DataContext is MainWindowViewModel viewModel)
+                    {
+                        ShouldRestart(viewModel.RestartOnClose);
+                    }
+                };
+                singleWindow.Show();
+            }
+        }
+        // Start ReplayBook as normal
+        else
+        {
+            var mainWindow = new MainWindow(_log, _configuration, _staticDataManager, _executables, _files, _player);
+            mainWindow.Closed += (s, eventArgs) =>
+            {
+                if (mainWindow.DataContext is MainWindowViewModel viewModel)
+                {
+                    ShouldRestart(viewModel.RestartOnClose);
+                }
+            };
+            mainWindow.RestoreSavedWindowState();
+            mainWindow.Show();
+        }
+    }
+
+    private async Task CreateCommonObjects()
+    {
+        // Create common objects
+        AssemblyName assemblyName = Assembly.GetEntryAssembly()?.GetName();
+
+        _log = new RiZhi()
+        {
+            FilePrefix = "ReplayBookLog",
+            AssemblyName = assemblyName.Name,
+            AssemblyVersion = assemblyName.Version.ToString(2)
+        };
+
+        try
+        {
+            _executables = new ExecutableManager(_log);
+            _files = new FileManager(_configuration, _log);
+            _staticDataManager = new StaticDataManager(_configuration, ApplicationProperties.UserAgent, _log);
+            await _staticDataManager.LoadIndexAsync();
+
+            _player = new ReplayPlayer(_files, _configuration, _executables, _log);
+        }
+        catch (Exception ex)
+        {
+            _log.Error(ex.ToString());
+            _log.WriteLog();
+            throw;
+        }
+    }
+
+    private void ApplyThemeSetting()
+    {
+        // Set theme mode
+        switch (_configuration.ThemeMode)
+        {
+            case Theme.SystemAssigned:
+                // null defaults to system assignment
+                ThemeManager.Current.ApplicationTheme = null;
+                break;
+            case Theme.Light:
+                ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+                break;
+            case Theme.Dark:
+                ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+                break;
         }
 
-        /// <summary>
-        /// Handles writing logs when the program closes
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Application_Exit(object sender, ExitEventArgs e)
+        // Set accent color
+        ThemeManager.Current.AccentColor = string.IsNullOrEmpty(_configuration.AccentColor)
+            ? null
+            : (Color)ColorConverter.ConvertFromString(_configuration.AccentColor);
+    }
+
+    /// <summary>
+    /// Handles writing logs when the program closes
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void Application_Exit(object sender, ExitEventArgs e)
+    {
+        if (_log.ErrorFlag)
         {
-            if (_log.ErrorFlag)
-            {
-                _log.WriteLog();
-            }
+            _log.WriteLog();
         }
     }
 }

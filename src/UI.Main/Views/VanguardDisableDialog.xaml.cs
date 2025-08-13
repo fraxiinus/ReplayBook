@@ -21,7 +21,7 @@ public partial class VanguardDisableDialog : ContentDialog
     {
         if (DisableVanguardDialog.IsVisible)
         {
-            var (success, exception) = await VanguardServiceHelper.TryStopVanguardAsync();
+            var (success, exception) = await VanguardServiceHelper.StartPrivilegedProcess();
             if (!success)
             {
                 Exception = exception;

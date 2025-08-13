@@ -205,6 +205,7 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
 
             var diagResult = await dialog.ShowAsync(ContentDialogPlacement.Popup);
 
+            // Start attempt to disable Vanguard
             if (diagResult == ContentDialogResult.Primary)
             {
                 var disableVanguardDialog = new VanguardDisableDialog();
@@ -214,21 +215,6 @@ namespace Fraxiinus.ReplayBook.UI.Main.Utilities
                     await ShowExceptionDialog(disableVanguardDialog.Exception);
                 }
                 return disableVanguardDialog.Success;
-
-                //var progressDialog = ContentDialogHelper.CreateContentDialog(
-                //    title: Application.Current.TryFindResource("Main__VanguardDisable__Title") as string,
-                //    description: null,
-                //    primaryButtonText: null);
-                // var (success, exception) = await VanguardServiceHelper.TryStopVanguardAsync();
-                //await progressDialog.ShowAsync(ContentDialogPlacement.Popup);
-                //if (!success) 
-                //{
-                //    progressDialog.Hide();
-                //    await ShowExceptionDialog(exception);
-                //    return false;
-                //}
-                //progressDialog.Hide();
-                //return success;
             }
             
             return false;
