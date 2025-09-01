@@ -7,7 +7,6 @@ using Fraxiinus.ReplayBook.UI.Main.Utilities;
 using Fraxiinus.ReplayBook.UI.Main.ViewModels;
 using Fraxiinus.ReplayBook.UI.Main.Views;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualBasic.Logging;
 using ModernWpf;
 using System;
 using System.Diagnostics;
